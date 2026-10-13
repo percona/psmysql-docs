@@ -10785,6 +10785,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See <a href="authentication-methods.html">Authentication methods</a>.</p>
 </li>
 </ul>
+<h3 id="migrate-from-the-audit_log-plugin">Migrate from the <code>audit_log</code> plugin<a class="headerlink" href="#migrate-from-the-audit_log-plugin" title="Permanent link">&para;</a></h3>
+<p>Impact: The <code>audit_log</code> plugin is removed in 9.7. The plugin library <code>audit_log.so</code> is not built or packaged. If <code>my.cnf</code> still loads the plugin or sets its <code>audit_log_*</code> options, the 9.7 server aborts at startup after the data dictionary upgrade has completed. If the plugin is registered with <code>INSTALL PLUGIN</code> but has no options, the 9.7 server starts without auditing. The upgrade checker does not report this problem.</p>
+<p>Take the following actions:</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Check whether the plugin is active on the 8.4 server: <code>SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = 'audit_log';</code>.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Migrate to <code>component_audit_log_filter</code> on 8.4 before upgrading. See <a href="migrate-to-audit-log-filter-component.html">Migrate to the audit log filter component</a>.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Run <code>UNINSTALL PLUGIN audit_log;</code> on 8.4.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options, such as <code>audit_log_format</code> and <code>audit_log_policy</code>, from <code>my.cnf</code>. Keep the component&rsquo;s <code>audit_log_filter.*</code> variables.</p>
+</li>
+</ul>
 <h3 id="update-replication-syntax-and-operational-scripts">Update replication syntax and operational scripts<a class="headerlink" href="#update-replication-syntax-and-operational-scripts" title="Permanent link">&para;</a></h3>
 <p>Impact: <code>MASTER</code> and <code>SLAVE</code> syntax is removed and causes syntax errors. Use <code>SOURCE</code> and <code>REPLICA</code> commands.</p>
 <p>Take the following actions:</p>
@@ -11059,7 +11076,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 11:52:42 UTC">October 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 12:11:34 UTC">October 13, 2026</span>
   </span>
 
     
@@ -11069,7 +11086,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 11:52:42 UTC">October 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 12:11:34 UTC">October 13, 2026</span>
   </span>
 
     

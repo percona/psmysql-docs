@@ -14617,7 +14617,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="#upgrade-components">Upgrade components</a> — general plugin-to-component transition procedure</p>
 </li>
 <li>
-<p><a href="#audit-log-plugin">Audit log plugin</a> — deprecated plugin reference</p>
+<p><a href="#audit-log-plugin">Audit log plugin</a> — legacy plugin reference (removed in 9.7)</p>
 </li>
 </ul></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the audit log filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
 <h2 id="install-audit-log-filter-installation-script">Installation script<a class="headerlink" href="#install-audit-log-filter-installation-script" title="Permanent link">&para;</a></h2>
@@ -14639,7 +14639,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
 <span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
-<p>Replace <code>/path/to/mysql/share/</code> with the path to the server installation&rsquo;s <code>share</code> directory.</p>
+<p>Replace <code>/path/to/mysql/share/</code> with the path to the server installation&rsquo;s <code>share</code> directory. For package installations, the script is in <code>/usr/share/mysql/</code> on Debian and Ubuntu, and in <code>/usr/share/percona-server/</code> on RHEL-based distributions.</p>
 </li>
 </ul>
 <h3 id="install-audit-log-filter-verify-installation">Verify installation<a class="headerlink" href="#install-audit-log-filter-verify-installation" title="Permanent link">&para;</a></h3>
@@ -14738,7 +14738,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set <code>audit_log_*</code> plugin variables on a server running the component. See the <a href="#audit-log-plugin">deprecation notice</a> on the plugin page.</p>
+<p>The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set <code>audit_log_*</code> plugin variables on a server running the component. See the <a href="#audit-log-plugin">removal notice</a> on the plugin page.</p>
 </div>
 <h2 id="migrate-to-audit-log-filter-component-which-source-are-you-migrating-from">Which source are you migrating from?<a class="headerlink" href="#migrate-to-audit-log-filter-component-which-source-are-you-migrating-from" title="Permanent link">&para;</a></h2>
 <p>Two legacy sources exist. The target is <code>component_audit_log_filter</code> in both cases. The starting point differs:</p>
@@ -14751,8 +14751,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td><code>audit_log</code> plugin (pre-8.4 installs, still available in 9.7 as a deprecated plugin)</td>
-<td>Upgrade to 9.7, install the component, translate <code>audit_log_*</code> variables to filter JSON, validate in parallel, then uninstall the plugin.</td>
+<td><code>audit_log</code> plugin (deprecated in 8.4, removed in 9.7)</td>
+<td>On 8.4, before upgrading: install the component, translate <code>audit_log_*</code> variables to filter JSON, validate, uninstall the plugin, and remove the plugin options from <code>my.cnf</code>. Then upgrade to 9.7.</td>
 </tr>
 <tr>
 <td><code>audit_log_filter</code> plugin (transitional, 8.0 and early 8.4 builds)</td>
@@ -14788,6 +14788,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <h2 id="migrate-to-audit-log-filter-component-migration-steps">Migration steps<a class="headerlink" href="#migrate-to-audit-log-filter-component-migration-steps" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Migrate from the <code>audit_log</code> plugin before upgrading to 9.7</p>
+<p>The <code>audit_log</code> plugin is removed in 9.7. The plugin library <code>audit_log.so</code> is not built or packaged. Complete the following migration steps on the 8.4 server before upgrading. Otherwise, the upgrade fails in one of the following ways:</p>
+<ul>
+<li>
+<p>If <code>my.cnf</code> still contains <code>plugin-load-add=audit_log.so</code> or plugin options such as <code>audit_log_format</code>, the 9.7 server aborts at startup with <code>unknown variable 'audit_log_format=JSON'</code>. The server aborts after the data dictionary upgrade has completed, so the 8.4 server can no longer start on that data directory.</p>
+</li>
+<li>
+<p>If the plugin was installed with <code>INSTALL PLUGIN</code> and no plugin options are set, 9.7 starts, logs <code>Couldn't load plugin named 'audit_log'</code> at every startup, and runs without auditing.</p>
+</li>
+</ul>
+<p>If you already upgraded with the plugin registered, <code>UNINSTALL PLUGIN audit_log</code> fails on 9.7 with <code>ERROR 1305</code>. Remove the registration with <code>DELETE FROM mysql.plugin WHERE name='audit_log';</code> and then install the component.</p>
+</div>
 <ol>
 <li><strong>Inventory the current configuration.</strong> On the plugin-enabled server, capture the legacy settings:</li>
 </ol>
@@ -14796,7 +14809,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Save the output. Translate each non-default value into a component variable, a filter JSON rule, or an <code>audit_log_filter_set_user()</code> call.</p>
 <ol>
 <li>
-<p><strong>Upgrade the server to 9.7</strong> by following <a href="#upgrade-procedures">Upgrade procedures</a>. The <code>audit_log</code> plugin remains loadable in 9.7, so the old log keeps flowing during the transition.</p>
+<p><strong>Stay on 8.4.</strong> The <code>audit_log</code> plugin is not available in 9.7, so complete steps 3 through 7 on the 8.4 server. 8.4 includes <code>component_audit_log_filter</code>.</p>
 </li>
 <li>
 <p><strong>Install the component</strong> per <a href="#install-audit-log-filter">Install the audit log filter</a>. The install script creates <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code>, then runs <code>INSTALL COMPONENT</code>.</p>
@@ -14808,10 +14821,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><strong>Run in parallel (optional, recommended).</strong> Load both the plugin and the component. Verify that the events you care about appear in the component&rsquo;s log. Compare record types, SQL text, and redactions.</p>
 </li>
 <li>
-<p><strong>Cut over.</strong> Uninstall the plugin (<code>UNINSTALL PLUGIN audit_log;</code>), remove <code>audit_log_*</code> entries from <code>my.cnf</code>, and leave the component as the sole audit writer. When you also had the transitional <code>audit_log_filter</code> plugin loaded, uninstall that plugin as well.</p>
+<p><strong>Cut over.</strong> Uninstall the plugin (<code>UNINSTALL PLUGIN audit_log;</code>), remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> entries from <code>my.cnf</code>, and leave the component as the sole audit writer. Keep the component&rsquo;s <code>audit_log_filter.*</code> variables. When you also had the transitional <code>audit_log_filter</code> plugin loaded, uninstall that plugin as well.</p>
 </li>
 <li>
 <p><strong>Verify.</strong> Log in as a subject account, execute a representative statement, and read the new log with <a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read()</code></a> or by opening the file.</p>
+</li>
+<li>
+<p><strong>Upgrade the server to 9.7</strong> by following <a href="#upgrade-procedures">Upgrade procedures</a>.</p>
 </li>
 </ol>
 <h2 id="migrate-to-audit-log-filter-component-option-and-variable-mapping">Option and variable mapping<a class="headerlink" href="#migrate-to-audit-log-filter-component-option-and-variable-mapping" title="Permanent link">&para;</a></h2>
@@ -15019,7 +15035,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit_log_rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">104857600</span>
 <span class="na">audit_log_rotations</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 </code></pre></div>
-<p>After upgrading to 9.7 and running <code>audit_log_filter_linux_install.sql</code>, replace it with:</p>
+<p>After running <code>audit_log_filter_linux_install.sql</code>, replace it with the following settings. Remove every plugin option, including <code>plugin-load-add = audit_log.so</code>, before you upgrade to 9.7:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit_log_filter.format</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span>
 <span class="na">audit_log_filter.rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">104857600</span>
@@ -15107,7 +15123,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="#audit-log-filter-variables">Functions, options, and variables</a></p>
 </li>
 <li>
-<p><a href="#audit-log-plugin">Audit log plugin</a> — legacy reference, with the deprecation notice</p>
+<p><a href="#audit-log-plugin">Audit log plugin</a> — legacy reference, with the removal notice</p>
 </li>
 </ul></section><section class="print-page" id="audit-log-filter-quickstart" heading-number="5.2.4"><h1 id="audit-log-filter-quickstart-audit-log-filter-quickstart">Audit Log Filter quickstart<a class="headerlink" href="#audit-log-filter-quickstart-audit-log-filter-quickstart" title="Permanent link">&para;</a></h1>
 <p>Use the following steps after you install the Audit Log Filter component and tables. See <a href="#install-audit-log-filter">install the audit log filter</a> when the component is not yet installed.</p>
@@ -28409,6 +28425,23 @@ enforce_gtid_consistency=OFF
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See <a href="#authentication-methods">Authentication methods</a>.</p>
 </li>
 </ul>
+<h3 id="upgrade-checklist-9.7-migrate-from-the-audit_log-plugin">Migrate from the <code>audit_log</code> plugin<a class="headerlink" href="#upgrade-checklist-9.7-migrate-from-the-audit_log-plugin" title="Permanent link">&para;</a></h3>
+<p>Impact: The <code>audit_log</code> plugin is removed in 9.7. The plugin library <code>audit_log.so</code> is not built or packaged. If <code>my.cnf</code> still loads the plugin or sets its <code>audit_log_*</code> options, the 9.7 server aborts at startup after the data dictionary upgrade has completed. If the plugin is registered with <code>INSTALL PLUGIN</code> but has no options, the 9.7 server starts without auditing. The upgrade checker does not report this problem.</p>
+<p>Take the following actions:</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Check whether the plugin is active on the 8.4 server: <code>SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = 'audit_log';</code>.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Migrate to <code>component_audit_log_filter</code> on 8.4 before upgrading. See <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Run <code>UNINSTALL PLUGIN audit_log;</code> on 8.4.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options, such as <code>audit_log_format</code> and <code>audit_log_policy</code>, from <code>my.cnf</code>. Keep the component&rsquo;s <code>audit_log_filter.*</code> variables.</p>
+</li>
+</ul>
 <h3 id="upgrade-checklist-9.7-update-replication-syntax-and-operational-scripts">Update replication syntax and operational scripts<a class="headerlink" href="#upgrade-checklist-9.7-update-replication-syntax-and-operational-scripts" title="Permanent link">&para;</a></h3>
 <p>Impact: <code>MASTER</code> and <code>SLAVE</code> syntax is removed and causes syntax errors. Use <code>SOURCE</code> and <code>REPLICA</code> commands.</p>
 <p>Take the following actions:</p>
@@ -29541,6 +29574,12 @@ mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span clas
 <td>The plugin is replaced by the <code>component_keyring_vault</code> component. Convert the configuration from the <code>keyring_vault_config</code> system variable format to JavaScript Object Notation (JSON) manually.</td>
 </tr>
 <tr>
+<td><code>audit_log</code></td>
+<td>Deprecated plugin in 8.4</td>
+<td>Removed. <code>audit_log.so</code> is not built or packaged. Replacement: <code>component_audit_log_filter</code></td>
+<td>Migrate to <code>component_audit_log_filter</code> on 8.4 before upgrading. Then run <code>UNINSTALL PLUGIN audit_log;</code> and remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options, such as <code>audit_log_format</code> and <code>audit_log_policy</code>, from <code>my.cnf</code>. If the options remain, 9.7 aborts at startup. If only the plugin registration remains, 9.7 starts without auditing. See <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</td>
+</tr>
+<tr>
 <td><code>audit_log_filter</code></td>
 <td>Available only as a plugin</td>
 <td><code>component_audit_log_filter</code></td>
@@ -29693,6 +29732,7 @@ mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span clas
 <p>The transition timing depends on the plugin. The following sub-sections describe the two paths.</p>
 <h4 id="upgrade-components-transition-before-the-upgrade">Transition before the upgrade<a class="headerlink" href="#upgrade-components-transition-before-the-upgrade" title="Permanent link">&para;</a></h4>
 <p>Transition to the component before upgrading to 9.7 when your release exposes both forms. The <code>data_masking</code> plugin and the <code>component_masking_functions</code> component fit this case.</p>
+<p>The <code>audit_log</code> plugin also requires a transition before the upgrade, because 9.7 does not include the plugin. Migrate to <code>component_audit_log_filter</code> on 8.4, as described in <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</p>
 <h4 id="upgrade-components-transition-after-the-upgrade">Transition after the upgrade<a class="headerlink" href="#upgrade-components-transition-after-the-upgrade" title="Permanent link">&para;</a></h4>
 <p>Some features exist only as plugins in your existing release. Examples include <code>audit_log_filter</code> and <code>keyring_vault</code>. Upgrade to 9.7 first, then transition to the component using the following sequence.</p>
 <ol>
@@ -44688,11 +44728,11 @@ INFORMATION_SCHEMA.SCHEMATA table:</p>
                         <h1>Monitor<a class='headerlink' href='#section-15' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="audit-log-plugin" heading-number="15.1"><h1 id="audit-log-plugin-audit-log-plugin">Audit log plugin<a class="headerlink" href="#audit-log-plugin-audit-log-plugin" title="Permanent link">&para;</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Deprecation notice</p>
-<p>The audit log plugin is deprecated as of Percona Server for MySQL 8.4 and will be removed in a future release. The <a href="#audit-log-filter-overview">audit log filter component</a> is the recommended replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.</p>
+<div class="admonition warning">
+<p class="admonition-title">Removed in 9.7</p>
+<p>The audit log plugin was deprecated in Percona Server for MySQL 8.4 and is removed in Percona Server for MySQL 9.7. The plugin library <code>audit_log.so</code> is not built or packaged, so you cannot install the plugin. This page is kept as a reference for migrating from 8.4. The <a href="#audit-log-filter-overview">audit log filter component</a> is the replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.</p>
 <p>For a step-by-step mapping of <code>audit_log_*</code> system variables, <code>audit_log_policy</code>, and include/exclude lists to filter JSON and component variables, see <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</p>
-<p>The deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin continues to function, but Percona plans no further development or maintenance.</p>
+<p>The removal affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. Migrate to the component on 8.4 before upgrading to 9.7. Then run <code>UNINSTALL PLUGIN audit_log;</code> and remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options from <code>my.cnf</code>. If the plugin options remain in <code>my.cnf</code>, the 9.7 server aborts at startup after upgrading the data dictionary. If only the plugin registration remains, the 9.7 server starts without auditing.</p>
 <p>The audit log plugin and the audit log filter component use different configuration variables and options.</p>
 <ul>
 <li>
