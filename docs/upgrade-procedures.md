@@ -154,13 +154,13 @@ Use this method when you cannot use repositories or need to install from manuall
         The following example downloads Percona Server for MySQL {{release}} packages for Debian 12.0:
 
         ```shell
-        wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/debian/bookworm/x86_64/Percona-Server-{{release}}-r582ebeef-bookworm-x86_64-bundle.tar
+        wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/debian/bookworm/x86_64/Percona-Server-{{release}}-r57878ff8-bookworm-x86_64-bundle.tar
         ```
 
     4. Unpack the bundle to get the packages:
 
         ```shell
-        tar xvf Percona-Server-{{release}}-r582ebeef-bookworm-x86_64-bundle.tar
+        tar xvf Percona-Server-{{release}}-r57878ff8-bookworm-x86_64-bundle.tar
         ```
 
         After you unpack the bundle, you should see the following packages:
