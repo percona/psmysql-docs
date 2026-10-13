@@ -27122,7 +27122,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
 sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>percona-release<span class="w"> </span>--scheme<span class="w"> </span>https<span class="w"> </span>setup<span class="w"> </span>ps80
+sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps80<span class="w"> </span>--scheme<span class="w"> </span>https
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>The following sections provide detailed explanations for each step:</p>
@@ -27166,7 +27166,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>This command line instruction uses <code>percona-release</code> command, a tool provided by Percona, to set up a specific Percona Server version. </p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps80
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps80<span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
 </li>
 <li>
@@ -27268,19 +27268,13 @@ packages for all Debian and Ubuntu releases.</p>
 <p class="admonition-title">Note</p>
 <p><a href="#pam-plugin">PAM Authentication Plugin</a> is not built with the server by default. In order to build the Percona Server for MySQL with PAM plugin, an additional option <code>-DWITH_PAM=ON</code> should be used.</p>
 </div></section><section class="print-page" id="apt-download-deb" heading-number="7.4.4"><h1 id="apt-download-deb-install-percona-server-for-mysql-80-using-downloaded-deb-packages">Install Percona Server for MySQL 8.0 using downloaded DEB packages<a class="headerlink" href="#apt-download-deb-install-percona-server-for-mysql-80-using-downloaded-deb-packages" title="Permanent link">&para;</a></h1>
-<p>When installing packages manually, you must resolve all the dependencies and install missing packages yourself. You must install the following packages before manually installing Percona Server:</p>
+<p>When installing packages manually, you must provide all the dependencies. The bundle does not contain all of them:</p>
 <ul>
 <li>
-<p><code>mysql-common</code></p>
+<p>The <code>percona-server-server</code> package depends on <code>percona-telemetry-agent</code>. This package is not in the bundle or in the distribution repositories, so you must download it separately (see step 3).</p>
 </li>
 <li>
-<p><code>libjemalloc1</code></p>
-</li>
-<li>
-<p><code>libaio1</code></p>
-</li>
-<li>
-<p><code>libmecab2</code>.</p>
+<p>The other dependencies, such as <code>libaio1</code>, <code>libmecab2</code>, <code>libnuma1</code>, <code>libatomic1</code>, and <code>zlib1g-dev</code> (required by the development package), come from the distribution repositories. Install the downloaded packages with <code>apt</code> (see step 4), which installs these dependencies automatically.</p>
 </li>
 </ul>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. If needed, <a href="#download-instructions">Instructions for the Percona Product Download</a> are available.</p>
@@ -27323,12 +27317,20 @@ percona-server-test_8.0.31-23-1.buster_amd64.deb
 </details>
 </li>
 <li>
-<p>Install Percona Server for MySQL using the <code>dpkg</code> utility to install Debian (.deb) packages. The installation requires either root or the <code>sudo</code> command. <code>sudo</code> allows you to run programs with the security privileges of another user, usually as the superuser.</p>
-<p><code>dpkg</code> is a package manager for Debian-based systems and can install, remove, and provide information about <code>.deb</code> packages. </p>
-<p>The <code>-i</code> option tells <code>dpkg</code> to install the package.</p>
-<p>The <code>*.deb</code> is a wildcard that matches any file in the current directory that ends with the <code>.deb</code> extension. </p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
+<p>Download the <code>percona-telemetry-agent</code> package for your distribution into the same directory. The following example downloads the package for Debian 12 (bookworm). For another distribution, replace <code>bookworm</code> with its codename.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.bookworm_amd64.deb
 </code></pre></div>
+</li>
+<li>
+<p>Install Percona Server for MySQL with <code>apt</code>. The installation requires either root or the <code>sudo</code> command. <code>sudo</code> allows you to run programs with the security privileges of another user, usually as the superuser.</p>
+<p>Unlike <code>dpkg -i</code>, <code>apt</code> installs the missing dependencies from the distribution repositories. With <code>dpkg -i *.deb</code>, packages fail with <code>dependency problems - leaving unconfigured</code> errors.</p>
+<p>The <code>./*.deb</code> is a wildcard that matches any file in the current directory that ends with the <code>.deb</code> extension. The <code>./</code> prefix tells <code>apt</code> to install local files instead of packages from a repository.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./*.deb
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you already ran <code>dpkg -i *.deb</code> and it failed with dependency errors, check the plan before you accept <code>apt --fix-broken install</code> (<code>apt -f install</code>). That command can remove <code>percona-server-server</code> and the packages that depend on it, instead of installing the missing dependencies.</p>
+</div>
 </li>
 </ol>
 <p>Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the <a href="#tokudb-intro">TokuDB Introduction</a> and <a href="#tokudb-version-changes">TokuDB changes by Percona Server for MySQL version</a>. </p></section><section class="print-page" id="apt-pinning" heading-number="7.4.5"><h1 id="apt-pinning-apt-pinning-the-percona-server-for-mysql-80-packages">Apt pinning the Percona Server for MySQL 8.0 packages<a class="headerlink" href="#apt-pinning-apt-pinning-the-percona-server-for-mysql-80-packages" title="Permanent link">&para;</a></h1>
@@ -27929,20 +27931,13 @@ percona-server-test-debuginfo-8.0.46-39.1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
-<p>The following command uses superuser privileges to install RPM packages in the current directory using the <code>rpm</code> command. The <code>rpm</code> command uses the following options:</p>
-<ul>
-<li>
-<p><code>i</code> - install</p>
-</li>
-<li>
-<p><code>v</code> - verbose, describe the process in detail</p>
-</li>
-<li>
-<p><code>h</code> - display hash marks (<code>#</code>) to display installation progress</p>
-</li>
-</ul>
-<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
+<p>The following command uses superuser privileges to install the server packages from the current directory with <code>dnf localinstall</code>. Unlike <code>rpm -ivh</code>, <code>dnf</code> installs the missing dependencies (for example, <code>libaio</code> and <code>libatomic</code>) from the distribution repositories. <code>sudo rpm -ivh *.rpm</code> stops with <code>Failed dependencies</code> errors.</p>
+<div class="highlight" data-prompt="$"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>./percona-server-server-8.0.46-39.1.el8.x86_64.rpm<span class="w"> </span>./percona-server-client-8.0.46-39.1.el8.x86_64.rpm<span class="w"> </span>./percona-server-shared-8.0.46-39.1.el8.x86_64.rpm<span class="w"> </span>./percona-server-shared-compat-8.0.46-39.1.el8.x86_64.rpm<span class="w"> </span>./percona-icu-data-files-8.0.46-39.1.el8.x86_64.rpm
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>percona-server-server</code> package depends on <code>percona-telemetry-agent</code>, which is not in the bundle. If the Percona repositories are not configured on the host, <code>dnf</code> fails with <code>nothing provides percona-telemetry-agent</code>. In that case, download the <code>percona-telemetry-agent</code> RPM for your RHEL version from <code>https://repo.percona.com/telemetry/yum/release/&lt;RHEL version&gt;/RPMS/x86_64/</code> into the same directory, and add it to the <code>dnf localinstall</code> command.</p>
+</div>
 </li>
 </ol></section><section class="print-page" id="yum-run" heading-number="7.5.5"><h1 id="yum-run-run-percona-server-for-mysql">Run Percona Server for MySQL<a class="headerlink" href="#yum-run-run-percona-server-for-mysql" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL stores the data files in <code>/var/lib/mysql/</code> by
