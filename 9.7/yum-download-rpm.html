@@ -10601,17 +10601,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="install-percona-server-for-mysql-using-downloaded-rpm-packages">Install Percona Server for MySQL using downloaded RPM packages<a class="headerlink" href="#install-percona-server-for-mysql-using-downloaded-rpm-packages" title="Permanent link">&para;</a></h1>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. If needed, <a href="download-instructions.html">Instructions for the Percona Product Download</a> are available.</p>
 <p>The RPM builds for <em>RHEL</em> 8 and <em>RHEL</em> 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
-<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 9.7.2-2 release <code>x86_64</code> packages for <em>RHEL</em> 8.</p>
+<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 9.7.2-2 release <code>x86_64</code> packages for <em>RHEL</em> 9. For <em>RHEL</em> 8 or <em>RHEL</em> 10, replace <code>redhat/9</code> and <code>el9</code> with <code>redhat/8</code> and <code>el8</code> or with <code>redhat/10</code> and <code>el10</code>.</p>
 <ol>
 <li>
 <p>Use <code>wget</code> to download the tar file:</p>
 <p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="download-instructions.html">Instructions for Percona Product Downloads</a>.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/redhat/8/x86_64/Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/redhat/9/x86_64/Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages: </p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
@@ -10621,23 +10621,27 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 The output should look like the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>percona-icu-data-files-9.7.2-2.1.el8.x86_64.rpm
-percona-mysql-router-9.7.2-2.1.el8.x86_64.rpm
-percona-mysql-router-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-client-9.7.2-2.1.el8.x86_64.rpm
-percona-server-client-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-debugsource-9.7.2-2.1.el8.x86_64.rpm
-percona-server-devel-9.7.2-2.1.el8.x86_64.rpm
-percona-server-rocksdb-9.7.2-2.1.el8.x86_64.rpm
-percona-server-rocksdb-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-server-9.7.2-2.1.el8.x86_64.rpm
-percona-server-server-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-shared-9.7.2-2.1.el8.x86_64.rpm
-percona-server-shared-compat-9.7.2-2.1.el8.x86_64.rpm
-percona-server-shared-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-test-9.7.2-2.1.el8.x86_64.rpm
-percona-server-test-debuginfo-9.7.2-2.1.el8.x86_64.rpm
+<div class="no-copy highlight"><pre><span></span><code>percona-icu-data-files-9.7.2-2.1.el9.x86_64.rpm
+percona-mysql-router-9.7.2-2.1.el9.x86_64.rpm
+percona-mysql-router-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-plugins-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-plugins-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-debugsource-9.7.2-2.1.el9.x86_64.rpm
+percona-server-devel-9.7.2-2.1.el9.x86_64.rpm
+percona-server-js-9.7.2-2.1.el9.x86_64.rpm
+percona-server-js-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-rocksdb-9.7.2-2.1.el9.x86_64.rpm
+percona-server-rocksdb-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-server-9.7.2-2.1.el9.x86_64.rpm
+percona-server-server-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-shared-9.7.2-2.1.el9.x86_64.rpm
+percona-server-shared-compat-9.7.2-2.1.el9.x86_64.rpm
+percona-server-shared-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-test-9.7.2-2.1.el9.x86_64.rpm
+percona-server-test-debuginfo-9.7.2-2.1.el9.x86_64.rpm
 </code></pre></div>
 </details>
 </li>
@@ -10652,12 +10656,14 @@ percona-server-test-debuginfo-9.7.2-2.1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
-<p>Install all the packages (for debugging, testing, etc.) with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
+<p>Install the server, the client, and the required libraries with <code>dnf localinstall</code>. Run this command as root or use the sudo command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>./percona-server-server-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-plugins-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-shared-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-icu-data-files-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm
 </code></pre></div>
+<p><code>dnf</code> installs the local packages and resolves the remaining dependencies, such as <code>libaio</code> and <code>libatomic</code>, from the configured repositories. Do not use <code>rpm -ivh *.rpm</code>: <code>rpm</code> does not resolve dependencies and fails with <code>Failed dependencies</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.</p>
+<p>The <code>percona-server-server</code> package depends on <code>percona-telemetry-agent</code>, which is not included in the bundle. <code>dnf</code> installs the agent from the Percona telemetry repository if the repository is configured (for example, by <code>percona-release</code>). Otherwise, the installation fails with <code>nothing provides percona-telemetry-agent</code>. In that case, download the agent package for your distribution from the <a href="https://repo.percona.com/telemetry/yum/release/">Percona telemetry repository <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> (for example, <code>https://repo.percona.com/telemetry/yum/release/9/RPMS/x86_64/</code>) into the same directory and add <code>./percona-telemetry-agent-*.rpm</code> to the <code>dnf localinstall</code> command.</p>
+<p>The optional packages in the bundle have additional dependencies. For example, <code>percona-server-shared-compat</code> requires <code>compat-openssl11</code>, and <code>percona-server-test</code> requires Perl modules such as <code>perl-JSON</code>.</p>
 </div>
 </li>
 </ol>
@@ -10721,7 +10727,7 @@ percona-server-test-debuginfo-9.7.2-2.1.el8.x86_64.rpm
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2026 14:13:29 UTC">August 6, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 11:17:18 UTC">October 13, 2026</span>
   </span>
 
     

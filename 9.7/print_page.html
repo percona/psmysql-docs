@@ -25907,42 +25907,64 @@ packages for all Debian and Ubuntu releases.</p>
 <p><a href="#pam-plugin">PAM Authentication Plugin</a> is not built with the server by default. In order to build the Percona Server for MySQL with PAM plugin, an additional option <code>-DWITH_PAM=ON</code> should be used.</p>
 </div></section><section class="print-page" id="apt-download-deb" heading-number="7.4.4"><h1 id="apt-download-deb-install-percona-server-for-mysql-97-using-downloaded-deb-packages">Install Percona Server for MySQL 9.7 using downloaded DEB packages<a class="headerlink" href="#apt-download-deb-install-percona-server-for-mysql-97-using-downloaded-deb-packages" title="Permanent link">&para;</a></h1>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. If needed, <a href="#download-instructions">Instructions for the Percona Product Download</a> are available.</p>
-<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 9.7.2-2 release <code>x86_64</code> packages for Ubuntu 22.04:</p>
+<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 9.7.2-2 release <code>x86_64</code> packages for Debian 13 (<code>trixie</code>). For other distributions, replace <code>trixie</code> with the codename of your distribution, for example, <code>bookworm</code> or <code>noble</code>.</p>
 <ol>
 <li>
 <p>Use <code>wget</code> to download the tar file:</p>
 <p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="#download-instructions">Instructions for Percona Product Downloads</a>.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/debian/jammy/x86_64/Percona-Server-9.7.2-2-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/debian/trixie/x86_64/Percona-Server-9.7.2-2-&lt;revision-identifier&gt;-trixie-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the download to get the packages:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-&lt;revision-identifier&gt;-trixie-x86_64-bundle.tar
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>libperconaserverclient21_9.7.2-2-1.buster_amd64.deb
-libperconaserverclient21-dev_9.7.2-2-1.buster_amd64.deb
-percona-mysql-router_9.7.2-2-1.buster_amd64.deb
-percona-server-client_9.7.2-2-1.buster_amd64.deb
-percona-server-common_9.7.2-2-1.buster_amd64.deb
-percona-server-dbg_9.7.2-2-1.buster_amd64.deb
-percona-server-rocksdb_9.7.2-2-1.buster_amd64.deb
-percona-server-server_9.7.2-2-1.buster_amd64.deb
-percona-server-source_9.7.2-2-1.buster_amd64.deb
-percona-server-test_9.7.2-2-1.buster_amd64.deb
+<div class="no-copy highlight"><pre><span></span><code>libperconaserverclient24-dbgsym_9.7.2-2-1.trixie_amd64.deb
+libperconaserverclient24-dev-dbgsym_9.7.2-2-1.trixie_amd64.deb
+libperconaserverclient24-dev_9.7.2-2-1.trixie_amd64.deb
+libperconaserverclient24_9.7.2-2-1.trixie_amd64.deb
+percona-client_9.7.2-2-1.trixie_amd64.deb
+percona-mysql-router-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-mysql-router_9.7.2-2-1.trixie_amd64.deb
+percona-server-client-core-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-client-core_9.7.2-2-1.trixie_amd64.deb
+percona-server-client-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-client-plugins-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-client-plugins_9.7.2-2-1.trixie_amd64.deb
+percona-server-client_9.7.2-2-1.trixie_amd64.deb
+percona-server-common_9.7.2-2-1.trixie_amd64.deb
+percona-server-js-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-js_9.7.2-2-1.trixie_amd64.deb
+percona-server-rocksdb-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-rocksdb_9.7.2-2-1.trixie_amd64.deb
+percona-server-server-core-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-server-core_9.7.2-2-1.trixie_amd64.deb
+percona-server-server_9.7.2-2-1.trixie_amd64.deb
+percona-server-source_9.7.2-2-1.trixie_amd64.deb
+percona-server-test-dbgsym_9.7.2-2-1.trixie_amd64.deb
+percona-server-test_9.7.2-2-1.trixie_amd64.deb
+percona-server_9.7.2-2-1.trixie_amd64.deb
+percona-testsuite_9.7.2-2-1.trixie_amd64.deb
 </code></pre></div>
 </details>
 </li>
 <li>
-<p>Install Percona Server for MySQL using <code>dpkg</code>. Run this command as root or use the sudo command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
+<p>Download the <code>percona-telemetry-agent</code> package into the same directory. The <code>percona-server-server</code> package depends on <code>percona-telemetry-agent</code>, which is not included in the bundle and is not available in the distribution repositories. Find the package for your distribution in the <a href="https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/">Percona telemetry repository <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For example, for Debian 13:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.trixie_amd64.deb
 </code></pre></div>
+</li>
+<li>
+<p>Install the packages with <code>apt</code>. Run this command as root or use the sudo command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./*.deb
+</code></pre></div>
+<p><code>apt</code> installs the local packages and resolves the remaining dependencies, such as <code>libaio1t64</code>, <code>libatomic1</code>, <code>libmecab2</code>, <code>libnuma1</code>, and <code>zlib1g-dev</code> on Debian 13, from the distribution repositories.</p>
 </li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: <code>mysql-common</code>, <code>libjemalloc1</code>, <code>libaio1</code>, and <code>libmecab2</code>.</p>
+<p>Do not install the bundle with <code>sudo dpkg -i *.deb</code>. <code>dpkg</code> does not resolve dependencies and leaves the server packages unconfigured. If that happens, do not run <code>apt -f install</code> (<code>apt --fix-broken install</code>): without <code>percona-telemetry-agent</code> available, it removes <code>percona-server-server</code> and the packages that depend on it.</p>
 </div></section><section class="print-page" id="apt-pinning" heading-number="7.4.5"><h1 id="apt-pinning-apt-pinning-the-percona-server-for-mysql-97-packages">Apt pinning the Percona Server for MySQL 9.7 packages<a class="headerlink" href="#apt-pinning-apt-pinning-the-percona-server-for-mysql-97-packages" title="Permanent link">&para;</a></h1>
 <p>Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages. </p>
 <p>The pinning takes place in the <code>preference</code> file. To pin a package, set the <code>Pin-Priority</code> to higher numbers. </p>
@@ -26387,17 +26409,17 @@ All packages are up to date.
 </table></section><section class="print-page" id="yum-download-rpm" heading-number="7.5.3"><h1 id="yum-download-rpm-install-percona-server-for-mysql-using-downloaded-rpm-packages">Install Percona Server for MySQL using downloaded RPM packages<a class="headerlink" href="#yum-download-rpm-install-percona-server-for-mysql-using-downloaded-rpm-packages" title="Permanent link">&para;</a></h1>
 <p>Download the packages from <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. If needed, <a href="#download-instructions">Instructions for the Percona Product Download</a> are available.</p>
 <p>The RPM builds for <em>RHEL</em> 8 and <em>RHEL</em> 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.</p>
-<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 9.7.2-2 release <code>x86_64</code> packages for <em>RHEL</em> 8.</p>
+<p class="power-number">The following example downloads <em>Percona Server for MySQL</em> 9.7.2-2 release <code>x86_64</code> packages for <em>RHEL</em> 9. For <em>RHEL</em> 8 or <em>RHEL</em> 10, replace <code>redhat/9</code> and <code>el9</code> with <code>redhat/8</code> and <code>el8</code> or with <code>redhat/10</code> and <code>el10</code>.</p>
 <ol>
 <li>
 <p>Use <code>wget</code> to download the tar file:</p>
 <p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="#download-instructions">Instructions for Percona Product Downloads</a>.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/redhat/8/x86_64/Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-2/binary/redhat/9/x86_64/Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages: </p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el8-x86_64-bundle.tar
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-2-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
@@ -26407,23 +26429,27 @@ All packages are up to date.
 The output should look like the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>percona-icu-data-files-9.7.2-2.1.el8.x86_64.rpm
-percona-mysql-router-9.7.2-2.1.el8.x86_64.rpm
-percona-mysql-router-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-client-9.7.2-2.1.el8.x86_64.rpm
-percona-server-client-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-debugsource-9.7.2-2.1.el8.x86_64.rpm
-percona-server-devel-9.7.2-2.1.el8.x86_64.rpm
-percona-server-rocksdb-9.7.2-2.1.el8.x86_64.rpm
-percona-server-rocksdb-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-server-9.7.2-2.1.el8.x86_64.rpm
-percona-server-server-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-shared-9.7.2-2.1.el8.x86_64.rpm
-percona-server-shared-compat-9.7.2-2.1.el8.x86_64.rpm
-percona-server-shared-debuginfo-9.7.2-2.1.el8.x86_64.rpm
-percona-server-test-9.7.2-2.1.el8.x86_64.rpm
-percona-server-test-debuginfo-9.7.2-2.1.el8.x86_64.rpm
+<div class="no-copy highlight"><pre><span></span><code>percona-icu-data-files-9.7.2-2.1.el9.x86_64.rpm
+percona-mysql-router-9.7.2-2.1.el9.x86_64.rpm
+percona-mysql-router-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-plugins-9.7.2-2.1.el9.x86_64.rpm
+percona-server-client-plugins-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-debugsource-9.7.2-2.1.el9.x86_64.rpm
+percona-server-devel-9.7.2-2.1.el9.x86_64.rpm
+percona-server-js-9.7.2-2.1.el9.x86_64.rpm
+percona-server-js-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-rocksdb-9.7.2-2.1.el9.x86_64.rpm
+percona-server-rocksdb-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-server-9.7.2-2.1.el9.x86_64.rpm
+percona-server-server-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-shared-9.7.2-2.1.el9.x86_64.rpm
+percona-server-shared-compat-9.7.2-2.1.el9.x86_64.rpm
+percona-server-shared-debuginfo-9.7.2-2.1.el9.x86_64.rpm
+percona-server-test-9.7.2-2.1.el9.x86_64.rpm
+percona-server-test-debuginfo-9.7.2-2.1.el9.x86_64.rpm
 </code></pre></div>
 </details>
 </li>
@@ -26438,12 +26464,14 @@ percona-server-test-debuginfo-9.7.2-2.1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
-<p>Install all the packages (for debugging, testing, etc.) with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
+<p>Install the server, the client, and the required libraries with <code>dnf localinstall</code>. Run this command as root or use the sudo command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>./percona-server-server-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-plugins-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-shared-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-icu-data-files-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm
 </code></pre></div>
+<p><code>dnf</code> installs the local packages and resolves the remaining dependencies, such as <code>libaio</code> and <code>libatomic</code>, from the configured repositories. Do not use <code>rpm -ivh *.rpm</code>: <code>rpm</code> does not resolve dependencies and fails with <code>Failed dependencies</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.</p>
+<p>The <code>percona-server-server</code> package depends on <code>percona-telemetry-agent</code>, which is not included in the bundle. <code>dnf</code> installs the agent from the Percona telemetry repository if the repository is configured (for example, by <code>percona-release</code>). Otherwise, the installation fails with <code>nothing provides percona-telemetry-agent</code>. In that case, download the agent package for your distribution from the <a href="https://repo.percona.com/telemetry/yum/release/">Percona telemetry repository <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> (for example, <code>https://repo.percona.com/telemetry/yum/release/9/RPMS/x86_64/</code>) into the same directory and add <code>./percona-telemetry-agent-*.rpm</code> to the <code>dnf localinstall</code> command.</p>
+<p>The optional packages in the bundle have additional dependencies. For example, <code>percona-server-shared-compat</code> requires <code>compat-openssl11</code>, and <code>percona-server-test</code> requires Perl modules such as <code>perl-JSON</code>.</p>
 </div>
 </li>
 </ol>
@@ -28421,6 +28449,22 @@ enforce_gtid_consistency=OFF
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Audit <code>my.cnf</code> for removed startup options and system variables. Update or delete the entries.</p>
 </li>
 </ul>
+<h3 id="upgrade-checklist-9.7-remove-unsupported-options-from-the-configuration-file">Remove unsupported options from the configuration file<a class="headerlink" href="#upgrade-checklist-9.7-remove-unsupported-options-from-the-configuration-file" title="Permanent link">&para;</a></h3>
+<p>Impact: The 9.7 server upgrades the data dictionary before it rejects unknown options. An option that 9.7 does not support aborts the first start with <code>[ERROR] [MY-000067] [Server] unknown variable '&lt;option&gt;'</code> after the data directory has already been upgraded. The 8.4 server can no longer start on that data directory. Only a restore from backup returns you to 8.4. The upgrade checker does not read <code>my.cnf</code> unless you pass the configuration file path.</p>
+<p>Take the following actions:</p>
+<ul class="task-list">
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove options that 9.7 no longer supports from <code>my.cnf</code>. Examples include <code>mysql_native_password=ON</code> (or <code>--mysql-native-password</code>), <code>plugin-load-add=audit_log.so</code>, and the <code>audit_log_*</code> options of the removed <code>audit_log</code> plugin.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Before the first start of 9.7, validate the configuration with the 9.7 <code>mysqld</code> binary. The check reports unknown options and exits without starting the server or modifying the data directory. A valid configuration returns exit status <code>0</code>.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> On Debian and Ubuntu, installing the 9.7 packages starts the server immediately. Run the validation on a staging host that runs 9.7, with a copy of the production configuration file, before you upgrade production. To check a specific file, add <code>--defaults-file=&lt;path&gt;</code> as the first option.</p>
+</li>
+</ul>
 <h3 id="upgrade-checklist-9.7-resolve-schema-constraint-violations">Resolve schema constraint violations<a class="headerlink" href="#upgrade-checklist-9.7-resolve-schema-constraint-violations" title="Permanent link">&para;</a></h3>
 <p>Impact: <code>AUTO_INCREMENT</code> is not allowed on <code>FLOAT</code> or <code>DOUBLE</code> columns.</p>
 <p>Take the following actions:</p>
@@ -29033,7 +29077,15 @@ enforce_gtid_consistency=OFF
 <p>Save a copy of the database configuration file (<code>my.cnf</code>) to a safe location.</p>
 </li>
 <li>
-<p>Edit the configuration file before stopping the server. For example, remove deprecated variables and update settings for 9.7.</p>
+<p>Edit the configuration file before stopping the server. Remove options that 9.7 no longer supports, such as <code>mysql_native_password=ON</code>, <code>plugin-load-add=audit_log.so</code>, and the <code>audit_log_*</code> options of the removed <code>audit_log</code> plugin. Update other settings for 9.7 as needed.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The 9.7 server upgrades the data dictionary before it rejects unknown options. An option that 9.7 does not support aborts the first start with <code>[ERROR] [MY-000067] [Server] unknown variable '&lt;option&gt;'</code> after the data directory has already been upgraded. The previous version can no longer start on that data directory. Only a restore from backup returns you to the previous version.</p>
+</div>
+<p>Validate the configuration file with the 9.7 <code>mysqld</code> binary before the first start of 9.7. The check reads the configuration, reports unknown options, and exits without starting the server or modifying the data directory. A valid configuration returns exit status <code>0</code>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
+<p>On Debian and Ubuntu, installing the 9.7 packages starts the server immediately. Run the check before the production upgrade on a staging host that runs 9.7, with a copy of the production configuration file. To check a specific file, add <code>--defaults-file=&lt;path&gt;</code> as the first option.</p>
 </li>
 <li>
 <p>Run <code>XA RECOVER</code> against the source server. Commit or rollback any uncommitted XA transactions before continuing.</p>
@@ -29076,7 +29128,7 @@ enforce_gtid_consistency=OFF
 </code></pre></div>
 </li>
 <li>
-<p>Modify the database configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7.</p>
+<p>Modify the database configuration file, <code>my.cnf</code>, as needed. Remove options that 9.7 no longer supports and update settings for 9.7. The package installation in the next step starts the server, so validate the configuration with the 9.7 binary beforehand. See <a href="#upgrade-procedures-prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
 </li>
 <li>
 <p>Install Percona Server for MySQL.</p>
@@ -29147,6 +29199,9 @@ sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Modify your configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7. If you used plugins replaced by components in 9.7, plan the transition. See <a href="#upgrade-components">Upgrade from plugins to components</a> for details.</p>
+<p>Before the first start, validate the configuration with the 9.7 binary. The command must not report errors. See <a href="#upgrade-procedures-prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
 </li>
 <li>
 <p>The <code>mysqld</code> binary runs the upgrade process automatically on first start. The server creates the data dictionary and refreshes the Performance Schema, INFORMATION_SCHEMA, and <code>sys</code> databases. The server then removes obsolete <code>.frm</code> files. For details, see <a href="https://dev.mysql.com/doc/refman/9.7/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -29323,6 +29378,9 @@ percona-server-shared-compat-9.7.2-2.el9.x86_64.rpm
 <li>
 <p>Modify your configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7. If you used plugins replaced by components in 9.7, plan the transition. See <a href="#upgrade-components">Upgrade from plugins to components</a> for details.</p>
 <p>RHEL and its derivatives copy the previous configuration file to <code>/etc/my.cnf.rpmsave</code>. The package install also adds the default <code>my.cnf</code>. After the upgrade or install completes, restore your configuration from the saved copy. Remove any unsupported system variables before restoring.</p>
+<p>Before the first start, validate the configuration with the 9.7 binary. The command must not report errors. See <a href="#upgrade-procedures-prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
 </li>
 <li>
 <p>The <code>mysqld</code> binary runs the upgrade process automatically on first start. For more information, see <a href="https://dev.mysql.com/doc/refman/9.7/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
