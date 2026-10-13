@@ -13,7 +13,13 @@ Use the [Percona repositories] to install using DNF.
 The "expected output" depends on the operating system. The following examples are based on Oracle Linux 9.3.
 {.power-number}
 
-1. Use the DNF package manager to install `percona-release`.
+1. On RHEL 8 and its derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), disable the distribution's MySQL module. The default `mysql` module stream hides the Percona packages, and the installation fails with `All matches were filtered out by modular filtering for argument: percona-server-server`. On RHEL 9 and its derivatives, this step is not needed.
+
+    ```{.bash data-prompt="$"}
+    $ sudo dnf module disable mysql -y
+    ```
+
+2. Use the DNF package manager to install `percona-release`.
 
     ```{.bash data-prompt="$"}
     $ sudo dnf install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
@@ -53,7 +59,7 @@ The "expected output" depends on the operating system. The following examples ar
         Complete!
         ```
 
-2. Use the `percona-release` tool to set up the repository for Percona Server for MySQL 8.0.
+3. Use the `percona-release` tool to set up the repository for Percona Server for MySQL 8.0.
 
     ```{.bash data-prompt="$"}
     $ sudo percona-release setup ps-80
@@ -63,19 +69,11 @@ The "expected output" depends on the operating system. The following examples ar
 
         ```{.text .no-copy}
         * Disabling all Percona Repositories
-        On Red Hat 8 systems it is needed to disable the following DNF module(s): mysql  to install Percona-Server
-        Do you want to disable it? [y/N] y
-        Disabling dnf module...
-        Percona Release release/noarch YUM repository                                             2.7 kB/s | 1.8 kB     00:00
-        Unable to resolve argument mysql
-        Error: Problems in request:
-        missing groups or modules: mysql
-        DNF mysql module was disabled
-        * Enabling the Percona Server 8.0 repository
+        * Enabling the Percona Server for MySQL 8.0 repository
         <*> All done!
         ```
 
-3. Enable the `ps-80 release` repository.
+4. Enable the `ps-80 release` repository.
 
     ```{.bash data-prompt="$"}
     $ sudo percona-release enable ps-80 release
@@ -88,7 +86,7 @@ The "expected output" depends on the operating system. The following examples ar
         <*> All done!
         ```
 
-4. Install the latest version of Percona Server for MySQL 8.0. This installation may take some time.
+5. Install the latest version of Percona Server for MySQL 8.0. This installation may take some time.
 
     ```{.bash data-prompt="$"}
     $ sudo dnf install -y percona-server-server
@@ -107,7 +105,7 @@ The "expected output" depends on the operating system. The following examples ar
         Complete!
         ```
 
-5. Check the status of the mysql service and restart if needed.
+6. Check the status of the mysql service and restart if needed.
 
     ```{.bash data-prompt="$"}
     $ sudo systemctl status mysql
@@ -129,7 +127,7 @@ The "expected output" depends on the operating system. The following examples ar
 
     This command has no output.
 
-6. Percona Server for MySQL generates a temporary password during installation. You must have the service running to access the log.
+7. Percona Server for MySQL generates a temporary password during installation. You must have the service running to access the log.
 
     ```{.bash data-prompt="$"}
     $ sudo grep 'temporary password' /var/log/mysqld.log
@@ -141,7 +139,7 @@ The "expected output" depends on the operating system. The following examples ar
         2024-02-12T16:05:03.969449Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: [random-generated-password]
         ```
 
-7. Log in to the server. Use the password retrieved by the `grep` command. You can type the password or copy-and-paste. You do not see the characters in the password as you type.
+8. Log in to the server. Use the password retrieved by the `grep` command. You can type the password or copy-and-paste. You do not see the characters in the password as you type.
 
     ```{.bash data-prompt="$"}
     $ mysql -uroot -p
@@ -167,7 +165,7 @@ The "expected output" depends on the operating system. The following examples ar
         mysql>
         ```
 
-8. The temporary password must be replaced. Run the ALTER USER command tochange the password for the root user. Remember or save the new password. You will need it to log into the server in the next step.
+9. The temporary password must be replaced. Run the ALTER USER command tochange the password for the root user. Remember or save the new password. You will need it to log into the server in the next step.
 
     ```{.bash data-prompt="mysql>"}
     mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY '[your password]';
@@ -179,7 +177,7 @@ The "expected output" depends on the operating system. The following examples ar
         Query OK, 0 rows affected (0.01 sec)
         ```
 
-9. Log out of the server. to verify that the password has changed.
+10. Log out of the server. to verify that the password has changed.
 
     ```{.bash data-prompt="mysql>"}
     mysql> exit
@@ -191,7 +189,7 @@ The "expected output" depends on the operating system. The following examples ar
         Bye
         ```
 
-10. Log into the server with the new password to verify that the password has changed.
+11. Log into the server with the new password to verify that the password has changed.
 
 
     ```{.bash data-prompt="$"}
