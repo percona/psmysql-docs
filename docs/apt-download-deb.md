@@ -1,14 +1,10 @@
 # Install Percona Server for MySQL 8.0 using downloaded DEB packages
 
-When installing packages manually, you must resolve all the dependencies and install missing packages yourself. You must install the following packages before manually installing Percona Server:
+When installing packages manually, you must provide all the dependencies. The bundle does not contain all of them:
 
-* `mysql-common`
+* The `percona-server-server` package depends on `percona-telemetry-agent`. This package is not in the bundle or in the distribution repositories, so you must download it separately (see step 3).
 
-* `libjemalloc1`
-
-* `libaio1`
-
-* `libmecab2`.
+* The other dependencies, such as `libaio1`, `libmecab2`, `libnuma1`, `libatomic1`, and `zlib1g-dev` (required by the development package), come from the distribution repositories. Install the downloaded packages with `apt` (see step 4), which installs these dependencies automatically.
 
 Download the packages from [Percona Product Downloads :octicons-link-external-16:](https://www.percona.com/downloads). If needed, [Instructions for the Percona Product Download](download-instructions.md) are available.
 
@@ -49,18 +45,25 @@ Download the packages from [Percona Product Downloads :octicons-link-external-16
         percona-server-test_8.0.31-23-1.buster_amd64.deb
         ```
 
-3. Install Percona Server for MySQL using the `dpkg` utility to install Debian (.deb) packages. The installation requires either root or the `sudo` command. `sudo` allows you to run programs with the security privileges of another user, usually as the superuser.
-
-    `dpkg` is a package manager for Debian-based systems and can install, remove, and provide information about `.deb` packages. 
-
-    The `-i` option tells `dpkg` to install the package.
-
-    The `*.deb` is a wildcard that matches any file in the current directory that ends with the `.deb` extension. 
-
+3. Download the `percona-telemetry-agent` package for your distribution into the same directory. The following example downloads the package for Debian 12 (bookworm). For another distribution, replace `bookworm` with its codename.
 
     ```{.bash data-prompt="$"}
-    $ sudo dpkg -i *.deb
+    $ wget https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.bookworm_amd64.deb
     ```
+
+4. Install Percona Server for MySQL with `apt`. The installation requires either root or the `sudo` command. `sudo` allows you to run programs with the security privileges of another user, usually as the superuser.
+
+    Unlike `dpkg -i`, `apt` installs the missing dependencies from the distribution repositories. With `dpkg -i *.deb`, packages fail with `dependency problems - leaving unconfigured` errors.
+
+    The `./*.deb` is a wildcard that matches any file in the current directory that ends with the `.deb` extension. The `./` prefix tells `apt` to install local files instead of packages from a repository.
+
+    ```{.bash data-prompt="$"}
+    $ sudo apt install ./*.deb
+    ```
+
+    !!! warning
+
+        If you already ran `dpkg -i *.deb` and it failed with dependency errors, check the plan before you accept `apt --fix-broken install` (`apt -f install`). That command can remove `percona-server-server` and the packages that depend on it, instead of installing the missing dependencies.
 
 Starting with Percona Server for MySQL 8.0.28-19 (2022-05-12), the TokuDB storage engine is no longer supported. For more information, see the [TokuDB Introduction](tokudb-intro.md) and [TokuDB changes by Percona Server for MySQL version](tokudb-version-changes.md). 
 
