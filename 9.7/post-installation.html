@@ -10809,7 +10809,7 @@ Run the following command to prevent a service from starting at boot time:</p>
 <p>During installation on Debian/Ubuntu, you are prompted to set a root password. On Red Hat Enterprise Linux and derivatives, you must set or update the root password after installation.</p>
 <ol>
 <li>
-<p>Restart the server with the <code>--skip-grant-tables</code> option enabled to allow access without a password. This option is insecure and disables remote connections.</p>
+<p>Restart the server with the <code>--skip-grant-tables</code> option enabled to allow access without a password. This option is insecure. The server also enables <code>skip_networking</code> automatically, which disables remote connections.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables"</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
@@ -10817,16 +10817,17 @@ mysql
 </code></pre></div>
 </li>
 <li>
-<p>Update the root password using the <code>caching_sha2_password</code> authentication plugin:</p>
+<p>Reload the grant tables, then update the root password using the <code>caching_sha2_password</code> authentication plugin:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The <code>mysql_native_password</code> plugin has been removed in MySQL 9.x. You must use the <code>caching_sha2_password</code> authentication plugin.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In MySQL 9.7 and later, <code>ALTER USER</code> automatically updates grant tables. Running <code>FLUSH PRIVILEGES</code> is not required unless you modify system tables directly.</p>
+<p>With <code>--skip-grant-tables</code>, the server does not load the grant tables, and <code>ALTER USER</code> fails with <code>ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement</code>. Run <code>FLUSH PRIVILEGES</code> first to load the grant tables.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
+<div class="highlight"><pre><span></span><code><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
 <span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span>
 <span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 </code></pre></div>
@@ -10934,7 +10935,7 @@ system schema.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 9, 2026 15:56:08 UTC">April 9, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 10:14:05 UTC">October 13, 2026</span>
   </span>
 
     
