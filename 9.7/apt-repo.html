@@ -10738,12 +10738,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl
 curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
-sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-97-lts<span class="w"> </span>--scheme<span class="w"> </span>https
-sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-97-lts<span class="w"> </span>release<span class="w"> </span>--scheme<span class="w"> </span>https
+sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release<span class="w"> </span>--scheme<span class="w"> </span>https
 sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
-<p>The command sequence matches <a href="quickstart-apt.html">Install Percona Server for MySQL and create a database on Ubuntu</a>. The quickstart covers installation steps one through six and includes <code>--scheme https</code> on <code>percona-release setup</code> and <code>enable</code>. The repository identifier for 9.7 is <code>ps-97-lts</code>.</p>
+<p>The command sequence matches <a href="quickstart-apt.html">Install Percona Server for MySQL and create a database on Ubuntu</a>. The quickstart covers installation steps one through six and includes <code>--scheme https</code> on <code>percona-release enable-only</code>. The repository identifier for 9.7 is <code>ps-97-lts</code>.</p>
 <p>For another Percona Server for MySQL series, use the name shown by <code>sudo percona-release list</code>, or consult the <a href="https://docs.percona.com/percona-software-repositories/mysql.html">MySQL software repositories <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> reference. Published names can change as Percona adds new series.</p>
 <details class="note">
 <summary><code>percona-release</code> flag: <code>--scheme</code></summary>
@@ -10797,14 +10796,18 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </code></pre></div>
 </li>
 <li>
-<p>The <code>percona-release setup ps-97-lts --scheme https</code> command disables all current Percona repositories on the system. The command then enables the release repositories matching Percona Server for MySQL 9.7 for your distribution over HTTPS. See the <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Percona Software Repositories <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> reference. Omit <code>--scheme https</code> only when you require HTTP repository URLs, which is the <code>percona-release</code> default.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-97-lts<span class="w"> </span>--scheme<span class="w"> </span>https
+<p>The <code>percona-release enable-only ps-97-lts release --scheme https</code> command disables all current Percona repositories on the system and enables only the Percona Server for MySQL 9.7 release repository over HTTPS. See the <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Percona Software Repositories <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> reference. Omit <code>--scheme https</code> only when you require HTTP repository URLs, which is the <code>percona-release</code> default.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not use <code>percona-release setup ps-97-lts</code> for 9.7. With <code>percona-release</code> 1.0-34, <code>setup ps-97-lts</code> disables all Percona repositories but does not enable the 9.7 repository, and still exits successfully.</p>
+</div>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release<span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
 </li>
 <li>
-<p>The <code>percona-release enable ps-97-lts release --scheme https</code> command enables the Percona Server for MySQL release repository with HTTPS URLs. Run <code>apt update</code> afterward so APT loads package indexes for the Percona APT repository, including <code>percona-server-server</code> and related packages.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-97-lts<span class="w"> </span>release<span class="w"> </span>--scheme<span class="w"> </span>https
-sudo<span class="w"> </span>apt<span class="w"> </span>update
+<p>Run <code>apt update</code> so APT loads package indexes for the Percona APT repository, including <code>percona-server-server</code> and related packages. Check that <code>apt-cache policy percona-server-server</code> shows a 9.7 candidate version.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+apt-cache<span class="w"> </span>policy<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
 <li>
@@ -10904,8 +10907,8 @@ sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-s
 <h2 id="unattended-installations">Unattended installations<a class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
 <p>Use the same <code>apt</code> and <code>percona-release</code> sequence shown in <a href="#install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT</a>. Add <code>-y</code> to each <code>sudo apt install</code> line that needs non-interactive APT confirmations. Use non-interactive options for <code>percona-release</code> as shown in the following snippet.</p>
 <p>The <code>-y</code> flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can&rsquo;t or don&rsquo;t want to interact, like during unattended installations or automated scripts. However, keep in mind that using the <code>-y</code> flag skips confirmation prompts, which means you won&rsquo;t have a chance to review any changes before they&rsquo;re made. So, it&rsquo;s best to use this flag only when you&rsquo;re sure about the command you&rsquo;re executing.</p>
-<p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
-<div class="highlight"><pre><span></span><code>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-97-lts<span class="w"> </span>
+<p>The <code>-y</code> flag applies to <code>percona-release setup</code>. With <code>percona-release</code> 1.0-34, <code>percona-release setup ps-97-lts</code> disables all Percona repositories but does not enable the Percona Server for MySQL 9.7 repository. For unattended installations, enable the repository with <code>enable-only</code> instead:</p>
+<div class="highlight"><pre><span></span><code>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
 </code></pre></div>
 <h2 id="install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (optional)<a class="headerlink" href="#install-percona-toolkit-udfs-optional" title="Permanent link">&para;</a></h2>
 <p>User-defined functions (UDFs) extend MySQL with custom functions. Percona Server for MySQL includes UDFs from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for data integrity checks and performance monitoring. These UDFs provide faster checksum calculations:</p>
@@ -10968,7 +10971,7 @@ sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-s
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 12, 2026 16:59:39 UTC">May 12, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 13:55:45 UTC">October 13, 2026</span>
   </span>
 
     
@@ -10996,14 +10999,19 @@ sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-s
     
     <nav>
       
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+        <a href="https://github.com/PeterZaitsev" class="md-author" title="@PeterZaitsev">
           
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+          <img src="https://avatars.githubusercontent.com/u/3651746?v=4&size=72" alt="PeterZaitsev">
         </a>
       
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">

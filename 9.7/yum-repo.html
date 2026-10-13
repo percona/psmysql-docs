@@ -10965,8 +10965,8 @@ Complete!
 <p>Percona Server for MySQL 9.7.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
 <h2 id="unattended-installations">Unattended installations<a class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
 <p>The <code>-y</code> flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can&rsquo;t or don&rsquo;t want to interact, like during unattended installations or automated scripts. However, keep in mind that using the <code>-y</code> flag skips confirmation prompts, which means you won&rsquo;t have a chance to review any changes before they&rsquo;re made. So, it&rsquo;s best to use this flag only when you&rsquo;re sure about the command you&rsquo;re executing.</p>
-<p>The recommended syntax for using this flag with the <code>percona-release setup</code> is: </p>
-<div class="highlight"><pre><span></span><code>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span>ps-97-lts<span class="w"> </span>
+<p>The <code>-y</code> flag applies to <code>percona-release setup</code>. With <code>percona-release</code> 1.0-34, <code>percona-release setup ps-97-lts</code> disables all Percona repositories but does not enable the Percona Server for MySQL 9.7 repository. For unattended installations, enable the repository with <code>enable-only</code> instead:</p>
+<div class="highlight"><pre><span></span><code>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
 </code></pre></div>
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>After installation completes, see <a href="post-installation.html">Post-installation</a> for steps to configure and secure your Percona Server for MySQL installation.</p>
