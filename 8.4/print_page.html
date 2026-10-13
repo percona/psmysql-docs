@@ -26178,14 +26178,21 @@ percona-server-test_8.4.11-11-1.buster_amd64.deb
 </details>
 </li>
 <li>
-<p>Install Percona Server for MySQL using <code>dpkg</code>. Run this command as root or use the sudo command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
+<p>Download the <code>percona-telemetry-agent</code> package for your distribution into the same directory. The <code>percona-server-server</code> package depends on it, but the bundle does not include it, and the distribution repositories do not provide it. For example, for Ubuntu 22.04:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.jammy_amd64.deb
 </code></pre></div>
+<p>For other distributions, replace <code>jammy</code> with your distribution codename, for example, <code>noble</code> or <code>bookworm</code>.</p>
+</li>
+<li>
+<p>Install the packages with <code>apt</code>. Run this command as root or use the sudo command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./*.deb
+</code></pre></div>
+<p>Unlike <code>dpkg -i</code>, <code>apt</code> also installs the required packages from your distribution repositories, for example, <code>libaio1</code> (<code>libaio1t64</code> on Ubuntu 24.04 and later), <code>libatomic1</code>, <code>libmecab2</code>, <code>libnuma1</code>, and <code>zlib1g-dev</code>.</p>
 </li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: <code>mysql-common</code>, <code>libjemalloc1</code>, <code>libaio1</code>, and <code>libmecab2</code>.</p>
+<p>Do not install the packages with <code>sudo dpkg -i *.deb</code>. The <code>dpkg</code> tool does not resolve dependencies, so the packages remain unconfigured. Do not try to recover with <code>sudo apt -f install</code> (<code>apt --fix-broken install</code>) either: if <code>percona-telemetry-agent</code> is not available, <code>apt</code> fixes the broken state by removing <code>percona-server-server</code> and the packages that depend on it.</p>
 </div></section><section class="print-page" id="apt-pinning" heading-number="7.4.5"><h1 id="apt-pinning-apt-pinning-the-percona-server-for-mysql-84-packages">Apt pinning the Percona Server for MySQL 8.4 packages<a class="headerlink" href="#apt-pinning-apt-pinning-the-percona-server-for-mysql-84-packages" title="Permanent link">&para;</a></h1>
 <p>Pinning allows you to stay on a release and get packages from a different version. In some cases, you can pin selected packages and avoid accidentally upgrading all the packages. </p>
 <p>The pinning takes place in the <code>preference</code> file. To pin a package, set the <code>Pin-Priority</code> to higher numbers. </p>
@@ -26658,12 +26665,17 @@ percona-server-test-debuginfo-8.4.11-11.1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
-<p>Install all the packages (for debugging, testing, etc.) with the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
+<p>Download the <code>percona-telemetry-agent</code> package into the same directory. The <code>percona-server-server</code> package depends on it, but the bundle does not include it. Hosts without the Percona repositories cannot install the server without this package. For example, for <em>RHEL</em> 8:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/telemetry/yum/release/8/RPMS/x86_64/percona-telemetry-agent-1.0.17-1.el8.x86_64.rpm
+</code></pre></div>
+</li>
+<li>
+<p>Install the packages with <code>dnf localinstall</code>. Unlike <code>rpm -ivh</code>, <code>dnf</code> also installs the required packages from your distribution repositories, for example, <code>libaio</code> and <code>libatomic</code>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>./percona-server-server-8.4.11-11.1.el8.x86_64.rpm<span class="w"> </span>./percona-server-client-8.4.11-11.1.el8.x86_64.rpm<span class="w"> </span>./percona-server-shared-8.4.11-11.1.el8.x86_64.rpm<span class="w"> </span>./percona-icu-data-files-8.4.11-11.1.el8.x86_64.rpm<span class="w"> </span>./percona-telemetry-agent-*.rpm
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.</p>
+<p>Do not use <code>sudo rpm -ivh *.rpm</code>. The <code>rpm</code> tool does not resolve dependencies and fails with <code>Failed dependencies</code>, for example, for <code>libaio</code>, <code>libatomic</code>, and <code>percona-telemetry-agent</code>.</p>
 </div>
 </li>
 </ol>

@@ -10440,14 +10440,21 @@ percona-server-test_8.4.11-11-1.buster_amd64.deb
 </details>
 </li>
 <li>
-<p>Install Percona Server for MySQL using <code>dpkg</code>. Run this command as root or use the sudo command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
+<p>Download the <code>percona-telemetry-agent</code> package for your distribution into the same directory. The <code>percona-server-server</code> package depends on it, but the bundle does not include it, and the distribution repositories do not provide it. For example, for Ubuntu 22.04:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.jammy_amd64.deb
 </code></pre></div>
+<p>For other distributions, replace <code>jammy</code> with your distribution codename, for example, <code>noble</code> or <code>bookworm</code>.</p>
+</li>
+<li>
+<p>Install the packages with <code>apt</code>. Run this command as root or use the sudo command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./*.deb
+</code></pre></div>
+<p>Unlike <code>dpkg -i</code>, <code>apt</code> also installs the required packages from your distribution repositories, for example, <code>libaio1</code> (<code>libaio1t64</code> on Ubuntu 24.04 and later), <code>libatomic1</code>, <code>libmecab2</code>, <code>libnuma1</code>, and <code>zlib1g-dev</code>.</p>
 </li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: <code>mysql-common</code>, <code>libjemalloc1</code>, <code>libaio1</code>, and <code>libmecab2</code>.</p>
+<p>Do not install the packages with <code>sudo dpkg -i *.deb</code>. The <code>dpkg</code> tool does not resolve dependencies, so the packages remain unconfigured. Do not try to recover with <code>sudo apt -f install</code> (<code>apt --fix-broken install</code>) either: if <code>percona-telemetry-agent</code> is not available, <code>apt</code> fixes the broken state by removing <code>percona-server-server</code> and the packages that depend on it.</p>
 </div>
 
 
@@ -10471,7 +10478,7 @@ percona-server-test_8.4.11-11-1.buster_amd64.deb
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 6, 2026 14:34:08 UTC">August 6, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 12:01:29 UTC">October 13, 2026</span>
   </span>
 
     
@@ -10499,14 +10506,19 @@ percona-server-test_8.4.11-11-1.buster_amd64.deb
     
     <nav>
       
-        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+        <a href="https://github.com/PeterZaitsev" class="md-author" title="@PeterZaitsev">
           
-          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+          <img src="https://avatars.githubusercontent.com/u/3651746?v=4&size=72" alt="PeterZaitsev">
         </a>
       
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
         </a>
       
         <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
