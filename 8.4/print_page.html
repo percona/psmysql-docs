@@ -28595,24 +28595,23 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Check your installed packages:</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Percona-Server
+<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>percona-server
 </code></pre></div>
 </li>
 <li>
-<p>Remove only the packages without dependencies and leave dependent packages. The command does not prompt for confirmation:</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Percona-Server<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
-</code></pre></div>
-</li>
-<li>
-<p>Remove the mysql-related packages:</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
-</code></pre></div>
-</li>
-<li>
-<p>Install the <code>percona-server-server</code> package:</p>
+<p>Enable the Percona Server for MySQL 8.4 repository. The <code>percona-release setup</code> command disables the repository of the previous series:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-84-lts
-sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
+</code></pre></div>
+</li>
+<li>
+<p>Upgrade all installed Percona packages together. Running <code>yum install percona-server-server</code> upgrades only the server package and leaves the client, shared libraries, and ICU data files on the old version:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span><span class="s1">'percona-*'</span>
+</code></pre></div>
+</li>
+<li>
+<p>Verify that every package listed by the following command shows the 8.4 version:</p>
+<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>percona-server
 </code></pre></div>
 </li>
 <li>
