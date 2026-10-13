@@ -24656,7 +24656,7 @@ Enter<span class="w"> </span>password:
 </li>
 <li>
 <p>Set up the repository for Percona Server for MySQL 8.4:</p>
-<p>[Optional] On Red Hat 8 systems (including Rocky Linux and AlmaLinux), disable the distribution&rsquo;s MySQL module first:</p>
+<p>On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), you must disable the distribution&rsquo;s MySQL module first. Otherwise, the module hides the Percona packages and the installation fails with <code>All matches were filtered out by modular filtering</code>. On RHEL 9 this step is not needed. On RHEL 10 skip this step: RHEL 10 has no MySQL module, and the command fails.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql<span class="w"> </span>-y
 </code></pre></div>
 <p>Then run:</p>
@@ -26074,10 +26074,32 @@ suits you.</p>
 <p>Always download packages from the official Percona repositories to confirm authenticity.</p>
 </div>
 <h2 id="yum-repo-limitations">Limitations<a class="headerlink" href="#yum-repo-limitations" title="Permanent link">&para;</a></h2>
-<p>RHEL 8 and later systems enable the MySQL module by default. The module hides the Percona-provided packages. Disable the module to make the Percona packages visible.</p>
+<p>On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), the AppStream <code>mysql</code> module hides the Percona-provided packages. This happens even when the module stream is only the default stream (<code>[d]</code>) and is not explicitly enabled (<code>[e]</code>). Disable the module before you install.</p>
 <div class="admonition important">
 <p class="admonition-title">Checking the MySQL module</p>
-<p>RHEL 8 and later systems enable the MySQL module by default. The module can hide or conflict with Percona packages. The first installation step in the following section checks whether the module is enabled. An <code>[e]</code> marker indicates that you must disable the module before proceeding. A <code>[d]</code> marker indicates the default stream and allows you to proceed.</p>
+<p>The need to disable the <code>mysql</code> module depends on the major version of your operating system:</p>
+<table>
+<thead>
+<tr>
+<th>Operating system</th>
+<th><code>sudo dnf -y module disable mysql</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RHEL 8 and derivatives</td>
+<td>Required. Without it, <code>dnf install percona-server-server</code> fails with <code>All matches were filtered out by modular filtering</code>.</td>
+</tr>
+<tr>
+<td>RHEL 9 and derivatives</td>
+<td>Not needed. The default <code>mysql</code> stream does not hide Percona packages. Running the command is harmless.</td>
+</tr>
+<tr>
+<td>RHEL 10 and derivatives</td>
+<td>Skip this step. RHEL 10 has no <code>mysql</code> module, and the command fails with <code>missing groups or modules: mysql</code>.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h2 id="yum-repo-install-using-dnf-rhel-8-and-later">Install using DNF (RHEL 8 and later)<a class="headerlink" href="#yum-repo-install-using-dnf-rhel-8-and-later" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -26087,36 +26109,48 @@ suits you.</p>
 <p class="power-number">All commands in this guide use <code>sudo</code> for privilege elevation. Follow these steps:</p>
 <ol>
 <li>
-<p>Verify whether the MySQL module is enabled on your system:</p>
+<p>On RHEL 8 and RHEL 9 and their derivatives, check the MySQL module on your system. On RHEL 10, skip this step and step 2.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01
-Rocky Linux 9 - AppStream                  3.7 MB/s | 8.2 MB     00:02
-Rocky Linux 9 - Extras                      35 kB/s |  18 kB     00:00
-Rocky Linux 9 - AppStream
-Name       Stream      Profiles                            Summary
+<summary>Expected output on Rocky Linux 8</summary>
+<div class="no-copy highlight"><pre><span></span><code>Name  Stream  Profiles           Summary
+mysql 8.0 [d] client, server [d] MySQL Module
+mysql 8.4     client, server [d] MySQL Module
+
+Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
+</code></pre></div>
+</details>
+<details class="example">
+<summary>Expected output on Rocky Linux 9</summary>
+<div class="no-copy highlight"><pre><span></span><code>Name       Stream      Profiles                            Summary
 mysql      8.4         api, client, filter, server [d]     MySQL Module
 
 Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
 </code></pre></div>
 </details>
-<p>The <code>[d]</code> marker next to the server profile indicates the default stream. A module is enabled only when an <code>[e]</code> marker is present. An <code>[e]</code> marker indicates that the module is active.</p>
+<p>The <code>[d]</code> marker next to the stream indicates the default stream. On RHEL 8, a default stream hides the Percona packages in the same way as an enabled (<code>[e]</code>) stream.</p>
 </li>
 <li>
-<p>Disable the MySQL module if step 1 lists the module as <code>[e]</code>-enabled. The MySQL module conflicts with Percona packages. Run the following command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<p>On RHEL 8 and derivatives, disable the MySQL module. This step is required on RHEL 8 even if step 1 shows only the <code>[d]</code> marker. On RHEL 9 the step is not needed. On RHEL 10 skip the step because the command fails.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
-Dependencies resolved.
-Nothing to do.
+<summary>Expected output on Rocky Linux 8</summary>
+<div class="no-copy highlight"><pre><span></span><code>Dependencies resolved.
+================================================================================
+ Package           Architecture     Version             Repository         Size
+================================================================================
+Disabling modules:
+ mysql
+
+Transaction Summary
+================================================================================
+
 Complete!
 </code></pre></div>
 </details>
-<p>The <code>dnf module disable</code> command disables the MySQL module. When the module is not enabled, the command returns <code>Nothing to do</code>. This output is expected. Proceed with the installation.</p>
+<p>After the command completes, <code>sudo dnf module list mysql</code> shows the <code>[x]</code> (disabled) marker for the <code>mysql</code> streams.</p>
 </li>
 <li>
 <p>Install the Percona repository package:</p>
