@@ -14617,7 +14617,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="#upgrade-components">Upgrade components</a> — general plugin-to-component transition procedure</p>
 </li>
 <li>
-<p><a href="#audit-log-plugin">Audit log plugin</a> — legacy plugin reference (removed in 9.7)</p>
+<p><a href="#audit-log-plugin">Audit log plugin</a> — deprecated plugin reference</p>
 </li>
 </ul></section><section class="print-page" id="install-audit-log-filter" heading-number="5.2.2"><h1 id="install-audit-log-filter-install-the-audit-log-filter">Install the audit log filter<a class="headerlink" href="#install-audit-log-filter-install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
 <h2 id="install-audit-log-filter-installation-script">Installation script<a class="headerlink" href="#install-audit-log-filter-installation-script" title="Permanent link">&para;</a></h2>
@@ -14639,7 +14639,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">mysql</span><span class="p">;</span>
 <span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
-<p>Replace <code>/path/to/mysql/share/</code> with the path to the server installation&rsquo;s <code>share</code> directory. For package installations, the script is in <code>/usr/share/mysql/</code> on Debian and Ubuntu, and in <code>/usr/share/percona-server/</code> on RHEL-based distributions.</p>
+<p>Replace <code>/path/to/mysql/share/</code> with the path to the server installation&rsquo;s <code>share</code> directory.</p>
 </li>
 </ul>
 <h3 id="install-audit-log-filter-verify-installation">Verify installation<a class="headerlink" href="#install-audit-log-filter-verify-installation" title="Permanent link">&para;</a></h3>
@@ -14738,7 +14738,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set <code>audit_log_*</code> plugin variables on a server running the component. See the <a href="#audit-log-plugin">removal notice</a> on the plugin page.</p>
+<p>The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set <code>audit_log_*</code> plugin variables on a server running the component. See the <a href="#audit-log-plugin">deprecation notice</a> on the plugin page.</p>
 </div>
 <h2 id="migrate-to-audit-log-filter-component-which-source-are-you-migrating-from">Which source are you migrating from?<a class="headerlink" href="#migrate-to-audit-log-filter-component-which-source-are-you-migrating-from" title="Permanent link">&para;</a></h2>
 <p>Two legacy sources exist. The target is <code>component_audit_log_filter</code> in both cases. The starting point differs:</p>
@@ -14751,8 +14751,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
-<td><code>audit_log</code> plugin (deprecated in 8.4, removed in 9.7)</td>
-<td>On 8.4, before upgrading: install the component, translate <code>audit_log_*</code> variables to filter JSON, validate, uninstall the plugin, and remove the plugin options from <code>my.cnf</code>. Then upgrade to 9.7.</td>
+<td><code>audit_log</code> plugin (pre-8.4 installs, still available in 9.7 as a deprecated plugin)</td>
+<td>Upgrade to 9.7, install the component, translate <code>audit_log_*</code> variables to filter JSON, validate in parallel, then uninstall the plugin.</td>
 </tr>
 <tr>
 <td><code>audit_log_filter</code> plugin (transitional, 8.0 and early 8.4 builds)</td>
@@ -14788,19 +14788,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <h2 id="migrate-to-audit-log-filter-component-migration-steps">Migration steps<a class="headerlink" href="#migrate-to-audit-log-filter-component-migration-steps" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Migrate from the <code>audit_log</code> plugin before upgrading to 9.7</p>
-<p>The <code>audit_log</code> plugin is removed in 9.7. The plugin library <code>audit_log.so</code> is not built or packaged. Complete the following migration steps on the 8.4 server before upgrading. Otherwise, the upgrade fails in one of the following ways:</p>
-<ul>
-<li>
-<p>If <code>my.cnf</code> still contains <code>plugin-load-add=audit_log.so</code> or plugin options such as <code>audit_log_format</code>, the 9.7 server aborts at startup with <code>unknown variable 'audit_log_format=JSON'</code>. The server aborts after the data dictionary upgrade has completed, so the 8.4 server can no longer start on that data directory.</p>
-</li>
-<li>
-<p>If the plugin was installed with <code>INSTALL PLUGIN</code> and no plugin options are set, 9.7 starts, logs <code>Couldn't load plugin named 'audit_log'</code> at every startup, and runs without auditing.</p>
-</li>
-</ul>
-<p>If you already upgraded with the plugin registered, <code>UNINSTALL PLUGIN audit_log</code> fails on 9.7 with <code>ERROR 1305</code>. Remove the registration with <code>DELETE FROM mysql.plugin WHERE name='audit_log';</code> and then install the component.</p>
-</div>
 <ol>
 <li><strong>Inventory the current configuration.</strong> On the plugin-enabled server, capture the legacy settings:</li>
 </ol>
@@ -14809,7 +14796,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Save the output. Translate each non-default value into a component variable, a filter JSON rule, or an <code>audit_log_filter_set_user()</code> call.</p>
 <ol>
 <li>
-<p><strong>Stay on 8.4.</strong> The <code>audit_log</code> plugin is not available in 9.7, so complete steps 3 through 7 on the 8.4 server. 8.4 includes <code>component_audit_log_filter</code>.</p>
+<p><strong>Upgrade the server to 9.7</strong> by following <a href="#upgrade-procedures">Upgrade procedures</a>. The <code>audit_log</code> plugin remains loadable in 9.7, so the old log keeps flowing during the transition.</p>
 </li>
 <li>
 <p><strong>Install the component</strong> per <a href="#install-audit-log-filter">Install the audit log filter</a>. The install script creates <code>mysql.audit_log_filter</code> and <code>mysql.audit_log_user</code>, then runs <code>INSTALL COMPONENT</code>.</p>
@@ -14821,13 +14808,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><strong>Run in parallel (optional, recommended).</strong> Load both the plugin and the component. Verify that the events you care about appear in the component&rsquo;s log. Compare record types, SQL text, and redactions.</p>
 </li>
 <li>
-<p><strong>Cut over.</strong> Uninstall the plugin (<code>UNINSTALL PLUGIN audit_log;</code>), remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> entries from <code>my.cnf</code>, and leave the component as the sole audit writer. Keep the component&rsquo;s <code>audit_log_filter.*</code> variables. When you also had the transitional <code>audit_log_filter</code> plugin loaded, uninstall that plugin as well.</p>
+<p><strong>Cut over.</strong> Uninstall the plugin (<code>UNINSTALL PLUGIN audit_log;</code>), remove <code>audit_log_*</code> entries from <code>my.cnf</code>, and leave the component as the sole audit writer. When you also had the transitional <code>audit_log_filter</code> plugin loaded, uninstall that plugin as well.</p>
 </li>
 <li>
 <p><strong>Verify.</strong> Log in as a subject account, execute a representative statement, and read the new log with <a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read()</code></a> or by opening the file.</p>
-</li>
-<li>
-<p><strong>Upgrade the server to 9.7</strong> by following <a href="#upgrade-procedures">Upgrade procedures</a>.</p>
 </li>
 </ol>
 <h2 id="migrate-to-audit-log-filter-component-option-and-variable-mapping">Option and variable mapping<a class="headerlink" href="#migrate-to-audit-log-filter-component-option-and-variable-mapping" title="Permanent link">&para;</a></h2>
@@ -15035,7 +15019,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit_log_rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">104857600</span>
 <span class="na">audit_log_rotations</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 </code></pre></div>
-<p>After running <code>audit_log_filter_linux_install.sql</code>, replace it with the following settings. Remove every plugin option, including <code>plugin-load-add = audit_log.so</code>, before you upgrade to 9.7:</p>
+<p>After upgrading to 9.7 and running <code>audit_log_filter_linux_install.sql</code>, replace it with:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit_log_filter.format</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span>
 <span class="na">audit_log_filter.rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">104857600</span>
@@ -15123,7 +15107,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="#audit-log-filter-variables">Functions, options, and variables</a></p>
 </li>
 <li>
-<p><a href="#audit-log-plugin">Audit log plugin</a> — legacy reference, with the removal notice</p>
+<p><a href="#audit-log-plugin">Audit log plugin</a> — legacy reference, with the deprecation notice</p>
 </li>
 </ul></section><section class="print-page" id="audit-log-filter-quickstart" heading-number="5.2.4"><h1 id="audit-log-filter-quickstart-audit-log-filter-quickstart">Audit Log Filter quickstart<a class="headerlink" href="#audit-log-filter-quickstart-audit-log-filter-quickstart" title="Permanent link">&para;</a></h1>
 <p>Use the following steps after you install the Audit Log Filter component and tables. See <a href="#install-audit-log-filter">install the audit log filter</a> when the component is not yet installed.</p>
@@ -24656,7 +24640,7 @@ Enter<span class="w"> </span>password:
 </li>
 <li>
 <p>Set up the repository for Percona Server for MySQL 8.4:</p>
-<p>On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), you must disable the distribution&rsquo;s MySQL module first. Otherwise, the module hides the Percona packages and the installation fails with <code>All matches were filtered out by modular filtering</code>. On RHEL 9 this step is not needed. On RHEL 10 skip this step: RHEL 10 has no MySQL module, and the command fails.</p>
+<p>[Optional] On Red Hat 8 systems (including Rocky Linux and AlmaLinux), disable the distribution&rsquo;s MySQL module first:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql<span class="w"> </span>-y
 </code></pre></div>
 <p>Then run:</p>
@@ -26074,32 +26058,10 @@ suits you.</p>
 <p>Always download packages from the official Percona repositories to confirm authenticity.</p>
 </div>
 <h2 id="yum-repo-limitations">Limitations<a class="headerlink" href="#yum-repo-limitations" title="Permanent link">&para;</a></h2>
-<p>On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), the AppStream <code>mysql</code> module hides the Percona-provided packages. This happens even when the module stream is only the default stream (<code>[d]</code>) and is not explicitly enabled (<code>[e]</code>). Disable the module before you install.</p>
+<p>RHEL 8 and later systems enable the MySQL module by default. The module hides the Percona-provided packages. Disable the module to make the Percona packages visible.</p>
 <div class="admonition important">
 <p class="admonition-title">Checking the MySQL module</p>
-<p>The need to disable the <code>mysql</code> module depends on the major version of your operating system:</p>
-<table>
-<thead>
-<tr>
-<th>Operating system</th>
-<th><code>sudo dnf -y module disable mysql</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>RHEL 8 and derivatives</td>
-<td>Required. Without it, <code>dnf install percona-server-server</code> fails with <code>All matches were filtered out by modular filtering</code>.</td>
-</tr>
-<tr>
-<td>RHEL 9 and derivatives</td>
-<td>Not needed. The default <code>mysql</code> stream does not hide Percona packages. Running the command is harmless.</td>
-</tr>
-<tr>
-<td>RHEL 10 and derivatives</td>
-<td>Skip this step. RHEL 10 has no <code>mysql</code> module, and the command fails with <code>missing groups or modules: mysql</code>.</td>
-</tr>
-</tbody>
-</table>
+<p>RHEL 8 and later systems enable the MySQL module by default. The module can hide or conflict with Percona packages. The first installation step in the following section checks whether the module is enabled. An <code>[e]</code> marker indicates that you must disable the module before proceeding. A <code>[d]</code> marker indicates the default stream and allows you to proceed.</p>
 </div>
 <h2 id="yum-repo-install-using-dnf-rhel-8-and-later">Install using DNF (RHEL 8 and later)<a class="headerlink" href="#yum-repo-install-using-dnf-rhel-8-and-later" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -26109,48 +26071,36 @@ suits you.</p>
 <p class="power-number">All commands in this guide use <code>sudo</code> for privilege elevation. Follow these steps:</p>
 <ol>
 <li>
-<p>On RHEL 8 and RHEL 9 and their derivatives, check the MySQL module on your system. On RHEL 10, skip this step and step 2.</p>
+<p>Verify whether the MySQL module is enabled on your system:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
-<summary>Expected output on Rocky Linux 8</summary>
-<div class="no-copy highlight"><pre><span></span><code>Name  Stream  Profiles           Summary
-mysql 8.0 [d] client, server [d] MySQL Module
-mysql 8.4     client, server [d] MySQL Module
-
-Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
-</code></pre></div>
-</details>
-<details class="example">
-<summary>Expected output on Rocky Linux 9</summary>
-<div class="no-copy highlight"><pre><span></span><code>Name       Stream      Profiles                            Summary
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01
+Rocky Linux 9 - AppStream                  3.7 MB/s | 8.2 MB     00:02
+Rocky Linux 9 - Extras                      35 kB/s |  18 kB     00:00
+Rocky Linux 9 - AppStream
+Name       Stream      Profiles                            Summary
 mysql      8.4         api, client, filter, server [d]     MySQL Module
 
 Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
 </code></pre></div>
 </details>
-<p>The <code>[d]</code> marker next to the stream indicates the default stream. On RHEL 8, a default stream hides the Percona packages in the same way as an enabled (<code>[e]</code>) stream.</p>
+<p>The <code>[d]</code> marker next to the server profile indicates the default stream. A module is enabled only when an <code>[e]</code> marker is present. An <code>[e]</code> marker indicates that the module is active.</p>
 </li>
 <li>
-<p>On RHEL 8 and derivatives, disable the MySQL module. This step is required on RHEL 8 even if step 1 shows only the <code>[d]</code> marker. On RHEL 9 the step is not needed. On RHEL 10 skip the step because the command fails.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<p>Disable the MySQL module if step 1 lists the module as <code>[e]</code>-enabled. The MySQL module conflicts with Percona packages. Run the following command:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
-<summary>Expected output on Rocky Linux 8</summary>
-<div class="no-copy highlight"><pre><span></span><code>Dependencies resolved.
-================================================================================
- Package           Architecture     Version             Repository         Size
-================================================================================
-Disabling modules:
- mysql
-
-Transaction Summary
-================================================================================
-
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
+Dependencies resolved.
+Nothing to do.
 Complete!
 </code></pre></div>
 </details>
-<p>After the command completes, <code>sudo dnf module list mysql</code> shows the <code>[x]</code> (disabled) marker for the <code>mysql</code> streams.</p>
+<p>The <code>dnf module disable</code> command disables the MySQL module. When the module is not enabled, the command returns <code>Nothing to do</code>. This output is expected. Proceed with the installation.</p>
 </li>
 <li>
 <p>Install the Percona repository package:</p>
@@ -28459,23 +28409,6 @@ enforce_gtid_consistency=OFF
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See <a href="#authentication-methods">Authentication methods</a>.</p>
 </li>
 </ul>
-<h3 id="upgrade-checklist-9.7-migrate-from-the-audit_log-plugin">Migrate from the <code>audit_log</code> plugin<a class="headerlink" href="#upgrade-checklist-9.7-migrate-from-the-audit_log-plugin" title="Permanent link">&para;</a></h3>
-<p>Impact: The <code>audit_log</code> plugin is removed in 9.7. The plugin library <code>audit_log.so</code> is not built or packaged. If <code>my.cnf</code> still loads the plugin or sets its <code>audit_log_*</code> options, the 9.7 server aborts at startup after the data dictionary upgrade has completed. If the plugin is registered with <code>INSTALL PLUGIN</code> but has no options, the 9.7 server starts without auditing. The upgrade checker does not report this problem.</p>
-<p>Take the following actions:</p>
-<ul class="task-list">
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Check whether the plugin is active on the 8.4 server: <code>SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = 'audit_log';</code>.</p>
-</li>
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Migrate to <code>component_audit_log_filter</code> on 8.4 before upgrading. See <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</p>
-</li>
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Run <code>UNINSTALL PLUGIN audit_log;</code> on 8.4.</p>
-</li>
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options, such as <code>audit_log_format</code> and <code>audit_log_policy</code>, from <code>my.cnf</code>. Keep the component&rsquo;s <code>audit_log_filter.*</code> variables.</p>
-</li>
-</ul>
 <h3 id="upgrade-checklist-9.7-update-replication-syntax-and-operational-scripts">Update replication syntax and operational scripts<a class="headerlink" href="#upgrade-checklist-9.7-update-replication-syntax-and-operational-scripts" title="Permanent link">&para;</a></h3>
 <p>Impact: <code>MASTER</code> and <code>SLAVE</code> syntax is removed and causes syntax errors. Use <code>SOURCE</code> and <code>REPLICA</code> commands.</p>
 <p>Take the following actions:</p>
@@ -28514,22 +28447,6 @@ enforce_gtid_consistency=OFF
 </li>
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Audit <code>my.cnf</code> for removed startup options and system variables. Update or delete the entries.</p>
-</li>
-</ul>
-<h3 id="upgrade-checklist-9.7-remove-unsupported-options-from-the-configuration-file">Remove unsupported options from the configuration file<a class="headerlink" href="#upgrade-checklist-9.7-remove-unsupported-options-from-the-configuration-file" title="Permanent link">&para;</a></h3>
-<p>Impact: The 9.7 server upgrades the data dictionary before it rejects unknown options. An option that 9.7 does not support aborts the first start with <code>[ERROR] [MY-000067] [Server] unknown variable '&lt;option&gt;'</code> after the data directory has already been upgraded. The 8.4 server can no longer start on that data directory. Only a restore from backup returns you to 8.4. The upgrade checker does not read <code>my.cnf</code> unless you pass the configuration file path.</p>
-<p>Take the following actions:</p>
-<ul class="task-list">
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove options that 9.7 no longer supports from <code>my.cnf</code>. Examples include <code>mysql_native_password=ON</code> (or <code>--mysql-native-password</code>), <code>plugin-load-add=audit_log.so</code>, and the <code>audit_log_*</code> options of the removed <code>audit_log</code> plugin.</p>
-</li>
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Before the first start of 9.7, validate the configuration with the 9.7 <code>mysqld</code> binary. The check reports unknown options and exits without starting the server or modifying the data directory. A valid configuration returns exit status <code>0</code>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
-</code></pre></div>
-</li>
-<li class="task-list-item">
-<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> On Debian and Ubuntu, installing the 9.7 packages starts the server immediately. Run the validation on a staging host that runs 9.7, with a copy of the production configuration file, before you upgrade production. To check a specific file, add <code>--defaults-file=&lt;path&gt;</code> as the first option.</p>
 </li>
 </ul>
 <h3 id="upgrade-checklist-9.7-resolve-schema-constraint-violations">Resolve schema constraint violations<a class="headerlink" href="#upgrade-checklist-9.7-resolve-schema-constraint-violations" title="Permanent link">&para;</a></h3>
@@ -29144,15 +29061,7 @@ enforce_gtid_consistency=OFF
 <p>Save a copy of the database configuration file (<code>my.cnf</code>) to a safe location.</p>
 </li>
 <li>
-<p>Edit the configuration file before stopping the server. Remove options that 9.7 no longer supports, such as <code>mysql_native_password=ON</code>, <code>plugin-load-add=audit_log.so</code>, and the <code>audit_log_*</code> options of the removed <code>audit_log</code> plugin. Update other settings for 9.7 as needed.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The 9.7 server upgrades the data dictionary before it rejects unknown options. An option that 9.7 does not support aborts the first start with <code>[ERROR] [MY-000067] [Server] unknown variable '&lt;option&gt;'</code> after the data directory has already been upgraded. The previous version can no longer start on that data directory. Only a restore from backup returns you to the previous version.</p>
-</div>
-<p>Validate the configuration file with the 9.7 <code>mysqld</code> binary before the first start of 9.7. The check reads the configuration, reports unknown options, and exits without starting the server or modifying the data directory. A valid configuration returns exit status <code>0</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
-</code></pre></div>
-<p>On Debian and Ubuntu, installing the 9.7 packages starts the server immediately. Run the check before the production upgrade on a staging host that runs 9.7, with a copy of the production configuration file. To check a specific file, add <code>--defaults-file=&lt;path&gt;</code> as the first option.</p>
+<p>Edit the configuration file before stopping the server. For example, remove deprecated variables and update settings for 9.7.</p>
 </li>
 <li>
 <p>Run <code>XA RECOVER</code> against the source server. Commit or rollback any uncommitted XA transactions before continuing.</p>
@@ -29195,7 +29104,7 @@ enforce_gtid_consistency=OFF
 </code></pre></div>
 </li>
 <li>
-<p>Modify the database configuration file, <code>my.cnf</code>, as needed. Remove options that 9.7 no longer supports and update settings for 9.7. The package installation in the next step starts the server, so validate the configuration with the 9.7 binary beforehand. See <a href="#upgrade-procedures-prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
+<p>Modify the database configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7.</p>
 </li>
 <li>
 <p>Install Percona Server for MySQL.</p>
@@ -29266,9 +29175,6 @@ sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Modify your configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7. If you used plugins replaced by components in 9.7, plan the transition. See <a href="#upgrade-components">Upgrade from plugins to components</a> for details.</p>
-<p>Before the first start, validate the configuration with the 9.7 binary. The command must not report errors. See <a href="#upgrade-procedures-prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
-</code></pre></div>
 </li>
 <li>
 <p>The <code>mysqld</code> binary runs the upgrade process automatically on first start. The server creates the data dictionary and refreshes the Performance Schema, INFORMATION_SCHEMA, and <code>sys</code> databases. The server then removes obsolete <code>.frm</code> files. For details, see <a href="https://dev.mysql.com/doc/refman/9.7/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -29445,9 +29351,6 @@ percona-server-shared-compat-9.7.2-2.el9.x86_64.rpm
 <li>
 <p>Modify your configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7. If you used plugins replaced by components in 9.7, plan the transition. See <a href="#upgrade-components">Upgrade from plugins to components</a> for details.</p>
 <p>RHEL and its derivatives copy the previous configuration file to <code>/etc/my.cnf.rpmsave</code>. The package install also adds the default <code>my.cnf</code>. After the upgrade or install completes, restore your configuration from the saved copy. Remove any unsupported system variables before restoring.</p>
-<p>Before the first start, validate the configuration with the 9.7 binary. The command must not report errors. See <a href="#upgrade-procedures-prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
-</code></pre></div>
 </li>
 <li>
 <p>The <code>mysqld</code> binary runs the upgrade process automatically on first start. For more information, see <a href="https://dev.mysql.com/doc/refman/9.7/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -29608,12 +29511,6 @@ mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span clas
 <td>The plugin is replaced by the <code>component_keyring_vault</code> component. Convert the configuration from the <code>keyring_vault_config</code> system variable format to JavaScript Object Notation (JSON) manually.</td>
 </tr>
 <tr>
-<td><code>audit_log</code></td>
-<td>Deprecated plugin in 8.4</td>
-<td>Removed. <code>audit_log.so</code> is not built or packaged. Replacement: <code>component_audit_log_filter</code></td>
-<td>Migrate to <code>component_audit_log_filter</code> on 8.4 before upgrading. Then run <code>UNINSTALL PLUGIN audit_log;</code> and remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options, such as <code>audit_log_format</code> and <code>audit_log_policy</code>, from <code>my.cnf</code>. If the options remain, 9.7 aborts at startup. If only the plugin registration remains, 9.7 starts without auditing. See <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</td>
-</tr>
-<tr>
 <td><code>audit_log_filter</code></td>
 <td>Available only as a plugin</td>
 <td><code>component_audit_log_filter</code></td>
@@ -29766,7 +29663,6 @@ mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span clas
 <p>The transition timing depends on the plugin. The following sub-sections describe the two paths.</p>
 <h4 id="upgrade-components-transition-before-the-upgrade">Transition before the upgrade<a class="headerlink" href="#upgrade-components-transition-before-the-upgrade" title="Permanent link">&para;</a></h4>
 <p>Transition to the component before upgrading to 9.7 when your release exposes both forms. The <code>data_masking</code> plugin and the <code>component_masking_functions</code> component fit this case.</p>
-<p>The <code>audit_log</code> plugin also requires a transition before the upgrade, because 9.7 does not include the plugin. Migrate to <code>component_audit_log_filter</code> on 8.4, as described in <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</p>
 <h4 id="upgrade-components-transition-after-the-upgrade">Transition after the upgrade<a class="headerlink" href="#upgrade-components-transition-after-the-upgrade" title="Permanent link">&para;</a></h4>
 <p>Some features exist only as plugins in your existing release. Examples include <code>audit_log_filter</code> and <code>keyring_vault</code>. Upgrade to 9.7 first, then transition to the component using the following sequence.</p>
 <ol>
@@ -44762,11 +44658,11 @@ INFORMATION_SCHEMA.SCHEMATA table:</p>
                         <h1>Monitor<a class='headerlink' href='#section-15' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="audit-log-plugin" heading-number="15.1"><h1 id="audit-log-plugin-audit-log-plugin">Audit log plugin<a class="headerlink" href="#audit-log-plugin-audit-log-plugin" title="Permanent link">&para;</a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Removed in 9.7</p>
-<p>The audit log plugin was deprecated in Percona Server for MySQL 8.4 and is removed in Percona Server for MySQL 9.7. The plugin library <code>audit_log.so</code> is not built or packaged, so you cannot install the plugin. This page is kept as a reference for migrating from 8.4. The <a href="#audit-log-filter-overview">audit log filter component</a> is the replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.</p>
+<div class="admonition note">
+<p class="admonition-title">Deprecation notice</p>
+<p>The audit log plugin is deprecated as of Percona Server for MySQL 8.4 and will be removed in a future release. The <a href="#audit-log-filter-overview">audit log filter component</a> is the recommended replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.</p>
 <p>For a step-by-step mapping of <code>audit_log_*</code> system variables, <code>audit_log_policy</code>, and include/exclude lists to filter JSON and component variables, see <a href="#migrate-to-audit-log-filter-component">Migrate to the audit log filter component</a>.</p>
-<p>The removal affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. Migrate to the component on 8.4 before upgrading to 9.7. Then run <code>UNINSTALL PLUGIN audit_log;</code> and remove <code>plugin-load-add=audit_log.so</code> and the plugin&rsquo;s <code>audit_log_*</code> options from <code>my.cnf</code>. If the plugin options remain in <code>my.cnf</code>, the 9.7 server aborts at startup after upgrading the data dictionary. If only the plugin registration remains, the 9.7 server starts without auditing.</p>
+<p>The deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin continues to function, but Percona plans no further development or maintenance.</p>
 <p>The audit log plugin and the audit log filter component use different configuration variables and options.</p>
 <ul>
 <li>
