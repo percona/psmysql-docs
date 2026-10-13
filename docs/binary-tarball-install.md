@@ -9,5 +9,5 @@ You can download the binary tarballs from the `Linux - Generic` [section :octico
 Fetch and extract the correct binary tarball. For example for Ubuntu 22.04:
 
 ```shell
-wget https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-{{release}}/binary/tarball/Percona-Server-{{release}}-Linux.x86_64.glibc2.35.tar.gz
+wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/tarball/Percona-Server-{{release}}-Linux.x86_64.glibc2.35.tar.gz
 ```
