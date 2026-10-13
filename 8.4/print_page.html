@@ -24950,9 +24950,10 @@ Enter<span class="w"> </span>password:
 </li>
 <li>
 <p>Set up the repository for Percona Server for MySQL 8.4:</p>
-<p>[Optional] On Red Hat 8 systems (including Rocky Linux and AlmaLinux), disable the distribution&rsquo;s MySQL module first:</p>
+<p>On RHEL 8 and compatible systems (Oracle Linux, Rocky Linux, AlmaLinux 8), you must disable the distribution&rsquo;s MySQL module first. Otherwise, its default stream hides the Percona packages, and the installation fails with <code>All matches were filtered out by modular filtering</code>:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql<span class="w"> </span>-y
 </code></pre></div>
+<p>You do not need this command on EL9. On EL10, skip it: modules no longer exist there, and the command fails with <code>Unable to resolve argument mysql</code>.</p>
 <p>Then run:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps-84-lts
 </code></pre></div>
@@ -26285,10 +26286,10 @@ suits you.</p>
 <p>Always download packages from official Percona repositories to ensure authenticity and security.</p>
 </div>
 <h2 id="yum-repo-limitations">Limitations<a class="headerlink" href="#yum-repo-limitations" title="Permanent link">&para;</a></h2>
-<p>RHEL 8+ and other EL8+ systems enable the MySQL module by default. This module hides the Percona-provided packages and the module must be disabled to make these packages visible.</p>
+<p>On RHEL 8 and compatible systems (Oracle Linux, Rocky Linux, AlmaLinux 8), the AppStream <code>mysql</code> module has a default stream (marked <code>[d]</code>). A default stream is treated as enabled by modular filtering and hides the Percona-provided packages, so you must disable the module before you install. On EL9 the default <code>mysql</code> stream does not hide the Percona packages, and disabling the module is not needed. EL10 has no modules, so skip this step.</p>
 <div class="admonition important">
 <p class="admonition-title">Checking the MySQL Module</p>
-<p>RHEL 8+ systems enable the MySQL module by default, which can hide or conflict with Percona&rsquo;s packages. The first installation step below shows you how to check if the module is enabled. If you see an <strong>[e]</strong> marker, you must disable the module before proceeding. If you only see <strong>[d]</strong> (default), you can proceed.</p>
+<p>On EL8, the <code>[d]</code> marker is enough to block the installation: <code>dnf install percona-server-server</code> fails with <code>All matches were filtered out by modular filtering</code>. Disable the module on EL8 even if <code>dnf module list mysql</code> shows no <code>[e]</code> marker.</p>
 </div>
 <h2 id="yum-repo-install-using-dnf-rhel-8">Install using DNF (RHEL 8+)<a class="headerlink" href="#yum-repo-install-using-dnf-rhel-8" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
@@ -26298,36 +26299,39 @@ suits you.</p>
 <p class="power-number">All commands in this guide use <code>sudo</code> for privilege elevation. Follow these steps:</p>
 <ol>
 <li>
-<p>Verify that the MySQL module is currently enabled on your system:</p>
+<p>(EL8 only) Check the MySQL module on your system:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Rocky Linux 9 - BaseOS                     2.2 MB/s | 2.6 MB     00:01    
-Rocky Linux 9 - AppStream                  3.7 MB/s | 8.2 MB     00:02    
-Rocky Linux 9 - Extras                      35 kB/s |  18 kB     00:00    
-Rocky Linux 9 - AppStream
-Name       Stream      Profiles                            Summary         
-mysql      8.4         api, client, filter, server [d]     MySQL Module   
+<summary>Expected output on Rocky Linux 8</summary>
+<div class="no-copy highlight"><pre><span></span><code>mysql 8.0 [d] client, server [d] MySQL Module
+mysql 8.4     client, server [d] MySQL Module
 
 Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
 </code></pre></div>
-<p>The [d] next to the server profile indicates that this is the default stream. A module is only considered enabled if an [e] is present. If you see [e], it means the module is active.</p>
+<p>The <code>[d]</code> marker shows the default stream. On EL8, a default stream hides the Percona packages, so continue with the next step.</p>
 </details>
 </li>
 <li>
-<p>[Optional] If the module is listed as [e]nabled, it can cause conflicts with Percona&rsquo;s packages. You must disable the module before proceeding.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<p>(EL8 only) Disable the MySQL module:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Last metadata expiration check: 0:33:11 ago on Fri Aug 29 14:37:35 2025.
-Dependencies resolved.
-Nothing to do.
+<div class="no-copy highlight"><pre><span></span><code>Dependencies resolved.
+================================================================================
+ Package           Architecture     Version             Repository         Size
+================================================================================
+Disabling modules:
+ mysql
+
+Transaction Summary
+================================================================================
+
 Complete!
 </code></pre></div>
-<p>The <code>dnf module disable</code> command disables the MySQL module. If the module was not enabled to begin with (as shown in the dnf module list output without [e]), this command will display &ldquo;Nothing to do,&rdquo; which is the expected result. You can then proceed with your installation.</p>
 </details>
+<p>You do not need this step on EL9; the Percona packages install without it. On EL10, skip this step: modules no longer exist there, and the command fails with <code>Unable to resolve argument mysql</code> and <code>missing groups or modules: mysql</code>.</p>
 </li>
 <li>
 <p>Install the Percona repository package:</p>
