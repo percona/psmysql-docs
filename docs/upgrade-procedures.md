@@ -31,7 +31,19 @@ Complete the following pre-flight steps before any procedure on this page.
 
 3. Save a copy of the database configuration file (`my.cnf`) to a safe location.
 
-4. Edit the configuration file before stopping the server. For example, remove deprecated variables and update settings for {{vers}}.
+4. Edit the configuration file before stopping the server. Remove options that {{vers}} no longer supports, such as `mysql_native_password=ON`, `plugin-load-add=audit_log.so`, and the `audit_log_*` options of the removed `audit_log` plugin. Update other settings for {{vers}} as needed.
+
+    !!! warning
+
+        The {{vers}} server upgrades the data dictionary before it rejects unknown options. An option that {{vers}} does not support aborts the first start with `[ERROR] [MY-000067] [Server] unknown variable '<option>'` after the data directory has already been upgraded. The previous version can no longer start on that data directory. Only a restore from backup returns you to the previous version.
+
+    Validate the configuration file with the {{vers}} `mysqld` binary before the first start of {{vers}}. The check reads the configuration, reports unknown options, and exits without starting the server or modifying the data directory. A valid configuration returns exit status `0`:
+
+    ```shell
+    sudo mysqld --validate-config --user=mysql
+    ```
+
+    On Debian and Ubuntu, installing the {{vers}} packages starts the server immediately. Run the check before the production upgrade on a staging host that runs {{vers}}, with a copy of the production configuration file. To check a specific file, add `--defaults-file=<path>` as the first option.
 
 5. Run `XA RECOVER` against the source server. Commit or rollback any uncommitted XA transactions before continuing.
 
@@ -73,7 +85,7 @@ The Percona repositories handle dependencies automatically and reduce upgrade co
         sudo systemctl stop mysql
         ```
 
-    3. Modify the database configuration file, `my.cnf`, as needed. For example, remove deprecated variables and update settings for {{vers}}.
+    3. Modify the database configuration file, `my.cnf`, as needed. Remove options that {{vers}} no longer supports and update settings for {{vers}}. The package installation in the next step starts the server, so validate the configuration with the {{vers}} binary beforehand. See [Prepare for the upgrade](#prepare-for-the-upgrade).
 
     4. Install Percona Server for MySQL.
 
@@ -152,6 +164,12 @@ The Percona repositories handle dependencies automatically and reduce upgrade co
         ```
 
     8. Modify your configuration file, `my.cnf`, as needed. For example, remove deprecated variables and update settings for {{vers}}. If you used plugins replaced by components in {{vers}}, plan the transition. See [Upgrade from plugins to components](./upgrade-components.md) for details.
+
+        Before the first start, validate the configuration with the {{vers}} binary. The command must not report errors. See [Prepare for the upgrade](#prepare-for-the-upgrade).
+
+        ```shell
+        sudo mysqld --validate-config --user=mysql
+        ```
 
     9. The `mysqld` binary runs the upgrade process automatically on first start. The server creates the data dictionary and refreshes the Performance Schema, INFORMATION_SCHEMA, and `sys` databases. The server then removes obsolete `.frm` files. For details, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
@@ -333,6 +351,12 @@ Use standalone packages when repositories are unavailable, or when you must inst
     6. Modify your configuration file, `my.cnf`, as needed. For example, remove deprecated variables and update settings for {{vers}}. If you used plugins replaced by components in {{vers}}, plan the transition. See [Upgrade from plugins to components](./upgrade-components.md) for details.
 
         RHEL and its derivatives copy the previous configuration file to `/etc/my.cnf.rpmsave`. The package install also adds the default `my.cnf`. After the upgrade or install completes, restore your configuration from the saved copy. Remove any unsupported system variables before restoring.
+
+        Before the first start, validate the configuration with the {{vers}} binary. The command must not report errors. See [Prepare for the upgrade](#prepare-for-the-upgrade).
+
+        ```shell
+        sudo mysqld --validate-config --user=mysql
+        ```
 
     7. The `mysqld` binary runs the upgrade process automatically on first start. For more information, see [MySQL Upgrade Process :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/upgrading-what-is-upgraded.html).
 
