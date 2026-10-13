@@ -63,15 +63,21 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
 	sudo yum module disable mysql
 	```
 
-6. Install all the packages (for debugging, testing, etc.) with the following command:
+6. Download the `percona-telemetry-agent` package into the same directory. The `percona-server-server` package depends on it, but the bundle does not include it. Hosts without the Percona repositories cannot install the server without this package. For example, for *RHEL* 8:
 
 	```shell
-	sudo rpm -ivh *.rpm
+	wget https://repo.percona.com/telemetry/yum/release/8/RPMS/x86_64/percona-telemetry-agent-1.0.17-1.el8.x86_64.rpm
+	```
+
+7. Install the packages with `dnf localinstall`. Unlike `rpm -ivh`, `dnf` also installs the required packages from your distribution repositories, for example, `libaio` and `libatomic`:
+
+	```shell
+	sudo dnf localinstall ./percona-server-server-{{release}}.1.el8.x86_64.rpm ./percona-server-client-{{release}}.1.el8.x86_64.rpm ./percona-server-shared-{{release}}.1.el8.x86_64.rpm ./percona-icu-data-files-{{release}}.1.el8.x86_64.rpm ./percona-telemetry-agent-*.rpm
 	```
 
 	!!! note
-	
-	    When installing packages manually, you must make sure to resolve all dependencies and install any missing packages yourself.
+
+	    Do not use `sudo rpm -ivh *.rpm`. The `rpm` tool does not resolve dependencies and fails with `Failed dependencies`, for example, for `libaio`, `libatomic`, and `percona-telemetry-agent`.
 
 ## When to install jemalloc
 

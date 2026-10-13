@@ -34,12 +34,22 @@ The following example downloads *Percona Server for MySQL* {{release}} release `
         percona-server-test_{{release}}-1.buster_amd64.deb
         ```
 
-3. Install Percona Server for MySQL using `dpkg`. Run this command as root or use the sudo command:
+3. Download the `percona-telemetry-agent` package for your distribution into the same directory. The `percona-server-server` package depends on it, but the bundle does not include it, and the distribution repositories do not provide it. For example, for Ubuntu 22.04:
 
     ```shell
-    sudo dpkg -i *.deb
+    wget https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.jammy_amd64.deb
     ```
+
+    For other distributions, replace `jammy` with your distribution codename, for example, `noble` or `bookworm`.
+
+4. Install the packages with `apt`. Run this command as root or use the sudo command:
+
+    ```shell
+    sudo apt install ./*.deb
+    ```
+
+    Unlike `dpkg -i`, `apt` also installs the required packages from your distribution repositories, for example, `libaio1` (`libaio1t64` on Ubuntu 24.04 and later), `libatomic1`, `libmecab2`, `libnuma1`, and `zlib1g-dev`.
 
 !!! warning
 
-    When installing packages manually like this, you’ll need to resolve all the dependencies and install missing packages yourself. The following packages will need to be installed before you can manually install Percona Server: `mysql-common`, `libjemalloc1`, `libaio1`, and `libmecab2`.
+    Do not install the packages with `sudo dpkg -i *.deb`. The `dpkg` tool does not resolve dependencies, so the packages remain unconfigured. Do not try to recover with `sudo apt -f install` (`apt --fix-broken install`) either: if `percona-telemetry-agent` is not available, `apt` fixes the broken state by removing `percona-server-server` and the packages that depend on it.
