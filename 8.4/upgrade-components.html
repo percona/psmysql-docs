@@ -10514,6 +10514,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </thead>
 <tbody>
 <tr>
+<td><code>keyring_file</code></td>
+<td>Available as a plugin and component (<code>component_keyring_file</code>)</td>
+<td>Plugin removed; only <code>component_keyring_file</code> is available</td>
+<td>Migrate the keys to the component in the 8.0 series <strong>before</strong> upgrading to 8.4. The 8.4 server cannot load the plugin, so it cannot open encrypted tablespaces, and the upgrade aborts. See <a href="#migrate-from-the-keyring_file-plugin-to-component_keyring_file">Migrate from the keyring_file plugin to component_keyring_file</a>.</td>
+</tr>
+<tr>
 <td><code>keyring_vault</code></td>
 <td>Only available as a plugin</td>
 <td><code>component_keyring_vault</code></td>
@@ -10580,7 +10586,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The timing of the transition depends on the specific plugin:</p>
 <ul>
 <li>
-<p><strong>Transition before upgrade</strong>: For plugins that have both plugin and component versions available in 8.0 (for example, <code>data_masking</code>), transition to the component in 8.0 before upgrading to 8.4.</p>
+<p><strong>Transition before upgrade</strong>: For plugins that have both plugin and component versions available in 8.0 (for example, <code>data_masking</code>, <code>keyring_file</code>), transition to the component in 8.0 before upgrading to 8.4.</p>
 </li>
 <li>
 <p><strong>Transition after upgrade</strong>: For plugins that only exist as plugins in 8.0 but have component equivalents in 8.4 (for example, <code>audit_log_filter</code>, <code>keyring_vault</code>), you must upgrade to 8.4 first, then transition to the component. The general procedure for these cases is:</p>
@@ -10604,6 +10610,50 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Verify the component works correctly in 8.4.</p>
 </li>
 </ul>
+<h3 id="migrate-from-the-keyring_file-plugin-to-component_keyring_file">Migrate from the keyring_file plugin to component_keyring_file<a class="headerlink" href="#migrate-from-the-keyring_file-plugin-to-component_keyring_file" title="Permanent link">&para;</a></h3>
+<p>8.4 does not include the <code>keyring_file</code> plugin. If you upgrade an 8.0 server that uses <code>early-plugin-load=keyring_file.so</code> and has encrypted tables, the first 8.4 start fails with errors like the following. The package installation then fails as well:</p>
+<div class="no-copy highlight"><pre><span></span><code>[ERROR] [MY-010901] [Server] Can't open shared library '/usr/lib/mysql/plugin/keyring_file.so' ...
+[ERROR] [MY-012657] [InnoDB] Encryption can't find master key, please check the keyring is loaded.
+[ERROR] [MY-011071] [Server] DD init failed: mode=DD_RESTART_OR_UPGRADE ...
+</code></pre></div>
+<p>You cannot fix this on the 8.4 side. <code>component_keyring_file</code> stores keys in a different (JSON) format and cannot read the plugin&rsquo;s keyring file. Migrate the keys to the component while the server still runs 8.0, using a keyring migration server. For details, see <a href="https://dev.mysql.com/doc/refman/8.0/en/keyring-key-migration.html">Migrating Keys Between Keyring Keystores <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
+<p>The following procedure was tested with Percona Server for MySQL 8.0.46-37 on Ubuntu 24.04. It uses the Debian/Ubuntu paths: the plugin directory is <code>/usr/lib/mysql/plugin</code>, and the server binary is <code>/usr/sbin/mysqld</code>. Adjust the paths for your system; on RHEL and derivatives, the plugin directory is <code>/usr/lib64/mysql/plugin</code>. Back up the keyring file and the data directory before you start.</p>
+<ol>
+<li>
+<p>Stop the 8.0 server:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+</code></pre></div>
+</li>
+<li>
+<p>Create the component configuration file. The <code>path</code> value is the new keyring file that the migration creates:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'{ "path": "/var/lib/mysql-keyring/component_keyring_file", "read_only": false }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/usr/lib/mysql/plugin/component_keyring_file.cnf
+</code></pre></div>
+<p>Do not create the manifest file (<code>mysqld.my</code>) yet. If the manifest already loads the component, the migration fails with <code>Can not perform keyring migration : Failed to initialize destination keyring</code>.</p>
+</li>
+<li>
+<p>Migrate the keys from the plugin keyring file (by default, <code>/var/lib/mysql-keyring/keyring</code>) to the component:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>--no-defaults<span class="w"> </span>--keyring-migration-to-component<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--keyring-migration-source<span class="o">=</span>keyring_file.so<span class="w"> </span>--keyring_file_data<span class="o">=</span>/var/lib/mysql-keyring/keyring<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--keyring-migration-destination<span class="o">=</span>component_keyring_file.so
+</code></pre></div>
+</li>
+<li>
+<p>After the migration succeeds, create the global manifest file in the directory of the server binary so that the server loads the component:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'{ "components": "file://component_keyring_file" }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/usr/sbin/mysqld.my
+</code></pre></div>
+</li>
+<li>
+<p>Remove the <code>early-plugin-load=keyring_file.so</code> and <code>keyring_file_data</code> options from the configuration file.</p>
+</li>
+<li>
+<p>Start the 8.0 server and confirm that the component is active and that the encrypted tables are readable:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+</code></pre></div>
+</li>
+</ol>
+<p>After the migration, upgrade to 8.4. The manifest and the component configuration file are not owned by the packages, so they remain in place after the package upgrade.</p>
 <h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="upgrade.html">Upgrade overview</a></li>
@@ -10649,7 +10699,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 11:19:40 UTC">October 13, 2026</span>
   </span>
 
     
