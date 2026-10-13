@@ -157,7 +157,7 @@ sudo systemctl disable mysqld
 
 During installation on Debian/Ubuntu, you are prompted to set a root password. On Red Hat Enterprise Linux and derivatives, you must set or update the root password after installation.
 
-1. Restart the server with the `--skip-grant-tables` option enabled to allow access without a password. This option is insecure and disables remote connections.
+1. Restart the server with the `--skip-grant-tables` option enabled to allow access without a password. This option is insecure. The server also enables `skip_networking` automatically, which disables remote connections.
 
     ```shell
     sudo systemctl stop mysqld
@@ -166,7 +166,7 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
     mysql
     ```
 
-2. Update the root password using the `caching_sha2_password` authentication plugin:
+2. Reload the grant tables, then update the root password using the `caching_sha2_password` authentication plugin:
 
     !!! important
     
@@ -174,9 +174,10 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
     !!! note
     
-        In MySQL 9.7 and later, `ALTER USER` automatically updates grant tables. Running `FLUSH PRIVILEGES` is not required unless you modify system tables directly.
+        With `--skip-grant-tables`, the server does not load the grant tables, and `ALTER USER` fails with `ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement`. Run `FLUSH PRIVILEGES` first to load the grant tables.
 
     ```sql
+    FLUSH PRIVILEGES;
     ALTER USER 'root'@'localhost'
     IDENTIFIED WITH caching_sha2_password
     BY 'rootPassword_12';
