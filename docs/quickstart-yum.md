@@ -22,7 +22,7 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
     sudo yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
     ```
 
-2. Set up the repository for Percona Server for MySQL 8.4:
+2. Set up the repository for Percona Server for MySQL {{vers}}:
 
     On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), you must disable the distribution's MySQL module first. Otherwise, the module hides the Percona packages and the installation fails with `All matches were filtered out by modular filtering`. On RHEL 9 this step is not needed. On RHEL 10 skip this step: RHEL 10 has no MySQL module, and the command fails.
 
@@ -30,16 +30,16 @@ Quickstart path: Step 1 — Install. Next: [Work with a database](quickstart-dat
     sudo dnf module disable mysql -y
     ```
 
-    Then run:
+    Then enable only the Percona Server for MySQL {{vers}} release repository. This command disables any other Percona repositories:
 
     ```shell
-    sudo percona-release setup {{pkg}}
+    sudo percona-release enable-only {{pkg}} release
     ```
 
-3. Enable the release repository:
+3. Check that the repository is enabled. The output must list the `{{pkg}}-release-<arch>` repository:
 
     ```shell
-    sudo percona-release enable {{pkg}} release
+    sudo dnf repolist | grep {{pkg}}
     ```
 
 4. Install Percona Server for MySQL:
