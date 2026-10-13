@@ -10553,6 +10553,24 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove dependencies on built-in memcached variables/APIs.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="8.4-breaking-changes.html">Breaking and incompatible changes in 8.4</a></li>
 </ul>
+<h3 id="configuration-file">Configuration file<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h3>
+<p><strong>Impact</strong>: The server upgrades the data dictionary first and validates the configuration afterwards. If the configuration file still contains an option that was removed in 8.4, the first start of 8.4 aborts with <code>[ERROR] [MY-000067] [Server] unknown variable ...</code> <strong>after</strong> the data directory has already been upgraded. The 8.0 server can no longer start this data directory; to go back, you must restore the backup.</p>
+<p><strong>Action</strong>:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Before the first start of 8.4, remove the options that no longer exist from the configuration file, for example, <code>default_authentication_plugin</code>, <code>expire_logs_days</code>, <code>transaction_write_set_extraction</code>, <code>binlog_transaction_dependency_tracking</code>, <code>master_info_repository</code>, and <code>log_bin_use_v1_row_events</code>. See <a href="8.4-compatibility-and-removed-items.html">Compatibility and removed items in 8.4</a>.</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Validate the configuration with the 8.4 <code>mysqld</code> binary before the first start. The command checks the options without touching the data directory. It prints <code>unknown variable</code> and exits with a non-zero code if an option is not supported:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
+<p>The RPM packages do not start the server, so you can run the command after you install the 8.4 packages and before you start the server. The DEB packages start the server during <code>apt install</code>, so validate the configuration on a staging host with 8.4 installed first.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If you run the MySQL Shell upgrade checker, pass your configuration file with <code>--config-path</code>. Without this option, the checker does not check the configuration file:</p>
+<div class="highlight"><pre><span></span><code>mysqlsh<span class="w"> </span>--<span class="w"> </span>util<span class="w"> </span>check-for-server-upgrade<span class="w"> </span>root@localhost:3306<span class="w"> </span>--target-version<span class="o">=</span><span class="m">8</span>.4.11<span class="w"> </span>--config-path<span class="o">=</span>/etc/my.cnf
+</code></pre></div>
+<p>On Debian and Ubuntu, the server configuration is in <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>.</p>
+</li>
+</ul>
 <h3 id="reserved-keywords-in-identifiers">Reserved keywords in identifiers<a class="headerlink" href="#reserved-keywords-in-identifiers" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: New reserved words (for example, <code>MANUAL</code>, <code>PARALLEL</code>, <code>QUALIFY</code>, <code>TABLESAMPLE</code>) can break schemas and queries.</p>
 <p><strong>Action</strong>:</p>
@@ -10678,7 +10696,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 25, 2026 10:18:50 UTC">September 25, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 11:15:53 UTC">October 13, 2026</span>
   </span>
 
     
@@ -10688,7 +10706,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 25, 2026 10:18:50 UTC">September 25, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 11:15:53 UTC">October 13, 2026</span>
   </span>
 
     

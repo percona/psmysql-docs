@@ -28219,6 +28219,24 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove dependencies on built-in memcached variables/APIs.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="#8.4-breaking-changes">Breaking and incompatible changes in 8.4</a></li>
 </ul>
+<h3 id="upgrade-checklist-8.4-configuration-file">Configuration file<a class="headerlink" href="#upgrade-checklist-8.4-configuration-file" title="Permanent link">&para;</a></h3>
+<p><strong>Impact</strong>: The server upgrades the data dictionary first and validates the configuration afterwards. If the configuration file still contains an option that was removed in 8.4, the first start of 8.4 aborts with <code>[ERROR] [MY-000067] [Server] unknown variable ...</code> <strong>after</strong> the data directory has already been upgraded. The 8.0 server can no longer start this data directory; to go back, you must restore the backup.</p>
+<p><strong>Action</strong>:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Before the first start of 8.4, remove the options that no longer exist from the configuration file, for example, <code>default_authentication_plugin</code>, <code>expire_logs_days</code>, <code>transaction_write_set_extraction</code>, <code>binlog_transaction_dependency_tracking</code>, <code>master_info_repository</code>, and <code>log_bin_use_v1_row_events</code>. See <a href="#8.4-compatibility-and-removed-items">Compatibility and removed items in 8.4</a>.</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Validate the configuration with the 8.4 <code>mysqld</code> binary before the first start. The command checks the options without touching the data directory. It prints <code>unknown variable</code> and exits with a non-zero code if an option is not supported:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
+<p>The RPM packages do not start the server, so you can run the command after you install the 8.4 packages and before you start the server. The DEB packages start the server during <code>apt install</code>, so validate the configuration on a staging host with 8.4 installed first.</p>
+</li>
+<li class="task-list-item">
+<p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If you run the MySQL Shell upgrade checker, pass your configuration file with <code>--config-path</code>. Without this option, the checker does not check the configuration file:</p>
+<div class="highlight"><pre><span></span><code>mysqlsh<span class="w"> </span>--<span class="w"> </span>util<span class="w"> </span>check-for-server-upgrade<span class="w"> </span>root@localhost:3306<span class="w"> </span>--target-version<span class="o">=</span><span class="m">8</span>.4.11<span class="w"> </span>--config-path<span class="o">=</span>/etc/my.cnf
+</code></pre></div>
+<p>On Debian and Ubuntu, the server configuration is in <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>.</p>
+</li>
+</ul>
 <h3 id="upgrade-checklist-8.4-reserved-keywords-in-identifiers">Reserved keywords in identifiers<a class="headerlink" href="#upgrade-checklist-8.4-reserved-keywords-in-identifiers" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: New reserved words (for example, <code>MANUAL</code>, <code>PARALLEL</code>, <code>QUALIFY</code>, <code>TABLESAMPLE</code>) can break schemas and queries.</p>
 <p><strong>Action</strong>:</p>
@@ -28489,6 +28507,14 @@ At cutover time, all writes on the current source will be halted, and the applic
 </li>
 </ol>
 <div class="admonition warning">
+<p class="admonition-title">Remove removed options before the first start of 8.4</p>
+<p>The server upgrades the data dictionary first and validates the configuration afterwards. If <code>my.cnf</code> still contains an option that was removed in 8.4 (for example, <code>default_authentication_plugin</code> or <code>transaction_write_set_extraction</code>), the first start aborts with <code>unknown variable ...</code> after the data directory has already been upgraded. The previous version can no longer start it, and only a restore from the backup goes back.</p>
+<p>Validate the configuration with the 8.4 <code>mysqld</code> binary before the first start:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
+<p>The command does not touch the data directory. It reports <code>unknown variable</code> and exits with a non-zero code if an option is not supported. The DEB packages start the server during <code>apt install</code>, so on Debian and Ubuntu, validate the configuration on a staging host with 8.4 installed. See the <a href="#upgrade-checklist-8.4-configuration-file">upgrade checklist</a>.</p>
+</div>
+<div class="admonition warning">
 <p class="admonition-title">Critical</p>
 <p>Always test the upgrade process in a non-production environment first. For detailed upgrade procedures or if you encounter any issues during this process, our <a href="https://www.percona.com/services/support">Percona Support team <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> is available to assist you.</p>
 </div>
@@ -28586,6 +28612,9 @@ sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> <
 <p>Modify your configuration file, <code>my.cnf</code>, as needed (for example, remove deprecated variables, update settings for 8.4). If you were using plugins that have been replaced by components in 8.4, plan the transition to components. See <a href="#upgrade-components">Upgrade from plugins to components</a> for details.</p>
 </li>
 <li>
+<p>Validate the configuration with the new <code>mysqld</code> binary before you start the server. If the command reports <code>unknown variable</code>, remove that option from the configuration file and run the command again:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
 <p>The mysqld binary automatically runs the upgrade process if needed. To find more information, see <a href="https://dev.mysql.com/doc/refman/8.4/en/upgrading-what-is-upgraded.html">MySQL Upgrade Process <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </li>
 <li>
