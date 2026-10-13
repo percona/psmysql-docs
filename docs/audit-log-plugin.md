@@ -1,12 +1,12 @@
 # Audit log plugin
 
-!!! note "Deprecation notice"
+!!! warning "Removed in {{vers}}"
 
-    The audit log plugin is deprecated as of Percona Server for MySQL 8.4 and will be removed in a future release. The [audit log filter component](audit-log-filter-overview.md) is the recommended replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.
+    The audit log plugin was deprecated in Percona Server for MySQL 8.4 and is removed in Percona Server for MySQL {{vers}}. The plugin library `audit_log.so` is not built or packaged, so you cannot install the plugin. This page is kept as a reference for migrating from 8.4. The [audit log filter component](audit-log-filter-overview.md) is the replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.
 
     For a step-by-step mapping of `audit_log_*` system variables, `audit_log_policy`, and include/exclude lists to filter JSON and component variables, see [Migrate to the audit log filter component](migrate-to-audit-log-filter-component.md).
 
-    The deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin continues to function, but Percona plans no further development or maintenance.
+    The removal affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. Migrate to the component on 8.4 before upgrading to {{vers}}. Then run `UNINSTALL PLUGIN audit_log;` and remove `plugin-load-add=audit_log.so` and the plugin's `audit_log_*` options from `my.cnf`. If the plugin options remain in `my.cnf`, the {{vers}} server aborts at startup after upgrading the data dictionary. If only the plugin registration remains, the {{vers}} server starts without auditing.
 
     The audit log plugin and the audit log filter component use different configuration variables and options.
 
