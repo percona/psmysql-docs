@@ -49,15 +49,19 @@ Each user in each connection gets access to its own separate instance of the con
 
 ## Console log size limits
 
-The number of console log messages that are kept for each user-connection pair is limited by the global dynamic `js_lang.max_console_log_size` variable. Once the console instance for the pair reaches this limit, we start to discard the oldest messages from the console log when new messages are added.
+The global dynamic `js_lang.max_console_log_size` variable limits the console log size in bytes for each user and connection. It does not limit the number of messages. When the log reaches the limit, the oldest messages are discarded. The newest messages are kept.
+
+At the minimum value of 10240, 30,000 six-character messages left 1,280 messages, from `m28721` to `m30000`. Each kept message used 8 bytes.
 
 ## Accessing console logs
 
 The following UDFs are available for accessing and managing console logs:
 
-* `JS_GET_CONSOLE_LOG()`: Returns a simple and plain representation of the console log for the current user and connection pair. We only show the text of the log messages in this representation (for example, no timestamps or level of log messages is shown). Each log message gets its own line and is indented according to its grouping.
+* `JS_GET_CONSOLE_LOG()`: Returns a simple and plain representation of the console log for the current user and connection pair. We only show the text of the log messages in this representation (for example, no timestamps or level of log messages is shown). Each log message gets its own line and is indented two spaces for each group level.
 
-* `JS_GET_CONSOLE_LOG_JSON()`: Returns a JSON representation of the console log for the current user and connection pair. Each log entry is represented by an object in a JSON array returned. This object contains all the available information about the log entry, such as the log entry timestamp, its log level, whether it belongs to a group (in which case we provide the hierarchy of the groups it belongs to in the form of an array), and whether it is a group header. This representation can be used for advanced processing of console log output such as filtering by severity or providing an interactive version of the log output.
+    A failed `console.assert` prints `Assertion failed: ...`. A counter prints `default: 1`. A timer prints `t: 0.001 ms`. `%o` prints `[object Array]`. `%O` prints `#<Object>`.
+
+* `JS_GET_CONSOLE_LOG_JSON()`: Returns a JSON representation of the console log for the current user and connection pair. Each log entry is represented by an object in a JSON array returned. Each object includes `timestamp`, `level`, and `message`. A `level` value can be `"Info"`. A group header includes `isGroupLabel` set to `true`. A message inside a group includes the group hierarchy as an array. This representation can be used for advanced processing of console log output such as filtering by severity or providing an interactive version of the log output.
 
 * `JS_CLEAR_CONSOLE_LOG()`: Empties the console log for the current user and connection pair. It also returns the number of log entries it has removed. Note that unlike the similar `console.clear()` call, this UDF does not reset the current group stack for the console instance.
 
