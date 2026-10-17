@@ -10,10 +10,29 @@ The following js_lang system variables are available:
 
 | Variable name | Description |
 |---|---|
+| [js_lang.max_console_log_size](#js_langmax_console_log_size) | Maximum number of console log messages for each user and connection |
 | [js_lang.max_mem_size](#js_langmax_mem_size) | Maximum memory size for JS routines |
 | [js_lang.max_mem_size_hard_limit_factor](#js_langmax_mem_size_hard_limit_factor) | Maximum memory size hard limit factor |
 
 The following variables are described in detail:
+
+### `js_lang.max_console_log_size`
+
+| Options | Description |
+| --- | --- |
+| Dynamic | Yes |
+| Scope | Global |
+| Default | 1048576 |
+| Minimum value | 10240 |
+| Maximum value | 1073741824 |
+
+This variable limits the number of console log messages kept for each user and connection. For more information about the console log size, see [js_lang Console API](js-lang-console-api.md).
+
+```sql
+SET GLOBAL js_lang.max_console_log_size = 1;
+```
+
+The stored value is 10240. The server does not return an error.
 
 ### `js_lang.max_mem_size`
 
@@ -30,11 +49,13 @@ The following variables are described in detail:
 
 This variable sets the soft memory allocation limit for JS routines. The component configures V8 with this limit. Since every JS execution (or session, depending on the isolation mode) creates a V8 environment, this limit prevents a single poorly written script or a loop from consuming all the server's physical memory.
 
-Values are rounded down to the nearest multiple of 1024 bytes (block size). V8 requires a minimum heap size to start, which is typically around 10 MB.
+Values are rounded down to the nearest multiple of 1024 bytes (block size). For example, 16778216 is stored as 16777216.
+
+An out-of-range value is adjusted silently. The server does not return an error. A value of 1048576 is stored as 3145728. A value of 2147483648 is stored as 1073741824.
 
 V8 behavior with the soft limit:
 
-The soft limit is a threshold that triggers V8's garbage collection (GC) process. When memory usage approaches the soft limit configured by this variable, V8 starts incremental marking in the background to identify objects that can be freed. This background GC runs without pausing JS execution. If the soft limit is reached or exceeded and GC cannot free enough memory, V8 Isolate Termination is triggered, stopping JS execution and returning a "Memory limit exceeded" error to the MySQL client.
+The soft limit is a threshold that triggers V8's garbage collection (GC) process. When memory usage approaches the soft limit configured by this variable, V8 starts incremental marking in the background to identify objects that can be freed. This background GC runs without pausing JS execution. If the soft limit is reached or exceeded and GC cannot free enough memory, V8 Isolate Termination is triggered, stopping JS execution and returning `ERROR 6000 (HY000): Memory limit exceeded.` The server keeps running.
 
 Relationship to hard limit:
 
@@ -66,6 +87,8 @@ js_lang.max_mem_size = 16777216
 | Default | 0 |
 | Minimum value | 0 |
 | Maximum value | 1024 |
+
+An out-of-range value is adjusted silently. The server does not return an error. A value of 2000 is stored as 1024.
 
 This variable controls the hard limit for JS routine memory allocation. When set to a non-zero value, the component calculates the hard limit as `js_lang.max_mem_size * js_lang.max_mem_size_hard_limit_factor` in bytes.
 

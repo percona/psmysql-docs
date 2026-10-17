@@ -8,9 +8,23 @@ Privileges control what users can do. You use them to give specific permissions 
 
 To create routines within a database, you must be granted the `CREATE_JS_ROUTINE` privilege and the standard `CREATE ROUTINE` privilege.
 
+`CREATE_JS_ROUTINE` is a global privilege. The grant must use `ON *.*`.
+
 ```sql
 GRANT CREATE_JS_ROUTINE ON *.* TO user1@localhost;
 ```
+
+A schema-level grant fails.
+
+```sql
+GRANT CREATE_JS_ROUTINE ON jsdb.* TO user1@localhost;
+```
+
+??? example "Expected result"
+
+    ```{.text .no-copy}
+    ERROR 3619: Illegal privilege level specified
+    ```
 
 If a user is granted the ability to create routines and holds the CREATE_JS_ROUTINE privilege, they are capable of creating stored functions and procedures using JS.
 
