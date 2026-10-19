@@ -21,3 +21,9 @@ select * from performance_schema.log_status\G
     STORAGE_ENGINES: {"InnoDB": {"LSN": 36810235, "LSN_checkpoint": 36810235}, "RocksDB": {"wal_files": [{"path_name": "/000026.log", "log_number": 26, "size_file_bytes": 371869}]}}
     1 row in set (0.00 sec)
     ```
+
+As of Percona Server for MySQL 8.4.13-12, the following issues were fixed.
+
+`performance_schema.log_status` lists only live MyRocks WAL files. Archived WAL files are omitted.
+
+The MyRocks index statistics thread is visible in `performance_schema.threads`.

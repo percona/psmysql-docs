@@ -123,6 +123,58 @@ need to truncate the table and loading data again.
 
     If you are loading large data without enabling [rocksdb_bulk_load](myrocks-server-variables.md#rocksdb_bulk_load) or [rocksdb_commit_in_the_middle](myrocks-server-variables.md#rocksdb_commit_in_the_middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
 
+## Bulk load history
+
+Added in Percona Server for MySQL 8.4.13-12, [`INFORMATION_SCHEMA.ROCKSDB_BULK_LOAD_HISTORY`](myrocks-information-schema-tables.md#rocksdb_bulk_load_history) lists active bulk load sessions and the last [`rocksdb_bulk_load_history_size`](myrocks-server-variables.md#rocksdb_bulk_load_history_size) completed sessions, in the order the sessions started.
+
+## DDL during an active bulk load
+
+As of Percona Server for MySQL 8.4.13-12, the behavior of [`rocksdb_bulk_load`](myrocks-server-variables.md#rocksdb_bulk_load) has changed.
+
+`ALTER TABLE`, `DROP TABLE`, `RENAME TABLE`, and `TRUNCATE TABLE` on a table with an unfinished bulk load fail with `ER_LOCK_REFUSED_BY_ENGINE` (`Lock acquisition refused by storage engine`).
+
+The failure also occurs in the session that loads the table.
+
+A warning names the table.
+
+The warning says to finish the load with `SET rocksdb_bulk_load=0` in the session that loads the table.
+
+A bulk load fails on a table with an active `ALTER TABLE` or `DROP TABLE`.
+
+DDL on other tables is unaffected.
+
+That DDL includes tables of other storage engines.
+
+`ALTER TABLE ... ENABLE KEYS` and `ALTER TABLE ... DISABLE KEYS` are no-ops in MyRocks.
+
+A bulk load session ignores those statements.
+
+[`rocksdb_skip_bulk_load_notify_ddl`](myrocks-server-variables.md#rocksdb_skip_bulk_load_notify_ddl) disables this check.
+
+Use `rocksdb_skip_bulk_load_notify_ddl` for tests and emergencies.
+
+## When a bulk load is committed
+
+An `ALTER TABLE` that uses the copy algorithm while `rocksdb_bulk_load` is enabled commits its SST files when the `ALTER` completes. Previously those files were committed when `rocksdb_bulk_load` was set back to `0`. A regular bulk load is still committed only by `SET rocksdb_bulk_load = 0`.
+
+`ALTER TABLE ... ALGORITHM=COPY` also checks a unique key that the statement adds.
+
+The check runs with [`rocksdb_bulk_load_enable_unique_key_check=OFF`](myrocks-server-variables.md#rocksdb_bulk_load_enable_unique_key_check).
+
+The statement fails with `ER_DUP_ENTRY`.
+
+Previously the `ALTER TABLE` succeeded and left the unique index empty.
+
+## Disconnecting during a bulk load
+
+A disconnect with `rocksdb_bulk_load=ON` finishes the pending bulk load.
+
+That action matches `SET SESSION rocksdb_bulk_load=OFF`.
+
+A dump restored by the `mysql` client keeps its last table.
+
+The behavior matches earlier releases.
+
 ## Other reading
 
 * [Data Loading :octicons-link-external-16:](https://github.com/facebook/mysql-5.6/wiki/Data-Loading) -

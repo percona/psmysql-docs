@@ -31,3 +31,11 @@ If there is a session variable named
 
 **mysqldump** automatically enables `rocksdb_bulk_load` if the the target server supports the variable.
 
+As of Percona Server for MySQL 8.4.13-12, `mysqldump` restores `rocksdb_bulk_load` at the end of the dump.
+
+`mysqldump` restores the value from before the dump.
+
+Previously the end of the dump referred to variables that were never set.
+
+The bulk load of the last MyRocks table stayed open until the restoring session disconnected.
+
