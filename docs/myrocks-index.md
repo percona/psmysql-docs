@@ -48,4 +48,6 @@ engines, if your workload uses fast storage, such as SSD:
 
 [MyRocks Information Schema Tables](myrocks-information-schema-tables.md)
 
+[SHOW ENGINE ROCKSDB TRANSACTION STATUS](myrocks-transaction-status.md)
+
 [Performance Schema MyRocks changes](performance-schema-myrocks-changes.md)
