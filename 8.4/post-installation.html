@@ -10657,9 +10657,9 @@ Open tables: 59  Queries per second avg: 0.0000
 <h3 id="set-service-to-run-at-boot-time">Set service to run at boot time<a class="headerlink" href="#set-service-to-run-at-boot-time" title="Permanent link">&para;</a></h3>
 <p>After a generic binary installation, manually configure systemd support.</p>
 <p>The following commands start, check the status, and stop the server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysqld
-sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>Run the following command to start the service at boot time:</p>
 <p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
@@ -10689,9 +10689,9 @@ Run the following command to prevent a service from starting at boot time:</p>
 <h3 id="update-the-root-password">Update the root password<a class="headerlink" href="#update-the-root-password" title="Permanent link">&para;</a></h3>
 <p>During an installation on Debian/Ubuntu, you are prompted to enter a root password. On Red Hat Enterprise Linux and derivatives, you update the root password after installation.</p>
 <p>Restart the server with the <code>--skip-grant-tables</code> option to allow access without a password. This option is insecure. This option also disables remote connections.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables"</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 mysql
 </code></pre></div>
 <p>Reload the grant tables to be able to run the <code>ALTER USER</code> statement. Enter a password that satisfies the current policy.</p>
@@ -10712,9 +10712,9 @@ mysql
 </code></pre></div>
 Redo your password to satisfy the requirements.</p>
 <p>Stop the server, remove the <code>--skip-grant-tables</code> option, start the server, and log into the server with the updated password.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld<span class="w"> </span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>unset-environment<span class="w"> </span>MYSQLD_OPTS<span class="w"> </span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <h3 id="secure-the-server">Secure the server<a class="headerlink" href="#secure-the-server" title="Permanent link">&para;</a></h3>
@@ -10795,7 +10795,7 @@ system schema.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 16, 2026 12:43:28 UTC">February 16, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 21, 2026 12:52:37 UTC">October 21, 2026</span>
   </span>
 
     

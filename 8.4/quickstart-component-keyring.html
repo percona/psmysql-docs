@@ -10693,7 +10693,6 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Percona Server for MySQL 8.4 installed</li>
 <li><code>sudo</code> or root access to the server filesystem (to create the keyring directory, manifest, and component config)</li>
-<li>Service name may be <code>mysql</code> or <code>mysqld</code> depending on your system</li>
 <li>For the encryption examples (tables, system tablespace, redo/undo), the MySQL user you connect as must have the required privileges (for example, <code>CREATE TABLESPACE</code> for system tablespace). OS-level sudo does not grant MySQL privileges.</li>
 </ul>
 <p>This guide assumes you have OS-level access to install and configure the keyring. In managed or hosted environments where you have only SQL privileges and no filesystem access, your provider must configure the keyring or offer an alternative. This quickstart does not cover managed or hosted environments with only SQL access.</p>
@@ -10774,7 +10773,6 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <p>Loading the component from the manifest requires a server restart. On a typical system:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
-<p>Or <code>sudo systemctl restart mysqld</code>, depending on your system.</p>
 <p>In orchestrated or managed environments (for example, Kubernetes or some cloud DB services), restart may be controlled by a scheduler or not allowed mid-workflow. Plan the keyring setup during a maintenance window or coordinate with your provider. There is no supported way to load the keyring component at runtime without a restart when using the file-based manifest.</p>
 <p>If the server does not start, check the error log. To see where it is written, run <code>SELECT @@log_error;</code> in a previous MySQL session, or look in common locations such as <code>/var/log/mysql/error.log</code> or the server datadir. JSON syntax errors in the manifest or component config (trailing commas, missing quotes, wrong brackets) are reported there. Fix the JSON and restart again.</p>
 <h2 id="step-5-verify-the-keyring-is-loaded">Step 5: Verify the keyring is loaded<a class="headerlink" href="#step-5-verify-the-keyring-is-loaded" title="Permanent link">&para;</a></h2>
@@ -10899,7 +10897,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 9, 2026 15:54:46 UTC">March 9, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 21, 2026 12:52:37 UTC">October 21, 2026</span>
   </span>
 
     

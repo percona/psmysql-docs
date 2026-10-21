@@ -25192,15 +25192,12 @@ Enter<span class="w"> </span>password:
 <p>On Linux, when the system runs low on memory, the kernel <em>OOM killer</em> (out-of-memory killer: a kernel process that terminates other processes to free memory) may terminate processes. MySQL can be one of them, which leads to abrupt shutdowns. You can make the MySQL service less likely to be chosen by adjusting its OOM score.</p>
 <p>Using <em>systemd</em> (the Linux system and service manager that starts and manages the MySQL service), set <code>OOMScoreAdjust</code> so that the kernel prefers to kill other processes before MySQL. A typical value is <code>-500</code> (range is -1000 to 1000; lower means less likely to be killed).</p>
 <ol>
-<li>Create or edit an override file for the MySQL service. On Red Hat–based systems the service is often <code>mysqld</code>; on Debian/Ubuntu the service may be named <code>mysql</code>. Adjust the service name if needed:</li>
+<li>Create or edit an override file for the MySQL service:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>mysqld
-</code></pre></div>
-<p>If your service is named <code>mysql</code>:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>mysql
 </code></pre></div>
 <ol>
-<li>Add the following (use <code>mysqld</code> or <code>mysql</code> to match your service name):</li>
+<li>Add the following:</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">OOMScoreAdjust</span><span class="o">=</span><span class="s">-500</span>
@@ -25209,12 +25206,12 @@ Enter<span class="w"> </span>password:
 <li>Save and close the editor. Reload systemd and restart the MySQL service:</li>
 </ol>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <ol>
 <li>Confirm the setting:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
 </code></pre></div>
 <p>You should see <code>OOMScoreAdjust=-500</code> (or the value you set).</p>
 <div class="admonition note">
@@ -29225,15 +29222,12 @@ server manually. This behavior will be fixed in future releases.</p>
 <p>On Linux, when the system runs low on memory, the kernel <em>OOM killer</em> (out-of-memory killer: a kernel process that terminates other processes to free memory) may terminate processes. MySQL can be one of them, which leads to abrupt shutdowns. You can make the MySQL service less likely to be chosen by adjusting its OOM score.</p>
 <p>Using <em>systemd</em> (the Linux system and service manager that starts and manages the MySQL service), set <code>OOMScoreAdjust</code> so that the kernel prefers to kill other processes before MySQL. A typical value is <code>-500</code> (range is -1000 to 1000; lower means less likely to be killed).</p>
 <ol>
-<li>Create or edit an override file for the MySQL service. On Red Hat–based systems the service is often <code>mysqld</code>; on Debian/Ubuntu the service may be named <code>mysql</code>. Adjust the service name if needed:</li>
+<li>Create or edit an override file for the MySQL service:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>mysqld
-</code></pre></div>
-<p>If your service is named <code>mysql</code>:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>mysql
 </code></pre></div>
 <ol>
-<li>Add the following (use <code>mysqld</code> or <code>mysql</code> to match your service name):</li>
+<li>Add the following:</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">OOMScoreAdjust</span><span class="o">=</span><span class="s">-500</span>
@@ -29242,12 +29236,12 @@ server manually. This behavior will be fixed in future releases.</p>
 <li>Save and close the editor. Reload systemd and restart the MySQL service:</li>
 </ol>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
-sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <ol>
 <li>Confirm the setting:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
 </code></pre></div>
 <p>You should see <code>OOMScoreAdjust=-500</code> (or the value you set).</p>
 <div class="admonition note">
@@ -29398,15 +29392,7 @@ To see the full <em>effective</em> privilege set (the combined permissions a use
 </code></pre></div>
 <h2 id="sanity-check-3-oom-killer-guardrail">3. OOM-killer guardrail<a class="headerlink" href="#sanity-check-3-oom-killer-guardrail" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm that the MySQL systemd service has a lower <em>OOM score</em> (a value the kernel uses when choosing which process to terminate when the system is out of memory; lower means less likely to be killed) so the kernel is less likely to kill MySQL.</p>
-<p>3.1 Service name<br />
-On Red Hat–based systems the service is often <code>mysqld</code>; on Debian/Ubuntu the service may be named <code>mysql</code>. Check which is in use:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>mysqld<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">||</span><span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql<span class="w"> </span><span class="m">2</span>&gt;/dev/null
-</code></pre></div>
-<p>3.2 OOMScoreAdjust<br />
-Use the same service name as above:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
-<span class="c1"># or</span>
-systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
 </code></pre></div>
 <p>Expected: <code>OOMScoreAdjust=-500</code> (or another negative value). If you see an empty value or <code>OOMScoreAdjust=0</code>, the First five minutes OOM guardrail is not applied.</p>
 <h2 id="sanity-check-4-diagnostic-logging">4. Diagnostic logging<a class="headerlink" href="#sanity-check-4-diagnostic-logging" title="Permanent link">&para;</a></h2>
@@ -29457,7 +29443,7 @@ mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </sp
 mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW GRANTS FOR 'admin'@'localhost';"</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 5. OOMScoreAdjust ==="</span>
-systemctl<span class="w"> </span>show<span class="w"> </span>mysqld<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
+systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 6. Error log and slow query log ==="</span>
 mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@log_error, @@slow_query_log, @@slow_query_log_file;"</span>
@@ -29608,9 +29594,9 @@ Open tables: 59  Queries per second avg: 0.0000
 <h3 id="post-installation-set-service-to-run-at-boot-time">Set service to run at boot time<a class="headerlink" href="#post-installation-set-service-to-run-at-boot-time" title="Permanent link">&para;</a></h3>
 <p>After a generic binary installation, manually configure systemd support.</p>
 <p>The following commands start, check the status, and stop the server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysqld
-sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>Run the following command to start the service at boot time:</p>
 <p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
@@ -29640,9 +29626,9 @@ Run the following command to prevent a service from starting at boot time:</p>
 <h3 id="post-installation-update-the-root-password">Update the root password<a class="headerlink" href="#post-installation-update-the-root-password" title="Permanent link">&para;</a></h3>
 <p>During an installation on Debian/Ubuntu, you are prompted to enter a root password. On Red Hat Enterprise Linux and derivatives, you update the root password after installation.</p>
 <p>Restart the server with the <code>--skip-grant-tables</code> option to allow access without a password. This option is insecure. This option also disables remote connections.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables"</span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 mysql
 </code></pre></div>
 <p>Reload the grant tables to be able to run the <code>ALTER USER</code> statement. Enter a password that satisfies the current policy.</p>
@@ -29663,9 +29649,9 @@ mysql
 </code></pre></div>
 Redo your password to satisfy the requirements.</p>
 <p>Stop the server, remove the <code>--skip-grant-tables</code> option, start the server, and log into the server with the updated password.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld<span class="w"> </span>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>unset-environment<span class="w"> </span>MYSQLD_OPTS<span class="w"> </span>
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld<span class="w"> </span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <h3 id="post-installation-secure-the-server">Secure the server<a class="headerlink" href="#post-installation-secure-the-server" title="Permanent link">&para;</a></h3>
@@ -30507,7 +30493,7 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 <div class="highlight"><pre><span></span><code>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart mysql:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <h2 id="configure-apparmor-set-up-a-custom-log-location">Set up a custom log location<a class="headerlink" href="#configure-apparmor-set-up-a-custom-log-location" title="Permanent link">&para;</a></h2>
 <p>To move your logs to a custom location, you must edit the my.cnf configuration file and then edit the local profile to allow access:</p>
@@ -30573,7 +30559,7 @@ AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/custom
 <div class="highlight"><pre><span></span><code>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart Percona Server:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <h2 id="configure-apparmor-set-secure_file_priv-directory-location">Set <code>secure_file_priv</code> directory location<a class="headerlink" href="#configure-apparmor-set-secure_file_priv-directory-location" title="Permanent link">&para;</a></h2>
 <p>By default, secure_file_priv points to the following location:</p>
@@ -30610,7 +30596,7 @@ Allow data dir access
 <div class="highlight"><pre><span></span><code>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>Restart Percona Server for MySQL:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <h2 id="configure-apparmor-apparmor-links">AppArmor links:<a class="headerlink" href="#configure-apparmor-apparmor-links" title="Permanent link">&para;</a></h2>
 <p><a href="#apparmor">AppArmor</a><br>
@@ -30945,11 +30931,11 @@ Builtin Permissive Types
 socket=/var/lib/mysqlcustom/mysql.sock
 </code></pre></div>
 <p>Restart the service.</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>restart
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>restart
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl restart mysqld.service
+<div class="no-copy highlight"><pre><span></span><code>Redirecting to /bin/systemctl restart mysql.service
 Job for mysqld.service failed because the control process exited with error code.
 See "systemctl status mysqld.service" and "journalctl -xe" for details.
 </code></pre></div>
@@ -31001,7 +30987,7 @@ SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcusto
 </li>
 <li>
 <p>Restart the mysqld service:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 </li>
 </ol>
@@ -31135,7 +31121,7 @@ permissive_mysqld_t
 </li>
 <li>
 <p>Start the service.</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 </li>
 <li>
@@ -31145,7 +31131,7 @@ permissive_mysqld_t
 </li>
 <li>
 <p>Stop the service:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>stop
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>stop
 </code></pre></div>
 </li>
 <li>
@@ -31186,7 +31172,7 @@ allow mysqld_t default_t:file { append create open };
 </li>
 <li>
 <p>Restart the service:</p>
-<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysqld<span class="w"> </span>start
+<div class="highlight"><pre><span></span><code>service<span class="w"> </span>mysql<span class="w"> </span>start
 </code></pre></div>
 </li>
 </ol>
@@ -39366,7 +39352,7 @@ event_scheduler=ON
 </code></pre></div>
 <p>After editing the unit, reload systemd and restart mysqld:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>daemon-reload
-systemctl<span class="w"> </span>restart<span class="w"> </span>mysqld
+systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Restart required</p>
@@ -41129,7 +41115,6 @@ layer, added to the buffer pool, and used to access the data. A buffer pool page
 <ul>
 <li>Percona Server for MySQL 8.4 installed</li>
 <li><code>sudo</code> or root access to the server filesystem (to create the keyring directory, manifest, and component config)</li>
-<li>Service name may be <code>mysql</code> or <code>mysqld</code> depending on your system</li>
 <li>For the encryption examples (tables, system tablespace, redo/undo), the MySQL user you connect as must have the required privileges (for example, <code>CREATE TABLESPACE</code> for system tablespace). OS-level sudo does not grant MySQL privileges.</li>
 </ul>
 <p>This guide assumes you have OS-level access to install and configure the keyring. In managed or hosted environments where you have only SQL privileges and no filesystem access, your provider must configure the keyring or offer an alternative. This quickstart does not cover managed or hosted environments with only SQL access.</p>
@@ -41210,7 +41195,6 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">640</sp
 <p>Loading the component from the manifest requires a server restart. On a typical system:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
-<p>Or <code>sudo systemctl restart mysqld</code>, depending on your system.</p>
 <p>In orchestrated or managed environments (for example, Kubernetes or some cloud DB services), restart may be controlled by a scheduler or not allowed mid-workflow. Plan the keyring setup during a maintenance window or coordinate with your provider. There is no supported way to load the keyring component at runtime without a restart when using the file-based manifest.</p>
 <p>If the server does not start, check the error log. To see where it is written, run <code>SELECT @@log_error;</code> in a previous MySQL session, or look in common locations such as <code>/var/log/mysql/error.log</code> or the server datadir. JSON syntax errors in the manifest or component config (trailing commas, missing quotes, wrong brackets) are reported there. Fix the JSON and restart again.</p>
 <h2 id="quickstart-component-keyring-step-5-verify-the-keyring-is-loaded">Step 5: Verify the keyring is loaded<a class="headerlink" href="#quickstart-component-keyring-step-5-verify-the-keyring-is-loaded" title="Permanent link">&para;</a></h2>
