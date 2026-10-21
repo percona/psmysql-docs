@@ -90,19 +90,7 @@ mysql -u root -p -e "SHOW EFFECTIVE GRANTS FOR 'admin'@'localhost';"
 
 Goal: Confirm that the MySQL systemd service has a lower *OOM score* (a value the kernel uses when choosing which process to terminate when the system is out of memory; lower means less likely to be killed) so the kernel is less likely to kill MySQL.
 
-3.1 Service name  
-On Red Hat–based systems the service is often `mysqld`; on Debian/Ubuntu the service may be named `mysql`. Check which is in use:
-
 ```shell
-systemctl status mysqld 2>/dev/null || systemctl status mysql 2>/dev/null
-```
-
-3.2 OOMScoreAdjust  
-Use the same service name as above:
-
-```shell
-systemctl show mysqld -p OOMScoreAdjust
-# or
 systemctl show mysql -p OOMScoreAdjust
 ```
 
@@ -180,7 +168,7 @@ echo "=== 4. Admin grants (no SUPER/ALL on *.*) ==="
 mysql -u root -p -e "SHOW GRANTS FOR 'admin'@'localhost';"
 
 echo "=== 5. OOMScoreAdjust ==="
-systemctl show mysqld -p OOMScoreAdjust
+systemctl show mysql -p OOMScoreAdjust
 
 echo "=== 6. Error log and slow query log ==="
 mysql -u root -p -e "SELECT @@log_error, @@slow_query_log, @@slow_query_log_file;"
