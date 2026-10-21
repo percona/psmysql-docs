@@ -78,19 +78,13 @@ On Linux, when the system runs low on memory, the kernel *OOM killer* (out-of-me
 
 Using *systemd* (the Linux system and service manager that starts and manages the MySQL service), set `OOMScoreAdjust` so that the kernel prefers to kill other processes before MySQL. A typical value is `-500` (range is -1000 to 1000; lower means less likely to be killed).
 
-1. Create or edit an override file for the MySQL service. On Red Hat–based systems the service is often `mysqld`; on Debian/Ubuntu the service may be named `mysql`. Adjust the service name if needed:
-
-   ```shell
-   sudo systemctl edit mysqld
-   ```
-
-   If your service is named `mysql`:
+1. Create or edit an override file for the MySQL service:
 
    ```shell
    sudo systemctl edit mysql
    ```
 
-2. Add the following (use `mysqld` or `mysql` to match your service name):
+2. Add the following:
 
    ```ini
    [Service]
@@ -101,13 +95,13 @@ Using *systemd* (the Linux system and service manager that starts and manages th
 
    ```shell
    sudo systemctl daemon-reload
-   sudo systemctl restart mysqld
+   sudo systemctl restart mysql
    ```
 
 4. Confirm the setting:
 
    ```shell
-   systemctl show mysqld -p OOMScoreAdjust
+   systemctl show mysql -p OOMScoreAdjust
    ```
 
    You should see `OOMScoreAdjust=-500` (or the value you set).

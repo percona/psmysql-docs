@@ -901,7 +901,7 @@ After editing the unit, reload systemd and restart mysqld:
 
 ```bash
 systemctl daemon-reload
-systemctl restart mysqld
+systemctl restart mysql
 ```
 
 !!! warning "Restart required"
