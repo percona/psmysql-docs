@@ -352,13 +352,13 @@ For example, during installation, you have used the following configuration:
 Restart the service.
 
   ```shell
-  service mysqld restart
+  service mysql restart
   ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
-    Redirecting to /bin/systemctl restart mysqld.service
+    Redirecting to /bin/systemctl restart mysql.service
     Job for mysqld.service failed because the control process exited with error code.
     See "systemctl status mysqld.service" and "journalctl -xe" for details.
     ```
@@ -420,7 +420,7 @@ The recommended solution is to set the proper labels. The following procedure as
 3. Restart the mysqld service:
 
     ```shell
-    service mysqld start
+    service mysql start
     ```
 
 ## Set a custom log location
@@ -586,7 +586,7 @@ Follow this procedure:
 5. Start the service.
 
     ```shell
-    service mysqld start
+    service mysql start
     ```
 
 6. MySQL starts, and SELinux logs the violations in the journal log. Check the journal log:
@@ -598,7 +598,7 @@ Follow this procedure:
 7. Stop the service:
 
     ```shell
-    service mysqld stop
+    service mysql stop
     ```
 
 8. Generate a local mysqld policy, using the time returned from step 4:
@@ -645,7 +645,7 @@ Follow this procedure:
 12. Restart the service:
 
     ```shell
-    service mysqld start
+    service mysql start
     ```
 
 !!! note

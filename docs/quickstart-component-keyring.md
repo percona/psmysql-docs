@@ -18,7 +18,6 @@ Scope: This quickstart assumes a typical package install and standard paths. Min
 
 * Percona Server for MySQL 8.4 installed
 * `sudo` or root access to the server filesystem (to create the keyring directory, manifest, and component config)
-* Service name may be `mysql` or `mysqld` depending on your system
 * For the encryption examples (tables, system tablespace, redo/undo), the MySQL user you connect as must have the required privileges (for example, `CREATE TABLESPACE` for system tablespace). OS-level sudo does not grant MySQL privileges.
 
 This guide assumes you have OS-level access to install and configure the keyring. In managed or hosted environments where you have only SQL privileges and no filesystem access, your provider must configure the keyring or offer an alternative. This quickstart does not cover managed or hosted environments with only SQL access.
@@ -129,8 +128,6 @@ Loading the component from the manifest requires a server restart. On a typical 
 ```bash
 sudo systemctl restart mysql
 ```
-
-Or `sudo systemctl restart mysqld`, depending on your system.
 
 In orchestrated or managed environments (for example, Kubernetes or some cloud DB services), restart may be controlled by a scheduler or not allowed mid-workflow. Plan the keyring setup during a maintenance window or coordinate with your provider. There is no supported way to load the keyring component at runtime without a restart when using the file-based manifest.
 
