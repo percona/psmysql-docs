@@ -82,7 +82,7 @@ apparmor_parser -r -T /etc/apparmor.d/usr.sbin.mysqld
 Restart mysql:
 
 ```shell
-systemctl restart mysqld
+systemctl restart mysql
 ```
 
 ## Set up a custom log location
@@ -175,7 +175,7 @@ apparmor_parser -r -T /etc/apparmor.d/usr.sbin.mysqld
 Restart Percona Server:
 
 ```shell
-systemctl restart mysqld
+systemctl restart mysql
 ```
 
 ## Set `secure_file_priv` directory location
@@ -230,7 +230,7 @@ apparmor_parser -r -T /etc/apparmor.d/usr.sbin.mysqld
 Restart Percona Server for MySQL:
 
 ```shell
-systemctl restart mysqld
+systemctl restart mysql
 ```
 
 ## AppArmor links:

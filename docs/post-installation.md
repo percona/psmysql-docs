@@ -127,9 +127,9 @@ After a generic binary installation, manually configure systemd support.
 The following commands start, check the status, and stop the server:
 
 ```shell
-sudo systemctl start mysqld
-sudo systemctl status mysqld
-sudo systemctl stop mysqld
+sudo systemctl start mysql
+sudo systemctl status mysql
+sudo systemctl stop mysql
 ```
 
 Run the following command to start the service at boot time:
@@ -160,9 +160,9 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 1. Restart the server with the `--skip-grant-tables` option enabled to allow access without a password. This option is insecure. The server also enables `skip_networking` automatically, which disables remote connections.
 
     ```shell
-    sudo systemctl stop mysqld
+    sudo systemctl stop mysql
     sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
-    sudo systemctl start mysqld 
+    sudo systemctl start mysql
     mysql
     ```
 
@@ -216,9 +216,9 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 3. Stop the server, remove the `--skip-grant-tables` option, and restart the server:
 
     ```shell
-    sudo systemctl stop mysqld
+    sudo systemctl stop mysql
     sudo systemctl unset-environment MYSQLD_OPTS
-    sudo systemctl start mysqld
+    sudo systemctl start mysql
     mysql -u root -p
     ```
 
