@@ -123,6 +123,32 @@ need to truncate the table and loading data again.
 
     If you are loading large data without enabling [rocksdb_bulk_load](myrocks-server-variables.md#rocksdb_bulk_load) or [rocksdb_commit_in_the_middle](myrocks-server-variables.md#rocksdb_commit_in_the_middle), please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.
 
+## Bulk load history
+
+Added in Percona Server for MySQL 8.4.12-13, [`INFORMATION_SCHEMA.ROCKSDB_BULK_LOAD_HISTORY`](myrocks-information-schema-tables.md#rocksdb_bulk_load_history) lists active bulk load sessions and the last [`rocksdb_bulk_load_history_size`](myrocks-server-variables.md#rocksdb_bulk_load_history_size) completed sessions, in the order the sessions started.
+
+## DDL during an active bulk load
+
+As of Percona Server for MySQL 8.4.12-13, the behavior of [`rocksdb_bulk_load`](myrocks-server-variables.md#rocksdb_bulk_load) has changed.
+
+`ALTER TABLE`, `DROP TABLE`, `RENAME TABLE`, and `TRUNCATE TABLE` on a table that is part of an ongoing bulk load session fail with `ER_LOCK_REFUSED_BY_ENGINE` (`Lock acquisition refused by storage engine`).
+
+A bulk load fails when a conflicting `ALTER` or `DROP` is in progress.
+
+A session with an unfinished bulk load cannot run `ALTER TABLE` or `DROP TABLE` on any table, including a table of another storage engine, until it completes the load with `SET SESSION rocksdb_bulk_load=OFF`.
+
+`ALTER TABLE ... ENABLE KEYS` and `ALTER TABLE ... DISABLE KEYS` are no-ops in MyRocks. A bulk load session ignores them.
+
+[`rocksdb_skip_bulk_load_notify_ddl`](myrocks-server-variables.md#rocksdb_skip_bulk_load_notify_ddl) disables this check. Use it for tests and emergencies.
+
+## When a bulk load is committed
+
+An `ALTER TABLE` that uses the copy algorithm while `rocksdb_bulk_load` is enabled commits its SST files when the `ALTER` completes. Previously those files were committed when `rocksdb_bulk_load` was set back to `0`. A regular bulk load is still committed only by `SET rocksdb_bulk_load = 0`.
+
+## Disconnecting during a bulk load
+
+Disconnecting with `rocksdb_bulk_load=ON` aborts the unfinished bulk load session and discards its buffered rows and SST files. Previously, disconnect could finalize the buffered load. Complete the load with `SET SESSION rocksdb_bulk_load=OFF`, and check that it succeeds, before closing the connection.
+
 ## Other reading
 
 * [Data Loading :octicons-link-external-16:](https://github.com/facebook/mysql-5.6/wiki/Data-Loading) -

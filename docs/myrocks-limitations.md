@@ -54,6 +54,8 @@ If either condition is missing:
 * When the variable is `ON` but `ALGORITHM=INSTANT` is omitted, MyRocks falls back to the default (non‑instant) algorithm.
 * When the variable is `OFF`, any `ALTER TABLE … ALGORITHM=INSTANT` statement fails with an error.
 
+As of Percona Server for MySQL 8.4.12-13, the following issue was fixed. A failed in-place `ALTER TABLE ... ADD INDEX` no longer leaves its sorted keys in the session. Previously, the next in-place index creation in the same session failed or, when it created several indexes, could leave one of them empty.
+
 ## Unsupported InnoDB features in MyRocks
 
 * [ALTER TABLE .. EXCHANGE PARTITION :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/partitioning-management-exchange.html).
@@ -68,7 +70,7 @@ If either condition is missing:
 
 * [Fulltext indexes :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-fulltext-index.html)
 
-* [Gap locks :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-locking.html#innodb-gap-locks)
+* [Gap locks :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-locking.html#innodb-gap-locks). MyRocks does not take gap locks. [`rocksdb_gap_lock_raise_error`](myrocks-server-variables.md#rocksdb_gap_lock_raise_error) controls queries that would need one. See [Gap locks detection](myrocks-gap-locks-detection.md).
 
 * [Group Replication :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/group-replication.html)
 
