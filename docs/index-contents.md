@@ -20,6 +20,7 @@
 - [Binary logs and replication improvements](binlogging-replication-improvements.md)
 - [Binary tarball file names available based on the Percona Server for MySQL version](binary-tarball-names.md)
 - [Build APT packages](build-apt-packages.md)
+- [Caching SHA-2 password storage format](caching-sha2-password-storage.md)
 - [Common data types](data-types-basic.md)
 - [Common SQL commands](common-sql.md)
 - [Common SQL errors](sql-errors.md)
