@@ -92,7 +92,6 @@ compared to the standard *MySQL* database server:
 | Instant DDL | Yes | Yes |
 | SET PERSIST | Yes | Yes |
 | Invisible Indexes | Yes | Yes |
-| [Threadpool](threadpool.md) | Yes | Enterprise-Only |
 | [Backup Locks](backup-locks.md) | Yes | No |
 | [Extended SHOW GRANTS](extended-show-grants.md) | Yes | No |
 | [Improved Handling of Corrupted Tables](innodb-corrupt-table-action.md) | Yes | No |
