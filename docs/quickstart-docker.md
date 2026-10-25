@@ -65,7 +65,7 @@ Choose one of the following methods:
     | `-v myvol:/var/lib/mysql` | Named volume for persistent storage. |
     | `percona/percona-server:{{tag}}` | Image and tag for the release. |
 
-    You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server). For ARM64, use the `{{arm_tag}}` tag instead of `{{tag}}`.
+    You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub :octicons-link-external-16:](https://hub.docker.com/r/percona/percona-server). For ARM64, edit the `--platform` to `linux/arm64` and use the `{{arm_tag}}` tag instead of `{{tag}}`.
 
     ```shell
     docker run -d -p 3306:3306 --name psmysql \
