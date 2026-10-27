@@ -12,72 +12,27 @@ Depending on the type of installation, you may need to do the following tasks:
 
 ### Initialize the data directory
 
-If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.
+The [binary tarball install](binary-tarball-install.md) creates `/var/lib/mysql`, initializes it, and reads the temporary `root` password from the error log:
 
-Run mysqld with the [–initialize :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-options.html#option_mysqld_initialize) option or the [initialize- :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-options.html#option_mysqld_initialize-insecure) option.
+```shell
+sudo grep 'temporary password' /var/lib/mysql/error.log
+```
 
-Executing `mysqld` with either option does the following:
+??? example "Expected output"
+    ```{.text .no-copy}
+    2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: <temporary password>
+    ```
 
-
-* Verifies the existence of the data directory
-
-
-* Initializes the system tablespace and related structures
-
-
-* Creates system tables including grant tables, time zone tables, and server-side help tables
-
-
-* Creates `root@localhost`
-
-You should run the following steps with the `mysql` login.
-{.power-number}
-
-1. Navigate to the MySQL directory. The example uses the default location.
-	
-	```shell
-	cd /usr/local/mysql
-	```
-
-
-2. Create a directory for the MySQL files. The [secure_file_priv :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
-	
-	```shell
-	mkdir mydata
-	```
-
-	The `mysql` user account should have the `drwxr-x---` permissions.
-	Four sections define the permissions; file or directory, User, Group, and Others.
-	
-	The first character designates if the permissions are for a file or directory. The first character is `d` for a directory.
-	
-	The rest of the sections are specified in three-character sets.
-	
-	| Permission | User | Group | Other |
-	|------------|------|-------|-------|
-	| Read       | Yes  | Yes   | No    |
-	| Write      | Yes  | No    | No    |
-	| Execute    | Yes  | Yes   | No    |
-	
-
-3. Run the command to initialize the data directory.
-
-	```shell
-	bin/mysqld --initialize
-	```
+Copy the password.
 
 ### Test the server
 
-After you have initialized the data directory, and the server is started, you can run tests on the server.
+After you have initialized the data directory and started the server, you can run tests on the server.
 
-This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by [Setting the Environment Variables :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/setting-environment-variables.html).
-
-You can use the [mysqladmin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/mysqladmin.html) client to access the server.
-
-If you have issues connecting to the server, use the `root` user and the root account password.
+Use the [mysqladmin :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/mysqladmin.html) client from the tarball. Enter the temporary `root` password when prompted.
 
 ```shell
-sudo mysqladmin -u root -p version
+/usr/local/mysql/bin/mysqladmin -u root -p -S /var/run/mysqld/mysqld.sock version
 ```
 
 ??? example "Expected output"
@@ -99,7 +54,7 @@ sudo mysqladmin -u root -p version
 Use [mysqlshow :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/mysqlshow.html) to display database and table information.
 
 ```shell
-sudo mysqlshow -u root -p
+/usr/local/mysql/bin/mysqlshow -u root -p -S /var/run/mysqld/mysqld.sock
 ```
 
 ??? example "Expected output"
@@ -122,14 +77,14 @@ sudo mysqlshow -u root -p
 
 ### Set service to run at boot time
 
-After a generic binary installation, manually configure systemd support.
+The [binary tarball install](binary-tarball-install.md#install-on-ubuntu-2604) creates `/etc/systemd/system/mysqld.service` and starts the server.
 
 The following commands start, check the status, and stop the server:
 
 ```shell
-sudo systemctl start mysql
-sudo systemctl status mysql
-sudo systemctl stop mysql
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+sudo systemctl stop mysqld
 ```
 
 Run the following command to start the service at boot time:
@@ -137,8 +92,8 @@ Run the following command to start the service at boot time:
 ```shell
 sudo systemctl enable mysqld
 ```
-Run the following command to prevent a service from starting at boot time:
 
+Run the following command to prevent a service from starting at boot time:
 
 ```shell
 sudo systemctl disable mysqld
