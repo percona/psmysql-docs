@@ -2,7 +2,7 @@
 
 !!! important "Installation method"
 
-    This guide documents the standard operating system (OS) installation on Red Hat Package Manager (RPM)-based systems. Supported distributions include Red Hat Enterprise Linux (RHEL), CentOS, and Rocky Linux. The procedure uses Dandified YUM (DNF). The Percona Server for MySQL software repositories and the [Percona downloads] page provide the required packages. DNF replaces YUM on RHEL 8 and later. The `yum` commands continue to work because the system aliases them to `dnf`.
+    This guide documents the standard operating system (OS) installation on Red Hat Package Manager (RPM)-based systems. Supported distributions include Red Hat Enterprise Linux (RHEL), CentOS, and Rocky Linux. The procedure uses Dandified YUM (DNF). The Percona Server for MySQL software repositories and the [Percona downloads :octicons-link-external-16:](https://www.percona.com/downloads) page provide the required packages. DNF replaces YUM on RHEL 8 and later. The `yum` commands continue to work because the system aliases them to `dnf`.
 
     Containerized deployments use separate guides:
 
