@@ -13,18 +13,22 @@ Thousands of enterprises trust Percona Server for MySQL to provide better perfor
 Start here to choose your installation path.
 
 1. Are you building a High Availability (HA) Cluster?
-   * Yes → Use Percona Distribution for MySQL. For a multi-node HA cluster, Percona XtraDB Cluster (PXC) is the clustered database; PDPS includes the server or PXC plus tested versions of HAProxy, ProxySQL, Orchestrator, and XtraBackup.
-   * No → Go to step 2.
+
+    * Yes → Use Percona Distribution for MySQL. For a multi-node HA cluster, Percona XtraDB Cluster (PXC) is the clustered database; PDPS includes the server or PXC plus tested versions of HAProxy, ProxySQL, Orchestrator, and XtraBackup.
+    * No → Go to step 2.
 
 2. Do you just need a drop-in replacement for MySQL?
-   * Yes → Use Percona Server for MySQL. It is lightweight and focuses on the core engine performance.
+
+    * Yes → Use Percona Server for MySQL. It is lightweight and focuses on the core engine performance.
 
 3. Is your operating system (OS) very new?
-   * Check → Verify support on the [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) page.
+
+    * Check → Verify support on the [Percona Software and Platform Lifecycle](https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql) page.
 
 4. Are you deploying on Kubernetes (a platform for running containerized applications)?
-   * Yes → Use [Percona Operator for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) (for Percona Server for MySQL) or [Percona Operator for MySQL based on Percona XtraDB Cluster (PXC)](https://docs.percona.com/percona-operator-for-mysql/pxc/) (for a clustered, high-availability setup). Operators automate deployment, scaling, backups, and failover on Kubernetes.
-   * No → Not sure? [Learn more about the differences](ps-or-pdps.md) to compare options.
+
+    * Yes → Use [Percona Operator for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) (for Percona Server for MySQL) or [Percona Operator for MySQL based on Percona XtraDB Cluster (PXC)](https://docs.percona.com/percona-operator-for-mysql/pxc/) (for a clustered, high-availability setup). Operators automate deployment, scaling, backups, and failover on Kubernetes.
+    * No → Not sure? [Learn more about the differences](ps-or-pdps.md) to compare options.
 
 [Learn more about the differences →](ps-or-pdps.md)
 
