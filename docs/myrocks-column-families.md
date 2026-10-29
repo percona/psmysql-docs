@@ -76,3 +76,11 @@ family attributes.
 
 <!-- RocksDB options: Each is defined with and without the rocksdb
 prefix. Some have the abbreviated syntax -->
+
+## Column family creation and removal
+
+As of Percona Server for MySQL 8.4.13-12, the following issues were fixed.
+
+A column family creation can fail after RocksDB has created the column family, for example because the `OPTIONS` file could not be written. MyRocks returns an error to the client and rolls the column family back, instead of continuing with an untracked column family.
+
+A background drop of a column family can fail only when persisting the options file. MyRocks forgets that column family anyway. Previously MyRocks kept the dropped column family, so the next write to it aborted the server.

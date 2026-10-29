@@ -42,6 +42,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_bulk_load_compression_parallel_threads`](#rocksdb_bulk_load_compression_parallel_threads)                                                                        |
 | [`rocksdb_bulk_load_enable_unique_key_check`](#rocksdb_bulk_load_enable_unique_key_check)                                                                        |
 | [`rocksdb_bulk_load_fail_if_not_bottommost_level`](#rocksdb_bulk_load_fail_if_not_bottommost_level)                                                                        |
+| [`rocksdb_bulk_load_history_size`](#rocksdb_bulk_load_history_size)                                                                        |
 | [`rocksdb_bulk_load_partial_index`](#rocksdb_bulk_load_partial_index)                                                                        |
 | [`rocksdb_bulk_load_size`](#rocksdb_bulk_load_size)                                                                        |
 | [`rocksdb_bulk_load_use_sst_partitioner`](#rocksdb_bulk_load_use_sst_partitioner)                                                                        |
@@ -90,6 +91,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_delete_obsolete_files_period_micros`](#rocksdb_delete_obsolete_files_period_micros)                                                                        |
 | [`rocksdb_disable_file_deletions`](#rocksdb_disable_file_deletions)                                                                        |
 | [`rocksdb_disable_instant_ddl`](#rocksdb_disable_instant_ddl)                                                                        |
+| [`rocksdb_enable_autoinc_compat_mode`](#rocksdb_enable_autoinc_compat_mode)                                                                        |
 | [`rocksdb_enable_bulk_load_api`](#rocksdb_enable_bulk_load_api)                                                                        |
 | [`rocksdb_enable_delete_range_for_drop_index`](#rocksdb_enable_delete_range_for_drop_index)                                                                        |
 | [`rocksdb_enable_insert_with_update_caching`](#rocksdb_enable_insert_with_update_caching)                                                                        |
@@ -108,6 +110,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_enable_write_thread_adaptive_yield`](#rocksdb_enable_write_thread_adaptive_yield)                                                                        |
 | [`rocksdb_error_if_exists`](#rocksdb_error_if_exists)                                                                        |
 | [`rocksdb_error_on_suboptimal_collation`](#rocksdb_error_on_suboptimal_collation)                                                                        |
+| [`rocksdb_fault_injection_options`](#rocksdb_fault_injection_options)                                                                        |
 | [`rocksdb_file_checksums`](#rocksdb_file_checksums)                                                                        |
 | [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit)                                                                        |
 | [`rocksdb_flush_memtable_on_analyze`](#rocksdb_flush_memtable_on_analyze)                                                                        |
@@ -116,6 +119,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_force_flush_memtable_and_lzero_now`](#rocksdb_force_flush_memtable_and_lzero_now)                                                                        |
 | [`rocksdb_force_flush_memtable_now`](#rocksdb_force_flush_memtable_now)                                                                        |
 | [`rocksdb_force_index_records_in_range`](#rocksdb_force_index_records_in_range)                                                                        |
+| [`rocksdb_gap_lock_raise_error`](#rocksdb_gap_lock_raise_error)                                                                        |
 | [`rocksdb_hash_index_allow_collision`](#rocksdb_hash_index_allow_collision)                                                                        |
 | [`rocksdb_ignore_unknown_options`](#rocksdb_ignore_unknown_options)                                                                        |
 | [`rocksdb_index_type`](#rocksdb_index_type)                                                                        |
@@ -147,6 +151,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_max_row_locks`](#rocksdb_max_row_locks)                                                                        |
 | [`rocksdb_max_subcompactions`](#rocksdb_max_subcompactions)                                                                        |
 | [`rocksdb_max_total_wal_size`](#rocksdb_max_total_wal_size)                                                                        |
+| [`rocksdb_max_trash_db_ratio_pct`](#rocksdb_max_trash_db_ratio_pct)                                                                        |
 | [`rocksdb_merge_buf_size`](#rocksdb_merge_buf_size)                                                                        |
 | [`rocksdb_merge_combine_read_size`](#rocksdb_merge_combine_read_size)                                                                        |
 | [`rocksdb_merge_tmp_file_removal_delay_ms`](#rocksdb_merge_tmp_file_removal_delay_ms)                                                                        |
@@ -169,6 +174,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl)                                                                        |
 | [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables)                                                                        |
 | [`rocksdb_records_in_range`](#rocksdb_records_in_range)                                                                        |
+| [`rocksdb_records_in_range_dive_threshold`](#rocksdb_records_in_range_dive_threshold)                                                                        |
 | [`rocksdb_reset_stats`](#rocksdb_reset_stats)                                                                        |
 | [`rocksdb_rollback_on_timeout`](#rocksdb_rollback_on_timeout)                                                                        |
 | [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api)                                                                        |
@@ -176,6 +182,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_signal_drop_index_thread`](#rocksdb_signal_drop_index_thread)                                                                        |
 | [`rocksdb_sim_cache_size`](#rocksdb_sim_cache_size)                                                                        |
 | [`rocksdb_skip_bloom_filter_on_read`](#rocksdb_skip_bloom_filter_on_read)                                                                        |
+| [`rocksdb_skip_bulk_load_notify_ddl`](#rocksdb_skip_bulk_load_notify_ddl)                                                                        |
 | [`rocksdb_skip_fill_cache`](#rocksdb_skip_fill_cache)                                                                        |
 | [`rocksdb_skip_locks_if_skip_unique_check`](#rocksdb_skip_locks_if_skip_unique_check)                                                                        |
 | [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec)                                                                        |
@@ -219,6 +226,7 @@ Also, all variables can exist in one or both of the following scopes:
 | [`rocksdb_whole_key_filtering`](#rocksdb_whole_key_filtering)                                                                        |
 | [`rocksdb_write_batch_flush_threshold`](#rocksdb_write_batch_flush_threshold)                                                                        |
 | [`rocksdb_write_batch_max_bytes`](#rocksdb_write_batch_max_bytes)                                                                        |
+| [`rocksdb_write_batch_mem_free_threshold`](#rocksdb_write_batch_mem_free_threshold)                                                                        |
 | [`rocksdb_write_disable_wal`](#rocksdb_write_disable_wal)                                                                        |
 | [`rocksdb_write_ignore_missing_column_families`](#rocksdb_write_ignore_missing_column_families)                                                                        |
 | [`rocksdb_write_policy`](#rocksdb_write_policy)                                                                        |
@@ -312,6 +320,8 @@ If you enable this, make sure that rocksdb_use_direct_reads is disabled.
 
 Specifies whether to allow the OS to map a data file into memory for writes.
 Disabled by default.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. With this variable `ON` and [`rocksdb_flush_log_at_trx_commit=0`](#rocksdb_flush_log_at_trx_commit), `FLUSH LOGS` no longer fails. See [`rocksdb_flush_log_at_trx_commit`](#rocksdb_flush_log_at_trx_commit).
 
 
 
@@ -549,6 +559,14 @@ for example, when setting up a new MyRocks instance from a MySQL dump.
 
 When the `rocksdb_bulk_load` variable is enabled, it behaves as if the variable `rocksdb_commit_in_the_middle` is enabled, even if the variable `rocksdb_commit_in_the_middle` is disabled.
 
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The changes are:
+
+* **DDL during a bulk load.** `ALTER TABLE`, `DROP TABLE`, `RENAME TABLE`, and `TRUNCATE TABLE` on a table with an unfinished bulk load fail with `ER_LOCK_REFUSED_BY_ENGINE` (`Lock acquisition refused by storage engine`). The failure also occurs in the session that loads the table. A warning names the table. The warning says to finish the load with `SET rocksdb_bulk_load=0` in the session that loads the table. A bulk load fails on a table with an active `ALTER TABLE` or `DROP TABLE`. DDL on other tables is unaffected. That DDL includes tables of other storage engines. `ALTER TABLE ... ENABLE KEYS` and `ALTER TABLE ... DISABLE KEYS` are no-ops in MyRocks. A bulk load session ignores those statements. [`rocksdb_skip_bulk_load_notify_ddl`](#rocksdb_skip_bulk_load_notify_ddl) disables this check.
+
+* **Bulk load commit.** An `ALTER TABLE` that uses the copy algorithm while `rocksdb_bulk_load` is enabled commits its SST files when the `ALTER` completes. Previously those files were committed when `rocksdb_bulk_load` was set back to `0`. A regular bulk load is still committed only by `SET rocksdb_bulk_load = 0`. `ALTER TABLE ... ALGORITHM=COPY` also checks a unique key that the statement adds. The check runs with [`rocksdb_bulk_load_enable_unique_key_check=OFF`](#rocksdb_bulk_load_enable_unique_key_check). The statement fails with `ER_DUP_ENTRY`. Previously the `ALTER TABLE` succeeded and left the unique index empty.
+
+* **Disconnect during a bulk load.** A disconnect with `rocksdb_bulk_load=ON` finishes the pending bulk load. That action matches `SET SESSION rocksdb_bulk_load=OFF`. A dump restored by the `mysql` client keeps its last table. The behavior matches earlier releases.
+
 
 
 
@@ -617,6 +635,16 @@ Added in Percona Server for MySQL 8.4.5-5.
 Controls whether the unique key constraint is checked during bulk loading.
 This setting can only be changed when bulk loading is disabled.
 
+As of Percona Server for MySQL 8.4.13-12, `ALTER TABLE ... ALGORITHM=COPY` checks a unique key that the statement adds.
+
+The check runs while [`rocksdb_bulk_load`](#rocksdb_bulk_load) is enabled.
+
+The check also runs when `rocksdb_bulk_load_enable_unique_key_check` is `OFF`.
+
+The statement fails with `ER_DUP_ENTRY`.
+
+Previously the `ALTER TABLE` succeeded and left the unique index empty.
+
 
 
 
@@ -644,6 +672,25 @@ This variable is disabled (OFF) by default.
 
 
 
+### `rocksdb_bulk_load_history_size`
+
+| Option       | Description                          |
+|--------------|--------------------------------------|
+| Command-line | --rocksdb-bulk-load-history-size     |
+| Dynamic      | Yes                                  |
+| Scope        | Global                               |
+| Data type    | Numeric                              |
+| Default      | 10                                   |
+| Minimum      | 0                                    |
+| Maximum      | 1024                                 |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_bulk_load_history_size` variable was added.
+
+Controls how many completed bulk load sessions are kept in memory for [`INFORMATION_SCHEMA.ROCKSDB_BULK_LOAD_HISTORY`](myrocks-information-schema-tables.md#rocksdb_bulk_load_history). The table lists active sessions and this many completed sessions, in the order the sessions started.
+
+
+
+
 ### `rocksdb_bulk_load_partial_index`
 
 | Option       | Description         |
@@ -655,6 +702,8 @@ This variable is disabled (OFF) by default.
 | Default      | ON                  |
 
 Materializes partial index during bulk load instead of leaving the index empty.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. A failure to write an SST file while bulk loading a table with a partial index reports its error code instead of a generic error.
 
 
 
@@ -938,6 +987,18 @@ not.
 
 Specifies the name of the column family to compact.
 
+After an upgrade to RocksDB 9.7.4, compact each affected column family.
+
+Compact a column family that uses a prefix Bloom filter, `whole_key_filtering=false`, and partitioned filters.
+
+```sql
+SET GLOBAL rocksdb_compact_cf='<cf>';
+```
+
+SST files written by an earlier RocksDB version can miss rows on a descending scan until compaction rewrites those files.
+
+See [RocksDB 9.4.0 to 9.7.4](myrocks-added-features.md#rocksdb-940-to-974).
+
 
 
 
@@ -1124,6 +1185,8 @@ You can select one of the following actions:
 
 The default value is `ERROR` that means the query fails with the error `HA_ERR_ROCKSDB_CORRUPT_DATA`.
 
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The change is that when `ABORT_SERVER` aborts the server, the error log also records the database and the query that hit the corruption.
+
 
 
 
@@ -1139,6 +1202,16 @@ The default value is `ERROR` that means the query fails with the error `HA_ERR_R
 
 Specifies the directory where MyRocks should create a checkpoint.
 Empty by default.
+
+As of Percona Server for MySQL 8.4.13-12, a checkpoint keeps the RocksDB database ID of its source.
+
+The checkpoint does not sync the live WAL.
+
+The checkpoint contains one extra empty WAL file.
+
+The same rules apply to a checkpoint created for a clone.
+
+See [RocksDB 9.4.0 to 9.7.4](myrocks-added-features.md#rocksdb-940-to-974).
 
 
 
@@ -1185,11 +1258,9 @@ Disabled by default.
 | Scope        | Session                                  |
 | Data type    | String                                   |
 
-When specified it will create a temporary RocksDB ‘checkpoint’ or
-‘snapshot’ in the datadir. If the session ends with an existing
-checkpoint, or if the variable is reset to another value, the checkpoint
-will get removed. This variable should be used by backup tools. Prolonged
-use or other misuse can have serious side effects to the server instance.
+When specified it will create a temporary RocksDB checkpoint in the data directory. The session tracks that checkpoint. `SET SESSION rocksdb_create_temporary_checkpoint = NULL` removes it, and disconnect removes it. `SET SESSION rocksdb_create_temporary_checkpoint = DEFAULT` only resets the variable and leaves the checkpoint on disk. This variable should be used by backup tools. Prolonged use or other misuse can have serious side effects to the server instance.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. `SET SESSION rocksdb_create_temporary_checkpoint = DEFAULT` left the checkpoint directory on disk and lost track of it. A following `SET ... = NULL` then did not remove it, and a following `SET ... = '<dir>'` created a second checkpoint.
 
 
 
@@ -1322,9 +1393,11 @@ by always overriding it with some value.
 | Data type                                     | Boolean                                                                               |
 | Default                                       | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5
+Added in Percona Server for MySQL 8.4.5-5.
 
 Allows setting iterator bounds in RocksDB even when the query range conditions would normally enable Bloom filter usage.
+
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The change is that the variable sets iterator bounds when a Bloom filter is in use. Before this version it did not.
 
 
 ### `rocksdb_debug_ttl_ignore_pk`
@@ -1543,6 +1616,8 @@ For example:
 SET @@global.ROCKSDB_DELETE_CF = 'cf_primary_key';
 ```
 
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. `SET GLOBAL rocksdb_delete_cf` refuses the temporary-table column families `__tmp__` and `__tmp_system__`. Previously, dropping `__tmp_system__` made the next `CREATE TEMPORARY TABLE` crash the server.
+
 
 
 
@@ -1594,11 +1669,43 @@ use or other misuse can have serious side effects to the server instance.
 | Data type    | Boolean                                       |
 | Default      | OFF                                            |
 
-**[Deprecated: 8.4.5-5]** The `rocksdb_disable_instant_ddl` variable is deprecated and will be removed in a future version. Its default value has changed to `OFF` as of this version.
+**[Removed: 8.4.13-12]** Removed in Percona Server for MySQL 8.4.13-12, the `rocksdb_disable_instant_ddl` variable was removed. A configuration file that still sets this variable must remove it or use the `loose-` prefix, or the server fails to start.
 
-Disables Instant DDL during `ALTER TABLE` operations.
+The variable had no effect and was deprecated in MyRocks 9.3.1-1. Use [`rocksdb_enable_instant_ddl`](#rocksdb_enable_instant_ddl) and the `rocksdb_enable_instant_ddl_for_*` variables:
 
-Prior to Percona Server for MySQL 8.4.5-5, this variable was enabled (`ON`) by default.
+* [`rocksdb_enable_instant_ddl_for_append_column`](#rocksdb_enable_instant_ddl_for_append_column)
+
+* [`rocksdb_enable_instant_ddl_for_column_default_changes`](#rocksdb_enable_instant_ddl_for_column_default_changes)
+
+* [`rocksdb_enable_instant_ddl_for_drop_index_changes`](#rocksdb_enable_instant_ddl_for_drop_index_changes)
+
+* [`rocksdb_enable_instant_ddl_for_table_comment_changes`](#rocksdb_enable_instant_ddl_for_table_comment_changes)
+
+In Percona Server for MySQL 8.4.5-5 the default changed from `ON` to `OFF`. Before that, the variable disabled Instant DDL during `ALTER TABLE`.
+
+
+
+
+### `rocksdb_enable_autoinc_compat_mode`
+
+| Option       | Description                           |
+|--------------|---------------------------------------|
+| Command-line | --rocksdb-enable-autoinc-compat-mode  |
+| Dynamic      | Yes                                   |
+| Scope        | Global, Session                       |
+| Data type    | Boolean                               |
+| Default      | OFF                                   |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_enable_autoinc_compat_mode` variable was added.
+
+By default MyRocks allocates one auto-increment value per row, so a simple multi-row insert produces interleaved values. When this variable is enabled, MyRocks allocates a batch of consecutive values per statement, the same way InnoDB does with [`innodb_autoinc_lock_mode = 2` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-parameters.html#sysvar_innodb_autoinc_lock_mode). `LAST_INSERT_ID()` can then be used to derive the ids of a simple multi-row insert. As with InnoDB, this may allocate more values than the statement uses.
+
+| Scenario | InnoDB (`innodb_autoinc_lock_mode = 2`) | MyRocks default | MyRocks with compat mode |
+|----------|-----------------------------------------|-----------------|--------------------------|
+| Simple inserts | Consecutive ids | 1 id per row | Consecutive ids |
+| Mixed-mode inserts | One id for each row in the statement | Ids only when needed | One id for each row in the statement |
+| `INSERT ... ON DUPLICATE KEY UPDATE` | One id for each row in the statement | Ids only when needed | One id for each row in the statement |
+| Bulk inserts | 1, 2, 4, 8, ... ids per call | 1 id per row | 1, 2, 4, 8, ... ids per call |
 
 
 
@@ -1637,6 +1744,10 @@ and does not require keys to be inserted in any order.
 Enables drop table / index by calling the DeleteRange.
 
 This option is disabled (OFF) by default.
+
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The change is that, with this variable set to `ON`, the key ranges of dropped tables and indexes are deleted by the background drop-index thread after the DDL statement completes. Previously the deletion ran within the statement. [`rocksdb_signal_drop_index_thread`](#rocksdb_signal_drop_index_thread) wakes that thread.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. A failure to delete those key ranges, or to flush the WAL afterwards, was ignored. The background drop-index thread now applies [`rocksdb_io_error_action`](#rocksdb_io_error_action): the server aborts, or the cleanup is retried later.
 
 
 
@@ -1815,6 +1926,8 @@ Specifies whether to keep expired TTL records during compaction.
 Enabled by default.
 If disabled, expired TTL records will be dropped during compaction.
 
+As of Percona Server for MySQL 8.4.13-12, a TTL table can also have a partial index. Creating a partial index on a TTL table was rejected with `Partial index cannot have TTL`.
+
 
 
 
@@ -1834,6 +1947,14 @@ this will allow these records to be seen, but as a result
 rows may disappear in the middle of transactions as they
 are dropped during compaction. **Use with caution.**
 
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The change is that a running transaction no longer sees additional rows expire:
+
+* TTL filtering uses the timestamp of the first snapshot the transaction took.
+
+* That timestamp stays in place on snapshot release and on statement rollback inside a multi-statement transaction.
+
+* Compaction derives the oldest snapshot it uses from the same timestamp.
+
 
 
 ### `rocksdb_enable_udt_in_mem`
@@ -1846,12 +1967,9 @@ are dropped during compaction. **Use with caution.**
 | Data type                         | Boolean                                                                               |
 | Default                           | OFF                                                                                   |
 
-Added in Percona Server for MySQL 8.4.5-5.
+**[Removed: 8.4.13-12]** Removed in Percona Server for MySQL 8.4.13-12, the `rocksdb_enable_udt_in_mem` variable was removed. A configuration file that still sets this variable must remove it or use the `loose-` prefix, or the server fails to start.
 
-**[Not yet implemented.]**
-
-Enables the user-defined timestamp in memtable feature to support Hybrid
-Logical Clock (HLC) snapshot reads in MyRocks.
+The variable had no effect. It was added in Percona Server for MySQL 8.4.5-5 and was not implemented. It was intended to enable user-defined timestamps in the memtable for Hybrid Logical Clock (HLC) snapshot reads.
 
 
 ### `rocksdb_enable_write_thread_adaptive_yield`
@@ -1899,9 +2017,20 @@ Disabled by default.
 | Data type    | Boolean                                 |
 | Default      | ON                                      |
 
-Specifies whether to report an error instead of a warning if an index is
-created on a char field where the table has a sub-optimal collation (case
-insensitive). Enabled by default.
+**[Removed: 8.4.13-12]** Removed in Percona Server for MySQL 8.4.13-12, the `rocksdb_error_on_suboptimal_collation` variable was removed. A configuration file that still sets this variable must remove it or use the `loose-` prefix, or the server fails to start.
+
+The variable was a no-op since Percona Server for MySQL 8.0.23-14, and upstream removed it.
+
+It specified whether to report an error instead of a warning if an index was created on a char field where the table had a sub-optimal collation (case insensitive). It was enabled by default.
+
+
+
+
+### `rocksdb_fault_injection_options`
+
+**[Removed: 8.4.13-12]** Removed in Percona Server for MySQL 8.4.13-12, the `rocksdb_fault_injection_options` variable was removed. A configuration file that still sets this variable must remove it or use the `loose-` prefix, or the server fails to start.
+
+The fault injection feature was removed. RocksDB does not support it as an external feature.
 
 
 
@@ -1972,6 +2101,8 @@ The setting produces the following outcomes:
 
 * Risks extensive data loss or inconsistency after a crash compared with
   stricter settings.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. With [`rocksdb_allow_mmap_writes=ON`](#rocksdb_allow_mmap_writes) and `rocksdb_flush_log_at_trx_commit=0`, `FLUSH LOGS` no longer fails. It no longer requests a WAL sync. Memory-mapped WAL files do not support that sync, and the background WAL flush does not request one either.
 
 ##### Value `1`: sync on every commit (default)
 
@@ -2140,6 +2271,29 @@ Set to `0` if you do not want to override the returned value.
 
 
 
+### `rocksdb_gap_lock_raise_error`
+
+| Option       | Description                      |
+|--------------|----------------------------------|
+| Command-line | --rocksdb-gap-lock-raise-error   |
+| Dynamic      | Yes                              |
+| Scope        | Global, Session                  |
+| Data type    | Enum = OFF, WARNING, ERROR       |
+| Default      | ERROR                            |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_gap_lock_raise_error` variable was added.
+
+MyRocks does not support gap locks. This variable controls queries that would need one, for example a locking read with a range condition under `REPEATABLE READ`. The setting also applies to partitioned tables. InnoDB is not affected. See [Gap locks detection](myrocks-gap-locks-detection.md).
+
+* `OFF` runs the query without gap locks.
+
+* `WARNING` runs the query and returns one warning per statement.
+
+* `ERROR` (the default) rejects the query. This is the behavior from earlier versions.
+
+
+
+
 ### `rocksdb_hash_index_allow_collision`
 
 | Option       | Description                          |
@@ -2168,6 +2322,10 @@ If disabled, full prefix is stored to prevent hash collisions.
 | Default      | ON          |
 
 When enabled, it allows RocksDB to receive unknown options and not exit.
+
+An earlier MyRocks release loads an `OPTIONS` file from RocksDB 9.7.4 only when `rocksdb_ignore_unknown_options` is `ON`.
+
+See [Downgrade to MyRocks 9.3.1](myrocks-added-features.md#downgrade-to-myrocks-931).
 
 
 
@@ -2249,6 +2407,22 @@ Added in Percona Server for MySQL 8.4.5-5.
 Controls the behavior when an I/O error occurs within RocksDB. By default,
 MyRocks aborts the server and refuses to start. Setting this option to
 `IGNORE_ERROR` suppresses the error instead.
+
+The background drop-index thread uses this variable when it cannot delete the key ranges of dropped tables and indexes, or cannot flush the WAL afterwards. See [`rocksdb_enable_delete_range_for_drop_index`](#rocksdb_enable_delete_range_for_drop_index).
+
+As of Percona Server for MySQL 8.4.13-12, a WAL write error is fatal when `rocksdb_io_error_action` is `IGNORE_ERROR`.
+
+MyRocks refuses writes until the server restarts.
+
+The refusal continues after the cause is corrected.
+
+A commit that fails on a WAL error stays invisible to other sessions.
+
+That commit stays invisible after a restart.
+
+The default `ABORT_SERVER` is unchanged.
+
+See [RocksDB 9.4.0 to 9.7.4](myrocks-added-features.md#rocksdb-940-to-974).
 
 
 ### `rocksdb_is_fd_close_on_exec`
@@ -2439,6 +2613,14 @@ rely on the application to do the flushing.
 
 When enabled, uses the WriteBatch API, which is faster. The session does not hold any lock on row access. This variable is not effective on replica.
 
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The changes are:
+
+* An XA transaction uses the RocksDB transaction API with `rocksdb_master_skip_tx_api` or [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api). A write batch cannot be prepared. MyRocks replaces a write batch the session already owns when the XA transaction first uses MyRocks. The session returns to a write batch after the XA transaction. Previously `XA PREPARE` discarded the MyRocks writes of that transaction.
+
+* Changing `rocksdb_master_skip_tx_api` or `rocksdb_rpl_skip_tx_api` takes effect at the next transaction of a session that already used MyRocks. Previously the session kept using the kind of transaction it had first created.
+
+Prepared XA transactions that modified MyRocks tables are kept across a clean restart and across a crash. See [Prepared XA transactions](myrocks-added-features.md#prepared-xa-transactions).
+
 !!! note
 
     Due to the disabled row locks, improper use of the variable can cause data corruption or inconsistency.
@@ -2567,7 +2749,7 @@ In Percona Server for MySQL 8.4.7-7, the maximum value was changed to `262144`.
 | Data type    | Numeric                        |
 | Default      | 5                              |
 
-Specifies the maximum number of recent deadlocks to store.
+Specifies the maximum number of recent deadlocks to store. [`SHOW ENGINE ROCKSDB TRANSACTION STATUS`](myrocks-transaction-status.md) prints these deadlocks in the `LATEST DETECTED DEADLOCKS` section.
 
 
 
@@ -2721,6 +2903,25 @@ because more log data must be replayed.
 
 A lower limit keeps the disk footprint small and recovery fast. The setting
 may cause frequent forced flushes, which can throttle write throughput.
+
+
+
+
+### `rocksdb_max_trash_db_ratio_pct`
+
+| Option       | Description                       |
+|--------------|-----------------------------------|
+| Command-line | --rocksdb-max-trash-db-ratio-pct  |
+| Dynamic      | Yes                               |
+| Scope        | Global                            |
+| Data type    | Numeric                           |
+| Default      | 100000000000                      |
+| Minimum      | 0                                 |
+| Maximum      | 18446744073709551615              |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_max_trash_db_ratio_pct` variable was added.
+
+Sets the `max_trash_db_ratio` option of the RocksDB `SstFileManager`, in percent. The option decides when trash (deleted SST) files are removed immediately instead of at the rate limited by [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec). The RocksDB default of 25 percent is too low for most MyRocks workloads, so the default is deliberately huge (`100000000000`). With the default, deleted SST files are always removed at the rate of [`rocksdb_sst_mgr_rate_bytes_per_sec`](#rocksdb_sst_mgr_rate_bytes_per_sec).
 
 
 
@@ -2887,6 +3088,8 @@ Enabled by default.
 | Scope        | Global                       |
 | Data type    | Boolean                      |
 | Default      | ON                           |
+
+As of Percona Server for MySQL 8.4.13-12, a partial index can be created on a TTL table. See [`rocksdb_enable_ttl`](#rocksdb_enable_ttl).
 
 If enabled, the server does not read from the partial index to check if the key exists before 
 deleting the partial index and the delete marker is unconditionally written.
@@ -3076,6 +3279,8 @@ Specifies whether queries that generate snapshot conflicts
 should be logged to the error log.
 Disabled by default.
 
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. Lock and snapshot conflicts no longer write `Got error 522` entries to the error log. The client still receives `ER_LOCK_DEADLOCK`.
+
 
 
 
@@ -3136,6 +3341,18 @@ The options are the following:
 
 * PK_ONLY - Enables the variable on tables where the only key is the primary key
 
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The changes are:
+
+* Read-free replication is not used for row events applied with [`replica_exec_mode=IDEMPOTENT` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-replica.html#sysvar_replica_exec_mode). A diverged replica no longer keeps extra primary key rows and stale secondary index entries.
+
+* Replicated `UPDATE` events for a table with an implicit TTL (`ttl_duration` without `ttl_col`) no longer use read-free replication (PS-11903). A replicated `UPDATE` applied with read-free replication wrote a wrong TTL timestamp. The timestamp was uninitialized, or it was the timestamp of the row the handler last read or inserted. Rows expired early or late on the replica, and its primary and secondary indexes became inconsistent. `DELETE` and `INSERT` events for such a table still use read-free replication.
+
+* A replicated `UPDATE` uses read-free replication and changes the TTL column of a table with `ttl_col`. Secondary keys keep the TTL timestamp from that `UPDATE`. Previously those keys kept the previous TTL timestamp. The row expired early or late in the secondary indexes.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. Changing `rocksdb_read_free_rpl` or [`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables) while a replica applies a multi-row `UPDATE` or `DELETE` event no longer makes the replica use the key of the previous row.
+
+[`rocksdb_read_free_rpl_tables`](#rocksdb_read_free_rpl_tables) selects which table names use read-free replication.
+
 
 
 
@@ -3147,14 +3364,25 @@ The options are the following:
 | Dynamic      | Yes                            |
 | Scope        | Global, Session                |
 | Data type    | String                         |
-| Default      |                                |
+| Default      | `.*`                           |
 
-We recommend that you use `rocksdb_read_free_rpl` instead of this variable.
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The changes are:
 
-This variable lists tables (as a regular expression)
-that should use read-free replication on the replica
-(that is, replication without row lookups).
-Empty by default.
+* The variable is honored again. A table uses read-free replication only when its name matches this variable. Since PS-6869 the server accepted the variable and ignored it. The default `.*` matches every table name until the variable is set to another pattern. The pattern is matched against the table name as written in SQL, such as `t-1`, not its filename-encoded form (`t@002d1`). A value set at startup, for example in `my.cnf`, is honored. An invalid pattern at startup makes MyRocks fail to initialize: the server starts without the `ROCKSDB` engine, or, with `--rocksdb=FORCE`, does not start.
+
+* Patterns are compiled and matched with ICU, as the `REGEXP` functions are, instead of as POSIX extended regular expressions (PS-11881). Patterns made of names, `.`, `*`, alternation, and character classes behave the same. Each match runs under [`regexp_time_limit` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_regexp_time_limit) and [`regexp_stack_limit` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_regexp_stack_limit). A match that fails, for example on the time limit, counts as no match: the table does not use read-free replication. The failure is logged once per pattern. `SET` rejects a pattern nested deeper than ICU's parser allows (about 98 groups). Matching stays case-insensitive when [`lower_case_table_names` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_lower_case_table_names) is set.
+
+As of Percona Server for MySQL 8.4.13-12, the following issues were fixed by that ICU matching:
+
+* `SET rocksdb_read_free_rpl_tables` with a pattern of a few thousand nested groups crashed the server.
+
+* A pattern with catastrophic backtracking, such as `(a*)*b`, made `CREATE TABLE` hang while blocking all other MyRocks DDL.
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. Changing [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl) or `rocksdb_read_free_rpl_tables` while a replica applies a multi-row `UPDATE` or `DELETE` event no longer makes the replica use the key of the previous row.
+
+We recommend that you use [`rocksdb_read_free_rpl`](#rocksdb_read_free_rpl) instead of this variable.
+
+This variable lists tables (as a regular expression) that should use read-free replication on the replica (that is, replication without row lookups). The default is `.*`.
 
 
 
@@ -3172,6 +3400,36 @@ Empty by default.
 Specifies the value to override the result of `records_in_range()`.
 Default value is `0`.
 Allowed range is up to `2147483647`.
+
+[`rocksdb_records_in_range_dive_threshold`](#rocksdb_records_in_range_dive_threshold) refines a low `records_in_range()` estimate by scanning the index range.
+
+
+
+
+### `rocksdb_records_in_range_dive_threshold`
+
+| Option       | Description                              |
+|--------------|------------------------------------------|
+| Command-line | --rocksdb-records-in-range-dive-threshold |
+| Dynamic      | Yes                                      |
+| Scope        | Global, Session                          |
+| Data type    | Numeric                                  |
+| Default      | 100                                      |
+| Minimum      | 0                                        |
+| Maximum      | 1000000                                  |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_records_in_range_dive_threshold` variable was added.
+
+RocksDB size approximations work at data block granularity. They can return 0 or 1 rows for a narrow range that contains many rows, which leads to a poor query plan. When the estimate is below this value, MyRocks counts the keys in the range by scanning the index, reading at most this many keys. `0` disables the refinement.
+
+The variable can also be set for a single statement with the [`SET_VAR`](extended-set-var.md) hint:
+
+```sql
+SELECT /*+ SET_VAR(rocksdb_records_in_range_dive_threshold = 0) */ *
+FROM t1 WHERE id BETWEEN 1 AND 10;
+```
+
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. Poor query plans caused by 1-row range estimates are refined by this bounded index dive (PS-10110). The dive shares one skip budget across all keys, so a single key with many retained versions does not abort the dive early.
 
 
 
@@ -3225,6 +3483,14 @@ There are two conditions which are necessary to
 use it: row replication format and replica
 operating in super read only mode.
 
+As of Percona Server for MySQL 8.4.13-12, the behavior of this variable has changed. The changes are:
+
+* An XA transaction uses the RocksDB transaction API with [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api) or `rocksdb_rpl_skip_tx_api`. A write batch cannot be prepared. MyRocks replaces a write batch the session already owns when the XA transaction first uses MyRocks. The session returns to a write batch after the XA transaction. Previously `XA PREPARE` discarded the MyRocks writes of that transaction.
+
+* Changing `rocksdb_master_skip_tx_api` or `rocksdb_rpl_skip_tx_api` takes effect at the next transaction of a session that already used MyRocks. Previously the session kept using the kind of transaction it had first created.
+
+Prepared XA transactions that modified MyRocks tables are kept across a clean restart and across a crash. See [Prepared XA transactions](myrocks-added-features.md#prepared-xa-transactions).
+
 
 
 
@@ -3238,11 +3504,11 @@ operating in super read only mode.
 | Data type    | Numeric                                 |
 | Default      | 3600                                    |
 
-Specifies the number of seconds to wait
-between recomputation of table statistics for the optimizer.
-During that time, only changed indexes are updated.
-Default value is `3600`.
-Allowed is from `0` to `4294967295`.
+**[Removed: 8.4.13-12]** Removed in Percona Server for MySQL 8.4.13-12, the `rocksdb_seconds_between_stat_computes` variable was removed. A configuration file that still sets this variable must remove it or use the `loose-` prefix, or the server fails to start.
+
+The variable had no effect.
+
+It specified the number of seconds to wait between recomputation of table statistics for the optimizer. During that time, only changed indexes were updated. The default value was `3600`. The allowed range was from `0` to `4294967295`.
 
 
 
@@ -3294,6 +3560,23 @@ Disabled by default (bloom filters are not skipped).
 
 
 
+### `rocksdb_skip_bulk_load_notify_ddl`
+
+| Option       | Description                          |
+|--------------|--------------------------------------|
+| Command-line | --rocksdb-skip-bulk-load-notify-ddl  |
+| Dynamic      | Yes                                  |
+| Scope        | Global                               |
+| Data type    | Boolean                              |
+| Default      | OFF                                  |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_skip_bulk_load_notify_ddl` variable was added.
+
+When this variable is `OFF` (the default), MyRocks checks whether DDL conflicts with an active bulk load session. The check is described under [`rocksdb_bulk_load`](#rocksdb_bulk_load). Set this variable to `ON` to skip it. The setting is intended for tests and emergencies.
+
+
+
+
 ### `rocksdb_skip_fill_cache`
 
 | Option       | Description               |
@@ -3338,6 +3621,8 @@ Skip row locking when unique checks are disabled.
 Specifies the maximum rate for writing to data files.
 Default value is `0`. This option is not effective on HDD.
 Allowed range is from `0` to `18446744073709551615`.
+
+[`rocksdb_max_trash_db_ratio_pct`](#rocksdb_max_trash_db_ratio_pct) decides when deleted SST files are removed immediately instead of at this rate.
 
 
 
@@ -3706,6 +3991,14 @@ Disabled by default.
 Specifies option updates for each column family.
 Empty by default.
 
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. A `SET` statement with several `rocksdb_update_cf_options` assignments keeps every option update in the statement.
+
+After `rocksdb_update_cf_options` changes `prefix_extractor`, reads find rows that remain in the memtable.
+
+The column family has `memtable_prefix_bloom_size_ratio` above 0.
+
+See [RocksDB 9.4.0 to 9.7.4](myrocks-added-features.md#rocksdb-940-to-974).
+
 
 
 
@@ -3908,6 +4201,8 @@ Specifies whether to verify that MySQL data dictionary is equal to the MyRocks d
 Specifies whether to verify checksums when reading index or table records.
 Disabled by default.
 
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. With this variable `ON`, checksums are verified also for rows that have no columns outside the primary key.
+
 
 
 
@@ -4020,6 +4315,16 @@ The `rocksdb_whole_key_filtering` variable controls whether the Bloom filter
 stores a hash of the entire key or only the prefix. The option is part of
 RocksDB `BlockBasedTableOptions`. The default value is `ON`.
 
+As of Percona Server for MySQL 8.4.13-12, a descending scan returns every matching row.
+
+A reverse lookup returns every matching row.
+
+The column family in that case uses a prefix Bloom filter, `whole_key_filtering=false`, and partitioned filters.
+
+SST files written by an earlier RocksDB version keep a miss until compaction rewrites those files.
+
+See [RocksDB 9.4.0 to 9.7.4](myrocks-added-features.md#rocksdb-940-to-974) and [`rocksdb_compact_cf`](#rocksdb_compact_cf).
+
 When the variable is enabled, ensure that lookups use the whole key for
 matching.
 
@@ -4075,6 +4380,37 @@ Specifies the maximum size of a RocksDB write batch in bytes. `0` means no
 limit. In case user exceeds the limit following error will be shown:
 `ERROR HY000: Status error 10 received from RocksDB: Operation aborted: Memory
 limit reached`.
+
+
+
+
+### `rocksdb_write_batch_mem_free_threshold`
+
+| Option       | Description                              |
+|--------------|------------------------------------------|
+| Command-line | --rocksdb-write-batch-mem-free-threshold |
+| Dynamic      | Yes                                      |
+| Scope        | Global                                   |
+| Data type    | Numeric                                  |
+| Default      | 0                                        |
+| Minimum      | 0                                        |
+| Maximum      | 18446744073709551615                     |
+
+Added in Percona Server for MySQL 8.4.13-12, the `rocksdb_write_batch_mem_free_threshold` variable was added.
+
+Write batches are kept for reuse between transactions. A session that once ran a very large transaction, typically a replication applier, therefore holds that memory until it disconnects. `0` means no limit.
+
+The threshold is compared with the memory a write batch has allocated.
+
+The comparison does not use the size of the data the batch currently holds.
+
+When a statement fails inside a transaction, MyRocks rolls back the statement changes.
+
+The memory those changes used stays allocated.
+
+When the allocated memory of a finished transaction exceeds the threshold, MyRocks frees the write batch.
+
+MyRocks also frees write batches for [`rocksdb_master_skip_tx_api`](#rocksdb_master_skip_tx_api) and [`rocksdb_rpl_skip_tx_api`](#rocksdb_rpl_skip_tx_api) when those write batches exceed the threshold.
 
 
 
