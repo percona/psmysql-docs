@@ -54,12 +54,12 @@ The library file must reside in the directory named by the [`plugin_dir` :octico
 
 The following table lists the plugin components:
 
-| Plugin or file       | Name                                       |
+| Plugin or file | Name |
 |---|---|
-| Server-side plugin   | `auth_openid_connect`                      |
-| Client-side plugin   | `authentication_openid_connect_client`     |
-| Server library file  | `auth_openid_connect.so`                   |
-| Client library file  | `authentication_openid_connect_client.so`  |
+| Server-side plugin | `auth_openid_connect` |
+| Client-side plugin | `authentication_openid_connect_client` |
+| Server library file | `auth_openid_connect.so` |
+| Client library file | `authentication_openid_connect_client.so` |
 
 ## How does OpenID Connect authentication work?
 
@@ -82,29 +82,32 @@ The plugin processes a connection in the following sequence:
 
 The plugin accepts the token only when every check in the following table passes:
 
-| Check                    | Requirement                                                                          |
+| Check | Requirement |
 |---|---|
-| JWT structure            | Parses as a valid JWT                                                                |
-| Signature algorithm      | One of the supported signature algorithms (see [Supported signature algorithms](#supported-signature-algorithms)) |
-| Signature                | Verified by a configured public key, selected by the `kid` header                    |
-| Expiration (`exp` claim) | Timestamp in the future                                                              |
-| Issuer (`iss` claim)     | Equals the configured `issuer-name` for the IDP                                      |
-| Subject (`sub` claim)    | Equals the `user` value when `IDENTIFIED ... AS` includes a `user` field (direct authentication only) |
-| Audience (`aud` claim)   | Matches an allowed audience when `audiences` is configured                           |
+| JWT structure | Parses as a valid JWT |
+| Signature algorithm | One of the supported signature algorithms (see [Supported signature algorithms](#supported-signature-algorithms)) |
+| Signature | Verified by a configured public key, selected by the `kid` header |
+| Expiration (`exp` claim) | Timestamp in the future |
+| Issuer (`iss` claim) | Equals the configured `issuer-name` for the IDP |
+| Subject (`sub` claim) | Equals the `user` value when `IDENTIFIED ... AS` includes a `user` field (direct authentication only) |
+| Audience (`aud` claim) | Matches an allowed audience when `audiences` is configured |
 
 The plugin selects the authentication mode from the fields present in the account's `IDENTIFIED ... AS` JSON:
 
-| Fields in the `AS` JSON              | Mode                  | The plugin authenticates as                       |
+| Fields in the `AS` JSON | Mode | The plugin authenticates as |
 |---|---|---|
-| `identity_provider`, `user`          | Direct authentication | The handshake account (no proxying)               |
-| `identity_provider`, `group`         | Named-group proxying  | The literal value of `group`                      |
-| `identity_provider` only             | Anonymous proxying    | The first entry in the token's `groups` claim     |
+| `identity_provider`, `user` | Direct authentication | The handshake account (no proxying) |
+| `identity_provider`, `group` | Named-group proxying | The literal value of `group` |
+| `identity_provider`, `group` as `[[<group_name>, <proxied_account>], ...]` | Group-to-account proxying | The `<proxied_account>` of the first pair whose group is in the token |
+| `identity_provider` only | Anonymous proxying | The first entry in the token's `groups` claim |
 
 The `sub` claim is verified against `user` only in direct authentication. Proxy modes verify group membership instead.
 
-Both proxy modes require `group-claim`, so the plugin can read group membership from the token. In named-group proxying, the plugin verifies that the configured `group` appears in the claim. The session then authenticates as the proxied account named after that group. In anonymous proxying, the plugin uses the first entry in the claim as the proxied account.
+The plugin denies the connection when the `AS` JSON contains both `user` and `group`. The plugin also denies the connection when `user` is an empty string.
 
-In both proxy modes, the proxied account name equals the group value from the token. MySQL limits account names to 32 characters, so group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs in the claim. See [Proxying](#proxying).
+All proxy modes require `group-claim`, so the plugin can read group membership from the token. In named-group proxying, the plugin verifies that the configured `group` appears in the claim. The session then authenticates as the proxied account named after that group. Group-to-account proxying extends named-group proxying. The plugin finds the first configured group that appears in the claim and authenticates as the proxied account paired with it. In anonymous proxying, the plugin uses the first entry in the claim as the proxied account.
+
+In named-group and anonymous proxying, the proxied account name equals the group value from the token. MySQL limits account names to 32 characters, so these two modes cannot use group names longer than 32 characters. To proxy a longer group name or a group ID, use group-to-account proxying. See [Proxying](#proxying).
 
 The proxying account must hold `PROXY` privilege on the proxied account. For end-to-end examples and the safety considerations of proxy modes, see [Proxying](#proxying).
 
@@ -118,12 +121,12 @@ The plugin validates the token only at connection time. A connection remains act
 
 Before you configure OpenID Connect authentication, gather the resources in the following table:
 
-| Resource              | Description                                                                                       |
+| Resource | Description |
 |---|---|
-| Identity Provider     | OIDC-compliant IDP that issues signed Identity tokens                                             |
-| IDP issuer URL        | URL plus either a JWKS endpoint or a static set of public keys exported as JWKs                   |
-| Secure transport      | TLS or a Unix domain socket between the client and the server                                     |
-| Token delivery method | Wrapper script or other tool that calls the IDP token endpoint and writes tokens to a file        |
+| Identity Provider | OIDC-compliant IDP that issues signed Identity tokens |
+| IDP issuer URL | URL plus either a JWKS endpoint or a static set of public keys exported as JWKs |
+| Secure transport | TLS or a Unix domain socket between the client and the server |
+| Token delivery method | Wrapper script or other tool that calls the IDP token endpoint and writes tokens to a file |
 
 The plugin has been tested with Keycloak. Any IDP that exposes a standard JWKS endpoint is compatible.
 
@@ -172,9 +175,9 @@ WHERE PLUGIN_NAME = 'auth_openid_connect';
 
     ```{.text .no-copy}
     +---------------------+---------------+
-    | PLUGIN_NAME         | PLUGIN_STATUS |
+    | PLUGIN_NAME | PLUGIN_STATUS |
     +---------------------+---------------+
-    | auth_openid_connect | ACTIVE        |
+    | auth_openid_connect | ACTIVE |
     +---------------------+---------------+
     1 row in set (0.00 sec)
     ```
@@ -206,9 +209,9 @@ SELECT * FROM mysql.func WHERE name = 'update_jwks';
 
     ```{.text .no-copy}
     +-------------+-----+------------------------+----------+
-    | name        | ret | dl                     | type     |
+    | name | ret | dl | type |
     +-------------+-----+------------------------+----------+
-    | update_jwks |   2 | auth_openid_connect.so | function |
+    | update_jwks | 2 | auth_openid_connect.so | function |
     +-------------+-----+------------------------+----------+
     1 row in set (0.00 sec)
     ```
@@ -227,12 +230,12 @@ Each top-level key in the JSON document is the IDP name. User accounts reference
 
 | Key | Required | Description |
 |---|---|---|
-| `audiences`   | No                       | An array of allowed `aud` claim values. The plugin rejects the token when the `aud` claim does not match. The plugin omits the audience check when this key is absent. |
-| `group-claim` | No                       | The name of the JWT claim that lists the user group memberships, such as `groups`. The claim value must be a string or an array of strings. Group names longer than 32 characters cannot be used by the proxying feature. |
-| `group-role`  | No                       | An array of single-key objects that map IDP group names to MySQL role names. The mapping pairs with `group-claim`. |
-| `issuer-name` | Yes                      | The exact value of the `iss` claim that the IDP issues. The plugin matches this value against the token's `iss` claim. |
-| `jwks-url`    | When `keys` is absent    | The HTTPS URL of the IDP JWKS endpoint. The plugin fetches and caches keys from the URL. The plugin can refresh keys at runtime through the `update_jwks()` UDF. HTTP URLs are accepted for testing only and emit a warning. |
-| `keys`        | When `jwks-url` is absent | An array of JSON Web Key (JWK) objects that verify token signatures. Each entry must include `kty` (`RSA` or `EC`), `kid`, and the algorithm-specific parameters. RSA keys require `n` and `e`. EC keys require `crv`, `x`, and `y`. |
+| `audiences` | No | An array of allowed `aud` claim values. The plugin rejects the token when the `aud` claim does not match. The plugin omits the audience check when this key is absent. |
+| `group-claim` | No | The name of the JWT claim that lists the user group memberships, such as `groups`. The claim value must be a string or an array of strings. Named-group and anonymous proxying cannot use group names longer than 32 characters. Group-to-account proxying supports longer group names. |
+| `group-role` | No | An array of single-key objects that map IDP group names to MySQL role names. The mapping pairs with `group-claim`. |
+| `issuer-name` | Yes | The exact value of the `iss` claim that the IDP issues. The plugin matches this value against the token's `iss` claim. |
+| `jwks-url` | When `keys` is absent | The HTTPS URL of the IDP JWKS endpoint. The plugin fetches and caches keys from the URL. The plugin can refresh keys at runtime through the `update_jwks()` UDF. HTTP URLs are accepted for testing only and emit a warning. |
+| `keys` | When `jwks-url` is absent | An array of JSON Web Key (JWK) objects that verify token signatures. Each entry must include `kty` (`RSA` or `EC`), `kid`, and the algorithm-specific parameters. RSA keys require `n` and `e`. EC keys require `crv`, `x`, and `y`. |
 
 !!! tip
 
@@ -521,7 +524,7 @@ The group claim must be a JSON array of strings or a single string. Any other ty
 
     Keycloak places realm roles inside `realm_access.roles` and client roles inside `resource_access.<client>.roles` by default. Configure a Keycloak client scope mapper that emits a flat top-level claim:
 
-    * For Keycloak groups, add a `Group Membership` mapper with `Full group path` enabled. Prefer group names over group IDs. Group names longer than 32 characters cannot be used by the proxying feature.
+    * For Keycloak groups, add a `Group Membership` mapper with `Full group path` enabled. Prefer group names over group IDs. Named-group and anonymous proxying cannot use group names longer than 32 characters. For longer group names, see [Group-to-account proxying](#group-to-account-proxying).
 
     * For realm roles, add a `User Realm Role` mapper with `Multivalued` enabled.
 
@@ -541,11 +544,11 @@ Proxying reduces administrative overhead in deployments with many IDP users. One
 
     In named-group and anonymous proxying, the plugin maps each group value from the ID token to a MySQL account of the same name. MySQL limits account names to 32 characters.
 
-    Group names in the token's group claim must not exceed 32 characters. A longer value prevents creation of the proxied MySQL account and causes authentication to fail. Keep group names at 32 characters or fewer. If your IDP issues tokens with long group IDs in the `groups` claim, check whether the IDP can be configured to use group names instead.
+    Group names in the token's group claim must not exceed 32 characters. A longer value causes authentication to fail when the client connects. `CREATE USER` and `ALTER USER` fail only when the `AS` clause is longer than 65,535 bytes. Keep group names at 32 characters or fewer. If your IDP issues tokens with long group IDs in the `groups` claim, use [Group-to-account proxying](#group-to-account-proxying). For example, Microsoft Entra sends the Group Object ID instead of the group name.
 
 Configure the plugin and IDP before you use the proxy examples. The IDP must issue tokens with a `groups` claim. For the configuration baseline, see [Configure the plugin](#configure-the-plugin) and [Map groups to MySQL roles](#map-groups-to-mysql-roles).
 
-The two subsections that follow show end-to-end examples for both proxy modes. Both use the [`mysql_no_login` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/no-login-pluggable-authentication.html) plugin so proxy target accounts cannot authenticate directly.
+The subsections that follow show end-to-end examples for each proxy mode. All use the [`mysql_no_login` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/no-login-pluggable-authentication.html) plugin so proxy target accounts cannot authenticate directly.
 
 ### Named-group proxying
 
@@ -608,14 +611,53 @@ SELECT USER(), CURRENT_USER();
 
     ```{.text .no-copy}
     +---------------------+----------------+
-    | USER()              | CURRENT_USER() |
+    | USER() | CURRENT_USER() |
     +---------------------+----------------+
-    | marketing@localhost | /marketing@%   |
+    | marketing@localhost | /marketing@% |
     +---------------------+----------------+
     1 row in set (0.00 sec)
     ```
 
 `USER()` shows the handshake account (`marketing`). `CURRENT_USER()` shows the proxied target (`/marketing@%`), which holds the privileges the session inherits.
+
+### Group-to-account proxying
+
+*Introduced in Percona Server for MySQL 8.4.13-12.*
+
+Earlier 8.4 releases do not include group-to-account proxying.
+
+In group-to-account proxying, the `group` field is an array of `[<group_name>, <proxied_account>]` pairs, written as `[[<group_name>, <proxied_account>], ...]`. Each pair maps a group name in the token to a MySQL proxied account. The group name can be longer than 32 characters. The proxied account name is limited to 32 characters. Use this mode when your IDP sends long group IDs, such as the Microsoft Entra Group Object ID.
+
+The following example maps two groups to two proxied accounts:
+
+```sql
+CREATE USER ''@'' IDENTIFIED WITH 'auth_openid_connect'
+  AS '{"identity_provider": "my-keycloak", "group": [["/accounting", "acc"], ["/marketing", "mar"]]}';
+
+CREATE USER 'acc' IDENTIFIED WITH 'mysql_no_login';
+GRANT PROXY ON 'acc' TO ''@'';
+
+CREATE USER 'mar' IDENTIFIED WITH 'mysql_no_login';
+GRANT PROXY ON 'mar' TO ''@'';
+```
+
+A token holder in the `/accounting` group connects as `acc`. A token holder in the `/marketing` group connects as `mar`.
+
+The plugin applies the following rules:
+
+* The plugin checks the pairs in the order of the array. The first pair whose group name is in the token's group claim selects the proxied account. The order of groups in the token does not affect the selection.
+
+* The plugin denies the connection when no pair matches a group in the token.
+
+* Each pair must contain exactly two non-empty strings, and the array must not be empty.
+
+* Write the value as an array of pairs, including when you map one group, for example `[["/accounting", "acc"]]`. A flat array such as `["/accounting", "/marketing"]` is forbidden. The plugin denies the connection.
+
+* A proxied account name can be at most 32 characters, the MySQL account name limit. The plugin denies the connection when the name is longer. The authentication string in the `AS` clause can be at most 65,535 bytes.
+
+!!! note "When validation runs"
+
+    The plugin validates the `AS` JSON at connection time, not when you run `CREATE USER`.
 
 ### Anonymous proxying
 
@@ -683,9 +725,9 @@ SELECT USER(), CURRENT_USER();
 
     ```{.text .no-copy}
     +-------------------+----------------+
-    | USER()            | CURRENT_USER() |
+    | USER() | CURRENT_USER() |
     +-------------------+----------------+
-    | anyname@localhost | /marketing@%   |
+    | anyname@localhost | /marketing@% |
     +-------------------+----------------+
     1 row in set (0.00 sec)
     ```
@@ -720,7 +762,7 @@ SELECT update_jwks();
     +---------------+
     | update_jwks() |
     +---------------+
-    |             1 |
+    | 1 |
     +---------------+
     1 row in set (0.05 sec)
     ```
@@ -735,9 +777,9 @@ SELECT update_jwks('my-keycloak');
 
     ```{.text .no-copy}
     +-----------------------------+
-    | update_jwks('my-keycloak')  |
+    | update_jwks('my-keycloak') |
     +-----------------------------+
-    |                           1 |
+    | 1 |
     +-----------------------------+
     1 row in set (0.04 sec)
     ```
@@ -885,11 +927,11 @@ A configuration that references an unreachable `jwks-url` is accepted at assignm
 
 The following table summarizes the function:
 
-| Property    | Value                       |
+| Property | Value |
 |---|---|
-| Return type | `INTEGER`                   |
-| Library     | `auth_openid_connect.so`    |
-| Arguments   | Zero or one string          |
+| Return type | `INTEGER` |
+| Library | `auth_openid_connect.so` |
+| Arguments | Zero or one string |
 
 The function refreshes cached JWKS public keys for one IDP or for all configured IDPs. For details on return values, see [Refresh JWKS keys](#refresh-jwks-keys).
 
@@ -901,12 +943,17 @@ The following table follows a Symptoms, Diagnosis, and Solution model for the mo
 
 | Symptom | Diagnosis | Solution |
 |---|---|---|
-| `unsecure connection, use TLS, socket or memory` in the server log              | The client connected over plaintext TCP.                                                                          | Reconnect with TLS, a Unix socket, or shared memory.                                |
-| `IDP not found: <name>` in the server log                                       | The `identity_provider` value in the user `IDENTIFIED ... AS` clause does not match a key in the configuration.   | Update the user definition or the configuration so the IDP names align.             |
-| `audience not authorized` in the server log                                     | The token `aud` claim does not match any value in the `audiences` configuration. For Keycloak, the ID token `aud` equals the `client_id`. | Set `audiences` to match the `aud` claim in the ID token. For Keycloak, use the `client_id` value (for example, `["mysql-oidc"]`). |
-| `invalid sysvar prefix, expected FILE:// or JSON://` in the server log          | The `auth_openid_connect_configuration` value lacks a valid prefix.                                               | Reset the variable with the correct `JSON://` or `FILE://` prefix.                  |
-| `JWKS configuration is insecure, use HTTPS` warning in the server log           | The `jwks-url` uses `http://`.                                                                                    | Replace the URL with an `https://` endpoint before production use.                  |
-| `JWKS: HTTP GET from <url> failed` in the server log                            | The IDP is unreachable or returned a non-2xx status. The host may also require an outbound HTTP proxy.            | Verify network reachability. For corporate egress, see [Route JWKS traffic through an HTTP proxy](#route-jwks-traffic-through-an-http-proxy). Run `update_jwks()` after the IDP recovers. |
-| `incorrect number of keys` in the server log                                    | The token has no `kid` header but the plugin loaded multiple keys for the IDP.                                    | Set `keys` to a single entry that matches the IDP signing key.                      |
-| `user is not a member of the required group` in the server log                  | The account uses named-group proxying but the token's `groups` claim does not contain the configured `group`.     | Verify the user's group membership at the IDP, or have the user select a different MySQL account that maps to a group they belong to. |
-| `CREATE USER` fails for a proxy target, or proxy authentication fails            | The group value in the token exceeds the 32-character MySQL account name limit, or the claim contains a group ID instead of a group name. | Group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs. See [Proxying](#proxying). |
+| `unsecure connection, use TLS, socket or memory` in the server log | The client connected over plaintext TCP. | Reconnect with TLS, a Unix socket, or shared memory. |
+| `IDP not found: <name>` in the server log | The `identity_provider` value in the user `IDENTIFIED ... AS` clause does not match a key in the configuration. | Update the user definition or the configuration so the IDP names align. |
+| `audience not authorized` in the server log | The token `aud` claim does not match any value in the `audiences` configuration. For Keycloak, the ID token `aud` equals the `client_id`. | Set `audiences` to match the `aud` claim in the ID token. For Keycloak, use the `client_id` value (for example, `["mysql-oidc"]`). |
+| `invalid sysvar prefix, expected FILE:// or JSON://` in the server log | The `auth_openid_connect_configuration` value lacks a valid prefix. | Reset the variable with the correct `JSON://` or `FILE://` prefix. |
+| `JWKS configuration is insecure, use HTTPS` warning in the server log | The `jwks-url` uses `http://`. | Replace the URL with an `https://` endpoint before production use. |
+| `JWKS: HTTP GET from <url> failed` in the server log | The IDP is unreachable or returned a non-2xx status. The host may also require an outbound HTTP proxy. | Verify network reachability. For corporate egress, see [Route JWKS traffic through an HTTP proxy](#route-jwks-traffic-through-an-http-proxy). Run `update_jwks()` after the IDP recovers. |
+| `incorrect number of keys` in the server log | The token has no `kid` header but the plugin loaded multiple keys for the IDP. | Set `keys` to a single entry that matches the IDP signing key. |
+| `user is not a member of any group` in the server log | The account uses named-group proxying or group-to-account proxying. The token's `groups` claim does not contain a configured group. | Verify the user's group membership at the IDP, or have the user select a different MySQL account that maps to a group they belong to. |
+| Proxy authentication fails | The group name in the token exceeds the MySQL account name limit of 32 characters, or the claim contains a group ID instead of a group name. The plugin reports this when the client connects. | Use [Group-to-account proxying](#group-to-account-proxying) and map the long group name to a proxy account of shorter name. |
+| `CREATE USER` or `ALTER USER` fails | The `AS` clause is longer than 65,535 bytes. | Shorten the `AS` clause to 65,535 bytes or fewer. |
+| `group in IDENTIFIED AS has invalid value, it must be <group_name> or [[<group_name>, <proxied_account>], ...]. <group_name> or <proxied_account> cannot be empty.` in the server log | The `group` field must be a group-name string or an array of pairs, for example `[["/accounting", "acc"]]`. A flat array of strings is forbidden, and the plugin denies the connection. A group name or proxied account is empty. | Nest each pair in an outer array, and use non-empty names. See [Group-to-account proxying](#group-to-account-proxying). |
+| `both user and group specified in IDENTIFIED AS, only one is allowed.` in the server log | The `AS` JSON contains both `user` and `group`. | Remove `user` for proxying, or remove `group` for direct authentication. |
+| `user in IDENTIFIED AS cannot be empty` in the server log | The `user` field is an empty string. | Set `user` to the `sub` claim value, or remove `user` for proxying. |
+| `proxy user name <name> is too long` in the server log | The group name in the token exceeds the MySQL account name limit of 32 characters. | Use group-to-account proxying and map the long group name to a proxy account of shorter name. |
