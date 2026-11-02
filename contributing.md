@@ -2,6 +2,10 @@
 
 We welcome contributions from all users and the community. By contributing, you agree to the [Percona Community code of conduct](https://percona.community/contribute/coc/). Thank you for deciding to contribute and help us improve the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/).
 
+## Contributing to Supported Versions
+
+We deeply value community contributions and welcome pull requests, bug reports, and improvements across Percona Server for MySQL documentation. To ensure community work has the highest possible impact and relevance for all users, our documentation team focuses exclusively on actively supported versions (such as **8.4 LTS** and **9.7 LTS**).
+
 You can contribute to the documentation in one of the following ways:
 
 * **Forum**: Best for questions, discussions, or general feedback
