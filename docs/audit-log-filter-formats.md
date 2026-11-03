@@ -21,15 +21,35 @@ When you change `audit_log_filter.format`, rename `audit_log_filter.file` as wel
 
 ## Query text character set
 
-Starting in Percona Server for MySQL 8.4.13-12, the component converts SQL statement text to UTF-8 before it writes the text. Log files written by earlier versions are not rewritten.
+Starting in Percona Server for MySQL 8.4.13-12, the component converts SQL statement text to UTF-8.
 
-### Logged statement text
+The component does not rewrite log files from earlier versions.
 
-SQL statement text is converted from the client character set (`character_set_client`) to UTF-8 (`utf8mb4`) in all log formats: JSON, JSONL, NEW XML, OLD XML, and in syslog output (`audit_log_filter.handler = SYSLOG`). [`audit_log_read()`](audit-log-filter-variables.md#audit_log_read) returns the converted text.
+### Statement text in the log
 
-Before 8.4.13-12, the bytes were written exactly as the client sent them. The JSON log of a non-`utf8mb4` client was not valid UTF-8, and `audit_log_read()` returned a `utf8mb4` result containing invalid bytes.
+The component converts SQL statement text from the client character set (`character_set_client`) to UTF-8 (`utf8mb4`).
 
-A `latin1` client that runs `SELECT 'café'` logs these bytes for `é`:
+The component converts statement text in the following log formats:
+
+* JSON
+
+* JSONL
+
+* NEW XML
+
+* OLD XML
+
+* Syslog output (`audit_log_filter.handler = SYSLOG`)
+
+[`audit_log_read()`](audit-log-filter-variables.md#audit_log_read) returns the UTF-8 statement text.
+
+Before 8.4.13-12, the component writes each byte as the client sends that byte.
+
+Before 8.4.13-12, the JSON log from a non-`utf8mb4` client is not valid UTF-8.
+
+Before 8.4.13-12, `audit_log_read()` returns a `utf8mb4` result with invalid bytes.
+
+A `latin1` client logs the following bytes for `é` in `SELECT 'café'`:
 
 | | Bytes for `é` |
 | --- | --- |
@@ -38,19 +58,47 @@ A `latin1` client that runs `SELECT 'café'` logs these bytes for `é`:
 
 ### Filter comparisons
 
-Filter conditions on the query text (`general_query.str`, `query.str`) compare the original client bytes. The query length fields (`general_query.length`, `query.length`) count those bytes, before conversion. This matches MySQL Enterprise Audit.
+Filter conditions on the query text (`general_query.str`, `query.str`) compare the original client bytes.
 
-A UTF-8 filter value containing `café` matches the statement from a `utf8mb4` client. It does not match the same statement from a `latin1` client, although both statements are logged as UTF-8 `café`. The same applies to regex conditions on the query text (PS-11118, PS-11948).
+The query length fields (`general_query.length`, `query.length`) count the original client bytes before conversion.
+
+The comparison and the byte count match MySQL Enterprise Audit.
+
+A UTF-8 filter value with `café` matches the statement from a `utf8mb4` client.
+
+The same filter value does not match the same statement from a `latin1` client.
+
+The component logs both statements as UTF-8 `café`.
+
+Regex conditions on the query text use the original client bytes (PS-11118, PS-11948).
 
 ### Characters that cannot be converted
 
-Malformed bytes, characters without a Unicode mapping, and the bytes of an incomplete final sequence are written as `?`. Conversion resumes after each bad byte, so the rest of the statement is kept.
+The component writes malformed bytes as `?`.
 
-If the query text cannot be converted at all, for example because its character set is unknown or memory runs out, the event is not written and is counted in [`audit_log_filter_events_lost`](audit-log-filter-variables.md#audit-log-filter-status-variables). Raw query bytes are never written.
+The component writes characters without a Unicode mapping as `?`.
+
+The component writes the bytes of an incomplete final sequence as `?`.
+
+Conversion resumes after each bad byte.
+
+The component keeps the rest of the statement.
+
+The component does not write the event when the component cannot convert the query text.
+
+Examples of that failure include an unknown character set and insufficient memory.
+
+The component counts the event in [`audit_log_filter_events_lost`](audit-log-filter-variables.md#audit-log-filter-status-variables).
+
+The component never writes the raw query bytes.
 
 ### Prepared statements
 
-The server reports the character set in effect when an event is generated, not the character set the prepared statement was parsed with. If `character_set_client` changes after `PREPARE`, the text of `EXECUTE` and `COM_STMT_EXECUTE` events is converted from the wrong character set:
+The server reports the character set active when the server generates the event.
+
+The server does not report the character set used to parse the prepared statement.
+
+If `character_set_client` changes after `PREPARE`, the component converts `EXECUTE` and `COM_STMT_EXECUTE` text from the wrong character set:
 
 ```sql
 SET NAMES utf8mb4;
@@ -59,19 +107,41 @@ SET NAMES latin1;
 EXECUTE s;   -- logged as SELECT "Ã©"
 ```
 
-`PREPARE ... FROM '<literal>'` in a non-UTF-8 session is affected the same way, because the server stores the literal as `utf8mb3`.
+In a non-UTF-8 session, the server stores a `PREPARE ... FROM '<literal>'` literal as `utf8mb3`.
+
+The component converts that literal from the wrong character set.
 
 ### Differences from MySQL Enterprise Audit 8.4.7
 
-For ordinary client character sets, the query text is converted to UTF-8 the same way as by MySQL Enterprise Audit.
+The component converts query text from an ordinary client character set to UTF-8.
 
-Binary-labeled query text, for example a statement rewritten to hide a password, is validated as UTF-8. Valid sequences are kept. Malformed sequences are replaced with `?`. MySQL Enterprise Audit 8.4.7 re-encodes every byte, which double-encodes UTF-8 user names in such statements.
+MySQL Enterprise Audit applies that UTF-8 conversion.
 
-Only SQL statement text is converted. Connection attributes and other fields keep their previous behavior. Percona Server does not add MySQL Enterprise Audit's conversion of connection attributes.
+The component validates binary-labeled query text as UTF-8.
+
+One example is a statement the server rewrites to hide a password.
+
+The component keeps valid sequences.
+
+The component replaces malformed sequences with `?`.
+
+MySQL Enterprise Audit 8.4.7 re-encodes every byte.
+
+The byte re-encode double-encodes UTF-8 user names in binary-labeled statements.
+
+The component converts only SQL statement text.
+
+Connection attributes and other fields keep their previous behavior. Percona Server does not add MySQL Enterprise Audit's conversion of connection attributes.
 
 ### `audit_log_read()` and large records
 
-A record larger than [`audit_log_filter.read_buffer_size`](audit-log-filter-variables.md#audit_log_filterread_buffer_size) is returned whole, in its own batch, instead of failing. Following batches use the configured size again.
+`audit_log_read()` returns a whole record larger than [`audit_log_filter.read_buffer_size`](audit-log-filter-variables.md#audit_log_filterread_buffer_size).
+
+`audit_log_read()` returns that record in a batch of one record.
+
+`audit_log_read()` does not fail on that record.
+
+Batches after that record use `audit_log_filter.read_buffer_size`.
 
 ## Additional reading
 
