@@ -36,11 +36,11 @@ Prerequisites fall into three layers. Install the foundation and baseline first.
 
 The three layers are:
 
-* Foundation — Toolchain: CMake 3.15 or newer, GCC 11.3 or newer (or a Clang version supported by the source), Bison. Without these minimum versions, the build can fail immediately.
+* Foundation — Toolchain: CMake 3.14.6 or newer, GCC 10 or newer (or Clang 14 or newer), Bison. Without these minimum versions, the build can fail immediately.
 
 * Baseline — System libraries: OpenSSL, ncurses, libudev, libaio. These are required for a basic build.
 
-* Percona layer — Feature libraries: zstd, lz4, snappy, gflags, and others for MyRocks and XtraDB. Install development packages for each component you enable. CMake may need explicit flags (for example, `-DWITH_ZSTD=system`) to use system libraries.
+* Percona layer — Feature libraries: zstd, lz4, gflags, and others for MyRocks and XtraDB. Install development packages for each component you enable. CMake may need explicit flags (for example, `-DWITH_ZSTD=system`) to use system libraries.
 
 !!! note
 
@@ -66,13 +66,13 @@ Resource guidelines:
 
 ### Toolchain (foundation)
 
-Percona Server {{vers}} requires C++20. The CMake build sets `-std=c++20` and `cxx_std_20`. You need CMake 3.15 or newer and GCC 11.3 or newer (or a Clang version that implements C++20 as documented for {{vers}}). Default packages on older stable distros (for example, RHEL 8, Ubuntu 20.04) can be too old. Verify compiler and CMake versions before building.
+Percona Server {{vers}} requires C++20. The CMake build sets `-std=c++20` and `cxx_std_20`. You need CMake 3.14.6 or newer and GCC 10 or newer (or Clang 14 or newer). Default packages on older stable distros (for example, RHEL 8, Ubuntu 20.04) can be too old. Verify compiler and CMake versions before building.
 
 Verify each component:
 
-* CMake 3.15 or newer. Run `cmake --version`. If the distro package is older, install a newer CMake (for example, from a module, a kit, or the upstream installer).
+* CMake 3.14.6 or newer. Run `cmake --version`. If the distro package is older, install a newer CMake (for example, from a module, a kit, or the upstream installer).
 
-* GCC 11.3 or newer (or a Clang version documented for {{vers}}). Run `gcc --version` or `g++ --version`. If the distro GCC is too old, install a newer toolchain. Software Collections and newer distros are common sources.
+* GCC 10 or newer (or Clang 14 or newer). Run `gcc --version`, `g++ --version`, or `clang --version`. If the distro GCC is too old, install a newer toolchain. Software Collections and newer distros are common sources.
 
 On older LTS distros (for example, RHEL 7 or 8 with the default toolchain), install a newer compiler or use a supported distribution.
 
@@ -105,9 +105,9 @@ apt install cmake gcc g++ libncurses-dev libssl-dev libudev-dev libaio-dev bison
 
 Package purposes:
 
-* cmake — Build system generator. Minimum 3.15; verify with `cmake --version`. Default packages on RHEL 8 or Ubuntu 20.04 may be older; upgrade if needed.
+* cmake — Build system generator. Minimum 3.14.6; verify with `cmake --version`. Default packages on RHEL 8 or Ubuntu 20.04 may be older; upgrade if needed.
 
-* gcc / g++ — C and C++ compiler. Minimum GCC 11.3 for {{vers}}; verify with `gcc --version`. Use a newer toolchain on older distros if the default is too old.
+* gcc / g++ — C and C++ compiler. Minimum GCC 10 for {{vers}}; verify with `gcc --version`. Use a newer toolchain on older distros if the default is too old.
 
 * ncurses — Terminal library (ncurses-devel / libncurses-dev).
 
@@ -121,18 +121,18 @@ Package purposes:
 
 #### Full feature set (all Percona features)
 
-Install a complete package set to reduce CMake dependency surprises. The set covers baseline plus common Percona features (PAM, zlib, zstd, lz4, gflags, snappy). Run one of the following commands, then run CMake. You can still enable or disable features via CMake options.
+Install a complete package set to reduce CMake dependency surprises. The set covers baseline plus common Percona features (PAM, zlib, zstd, lz4, gflags). Run one of the following commands, then run CMake. You can still enable or disable features via CMake options.
 
 Install on RHEL, Rocky Linux, or AlmaLinux:
 
 ```shell
-dnf install cmake gcc gcc-c++ ncurses-devel openssl-devel libudev-devel libaio-devel bison pam-devel zlib-devel libzstd-devel lz4-devel gflags-devel snappy-devel
+dnf install cmake gcc gcc-c++ ncurses-devel openssl-devel libudev-devel libaio-devel bison pam-devel zlib-devel libzstd-devel lz4-devel gflags-devel
 ```
 
 Install on Debian or Ubuntu:
 
 ```shell
-apt install cmake gcc g++ libncurses-dev libssl-dev libudev-dev libaio-dev bison libpam0g-dev zlib1g-dev libzstd-dev liblz4-dev libgflags-dev libsnappy-dev
+apt install cmake gcc g++ libncurses-dev libssl-dev libudev-dev libaio-dev bison libpam0g-dev zlib1g-dev libzstd-dev liblz4-dev libgflags-dev
 ```
 
 If CMake still reports a missing dependency, add the corresponding `-devel` or `-dev` package for your distribution and re-run CMake.
@@ -161,7 +161,7 @@ Optional components and typical packages:
 
 * zstd, lz4 — Compression libraries used by Percona features. Install the development packages (for example, `libzstd-devel`, `lz4-devel` on RHEL; `libzstd-dev`, `liblz4-dev` on Debian/Ubuntu). Use CMake flags such as `-DWITH_ZSTD=system` and `-DWITH_LZ4=system` if the build expects to use system libraries.
 
-* MyRocks (RocksDB) — MyRocks builds may need libgflags and libsnappy. On RHEL, install `gflags-devel` and `snappy-devel`. On Debian and Ubuntu, install `libgflags-dev` and `libsnappy-dev`. The exact set is in the Percona Server source. If CMake reports "library not found", check the source repository or CMake configuration.
+* MyRocks (RocksDB) — Starting with Percona Server for MySQL [Insert version, 8.4.x], MyRocks builds may need libgflags. On RHEL, install `gflags-devel`. On Debian and Ubuntu, install `libgflags-dev`. The exact set is in the Percona Server source. If CMake reports "library not found", check the source repository or CMake configuration.
 
 The optional-components list may not include every package for every storage engine or option. Run CMake once before a long build. Fix any missing-dependency or configuration messages first. The [MySQL 8.4 Source Installation Prerequisites](https://dev.mysql.com/doc/refman/8.4/en/source-installation-prerequisites.html) page lists more optional dependencies. The final list for your build is in the Percona Server source tree and the CMake output.
 
@@ -175,7 +175,7 @@ The default install prefix is `/usr/local/mysql` (`CMAKE_INSTALL_PREFIX`). Insta
 To avoid overwriting package-managed installations, set a custom prefix at configure time. Use `-DCMAKE_INSTALL_PREFIX` for `make install`. Example:
 
 ```shell
-mkdir build && cd build && cmake .. -DFORCE_INSOURCE_BUILD=1 -DCMAKE_INSTALL_PREFIX=/opt/percona-server-{{vers}}
+mkdir build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/opt/percona-server-{{vers}}
 ```
 
 For staged installs (for example, into a package root), set `DESTDIR` when installing. The install layout replicates the full prefix under `DESTDIR`.
@@ -203,7 +203,7 @@ Obtain the source using one of the following methods:
 
 * On a machine that can reach GitHub, clone the repository (including submodules) and copy the tree to the build machine. Do not run CMake or `make dist` only to produce source. That configure-and-build flow compiles a binary and is more work than you need to transfer source.
 
-On the build machine, extract the tarball or unpack the copied tree. From the extracted tree, run `mkdir build && cd build && cmake .. -DFORCE_INSOURCE_BUILD=1`, then `make` and `make install`. The following sections describe the same flow.
+On the build machine, extract the tarball or unpack the copied tree. From the extracted tree, run `mkdir build && cd build && cmake ..`, then `make` and `make install`. The following sections describe the same flow.
 
 No git is required on the build machine if you use a source tarball.
 
@@ -211,7 +211,7 @@ No git is required on the build machine if you use a source tarball.
 
 Percona uses the [Github :octicons-link-external-16:](https://github.com/) revision control system for development. To build from git you need `git` installed. The build machine must reach GitHub or a mirror.
 
-Fetch the latest Percona Server for MySQL {{vers}} sources. A shallow clone avoids downloading full repository history:
+Fetch the latest Percona Server for MySQL {{vers}} sources from the branch. The branch can contain unreleased changes. A shallow clone avoids downloading full repository history:
 
 
 ```shell
@@ -230,6 +230,17 @@ git checkout {{vers}}
 git submodule update --init
 ```
 
+To build a specific release instead of the latest branch code, clone its release tag. Release tags use the format `Percona-Server-<release>`. The following example uses the current release, `Percona-Server-{{release}}`. Replace the tag name with the release you need:
+
+```shell
+git clone --branch Percona-Server-{{release}} --depth 1 https://github.com/percona/percona-server.git
+cd percona-server
+git submodule update --init
+git describe --tags
+```
+
+The last command prints the tag name. If it prints a different name, the checkout does not match the release.
+
 After you fetch the repository or extract a tarball, configure and build Percona Server for MySQL.
 
 
@@ -241,7 +252,7 @@ Run CMake to configure the build. You can specify build options as for a normal 
 
     `-DFEATURE_SET=community` is not supported in {{vers}}. If you use `-DFEATURE_SET=community`, CMake will report: *Manually-specified variables were not used by the project: FEATURE_SET*.
 
-Out-of-source build is the only supported approach. Keep the source tree separate from build artifacts. When the `build` directory is under the source tree, pass `-DFORCE_INSOURCE_BUILD=1`.
+Out-of-source build is the only supported approach. Keep the source tree separate from build artifacts. Run CMake from a separate `build` directory. Do not pass `-DFORCE_INSOURCE_BUILD=1`. That option turns off the in-source check.
 
 * Source tree — The clean repository directory containing the pristine source files. Do not run `cmake` directly inside the source tree.
 
@@ -252,16 +263,18 @@ Out-of-source build is the only supported approach. Keep the source tree separat
 From the repository root, use the following exact sequence:
 
 ```shell
-mkdir build && cd build && cmake .. -DFORCE_INSOURCE_BUILD=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CONFIG=mysql_release
+mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CONFIG=mysql_release
 ```
 
 Do not run `cmake .` in the source root. That command writes generated files into the source tree and is hard to undo safely.
+
+If CMake stops with `Please do not build in-source`, the build directory and the source directory resolve to the same path. Run `pwd -P` inside the `build` directory. If the output is the source root, `build` is a symlink to the source root. Remove the symlink, create a real `build` directory, and run the sequence again. If you ran `cmake .` in the source root, see [Recovery from a contaminated source tree](#recovery-from-a-contaminated-source-tree).
 
 On newer platforms or distros, if you hit compilation errors that are
 Linux-distro dependent, add `-DWITH_PACKAGE_FLAGS=OFF`:
 
 ```shell
-mkdir build && cd build && cmake .. -DFORCE_INSOURCE_BUILD=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CONFIG=mysql_release -DWITH_PACKAGE_FLAGS=OFF
+mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CONFIG=mysql_release -DWITH_PACKAGE_FLAGS=OFF
 ```
 
 ### Recovery from a contaminated source tree
@@ -270,13 +283,14 @@ If you ran `cmake .` in the source root by mistake, CMake and build artifacts ar
 
 Safest recovery: remove only known generated files. You then avoid touching local patches or config. From the repository root, remove `CMakeCache.txt`, the `CMakeFiles/` directory, `cmake_install.cmake`, and `Makefile`. Remove any other CMake-generated paths in the root. After that, run the out-of-source sequence again.
 
+`make distclean` does not reset this tree. The target only prints `WARNING: distclean target is not functional — use git clean -fdx`.
 
 !!! warning
 
     `git clean -xfd` permanently deletes every untracked and ignored file, including uncommitted work. Use the command only when you are certain no local changes must be kept. Prefer manual removal of generated files in the repository root.
 
 
-With an out-of-source build, recovery is simpler. Delete the build directory (for example, `rm -rf build`). Run `mkdir build && cd build && cmake .. -DFORCE_INSOURCE_BUILD=1` again. The source tree stays unchanged.
+With an out-of-source build, recovery is simpler. Delete the build directory (for example, `rm -rf build`). Run `mkdir build && cd build && cmake ..` again. The source tree stays unchanged.
 
 
 ## Compile from source
@@ -339,7 +353,7 @@ A source build does not receive package-manager updates (`dnf update` / `apt upg
 git pull
 git submodule update
 cd build
-cmake .. -DFORCE_INSOURCE_BUILD=1
+cmake ..
 make -j4
 make install
 ```
@@ -348,7 +362,7 @@ Applying updates: Obtain fresh source (for example, `git pull` and `git submodul
 
 * Incremental build: After a pull with no CMake option changes, re-run `make` and `make install` from the existing build directory. You do not need to delete the build directory or re-run CMake. Use this path for security and minor updates.
 
-* Full reconfigure: After CMake option changes, branch switches, or odd errors after pull, remove the build directory (`rm -rf build`). Run `mkdir build && cd build && cmake .. -DFORCE_INSOURCE_BUILD=1` with the same options. Then `make` and `make install`.
+* Full reconfigure: After CMake option changes, branch switches, or odd errors after pull, remove the build directory (`rm -rf build`). Run `mkdir build && cd build && cmake ..` with the same options. Then `make` and `make install`.
 
 
 Keep configuration files (for example, `my.cnf`) and data directories outside the install prefix. Reinstalling then overwrites only the binaries and leaves your config and data intact.
