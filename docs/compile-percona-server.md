@@ -66,7 +66,7 @@ Resource guidelines:
 
 ### Toolchain (foundation)
 
-Percona Server {{vers}} requires C++20. The CMake build sets `-std=c++20` and `cxx_std_20`. You need CMake 3.14.6 or newer and GCC 10 or newer (or Clang 14 or newer). Default packages on older stable distros (for example, RHEL 8, Ubuntu 20.04) can be too old. Verify compiler and CMake versions before building.
+Percona Server {{vers}} requires C++20. The CMake build sets `-std=c++20` and `cxx_std_20`. You need CMake 3.14.6 or newer. You need GCC 10 or newer, or Clang 14 or newer. Default packages on older stable distros (for example, RHEL 8, Ubuntu 20.04) can be too old. Verify compiler and CMake versions before building.
 
 Verify each component:
 
@@ -161,7 +161,7 @@ Optional components and typical packages:
 
 * zstd, lz4 — Compression libraries used by Percona features. Install the development packages (for example, `libzstd-devel`, `lz4-devel` on RHEL; `libzstd-dev`, `liblz4-dev` on Debian/Ubuntu). Use CMake flags such as `-DWITH_ZSTD=system` and `-DWITH_LZ4=system` if the build expects to use system libraries.
 
-* MyRocks (RocksDB) — Starting with Percona Server for MySQL [Insert version, 8.4.x], MyRocks builds may need libgflags. On RHEL, install `gflags-devel`. On Debian and Ubuntu, install `libgflags-dev`. The exact set is in the Percona Server source. If CMake reports "library not found", check the source repository or CMake configuration.
+* MyRocks (RocksDB) — Starting with Percona Server for MySQL [Insert version, 8.4.x], MyRocks builds may need `libgflags`. On RHEL, install `gflags-devel`. On Debian and Ubuntu, install `libgflags-dev`. The exact set is in the Percona Server source. If CMake reports "library not found", check the source repository or CMake configuration.
 
 The optional-components list may not include every package for every storage engine or option. Run CMake once before a long build. Fix any missing-dependency or configuration messages first. The [MySQL 8.4 Source Installation Prerequisites](https://dev.mysql.com/doc/refman/8.4/en/source-installation-prerequisites.html) page lists more optional dependencies. The final list for your build is in the Percona Server source tree and the CMake output.
 
@@ -230,7 +230,7 @@ git checkout {{vers}}
 git submodule update --init
 ```
 
-To build a specific release instead of the latest branch code, clone its release tag. Release tags use the format `Percona-Server-<release>`. The following example uses the current release, `Percona-Server-{{release}}`. Replace the tag name with the release you need:
+Clone a release tag to build a specific release. Use the {{vers}} branch for the latest code. Release tags use the format `Percona-Server-<release>`. The following example uses the current release, `Percona-Server-{{release}}`. Replace the tag name with the release you need:
 
 ```shell
 git clone --branch Percona-Server-{{release}} --depth 1 https://github.com/percona/percona-server.git
@@ -239,7 +239,7 @@ git submodule update --init
 git describe --tags
 ```
 
-The last command prints the tag name. If it prints a different name, the checkout does not match the release.
+`git describe --tags` prints the tag name. If `git describe --tags` prints a different name, the checkout does not match the release.
 
 After you fetch the repository or extract a tarball, configure and build Percona Server for MySQL.
 
@@ -252,7 +252,7 @@ Run CMake to configure the build. You can specify build options as for a normal 
 
     `-DFEATURE_SET=community` is not supported in {{vers}}. If you use `-DFEATURE_SET=community`, CMake will report: *Manually-specified variables were not used by the project: FEATURE_SET*.
 
-Out-of-source build is the only supported approach. Keep the source tree separate from build artifacts. Run CMake from a separate `build` directory. Do not pass `-DFORCE_INSOURCE_BUILD=1`. That option turns off the in-source check.
+Out-of-source build is the only supported approach. Keep the source tree separate from build artifacts. Run CMake from a separate `build` directory. Do not pass `-DFORCE_INSOURCE_BUILD=1`. `-DFORCE_INSOURCE_BUILD=1` disables the in-source check.
 
 * Source tree — The clean repository directory containing the pristine source files. Do not run `cmake` directly inside the source tree.
 
@@ -268,7 +268,7 @@ mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_CO
 
 Do not run `cmake .` in the source root. That command writes generated files into the source tree and is hard to undo safely.
 
-If CMake stops with `Please do not build in-source`, the build directory and the source directory resolve to the same path. Run `pwd -P` inside the `build` directory. If the output is the source root, `build` is a symlink to the source root. Remove the symlink, create a real `build` directory, and run the sequence again. If you ran `cmake .` in the source root, see [Recovery from a contaminated source tree](#recovery-from-a-contaminated-source-tree).
+CMake reports `Please do not build in-source`. The report means the build directory and the source directory resolve to the same path. Run `pwd -P` inside the `build` directory. If `pwd -P` prints the source root, `build` is a symlink to the source root. Remove the symlink. Create a real `build` directory. Run the configure sequence again. If you run `cmake .` in the source root, see [Recovery from a contaminated source tree](#recovery-from-a-contaminated-source-tree).
 
 On newer platforms or distros, if you hit compilation errors that are
 Linux-distro dependent, add `-DWITH_PACKAGE_FLAGS=OFF`:
@@ -283,7 +283,7 @@ If you ran `cmake .` in the source root by mistake, CMake and build artifacts ar
 
 Safest recovery: remove only known generated files. You then avoid touching local patches or config. From the repository root, remove `CMakeCache.txt`, the `CMakeFiles/` directory, `cmake_install.cmake`, and `Makefile`. Remove any other CMake-generated paths in the root. After that, run the out-of-source sequence again.
 
-`make distclean` does not reset this tree. The target only prints `WARNING: distclean target is not functional — use git clean -fdx`.
+`make distclean` does not reset the source tree. The `distclean` target only prints the following warning: `WARNING: distclean target is not functional — use git clean -fdx`.
 
 !!! warning
 
