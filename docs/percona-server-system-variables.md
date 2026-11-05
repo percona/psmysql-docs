@@ -62,6 +62,7 @@
 | Com_lock_binlog_for_backup | Numeric | Both |
 | Com_lock_tables_for_backup | Numeric | Both |
 | Com_show_client_statistics | Numeric | Both |
+| Com_show_engine_trans | Numeric | Both |
 | Com_show_index_statistics | Numeric | Both |
 | Com_show_table_statistics | Numeric | Both |
 | Com_show_thread_statistics | Numeric | Both |

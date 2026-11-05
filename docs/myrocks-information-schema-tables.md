@@ -209,6 +209,8 @@ This table contains the set of locks granted to MyRocks transactions.
 
 This table records information about deadlocks.
 
+As of Percona Server for MySQL 8.4.13-12, the following issue was fixed. Queries of this table no longer walk the list of all transactions. The result is unchanged. The change is performance only.
+
 ### Columns
 
 | Column Name    | Type         |
@@ -221,3 +223,35 @@ This table records information about deadlocks.
 | INDEX_NAME     | varchar(193) |
 | TABLE_NAME     | varchar(193) |
 | ROLLED_BACK    | bigint(8)    |
+
+## ROCKSDB_BULK_LOAD_HISTORY
+
+Added in Percona Server for MySQL 8.4.13-12, the `INFORMATION_SCHEMA` table `ROCKSDB_BULK_LOAD_HISTORY` was added.
+
+The table lists active bulk load sessions and the last [`rocksdb_bulk_load_history_size`](myrocks-server-variables.md#rocksdb_bulk_load_history_size) completed sessions, in the order the sessions started.
+
+### Columns
+
+| Column | Description |
+|--------|-------------|
+| `SESSION_ID` | Identifier of the bulk load session, for example `sys-12`. |
+| `TYPE` | `SST_FILE_WRITER` for a bulk load. `DDL` for an `ALTER TABLE`, `DROP TABLE`, `RENAME TABLE`, or `TRUNCATE TABLE`, recorded to keep DDL and bulk loads apart. |
+| `STATUS` | `ACTIVE`, `COMPLETED`, `FAILED`, or `ABORTED`. `ABORTED` means the connection closed during the load. |
+| `RETURN_CODE` | Error code the session finished with. `0` on success. |
+| `TABLE_COUNT` | Number of tables loaded in the session. |
+| `TABLES` | Comma-separated list of `db.table` names. |
+| `SST_FILES` | Number of SST files ingested. |
+| `CREATED_TIME` | When the session started. |
+| `COMPLETED_TIME` | When the session finished. `NULL` while the session is active. |
+
+```sql
+SELECT TYPE, STATUS, RETURN_CODE, TABLE_COUNT, TABLES, SST_FILES
+FROM information_schema.rocksdb_bulk_load_history;
+```
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    TYPE            STATUS     RETURN_CODE TABLE_COUNT TABLES                   SST_FILES
+    SST_FILE_WRITER COMPLETED  0           3           test.t1,test.t2,test.t3  6
+    ```
