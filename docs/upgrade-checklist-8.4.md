@@ -55,7 +55,42 @@ Complete these checks before starting the upgrade process.
 
     The RPM packages do not start the server, so you can run the command after you install the {{vers}} packages and before you start the server. The DEB packages start the server during `apt install`, so validate the configuration on a staging host with {{vers}} installed first.
 
-- [ ] If you run the MySQL Shell upgrade checker, pass your configuration file with `--config-path`. Without this option, the checker does not check the configuration file:
+- [ ] Install MySQL Shell {{vers}} before you run the upgrade checker. MySQL Shell is the `percona-mysql-shell` package in the Percona Server for MySQL {{vers}} repository. Configure that repository with [Use an APT repository to install Percona Server for MySQL {{vers}}](./apt-repo.md) or [Install using DNF](./yum-repo.md) when `percona-release` is not already installed.
+
+    When the {{vers}} repository is already enabled, install only the Shell package:
+
+    On Debian or Ubuntu:
+
+    ```shell
+    sudo apt install percona-mysql-shell
+    ```
+
+    On RHEL or derivatives:
+
+    ```shell
+    sudo dnf install percona-mysql-shell
+    ```
+
+    On a host that still runs 8.0, enable the {{vers}} repository for this package, install `percona-mysql-shell`, and disable that repository again. The server packages stay on 8.0 until the [upgrade procedures](./upgrade-procedures.md).
+
+    On Debian or Ubuntu:
+
+    ```shell
+    sudo percona-release enable {{pkg}} release --scheme https
+    sudo apt update
+    sudo apt install percona-mysql-shell
+    sudo percona-release disable {{pkg}} release
+    ```
+
+    On RHEL or derivatives:
+
+    ```shell
+    sudo percona-release enable {{pkg}} release
+    sudo dnf install percona-mysql-shell
+    sudo percona-release disable {{pkg}} release
+    ```
+
+- [ ] Run the MySQL Shell upgrade checker and pass your configuration file with `--config-path`. Without this option, the checker does not check the configuration file:
 
     ```shell
     mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version={{tag}} --config-path=/etc/my.cnf
@@ -106,9 +141,31 @@ Complete these checks before starting the upgrade process.
 
 **Action**:
 
-- [ ] Take a hot backup with Percona XtraBackup; document restore steps and timings.
-- [ ] Restore into a clean {{vers}} environment; validate startup and metadata upgrade.
-- [ ] See: [Backup and restore overview](./backup-restore-overview.md)
+- [ ] Take a hot backup of the 8.0 data directory with Percona XtraBackup 8.0 and record the restore steps and timings. The package is `percona-xtrabackup-80`. Percona XtraBackup 8.4 backs up {{vers}} servers; see [Percona XtraBackup compatibility](./8.4-compatibility-and-removed-items.md#percona-xtrabackup-pxb).
+
+    On Debian or Ubuntu:
+
+    ```shell
+    sudo percona-release enable pxb-80 release --scheme https
+    sudo apt update
+    sudo apt install percona-xtrabackup-80
+    ```
+
+    On RHEL or derivatives:
+
+    ```shell
+    sudo percona-release enable pxb-80 release
+    sudo dnf install percona-xtrabackup-80
+    ```
+
+    `xtrabackup` reads the server settings from the configuration file. Use an empty target directory:
+
+    ```shell
+    sudo xtrabackup --backup --target-dir=/data/backups/ps-8.0
+    ```
+
+- [ ] Restore that backup into a clean {{vers}} environment and confirm the server starts and finishes the metadata upgrade.
+- [ ] See: [Backup and restore overview](./backup-restore-overview.md) and [Create a full backup :octicons-link-external-16:](https://docs.percona.com/percona-xtrabackup/8.0/create-full-backup.html).
 
 ### Behavior comparison and testing
 
@@ -167,7 +224,29 @@ Run these checks immediately after upgrading from 8.0 to {{vers}} and before wid
 
 ### Backup and recovery
 
-- [ ] Take a fresh full backup with Percona XtraBackup.
+- [ ] Take a fresh full backup with Percona XtraBackup 8.4. Install `percona-xtrabackup-84` from the `pxb-84` repository, then write the upgraded data directory to an empty target directory.
+
+    On Debian or Ubuntu:
+
+    ```shell
+    sudo percona-release enable pxb-84 release --scheme https
+    sudo apt update
+    sudo apt install percona-xtrabackup-84
+    ```
+
+    On RHEL or derivatives:
+
+    ```shell
+    sudo percona-release enable pxb-84 release
+    sudo dnf install percona-xtrabackup-84
+    ```
+
+    `xtrabackup` reads the server settings from the configuration file. Use an empty target directory:
+
+    ```shell
+    sudo xtrabackup --backup --target-dir=/data/backups/ps-8.4
+    ```
+
 - [ ] Optionally perform a spot restore test to validate recovery on {{vers}}.
 
 ## Further reading
