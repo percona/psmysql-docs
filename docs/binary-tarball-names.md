@@ -15,7 +15,19 @@ ldd --version
     Written by Roland McGrath and Ulrich Drepper.
     ```
 
-If the `glibc2` version from your operating system is not listed, then this Percona Server for MySQL version does not support that operating system.
+The first line of the output ends with the glibc version. Select the tarball with that glibc version. If Percona does not publish that version, select the newest published glibc version that is older than yours. A tarball built for an older glibc runs on a newer glibc. If every published tarball is newer than your glibc, Percona Server for MySQL does not support the operating system.
+
+Run the following command to find the CPU architecture, and select the matching tarball. The example on the install page uses `x86_64`:
+
+```shell
+uname -m
+```
+
+Generic binary tarballs are built for `x86_64`. If this command prints `aarch64`, Percona does not publish a tarball for that CPU. Use an [APT](apt-repo.md) or [DNF](yum-repo.md) package, a [Docker](docker.md) image with the `{{arm_tag}}` tag, or [compile from source](compile-percona-server.md).
+
+Ubuntu 26.04 reports glibc 2.43. Use the glibc 2.35 tarball on that release. The steps are on the [Install from a binary tarball](binary-tarball-install.md) page.
+
+The tarball links shared libraries from the operating system it was built on. Package names for those libraries are on the [Operating system libraries](os-libraries.md) page.
 
 ## Binary tarball file name organization
 
