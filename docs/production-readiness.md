@@ -94,6 +94,8 @@ Rules:
 
 * Files in an included directory load in alphabetical order. A `zz-production.cnf` file loads after `mysqld.cnf` and overrides matching options.
 
+* The last file in the default list is `~/.my.cnf` for the operating-system user that starts `mysqld`. Values in that file override the drop-in. `sudo mysqld --validate-config` runs as `root` and can read the root account home file. The running service reads the home file of the service account. Those two files can differ.
+
 Confirm the effective value after restart with `SHOW VARIABLES`. The effective value is the final winner.
 
 ### Common package locations
@@ -112,67 +114,133 @@ Prefer a dedicated drop-in file for production changes:
 
 Use these steps when the drop-in file does not exist.
 
-1. Choose the drop-in directory for your operating system. Confirm that the directory exists:
+1. Select the drop-in directory that this host already has, and confirm that a main option file includes it:
 
     ```shell
-    ls -ld /etc/mysql/mysql.conf.d
+    DROPIN_DIR=
+    for dir in /etc/mysql/mysql.conf.d /etc/my.cnf.d; do
+      if [ -d "$dir" ] && grep -q -- "includedir ${dir}" /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null; then
+        DROPIN_DIR=$dir
+        break
+      fi
+    done
+    if [ -z "$DROPIN_DIR" ]; then
+      echo "STOP: no included drop-in directory. Checked /etc/mysql/mysql.conf.d and /etc/my.cnf.d."
+    fi
+    echo "DROPIN_DIR=${DROPIN_DIR:-unset}"
+    if [ -n "$DROPIN_DIR" ]; then
+      ls -ld "$DROPIN_DIR"
+    fi
+    grep -n "includedir" /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
+        DROPIN_DIR=/etc/mysql/mysql.conf.d
         drwxr-xr-x 2 root root 4096 Apr  1 10:00 /etc/mysql/mysql.conf.d
+        /etc/mysql/my.cnf:23:!includedir /etc/mysql/mysql.conf.d/
         ```
 
-        On Red Hat-based systems, check `/etc/my.cnf.d` instead.
+        On Red Hat Enterprise Linux and Oracle Linux the directory is often `/etc/my.cnf.d`, included from `/etc/my.cnf`.
 
-        **Pass:** The directory exists and belongs to `root`.
+        **Pass:** `DROPIN_DIR` is set, the directory belongs to `root`, and an `!includedir` line names that directory.
 
-        **Stop:** The directory is missing. Install the server package, or create only the directory that your package already includes through its main `my.cnf`.
+        **Stop:** The script prints `STOP: no included drop-in directory`. Install the server package, or use only a directory that the package already includes. Do not create a new directory that MySQL never reads.
 
-2. Create the drop-in file only if the file is absent:
+2. Create the drop-in file only if the file is absent. Stay in the same shell so `DROPIN_DIR` is still set. This block selects the directory again so you can paste it alone. It does not close the shell when the file is already present:
 
     ```shell
-    DROPIN=/etc/mysql/mysql.conf.d/zz-production.cnf
-    test -e "$DROPIN" && echo "STOP: file exists: $DROPIN" && exit 1
-    sudo tee "$DROPIN" >/dev/null <<'EOF'
+    DROPIN_DIR=
+    for dir in /etc/mysql/mysql.conf.d /etc/my.cnf.d; do
+      if [ -d "$dir" ] && grep -q -- "includedir ${dir}" /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null; then
+        DROPIN_DIR=$dir
+        break
+      fi
+    done
+    if [ -z "$DROPIN_DIR" ]; then
+      echo "STOP: no included drop-in directory. Checked /etc/mysql/mysql.conf.d and /etc/my.cnf.d."
+    else
+      DROPIN="$DROPIN_DIR/zz-production.cnf"
+      echo "DROPIN=$DROPIN"
+      if [ -e "$DROPIN" ]; then
+        echo "STOP: file exists: $DROPIN"
+      else
+        sudo tee "$DROPIN" >/dev/null <<'EOF'
     [mysqld]
     # Add production baseline settings in later steps.
     EOF
-    sudo chmod 644 "$DROPIN"
-    sudo chown root:root "$DROPIN"
-    ls -l "$DROPIN"
+        sudo chmod 644 "$DROPIN"
+        sudo chown root:root "$DROPIN"
+        ls -l "$DROPIN"
+      fi
+    fi
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
+        DROPIN=/etc/mysql/mysql.conf.d/zz-production.cnf
         -rw-r--r-- 1 root root 62 Aug  3 10:00 /etc/mysql/mysql.conf.d/zz-production.cnf
         ```
 
+        On Red Hat Enterprise Linux and Oracle Linux the path is `/etc/my.cnf.d/zz-production.cnf`.
+
         **Pass:** The command creates a new `root`-owned file with mode `644`.
 
-        **Stop:** The script prints `STOP: file exists`. Do not overwrite an existing file. Save a backup first, then edit that file.
+        **Stop:** The script prints `STOP: file exists` or `STOP: no included drop-in directory`. Do not overwrite an existing file. Save a backup first, then edit that file.
 
 3. Save a timestamped backup after the file exists and before every edit:
 
     ```shell
-    DROPIN=/etc/mysql/mysql.conf.d/zz-production.cnf
-    sudo cp "$DROPIN" "$DROPIN.bak.$(date +%Y%m%d%H%M%S)"
-    ls -l "$DROPIN".bak.*
+    DROPIN_DIR=
+    for dir in /etc/mysql/mysql.conf.d /etc/my.cnf.d; do
+      if [ -d "$dir" ] && grep -q -- "includedir ${dir}" /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null; then
+        DROPIN_DIR=$dir
+        break
+      fi
+    done
+    if [ -z "$DROPIN_DIR" ]; then
+      echo "STOP: no included drop-in directory. Checked /etc/mysql/mysql.conf.d and /etc/my.cnf.d."
+    fi
+    if [ -n "$DROPIN_DIR" ]; then
+      DROPIN="$DROPIN_DIR/zz-production.cnf"
+      echo "DROPIN=$DROPIN"
+      sudo cp "$DROPIN" "$DROPIN.bak.$(date +%Y%m%d%H%M%S)"
+      ls -l "$DROPIN".bak.*
+    fi
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
+        DROPIN=/etc/mysql/mysql.conf.d/zz-production.cnf
         -rw-r--r-- 1 root root 62 Aug  3 10:01 /etc/mysql/mysql.conf.d/zz-production.cnf.bak.20260803100100
         ```
 
         **Pass:** A new `.bak.<timestamp>` file appears beside the drop-in file.
 
-        **Stop:** The copy fails. Fix permissions or free space before you edit.
+        **Stop:** The copy fails, or the script prints `STOP: no included drop-in directory`. Fix permissions or free space before you edit.
 
 4. Edit the drop-in file as the `root` operating system user. Place production settings under the `[mysqld]` section.
+
+    ```shell
+    DROPIN_DIR=
+    for dir in /etc/mysql/mysql.conf.d /etc/my.cnf.d; do
+      if [ -d "$dir" ] && grep -q -- "includedir ${dir}" /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null; then
+        DROPIN_DIR=$dir
+        break
+      fi
+    done
+    if [ -z "$DROPIN_DIR" ]; then
+      echo "STOP: no included drop-in directory. Checked /etc/mysql/mysql.conf.d and /etc/my.cnf.d."
+    fi
+    if [ -n "$DROPIN_DIR" ]; then
+      DROPIN="$DROPIN_DIR/zz-production.cnf"
+      echo "DROPIN=$DROPIN"
+      sudoedit "$DROPIN"
+    fi
+    ```
 
 5. Validate the configuration before you restart:
 
@@ -189,6 +257,8 @@ Use these steps when the drop-in file does not exist.
 
         **Pass:** No error text. Exit status is `0`.
 
+        Exit status `0` means the server parsed the option files. The check does not allocate `innodb_buffer_pool_size`. A parsed file can still fail at restart when the buffer pool does not fit in memory. See the 16 GiB example under [Buffer pool size](#buffer-pool-size).
+
         **Stop:** Any error text, or a non-zero exit status. Fix the option file before restart.
 
 !!! tip
@@ -198,6 +268,20 @@ Use these steps when the drop-in file does not exist.
 ## Day-1 host checks
 
 Run these checks on the database host before you tune MySQL.
+
+Open a client for the SQL on this page. After `mysql_secure_installation`, connect with the root password:
+
+```shell
+mysql -u root -p
+```
+
+If that client rejects the password, start the client as the operating-system `root` user:
+
+```shell
+sudo mysql
+```
+
+Use that same form in shell commands that call `mysql`. When password login fails, replace `mysql -u root -p` with `sudo mysql`.
 
 For each check:
 
@@ -282,35 +366,67 @@ SHOW VARIABLES LIKE 'innodb_flush_method';
 
     **Stop and review:** The value is `fsync` and you expected direct I/O. Confirm filesystem support before you force `O_DIRECT`.
 
-Test direct I/O on the same filesystem as the data directory, outside the live data directory:
+Test direct I/O on the same filesystem as the data directory. The script writes only when it can place the test directory on that filesystem and outside the data directory. A directory inside the data directory is a schema. When the data directory is the mount point, the script stops and does not create a directory.
+
+The client prompts for the root password. If that login fails, rerun the block with `sudo mysql` in place of `mysql -u root -p`.
 
 ```shell
-DATADIR=$(mysql -Nse "SELECT @@datadir")
+if ! DATADIR=$(mysql -u root -p -Nse "SELECT @@datadir"); then
+  DATADIR=$(sudo mysql -Nse "SELECT @@datadir")
+fi
+DATADIR=${DATADIR%/}
 FS_ROOT=$(df --output=target "$DATADIR" | tail -n 1)
-TESTDIR="$FS_ROOT/mysql-dio-check"
-sudo mkdir -p "$TESTDIR"
-sudo chown root:root "$TESTDIR"
-sudo chmod 700 "$TESTDIR"
-sudo dd if=/dev/zero of="$TESTDIR/dio-test" bs=4096 count=1 oflag=direct
-echo "dd_exit_status=$?"
-sudo rm -f "$TESTDIR/dio-test"
-sudo rmdir "$TESTDIR"
+echo "DATADIR=$DATADIR"
+echo "FS_ROOT=$FS_ROOT"
+if [ -z "$DATADIR" ] || [ -z "$FS_ROOT" ]; then
+  echo "STOP: could not resolve datadir or its mount"
+elif [ "$FS_ROOT" = "$DATADIR" ]; then
+  echo "STOP: datadir is the mount point. Do not create a directory inside it. Use the innodb_flush_method value from the previous query."
+else
+  TESTDIR="$FS_ROOT/mysql-dio-check"
+  case "$TESTDIR" in
+    "$DATADIR"|"$DATADIR"/*)
+      echo "STOP: test path is inside datadir: $TESTDIR"
+      ;;
+    *)
+      echo "TESTDIR=$TESTDIR"
+      sudo mkdir -p "$TESTDIR"
+      sudo chown root:root "$TESTDIR"
+      sudo chmod 700 "$TESTDIR"
+      sudo dd if=/dev/zero of="$TESTDIR/dio-test" bs=4096 count=1 oflag=direct
+      echo "dd_exit_status=$?"
+      sudo rm -f "$TESTDIR/dio-test"
+      sudo rmdir "$TESTDIR"
+      ;;
+  esac
+fi
 ```
 
 ??? example "Expected output"
 
+    When `datadir` is the mount point, as in the storage example above:
+
     ```{.text .no-copy}
+    DATADIR=/var/lib/mysql
+    FS_ROOT=/var/lib/mysql
+    STOP: datadir is the mount point. Do not create a directory inside it. Use the innodb_flush_method value from the previous query.
+    ```
+
+    When the mount point is a parent of `datadir`:
+
+    ```{.text .no-copy}
+    DATADIR=/var/lib/mysql/data
+    FS_ROOT=/var/lib/mysql
+    TESTDIR=/var/lib/mysql/mysql-dio-check
     1+0 records in
     1+0 records out
     4096 bytes (4.1 kB, 4.0 KiB) copied, 0.000123 s, 33.3 MB/s
     dd_exit_status=0
     ```
 
-    **Pass:** `dd` writes one 4096-byte record. Exit status is `0`. The cleanup commands remove the test file and directory.
+    **Pass:** The script prints `STOP: datadir is the mount point`, and you keep the current `innodb_flush_method`. Or `dd` writes one 4096-byte record, exit status is `0`, and the cleanup commands remove the test file and directory.
 
-    **Stop:** `dd` prints `Invalid argument`, another I/O error, or a non-zero exit status. Do not force `innodb_flush_method=O_DIRECT` on that filesystem.
-
-    The test directory sits on the same mount as `datadir`, but outside `/var/lib/mysql` contents. Replace `FS_ROOT` only when `df` shows a different mount point.
+    **Stop:** `dd` prints `Invalid argument`, another I/O error, or a non-zero exit status. Do not force `innodb_flush_method=O_DIRECT` on that filesystem. Also stop when the script prints `STOP: could not resolve datadir` or `STOP: test path is inside datadir`.
 
 ### Memory and swap
 
@@ -368,20 +484,29 @@ SHOW VARIABLES WHERE Variable_name IN (
 
     **Stop:** `log_error` is empty or unwritable. Slow logging remains off when you planned to enable it. Fix logging before you continue.
 
-Check recent error log lines:
+Check recent error log lines. Read the path from the server. Package layouts differ: some use `/var/log/mysql/error.log`, and the Oracle Linux quickstart records the temporary password in `/var/log/mysqld.log`.
 
 ```shell
-sudo tail -n 50 /var/log/mysql/error.log
+if ! LOG_ERROR=$(mysql -u root -p -Nse "SELECT @@log_error"); then
+  LOG_ERROR=$(sudo mysql -Nse "SELECT @@log_error")
+fi
+echo "LOG_ERROR=$LOG_ERROR"
+if [ -z "$LOG_ERROR" ]; then
+  echo "STOP: @@log_error is empty"
+else
+  sudo tail -n 50 -- "$LOG_ERROR"
+fi
 ```
 
 ??? example "Expected output"
 
     ```{.text .no-copy}
+    LOG_ERROR=/var/log/mysql/error.log
     ...
     [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections.
     ```
 
-    The path can differ. Use the `log_error` value from MySQL.
+    The printed path is the file you tail. A Red Hat or Oracle Linux package often prints `/var/log/mysqld.log`.
 
     **Pass:** The log shows a ready-for-connections message. No unresolved `[ERROR]` lines block startup.
 
@@ -439,6 +564,8 @@ Calculate the hit rate:
 
 `1 - (Innodb_buffer_pool_reads / Innodb_buffer_pool_read_requests)`
 
+`Innodb_buffer_pool_read_requests` and `Innodb_buffer_pool_reads` are cumulative since server startup. For the sample values, the hit rate is `1 - (250000 / 125000000) = 0.998`. If `Innodb_buffer_pool_read_requests` is `0`, do not divide. Wait for representative load, then run the query again.
+
 A result near `1` means MySQL serves most reads from memory.
 
 **Pass:** After representative load, the hit rate stays high enough for your service goals.
@@ -459,9 +586,29 @@ A result near `1` means MySQL serves most reads from memory.
 
 * Queue or reject excess application work before MySQL reaches capacity.
 
-* Reserve access for database administrators.
+* Reserve an administrative connection that still accepts logins when `max_connections` is exhausted. The server opens this interface only when `admin_address` is set at startup. `admin_port` defaults to `33062`. Add these lines to the drop-in file under `[mysqld]`, then restart during the maintenance window in [Apply the baseline](#apply-the-baseline):
 
-* Create an alert for high connection use.
+    ```ini
+    [mysqld]
+    admin_address=127.0.0.1
+    admin_port=33062
+    ```
+
+    Grant `SERVICE_CONNECTION_ADMIN` to the admin account from [First five minutes after installation](first-five-minutes.md). Do this before client traffic returns:
+
+    ```sql
+    GRANT SERVICE_CONNECTION_ADMIN ON *.* TO 'admin'@'localhost';
+    ```
+
+    Connect on the administrative port:
+
+    ```shell
+    mysql --host=127.0.0.1 --port=33062 -u admin -p -e "SELECT 1;"
+    ```
+
+    The server accepts this connection only for accounts that have `SERVICE_CONNECTION_ADMIN`.
+
+* Create an alert when `Threads_connected` approaches `max_connections`. [Insert the alert rule in your monitoring tool.]
 
 Use the default one-thread-per-connection model for most workloads. Consider the Percona thread pool after tests show a high-concurrency requirement. The thread pool usually offers little benefit below 20,000 connections.
 
@@ -524,6 +671,8 @@ Example for a 16 GiB host:
 * `16 × 0.70 ≈ 11.2`
 
 * Use `innodb_buffer_pool_size = 11G`
+
+MySQL 8.4 sets `temptable_max_ram` to 3% of total memory, with a minimum of 1 GiB. 3% of 16 GiB is below 1 GiB, so the minimum applies. `11G` plus that 1 GiB leaves about 4 GiB for the operating system and the other consumers below.
 
 Leave memory for the following consumers:
 
@@ -630,27 +779,59 @@ Lower values for `innodb_flush_log_at_trx_commit` or `sync_binlog` can increase 
 
         **Pass:** No error text. Exit status is `0`.
 
+        Exit status `0` means the server parsed the option files. The check does not allocate `innodb_buffer_pool_size`. A parsed file can still fail at restart when the buffer pool does not fit in memory.
+
         **Stop:** Any error text, or a non-zero exit status. Do not restart.
 
-4. Restart MySQL during a maintenance period:
+4. Restart MySQL during a maintenance period. The block selects the `mysql` unit or the `mysqld` unit, whichever is installed:
 
     ```shell
-    sudo systemctl restart mysql
+    if systemctl cat mysql.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysql
+    elif systemctl cat mysqld.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysqld
+    else
+      echo "STOP: neither mysql.service nor mysqld.service is installed"
+      MYSQL_UNIT=
+    fi
+    echo "MYSQL_UNIT=${MYSQL_UNIT:-unset}"
+    if [ -n "$MYSQL_UNIT" ]; then
+      sudo systemctl restart "$MYSQL_UNIT"
+    fi
     ```
 
-    Some installs use the `mysqld` unit name. Use the unit that your package provides.
-
-5. Check the service state and error log:
+5. Check the service state and error log. The error-log path comes from `@@log_error`:
 
     ```shell
-    sudo systemctl status mysql --no-pager
-    sudo tail -n 100 /var/log/mysql/error.log
+    if systemctl cat mysql.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysql
+    elif systemctl cat mysqld.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysqld
+    else
+      echo "STOP: neither mysql.service nor mysqld.service is installed"
+      MYSQL_UNIT=
+    fi
+    echo "MYSQL_UNIT=${MYSQL_UNIT:-unset}"
+    if [ -n "$MYSQL_UNIT" ]; then
+      sudo systemctl status "$MYSQL_UNIT" --no-pager
+    fi
+    if ! LOG_ERROR=$(mysql -u root -p -Nse "SELECT @@log_error"); then
+      LOG_ERROR=$(sudo mysql -Nse "SELECT @@log_error")
+    fi
+    echo "LOG_ERROR=$LOG_ERROR"
+    if [ -z "$LOG_ERROR" ]; then
+      echo "STOP: @@log_error is empty"
+    else
+      sudo tail -n 100 -- "$LOG_ERROR"
+    fi
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
+        MYSQL_UNIT=mysql
         Active: active (running)
+        LOG_ERROR=/var/log/mysql/error.log
         ...
         [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections.
         ```
@@ -708,27 +889,66 @@ If MySQL fails to start after a configuration change, restore the previous file 
 1. Check the service state and the last error lines:
 
     ```shell
-    sudo systemctl status mysql --no-pager
-    sudo journalctl -u mysql -n 50 --no-pager
-    sudo tail -n 100 /var/log/mysql/error.log
+    if systemctl cat mysql.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysql
+    elif systemctl cat mysqld.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysqld
+    else
+      echo "STOP: neither mysql.service nor mysqld.service is installed"
+      MYSQL_UNIT=
+    fi
+    echo "MYSQL_UNIT=${MYSQL_UNIT:-unset}"
+    if [ -n "$MYSQL_UNIT" ]; then
+      sudo systemctl status "$MYSQL_UNIT" --no-pager
+      sudo journalctl -u "$MYSQL_UNIT" -n 50 --no-pager
+    fi
+    if [ -n "$MYSQL_UNIT" ] && systemctl is-active --quiet "$MYSQL_UNIT"; then
+      if ! LOG_ERROR=$(mysql -u root -p -Nse "SELECT @@log_error"); then
+        LOG_ERROR=$(sudo mysql -Nse "SELECT @@log_error")
+      fi
+      echo "LOG_ERROR=$LOG_ERROR"
+      if [ -n "$LOG_ERROR" ]; then
+        sudo tail -n 100 -- "$LOG_ERROR"
+      else
+        echo "STOP: @@log_error is empty"
+      fi
+    else
+      echo "The service is not active. Read the journalctl lines. Tail the LOG_ERROR path printed before the restart."
+    fi
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
+        MYSQL_UNIT=mysql
         Active: failed
         ...
         [ERROR] [MY-000067] [Server] unknown variable 'example_bad_setting=1'.
+        The service is not active. Read the journalctl lines. Tail the LOG_ERROR path printed before the restart.
         ```
 
 2. Restore the backup that you created before the edit:
 
     ```shell
-    sudo cp /etc/mysql/mysql.conf.d/zz-production.cnf.bak.TIMESTAMP \
-      /etc/mysql/mysql.conf.d/zz-production.cnf
+    DROPIN_DIR=
+    for dir in /etc/mysql/mysql.conf.d /etc/my.cnf.d; do
+      if [ -d "$dir" ] && grep -q -- "includedir ${dir}" /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null; then
+        DROPIN_DIR=$dir
+        break
+      fi
+    done
+    if [ -z "$DROPIN_DIR" ]; then
+      echo "STOP: no included drop-in directory. Checked /etc/mysql/mysql.conf.d and /etc/my.cnf.d."
+    fi
+    if [ -n "$DROPIN_DIR" ]; then
+      DROPIN="$DROPIN_DIR/zz-production.cnf"
+      echo "DROPIN=$DROPIN"
+      ls -l "$DROPIN".bak.*
+      sudo cp "$DROPIN.bak.TIMESTAMP" "$DROPIN"
+    fi
     ```
 
-    Replace `TIMESTAMP` with the backup suffix from your copy step. Use the path that matches your operating system.
+    Replace `TIMESTAMP` with the backup suffix from your copy step. The `ls` line prints that suffix.
 
 3. Validate the restored configuration:
 
@@ -743,19 +963,42 @@ If MySQL fails to start after a configuration change, restore the previous file 
 4. Start MySQL:
 
     ```shell
-    sudo systemctl start mysql
+    if systemctl cat mysql.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysql
+    elif systemctl cat mysqld.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysqld
+    else
+      echo "STOP: neither mysql.service nor mysqld.service is installed"
+      MYSQL_UNIT=
+    fi
+    echo "MYSQL_UNIT=${MYSQL_UNIT:-unset}"
+    if [ -n "$MYSQL_UNIT" ]; then
+      sudo systemctl start "$MYSQL_UNIT"
+    fi
     ```
 
 5. Confirm that the service is active and that clients can connect:
 
     ```shell
-    sudo systemctl is-active mysql
-    mysql -u root -p -e "SELECT 1;"
+    if systemctl cat mysql.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysql
+    elif systemctl cat mysqld.service >/dev/null 2>&1; then
+      MYSQL_UNIT=mysqld
+    else
+      echo "STOP: neither mysql.service nor mysqld.service is installed"
+      MYSQL_UNIT=
+    fi
+    echo "MYSQL_UNIT=${MYSQL_UNIT:-unset}"
+    if [ -n "$MYSQL_UNIT" ]; then
+      sudo systemctl is-active "$MYSQL_UNIT"
+    fi
+    mysql -u root -p -e "SELECT 1;" || sudo mysql -e "SELECT 1;"
     ```
 
     ??? example "Expected output"
 
         ```{.text .no-copy}
+        MYSQL_UNIT=mysql
         active
         +---+
         | 1 |
@@ -797,11 +1040,11 @@ Some features also require tables or policy definitions. Follow the linked proce
 | Feature | Activation | Production requirement |
 |---|---|---|
 | Thread pool | Add `thread_handling=pool-of-threads` under `[mysqld]`. Restart MySQL. | Use the feature only after high-concurrency tests show a benefit. Read [Thread pool](threadpool.md). |
-| Audit Log Filter | Run `SET GLOBAL audit_log_filter.disable = false;` after component installation and filter assignment. | Complete the [Audit Log Filter installation](install-audit-log-filter.md) and [Audit Log Filter quickstart](audit-log-filter-quickstart.md). Define production filters and retention. |
-| Data Masking | Create `mysql.masking_dictionaries`. Run `INSTALL COMPONENT 'file://component_masking_functions';`. | Use views and privileges to restrict access to unmasked data. Read [Install the data masking component](install-data-masking-component.md). |
+| Audit Log Filter | Install the component and assign a filter with the installation and quickstart links. `audit_log_filter.disable` defaults to `OFF`, which leaves logging enabled. Run `SET GLOBAL audit_log_filter.disable = false;` only after a user set the variable to `ON`. | Complete the [Audit Log Filter installation](install-audit-log-filter.md) and [Audit Log Filter quickstart](audit-log-filter-quickstart.md). Define production filters and retention. |
+| Data Masking | Follow [Install the data masking component](install-data-masking-component.md). Create `mysql.masking_dictionaries` with the schema on that page, then run `INSTALL COMPONENT 'file://component_masking_functions';`. Do not invent the table definition. | On Percona Server for MySQL 8.4.4-1 and later, grant `mysql.session` the privileges named on the install page. Use views and privileges to restrict access to unmasked data. |
 | Extended Slow Log | Add `slow_query_log=ON` and `log_slow_verbosity=standard` under `[mysqld]`. | Start with `long_query_time=1`. Measure log volume. Use `log_slow_rate_limit` when you need a sample. Read [Slow query log](slow-extended.md). |
 
-Verify each feature:
+Run the query for each feature you activated. The sample shows one possible result for every feature in the matrix. A feature you left disabled does not match its sample rows.
 
 ```sql
 SHOW VARIABLES LIKE 'thread_handling';
