@@ -24,6 +24,8 @@ Use these values as a baseline. Test each value with a representative workload. 
 
     Stop when a check fails. Fix the issue before you change memory, connections, or restart MySQL.
 
+Example output on this page uses sample paths, numbers, and service names from one host. A **Pass** or **Stop** line is the result you verify. A different path, number, or service name still passes when the **Pass** condition is true. Debian, Ubuntu, Red Hat Enterprise Linux, and Oracle Linux often differ in those sample values.
+
 ## Key terms
 
 | Term | Meaning |
@@ -110,6 +112,8 @@ Prefer a dedicated drop-in file for production changes:
 
 * `/etc/my.cnf.d/zz-production.cnf`
 
+The create steps select one of those two directories only when `/etc/my.cnf` or `/etc/mysql/my.cnf` includes it with `!includedir`. The steps do not open a path named by `--defaults-file`. The steps do not follow `!include`, and they do not read `!includedir` inside a file that another file includes. A directory such as `/etc/mysql/conf.d` is also outside those two paths. Use the fallback when the host uses one of those layouts.
+
 ### Create the production drop-in file safely
 
 Use these steps when the drop-in file does not exist.
@@ -147,7 +151,91 @@ Use these steps when the drop-in file does not exist.
 
         **Pass:** `DROPIN_DIR` is set, the directory belongs to `root`, and an `!includedir` line names that directory. The script ignores a trailing slash, trailing spaces, Windows line endings, and commented lines.
 
-        **Stop:** The script prints `STOP: no included drop-in directory`. Install the server package, or use only a directory that the package already includes. Do not create a new directory that MySQL never reads.
+        **Stop:** The script prints `STOP: no included drop-in directory`. Install the server package, or use only a directory that a main option file already includes. Do not create a new directory that MySQL never reads. When the package is installed and the script still stops, follow [Fallback for other configuration layouts](#fallback-for-other-configuration-layouts).
+
+#### Fallback for other configuration layouts
+
+Use this fallback when step 1 prints `STOP: no included drop-in directory`. Do not create `zz-production.cnf` until this fallback names an existing directory or an existing file. Steps 2 through 4 still search only `/etc/mysql/mysql.conf.d` and `/etc/my.cnf.d`. When the directory you must use is different, run the block at the end of this fallback and do not run steps 2 through 4.
+
+With `--defaults-file`, MySQL reads that file and the files it includes. MySQL does not read the other default option files.
+
+Read the service unit for `--defaults-file`, then list include directives:
+
+```shell
+DEFAULTS_FILE=
+for unit in mysql.service mysqld.service; do
+  found=$(systemctl cat "$unit" 2>/dev/null | sed -n 's/.*--defaults-file=\([^[:space:]"]*\).*/\1/p' | head -n 1)
+  if [ -n "$found" ]; then
+    DEFAULTS_FILE=$found
+    echo "unit=$unit"
+    break
+  fi
+done
+echo "DEFAULTS_FILE=${DEFAULTS_FILE:-unset}"
+if [ -n "$DEFAULTS_FILE" ]; then
+  echo "The server reads this file only, plus files it includes."
+  grep -nE '^[[:space:]]*!include' -- "$DEFAULTS_FILE"
+else
+  echo "No --defaults-file in mysql.service or mysqld.service."
+  grep -nE '^[[:space:]]*!include' /etc/my.cnf /etc/mysql/my.cnf 2>/dev/null
+  grep -nE '^[[:space:]]*!include' /etc/mysql/conf.d/*.cnf /etc/mysql/mysql.conf.d/*.cnf /etc/my.cnf.d/*.cnf 2>/dev/null
+fi
+```
+
+Ignore a `--defaults-file` match that appears only in a comment. Use a match on an `ExecStart` or `Environment` line.
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    No --defaults-file in mysql.service or mysqld.service.
+    /etc/mysql/my.cnf:22:!includedir /etc/mysql/conf.d/
+    ```
+
+    The paths and line numbers depend on the host. `grep` matches both `!include` and `!includedir`.
+
+    **Pass:** `grep` prints an `!includedir` line in the file the server reads, and that directory exists. When more than one such line is printed, use the last directory that exists. Continue with the create block in this fallback. Do not add a new `!includedir` line. Do not create a directory.
+
+    **Stop:** `grep` prints only `!include` of a single file. Back up that file, then edit that file. Do not create `zz-production.cnf` in a directory the server does not read.
+
+    **Stop:** The only `!includedir` line is inside a file under `/etc/mysql/conf.d`, `/etc/mysql/mysql.conf.d`, or `/etc/my.cnf.d`, and the file the server reads does not itself name a directory. That line is a nested include. Use that directory only after you confirm the include chain, and only when the directory exists.
+
+    **Stop:** `grep` prints no include line. Do not create a drop-in file. Return to [List every option file that MySQL can load](#list-every-option-file-that-mysql-can-load).
+
+Replace the sample directory in the first line with the directory you selected. The block creates `zz-production.cnf` only when that file is absent, then saves a timestamped backup.
+
+```shell
+DROPIN_DIR=/etc/mysql/conf.d
+DROPIN="$DROPIN_DIR/zz-production.cnf"
+echo "DROPIN=$DROPIN"
+if [ ! -d "$DROPIN_DIR" ]; then
+  echo "STOP: directory does not exist: $DROPIN_DIR"
+elif [ -e "$DROPIN" ]; then
+  echo "STOP: file exists: $DROPIN"
+else
+  sudo tee "$DROPIN" >/dev/null <<'EOF'
+[mysqld]
+# Add production baseline settings in later steps.
+EOF
+  sudo chmod 644 "$DROPIN"
+  sudo chown root:root "$DROPIN"
+  sudo cp "$DROPIN" "$DROPIN.bak.$(date +%Y%m%d%H%M%S)"
+  ls -l "$DROPIN" "$DROPIN".bak.*
+fi
+```
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    DROPIN=/etc/mysql/conf.d/zz-production.cnf
+    -rw-r--r-- 1 root root 62 Aug  3 10:00 /etc/mysql/conf.d/zz-production.cnf
+    -rw-r--r-- 1 root root 62 Aug  3 10:00 /etc/mysql/conf.d/zz-production.cnf.bak.20260803100000
+    ```
+
+    **Pass:** The command creates a new `root`-owned file with mode `644`, and a `.bak.<timestamp>` file appears beside it.
+
+    **Stop:** The script prints `STOP: directory does not exist` or `STOP: file exists`. Do not overwrite an existing file.
+
+Keep this shell open. Edit with `sudoedit "$DROPIN"`. On rollback, restore that same path with `sudo cp "$DROPIN.bak.TIMESTAMP" "$DROPIN"`. Replace `TIMESTAMP` with the suffix from the `ls` line. Then validate and restart with [Apply the baseline](#apply-the-baseline) and [Roll back after a failed restart](#roll-back-after-a-failed-restart). The rollback script does not search this directory.
 
 2. Create the drop-in file only if the file is absent. Stay in the same shell so `DROPIN_DIR` is still set. This block selects the directory again so you can paste it alone. It does not close the shell when the file is already present:
 
@@ -310,9 +398,9 @@ df -hT /var/lib/mysql
     /dev/sdb1      xfs   500G  120G  380G  24% /var/lib/mysql
     ```
 
-    **Pass:** Each MySQL mount has enough free space for data growth, binary logs, and temporary files. Many teams stop when use reaches 80% or higher.
+    **Pass:** Each MySQL mount has free space for data growth, binary logs, and temporary files. A starting point is to investigate when use reaches 80%. Your growth rate and backup size can require an earlier or later point. 80% is not a universal failure rule.
 
-    **Stop:** Any MySQL mount is near capacity, read-only, missing, or reports an unexpected file system type for your plan.
+    **Stop:** A MySQL mount is read-only, missing, or reports an unexpected file system type for your plan. Also stop when use reaches the percentage in your capacity plan. When the plan sets no percentage, investigate at 80%.
 
 Confirm MySQL paths:
 
@@ -370,7 +458,7 @@ SHOW VARIABLES LIKE 'innodb_flush_method';
 
     **Stop and review:** The value is `fsync` and you expected direct I/O. Confirm filesystem support before you force `O_DIRECT`.
 
-Test direct I/O on the same filesystem as the data directory. The script writes only when it can place the test directory on that filesystem and outside the data directory. A directory inside the data directory is a schema. When the data directory is the mount point, the script stops and does not create a directory. The script creates a new, uniquely named directory with `mktemp -d`. The script never changes the owner or mode of an existing directory. The cleanup removes only the one file and the empty directory that the script created.
+Test direct I/O on the same filesystem as the data directory. The script writes only when it can place the test directory on that filesystem and outside the data directory. A directory inside the data directory is a schema. When the data directory is the mount point, the script stops and does not create a directory. The script creates a new, uniquely named directory with `mktemp -d`. The script never changes the owner or mode of an existing directory. `dd` uses `conv=excl`, so `dd` fails when the test file already exists and does not overwrite that file. The cleanup removes only the one file and the empty directory that the script created. When the directory check fails, the script removes the empty directory it just created and does not remove anything else.
 
 The client prompts for the root password. If that login fails, rerun the block with `sudo mysql` in place of `mysql -u root -p`.
 
@@ -395,6 +483,11 @@ else
       TESTDIR=$(sudo mktemp -d "$FS_ROOT/mysql-dio-check.XXXXXX")
       if [ -z "$TESTDIR" ] || [ ! -d "$TESTDIR" ] || [ "$(sudo stat -c '%U:%a' "$TESTDIR")" != "root:700" ]; then
         echo "STOP: could not create a root-owned test directory under $FS_ROOT"
+        if [ -n "$TESTDIR" ] && [ -d "$TESTDIR" ]; then
+          if ! sudo rmdir -- "$TESTDIR"; then
+            echo "STOP: left test directory in place: $TESTDIR"
+          fi
+        fi
       else
         echo "TESTDIR=$TESTDIR"
         sudo dd if=/dev/zero of="$TESTDIR/dio-test" bs=4096 count=1 oflag=direct conv=excl
@@ -429,9 +522,11 @@ fi
     dd_exit_status=0
     ```
 
-    **Pass:** The script prints `STOP: datadir is the mount point`, and you keep the current `innodb_flush_method`. Or `dd` writes one 4096-byte record, exit status is `0`, and the cleanup commands remove the test file and directory.
+    **Pass:** `dd` writes one 4096-byte record, exit status is `0`, and the cleanup commands remove only the test file and the empty directory that the script created.
 
-    **Stop:** `dd` prints `Invalid argument`, another I/O error, or a non-zero exit status. Do not force `innodb_flush_method=O_DIRECT` on that filesystem. Also stop when the script prints `STOP: could not resolve datadir`, `STOP: mount point is inside datadir`, or `STOP: could not create a root-owned test directory`.
+    **Skipped test:** The script prints `STOP: datadir is the mount point`. The script created nothing and did not test direct I/O. Keep the current `innodb_flush_method`. A skipped test is not a pass.
+
+    **Stop:** `dd` prints `Invalid argument`, another I/O error, or a non-zero exit status. Do not force `innodb_flush_method=O_DIRECT` on that filesystem. Also stop when the script prints `STOP: could not resolve datadir`, `STOP: mount point is inside datadir`, `STOP: could not create a root-owned test directory`, or `STOP: left test directory in place`.
 
     A passing `dd` test does not prove that every InnoDB I/O operation works on this filesystem. After you restart MySQL with direct I/O, check the error log for I/O warnings.
 
@@ -575,9 +670,9 @@ Calculate the hit rate:
 
 A result near `1` means MySQL serves most reads from memory.
 
-**Pass:** After representative load, the hit rate stays high enough for your service goals.
+**Pass:** After representative load, the hit rate is at or above [Insert hit-rate starting point]. That starting point depends on your working set and latency goal. It is not a universal pass rule. The sample result `0.998` shows the formula only.
 
-**Stop and review:** The hit rate stays low after load. Confirm that the working set exceeds the buffer pool before you raise memory further.
+**Stop and review:** The hit rate stays below [Insert hit-rate starting point] after representative load. Confirm that the working set exceeds the buffer pool before you raise memory further.
 
 ### Connections
 
@@ -683,7 +778,7 @@ SHOW VARIABLES LIKE 'max_connections';
 
     The connection values depend on the workload. `Max_used_connections` must remain below `max_connections`.
 
-    **Pass:** `Max_used_connections` stays below `max_connections` with headroom for peaks.
+    **Pass:** `Max_used_connections` stays below `max_connections`. A starting point is to keep the peak under 80% of `max_connections`, the same default as the PMM template on this page. Traffic spikes can require a larger or smaller margin. 80% is not a universal failure rule.
 
     **Stop:** `Max_used_connections` equals `max_connections`, or applications already hit connection errors. Raise capacity only after you confirm application pool limits.
 
@@ -1118,6 +1213,8 @@ If MySQL fails to start after a configuration change, restore the previous file 
 
     Replace `TIMESTAMP` with the backup suffix from your copy step. The `ls` line prints that suffix.
 
+    When the drop-in file is not under `/etc/mysql/mysql.conf.d` or `/etc/my.cnf.d`, this script prints `STOP: no included drop-in directory`. Restore the backup path from [Fallback for other configuration layouts](#fallback-for-other-configuration-layouts) instead.
+
 3. Validate the restored configuration:
 
     ```shell
@@ -1205,14 +1302,81 @@ Each command requires the related package or component library. Run Structured Q
 
 Some features also require tables or policy definitions. Follow the linked procedure before activation.
 
-| Feature | Activation | Production requirement |
-|---|---|---|
-| Thread pool | Add `thread_handling=pool-of-threads` under `[mysqld]`. Restart MySQL. | Use the feature only after high-concurrency tests show a benefit. Read [Thread pool](threadpool.md). |
-| Audit Log Filter | Install the component and assign a filter with the installation and quickstart links. `audit_log_filter.disable` defaults to `OFF`, which leaves logging enabled. Run `SET GLOBAL audit_log_filter.disable = false;` only after a user set the variable to `ON`. | Complete the [Audit Log Filter installation](install-audit-log-filter.md) and [Audit Log Filter quickstart](audit-log-filter-quickstart.md). Define production filters and retention. |
-| Data Masking | Follow [Install the data masking component](install-data-masking-component.md). Create `mysql.masking_dictionaries` with the schema on that page, then run `INSTALL COMPONENT 'file://component_masking_functions';`. Do not invent the table definition. | On Percona Server for MySQL 8.4.4-1 and later, grant `mysql.session` the privileges named on the install page. Use views and privileges to restrict access to unmasked data. |
-| Extended Slow Log | Add `slow_query_log=ON` and `log_slow_verbosity=standard` under `[mysqld]`. | Start with `long_query_time=1`. Measure log volume. Use `log_slow_rate_limit` when you need a sample. Read [Slow query log](slow-extended.md). |
+Each feature below lists prerequisites, activation, restart behavior, verification, and rollback separately.
 
-Run the query for each feature you activated. The sample shows one possible result for every feature in the matrix. A feature you left disabled does not match its sample rows.
+### Thread pool
+
+**Prerequisites:** Run a high-concurrency test with representative load. Use the thread pool only when that test shows a throughput benefit. Read [Thread pool](threadpool.md).
+
+**Activation:** Add `thread_handling=pool-of-threads` under `[mysqld]` in the drop-in file.
+
+**Restart:** Required. In [Thread pool](threadpool.md), `thread_handling` is not dynamic. The server reads the value at startup.
+
+**Verification:** `SHOW VARIABLES LIKE 'thread_handling';` returns `pool-of-threads`.
+
+**Rollback:** Remove `thread_handling=pool-of-threads` from the drop-in file and restart MySQL. The default in [Thread pool](threadpool.md) is `one-thread-per-connection`.
+
+### Audit Log Filter
+
+**Prerequisites:** Complete [Audit Log Filter installation](install-audit-log-filter.md) and [Audit Log Filter quickstart](audit-log-filter-quickstart.md). Define production filters and retention before you rely on the log.
+
+**Activation:** Install the component and assign a filter with those pages. `audit_log_filter.disable` defaults to `OFF`, which leaves logging enabled. Run `SET GLOBAL audit_log_filter.disable = false;` only after a user set the variable to `ON`.
+
+**Restart:** The installation procedure is SQL and does not include a server restart. Set `plugin_dir` at startup when the component library is not in the default directory. That `plugin_dir` change requires a restart. `SET GLOBAL audit_log_filter.disable` takes effect at runtime. Read [Disable Audit Log Filter logging](disable-audit-log-filter.md).
+
+**Verification:** `SHOW GLOBAL STATUS LIKE 'audit_log_filter_events_written';` returns a row after the component writes events.
+
+**Rollback:** To stop logging without removing the component, follow [Disable Audit Log Filter logging](disable-audit-log-filter.md). To remove the component, follow [Uninstall Audit Log Filter](uninstall-audit-log-filter.md):
+
+```sql
+UNINSTALL COMPONENT 'file://component_audit_log_filter';
+```
+
+### Data Masking
+
+**Prerequisites:** The component library must be present in the directory named by `plugin_dir`. On Percona Server for MySQL 8.4.4-1 and later, grant `mysql.session` the privileges named on the install page. Use views and privileges to restrict access to unmasked data.
+
+**Activation:** Follow [Install the data masking component](install-data-masking-component.md). Create `mysql.masking_dictionaries` with the schema on that page, then run `INSTALL COMPONENT 'file://component_masking_functions';`. Do not invent the table definition.
+
+**Restart:** Not required to load the component. [Install the data masking component](install-data-masking-component.md) states that `INSTALL COMPONENT` registers the component and that the server loads it again on a later restart.
+
+**Verification:** The `mysql.component` query returns a row whose `component_urn` is `file://component_masking_functions`.
+
+**Rollback:** Follow [Uninstall the data masking component](uninstall-data-masking-component.md). That page covers privilege cleanup and the optional table drop. The uninstall command is:
+
+```sql
+UNINSTALL COMPONENT 'file://component_masking_functions';
+```
+
+### Extended Slow Log
+
+**Prerequisites:** Read [Slow query log](slow-extended.md). Start with `long_query_time=1`. Measure log volume. Use `log_slow_rate_limit` when you need a sample.
+
+**Activation:** Add these lines under `[mysqld]` in the drop-in file:
+
+```ini
+slow_query_log = ON
+log_slow_verbosity = standard
+```
+
+[Slow query log](slow-extended.md) states that you can enable or disable the slow query log at runtime, and that `log_slow_verbosity` is dynamic. Option-file lines apply at the next restart. To enable them on the running server before that restart:
+
+```sql
+SET GLOBAL slow_query_log = ON;
+SET GLOBAL log_slow_verbosity = 'standard';
+```
+
+**Restart:** Not required when you use the `SET GLOBAL` statements. Required when you add only the option-file lines.
+
+**Verification:** `SHOW VARIABLES` for `slow_query_log`, `log_slow_verbosity`, and `long_query_time` returns `ON`, `standard`, and `1.000000` for this baseline.
+
+**Rollback:** Disable logging on the running server, and remove or comment the drop-in lines so the next restart does not enable them again:
+
+```sql
+SET GLOBAL slow_query_log = OFF;
+```
+
+Run the statements for each feature you activated. The statements are in the same order as the features. The sample shows one possible result for every feature. A feature you left disabled does not match its sample rows.
 
 ```sql
 SHOW VARIABLES LIKE 'thread_handling';
