@@ -12,7 +12,7 @@ A queue that exceeds its threshold lowers the transaction quota for writer membe
 
 Members may fail to apply transactions at the reduced rate. The queue then continues to grow. Group Replication continues to run. Flow control does not stop the cluster when a queue stays above the threshold.
 
-A secondary can have a different applied data set than the primary. This difference is expected. Reads from a lagging secondary can return older data.
+A secondary can have a different applied data set than the primary. A secondary has a different applied data set while transactions remain in its applier queue. Reads from a lagging secondary can return older data.
 
 Flow control does not wait for members to catch up. Flow control uses the following data:
 
@@ -143,7 +143,7 @@ If the reduced quota does not reduce the queue, the following effects occur:
 
 * The group low watermark advances more slowly.
 
-The group elects a new primary during failover. The new primary stays read-only until that member applies the remaining queue.
+The group elects a new primary during failover. The new primary stays read-only (`super_read_only` = ON) until that member applies the remaining applier queue.
 
 The wait causes a write brownout. The brownout lasts until the new primary applies the backlog.
 
@@ -151,7 +151,7 @@ Resource exhaustion can stop a member. A flow control threshold does not stop a 
 
 ## Configure replication applier workers
 
-The `replica_parallel_workers` variable sets the number of parallel applier workers. More workers can process the applier queue faster. More workers do not keep members at the same applied position. Flow control still does not prevent lag.
+The [`replica_parallel_workers` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/replication-options-replica.html#sysvar_replica_parallel_workers) variable sets the number of parallel applier workers. More workers can process the applier queue faster. More workers do not keep members at the same applied position. Flow control still does not prevent lag.
 
 | Option | Description |
 |--------|-------------|
