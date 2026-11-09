@@ -12,7 +12,7 @@ So, fast index creation means building the secondary index from a sorted stream 
 
 ### Why deferring secondary indexes can beat keeping them during a copy
 
-On a table-copy ALTER TABLE, the expensive part is not dropping a secondary index definition. The benefit comes from what happens during row copying. If every secondary index stays live, each inserted row triggers incremental B-tree maintenance in several trees at once, ordered by the primary-key scan. This causes scattered leaf-page writes (random-like I/O) and many page splits. If eligible secondaries are absent during the copy and built afterward, the copy loop mainly touches the clustered index, which is a comparatively sequential read of the old table and write of the new clustered index. Each secondary is then produced by one scan-plus-merge-sort pipeline into tmpdir, then merged into a fresh B-tree. The architectural shift is incremental: interleaved updates rather than deferred bulk builds from sorted runs, not just a superficial reordering of DDL syntax.
+On a table-copy ALTER TABLE, the expensive part is not dropping a secondary index definition. The benefit comes from what happens during row copying. If every secondary index stays live, each inserted row triggers incremental B-tree maintenance in several trees at once, ordered by the primary-key scan. This causes scattered leaf-page writes (random-like I/O) and many page splits. If eligible secondaries are absent during the copy and built afterward, the copy loop mainly touches the clustered index, which is a comparatively sequential read of the old table and write of the new clustered index. Each secondary is then produced by one scan-plus-merge-sort pipeline into tmpdir, then merged into a fresh B-tree. The architectural shift is from incremental, interleaved updates to deferred bulk builds from sorted runs. The shift is not a superficial reordering of DDL syntax.
 
 Dropping an index is often a cheap metadata change. The performance gain mainly comes from creating indexes on large tables.
 
@@ -20,7 +20,7 @@ Dropping an index is often a cheap metadata change. The performance gain mainly 
 
 The following applies only when InnoDB performs a full table rebuild (the copy algorithm), such as when ALTER TABLE operations materialize a new table and copy rows from the old one, for example, due to changes in column order or data type. InnoDB stores the clustered index (primary key / row body) and each secondary index as separate on-disk B-trees. The architectural question is when those B-trees are updated relative to the row copy.
 
-The diagram contrasts standard MySQL incremental indexing during a table copy with Percona's expanded fast index creation. This involves a sequential copy into a table without eligible secondary indexes, followed by bulk merge-sort index builds using tmpdir.
+The diagram contrasts standard MySQL incremental indexing during an `ALGORITHM=COPY` table copy with Percona's expanded fast index creation. This involves a sequential copy into a table without eligible secondary indexes, followed by bulk merge-sort index builds using tmpdir.
 
 ![Standard MySQL incremental B-tree updates versus Percona two-phase sequential copy and bulk merge-sort index build, I/O patterns, and tmpdir](_static/technical-view-fast-creation.png)
 
@@ -46,8 +46,8 @@ Eligible non-unique secondary indexes are not present or maintained while rows a
 
 #### Phase 2: bulk secondary index build (merge-sort via `tmpdir`)
 
-After the last row is in place, the server builds each deferred secondary index in its own pass. It scans the new clustered index in primary-key order, emits secondary-key tuples, sorts them (typically external merge sort with runs staged under[`tmpdir`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_tmpdir)),
-merges into a single ordered stream, and allocates and fills a new secondary B-tree from that stream. This is the same family of mechanics as InnoDB's “fast index creation” (sorted bulk build), but applied after the clustered table body exists instead of interleaving random-order secondary inserts with every row of the copy.
+After the last row is in place, the server builds each deferred secondary index in its own pass. It scans the new clustered index in primary-key order, emits secondary-key tuples, sorts them (typically external merge sort with runs staged under [`tmpdir`](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_tmpdir)),
+merges into a single ordered stream, and allocates and fills a new secondary B-tree from that stream. This is the same family of mechanics as InnoDB's “fast index creation” (sorted bulk build), but applied after the clustered table body exists instead of interleaving random-order secondary inserts with every row of the copy. The in-place index build uses `innodb_tmpdir` instead of `tmpdir` when `innodb_tmpdir` is set.
 
 Effects at the storage layer:
 
@@ -73,12 +73,12 @@ The tradeoff is large temporary space under `tmpdir` for sort/merge files, as de
 Standard Oracle `mysqldump` emits `CREATE TABLE` for an *InnoDB* table with all `KEY`, `UNIQUE KEY`, and relevant `CONSTRAINT` clauses inline. During restore, the server must maintain those secondary structures while rows stream
 in using the same incremental pattern as a copy-style DDL workload.
 
-Percona’s `mysqldump --innodb-optimize-keys` rewrites the logical SQL in the dump file. For *InnoDB* tables, the tool omits secondary key and related clauses from `CREATE TABLE` and emits one or more trailing `ALTER TABLE` statements that add those keys after most data has loaded.
-This forces a data-first, indexes-later restore so the server can build secondaries using the sorted bulk path. It also allows Percona Server to apply expanded fast index creation on those post-load alters when the variable is on. Details and restrictions remain in [the mysqldump command](innodb-expanded-fast-index-creation.md#the-mysqldump-command).
+Percona’s `mysqldump --innodb-optimize-keys` rewrites the logical SQL in the dump file. For *InnoDB* tables, the tool omits secondary key and related clauses from `CREATE TABLE` and emits one or more trailing `ALTER TABLE` statements that add those keys after the data has loaded.
+This forces a data-first, indexes-later restore so the server can build secondaries using the sorted bulk path. Details and restrictions remain in [the mysqldump command](innodb-expanded-fast-index-creation.md#the-mysqldump-command).
 
 ### I/O pattern overview
 
-During the copy loop:
+During a copy-style `ALTER TABLE`:
 
 * Oracle MySQL Community: read one row → insert into clustered index → update every secondary B-tree for that row → repeat until done.
 
@@ -91,7 +91,7 @@ This section includes a comparison graphic that summarizes end-to-end behavior
 (including restore). For the on-disk and I/O model in depth, see
 [Technical comparison: physical handling during a table copy](innodb-expanded-fast-index-creation.md#technical-comparison-physical-handling-during-a-table-copy).
 
-![Comparison of standard MySQL and Percona Server with expanded fast index creation for backup restore and copy-style ALTER TABLE or OPTIMIZE TABLE](_static/expand-fast-creation.png)
+![Comparison of standard MySQL and Percona Server with expanded fast index creation for backup restore and copy-style ALTER TABLE](_static/expand-fast-creation.png)
 
 The following compares Percona Server for MySQL with Oracle MySQL {{vers}} on code paths that rebuild the table. InnoDB classifies each `ALTER TABLE` operation by algorithm (`INSTANT`, `INPLACE`, `COPY`, and so on). These classifications can change between releases, so treat the [InnoDB online DDL
 documentation :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/innodb-online-ddl.html) as authoritative for whether a specific statement performs a copy in your version.
@@ -101,12 +101,9 @@ Upstream *MySQL* (*InnoDB*) already uses a sorted, bulk-style path when MySQL ad
 Where Oracle MySQL still does a full table rebuild (copy algorithm, for example, some `ALTER TABLE` changes that force a new table), rows are inserted into the new copy while all secondary indexes remain live. Each insert must update every non-primary index in a single operation. Even if the server later uses efficient index-building mechanisms, interleaving those updates with the copy keeps more indexes “hot” throughout the copy and tends to produce heavier random I/O and more fragmented trees than deferring secondary index creation until the clustered data is complete.
 
 Percona Server for MySQL extends that behavior with expanded fast index creation (controlled by
-[`expand_fast_index_creation`](innodb-expanded-fast-index-creation.md#expand-fast-index-creation)). On rebuild-style
-`ALTER TABLE` or `OPTIMIZE TABLE`, eligible non-unique secondary indexes are dropped for the copy phase and recreated afterward using the fast sorted-build
-path on the finished table. The copy phase then maintains only what *InnoDB* requires for the clustered index and any indexes that cannot be deferred. This behavior is the main difference between Oracle MySQL on the same code paths.
+[`expand_fast_index_creation`](innodb-expanded-fast-index-creation.md#expand_fast_index_creation)). On `ALTER TABLE` statements that run with `ALGORITHM=COPY`, Percona Server drops eligible non-unique secondary indexes for the copy phase. Percona Server recreates those indexes afterward with the fast sorted-build path on the finished table. The copy phase then maintains only what *InnoDB* requires for the clustered index and any indexes that cannot be deferred. This behavior is the main difference between Percona Server and Oracle MySQL on the same code paths.
 
-Oracle MySQL {{vers}} can apply `INSTANT` or in-place (`INPLACE`) DDL to many `ALTER TABLE` operations, so the server avoids a full table copy or keeps work inside the existing *InnoDB* file. That path is separate from the
-rebuild logic `expand_fast_index_creation` augmentations; there is no interaction to “tune” for those statements.
+Oracle MySQL {{vers}} can apply `INSTANT` or in-place (`INPLACE`) DDL to many `ALTER TABLE` operations, so the server avoids a full table copy or keeps work inside the existing *InnoDB* file. That path is separate from the rebuild logic that `expand_fast_index_creation` augments. The variable does not affect those statements.
 
 ## When the expanded fast index creation optimization applies
 
@@ -131,7 +128,7 @@ every inserted row during the copy.
 Expanded fast index creation only affects statements that rebuild the table and
 copy rows into a new *InnoDB* table. Typical cases include:
 
-* `OPTIMIZE TABLE` on an *InnoDB* table (internally `ALTER TABLE ... ENGINE=InnoDB`)
+* `OPTIMIZE TABLE` on an *InnoDB* table when `old_alter_table` is ON or the table has a `FULLTEXT` index
 
 * `ALTER TABLE` operations that the server implements with a table rebuild and
   the copy algorithm, as listed in the [InnoDB online DDL operations
@@ -171,7 +168,7 @@ table-copy rebuild path and are unaffected by `expand_fast_index_creation`.
   `tmpdir` space is exhausted.
 
 Besides shortening DDL directly,
-[`expand_fast_index_creation`](innodb-expanded-fast-index-creation.md#expand-fast-index-creation) may also help
+[`expand_fast_index_creation`](innodb-expanded-fast-index-creation.md#expand_fast_index_creation) may also help
 subsequent DML because indexes built in one sorted pass are often less
 fragmented than those maintained incrementally through a long copy.
 
@@ -208,20 +205,23 @@ keys.
 
 ## `OPTIMIZE TABLE`
 
-Internally, `OPTIMIZE TABLE` is mapped to `ALTER TABLE ... ENGINE=innodb`
-for *InnoDB* tables. As a consequence, `OPTIMIZE TABLE` also benefits from fast index
-creation when `expand_fast_index_creation` is enabled and the expanded fast index creation optimization
-applies, with the same restrictions as for `ALTER TABLE`.
+By default, `OPTIMIZE TABLE` on an *InnoDB* table runs as an in-place rebuild (`ALGORITHM=INPLACE`).
+
+InnoDB builds every index with the sorted build path in that case. The `expand_fast_index_creation` variable does not affect that statement.
+
+`OPTIMIZE TABLE` uses this optimization only when `old_alter_table` is ON or the table has a `FULLTEXT` index. In those cases, the same restrictions as for `ALTER TABLE` apply.
 
 ## `tmpdir`, disk space, and recovery
 
-In practice, expanded fast index creation usually fails because the filesystem used for tmpdir (often the same mount as /tmp) runs out of disk space.
+The most common failure is that the filesystem holding `tmpdir` lacks free space. That filesystem is often the same mount as `/tmp`.
 
-With expanded fast index creation enabled, the server reduces index maintenance memory costs but also materializes each secondary index in temporary files (sorted runs and merge passes). It then merges the result into the final InnoDB index. This can consume much more transient space than a rough “indexes fit in the tablespace” estimate suggests.
+With expanded fast index creation enabled, the server materializes each secondary index in temporary files (sorted runs and merge passes). It then merges the result into the final InnoDB index. This can consume much more transient space than a rough “indexes fit in the tablespace” estimate suggests.
 
-When planning free space for tmpdir, use the secondary indexes being rebuilt as the starting point, not just the table’s row data size. The merge-sort build writes temporary sorted runs to tmpdir before the final B-tree exists on disk. Peak usage is usually much higher than the finished indexes alone. Reserve more free tmpdir space than those indexes will occupy when done, and add an extra margin because the same ALTER TABLE or OPTIMIZE TABLE can use additional temporary files for the table copy.
+When planning free space for tmpdir, use the secondary indexes being rebuilt as the starting point, not just the table’s row data size. The merge-sort build writes temporary sorted runs to tmpdir before the final B-tree exists on disk. When `innodb_tmpdir` is set, the in-place index build uses that directory instead of `tmpdir`. Size that directory in that case. Peak usage is usually much higher than the finished indexes alone. Reserve more free `tmpdir` space than the finished indexes occupy. Add an extra margin for the temporary files that a table copy can create.
 
-Example: aExample: a table with about 500 GB of data and 200 GB of secondary indexes can need well over 200 GB of free tmpdir space while those indexes are being built, not just 200 GB as a safe cap.isk that holds tmpdir runs out of free space while the ALTER TABLE, OPTIMIZE TABLE, or related index-build step is still running, the statement fails and rolls back. You lose the work completed up to that point.
+Example: a table with 500 GB of data and 200 GB of secondary indexes. Its index build can need more than 200 GB of free `tmpdir` space. Do not use 200 GB as a safe cap.
+
+If the disk that holds `tmpdir` lacks free space during an index build, the statement fails. The statement then undoes its changes. You lose the work completed up to that point.
 
 Before you run the same statement again, fix the space problem. Typical options:
 
@@ -229,7 +229,7 @@ Before you run the same statement again, fix the space problem. Typical options:
 
 * Redirect tmpdir to a directory on a different mount point with sufficient free space, such as a dedicated fast disk for database temp work. Set the tmpdir server variable according to the MySQL Reference Manual for your version, including scope, restart requirements, and secure path permissions. Until tmpdir points to adequate space, the same DDL is likely to fail again at the same stage.
 
-* Disable expanded fast index creation for the retry, for example, SET SESSION expand_fast_index_creation = OFF before ALTER TABLE, OPTIMIZE TABLE, or the post-load ALTER TABLE from a restore. The server then falls back to the stock interleaved pattern on copy-style DDL (see Technical comparison: physical handling during a table copy). This path usually needs less peak tmpdir space for the sorted secondary-index build because the bulk merge-sort path is not used. However, the operation can take longer and leave more fragmented secondary indexes. It does not remove all temporary space needs: a full table copy can still create large temporary files elsewhere.
+* Disable expanded fast index creation for the retry. For example, `SET SESSION expand_fast_index_creation = OFF` before `ALTER TABLE` statements that run with `ALGORITHM=COPY`. The server then falls back to the stock interleaved pattern on copy-style DDL (see Technical comparison: physical handling during a table copy). This path usually needs less peak tmpdir space for the sorted secondary-index build because the bulk merge-sort path is not used. However, the operation can take longer and leave more fragmented secondary indexes. It does not remove all temporary space needs: a full table copy can still create large temporary files elsewhere.
 
 ## Limitations
 
@@ -244,12 +244,12 @@ necessary when copying the data to a temporary table;
 
 
 * `ALTER TABLE` and `OPTIMIZE TABLE` always process tables containing
-foreign keys as if [expand_fast_index_creation](innodb-expanded-fast-index-creation.md#expand-fast-index-creation) is OFF to avoid
+foreign keys as if [expand_fast_index_creation](innodb-expanded-fast-index-creation.md#expand_fast_index_creation) is OFF to avoid
 dropping keys that are part of a FOREIGN KEY constraint;
 
 
 * `ALTER TABLE` and `OPTIMIZE TABLE` always process partitioned tables as if
-[expand_fast_index_creation](innodb-expanded-fast-index-creation.md#expand-fast-index-creation) is OFF;
+[expand_fast_index_creation](innodb-expanded-fast-index-creation.md#expand_fast_index_creation) is OFF;
 
 
 * mysqldump --innodb-optimize-keys ignores foreign keys because
@@ -273,16 +273,13 @@ that layout *InnoDB* picks such an index as the clustered one.
 | Option         | Description        |
 | -------------- | ------------------ |
 | Command Line:  | Yes                |
-| Config file    | No                 |
+| Config file    | Yes                |
 | Scope:         | Local/Global       |
 | Dynamic:       | Yes                |
 | Data type      | Boolean            |
 | Default value  | OFF                |
 
-When set to `ON`, *InnoDB* may drop eligible non-unique secondary indexes for the
-data-copy phase of rebuild-style `ALTER TABLE` and `OPTIMIZE TABLE`, then
-recreate those indexes with the sorted bulk build described in
-[What fast index creation is](innodb-expanded-fast-index-creation.md#what-fast-index-creation-is).
+When set to `ON`, *InnoDB* may drop eligible non-unique secondary indexes during `ALTER TABLE` operations that use `ALGORITHM=COPY`. The server recreates those indexes with the sorted bulk build described in [What fast index creation is](innodb-expanded-fast-index-creation.md#what-fast-index-creation-is).
 
 ## Related documentation
 

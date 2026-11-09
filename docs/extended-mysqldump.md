@@ -21,11 +21,10 @@ More information can be found in
 
 For *InnoDB* tables, `--innodb-optimize-keys` omits secondary keys (and related
 constraints) from the initial `CREATE TABLE` in the dump and adds them in a
-follow-up `ALTER TABLE` after the data is loaded. That pattern works well when
-the target server can build those indexes using [expanded fast index
-creation](innodb-expanded-fast-index-creation.md). See that page for
-limitations (foreign keys, partitioned tables, `AUTO_INCREMENT`, implicit
-primary keys, and others) and for the `expand_fast_index_creation` variable.
+follow-up `ALTER TABLE` after the data is loaded. That pattern lets the server
+build the indexes with [InnoDB fast index creation](innodb-expanded-fast-index-creation.md)
+after the data is loaded. See that page for limitations (foreign keys,
+partitioned tables, `AUTO_INCREMENT`, implicit primary keys, and others).
 
 ## Taking backup by descending primary key order
 
