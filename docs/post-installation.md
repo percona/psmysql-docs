@@ -75,7 +75,7 @@ The tarball does not create the `mysql` user. Run the following steps as a user 
 	sudo bin/mysqld --initialize --user=mysql
 	```
 
-	The `--initialize` option generates a random temporary password for `root@localhost` and writes the password to the error log.
+	The `--initialize` option generates a random temporary password for `root@localhost`. The option writes the password to the error log.
 
 5. Start the server as the `mysql` user.
 

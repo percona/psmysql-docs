@@ -26,7 +26,7 @@ sudo ln -s /usr/local/Percona-Server-{{release}}-Linux.x86_64.glibc2.35 /usr/loc
 
 ## After extraction
 
-The tarball does not create the `mysql` user, initialize the data directory, or start the server. To run Percona Server, you must:
+The tarball does not create the `mysql` user, initialize the data directory, or start the server. To run Percona Server for MySQL, you must:
 
 1. Create the `mysql` group and the `mysql` user.
 
