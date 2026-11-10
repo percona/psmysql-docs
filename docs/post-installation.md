@@ -30,20 +30,29 @@ Executing `mysqld` with either option does the following:
 
 * Creates `root@localhost`
 
-You should run the following steps with the `mysql` login.
+The tarball does not create the `mysql` user. Run the following steps as a user with `sudo` privileges.
 {.power-number}
 
-1. Navigate to the MySQL directory. The example uses the default location.
+1. Create the `mysql` group and the `mysql` user. The `mysql` user is a system account without login access.
+
+	```shell
+	sudo groupadd mysql
+	sudo useradd -r -g mysql -s /bin/false mysql
+	```
+
+2. Navigate to the MySQL directory. The example uses the default location.
 	
 	```shell
 	cd /usr/local/mysql
 	```
 
 
-2. Create a directory for the MySQL files. The [secure_file_priv :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
+3. Create a directory for the MySQL files. The [secure_file_priv :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
 	
 	```shell
-	mkdir mydata
+	sudo mkdir mydata
+	sudo chown mysql:mysql mydata
+	sudo chmod 750 mydata
 	```
 
 	The `mysql` user account should have the `drwxr-x---` permissions.
@@ -60,10 +69,18 @@ You should run the following steps with the `mysql` login.
 	| Execute    | Yes  | Yes   | No    |
 	
 
-3. Run the command to initialize the data directory.
+4. Run the command to initialize the data directory. The `--user=mysql` option runs the server as the `mysql` user. The server refuses to run as the operating system `root` user without this option.
 
 	```shell
-	bin/mysqld --initialize
+	sudo bin/mysqld --initialize --user=mysql
+	```
+
+	The `--initialize` option generates a random temporary password for `root@localhost` and writes the password to the error log.
+
+5. Start the server as the `mysql` user.
+
+	```shell
+	sudo bin/mysqld_safe --user=mysql &
 	```
 
 ### Test the server
