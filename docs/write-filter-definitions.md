@@ -1017,13 +1017,36 @@ The server compiles each condition when the server loads the filter. Each evalua
 
 Versions before Percona Server for MySQL 8.4.13-13 ignore a `regex` member when the field object also contains `value`. Starting with Percona Server for MySQL 8.4.13-13, the server rejects a field object that contains both `regex` and `value`.
 
-After an upgrade, the server restarts and loads the stored definitions. One rejected definition blocks the load of the whole filter set. The block applies even when no account uses the rejected definition. The server audits no events until you fix each rejected definition and `audit_log_filter_flush()` succeeds. The error log shows an error such as the following:
+After an upgrade, the server restarts and loads the stored definitions. One rejected definition blocks the load of the whole filter set. The block applies even when no account uses the rejected definition. The server audits no events until you fix each rejected definition and a rules reload succeeds. `audit_log_filter_flush()` reloads the rules. `audit_log_filter_remove_filter()` also reloads the rules. The error log shows an error such as the following:
 
 ```text
 [ERROR] [MY-011071] [Server] Component audit_log_filter reported: 'Failed to load filtering rules: Filter 'stale' has wrong format: event field definition 'field' must have either 'value' or 'regex', not both'
 ```
 
 On a running server, a failed `audit_log_filter_flush()` keeps the previously loaded rules active. See [Validation errors](#validation-errors).
+
+##### Recover an upgraded server
+
+The error log shows `Failed to load filtering rules` after the upgrade. Fix each rejected definition on the upgraded server:
+{.power-number}
+
+1. Find each rejected definition in the error log. Use the filter name in the message.
+
+2. In each field object that contains both `regex` and `value`, remove one member. The upgraded server accepts either member.
+
+3. Update the `filter` column of `mysql.audit_log_filter` directly. Change only the `filter` column. Do not change the `name` column.
+
+4. Run `audit_log_filter_flush()`.
+
+The server audits events again when all definitions load.
+
+The procedure in step 2 of [Before an upgrade](#before-an-upgrade) also works. The following functions reload the rules after each change:
+
+- `audit_log_filter_remove_filter()`
+- `audit_log_filter_set_user()`
+- `audit_log_filter_remove_user()`
+
+While another rejected definition remains, each function returns an error that names the other filter. The function still stores its own change. `audit_log_filter_set_filter()` does not reload the rules.
 
 ##### Before an upgrade
 
@@ -1044,14 +1067,19 @@ Complete the following steps on the version without `regex` support:
     1. List the accounts that use the filter:
 
         ```sql
-        SELECT * FROM mysql.audit_log_user WHERE filtername = '<name>';
+        SELECT IF(username = '%' AND userhost = '%', '%', CONCAT(username, '@', userhost)) AS account
+        FROM mysql.audit_log_user WHERE filtername = '<name>';
         ```
+
+        The query returns the default account as `%`. The default account has `%` in both `username` and `userhost`.
 
     2. Remove the filter. `audit_log_filter_remove_filter()` also deletes the rows for the filter in `mysql.audit_log_user`.
 
         ```sql
         SELECT audit_log_filter_remove_filter('<name>');
         ```
+
+        `audit_log_filter_remove_filter()` reloads the rules immediately. The server does not audit the listed accounts with this filter from this step until step 4 completes. To avoid this gap, update the `filter` column of `mysql.audit_log_filter` directly. Then run `audit_log_filter_flush()`.
 
     3. Store the definition without the `regex` member:
 
@@ -1062,10 +1090,12 @@ Complete the following steps on the version without `regex` support:
     4. Assign the filter to each account from the list:
 
         ```sql
-        SELECT audit_log_filter_set_user('<user>@<host>', '<name>');
+        SELECT audit_log_filter_set_user('<account>', '<name>');
         ```
 
-    As an alternative, update the `filter` column of `mysql.audit_log_filter` directly.
+        Use the value from the `account` column in place of `<account>`. For the default account, use `'%'`. The value `'%@%'` fails with the error `Wrong argument: bad user name format`. Assign the filter to the default account again. Otherwise the server does not audit accounts without their own filter.
+
+    As an alternative, update the `filter` column of `mysql.audit_log_filter` directly. Change only the `filter` column. Do not change the `name` column. Then run `audit_log_filter_flush()`. This method keeps the rows in `mysql.audit_log_user`. The assignments stay in place. `audit_log_filter_flush()` replaces the loaded rules in one step. The server keeps the old rules if the load fails. Auditing has no gap.
 
 3. Run `audit_log_filter_flush()`.
 
