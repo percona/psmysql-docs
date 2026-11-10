@@ -1015,7 +1015,15 @@ The server compiles each condition when the server loads the filter. Each evalua
 
 #### Upgrade and downgrade
 
-Versions before Percona Server for MySQL 8.4.13-13 ignore a `regex` member when the field object also contains `value`. Starting with Percona Server for MySQL 8.4.13-13, the server rejects a field object that contains both `regex` and `value`. A rejected definition makes `audit_log_filter_flush()` fail. After a failed flush, the server keeps the previously loaded rules active. See [Validation errors](#validation-errors).
+Versions before Percona Server for MySQL 8.4.13-13 ignore a `regex` member when the field object also contains `value`. Starting with Percona Server for MySQL 8.4.13-13, the server rejects a field object that contains both `regex` and `value`.
+
+After an upgrade, the server restarts and loads the stored definitions. One rejected definition blocks the load of the whole filter set. The block applies even when no account uses the rejected definition. The server audits no events until you fix each rejected definition and `audit_log_filter_flush()` succeeds. The error log shows an error such as the following:
+
+```text
+[ERROR] [MY-011071] [Server] Component audit_log_filter reported: 'Failed to load filtering rules: Filter 'stale' has wrong format: event field definition 'field' must have either 'value' or 'regex', not both'
+```
+
+On a running server, a failed `audit_log_filter_flush()` keeps the previously loaded rules active. See [Validation errors](#validation-errors).
 
 ##### Before an upgrade
 
@@ -1029,9 +1037,39 @@ Complete the following steps on the version without `regex` support:
     WHERE JSON_CONTAINS_PATH(filter, 'one', '$**.regex');
     ```
 
-2. In each listed definition, find each field object that contains both `regex` and `value`. Remove the `regex` member or the `value` member from that field object. Store the updated definition with `audit_log_filter_set_filter()`.
+2. In each listed definition, find each field object that contains both `regex` and `value`. Remove the `regex` member from that field object. Keep the `value` member. The version without `regex` support rejects a field object without `value`.
+
+    `audit_log_filter_set_filter()` cannot overwrite an existing filter. The function returns `ERROR: Rule with this name already exists`. Complete the following steps for each listed definition:
+
+    1. List the accounts that use the filter:
+
+        ```sql
+        SELECT * FROM mysql.audit_log_user WHERE filtername = '<name>';
+        ```
+
+    2. Remove the filter. `audit_log_filter_remove_filter()` also deletes the rows for the filter in `mysql.audit_log_user`.
+
+        ```sql
+        SELECT audit_log_filter_remove_filter('<name>');
+        ```
+
+    3. Store the definition without the `regex` member:
+
+        ```sql
+        SELECT audit_log_filter_set_filter('<name>', '<definition>');
+        ```
+
+    4. Assign the filter to each account from the list:
+
+        ```sql
+        SELECT audit_log_filter_set_user('<user>@<host>', '<name>');
+        ```
+
+    As an alternative, update the `filter` column of `mysql.audit_log_filter` directly.
 
 3. Run `audit_log_filter_flush()`.
+
+After the upgrade, you can rewrite a definition to use `regex` without `value`.
 
 Upgrade each server that loads the same filter tables before you define a `regex` condition. A replica is an example of a server that loads the same filter tables. [Audit Log Filter restrictions](audit-log-filter-restrictions.md) describes replication of `mysql.audit_log_filter`.
 
