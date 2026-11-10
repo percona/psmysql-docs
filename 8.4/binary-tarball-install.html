@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="A binary tarball contains a group of files, including the server binaries and support files, bundled together into one file using the tar command and compressed using gzip.">
+        <meta name="description" content="A binary tarball is one file that contains the server binaries and support files. The tar command bundles the files, and gzip compresses them.">
       
       
         <meta name="author" content="Percona LLC">
@@ -3691,6 +3691,8 @@
       
         
       
+        
+      
     
     
     
@@ -3800,10 +3802,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#after-extraction" class="md-nav__link">
+  <a href="#install-on-ubuntu-2604" class="md-nav__link">
     <span class="md-ellipsis">
       
-        After extraction
+        Install on Ubuntu 26.04
       
     </span>
   </a>
@@ -3834,6 +3836,34 @@
     
   
     Binary tarballs available
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="os-libraries.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating system libraries
   
 
     
@@ -10470,10 +10500,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#after-extraction" class="md-nav__link">
+  <a href="#install-on-ubuntu-2604" class="md-nav__link">
     <span class="md-ellipsis">
       
-        After extraction
+        Install on Ubuntu 26.04
       
     </span>
   </a>
@@ -10510,49 +10540,209 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="install-percona-server-for-mysql-84-from-a-binary-tarball">Install Percona Server for MySQL 8.4 from a binary tarball<a class="headerlink" href="#install-percona-server-for-mysql-84-from-a-binary-tarball" title="Permanent link">&para;</a></h1>
-<p>A binary tarball contains a group of files, including the server binaries and support files, bundled together into one file using the <code>tar</code> command and compressed using <code>gzip</code>. </p>
-<p>See the list of <a href="binary-tarball-names.html">binary tarballs available based on the Percona Server for MySQL version</a> to select the right tarball for your environment.</p>
-<p>You can download the binary tarballs from the <code>Linux - Generic</code> <a href="https://www.percona.com/downloads/Percona-Server-8.4/LATEST/binary/tarball/">section <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> on the download page.</p>
-<p>Fetch and extract the correct binary tarball. For example, for Ubuntu 22.04:</p>
-<p>Download the tarball:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>--2024-01-15 10:00:00--  https://downloads.percona.com/...
-Saving to: 'Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz'
-Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz   100%[=================&gt;]  xxx MB  xx.x MB/s    in xx s
-2024-01-15 10:00:xx (xx.x MB/s) - 'Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz' saved [xxxxxx/xxxxxx]
-</code></pre></div>
-</details>
-<p>Extract the tarball:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>(No output on success.)
-</code></pre></div>
-</details>
-<p>Change into the extracted directory:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>(No output on success.)
-</code></pre></div>
-</details>
-<h2 id="after-extraction">After extraction<a class="headerlink" href="#after-extraction" title="Permanent link">&para;</a></h2>
-<p>The tarball does not start the server for you. To run Percona Server you must:</p>
+<p>A binary tarball is one file that contains the server binaries and support files. The <code>tar</code> command bundles the files, and <code>gzip</code> compresses them.</p>
+<p>Use a binary tarball in the following cases:</p>
+<ul>
+<li>
+<p>You need to run more than one version of Percona Server for MySQL on the same host</p>
+</li>
+<li>
+<p>Percona does not provide a package for your Linux distribution</p>
+</li>
+</ul>
+<p>For all other cases, use <a href="apt-repo.html">APT</a> or <a href="yum-repo.html">DNF</a> packages.</p>
+<p>This page installs the glibc 2.35 tarball on Ubuntu 26.04 (<code>x86_64</code>). For other operating systems, select a tarball on the <a href="binary-tarball-names.html">binary tarball file names</a> page. Package names for other libraries are on the <a href="os-libraries.html">Operating system libraries</a> page.</p>
+<p>Generic binary tarballs are built for <code>x86_64</code>. Percona publishes ARM64 (<code>aarch64</code>) builds as <a href="apt-repo.html">APT</a> and <a href="yum-repo.html">DNF</a> packages, as <a href="docker.html">Docker</a> images (use the <code>8.4.11-arm64</code> tag), and as <a href="compile-percona-server.html">source</a> that you can compile on the target host.</p>
+<h2 id="install-on-ubuntu-2604">Install on Ubuntu 26.04<a class="headerlink" href="#install-on-ubuntu-2604" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Initialize the data directory (once) using the server executable <code>bin/mysqld</code> with <code>--initialize</code> or <code>--initialize-insecure</code>.</p>
+<p>Install the OpenSSL library the server needs to start:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libssl3t64
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Upgrading:
+  libssl3t64  openssl  openssl-provider-legacy
+
+Summary:
+  Upgrading: 3, Installing: 0, Removing: 0, Not Upgrading: 62
+  Download size: 4031 kB
+  Space needed: 2048 B / 99.6 GB available
+
+Continue? [Y/n] y
+</code></pre></div>
+</details>
 </li>
 <li>
-<p>Start the server (for example with <code>bin/mysqld_safe</code> or by configuring a systemd service).</p>
+<p>Create the <code>mysql</code> group and user. The account has no login shell:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
+sudo<span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-g<span class="w"> </span>mysql<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Download the tarball and its checksum file:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
+wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz.sha256sum
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>--2026-10-28 05:14:03--  https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
+Resolving downloads.percona.com (downloads.percona.com)... 15.204.182.114
+Connecting to downloads.percona.com (downloads.percona.com)|15.204.182.114|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1463302946 (1.4G) [application/gzip]
+Saving to: ‘Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz’
+...
+2026-10-28 05:15:21 (74.9 MB/s) - ‘Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz.sha256sum’ saved [121/121]
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Verify the tarball:</p>
+<div class="highlight"><pre><span></span><code>sha256sum<span class="w"> </span>-c<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz.sha256sum
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz: OK
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Extract the tarball and create the <code>/usr/local/mysql</code> link:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz<span class="w"> </span>-C<span class="w"> </span>/usr/local
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35<span class="w"> </span>/usr/local/mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+<p>The files under <code>/usr/local/mysql</code> stay owned by <code>root</code>.</p>
+</li>
+<li>
+<p>Create the data directory and give it to the <code>mysql</code> user:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/mysql
+sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>/var/lib/mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Initialize the data directory:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/local/mysql/bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql<span class="w"> </span>--log-error<span class="o">=</span>/var/lib/mysql/error.log
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Read the temporary password for <code>root@localhost</code> from the error log:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/lib/mysql/error.log
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: &lt;temporary password&gt;
+</code></pre></div>
+</details>
+<p>Copy the password. You need it for the login step.</p>
+</li>
+<li>
+<p>Open the systemd unit file:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/mysqld.service
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Paste the following configuration into the editor. Press <code>Ctrl+O</code>, then <code>Enter</code>, to save the file. Press <code>Ctrl+X</code> to close <code>nano</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Percona Server for MySQL</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">User</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/mysql/bin/mysqld --datadir=/var/lib/mysql --socket=/var/run/mysqld/mysqld.sock --log-error=/var/lib/mysql/error.log</span>
+<span class="na">RuntimeDirectory</span><span class="o">=</span><span class="s">mysqld</span>
+<span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65535</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Load the new unit file:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Start the server and enable it at boot:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>mysqld
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Created symlink /etc/systemd/system/multi-user.target.wants/mysqld.service → /etc/systemd/system/mysqld.service.
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Log in with the temporary password:</p>
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
+</code></pre></div>
 </li>
 </ol>
-<p>The server executable is <code>bin/mysqld</code> inside the extracted directory. Do not run it for normal operation until the data directory has been initialized.</p>
-<p>For step-by-step instructions (including creating a data directory, initializing it, starting the server, and optional boot-time setup), see <a href="post-installation.html">Post-installation</a>. If you did not install under <code>/usr/local/mysql</code>, use your extraction directory instead (for example, <code>cd /path/to/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35</code> then <code>bin/mysqld --initialize</code>).</p>
+<p>## Troubleshoot the installation</p>
+<p>If <code>systemctl enable --now mysqld</code> fails or the login returns <code>ERROR 2002</code>, the server is not running. Check:</p>
+<p>sudo systemctl status mysqld &ndash;no-pager
+   sudo tail -30 /var/lib/mysql/error.log</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status=203/EXEC</code></td>
+<td><code>ExecStart</code> path is wrong, or the <code>/usr/local/mysql</code> link is missing</td>
+</tr>
+<tr>
+<td><code>ERROR 2002 ... mysqld.sock (2)</code></td>
+<td>The server is not running, or the client and server use different socket paths</td>
+</tr>
+<tr>
+<td><code>--initialize</code> fails on a non-empty directory</td>
+<td>Remove the data directory contents and run step 7 again</td>
+</tr>
+</tbody>
+</table>
+<p>For the next tasks, see <a href="first-five-minutes.html">Quickstart - First five minutes (security and stability)</a>.</p>
 
 
 
@@ -10575,7 +10765,7 @@ Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz   100%[=================&
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 13, 2026 09:14:36 UTC">October 13, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 10, 2026 11:07:58 UTC">November 10, 2026</span>
   </span>
 
     
@@ -10603,9 +10793,9 @@ Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz   100%[=================&
     
     <nav>
       
-        <a href="https://github.com/PeterZaitsev" class="md-author" title="@PeterZaitsev">
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
           
-          <img src="https://avatars.githubusercontent.com/u/3651746?v=4&size=72" alt="PeterZaitsev">
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
@@ -10613,9 +10803,9 @@ Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz   100%[=================&
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
         </a>
       
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+        <a href="https://github.com/PeterZaitsev" class="md-author" title="@PeterZaitsev">
           
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+          <img src="https://avatars.githubusercontent.com/u/3651746?v=4&size=72" alt="PeterZaitsev">
         </a>
       
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">

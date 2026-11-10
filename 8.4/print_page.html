@@ -3689,6 +3689,8 @@
       
         
       
+        
+      
     
     
     
@@ -3772,6 +3774,34 @@
     
   
     Binary tarballs available
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="os-libraries.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating system libraries
   
 
     
@@ -11573,6 +11603,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     <span class="md-ellipsis">
       
         Binary tarballs available
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operating system libraries
       
     </span>
   </a>
@@ -26822,49 +26863,209 @@ rm<span class="w"> </span>-f<span class="w"> </span>/etc/my.cnf
                         <h1>Use binary tarballs<a class='headerlink' href='#section-7-6' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="binary-tarball-install" heading-number="7.6.1"><h1 id="binary-tarball-install-install-percona-server-for-mysql-84-from-a-binary-tarball">Install Percona Server for MySQL 8.4 from a binary tarball<a class="headerlink" href="#binary-tarball-install-install-percona-server-for-mysql-84-from-a-binary-tarball" title="Permanent link">&para;</a></h1>
-<p>A binary tarball contains a group of files, including the server binaries and support files, bundled together into one file using the <code>tar</code> command and compressed using <code>gzip</code>. </p>
-<p>See the list of <a href="#binary-tarball-names">binary tarballs available based on the Percona Server for MySQL version</a> to select the right tarball for your environment.</p>
-<p>You can download the binary tarballs from the <code>Linux - Generic</code> <a href="https://www.percona.com/downloads/Percona-Server-8.4/LATEST/binary/tarball/">section <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> on the download page.</p>
-<p>Fetch and extract the correct binary tarball. For example, for Ubuntu 22.04:</p>
-<p>Download the tarball:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>--2024-01-15 10:00:00--  https://downloads.percona.com/...
-Saving to: 'Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz'
-Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz   100%[=================&gt;]  xxx MB  xx.x MB/s    in xx s
-2024-01-15 10:00:xx (xx.x MB/s) - 'Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz' saved [xxxxxx/xxxxxx]
-</code></pre></div>
-</details>
-<p>Extract the tarball:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>(No output on success.)
-</code></pre></div>
-</details>
-<p>Change into the extracted directory:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35
-</code></pre></div>
-<details class="example">
-<summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>(No output on success.)
-</code></pre></div>
-</details>
-<h2 id="binary-tarball-install-after-extraction">After extraction<a class="headerlink" href="#binary-tarball-install-after-extraction" title="Permanent link">&para;</a></h2>
-<p>The tarball does not start the server for you. To run Percona Server you must:</p>
+<p>A binary tarball is one file that contains the server binaries and support files. The <code>tar</code> command bundles the files, and <code>gzip</code> compresses them.</p>
+<p>Use a binary tarball in the following cases:</p>
+<ul>
+<li>
+<p>You need to run more than one version of Percona Server for MySQL on the same host</p>
+</li>
+<li>
+<p>Percona does not provide a package for your Linux distribution</p>
+</li>
+</ul>
+<p>For all other cases, use <a href="#apt-repo">APT</a> or <a href="#yum-repo">DNF</a> packages.</p>
+<p>This page installs the glibc 2.35 tarball on Ubuntu 26.04 (<code>x86_64</code>). For other operating systems, select a tarball on the <a href="#binary-tarball-names">binary tarball file names</a> page. Package names for other libraries are on the <a href="#os-libraries">Operating system libraries</a> page.</p>
+<p>Generic binary tarballs are built for <code>x86_64</code>. Percona publishes ARM64 (<code>aarch64</code>) builds as <a href="#apt-repo">APT</a> and <a href="#yum-repo">DNF</a> packages, as <a href="#docker">Docker</a> images (use the <code>8.4.11-arm64</code> tag), and as <a href="#compile-percona-server">source</a> that you can compile on the target host.</p>
+<h2 id="binary-tarball-install-install-on-ubuntu-2604">Install on Ubuntu 26.04<a class="headerlink" href="#binary-tarball-install-install-on-ubuntu-2604" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p>Initialize the data directory (once) using the server executable <code>bin/mysqld</code> with <code>--initialize</code> or <code>--initialize-insecure</code>.</p>
+<p>Install the OpenSSL library the server needs to start:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libssl3t64
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Upgrading:
+  libssl3t64  openssl  openssl-provider-legacy
+
+Summary:
+  Upgrading: 3, Installing: 0, Removing: 0, Not Upgrading: 62
+  Download size: 4031 kB
+  Space needed: 2048 B / 99.6 GB available
+
+Continue? [Y/n] y
+</code></pre></div>
+</details>
 </li>
 <li>
-<p>Start the server (for example with <code>bin/mysqld_safe</code> or by configuring a systemd service).</p>
+<p>Create the <code>mysql</code> group and user. The account has no login shell:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
+sudo<span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-g<span class="w"> </span>mysql<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Download the tarball and its checksum file:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
+wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz.sha256sum
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>--2026-10-28 05:14:03--  https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
+Resolving downloads.percona.com (downloads.percona.com)... 15.204.182.114
+Connecting to downloads.percona.com (downloads.percona.com)|15.204.182.114|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1463302946 (1.4G) [application/gzip]
+Saving to: ‘Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz’
+...
+2026-10-28 05:15:21 (74.9 MB/s) - ‘Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz.sha256sum’ saved [121/121]
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Verify the tarball:</p>
+<div class="highlight"><pre><span></span><code>sha256sum<span class="w"> </span>-c<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz.sha256sum
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz: OK
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Extract the tarball and create the <code>/usr/local/mysql</code> link:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz<span class="w"> </span>-C<span class="w"> </span>/usr/local
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35<span class="w"> </span>/usr/local/mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+<p>The files under <code>/usr/local/mysql</code> stay owned by <code>root</code>.</p>
+</li>
+<li>
+<p>Create the data directory and give it to the <code>mysql</code> user:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/mysql
+sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>/var/lib/mysql
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Initialize the data directory:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/local/mysql/bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql<span class="w"> </span>--log-error<span class="o">=</span>/var/lib/mysql/error.log
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Read the temporary password for <code>root@localhost</code> from the error log:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/lib/mysql/error.log
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: &lt;temporary password&gt;
+</code></pre></div>
+</details>
+<p>Copy the password. You need it for the login step.</p>
+</li>
+<li>
+<p>Open the systemd unit file:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/mysqld.service
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Paste the following configuration into the editor. Press <code>Ctrl+O</code>, then <code>Enter</code>, to save the file. Press <code>Ctrl+X</code> to close <code>nano</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Percona Server for MySQL</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">User</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/mysql/bin/mysqld --datadir=/var/lib/mysql --socket=/var/run/mysqld/mysqld.sock --log-error=/var/lib/mysql/error.log</span>
+<span class="na">RuntimeDirectory</span><span class="o">=</span><span class="s">mysqld</span>
+<span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65535</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">on-failure</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Load the new unit file:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>No output
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Start the server and enable it at boot:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>mysqld
+</code></pre></div>
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>Created symlink /etc/systemd/system/multi-user.target.wants/mysqld.service → /etc/systemd/system/mysqld.service.
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Log in with the temporary password:</p>
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
+</code></pre></div>
 </li>
 </ol>
-<p>The server executable is <code>bin/mysqld</code> inside the extracted directory. Do not run it for normal operation until the data directory has been initialized.</p>
-<p>For step-by-step instructions (including creating a data directory, initializing it, starting the server, and optional boot-time setup), see <a href="#post-installation">Post-installation</a>. If you did not install under <code>/usr/local/mysql</code>, use your extraction directory instead (for example, <code>cd /path/to/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35</code> then <code>bin/mysqld --initialize</code>).</p></section><section class="print-page" id="binary-tarball-names" heading-number="7.6.2"><h1 id="binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version">Binary tarball file names available based on the Percona Server for MySQL version<a class="headerlink" href="#binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version" title="Permanent link">&para;</a></h1>
+<p>## Troubleshoot the installation</p>
+<p>If <code>systemctl enable --now mysqld</code> fails or the login returns <code>ERROR 2002</code>, the server is not running. Check:</p>
+<p>sudo systemctl status mysqld &ndash;no-pager
+   sudo tail -30 /var/lib/mysql/error.log</p>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status=203/EXEC</code></td>
+<td><code>ExecStart</code> path is wrong, or the <code>/usr/local/mysql</code> link is missing</td>
+</tr>
+<tr>
+<td><code>ERROR 2002 ... mysqld.sock (2)</code></td>
+<td>The server is not running, or the client and server use different socket paths</td>
+</tr>
+<tr>
+<td><code>--initialize</code> fails on a non-empty directory</td>
+<td>Remove the data directory contents and run step 7 again</td>
+</tr>
+</tbody>
+</table>
+<p>For the next tasks, see <a href="#first-five-minutes">Quickstart - First five minutes (security and stability)</a>.</p></section><section class="print-page" id="binary-tarball-names" heading-number="7.6.2"><h1 id="binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version">Binary tarball file names available based on the Percona Server for MySQL version<a class="headerlink" href="#binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version" title="Permanent link">&para;</a></h1>
 <p>For later of Percona Server for MySQL, the tar files are organized by the <code>glibc2</code> version. You can find this version on your operating system with the following command:</p>
 <div class="highlight"><pre><span></span><code>ldd<span class="w"> </span>--version
 </code></pre></div>
@@ -26877,7 +27078,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 Written by Roland McGrath and Ulrich Drepper.
 </code></pre></div>
 </details>
-<p>If the <code>glibc2</code> version from your operating system is not listed, then this Percona Server for MySQL version does not support that operating system.</p>
+<p>The first line of the output ends with the glibc version. Select the tarball with that glibc version. If Percona does not publish that version, select the newest published glibc version that is older than yours. A tarball built for an older glibc runs on a newer glibc. If every published tarball is newer than your glibc, Percona Server for MySQL does not support the operating system.</p>
+<p>Run the following command to find the CPU architecture, and select the matching tarball. The example on the install page uses <code>x86_64</code>:</p>
+<div class="highlight"><pre><span></span><code>uname<span class="w"> </span>-m
+</code></pre></div>
+<p>Generic binary tarballs are built for <code>x86_64</code>. If this command prints <code>aarch64</code>, Percona does not publish a tarball for that CPU. Use an <a href="#apt-repo">APT</a> or <a href="#yum-repo">DNF</a> package, a <a href="#docker">Docker</a> image with the <code>8.4.11-arm64</code> tag, or <a href="#compile-percona-server">compile from source</a>.</p>
+<p>Ubuntu 26.04 reports glibc 2.43. Use the glibc 2.35 tarball on that release. The steps are on the <a href="#binary-tarball-install">Install from a binary tarball</a> page.</p>
+<p>The tarball links shared libraries from the operating system it was built on. Package names for those libraries are on the <a href="#os-libraries">Operating system libraries</a> page.</p>
 <h2 id="binary-tarball-names-binary-tarball-file-name-organization">Binary tarball file name organization<a class="headerlink" href="#binary-tarball-names-binary-tarball-file-name-organization" title="Permanent link">&para;</a></h2>
 <p>The following lists the platform and the associated full binary file name used by Percona Server for MySQL tar files 8.4.11-11.</p>
 <table>
@@ -26942,7 +27149,259 @@ Written by Roland McGrath and Ulrich Drepper.
 <td>Contains the minimal build files and test files, and debug symbols</td>
 </tr>
 </tbody>
-</table></section></section>
+</table></section><section class="print-page" id="os-libraries" heading-number="7.6.3"><h1 id="os-libraries-operating-system-libraries">Operating system libraries<a class="headerlink" href="#os-libraries-operating-system-libraries" title="Permanent link">&para;</a></h1>
+<p>Percona Server for MySQL loads shared libraries from the operating system. The generic binary tarball bundles many of those libraries. The DEB and RPM packages link the operating system copies instead, and <code>apt</code> or <code>dnf</code> installs them.</p>
+<p>Install the libraries on this page before you start the server. Use the row for the tarball or package you installed.</p>
+<h2 id="os-libraries-generic-binary-tarball">Generic binary tarball<a class="headerlink" href="#os-libraries-generic-binary-tarball" title="Permanent link">&para;</a></h2>
+<p><code>bin/mysqld</code> loads bundled libraries from <code>lib/private</code>. The glibc 2.35 tarball bundles <code>libaio</code> and <code>libnuma</code>. It does not bundle OpenSSL.</p>
+<p>The <a href="#binary-tarball-names">binary tarball file names</a> page lists the operating system each tarball was built on. That build selects the shared library file names. A tarball built against OpenSSL 1.1 looks for <code>libssl.so.1.1</code>. The glibc 2.35 tarball looks for <code>libssl.so.3</code>.</p>
+<h3 id="os-libraries-libraries-the-server-needs-to-start">Libraries the server needs to start<a class="headerlink" href="#os-libraries-libraries-the-server-needs-to-start" title="Permanent link">&para;</a></h3>
+<p>These libraries are not in the glibc 2.35 tarball. Install them before you run <code>bin/mysqld</code>. <code>libstdc++6</code> and <code>libgcc-s1</code> are part of a normal Ubuntu installation.</p>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Needed by</th>
+<th>Ubuntu 22.04</th>
+<th>Ubuntu 24.04 and 26.04</th>
+<th>RHEL 9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>libssl.so.3</code> and <code>libcrypto.so.3</code></td>
+<td><code>bin/mysqld</code> and the client programs</td>
+<td><code>libssl3</code></td>
+<td><code>libssl3t64</code></td>
+<td><code>openssl-libs</code></td>
+</tr>
+<tr>
+<td><code>libstdc++.so.6</code></td>
+<td><code>bin/mysqld</code> and the client programs</td>
+<td><code>libstdc++6</code></td>
+<td><code>libstdc++6</code></td>
+<td><code>libstdc++</code></td>
+</tr>
+<tr>
+<td><code>libgcc_s.so.1</code></td>
+<td><code>bin/mysqld</code> and the client programs</td>
+<td><code>libgcc-s1</code></td>
+<td><code>libgcc-s1</code></td>
+<td><code>libgcc</code></td>
+</tr>
+</tbody>
+</table>
+<p>RHEL 8 provides <code>libssl.so.1.1</code>, not <code>libssl.so.3</code>. On RHEL 8, use the glibc 2.28 tarball.</p>
+<p>On Ubuntu 26.04, install the OpenSSL package with this command:</p>
+<div class="highlight"><pre><span></span><code>sudo apt install libssl3t64
+</code></pre></div>
+<h3 id="os-libraries-libraries-for-optional-features">Libraries for optional features<a class="headerlink" href="#os-libraries-libraries-for-optional-features" title="Permanent link">&para;</a></h3>
+<p>Install a package in this table only when you use the feature. These file names are the ones the glibc 2.35 tarball loads.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Library</th>
+<th>Ubuntu 22.04</th>
+<th>Ubuntu 24.04 and 26.04</th>
+<th>RHEL 9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UUID_VX component</td>
+<td><code>libatomic.so.1</code></td>
+<td><code>libatomic1</code></td>
+<td><code>libatomic1</code></td>
+<td><code>libatomic</code></td>
+</tr>
+<tr>
+<td>OpenID Connect authentication</td>
+<td><code>libcurl.so.4</code></td>
+<td><code>libcurl4</code></td>
+<td><code>libcurl4t64</code></td>
+<td><code>libcurl</code></td>
+</tr>
+<tr>
+<td>LDAP authentication</td>
+<td><code>libldap-2.5.so.0</code> and <code>liblber-2.5.so.0</code></td>
+<td><code>libldap-2.5-0</code></td>
+<td>No package provides this file name</td>
+<td>No package provides this file name</td>
+</tr>
+<tr>
+<td>LDAP SASL client</td>
+<td><code>libsasl2.so.2</code></td>
+<td><code>libsasl2-2</code></td>
+<td><code>libsasl2-2</code></td>
+<td>No package provides this file name</td>
+</tr>
+<tr>
+<td>Group Replication</td>
+<td><code>libtirpc.so.3</code></td>
+<td><code>libtirpc3</code></td>
+<td><code>libtirpc3t64</code></td>
+<td><code>libtirpc</code></td>
+</tr>
+<tr>
+<td>PAM authentication</td>
+<td><code>libpam.so.0</code></td>
+<td><code>libpam0g</code></td>
+<td><code>libpam0g</code></td>
+<td><code>pam</code></td>
+</tr>
+<tr>
+<td>Kerberos authentication</td>
+<td><code>libcom_err.so.2</code>, <code>libk5crypto.so.3</code>, <code>libkeyutils.so.1</code>, and <code>libkrb5support.so.0</code></td>
+<td><code>libcom-err2</code>, <code>libk5crypto3</code>, <code>libkeyutils1</code>, and <code>libkrb5support0</code></td>
+<td><code>libcom-err2</code>, <code>libk5crypto3</code>, <code>libkeyutils1</code>, and <code>libkrb5support0</code></td>
+<td><code>libcom_err</code>, <code>krb5-libs</code>, and <code>keyutils-libs</code></td>
+</tr>
+<tr>
+<td>WebAuthn authentication</td>
+<td><code>libudev.so.1</code></td>
+<td><code>libudev1</code></td>
+<td><code>libudev1</code></td>
+<td><code>systemd-libs</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ubuntu 24.04, Ubuntu 26.04, and RHEL 9 ship <code>libldap.so.2</code>. The glibc 2.35 LDAP plugins look for <code>libldap-2.5.so.0</code>. Installing <code>libldap2</code> or <code>openldap</code> does not satisfy that lookup. RHEL provides <code>libsasl2.so.3</code>. The LDAP SASL client plugin looks for <code>libsasl2.so.2</code>.</p>
+<p>On Ubuntu, install a package from the table with this command. Replace <code>&lt;package&gt;</code> with the package name:</p>
+<div class="highlight"><pre><span></span><code>sudo apt install &lt;package&gt;
+</code></pre></div>
+<p>On RHEL, use this command:</p>
+<div class="highlight"><pre><span></span><code>sudo dnf install &lt;package&gt;
+</code></pre></div>
+<h3 id="os-libraries-tarballs-built-against-openssl-11">Tarballs built against OpenSSL 1.1<a class="headerlink" href="#os-libraries-tarballs-built-against-openssl-11" title="Permanent link">&para;</a></h3>
+<p>The glibc 2.28 and glibc 2.31 tarballs link OpenSSL 1.1 and OpenLDAP 2.4. On Ubuntu 22.04, <code>ldd</code> reports these files as not found:</p>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Needed by</th>
+<th>Package that provides the file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>libssl.so.1.1</code> and <code>libcrypto.so.1.1</code></td>
+<td><code>bin/mysqld</code></td>
+<td><code>libssl1.1</code> on Ubuntu 20.04. <code>openssl-libs</code> on RHEL 8. Ubuntu 22.04 and later do not ship this file.</td>
+</tr>
+<tr>
+<td><code>libasn1.so.8</code></td>
+<td>LDAP authentication plugins, through the bundled <code>libgssapi.so.3</code> and <code>libldap_r-2.4.so.2</code> libraries</td>
+<td><code>libasn1-8-heimdal</code> on Ubuntu</td>
+</tr>
+<tr>
+<td><code>libatomic.so.1</code></td>
+<td>UUID_VX component</td>
+<td><code>libatomic1</code> on Ubuntu. <code>libatomic</code> on RHEL.</td>
+</tr>
+</tbody>
+</table>
+<p>Use the glibc 2.35 tarball on Ubuntu 22.04 and later so the server loads <code>libssl.so.3</code>.</p>
+<h2 id="os-libraries-deb-and-rpm-packages">DEB and RPM packages<a class="headerlink" href="#os-libraries-deb-and-rpm-packages" title="Permanent link">&para;</a></h2>
+<p>The <code>percona-server-server</code> package links the operating system libraries in the following table. It does not use the libraries bundled in the generic tarball. <code>apt</code> and <code>dnf</code> install these packages when you install the server. Install them yourself only when you install downloaded packages with <code>dpkg</code> or <code>rpm</code>. Those tools do not resolve dependencies. See <a href="#apt-download-deb">Downloaded DEB packages</a> and <a href="#yum-download-rpm">Downloaded RPM packages</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Library</th>
+<th>Ubuntu 22.04</th>
+<th>Ubuntu 24.04 and 26.04</th>
+<th>RHEL 8</th>
+<th>RHEL 9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>libaio.so.1</code></td>
+<td><code>libaio1</code></td>
+<td><code>libaio1t64</code></td>
+<td><code>libaio</code></td>
+<td><code>libaio</code></td>
+</tr>
+<tr>
+<td><code>libatomic.so.1</code></td>
+<td><code>libatomic1</code></td>
+<td><code>libatomic1</code></td>
+<td><code>libatomic</code></td>
+<td><code>libatomic</code></td>
+</tr>
+<tr>
+<td><code>libcurl.so.4</code></td>
+<td><code>libcurl4</code></td>
+<td><code>libcurl4t64</code></td>
+<td><code>libcurl</code></td>
+<td><code>libcurl</code></td>
+</tr>
+<tr>
+<td>MeCab</td>
+<td><code>libmecab2</code></td>
+<td><code>libmecab2</code></td>
+<td>Not required by the RPM</td>
+<td>Not required by the RPM</td>
+</tr>
+<tr>
+<td><code>libnuma.so.1</code></td>
+<td><code>libnuma1</code></td>
+<td><code>libnuma1</code></td>
+<td><code>numactl-libs</code></td>
+<td><code>numactl-libs</code></td>
+</tr>
+<tr>
+<td><code>libpam.so.0</code></td>
+<td><code>libpam0g</code></td>
+<td><code>libpam0g</code></td>
+<td><code>pam</code></td>
+<td><code>pam</code></td>
+</tr>
+<tr>
+<td>SASL</td>
+<td><code>libsasl2-2</code></td>
+<td><code>libsasl2-2</code></td>
+<td><code>cyrus-sasl-lib</code></td>
+<td><code>cyrus-sasl-lib</code></td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td><code>libssl3</code></td>
+<td><code>libssl3t64</code></td>
+<td><code>openssl-libs</code></td>
+<td><code>openssl-libs</code></td>
+</tr>
+<tr>
+<td><code>libtirpc.so.3</code></td>
+<td><code>libtirpc3</code></td>
+<td><code>libtirpc3t64</code></td>
+<td><code>libtirpc</code></td>
+<td><code>libtirpc</code></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>libldap-2.5-0</code></td>
+<td><code>libldap2</code></td>
+<td><code>openldap</code></td>
+<td><code>openldap</code></td>
+</tr>
+<tr>
+<td>Kerberos</td>
+<td><code>libkrb5-3</code></td>
+<td><code>libkrb5-3</code></td>
+<td><code>krb5-libs</code></td>
+<td><code>krb5-libs</code></td>
+</tr>
+<tr>
+<td>FIDO</td>
+<td><code>libfido2-1</code></td>
+<td><code>libfido2-1</code></td>
+<td>Not required by the RPM</td>
+<td>Not required by the RPM</td>
+</tr>
+</tbody>
+</table>
+<p>On Ubuntu 24.04 and later, <code>libaio1t64</code> provides <code>libaio.so.1t64</code>. The DEB package for those releases is built against that file name. The generic tarball bundles its own <code>libaio</code> and does not load <code>libaio.so.1</code>.</p></section></section>
                     <section class='print-page md-section' id='section-7-7' heading-number='7.7'>
                         <h1>Compile from source<a class='headerlink' href='#section-7-7' title='Permanent link'></a>
                         </h1>
@@ -30054,81 +30513,19 @@ mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </sp
 </tbody>
 </table>
 <h3 id="post-installation-initialize-the-data-directory">Initialize the data directory<a class="headerlink" href="#post-installation-initialize-the-data-directory" title="Permanent link">&para;</a></h3>
-<p>If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.</p>
-<p>Run mysqld with the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-options.html#option_mysqld_initialize">–initialize <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> option or the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-options.html#option_mysqld_initialize-insecure">initialize- <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> option.</p>
-<p>Executing <code>mysqld</code> with either option does the following:</p>
-<ul>
-<li>
-<p>Verifies the existence of the data directory</p>
-</li>
-<li>
-<p>Initializes the system tablespace and related structures</p>
-</li>
-<li>
-<p>Creates system tables including grant tables, time zone tables, and server-side help tables</p>
-</li>
-<li>
-<p>Creates <code>root@localhost</code></p>
-</li>
-</ul>
-<p class="power-number">You should run the following steps with the <code>mysql</code> login.</p>
-<ol>
-<li>
-<p>Navigate to the MySQL directory. The example uses the default location.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local/mysql
+<p>The <a href="#binary-tarball-install">binary tarball install</a> creates <code>/var/lib/mysql</code>, initializes it, and reads the temporary <code>root</code> password from the error log:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/lib/mysql/error.log
 </code></pre></div>
-</li>
-<li>
-<p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> uses the directory path as a value.</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>mydata
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: &lt;temporary password&gt;
 </code></pre></div>
-<p>The <code>mysql</code> user account should have the <code>drwxr-x---</code> permissions.
-Four sections define the permissions; file or directory, User, Group, and Others.</p>
-<p>The first character designates if the permissions are for a file or directory. The first character is <code>d</code> for a directory.</p>
-<p>The rest of the sections are specified in three-character sets.</p>
-<table>
-<thead>
-<tr>
-<th>Permission</th>
-<th>User</th>
-<th>Group</th>
-<th>Other</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Read</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Write</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Execute</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>Run the command to initialize the data directory.</p>
-<div class="highlight"><pre><span></span><code>bin/mysqld<span class="w"> </span>--initialize
-</code></pre></div>
-</li>
-</ol>
+</details>
+<p>Copy the password.</p>
 <h3 id="post-installation-test-the-server">Test the server<a class="headerlink" href="#post-installation-test-the-server" title="Permanent link">&para;</a></h3>
-<p>After you have initialized the data directory, and the server is started, you can run tests on the server.</p>
-<p>This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by <a href="https://dev.mysql.com/doc/refman/8.4/en/setting-environment-variables.html">Setting the Environment Variables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>You can use the <a href="https://dev.mysql.com/doc/refman/8.4/en/mysqladmin.html">mysqladmin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> client to access the server.</p>
-<p>If you have issues connecting to the server, use the <code>root</code> user and the root account password.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>version
+<p>After you have initialized the data directory and started the server, you can run tests on the server.</p>
+<p>Use the <a href="https://dev.mysql.com/doc/refman/8.4/en/mysqladmin.html">mysqladmin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> client from the tarball. Enter the temporary <code>root</code> password when prompted.</p>
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock<span class="w"> </span>version
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -30146,7 +30543,7 @@ Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div>
 </details>
 <p>Use <a href="https://dev.mysql.com/doc/refman/8.4/en/mysqlshow.html">mysqlshow <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to display database and table information.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -30166,16 +30563,16 @@ Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div>
 </details>
 <h3 id="post-installation-set-service-to-run-at-boot-time">Set service to run at boot time<a class="headerlink" href="#post-installation-set-service-to-run-at-boot-time" title="Permanent link">&para;</a></h3>
-<p>After a generic binary installation, manually configure systemd support.</p>
+<p>The <a href="#binary-tarball-install-install-on-ubuntu-2604">binary tarball install</a> creates <code>/etc/systemd/system/mysqld.service</code> and starts the server.</p>
 <p>The following commands start, check the status, and stop the server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
-sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysqld
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 </code></pre></div>
 <p>Run the following command to start the service at boot time:</p>
-<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
 </code></pre></div>
-Run the following command to prevent a service from starting at boot time:</p>
+<p>Run the following command to prevent a service from starting at boot time:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="post-installation-all-installations">All installations<a class="headerlink" href="#post-installation-all-installations" title="Permanent link">&para;</a></h2>
@@ -62071,6 +62468,8 @@ contributions and changes from MariaDB.</p>
 .print-site-enumerate-headings #binary-tarball-install > h1:before { content: '7.6.1 ' }
 
 .print-site-enumerate-headings #binary-tarball-names > h1:before { content: '7.6.2 ' }
+
+.print-site-enumerate-headings #os-libraries > h1:before { content: '7.6.3 ' }
 
 .print-site-enumerate-headings #section-7-7 > h1:before { content: '7.7 ' }
 .print-site-enumerate-headings #source-tarball > h1:before { content: '7.7.1 ' }

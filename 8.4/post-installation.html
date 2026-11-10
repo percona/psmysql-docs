@@ -3687,6 +3687,8 @@
       
         
       
+        
+      
     
     
     
@@ -3770,6 +3772,34 @@
     
   
     Binary tarballs available
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="os-libraries.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operating system libraries
   
 
     
@@ -10573,81 +10603,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h3 id="initialize-the-data-directory">Initialize the data directory<a class="headerlink" href="#initialize-the-data-directory" title="Permanent link">&para;</a></h3>
-<p>If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.</p>
-<p>Run mysqld with the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-options.html#option_mysqld_initialize">–initialize <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> option or the <a href="https://dev.mysql.com/doc/refman/8.4/en/server-options.html#option_mysqld_initialize-insecure">initialize- <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> option.</p>
-<p>Executing <code>mysqld</code> with either option does the following:</p>
-<ul>
-<li>
-<p>Verifies the existence of the data directory</p>
-</li>
-<li>
-<p>Initializes the system tablespace and related structures</p>
-</li>
-<li>
-<p>Creates system tables including grant tables, time zone tables, and server-side help tables</p>
-</li>
-<li>
-<p>Creates <code>root@localhost</code></p>
-</li>
-</ul>
-<p class="power-number">You should run the following steps with the <code>mysql</code> login.</p>
-<ol>
-<li>
-<p>Navigate to the MySQL directory. The example uses the default location.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local/mysql
+<p>The <a href="binary-tarball-install.html">binary tarball install</a> creates <code>/var/lib/mysql</code>, initializes it, and reads the temporary <code>root</code> password from the error log:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/lib/mysql/error.log
 </code></pre></div>
-</li>
-<li>
-<p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> uses the directory path as a value.</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>mydata
+<details class="example">
+<summary>Expected output</summary>
+<div class="no-copy highlight"><pre><span></span><code>2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: &lt;temporary password&gt;
 </code></pre></div>
-<p>The <code>mysql</code> user account should have the <code>drwxr-x---</code> permissions.
-Four sections define the permissions; file or directory, User, Group, and Others.</p>
-<p>The first character designates if the permissions are for a file or directory. The first character is <code>d</code> for a directory.</p>
-<p>The rest of the sections are specified in three-character sets.</p>
-<table>
-<thead>
-<tr>
-<th>Permission</th>
-<th>User</th>
-<th>Group</th>
-<th>Other</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Read</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Write</td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Execute</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>Run the command to initialize the data directory.</p>
-<div class="highlight"><pre><span></span><code>bin/mysqld<span class="w"> </span>--initialize
-</code></pre></div>
-</li>
-</ol>
+</details>
+<p>Copy the password.</p>
 <h3 id="test-the-server">Test the server<a class="headerlink" href="#test-the-server" title="Permanent link">&para;</a></h3>
-<p>After you have initialized the data directory, and the server is started, you can run tests on the server.</p>
-<p>This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by <a href="https://dev.mysql.com/doc/refman/8.4/en/setting-environment-variables.html">Setting the Environment Variables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<p>You can use the <a href="https://dev.mysql.com/doc/refman/8.4/en/mysqladmin.html">mysqladmin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> client to access the server.</p>
-<p>If you have issues connecting to the server, use the <code>root</code> user and the root account password.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>version
+<p>After you have initialized the data directory and started the server, you can run tests on the server.</p>
+<p>Use the <a href="https://dev.mysql.com/doc/refman/8.4/en/mysqladmin.html">mysqladmin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> client from the tarball. Enter the temporary <code>root</code> password when prompted.</p>
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock<span class="w"> </span>version
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10665,7 +10633,7 @@ Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div>
 </details>
 <p>Use <a href="https://dev.mysql.com/doc/refman/8.4/en/mysqlshow.html">mysqlshow <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to display database and table information.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10685,16 +10653,16 @@ Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div>
 </details>
 <h3 id="set-service-to-run-at-boot-time">Set service to run at boot time<a class="headerlink" href="#set-service-to-run-at-boot-time" title="Permanent link">&para;</a></h3>
-<p>After a generic binary installation, manually configure systemd support.</p>
+<p>The <a href="binary-tarball-install.html#install-on-ubuntu-2604">binary tarball install</a> creates <code>/etc/systemd/system/mysqld.service</code> and starts the server.</p>
 <p>The following commands start, check the status, and stop the server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
-sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
-sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysqld
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysqld
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysqld
 </code></pre></div>
 <p>Run the following command to start the service at boot time:</p>
-<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
 </code></pre></div>
-Run the following command to prevent a service from starting at boot time:</p>
+<p>Run the following command to prevent a service from starting at boot time:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="all-installations">All installations<a class="headerlink" href="#all-installations" title="Permanent link">&para;</a></h2>
@@ -10825,7 +10793,7 @@ system schema.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 21, 2026 12:52:37 UTC">October 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 10, 2026 11:07:58 UTC">November 10, 2026</span>
   </span>
 
     
