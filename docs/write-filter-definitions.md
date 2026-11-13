@@ -54,7 +54,7 @@ filter                                   # root object
         └── filter                       # optional; subfilter for dynamic swapping
 
 condition := {
-  field    : { name, value }             # compare an event field
+  field    : { name, value | regex }     # literal value, or ICU regex on a string field
   variable : { name, value }             # compare a predefined server variable
   function : { name, args? }             # call a predefined function
   and | or : [ condition, … ]            # combine sub-conditions
@@ -845,6 +845,274 @@ Fields available on each class are listed in [Audit Log Filter definition fields
 * `general`: `general_error_code`, `general_user.str`, `general_command.str`, `general_query.str`, `general_sql_command.str`, `general_host.str`, `general_ip.str`
 
 * `table_access`: `query.str`, `table_database.str`, `table_name.str`
+
+A string field also accepts a regular expression. See [Regular expression field conditions](#regular-expression-field-conditions).
+
+### Regular expression field conditions
+
+Starting with Percona Server for MySQL 8.4.13-13, a field condition can match a string field to a regular expression. Use `regex` in place of `value`.
+
+Install the Audit Log Filter component first. See [Install the audit log filter](install-audit-log-filter.md). The account that calls `audit_log_filter_set_filter()` and `audit_log_filter_flush()` needs the `AUDIT_ADMIN` privilege.
+
+The server accepts a `regex` condition in each item that accepts a field condition:
+
+* The `log` key
+
+* The `abort` key
+
+* The `print` condition of a field replacement. See [Redact audit log fields](redact-audit-log-fields.md).
+
+* The `activate` condition of a replacement filter. See [Replace a filter dynamically](#replace-a-filter-dynamically).
+
+* The `and`, `or`, and `not` keys
+
+The following definition logs `insert`, `update`, and `delete` events. The class name is `table_access`. The `table_database.str` value equals `tpcc`. The `table_name.str` value matches `new_orders`, `orders`, or `history`. One or more digits follow `new_orders`, `orders`, or `history`. The filter name `log_tpcc_tables` is an example name.
+
+```sql
+SELECT audit_log_filter_set_filter('log_tpcc_tables', '{
+  "filter": {
+    "class": {
+      "name": "table_access",
+      "event": {
+        "name": ["insert", "update", "delete"],
+        "log": {
+          "and": [
+            {"field": {"name": "table_database.str", "value": "tpcc"}},
+            {"field": {"name": "table_name.str", "regex": "^(new_orders|orders|history)[0-9]+$"}}
+          ]
+        }
+      }
+    }
+  }
+}');
+SELECT audit_log_filter_flush();
+```
+
+Percona Server for MySQL 8.4.9-9 and subsequent releases detach each open session when `audit_log_filter_flush()` runs. The session loads the filter after reconnect or `CHANGE_USER`. A connection that opens after the flush loads the filter at once. See [`audit_log_filter_flush()`](audit-log-filter-variables.md#audit_log_filter_flush).
+
+#### Field object members
+
+A field object with `regex` contains exactly one `name` member and exactly one `regex` member. The server rejects a `value` member, a duplicated member, or any other member in that field object. The field object accepts no `re` or `regexp` alias. `value` remains a literal comparison.
+
+#### Accepted fields
+
+The server accepts `regex` only on string fields. The server rejects integer fields, such as `connection_type` and any `*.length` field. The server rejects `general_connection_id` and `general_thread_id` on class `general`. The server rejects `connection_id` on classes `connection` and `table_access`. On each other class, `connection_id` is a string field that accepts `regex`. [Audit Log Filter definition fields](audit-log-filter-definition-fields.md) lists each field type.
+
+#### Pattern
+
+`regex` is a non-empty JSON string. The string uses ICU regular expression syntax. The SQL `REGEXP` functions use ICU regular expression syntax. The pattern is not POSIX ERE. The pattern is not PCRE. The server rejects an empty pattern. You use `^$` or `\A\z` to match an empty value.
+
+#### Match rules
+
+The server searches for the pattern anywhere in the value. You use `^...$` to anchor the match to the whole value. In ICU, `$` also matches before a final line terminator. You use `\A...\z` to anchor the match absolutely. The match is case-sensitive. Collations do not affect the match. `lower_case_table_names` does not affect the match. The pattern accepts inline flags such as `(?i)`.
+
+#### Backslash escapes
+
+You escape each backslash in JSON (`"\\d+"`). You escape each backslash again in an ordinary SQL string literal (`'{"regex": "\\\\d+"}'`). You build the definition with `JSON_OBJECT()`. You write `[0-9]` in place of `\d`. `JSON_OBJECT()` and `[0-9]` avoid most backslash escapes.
+
+In `JSON_OBJECT()`, the SQL string `'\\d+'` is the pattern `\d+`. The same pattern inside a SQL string that holds JSON text is `'{"regex": "\\\\d+"}'`.
+
+```sql
+SELECT audit_log_filter_set_filter(
+  'log_digit_tables',
+  JSON_OBJECT(
+    'filter', JSON_OBJECT(
+      'class', JSON_OBJECT(
+        'name', 'table_access',
+        'event', JSON_OBJECT(
+          'name', JSON_ARRAY('read', 'insert', 'update', 'delete'),
+          'log', JSON_OBJECT(
+            'field', JSON_OBJECT(
+              'name', 'table_name.str',
+              'regex', '[0-9]+'
+            )
+          )
+        )
+      )
+    )
+  )
+);
+```
+
+The `log` condition is inside the `event` object. A class-level `log` key accepts only `true` or `false`. A condition in a class-level `log` key returns the error `'log' must be of bool type`.
+
+`[0-9]+` has no anchor. The pattern matches a `table_name.str` value that contains a digit at any position. `log_digit_tables` is an example filter name. You run `audit_log_filter_flush()` after this call. You reconnect each open session after the flush.
+
+#### Absent values
+
+The condition finds no match when the field is absent from the event. The event carries `general_query.str` as an empty string when the query text is not available. The event carries `table_access` `query.str` as an empty string when the query text is not available.
+
+#### UTF-8 and NUL bytes
+
+The server matches the value as UTF-8. The server decodes each malformed sequence as U+FFFD. The server does not convert query text from the client character set before the match. A `value` comparison also skips conversion from the client character set ([PS-10355](https://perconadev.atlassian.net/browse/PS-10355)). A UTF-8 literal such as `café` does not match the latin1 bytes of the same statement. The server logs the statement as UTF-8. A NUL byte ends each connection field, each table field, and each other field. Each query text field keeps the full field length.
+
+#### Validation errors
+
+`audit_log_filter_set_filter()` validates the definition. The server runs the same checks when the server loads filters from `mysql.audit_log_filter`. An invalid pattern returns the following error:
+
+```text
+ERROR: Incorrect rule definition: invalid regular expression for field 'table_name.str': U_REGEX_MISMATCHED_PAREN at line 1, offset 8
+```
+
+The server also rejects a pattern in the following cases:
+
+| Pattern | Error text |
+| --- | --- |
+| The pattern is longer than 16384 UTF-8 bytes | `regular expression exceeds 16384 UTF-8 bytes` |
+| The pattern is not valid UTF-8 | `pattern is not valid UTF-8` |
+
+`audit_log_filter_flush()` runs the same checks on the stored definitions. A failed check returns a different error text. For example:
+
+```text
+ERROR: Filter 'rx_reload' has wrong format: invalid regular expression for field 'table_name.str': U_REGEX_MISMATCHED_PAREN at line 1, offset 8
+```
+
+After a failed flush, the server keeps the previously loaded rules active for every session.
+
+The server escapes keys, names, and patterns in each error message. The server truncates each key, name, and pattern to 96 bytes. The 96 bytes include the `...` suffix that the server adds on truncation.
+
+The following table lists the escaped forms. `XX` is the hexadecimal value of the character or byte.
+
+| Character or byte | Escaped form |
+| --- | --- |
+| Backslash (`\`) | `\\` |
+| Single quote (`'`) | `\u0027` |
+| Control character | `\u00XX` |
+| Invalid UTF-8 byte | `\xXX` |
+
+#### Limits and failed matches
+
+The ICU time limit is 32. The backtracking stack limit is 8000000 bytes. 32 is the default for `regexp_time_limit`. 8000000 bytes is the default for `regexp_stack_limit`. The server does not use the session value of `regexp_time_limit`. The server does not use the session value of `regexp_stack_limit`.
+
+The server treats a match past either limit as no match. The server treats every other match failure as no match.
+
+| Context | Effect of a failed match |
+| --- | --- |
+| `log` | The condition does not select the event. A failed match inside `not` selects the event. |
+| `abort` | The server does not abort the statement. |
+| `print` condition | The server replaces the field. A false `print` condition replaces the field. See [Redact audit log fields](redact-audit-log-fields.md). |
+| `activate` | The server does not activate the replacement filter. |
+
+A failed `log` match can omit the event from the log. A failed match on a positive `abort` condition can allow the statement to execute.
+
+The server increments the `Audit_log_filter_regex_match_errors` status variable for every failed match. See [Audit log filter status variables](audit-log-filter-variables.md#audit-log-filter-status-variables).
+
+```sql
+SHOW GLOBAL STATUS LIKE 'Audit_log_filter_regex_match_errors';
+```
+
+The server writes an error log warning for the first failure of each condition. The server reports each additional failure of the same condition at most once per 60 seconds. The following warning is the error log text:
+
+```text
+Audit log filter 'f': regex '(a+)+$' on field 'general_query.str' failed (timeout: U_REGEX_TIME_OUT); condition treated as not matching. Further failures of this condition are reported at most once per 60 seconds.
+```
+
+The server matches a killed statement in the normal way. The server matches a killed connection in the normal way. The server matches a statement that `MAX_EXECUTION_TIME` stops in the normal way. `KILL` does not interrupt a regex match after the match starts. The server applies `KILL` after the match completes. The server applies `KILL` after the match reaches a limit.
+
+#### Performance
+
+The server compiles each condition when the server loads the filter. Each evaluation creates a separate matcher. A `regex` comparison is more expensive than a `value` comparison. The cost of an unanchored search grows with the value length. You place cheap equality conditions before a `regex` condition in an `and` list. The server stops evaluation at the first false operand. A smaller definition does not mean lower CPU usage.
+
+#### Upgrade and downgrade
+
+Versions before Percona Server for MySQL 8.4.13-13 ignore a `regex` member when the field object also contains `value`. Starting with Percona Server for MySQL 8.4.13-13, the server rejects a field object that contains both `regex` and `value`.
+
+After an upgrade, the server restarts and loads the stored definitions. One rejected definition blocks the load of the whole filter set. The block applies even when no account uses the rejected definition. The server audits no events until you fix each rejected definition and a rules reload succeeds. `audit_log_filter_flush()` reloads the rules. `audit_log_filter_remove_filter()` also reloads the rules. The error log shows an error such as the following:
+
+```text
+[ERROR] [MY-011071] [Server] Component audit_log_filter reported: 'Failed to load filtering rules: Filter 'stale' has wrong format: event field definition 'field' must have either 'value' or 'regex', not both'
+```
+
+On a running server, a failed `audit_log_filter_flush()` keeps the previously loaded rules active. See [Validation errors](#validation-errors).
+
+##### Recover an upgraded server
+
+The error log shows `Failed to load filtering rules` after the upgrade. Fix each rejected definition on the upgraded server:
+{.power-number}
+
+1. Find each rejected definition in the error log. Use the filter name in the message.
+
+2. In each field object that contains both `regex` and `value`, remove one member. The upgraded server accepts either member.
+
+3. Update the `filter` column of `mysql.audit_log_filter` directly. Change only the `filter` column. Do not change the `name` column.
+
+4. Run `audit_log_filter_flush()`.
+
+The server audits events again when all definitions load.
+
+The procedure in step 2 of [Before an upgrade](#before-an-upgrade) also works. The following functions reload the rules after each change:
+
+- `audit_log_filter_remove_filter()`
+- `audit_log_filter_set_user()`
+- `audit_log_filter_remove_user()`
+
+While another rejected definition remains, each function returns an error that names the other filter. The function still stores its own change. `audit_log_filter_set_filter()` does not reload the rules.
+
+##### Before an upgrade
+
+Complete the following steps on the version without `regex` support:
+{.power-number}
+
+1. List the stored definitions that contain `regex`:
+
+    ```sql
+    SELECT name FROM mysql.audit_log_filter
+    WHERE JSON_CONTAINS_PATH(filter, 'one', '$**.regex');
+    ```
+
+2. In each listed definition, find each field object that contains both `regex` and `value`. Remove the `regex` member from that field object. Keep the `value` member. The version without `regex` support rejects a field object without `value`.
+
+    `audit_log_filter_set_filter()` cannot overwrite an existing filter. The function returns `ERROR: Rule with this name already exists`. Complete the following steps for each listed definition:
+
+    1. List the accounts that use the filter:
+
+        ```sql
+        SELECT IF(username = '%' AND userhost = '%', '%', CONCAT(username, '@', userhost)) AS account
+        FROM mysql.audit_log_user WHERE filtername = '<name>';
+        ```
+
+        The query returns the default account as `%`. The default account has `%` in both `username` and `userhost`.
+
+    2. Remove the filter. `audit_log_filter_remove_filter()` also deletes the rows for the filter in `mysql.audit_log_user`.
+
+        ```sql
+        SELECT audit_log_filter_remove_filter('<name>');
+        ```
+
+        `audit_log_filter_remove_filter()` reloads the rules immediately. The server does not audit the listed accounts with this filter from this step until step 4 completes. To avoid this gap, update the `filter` column of `mysql.audit_log_filter` directly. Then run `audit_log_filter_flush()`.
+
+    3. Store the definition without the `regex` member:
+
+        ```sql
+        SELECT audit_log_filter_set_filter('<name>', '<definition>');
+        ```
+
+    4. Assign the filter to each account from the list:
+
+        ```sql
+        SELECT audit_log_filter_set_user('<account>', '<name>');
+        ```
+
+        Use the value from the `account` column in place of `<account>`. For the default account, use `'%'`. The value `'%@%'` fails with the error `Wrong argument: bad user name format`. Assign the filter to the default account again. Otherwise the server does not audit accounts without their own filter.
+
+    As an alternative, update the `filter` column of `mysql.audit_log_filter` directly. Change only the `filter` column. Do not change the `name` column. Then run `audit_log_filter_flush()`. This method keeps the rows in `mysql.audit_log_user`. The assignments stay in place. `audit_log_filter_flush()` replaces the loaded rules in one step. The server keeps the old rules if the load fails. Auditing has no gap.
+
+3. Run `audit_log_filter_flush()`.
+
+After the upgrade, you can rewrite a definition to use `regex` without `value`.
+
+Upgrade each server that loads the same filter tables before you define a `regex` condition. A replica is an example of a server that loads the same filter tables. [Audit Log Filter restrictions](audit-log-filter-restrictions.md) describes replication of `mysql.audit_log_filter`.
+
+##### Before a downgrade
+
+Complete the following steps on the version that supports `regex`, before the downgrade:
+{.power-number}
+
+1. Remove or rewrite every `regex` condition in the filter and in each replacement filter.
+
+2. Run `audit_log_filter_flush()`.
+
+3. Reconnect each session.
 
 ### Combine conditions with logical operators
 

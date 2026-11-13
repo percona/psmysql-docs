@@ -1166,6 +1166,11 @@ Counters and gauges for audit filter activity. These are not configuration: you 
       <td><code>SHOW GLOBAL STATUS LIKE 'audit_log_filter_events_written';</code></td>
     </tr>
     <tr>
+      <td><code>Audit_log_filter_regex_match_errors</code></td>
+      <td>Number of failed <code>regex</code> matches in filter conditions. The count includes matches that exceed the time limit or the stack limit. Percona Server for MySQL 8.4.13-13 adds this variable. See <a href="write-filter-definitions.md#regular-expression-field-conditions">Regular expression field conditions</a>.</td>
+      <td><code>SHOW GLOBAL STATUS LIKE 'Audit_log_filter_regex_match_errors';</code></td>
+    </tr>
+    <tr>
       <td><code>audit_log_filter_total_size</code></td>
       <td>Total size in bytes of data written to audit log files; increases even when a log file is rotated.</td>
       <td><code>SHOW GLOBAL STATUS LIKE 'audit_log_filter_total_size';</code></td>
