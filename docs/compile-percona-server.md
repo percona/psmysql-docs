@@ -40,7 +40,7 @@ The three layers are:
 
 * Baseline — System libraries: OpenSSL, ncurses, libudev, libaio. These are required for a basic build.
 
-* Percona layer — Feature libraries: zstd, lz4, gflags, and others for MyRocks and XtraDB. Install development packages for each component you enable. CMake may need explicit flags (for example, `-DWITH_ZSTD=system`) to use system libraries.
+* Percona layer — Feature libraries: zstd, lz4, and gflags. Install development packages for each component you enable. CMake may need explicit flags (for example, `-DWITH_ZSTD=system`) to use system libraries.
 
 !!! note
 
@@ -161,7 +161,7 @@ Optional components and typical packages:
 
 * zstd, lz4 — Compression libraries used by Percona features. Install the development packages (for example, `libzstd-devel`, `lz4-devel` on RHEL; `libzstd-dev`, `liblz4-dev` on Debian/Ubuntu). Use CMake flags such as `-DWITH_ZSTD=system` and `-DWITH_LZ4=system` if the build expects to use system libraries.
 
-* MyRocks (RocksDB) — Starting with Percona Server for MySQL [Insert version, 8.4.x], MyRocks builds may need `libgflags`. On RHEL, install `gflags-devel`. On Debian and Ubuntu, install `libgflags-dev`. The exact set is in the Percona Server source. If CMake reports "library not found", check the source repository or CMake configuration.
+* MyRocks (RocksDB) — Builds that enable folly (`-DROCKSDB_FOLLY=ON`) may need `libgflags`. On RHEL, install `gflags-devel`. On Debian and Ubuntu, install `libgflags-dev`. The exact set is in the Percona Server source. If CMake reports "library not found", check the source repository or CMake configuration.
 
 The optional-components list may not include every package for every storage engine or option. Run CMake once before a long build. Fix any missing-dependency or configuration messages first. The [MySQL 8.4 Source Installation Prerequisites](https://dev.mysql.com/doc/refman/8.4/en/source-installation-prerequisites.html) page lists more optional dependencies. The final list for your build is in the Percona Server source tree and the CMake output.
 
@@ -347,7 +347,7 @@ Package installations provide a systemd unit (or init script) for the default bi
 
 ## Maintaining a source build
 
-A source build does not receive package-manager updates (`dnf update` / `apt upgrade`). Official packages apply security updates automatically; a custom build is a snapshot, so you must track Percona releases, pull or replace the source, rebuild, and reinstall when a CVE or new release affects your version. From the repository root, pull the latest changes and rebuild (adjust `-j` if needed). The commands use Bash `&&` chains. On PowerShell before version 7, run each line separately:
+A source build does not receive package-manager updates (`dnf update` / `apt upgrade`). Official packages apply security updates automatically; a custom build is a snapshot, so you must track Percona releases, pull or replace the source, rebuild, and reinstall when a CVE or new release affects your version. From the repository root, pull the latest changes and rebuild (adjust `-j` if needed). In Bash, you can join these commands with `&&`. On PowerShell before version 7, run each line separately:
 
 ```shell
 git pull
