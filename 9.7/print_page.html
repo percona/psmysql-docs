@@ -26703,7 +26703,28 @@ rm<span class="w"> </span>-f<span class="w"> </span>/etc/my.cnf
 <p>You can download the binary tarballs from the <code>Linux - Generic</code> <a href="https://www.percona.com/downloads/Percona-Server-9.7/LATEST/binary/tarball/">section <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> on the download page.</p>
 <p>Fetch and extract the correct binary tarball. For example for Ubuntu 22.04:</p>
 <div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/tarball/Percona-Server-9.7.2-3-Linux.x86_64.glibc2.35.tar.gz
-</code></pre></div></section><section class="print-page" id="binary-tarball-names" heading-number="7.6.2"><h1 id="binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version">Binary tarball file names available based on the Percona Server for MySQL version<a class="headerlink" href="#binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version" title="Permanent link">&para;</a></h1>
+</code></pre></div>
+<p>Extract the tarball into the <code>/usr/local</code> directory:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-9.7.2-3-Linux.x86_64.glibc2.35.tar.gz<span class="w"> </span>-C<span class="w"> </span>/usr/local
+</code></pre></div>
+<p>Create a symbolic link so that the default location <code>/usr/local/mysql</code> points to the extracted directory:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/Percona-Server-9.7.2-3-Linux.x86_64.glibc2.35<span class="w"> </span>/usr/local/mysql
+</code></pre></div>
+<h2 id="binary-tarball-install-after-extraction">After extraction<a class="headerlink" href="#binary-tarball-install-after-extraction" title="Permanent link">&para;</a></h2>
+<p>The tarball does not create the <code>mysql</code> user, initialize the data directory, or start the server. To run Percona Server for MySQL, you must:</p>
+<ol>
+<li>
+<p>Create the <code>mysql</code> group and the <code>mysql</code> user.</p>
+</li>
+<li>
+<p>Initialize the data directory with <code>bin/mysqld --initialize --user=mysql</code>.</p>
+</li>
+<li>
+<p>Start the server with <code>bin/mysqld_safe --user=mysql</code>.</p>
+</li>
+</ol>
+<p>The server refuses to run as the operating system <code>root</code> user unless you pass the <code>--user=mysql</code> option.</p>
+<p>For step-by-step instructions, see <a href="#post-installation">Post-installation</a>.</p></section><section class="print-page" id="binary-tarball-names" heading-number="7.6.2"><h1 id="binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version">Binary tarball file names available based on the Percona Server for MySQL version<a class="headerlink" href="#binary-tarball-names-binary-tarball-file-names-available-based-on-the-percona-server-for-mysql-version" title="Permanent link">&para;</a></h1>
 <p>For later of Percona Server for MySQL, the tar files are organized by the <code>glibc2</code> version. You can find this version on your operating system with the following command:</p>
 <div class="highlight"><pre><span></span><code>ldd<span class="w"> </span>--version
 </code></pre></div>
@@ -30817,8 +30838,14 @@ mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </sp
 <p>Creates <code>root@localhost</code></p>
 </li>
 </ul>
-<p class="power-number">You should run the following steps with the <code>mysql</code> login.</p>
+<p class="power-number">The tarball does not create the <code>mysql</code> user. Run the following steps as a user with <code>sudo</code> privileges.</p>
 <ol>
+<li>
+<p>Create the <code>mysql</code> group and the <code>mysql</code> user. The <code>mysql</code> user is a system account without login access.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
+sudo<span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-g<span class="w"> </span>mysql<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>mysql
+</code></pre></div>
+</li>
 <li>
 <p>Navigate to the MySQL directory. The example uses the default location.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local/mysql
@@ -30826,7 +30853,9 @@ mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </sp
 </li>
 <li>
 <p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> uses the directory path as a value.</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>mydata
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>mydata
+sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>mydata
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>mydata
 </code></pre></div>
 <p>The <code>mysql</code> user account should have the <code>drwxr-x---</code> permissions.
 Four sections define the permissions; file or directory, User, Group, and Others.</p>
@@ -30864,8 +30893,14 @@ Four sections define the permissions; file or directory, User, Group, and Others
 </table>
 </li>
 <li>
-<p>Run the command to initialize the data directory.</p>
-<div class="highlight"><pre><span></span><code>bin/mysqld<span class="w"> </span>--initialize
+<p>Run the command to initialize the data directory. The <code>--user=mysql</code> option runs the server as the <code>mysql</code> user. The server refuses to run as the operating system <code>root</code> user without this option.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--user<span class="o">=</span>mysql
+</code></pre></div>
+<p>The <code>--initialize</code> option generates a random temporary password for <code>root@localhost</code>. The option writes the password to the error log.</p>
+</li>
+<li>
+<p>Start the server as the <code>mysql</code> user.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>bin/mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 </li>
 </ol>
