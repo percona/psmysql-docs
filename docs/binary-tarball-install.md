@@ -11,3 +11,29 @@ Fetch and extract the correct binary tarball. For example for Ubuntu 22.04:
 ```shell
 wget https://downloads.percona.com/downloads/Percona-Server-{{vers}}/Percona-Server-{{release}}/binary/tarball/Percona-Server-{{release}}-Linux.x86_64.glibc2.35.tar.gz
 ```
+
+Extract the tarball into the `/usr/local` directory:
+
+```shell
+sudo tar -xzf Percona-Server-{{release}}-Linux.x86_64.glibc2.35.tar.gz -C /usr/local
+```
+
+Create a symbolic link so that the default location `/usr/local/mysql` points to the extracted directory:
+
+```shell
+sudo ln -s /usr/local/Percona-Server-{{release}}-Linux.x86_64.glibc2.35 /usr/local/mysql
+```
+
+## After extraction
+
+The tarball does not create the `mysql` user, initialize the data directory, or start the server. To run Percona Server for MySQL, you must:
+
+1. Create the `mysql` group and the `mysql` user.
+
+2. Initialize the data directory with `bin/mysqld --initialize --user=mysql`.
+
+3. Start the server with `bin/mysqld_safe --user=mysql`.
+
+The server refuses to run as the operating system `root` user unless you pass the `--user=mysql` option.
+
+For step-by-step instructions, see [Post-installation](post-installation.md).
