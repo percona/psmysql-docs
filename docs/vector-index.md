@@ -145,7 +145,7 @@ An index build over existing rows is much faster than adding the same rows one a
 
 * The build writes the finished index to disk in one pass. Each row-by-row insert also updates many existing entries in the index, which causes many small writes.
 
-After the build, the server does not keep the graph in memory, and `Innodb_hnsw_memory_used` shows `0`. The first queries load the graph gradually, so these queries run slower than later ones. Before you measure performance or open the table to production traffic, run a representative set of queries to warm up the index.
+After the build, the server does not keep the new graph in memory, so the build does not increase the `Innodb_hnsw_memory_used` value. The first queries load the graph gradually, so these queries run slower than later ones. Before you measure performance or open the table to production traffic, run a representative set of queries to warm up the index.
 
 !!! note
 
@@ -379,7 +379,21 @@ The value has the following behavior:
 
 * `FLUSH STATUS` does not reset the value.
 
-`OPTIMIZE TABLE` reports a memory error as a row in its result set, with `Msg_type` set to `error`, and does not return an SQL error. Applications that check only for SQL errors do not detect the failure. Check the `Msg_type` column, or rebuild the table with `ALTER TABLE ... FORCE`, which returns an SQL error.
+`OPTIMIZE TABLE` reports a memory error as a row in its result set, with `Msg_type` set to `error`, and does not return an SQL error:
+
+```{.text .no-copy}
++----------------+----------+----------+-------------------------------------------------------------------+
+| Table          | Op       | Msg_type | Msg_text                                                          |
++----------------+----------+----------+-------------------------------------------------------------------+
+| test.documents | optimize | note     | Table does not support optimize, doing recreate + analyze instead |
+| test.documents | optimize | error    | Memory capacity of 1073741824 bytes for 'innodb_hnsw_max_memory'  |
+|                |          |          | exceeded. The vector index graph was left unchanged. Raise        |
+|                |          |          | innodb_hnsw_max_memory and retry.                                 |
+| test.documents | optimize | status   | Operation failed                                                  |
++----------------+----------+----------+-------------------------------------------------------------------+
+```
+
+Applications that check only for SQL errors do not detect the failure. Check the `Msg_type` column, or rebuild the table with `ALTER TABLE ... FORCE`, which returns an SQL error.
 
 To estimate the memory an index needs, multiply the number of vectors by the vector size (4 bytes per dimension) and add space for the neighbor links, which grows with `M`. Allow extra memory for growth: see [Modify indexed data](#modify-indexed-data).
 
@@ -458,13 +472,33 @@ To check whether the index can find a row, search for the row's own vector with 
 SELECT VECTOR_TO_STRING(embedding) FROM documents WHERE id = 1;
 ```
 
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +---------------------------------------+
+    | VECTOR_TO_STRING(embedding)           |
+    +---------------------------------------+
+    | [1.00000e-01,2.00000e-01,3.00000e-01] |
+    +---------------------------------------+
+    ```
+
 Then search with that value as a constant. The query must return the same row:
 
 ```sql
 SELECT id FROM documents
-ORDER BY DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.3]'), 'EUCLIDEAN')
+ORDER BY DISTANCE(embedding, TO_VECTOR('[1.00000e-01,2.00000e-01,3.00000e-01]'), 'EUCLIDEAN')
 LIMIT 1;
 ```
+
+??? example "Expected output"
+
+    ```{.text .no-copy}
+    +----+
+    | id |
+    +----+
+    |  1 |
+    +----+
+    ```
 
 Run `EXPLAIN` on the search to confirm that the query uses the vector index. A query that does not use the index returns exact results and does not show the issue.
 
@@ -712,8 +746,7 @@ Shows the memory, in bytes, that all vector index graphs on the server currently
 | `ER_VECTOR_INDEX_WRONG_DIMENSIONS` | A vector does not have the number of dimensions that the column defines, either in a new row or in an existing row when you add the index. |
 | `ER_VECTOR_INDEX_WRONG_VALUE` | A `cosine` index received a zero vector. |
 | `ER_CAPACITY_EXCEEDED` | The vector index graphs reached the `innodb_hnsw_max_memory` limit. |
-| `ER_ALTER_OPERATION_NOT_SUPPORTED_REASON_VECTOR_NOLOCK` | The `ALTER TABLE` statement requests `LOCK=NONE` on a table with a vector index. |
-| `ER_ALTER_OPERATION_NOT_SUPPORTED_REASON_VECTOR_INSTANT` | The `ALTER TABLE` statement requests `ALGORITHM=INSTANT` on a table with a vector index. |
+| `ER_ALTER_OPERATION_NOT_SUPPORTED_REASON` | The `ALTER TABLE` statement requests `ALGORITHM=INSTANT` or `LOCK=NONE` on a table with a vector index. The message names the reason, for example: `ALGORITHM=INSTANT is not supported. Reason: InnoDB does not support ALGORITHM=INSTANT on a table with a vector index. Try ALGORITHM=COPY/INPLACE.` |
 
 ## See also
 
