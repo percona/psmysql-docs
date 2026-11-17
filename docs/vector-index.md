@@ -2,9 +2,13 @@
 
 --8<--- "tech.preview.md:5:5"
 
-A vector index speeds up similarity search on a `VECTOR` column. Without an index, a query such as `ORDER BY DISTANCE(...) LIMIT 10` computes the distance to every row in the table and then sorts the results. With a vector index, the server finds the nearest rows in a fraction of that time.
+A vector index speeds up similarity search on a `VECTOR` column. Without an index, a query such as `ORDER BY DISTANCE(...) LIMIT 10` computes the distance to every row in the table and then sorts the results, so the query gets slower as the table grows. With a vector index, the server compares the query vector with only a small part of the table, so the query stays fast on large tables.
 
-Percona Server for MySQL implements vector indexes in InnoDB with the Hierarchical Navigable Small World (HNSW) algorithm. You store embeddings next to your business data, query both with standard SQL, and get the same transactional guarantees as for any other InnoDB table. You do not need a separate vector database or a pipeline to keep two systems in sync.
+Percona Server for MySQL implements vector indexes in InnoDB with the Hierarchical Navigable Small World (HNSW) algorithm. You store embeddings next to your business data and query both with standard SQL. Vector indexes follow the same transaction rules as any other InnoDB index. You do not need a separate vector database or a pipeline to keep two systems in sync.
+
+## Version changes
+
+Percona Server for MySQL 9.7.4-4 introduces vector indexes as a tech preview feature.
 
 ## How a vector index works
 
@@ -12,7 +16,7 @@ An HNSW index organizes vectors into a layered graph in which each vector links 
 
 HNSW performs an *approximate nearest neighbor* (ANN) search. The index returns vectors that are very close to the query vector, but the results can occasionally differ from an exact search that compares every row. *Recall* measures the share of true nearest neighbors that the index finds. You control the balance between recall and speed with the [index options](#index-options) and the [`innodb_hnsw_ef_search`](#innodb_hnsw_ef_search) variable.
 
-The server keeps the graph in memory and stores a copy in InnoDB. After a restart, the server loads the graph on demand: the first query reads only the part of the graph that the search needs, and later queries load more nodes as they reach them. The [`innodb_hnsw_max_memory`](#innodb_hnsw_max_memory) variable limits the total memory that all graphs use.
+The server keeps the graph in memory and stores a copy in InnoDB. After a restart, the server loads the graph gradually. Each query loads only the parts of the graph that the search needs. The [`innodb_hnsw_max_memory`](#innodb_hnsw_max_memory) variable limits the total memory that all graphs use.
 
 !!! note
 
@@ -116,7 +120,36 @@ CREATE VECTOR INDEX idx_embedding ON documents (embedding) TYPE hnsw (M = 16, me
 ALTER TABLE documents ADD VECTOR INDEX idx_embedding (embedding) TYPE hnsw (M = 16, metric = cosine);
 ```
 
-The first vector index on a table rebuilds the table and then builds the graph from the existing rows. The build reads the table with several threads, controlled by [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads). Plan the operation for a maintenance window on a large table. For the supported algorithms and lock levels, see [Change or drop a vector index](#change-or-drop-a-vector-index).
+The first vector index on a table rebuilds the table and then builds the graph from the existing rows. The build reads the table with several threads. The [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads) variable sets the number of threads. Plan the operation for a maintenance window on a large table. For the supported algorithms and lock levels, see [Change or drop a vector index](#change-or-drop-a-vector-index).
+
+### Load large data sets
+
+For a large data set, load the rows first and add the vector index afterward. Avoid inserting a large number of rows into a table that already has a vector index.
+
+```sql
+CREATE TABLE documents (
+    id        BIGINT UNSIGNED PRIMARY KEY,
+    title     VARCHAR(100) NOT NULL,
+    category  VARCHAR(20)  NOT NULL,
+    embedding VECTOR(3)    NOT NULL
+);
+
+-- Load the data, for example with LOAD DATA or multi-row INSERT statements
+
+ALTER TABLE documents ADD VECTOR INDEX idx_embedding (embedding) TYPE hnsw (M = 16);
+```
+
+An index build over existing rows is much faster than adding the same rows one at a time:
+
+* The build compares vectors in several threads at once, so the build uses all available CPU cores. The [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads) variable controls the number of threads.
+
+* The build writes the finished index to disk in one pass. Each row-by-row insert also updates many existing entries in the index, which causes many small writes.
+
+After the build, the server does not keep the graph in memory, and `Innodb_hnsw_memory_used` shows `0`. The first queries load the graph gradually, so these queries run slower than later ones. Before you measure performance or open the table to production traffic, run a representative set of queries to warm up the index.
+
+!!! note
+
+    If your vectors are very regular, for example counters or sequences, a parallel build can leave some rows unreachable. See [Indexes on very regular data](#indexes-on-very-regular-data).
 
 ## Index options
 
@@ -130,7 +163,7 @@ Set index options in the parentheses after `TYPE hnsw`. Option names are case-in
 
 !!! important
 
-    The graph quality depends on `M` and `ef_construction` at the time the server inserts each vector. Raising [`innodb_hnsw_ef_search`](#innodb_hnsw_ef_search) later does not compensate for a graph built with low values. To change `M`, `ef_construction`, or `metric`, drop and re-create the index.
+    The graph quality depends on `M` and `ef_construction` at the time the server inserts each vector. If you build the graph with low values, a higher [`innodb_hnsw_ef_search`](#innodb_hnsw_ef_search) value later does not make up for the lower quality. To change `M`, `ef_construction`, or `metric`, drop and re-create the index.
 
 ### Choose a metric
 
@@ -182,7 +215,7 @@ LIMIT 3;
     +----+-------------------+----------+
     ```
 
-You can also sort by a column alias or a select-list position that refers to the distance expression:
+You can also sort by a column alias for the distance expression:
 
 ```sql
 SELECT id, DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.35]'), 'EUCLIDEAN') AS distance
@@ -193,7 +226,15 @@ LIMIT 3;
 
 ### Combine vector search with filters
 
-Add a `WHERE` clause to filter the results by business data. The server reads candidates from the vector index in order of distance, applies the filter, and stops as soon as the query has enough matching rows.
+Add a `WHERE` clause to filter the results by business data. The server applies the filter after the vector search:
+
+1. The server reads rows from the vector index, starting with the closest.
+
+2. The server skips the rows that do not match the filter.
+
+3. The search continues until the query has as many rows as `LIMIT` requests, or until no rows remain.
+
+If enough rows match the filter, the query returns the full `LIMIT` number of rows.
 
 ```sql
 SELECT id, title
@@ -215,7 +256,17 @@ LIMIT 3;
     +----+-----------------+
     ```
 
-A very selective filter makes the server examine more candidates before the query collects enough rows. If a filter matches only a small share of the table, a regular index on the filtered column, combined with an exact search, can be faster.
+If few rows match the filter, the server reads many rows before the query has enough results, and the query slows down. If a filter matches only a small share of the table, create a regular index on the filtered column and skip the vector index. The server then reads the matching rows through the regular index and sorts them by exact distance:
+
+```sql
+CREATE INDEX idx_category ON documents (category);
+
+SELECT id, title
+FROM documents IGNORE INDEX FOR ORDER BY (idx_embedding)
+WHERE category = 'docs'
+ORDER BY DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.35]'), 'EUCLIDEAN')
+LIMIT 3;
+```
 
 `HAVING` clauses and views that contain the distance expression also work with the vector index.
 
@@ -248,7 +299,7 @@ If the plan shows `Table scan` and `Sort` instead, the query does not use the ve
 
 ### Queries that do not use the vector index
 
-The optimizer uses the vector index only when you explicitly accept an approximate result through `ORDER BY ... LIMIT`. The following queries run as a full table scan with a sort and return exact results:
+The optimizer uses the vector index only for `ORDER BY DISTANCE(...) LIMIT n` queries. The following queries read the whole table, sort the rows, and return exact results:
 
 | Query | Reason |
 | --- | --- |
@@ -300,7 +351,7 @@ When the graphs reach the limit, a statement that needs more memory fails with t
 ERROR HY000: Memory capacity of 1073741824 bytes for 'innodb_hnsw_max_memory' exceeded. The vector index graph was left unchanged. Raise innodb_hnsw_max_memory and retry.
 ```
 
-The variable is dynamic. Raise the limit and run the statement again; you do not need to restart the server:
+The variable is dynamic. Raise the limit and run the statement again. You do not need to restart the server:
 
 ```sql
 SET GLOBAL innodb_hnsw_max_memory = 4 * 1024 * 1024 * 1024;
@@ -320,11 +371,15 @@ The value has the following behavior:
 
 * The value does not drop after `DELETE` or after a rolled-back `INSERT`, because the graph keeps those vectors. See [Modify indexed data](#modify-indexed-data).
 
-* The value drops when you drop or rebuild an index, for example with `OPTIMIZE TABLE`, or when the server removes an unused table from the data dictionary cache.
+* The value drops when you drop or rebuild an index, for example with `OPTIMIZE TABLE`, or when the server closes a table that no query uses.
 
 * An index build that runs inside `ALTER TABLE` counts toward the limit until the build finishes.
 
+* A table rebuild, such as `OPTIMIZE TABLE` or `ALTER TABLE ... FORCE`, can need up to twice the memory of the index. If the graph is already in memory, the server holds the old graph and the new graph at the same time. Right after a restart, the rebuild needs memory for one graph only.
+
 * `FLUSH STATUS` does not reset the value.
+
+`OPTIMIZE TABLE` reports a memory error as a row in its result set, with `Msg_type` set to `error`, and does not return an SQL error. Applications that check only for SQL errors do not detect the failure. Check the `Msg_type` column, or rebuild the table with `ALTER TABLE ... FORCE`, which returns an SQL error.
 
 To estimate the memory an index needs, multiply the number of vectors by the vector size (4 bytes per dimension) and add space for the neighbor links, which grows with `M`. Allow extra memory for growth: see [Modify indexed data](#modify-indexed-data).
 
@@ -340,9 +395,9 @@ You use regular `INSERT`, `UPDATE`, `DELETE`, and `REPLACE` statements on a tabl
 
 * A rolled-back `INSERT` or `UPDATE` leaves the new vector in the graph.
 
-The server keeps old vectors so that transactions that started earlier can still find the row versions that their snapshots include. Queries never return a deleted or outdated vector. Old vectors still take memory and disk space, so the index grows with the number of changes, not with the number of rows.
+The server keeps old vectors because transactions that started earlier can still need them. Queries never return a deleted or outdated vector. Old vectors still take memory and disk space, so the index grows with the number of changes, not with the number of rows.
 
-On a table with frequent updates or deletes, rebuild the index periodically to reclaim the space:
+Old vectors also make the search less accurate: on a table with many updates or deletes, the index finds fewer of the true nearest neighbors over time. On a table with frequent updates or deletes, rebuild the index periodically to reclaim the space and restore accuracy:
 
 ```sql
 OPTIMIZE TABLE documents;
@@ -360,6 +415,8 @@ ERROR HY000: Column 'embedding' has a vector without the 3 dimensions its vector
 
 A `VECTOR(N)` column without a vector index accepts a vector with fewer than `N` dimensions. A vector with more than `N` dimensions fails with the `ER_DATA_TOO_LONG` error in both cases.
 
+Avoid `INSERT IGNORE` and non-strict SQL modes for `VECTOR` columns. In these modes, a vector with more than `N` dimensions does not fail. The server stores an empty value instead. `INSERT ... SELECT` from a table with such a row fails, and a dump of the table fails to load.
+
 If the table already contains shorter vectors, `ALTER TABLE ... ADD VECTOR INDEX` and `CREATE VECTOR INDEX` fail with the same error, and the server does not change the table. Before you add the index, find the affected rows. Each dimension takes 4 bytes, so a `VECTOR(3)` value takes 12 bytes:
 
 ```sql
@@ -372,19 +429,64 @@ Correct or delete the returned rows, and then add the index.
 
 `LOAD DATA` with `ALGORITHM = BULK` does not support tables with a vector index. Use regular `LOAD DATA` or `INSERT` statements instead.
 
+## Indexes on very regular data
+
+On very regular data, a vector index can silently miss some rows. Very regular data means vectors that lie close to a straight line, such as counters, sequences, calibration data, or grid-like data. The issue does not affect embeddings from real models, such as text or image embeddings.
+
+The issue appears when several threads add vectors to the same graph at once:
+
+* `ALTER TABLE ... ADD VECTOR INDEX` or `CREATE VECTOR INDEX` on a table that already has rows
+
+* `OPTIMIZE TABLE` and other statements that rebuild the index
+
+* `INSERT` statements from several sessions at the same time
+
+In these cases, the index can lose track of a few percent of the rows. A search never returns such a row, even a search for the row's own vector. The server reports no error or warning, and `CHECK TABLE` reports no problem.
+
+If your table stores very regular data, build and rebuild the index with one read thread:
+
+```sql
+SET SESSION innodb_parallel_read_threads = 1;
+ALTER TABLE documents ADD VECTOR INDEX idx_embedding (embedding) TYPE hnsw;
+```
+
+Use the same setting before `OPTIMIZE TABLE` or `ALTER TABLE ... FORCE`. A single-threaded build takes longer on a large table. Concurrent inserts from several sessions can still cause the issue on such data, so load very regular data from one session where possible.
+
+To check whether the index can find a row, search for the row's own vector with `LIMIT 1`. First, read the stored vector:
+
+```sql
+SELECT VECTOR_TO_STRING(embedding) FROM documents WHERE id = 1;
+```
+
+Then search with that value as a constant. The query must return the same row:
+
+```sql
+SELECT id FROM documents
+ORDER BY DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.3]'), 'EUCLIDEAN')
+LIMIT 1;
+```
+
+Run `EXPLAIN` on the search to confirm that the query uses the vector index. A query that does not use the index returns exact results and does not show the issue.
+
 ## Transactions and isolation
 
 Vector search follows the same transaction rules as any other InnoDB query. A query returns only the rows that are visible to the current transaction:
 
 * The query does not return rows from transactions that have not committed.
 
-* A row deleted by a transaction that committed after your snapshot stays visible to your transaction, as in any other `REPEATABLE READ` query.
+* If another transaction deletes a row and commits after your transaction starts, your transaction still sees the row, as in any other `REPEATABLE READ` query.
 
 * A query returns an updated row once, at the distance of the row version the transaction sees.
 
 * A rolled-back insert never appears in the results.
 
-`READ COMMITTED` and `REPEATABLE READ` work without changes. With `SERIALIZABLE`, the vector index does not lock the set of nearest neighbors, so a concurrent transaction can insert a closer vector that a repeated query then returns.
+Each returned row matches what your transaction can see. However, the search is approximate, so two runs of the same query can return different rows:
+
+* With `REPEATABLE READ`, other sessions can change the graph between two runs of the same search in one transaction. The second run can then return different rows.
+
+* With `SERIALIZABLE`, the vector index does not lock the set of nearest neighbors. A concurrent transaction can insert a closer vector that a repeated query then returns.
+
+The server does not return a warning in these cases. If your application needs a stable result set within a transaction, store the IDs that the first query returns and work with those IDs.
 
 ### Locking reads
 
@@ -467,9 +569,48 @@ The server reserves names that match the hidden table pattern. `CREATE TABLE` an
 
 ## Replication and backup
 
-The binary log contains only the changes to the base table. Each replica builds its own graph from the rows it applies. Because each graph has a slightly different structure, the same approximate query can return different rows on the source and on a replica. Exact queries return the same results on every server.
+The binary log contains only the changes to the base table. Each replica builds its own graph from the changes that the replica applies. Because each graph has a slightly different structure, the same approximate query can return different rows on the source and on a replica. Exact queries return the same results on every server.
+
+Use row-based replication (`binlog_format=ROW`, the default) for tables with a vector index. A statement that changes data based on a vector search, such as `DELETE ... ORDER BY DISTANCE(...) LIMIT n`, can choose different rows on the replica if the server logs the statement instead of the changed rows.
+
+`ALTER TABLE ... ADD VECTOR INDEX` takes about the same time on a replica as on the source, given similar hardware and settings. The statement blocks writes to the table on the source, so the replica does not need to apply concurrent changes while the replica builds the index.
+
+To back up a server that has vector indexes, use Percona XtraBackup 9.7.2-3 or later. For details, see [the Percona XtraBackup documentation]().
 
 `ALTER TABLE ... DISCARD TABLESPACE` and `ALTER TABLE ... IMPORT TABLESPACE` do not support tables with a vector index. `FLUSH TABLES ... FOR EXPORT` returns a warning for such tables, and you cannot import the exported files. To move a table with a vector index, use a logical dump or a physical backup of the whole server.
+
+## Downgrade
+
+Percona Server for MySQL versions without vector index support cannot read a vector index. If you start an earlier 9.7 release on a data directory that contains a vector index, the server crashes when a statement uses the table. The same crash happens on a clone recipient that runs an earlier release. A logical dump that contains vector index definitions fails to load on an earlier release with a syntax error.
+
+To downgrade in place to a release without vector index support:
+
+1. On the current server, drop every vector index:
+
+    ```sql
+    ALTER TABLE documents DROP INDEX idx_embedding;
+    ```
+
+    To list every vector index on the server, run:
+
+    ```sql
+    SELECT DISTINCT TABLE_SCHEMA, TABLE_NAME, INDEX_NAME
+    FROM INFORMATION_SCHEMA.STATISTICS
+    WHERE INDEX_TYPE = 'VECTOR';
+    ```
+
+2. Shut down the server with a slow shutdown, so that InnoDB writes all changes to the data files:
+
+    ```sql
+    SET GLOBAL innodb_fast_shutdown = 0;
+    SHUTDOWN;
+    ```
+
+3. Start the earlier release on the same data directory.
+
+Before you take a logical dump for an earlier release, drop the vector indexes the same way, or remove the `VECTOR KEY` clauses from the dump file.
+
+If you already started an earlier release on a data directory with a vector index and that server no longer starts, start the newer release on the same data directory again. The newer release rolls back the incomplete statement. Then follow the steps above: drop every vector index, shut down with `innodb_fast_shutdown = 0`, and start the earlier release.
 
 ## Limitations
 
@@ -494,17 +635,23 @@ The binary log contains only the changes to the base table. Each replica builds 
 
 * `DISCARD TABLESPACE` and `IMPORT TABLESPACE` are not available while the table has a vector index.
 
+* An in-place downgrade to a release without vector index support requires that you drop all vector indexes first. See [Downgrade](#downgrade).
+
 * `LOAD DATA` with `ALGORITHM = BULK` is not available for tables with a vector index.
 
 * Each vector index must fit within [`innodb_hnsw_max_memory`](#innodb_hnsw_max_memory). The index does not support larger-than-memory graphs.
 
-* Deleted and outdated vectors stay in the index until you rebuild the index.
+* Deleted and outdated vectors stay in the index until you rebuild the index. On a table with many updates or deletes, recall drops over time. A rebuild restores recall.
+
+* In rare cases, the vector index cannot reach a row and never returns the row. A filtered search can then return no rows, even if a matching row exists. To get exact results for such a query, use `IGNORE INDEX`. A rebuild of the index can restore the row.
 
 * Under `REPEATABLE READ`, a locking vector search keeps locks on rows that the search reads but does not return. See [Locking reads](#locking-reads).
 
 * A `VECTOR(N)` column without a vector index accepts vectors with fewer than `N` dimensions. Such rows prevent you from adding a vector index until you correct them. See [Vector dimensions](#vector-dimensions).
 
 * Only single-table queries use the vector index.
+
+* On very regular data, such as vectors that lie close to a straight line, a parallel index build or concurrent inserts can leave some rows unreachable. See [Indexes on very regular data](#indexes-on-very-regular-data).
 
 * The hypergraph optimizer does not use vector indexes. When you enable the hypergraph optimizer, vector queries run as a full table scan with a sort and return exact results.
 

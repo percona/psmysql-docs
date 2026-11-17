@@ -378,3 +378,4 @@ DROP DATABASE IF EXISTS testdb;
 
 * [DISTANCE() Function](distance-function.md)
 * [The VECTOR Type](vector.md)
+* [Vector indexes](vector-index.md)

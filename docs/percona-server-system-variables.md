@@ -17,6 +17,8 @@
 | innodb_empty_free_list_algorithm | Yes | Yes | Global | Yes |
 | innodb_encrypt_online_alter_logs | Yes | Yes | Global | Yes |
 | innodb_encrypt_tables | Yes | Yes | Global | Yes |
+| innodb_hnsw_ef_search | Yes | Yes | Both | Yes |
+| innodb_hnsw_max_memory | Yes | Yes | Global | Yes |
 | innodb_kill_idle_transaction | Yes | Yes | Global | Yes |
 | innodb_max_bitmap_file_size | Yes | Yes | Global | Yes |
 | innodb_max_changed_pages | Yes | Yes | Global | Yes |
@@ -72,6 +74,7 @@
 | Innodb_buffer_pool_pages_old | Numeric | Global |
 | Innodb_checkpoint_age | Numeric | Global |
 | Innodb_checkpoint_max_age | Numeric | Global |
+| Innodb_hnsw_memory_used | Numeric | Global |
 | Innodb_ibuf_free_list | Numeric | Global |
 | Innodb_ibuf_segment_size | Numeric | Global |
 | Innodb_lsn_current | Numeric | Global |
