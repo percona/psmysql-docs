@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10659,10 +10659,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="redact-audit-log-fields">Redact audit log fields<a class="headerlink" href="#redact-audit-log-fields" title="Permanent link">&para;</a></h1>
+<h1 id="redact-audit-log-fields">Redact audit log fields<a data-markdown-ignore class="headerlink" href="#redact-audit-log-fields" title="Permanent link">&para;</a></h1>
 <p>Audit events that carry SQL statement text can leak sensitive values into the audit log. Examples include credentials, personal data, and secret literals. The Audit Log Filter can rewrite that text as a statement digest before the event is written. The log then records the statement shape without capturing the literal values.</p>
 <p>This page covers the <code>print</code> / <code>replace</code> mechanism. For base filter authoring, see <a href="write-filter-definitions.html">Write audit_log_filter definitions</a>.</p>
-<h2 id="what-can-be-replaced">What can be replaced<a class="headerlink" href="#what-can-be-replaced" title="Permanent link">&para;</a></h2>
+<h2 id="what-can-be-replaced">What can be replaced<a data-markdown-ignore class="headerlink" href="#what-can-be-replaced" title="Permanent link">&para;</a></h2>
 <p>Four class and field pairs support replacement. They use two distinct field names (<code>general_query.str</code> and <code>query.str</code>), and only the <code>query_digest</code> function may supply the replacement value:</p>
 <table>
 <thead>
@@ -10696,7 +10696,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Replacement happens during filtering. The choice of literal text or digest applies regardless of which log format the writer produces later, including XML, JSON, and JSONL.</p>
-<h2 id="shape">Shape<a class="headerlink" href="#shape" title="Permanent link">&para;</a></h2>
+<h2 id="shape">Shape<a data-markdown-ignore class="headerlink" href="#shape" title="Permanent link">&para;</a></h2>
 <p>A <code>print</code> item goes inside a class or event block:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"print"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"field"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10718,8 +10718,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>The conditional form lets you mix redacted and literal statements in the same filter.</p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<h3 id="redact-every-general-event">Redact every <code>general</code> event<a class="headerlink" href="#redact-every-general-event" title="Permanent link">&para;</a></h3>
+<h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="redact-every-general-event">Redact every <code>general</code> event<a data-markdown-ignore class="headerlink" href="#redact-every-general-event" title="Permanent link">&para;</a></h3>
 <p>Replace statement text in every <code>general</code> event with its digest:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10738,7 +10738,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="redact-both-statement-carrying-classes">Redact both statement-carrying classes<a class="headerlink" href="#redact-both-statement-carrying-classes" title="Permanent link">&para;</a></h3>
+<h3 id="redact-both-statement-carrying-classes">Redact both statement-carrying classes<a data-markdown-ignore class="headerlink" href="#redact-both-statement-carrying-classes" title="Permanent link">&para;</a></h3>
 <p><code>general</code> and <code>table_access</code> both carry statement text. Combine them into one filter:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10768,7 +10768,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>The resulting audit stream contains only digests — no literal SQL text — which is a common baseline for PCI/PII environments.</p>
-<h3 id="redact-only-specific-events">Redact only specific events<a class="headerlink" href="#redact-only-specific-events" title="Permanent link">&para;</a></h3>
+<h3 id="redact-only-specific-events">Redact only specific events<a data-markdown-ignore class="headerlink" href="#redact-only-specific-events" title="Permanent link">&para;</a></h3>
 <p>Scope replacement to a subset of events by nesting <code>print</code> inside an <code>event</code> block. This filter redacts <code>query.str</code> on <code>insert</code> and <code>update</code> <code>table_access</code> events but leaves <code>read</code> and <code>delete</code> alone:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10788,7 +10788,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="redact-account-management-statements">Redact account-management statements<a class="headerlink" href="#redact-account-management-statements" title="Permanent link">&para;</a></h3>
+<h3 id="redact-account-management-statements">Redact account-management statements<a data-markdown-ignore class="headerlink" href="#redact-account-management-statements" title="Permanent link">&para;</a></h3>
 <p><code>query_digest</code> with an argument is a Boolean comparator — useful in a <code>log</code> condition to decide <em>whether</em> to log an event based on its digest. Combined with field checks, you can log (and redact) only specific statement types. This filter fires on <code>general</code>/<code>status</code> events for account-management DDL and replaces the literal statement with its digest:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10819,7 +10819,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>For the full set of <code>general_sql_command.str</code> values, see <a href="write-filter-definitions.html#test-event-field-values">Test event field values</a>.</p>
-<h2 id="conditional-redaction">Conditional redaction<a class="headerlink" href="#conditional-redaction" title="Permanent link">&para;</a></h2>
+<h2 id="conditional-redaction">Conditional redaction<a data-markdown-ignore class="headerlink" href="#conditional-redaction" title="Permanent link">&para;</a></h2>
 <p>To keep literal text for <em>most</em> statements and redact only specific ones, or to do the reverse, use <code>query_digest</code> as a comparator inside <code>print</code>. With an argument, the function returns true when the current statement digest equals the argument.</p>
 <p>Keep the literal text when the digest matches <code>SELECT ?</code>; replace otherwise:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"print"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10855,7 +10855,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="write-filter-definitions.html">Write audit_log_filter definitions</a> — base grammar and <code>log</code> conditions.</li>
 <li><a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a> — use <code>abort</code> to prevent execution.</li>

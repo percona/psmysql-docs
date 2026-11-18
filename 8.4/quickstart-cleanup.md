@@ -1,0 +1,154 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/8.4/llms.txt).
+
+# Clean up your installation
+
+Clean up is optional. If you want to remove Percona Server for MySQL and clean up your system, follow the steps below for your installation method.
+
+Warning
+
+These steps will remove Percona Server for MySQL and may delete all data files (databases, tables, logs, etc.). Take a backup before proceeding if you need to preserve any data.
+
+**Docker**
+
+If you installed Percona Server for MySQL using Docker, follow these steps:
+
+1. Exit the MySQL command client shell if you’re still connected:
+
+   ```
+   exit
+   ```
+
+   You can also use `\q` or `quit` commands. The execution of the statement also closes the connection.
+
+1. Stop and remove the Docker container:
+
+   ```
+   docker container rm psmysql -f
+   ```
+
+   Expected output
+
+   ```
+   psmysql
+   ```
+
+1. Remove the Docker image:
+
+   ```
+   docker image rmi percona/percona-server:8.4.12
+   ```
+
+   If you are running the ARM64 version of Percona Server, use:
+
+   ```
+   docker image rmi percona/percona-server:8.4.12-arm64
+   ```
+
+   Expected output
+
+   ```
+   Untagged: percona/percona-server:8.4.12
+   Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
+   Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
+   ...
+   ```
+
+1. Remove the Docker volume (if you created one):
+
+   ```
+   docker volume rm myvol
+   ```
+
+   Expected output
+
+   ```
+   myvol
+   ```
+
+**Ubuntu (APT)**
+
+If you installed Percona Server for MySQL using APT on Ubuntu or Debian, follow these steps:
+
+1. Stop the Percona Server for MySQL service:
+
+   ```
+   sudo systemctl stop mysql
+   ```
+
+1. Choose one of the following options:
+
+   **Option A: Remove packages but keep data files**
+
+   This command removes the packages but leaves data files (databases, tables, logs, configuration, etc.) behind:
+
+   ```
+   sudo apt remove percona-server*
+   ```
+
+   **Option B: Remove packages and delete all data files**
+
+   Warning
+
+   This command removes all packages and permanently deletes all data files (databases, tables, logs, etc.). Ensure you have a backup if you need this data.
+
+   ```
+   sudo apt purge percona-server*
+   ```
+
+1. [Optional] If you used Option A and want to remove data files manually:
+
+   Warning
+
+   This step permanently deletes all data files. Ensure you have a backup if you need this data.
+
+   ```
+   sudo rm -rf /var/lib/mysql
+   sudo rm -f /etc/mysql/my.cnf
+   ```
+
+**Oracle Linux (YUM or DNF)**
+
+If you installed Percona Server for MySQL using YUM or DNF on Oracle Linux or RHEL, follow these steps:
+
+1. Stop the Percona Server for MySQL service:
+
+   ```
+   sudo systemctl stop mysql
+   ```
+
+1. Remove the packages:
+
+   ```
+   sudo yum remove percona-server*
+   ```
+
+   Or if you’re using DNF:
+
+   ```
+   sudo dnf remove percona-server*
+   ```
+
+   These commands remove the packages but leave data files behind. If you want to remove data files as well, continue to step 3.
+
+1. [Optional] Remove data and configuration files:
+
+   Warning
+
+   This step permanently deletes all data files (databases, tables, logs, etc.). Ensure you have a backup if you need this data.
+
+   ```
+   sudo rm -rf /var/lib/mysql
+   sudo rm -f /etc/my.cnf
+   ```
+
+## Next steps
+
+[Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.html)
+
+## Additional resources
+
+- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.html)
+- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.html)
+- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.html)
+- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.html)
+- [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html)

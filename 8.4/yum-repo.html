@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10723,7 +10723,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="install-using-dnf">Install using DNF<a class="headerlink" href="#install-using-dnf" title="Permanent link">&para;</a></h1>
+<h1 id="install-using-dnf">Install using DNF<a data-markdown-ignore class="headerlink" href="#install-using-dnf" title="Permanent link">&para;</a></h1>
 <div class="admonition important">
 <p class="admonition-title">Installation Method</p>
 <p>This guide describes <strong>standard OS installation</strong> on RPM-based operating systems (RHEL, CentOS, Rocky Linux, etc.) using DNF. Ready-to-use packages are available from the Percona Server for MySQL software repositories and the <a href="https://www.percona.com/downloads">Percona downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page. On RHEL 8+ systems, DNF has superseded YUM, but <code>yum</code> commands continue to work as they are aliased to <code>dnf</code>.</p>
@@ -10740,22 +10740,22 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>percona-release</code> tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the <a href="https://docs.percona.com/percona-software-repositories/index.html">Percona Software Repositories Documentation</a>.</p>
 <p>We gather <a href="telemetry.html">Telemetry data</a> in the Percona packages and Docker images.</p>
 <p>Review <a href="get-help.html">Get help from Percona</a> for ways that we can work with you.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
-<h3 id="required-permissions">Required permissions<a class="headerlink" href="#required-permissions" title="Permanent link">&para;</a></h3>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h3 id="required-permissions">Required permissions<a data-markdown-ignore class="headerlink" href="#required-permissions" title="Permanent link">&para;</a></h3>
 <p>You need either <code>sudo</code> access or root access to install packages and configure system services. The installation commands in this guide use <code>sudo</code>, but you can run them as the root user if you prefer.</p>
-<h3 id="package-verification">Package verification<a class="headerlink" href="#package-verification" title="Permanent link">&para;</a></h3>
+<h3 id="package-verification">Package verification<a data-markdown-ignore class="headerlink" href="#package-verification" title="Permanent link">&para;</a></h3>
 <p>The packages are signed with GPG keys for security. The installation process automatically installs the <a href="https://repo.percona.com/yum/PERCONA-PACKAGING-KEY">Percona GPG key</a> and handles key verification, but you can manually verify packages if needed.</p>
 <div class="admonition note">
 <p class="admonition-title">Security Note</p>
 <p>Always download packages from official Percona repositories to ensure authenticity and security.</p>
 </div>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h2 id="limitations">Limitations<a data-markdown-ignore class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <p>On RHEL 8 and compatible systems (Oracle Linux, Rocky Linux, AlmaLinux 8), the AppStream <code>mysql</code> module has a default stream (marked <code>[d]</code>). A default stream is treated as enabled by modular filtering and hides the Percona-provided packages, so you must disable the module before you install. On EL9 the default <code>mysql</code> stream does not hide the Percona packages, and disabling the module is not needed. EL10 has no modules, so skip this step.</p>
 <div class="admonition important">
 <p class="admonition-title">Checking the MySQL Module</p>
 <p>On EL8, the <code>[d]</code> marker is enough to block the installation: <code>dnf install percona-server-server</code> fails with <code>All matches were filtered out by modular filtering</code>. Disable the module on EL8 even if <code>dnf module list mysql</code> shows no <code>[e]</code> marker.</p>
 </div>
-<h2 id="install-using-dnf-rhel-8">Install using DNF (RHEL 8+)<a class="headerlink" href="#install-using-dnf-rhel-8" title="Permanent link">&para;</a></h2>
+<h2 id="install-using-dnf-rhel-8">Install using DNF (RHEL 8+)<a data-markdown-ignore class="headerlink" href="#install-using-dnf-rhel-8" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Standard OS Installation</p>
 <p>The following steps install Percona Server for MySQL directly on the host operating system using DNF. These instructions are for standard OS installations, not for Kubernetes pods or containerized environments.</p>
@@ -10902,7 +10902,7 @@ Complete!
 <p>See <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Configuring Percona repositories with <code>percona-release</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for more information.</p>
 <p><a class="md-button" href="post-installation.html">Post-installation configuration</a></p>
 <p>Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the <a href="install-myrocks.html">Percona MyRocks Installation Guide</a>.</p>
-<h2 id="unattended-installations">Unattended installations<a class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
+<h2 id="unattended-installations">Unattended installations<a data-markdown-ignore class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
 <p>The <code>-y</code> flag (on <code>apt</code> and <code>apt-get</code>, <code>--assumeyes</code> on <code>dnf</code>) tells the package manager to assume affirmative answers so installs do not block on prompts. That suits scripts and unattended installs, but you do not get a last chance to review dependency changes—use it only when you accept that tradeoff.</p>
 <p><strong><code>percona-release</code></strong> — The <code>setup</code> command documents <strong><code>-y</code></strong> for non-interactive repository configuration, for example:</p>
 <div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span><span class="o">{{</span>pkg<span class="o">}}</span><span class="w"> </span>--scheme<span class="w"> </span>https
@@ -10916,16 +10916,16 @@ Complete!
 <div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>Use <code>yum</code> instead of <code>dnf</code> where that is the supported tool on your OS.</p>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next steps<a data-markdown-ignore class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>After a successful installation, refer to the <a href="post-installation.html">Post-installation</a> documentation for detailed steps to configure and secure your Percona Server for MySQL installation.</p>
-<h2 id="additional-information">Additional information<a class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h2>
-<h3 id="red-hat-certified">Red Hat certified<a class="headerlink" href="#red-hat-certified" title="Permanent link">&para;</a></h3>
+<h2 id="additional-information">Additional information<a data-markdown-ignore class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h2>
+<h3 id="red-hat-certified">Red Hat certified<a data-markdown-ignore class="headerlink" href="#red-hat-certified" title="Permanent link">&para;</a></h3>
 <p>Percona Server for MySQL is certified for Red Hat Enterprise Linux 8. This certification is based on common and secure best practices, as well as successful interoperability with the operating system. Percona Server is listed in the <a href="https://catalog.redhat.com/software/applications/detail/112055">Red Hat Ecosystem Catalog</a>.</p>
-<h3 id="arm-support">ARM support<a class="headerlink" href="#arm-support" title="Permanent link">&para;</a></h3>
+<h3 id="arm-support">ARM support<a data-markdown-ignore class="headerlink" href="#arm-support" title="Permanent link">&para;</a></h3>
 <p>The RPM builds contain ARM packages with the <code>aarch64.rpm</code> extension.</p>
-<h3 id="supported-platforms">Supported platforms<a class="headerlink" href="#supported-platforms" title="Permanent link">&para;</a></h3>
+<h3 id="supported-platforms">Supported platforms<a data-markdown-ignore class="headerlink" href="#supported-platforms" title="Permanent link">&para;</a></h3>
 <p>Specific information on the supported platforms, products, and versions ican be found in the <a href="https://www.percona.com/services/policies/percona-software-platform-lifecycle#mysql">Percona Software and Platform Lifecycle</a> document.</p>
-<h2 id="install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (optional)<a class="headerlink" href="#install-percona-toolkit-udfs-optional" title="Permanent link">&para;</a></h2>
+<h2 id="install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (optional)<a data-markdown-ignore class="headerlink" href="#install-percona-toolkit-udfs-optional" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL includes user-defined functions (UDFs) from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. These UDFs provide faster checksum calculations:</p>
 <ul>
 <li>
@@ -10947,10 +10947,10 @@ Complete!
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<h3 id="udfs-installed">UDFs installed<a class="headerlink" href="#udfs-installed" title="Permanent link">&para;</a></h3>
+<h3 id="udfs-installed">UDFs installed<a data-markdown-ignore class="headerlink" href="#udfs-installed" title="Permanent link">&para;</a></h3>
 <p>You can now use these functions in your SQL queries. For example: <code>SELECT fnv_64('test_string');</code></p>
 <p>For detailed information about these functions, see <a href="udf-percona-toolkit.html">Percona Toolkit UDF functions</a>.</p>
-<h2 id="install-the-percona-testing-repository-advanced-users-only">Install the Percona testing repository (advanced users only)<a class="headerlink" href="#install-the-percona-testing-repository-advanced-users-only" title="Permanent link">&para;</a></h2>
+<h2 id="install-the-percona-testing-repository-advanced-users-only">Install the Percona testing repository (advanced users only)<a data-markdown-ignore class="headerlink" href="#install-the-percona-testing-repository-advanced-users-only" title="Permanent link">&para;</a></h2>
 <p>Do not use testing repositories in production environments. Testing builds are pre-release versions that may contain bugs or incomplete features.</p>
 <p>Percona offers pre-release builds from the testing repository for advanced users who want to:</p>
 <ul>

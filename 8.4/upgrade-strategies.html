@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10655,11 +10655,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="upgrade-strategies">Upgrade strategies<a class="headerlink" href="#upgrade-strategies" title="Permanent link">&para;</a></h1>
+<h1 id="upgrade-strategies">Upgrade strategies<a data-markdown-ignore class="headerlink" href="#upgrade-strategies" title="Permanent link">&para;</a></h1>
 <p>For critical production systems, consider engaging <a href="https://www.percona.com/services/support">Percona Support <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to assist with your upgrade process. Our experts can help ensure a smooth transition and minimize potential risks during this sensitive operation.</p>
-<h2 id="downgrade-options">Downgrade options<a class="headerlink" href="#downgrade-options" title="Permanent link">&para;</a></h2>
+<h2 id="downgrade-options">Downgrade options<a data-markdown-ignore class="headerlink" href="#downgrade-options" title="Permanent link">&para;</a></h2>
 <p>Review the <a href="downgrade.html">Downgrade options</a> to ensure that your downgrade path is supported.</p>
-<h2 id="in-place-upgrade">In-place upgrade<a class="headerlink" href="#in-place-upgrade" title="Permanent link">&para;</a></h2>
+<h2 id="in-place-upgrade">In-place upgrade<a data-markdown-ignore class="headerlink" href="#in-place-upgrade" title="Permanent link">&para;</a></h2>
 <p>Use the in-place upgrade strategy only as a last resort. This approach involves shutting down the server and replacing the server binaries or packages with new ones. The new server version then starts using the existing data directory. Configure the server to perform a slow shutdown by setting <code>innodb_fast_shutdown=0</code> before shutting down.</p>
 <p>The benefits are:</p>
 <ul>
@@ -10674,7 +10674,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>If you use XA transactions with InnoDB, running <code>XA RECOVER</code> before upgrading checks for uncommitted XA transactions. If results are returned, either commit or rollback the XA transactions by issuing an <code>XA COMMIT</code> or <code>XA ROLLBACK</code> statement.</p>
-<h2 id="new-environment-with-cut-over">New environment with cut over<a class="headerlink" href="#new-environment-with-cut-over" title="Permanent link">&para;</a></h2>
+<h2 id="new-environment-with-cut-over">New environment with cut over<a data-markdown-ignore class="headerlink" href="#new-environment-with-cut-over" title="Permanent link">&para;</a></h2>
 <p>Upgrading with a new environment involves provisioning a duplicate environment with the same number of servers with the same hardware specs and same operating system as the current production nodes.</p>
 <p>On the newly provided hardware, the target MySQL version will be installed. The new environment will be set up, and the production data will be recovered. Remember that you can use pt-config-diff to verify MySQL configurations. </p>
 <p>Replication from the current source to the newly built environment will be established.
@@ -10694,12 +10694,12 @@ At cutover time, all writes on the current source will be halted, and the applic
 <p>Requires only a single cutover window.</p>
 </li>
 </ul>
-<h2 id="80-84-migration-methods">8.0 → 8.4 migration methods<a class="headerlink" href="#80-84-migration-methods" title="Permanent link">&para;</a></h2>
+<h2 id="80-84-migration-methods">8.0 → 8.4 migration methods<a data-markdown-ignore class="headerlink" href="#80-84-migration-methods" title="Permanent link">&para;</a></h2>
 <p>Choose the approach that matches your downtime budget, risk tolerance, and rollback needs. Always rehearse in a non-production environment first.</p>
 <blockquote>
 <p><strong>Note</strong>: For a complete overview of supported upgrade paths and methods, see <a href="mysql-upgrade-paths.html">MySQL upgrade paths and supported methods</a>.</p>
 </blockquote>
-<h3 id="in-place-upgrade-stopreplacestart">In-place upgrade (stop/replace/start)<a class="headerlink" href="#in-place-upgrade-stopreplacestart" title="Permanent link">&para;</a></h3>
+<h3 id="in-place-upgrade-stopreplacestart">In-place upgrade (stop/replace/start)<a data-markdown-ignore class="headerlink" href="#in-place-upgrade-stopreplacestart" title="Permanent link">&para;</a></h3>
 <p>Downtime: short to moderate</p>
 <p>Risk: higher (shared data directory; fewer rollback options)</p>
 <p>Use when: the environment is simple, downtime is acceptable, and you have strong backups and validation.</p>
@@ -10710,7 +10710,7 @@ At cutover time, all writes on the current source will be halted, and the applic
 <li>Verified backup and restore</li>
 </ul>
 <p>Rollback: restore backup and revert binaries.</p>
-<h3 id="logical-dump-and-restore-clean-rebuild">Logical dump and restore (clean rebuild)<a class="headerlink" href="#logical-dump-and-restore-clean-rebuild" title="Permanent link">&para;</a></h3>
+<h3 id="logical-dump-and-restore-clean-rebuild">Logical dump and restore (clean rebuild)<a data-markdown-ignore class="headerlink" href="#logical-dump-and-restore-clean-rebuild" title="Permanent link">&para;</a></h3>
 <p>Downtime: moderate to high (data size dependent)</p>
 <p>Risk: moderate (clean metadata; slower for large datasets)</p>
 <p>Use when: you want a pristine 8.4 instance and can accept longer downtime.</p>
@@ -10720,7 +10720,7 @@ At cutover time, all writes on the current source will be halted, and the applic
 <li>Application maintenance window sized to data volume</li>
 </ul>
 <p>Rollback: keep 8.0 online until validation completes; redirect traffic back if needed.</p>
-<h3 id="side-by-side-with-replication-and-controlled-cutover">Side-by-side with replication and controlled cutover<a class="headerlink" href="#side-by-side-with-replication-and-controlled-cutover" title="Permanent link">&para;</a></h3>
+<h3 id="side-by-side-with-replication-and-controlled-cutover">Side-by-side with replication and controlled cutover<a data-markdown-ignore class="headerlink" href="#side-by-side-with-replication-and-controlled-cutover" title="Permanent link">&para;</a></h3>
 <p>Downtime: minimal (cutover only)</p>
 <p>Risk: lower (new environment; defined fallback until fail-forward)</p>
 <p>Use when: you need the smallest outage and can provision a parallel environment.</p>
@@ -10731,7 +10731,7 @@ At cutover time, all writes on the current source will be halted, and the applic
 </ul>
 <p>Cutover: stop writes on 8.0, allow replica to catch up, redirect traffic (VIP/DNS), then promote 8.4.</p>
 <p>Rollback: if issues arise before fail-forward, redirect traffic back to 8.0 and resume writes.</p>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="upgrade.html">Upgrade overview</a></li>
 <li><a href="upgrade-checklist-8.4.html">Upgrade checklist for 8.4</a></li>

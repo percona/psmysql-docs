@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10615,9 +10615,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
-<h2 id="general-restrictions">General restrictions<a class="headerlink" href="#general-restrictions" title="Permanent link">&para;</a></h2>
-<h3 id="event-coverage">Event coverage<a class="headerlink" href="#event-coverage" title="Permanent link">&para;</a></h3>
+<h1 id="audit-log-filter-restrictions">Audit Log Filter restrictions<a data-markdown-ignore class="headerlink" href="#audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
+<h2 id="general-restrictions">General restrictions<a data-markdown-ignore class="headerlink" href="#general-restrictions" title="Permanent link">&para;</a></h2>
+<h3 id="event-coverage">Event coverage<a data-markdown-ignore class="headerlink" href="#event-coverage" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>The component logs SQL statements only—not NoSQL APIs such as the Memcached interface.</p>
@@ -10629,7 +10629,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Set <code>audit_log_filter.event_mode</code> in <code>my.cnf</code> and restart the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently, in either direction between <code>REDUCED</code> and <code>FULL</code>. Audit output during the switch cannot be reconciled after the fact. If a restart is not possible, follow the <code>SET GLOBAL</code> change with <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> inside a maintenance window to narrow the window. For details, see <a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a>.</p>
 </li>
 </ul>
-<h3 id="cluster-and-replication">Cluster and replication<a class="headerlink" href="#cluster-and-replication" title="Permanent link">&para;</a></h3>
+<h3 id="cluster-and-replication">Cluster and replication<a data-markdown-ignore class="headerlink" href="#cluster-and-replication" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>On a cluster, install Audit Log Filter on every node that runs SQL.</p>
@@ -10643,7 +10643,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Replicated table rows alone do not refresh in-memory filter state. Restart, reload the component, or run <code>audit_log_filter_flush()</code> to apply table changes to the running component.</p>
 </li>
 </ul>
-<h3 id="filter-validation">Filter validation<a class="headerlink" href="#filter-validation" title="Permanent link">&para;</a></h3>
+<h3 id="filter-validation">Filter validation<a data-markdown-ignore class="headerlink" href="#filter-validation" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and <code>connection_type</code> accepts symbolic constants—see <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
@@ -10652,9 +10652,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Before 8.4.9-9, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>, <code>events</code> instead of <code>event</code>, <code>names</code> instead of <code>name</code>, <code>logs</code> instead of <code>log</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.</p>
 </li>
 </ul>
-<h2 id="synchronizing-audit-log-filters-between-a-source-and-a-replica">Synchronizing audit log filters between a source and a replica<a class="headerlink" href="#synchronizing-audit-log-filters-between-a-source-and-a-replica" title="Permanent link">&para;</a></h2>
+<h2 id="synchronizing-audit-log-filters-between-a-source-and-a-replica">Synchronizing audit log filters between a source and a replica<a data-markdown-ignore class="headerlink" href="#synchronizing-audit-log-filters-between-a-source-and-a-replica" title="Permanent link">&para;</a></h2>
 <p>Replicate the filter tables and run <code>audit_log_filter_flush()</code> on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a>.</p>
-<h3 id="procedure-scheduled-event-to-flush-filters-on-the-replica">Procedure: scheduled event to flush filters on the replica<a class="headerlink" href="#procedure-scheduled-event-to-flush-filters-on-the-replica" title="Permanent link">&para;</a></h3>
+<h3 id="procedure-scheduled-event-to-flush-filters-on-the-replica">Procedure: scheduled event to flush filters on the replica<a data-markdown-ignore class="headerlink" href="#procedure-scheduled-event-to-flush-filters-on-the-replica" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Install Percona Server for MySQL on the source with Audit Log Filter.</p>
@@ -10682,9 +10682,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ol>
 <p>If nothing appears, wait for the next event tick or run <code>SELECT audit_log_filter_flush();</code> on the replica immediately; confirm replication applied the rows and the event is <code>ENABLED</code>. Persistent gaps usually mean a replication issue—investigate the replica’s replication health.</p>
 <p>If the component is missing on either host, install it on source and replica independently.</p>
-<h3 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
+<h3 id="limitation">Limitation<a data-markdown-ignore class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
 <p>Direct <code>INSERT</code>/<code>UPDATE</code>/<code>DELETE</code> on the source without <code>audit_log_filter_flush()</code> there still replicate to the replica; the scheduled event flushes on the replica, so replica filters update while the source in-memory state stays stale until someone flushes there.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></li>
 <li><a href="filter-audit-log-filter-files.html">Filter the Audit Log Filter logs</a></li>

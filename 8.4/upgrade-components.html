@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10589,7 +10589,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="upgrade-from-plugins-to-components">Upgrade from plugins to components<a class="headerlink" href="#upgrade-from-plugins-to-components" title="Permanent link">&para;</a></h1>
+<h1 id="upgrade-from-plugins-to-components">Upgrade from plugins to components<a data-markdown-ignore class="headerlink" href="#upgrade-from-plugins-to-components" title="Permanent link">&para;</a></h1>
 <p><a href="https://www.percona.com/services/support">Need help navigating plugin to component transitions? Percona Support can assist <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>Percona Server for MySQL 8.4 introduces a shift from plugins to components for several key features, a change that requires a manual transition during the upgrade process. It is generally recommended to transition to the component version of a feature in the 8.0 series before performing the upgrade to 8.4 if both a plugin and a component are available for that feature.</p>
 <p>The following plugins have changed:</p>
@@ -10641,7 +10641,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="transition-a-plugin-to-a-component">Transition a plugin to a component<a class="headerlink" href="#transition-a-plugin-to-a-component" title="Permanent link">&para;</a></h2>
+<h2 id="transition-a-plugin-to-a-component">Transition a plugin to a component<a data-markdown-ignore class="headerlink" href="#transition-a-plugin-to-a-component" title="Permanent link">&para;</a></h2>
 <p>The operation to transition from a plugin to a component can be complicated. Always test the migration in a staging environment before applying the changes to the production servers. To ensure there is minimal interruption, the key preparation steps are the following:</p>
 <ul>
 <li>
@@ -10655,7 +10655,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Before you start, review the differences between the plugin and the component. The configuration of these features changes: plugins use system variables and the <code>--early-plugin-load</code> option, while components rely on a separate configuration file and are loaded using a manifest.</p>
-<h3 id="general-procedure">General procedure<a class="headerlink" href="#general-procedure" title="Permanent link">&para;</a></h3>
+<h3 id="general-procedure">General procedure<a data-markdown-ignore class="headerlink" href="#general-procedure" title="Permanent link">&para;</a></h3>
 <p>The general procedure for transitioning from a plugin to a component involves:</p>
 <ol>
 <li>
@@ -10672,7 +10672,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>This process should be carefully planned to minimize downtime and ensure that all existing functionality is correctly transferred.</p>
-<h3 id="transition-timing">Transition timing<a class="headerlink" href="#transition-timing" title="Permanent link">&para;</a></h3>
+<h3 id="transition-timing">Transition timing<a data-markdown-ignore class="headerlink" href="#transition-timing" title="Permanent link">&para;</a></h3>
 <p>The timing of the transition depends on the specific plugin:</p>
 <ul>
 <li>
@@ -10700,7 +10700,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Verify the component works correctly in 8.4.</p>
 </li>
 </ul>
-<h3 id="migrate-from-the-keyring_file-plugin-to-component_keyring_file">Migrate from the keyring_file plugin to component_keyring_file<a class="headerlink" href="#migrate-from-the-keyring_file-plugin-to-component_keyring_file" title="Permanent link">&para;</a></h3>
+<h3 id="migrate-from-the-keyring_file-plugin-to-component_keyring_file">Migrate from the keyring_file plugin to component_keyring_file<a data-markdown-ignore class="headerlink" href="#migrate-from-the-keyring_file-plugin-to-component_keyring_file" title="Permanent link">&para;</a></h3>
 <p>8.4 does not include the <code>keyring_file</code> plugin. If you upgrade an 8.0 server that uses <code>early-plugin-load=keyring_file.so</code> and has encrypted tables, the first 8.4 start fails with errors like the following. The package installation then fails as well:</p>
 <div class="no-copy highlight"><pre><span></span><code>[ERROR] [MY-010901] [Server] Can't open shared library '/usr/lib/mysql/plugin/keyring_file.so' ...
 [ERROR] [MY-012657] [InnoDB] Encryption can't find master key, please check the keyring is loaded.
@@ -10744,7 +10744,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>After the migration, upgrade to 8.4. The manifest and the component configuration file are not owned by the packages, so they remain in place after the package upgrade.</p>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="upgrade.html">Upgrade overview</a></li>
 <li><a href="upgrade-checklist-8.4.html">Upgrade checklist for 8.4</a></li>
@@ -10757,7 +10757,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li><a href="8.4-defaults-and-tuning.html">Defaults and tuning guidance for 8.4</a></li>
 <li><a href="percona-toolkit-8.4-updates.html">Percona Toolkit updates for 8.4</a></li>
 </ul>
-<h3 id="component-specific-documentation">Component-specific documentation<a class="headerlink" href="#component-specific-documentation" title="Permanent link">&para;</a></h3>
+<h3 id="component-specific-documentation">Component-specific documentation<a data-markdown-ignore class="headerlink" href="#component-specific-documentation" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="install-component.html">Install a component</a></li>
 <li><a href="uninstall-component.html">Uninstall a component</a></li>

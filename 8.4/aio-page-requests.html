@@ -139,7 +139,7 @@ reads more efficiently.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10593,7 +10593,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="multiple-page-asynchronous-io-requests">Multiple page asynchronous I/O requests<a class="headerlink" href="#multiple-page-asynchronous-io-requests" title="Permanent link">&para;</a></h1>
+<h1 id="multiple-page-asynchronous-io-requests">Multiple page asynchronous I/O requests<a data-markdown-ignore class="headerlink" href="#multiple-page-asynchronous-io-requests" title="Permanent link">&para;</a></h1>
 <p>The I/O unit size in <em>InnoDB</em> is only one page, even if the server doing read ahead. A 16KB
 I/O unit size is too small for sequential reads, and less efficient than a larger I/O unit size. <em>InnoDB</em> uses Linux asynchronous I/O (<code>aio</code>) by default. By submitting multiple, consecutive 16KB read requests at the same time, Linux internally merges the requests and
 reads more efficiently. </p>
@@ -10601,8 +10601,8 @@ reads more efficiently. </p>
 <p><a href="http://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">On a HDD RAID 1+0 environment <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>,
 more than 1000MB/s disk reads can be achieved by submitting 64 consecutive pages
 requests at once, while only 160MB/s disk reads is shown by submitting single page request.</p>
-<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<h3 id="innodb_buffered_aio_submitted"><code>Innodb_buffered_aio_submitted</code><a class="headerlink" href="#innodb_buffered_aio_submitted" title="Permanent link">&para;</a></h3>
+<h2 id="status-variables">Status variables<a data-markdown-ignore class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
+<h3 id="innodb_buffered_aio_submitted"><code>Innodb_buffered_aio_submitted</code><a data-markdown-ignore class="headerlink" href="#innodb_buffered_aio_submitted" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10622,7 +10622,7 @@ requests at once, while only 160MB/s disk reads is shown by submitting single pa
 </tbody>
 </table>
 <p>This variable shows the number of submitted buffered asynchronous I/O requests.</p>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<h2 id="other-reading">Other reading<a data-markdown-ignore class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="https://yoshinorimatsunobu.blogspot.hr/2013/10/making-full-table-scan-10x-faster-in.html">Making full table scan 10x faster in InnoDB <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></p>

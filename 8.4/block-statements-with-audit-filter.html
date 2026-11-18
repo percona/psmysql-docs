@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10703,7 +10703,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="block-statements-with-an-audit-log-filter">Block statements with an audit log filter<a class="headerlink" href="#block-statements-with-an-audit-log-filter" title="Permanent link">&para;</a></h1>
+<h1 id="block-statements-with-an-audit-log-filter">Block statements with an audit log filter<a data-markdown-ignore class="headerlink" href="#block-statements-with-an-audit-log-filter" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter can do more than observe. An <code>abort</code> item inside an <code>event</code> block prevents matching statements from executing. Blocked statements are recorded in the server error log (not the audit log), and the client sees the following error:</p>
 <div class="highlight"><pre><span></span><code>ERROR 1045 (28000): Statement was aborted by an audit log filter
 </code></pre></div>
@@ -10713,7 +10713,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Warning</p>
 <p>You can lock yourself out. If an <code>abort</code> rule matches a statement your own account runs, the statement fails. The <code>AUDIT_ABORT_EXEMPT</code> privilege bypasses <code>abort</code> conditions and lets you recover from a misconfiguration. The component grants <code>AUDIT_ABORT_EXEMPT</code> automatically to <code>SYSTEM_USER</code> accounts. Keep at least one such account available.</p>
 </div>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<h2 id="syntax">Syntax<a data-markdown-ignore class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p><code>abort</code> lives inside an <code>event</code> block and can be:</p>
 <ul>
 <li>A Boolean — <code>true</code> aborts every event the <code>event</code> block matches; <code>false</code> is a no-op.</li>
@@ -10725,7 +10725,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>For the field grammar used in conditions, see <a href="write-filter-definitions.html#test-event-field-values">Test event field values</a> and <a href="write-filter-definitions.html#combine-conditions-with-logical-operators">Combine conditions with logical operators</a> on the authoring page.</p>
-<h2 id="example-1-block-all-dml-on-any-table">Example 1: Block all DML on any table<a class="headerlink" href="#example-1-block-all-dml-on-any-table" title="Permanent link">&para;</a></h2>
+<h2 id="example-1-block-all-dml-on-any-table">Example 1: Block all DML on any table<a data-markdown-ignore class="headerlink" href="#example-1-block-all-dml-on-any-table" title="Permanent link">&para;</a></h2>
 <p>This filter blocks <code>insert</code>, <code>update</code>, and <code>delete</code> statements against every table:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10740,7 +10740,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>Use this kind of rule on a standby or read-only replica to enforce immutability at the SQL surface, then assign it with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>.</p>
-<h2 id="example-2-block-dml-on-a-specific-table">Example 2: Block DML on a specific table<a class="headerlink" href="#example-2-block-dml-on-a-specific-table" title="Permanent link">&para;</a></h2>
+<h2 id="example-2-block-dml-on-a-specific-table">Example 2: Block DML on a specific table<a data-markdown-ignore class="headerlink" href="#example-2-block-dml-on-a-specific-table" title="Permanent link">&para;</a></h2>
 <p>Restrict the block to a single table by comparing <code>table_database.str</code> and <code>table_name.str</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10760,7 +10760,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>Every attempt to write to <code>finances.bank_account</code> — regardless of which application issued it — fails with the audit abort error. The server error log records the block; the audit log file does not.</p>
-<h2 id="example-3-block-a-list-of-tables">Example 3: Block a list of tables<a class="headerlink" href="#example-3-block-a-list-of-tables" title="Permanent link">&para;</a></h2>
+<h2 id="example-3-block-a-list-of-tables">Example 3: Block a list of tables<a data-markdown-ignore class="headerlink" href="#example-3-block-a-list-of-tables" title="Permanent link">&para;</a></h2>
 <p>Use <code>or</code> to enumerate several target tables inside the same <code>and</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10785,7 +10785,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="combine-blocking-with-logging">Combine blocking with logging<a class="headerlink" href="#combine-blocking-with-logging" title="Permanent link">&para;</a></h2>
+<h2 id="combine-blocking-with-logging">Combine blocking with logging<a data-markdown-ignore class="headerlink" href="#combine-blocking-with-logging" title="Permanent link">&para;</a></h2>
 <p>Blocking and logging are independent. The same <code>event</code> block cannot carry both <code>log</code> and <code>abort</code>; use separate event blocks when you need both behaviors on the same class. The example below logs <code>read</code> access to <code>bank_account</code> and blocks <code>insert</code>, <code>update</code>, and <code>delete</code> against it:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10809,7 +10809,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="recovery">Recovery<a class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
+<h2 id="recovery">Recovery<a data-markdown-ignore class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
 <p>If an <code>abort</code> rule prevents administrators from running essential statements:</p>
 <ol>
 <li>Connect with an account that holds <code>AUDIT_ABORT_EXEMPT</code> (typically a <code>SYSTEM_USER</code> account).</li>
@@ -10817,7 +10817,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Reassign accounts with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a> if needed.</li>
 </ol>
 <p>Test <code>abort</code> rules on a clone before applying them to production.</p>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="write-filter-definitions.html">Write audit_log_filter definitions</a> — base grammar and <code>log</code> conditions.</li>
 <li><a href="redact-audit-log-fields.html">Redact audit log fields</a> — hide statement text with <code>print</code> / <code>replace</code>.</li>

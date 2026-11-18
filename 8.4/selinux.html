@@ -138,7 +138,7 @@ Importance of SELinux context for administrators and users">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10944,7 +10944,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="secure-percona-server-for-mysql-with-selinux">Secure Percona Server for MySQL with SELinux<a class="headerlink" href="#secure-percona-server-for-mysql-with-selinux" title="Permanent link">&para;</a></h1>
+<h1 id="secure-percona-server-for-mysql-with-selinux">Secure Percona Server for MySQL with SELinux<a data-markdown-ignore class="headerlink" href="#secure-percona-server-for-mysql-with-selinux" title="Permanent link">&para;</a></h1>
 <p>Understanding SELinux labels and their components (user, role, type, sensitivity level)
 Importance of SELinux context for administrators and users</p>
 <p>MySQL SELinux Policy
@@ -10955,7 +10955,7 @@ Compatibility of Percona Server for MySQL with CentOS 7 and CentOS 8 SELinux pol
 <p>For processes, SELinux defines policies based on their security context, such as their domain and role. These policies specify which operations a process can perform and what resources it can access. For example, a web server process may be allowed to read web content files but not modify system configuration files.
 Similarly, files and directories are assigned security contexts that dictate how processes can access them. SELinux policies define rules governing interactions between processes and files based on their contexts. For instance, a database file may only be accessible for reading and writing by the database server process, while other processes are restricted from accessing it.</p>
 <p>Overall, SELinux acts as a guardrail for system resources, ensuring that only authorized processes can access sensitive files and directories, thereby bolstering system security. Understanding SELinux and its access policies is crucial for maintaining a secure and robust MySQL environment.</p>
-<h2 id="understanding-selinux-labels-and-their-components">Understanding SELinux labels and their components<a class="headerlink" href="#understanding-selinux-labels-and-their-components" title="Permanent link">&para;</a></h2>
+<h2 id="understanding-selinux-labels-and-their-components">Understanding SELinux labels and their components<a data-markdown-ignore class="headerlink" href="#understanding-selinux-labels-and-their-components" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10982,17 +10982,17 @@ Similarly, files and directories are assigned security contexts that dictate how
 </tr>
 </tbody>
 </table>
-<h2 id="importance-of-selinux-context-for-administrators-and-users">Importance of SELinux context for administrators and users<a class="headerlink" href="#importance-of-selinux-context-for-administrators-and-users" title="Permanent link">&para;</a></h2>
+<h2 id="importance-of-selinux-context-for-administrators-and-users">Importance of SELinux context for administrators and users<a data-markdown-ignore class="headerlink" href="#importance-of-selinux-context-for-administrators-and-users" title="Permanent link">&para;</a></h2>
 <p>Understanding SELinux context is crucial for administrators and users because it determines how processes interact with system resources. By assigning specific labels to users, roles, types, and sensitivity levels, SELinux ensures that only authorized actions are permitted. This granular control enhances system security by restricting unauthorized access and preventing malicious activities. Administrators rely on SELinux context to configure policies that align with organizational security requirements, while users benefit from a secure environment where their actions are safeguarded against potential threats. Overall, SELinux context plays a pivotal role in maintaining the integrity and confidentiality of system operations.</p>
-<h2 id="explanation-of-selinux-policy-for-mysql">Explanation of SELinux Policy for MySQL<a class="headerlink" href="#explanation-of-selinux-policy-for-mysql" title="Permanent link">&para;</a></h2>
+<h2 id="explanation-of-selinux-policy-for-mysql">Explanation of SELinux Policy for MySQL<a data-markdown-ignore class="headerlink" href="#explanation-of-selinux-policy-for-mysql" title="Permanent link">&para;</a></h2>
 <p>SELinux is a security feature in Linux that controls access to various resources such as files, directories, and network ports based on defined policies. For MySQL, SELinux has a specific policy that governs how the MySQL server process interacts with the system and other resources.</p>
 <p>This policy defines rules for MySQL&rsquo;s behavior, including which files it can access, which network ports it can use, and what actions it can perform. These rules help enforce security by restricting MySQL&rsquo;s actions to only those that are necessary for its operation, preventing unauthorized access and potential security breaches.</p>
 <p>The SELinux policy for MySQL ensures that the MySQL server process operates within predefined boundaries, limiting its capabilities to minimize the risk of exploitation or unauthorized access to sensitive data.</p>
-<h2 id="compatibility-of-percona-server-for-mysql-with-selinux-policies">Compatibility of Percona Server for MySQL with SELinux Policies<a class="headerlink" href="#compatibility-of-percona-server-for-mysql-with-selinux-policies" title="Permanent link">&para;</a></h2>
+<h2 id="compatibility-of-percona-server-for-mysql-with-selinux-policies">Compatibility of Percona Server for MySQL with SELinux Policies<a data-markdown-ignore class="headerlink" href="#compatibility-of-percona-server-for-mysql-with-selinux-policies" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL is a drop-in replacement for MySQL that offers enhanced performance, scalability, and other features. When running Percona Server for MySQL on Red Hat Enterprise Linux (RHEL) 8, RHEL 9, or their derivatives, compatibility with SELinux policies is essential for ensuring secure and reliable operation.</p>
 <p>Percona Server for MySQL is designed to be compatible with SELinux policies on these Linux distributions. This means that Percona Server for MySQL can seamlessly integrate with SELinux, allowing administrators to enforce security policies and restrictions without sacrificing the functionality or performance of the database server.</p>
 <p>By adhering to SELinux policies, Percona Server for MySQL ensures that it operates within the confines defined by SELinux, preventing any unauthorized or potentially malicious actions that could compromise the system&rsquo;s security. This compatibility with SELinux policies enhances the overall security posture of Percona Server for MySQL deployments on RHEL and its derivatives, providing peace of mind to administrators and users alike.</p>
-<h2 id="selinux-context-example">SELinux context example<a class="headerlink" href="#selinux-context-example" title="Permanent link">&para;</a></h2>
+<h2 id="selinux-context-example">SELinux context example<a data-markdown-ignore class="headerlink" href="#selinux-context-example" title="Permanent link">&para;</a></h2>
 <p>To view the SELinux context, add the <code>-Z</code> switch to many of the utilities. Here is an example of the context for <code>mysqld</code>:</p>
 <div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld_t
 </code></pre></div>
@@ -11017,7 +11017,7 @@ Similarly, files and directories are assigned security contexts that dictate how
 </li>
 </ul>
 <p>Most SELinux policy rules are based on the type or domain.</p>
-<h2 id="list-selinux-types-or-domains-associated-with-files">List SELinux types or domains associated with files<a class="headerlink" href="#list-selinux-types-or-domains-associated-with-files" title="Permanent link">&para;</a></h2>
+<h2 id="list-selinux-types-or-domains-associated-with-files">List SELinux types or domains associated with files<a data-markdown-ignore class="headerlink" href="#list-selinux-types-or-domains-associated-with-files" title="Permanent link">&para;</a></h2>
 <p>The security property that SELinux relies on is the Type security property. The type name often end with a <code>_t</code>. A group of objects with the same type security value belongs to the same domain.</p>
 <p>To view the <code>mysqldb_t</code> types associated with the MySQL directories and files, run the following command:</p>
 <div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysql
@@ -11033,7 +11033,7 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 <p class="admonition-title">Note</p>
 <p>If a policy type does not define the type property for an object, the default value is <code>unconfined_t</code>.</p>
 </div>
-<h2 id="selinux-modes">SELinux modes<a class="headerlink" href="#selinux-modes" title="Permanent link">&para;</a></h2>
+<h2 id="selinux-modes">SELinux modes<a data-markdown-ignore class="headerlink" href="#selinux-modes" title="Permanent link">&para;</a></h2>
 <p>SELinux has the following modes:</p>
 <ul>
 <li>
@@ -11046,7 +11046,7 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 <p>Enforcing - SELinux is active, and violations are reported and denied. If there is no rule to allow access to a confined resource, SELinux denies the access.</p>
 </li>
 </ul>
-<h2 id="policy-types">Policy types<a class="headerlink" href="#policy-types" title="Permanent link">&para;</a></h2>
+<h2 id="policy-types">Policy types<a data-markdown-ignore class="headerlink" href="#policy-types" title="Permanent link">&para;</a></h2>
 <p>SELinux has several policy types:</p>
 <ul>
 <li>
@@ -11059,7 +11059,7 @@ drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 <p>SELinux has confined processes that run in a domain and restricts everything unless explicitly allowed. An unconfined process in an unconfined domain is allowed almost all access.</p>
 <p>MySQL is a confined process, and the policy module defines which files are read, which ports are opened, and so on. SELinux assumes the <em>Percona Server for MySQL</em> installation uses the default file locations and default ports.</p>
 <p>If you change the default, you must also edit the policy. If you do not update the policy, SELinux, in enforcing mode, denies access to all non-default resources.</p>
-<h2 id="check-the-selinux-mode">Check the SELinux mode<a class="headerlink" href="#check-the-selinux-mode" title="Permanent link">&para;</a></h2>
+<h2 id="check-the-selinux-mode">Check the SELinux mode<a data-markdown-ignore class="headerlink" href="#check-the-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>To check the current SELinux mode, use either of the following commands:</p>
 <div class="highlight"><pre><span></span><code>sestatus
 </code></pre></div>
@@ -11098,10 +11098,10 @@ selinuxuser_mysql_connect_enabled
 </code></pre></div>
 </details>
 <p>The <code>/etc/selinux/config</code> file controls if SELinux is disabled or enabled, and if enabled, whether SELinux operates in enforcing mode or permissive mode.</p>
-<h2 id="disable-selinux">Disable SELinux<a class="headerlink" href="#disable-selinux" title="Permanent link">&para;</a></h2>
+<h2 id="disable-selinux">Disable SELinux<a data-markdown-ignore class="headerlink" href="#disable-selinux" title="Permanent link">&para;</a></h2>
 <p>If you plan to use the enforcing mode at another time, use the permissive mode instead of disabling SELinux. During the time that SELinux is disabled, the system may contain mislabeled objects or objects with no label. If you re-enable SELinux and plan to set SELinux to enforcing, you must follow the steps to Relabel the entire file system.</p>
 <p>On boot, to disable SELinux, set the <code>selinux=0</code> kernel option. The kernel does not load the SELinux infrastructure. This option has the same effect as changing the <code>SELINUX=disabled</code> instruction in the configuration file and then rebooting the system.</p>
-<h2 id="additional-selinux-tools">Additional SELinux tools<a class="headerlink" href="#additional-selinux-tools" title="Permanent link">&para;</a></h2>
+<h2 id="additional-selinux-tools">Additional SELinux tools<a data-markdown-ignore class="headerlink" href="#additional-selinux-tools" title="Permanent link">&para;</a></h2>
 <p>Install the SELinux management tools, such as <code>semanage</code> or <code>sesearch</code>, if needed.</p>
 <p>On RHEL 8 or compatible operating systems, use the following command as root:</p>
 <div class="highlight"><pre><span></span><code>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python-utils
@@ -11110,7 +11110,7 @@ selinuxuser_mysql_connect_enabled
 <p class="admonition-title">Note</p>
 <p>You may need root privileges to run SELinux management commands.</p>
 </div>
-<h2 id="switch-the-mode-in-the-configuration-file">Switch the mode in the configuration file<a class="headerlink" href="#switch-the-mode-in-the-configuration-file" title="Permanent link">&para;</a></h2>
+<h2 id="switch-the-mode-in-the-configuration-file">Switch the mode in the configuration file<a data-markdown-ignore class="headerlink" href="#switch-the-mode-in-the-configuration-file" title="Permanent link">&para;</a></h2>
 <p>Switching between modes may help when troubleshooting or when modifying rules.</p>
 <p>To permanently change the mode, edit the <code>/etc/selinux/config</code> file and change the <code>SELINUX=</code> value. You should also verify the change.</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/selinux/config<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">SELINUX</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>^#
@@ -11133,7 +11133,7 @@ SELINUX=permissive
 </details>
 <p>Reboot your system after the change.</p>
 <p>If switching from either disabled mode or permissive mode to enforcing, see Relabel the entire file system.</p>
-<h2 id="switch-the-mode-until-the-next-reboot">Switch the mode until the next reboot<a class="headerlink" href="#switch-the-mode-until-the-next-reboot" title="Permanent link">&para;</a></h2>
+<h2 id="switch-the-mode-until-the-next-reboot">Switch the mode until the next reboot<a data-markdown-ignore class="headerlink" href="#switch-the-mode-until-the-next-reboot" title="Permanent link">&para;</a></h2>
 <p>To change the mode until the next reboot, use either of the following commands as root:</p>
 <div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span>Enforcing
 </code></pre></div>
@@ -11176,7 +11176,7 @@ SELINUX=permissive
 Mode from config file:          enforcing
 </code></pre></div>
 </details>
-<h2 id="switch-the-mode-for-a-service">Switch the mode for a service<a class="headerlink" href="#switch-the-mode-for-a-service" title="Permanent link">&para;</a></h2>
+<h2 id="switch-the-mode-for-a-service">Switch the mode for a service<a data-markdown-ignore class="headerlink" href="#switch-the-mode-for-a-service" title="Permanent link">&para;</a></h2>
 <p>You can move one or more services into a permissive domain. The other services remain in enforcing mode.</p>
 <p>To add a service to the permissive domain, run the following as root:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>mysqld_t
@@ -11199,7 +11199,7 @@ Builtin Permissive Types
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>mysqld_t
 </code></pre></div>
 <p>The service returns to the system’s SELinux mode. Be sure to follow the steps to Relabel the entire file system.</p>
-<h2 id="relabel-the-entire-file-system">Relabel the entire file system<a class="headerlink" href="#relabel-the-entire-file-system" title="Permanent link">&para;</a></h2>
+<h2 id="relabel-the-entire-file-system">Relabel the entire file system<a data-markdown-ignore class="headerlink" href="#relabel-the-entire-file-system" title="Permanent link">&para;</a></h2>
 <p>Switching from disabled or permissive to enforcing requires additional steps. The enforcing mode requires the correct contexts, or labels, to function. The permissive mode allows users and processes to label files and system objects incorrectly. The disabled mode does not load the SELinux infrastructure and does not label resources or processes.</p>
 <p>RHEL and compatible systems, use the <code>fixfiles</code> application for relabeling. You can relabel the entire file system or the file contexts of an application.</p>
 <p>For one application, run the following command:</p>
@@ -11217,7 +11217,7 @@ Builtin Permissive Types
 <p class="admonition-title">Note</p>
 <p>Relabeling an entire filesystem takes time. When the relabeling is complete, the system reboots again.</p>
 </div>
-<h2 id="set-a-custom-data-directory">Set a custom data directory<a class="headerlink" href="#set-a-custom-data-directory" title="Permanent link">&para;</a></h2>
+<h2 id="set-a-custom-data-directory">Set a custom data directory<a data-markdown-ignore class="headerlink" href="#set-a-custom-data-directory" title="Permanent link">&para;</a></h2>
 <p>If you do not use the default settings, SELinux, in enforcing mode, prevents access to the system.</p>
 <p>For example, during installation, you have used the following configuration:</p>
 <div class="no-copy highlight"><pre><span></span><code>datadir=/var/lib/mysqlcustom
@@ -11284,7 +11284,7 @@ SELinux is preventing mysqld from getattr access to the file /var/lib/mysqlcusto
 </code></pre></div>
 </li>
 </ol>
-<h2 id="set-a-custom-log-location">Set a custom log location<a class="headerlink" href="#set-a-custom-log-location" title="Permanent link">&para;</a></h2>
+<h2 id="set-a-custom-log-location">Set a custom log location<a data-markdown-ignore class="headerlink" href="#set-a-custom-log-location" title="Permanent link">&para;</a></h2>
 <p>If you do not use the default settings, SELinux, in enforcing mode, prevents access to the location. Change the log location to a custom location in my.cnf:</p>
 <div class="highlight"><pre><span></span><code>log-error=/logs/mysqld.log
 </code></pre></div>
@@ -11473,7 +11473,7 @@ allow mysqld_t default_t:file { append create open };
 <p class="admonition-title">Note</p>
 <p>Use this procedure to adjust the local mysqld policy module. You should review the changes which are generated to ensure the rules are not too tolerant.</p>
 </div>
-<h2 id="set-secure_file_priv-directory">Set <code>secure_file_priv</code> directory<a class="headerlink" href="#set-secure_file_priv-directory" title="Permanent link">&para;</a></h2>
+<h2 id="set-secure_file_priv-directory">Set <code>secure_file_priv</code> directory<a data-markdown-ignore class="headerlink" href="#set-secure_file_priv-directory" title="Permanent link">&para;</a></h2>
 <p>Update the SELinux tags for the <code>/var/lib/mysql-files/</code> directory, used for <code>SELECT ... INTO OUTFILE</code> or similar operations, if required. The server needs only read/write access to the destination directory.</p>
 <p>To set <code>secure_file_priv</code> to use this directory, run the following commands to set the context:</p>
 <div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>fcontext<span class="w"> </span>-a<span class="w"> </span>-t<span class="w"> </span>mysqld_db_t<span class="w"> </span><span class="s2">"/var/lib/mysql-files/(/.*)?"</span>

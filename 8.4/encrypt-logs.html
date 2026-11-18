@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10637,16 +10637,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="log-encryption">Log encryption<a class="headerlink" href="#log-encryption" title="Permanent link">&para;</a></h1>
+<h1 id="log-encryption">Log encryption<a data-markdown-ignore class="headerlink" href="#log-encryption" title="Permanent link">&para;</a></h1>
 <p>Describes the redo log encryption and the undo log encryption.</p>
-<h2 id="redo-log-encryption">Redo Log encryption<a class="headerlink" href="#redo-log-encryption" title="Permanent link">&para;</a></h2>
+<h2 id="redo-log-encryption">Redo Log encryption<a data-markdown-ignore class="headerlink" href="#redo-log-encryption" title="Permanent link">&para;</a></h2>
 <p>Use the <code>innodb_redo_log_encrypt</code> option to enable or disable redo log data encryption. By default, the encryption of the redo log is disabled.</p>
 <p>InnoDB uses the tablespace encryption key to encrypt the redo log data. If the encryption is enabled, when the server encrypts and writes the redo log data to the disk. When the server reads the redo log data from disk, the data is decrypted.</p>
 <p>Changing the encryption does not change existing redo log pages. Setting the option to <code>ON</code>, any existing redo log pages remain unencrypted; writing new pages to disk encrypts them. Setting the option to <code>OFF</code>, any existing encrypted pages remain encrypted; writing new pages to disk are unencrypted.</p>
 <p>The metadata for the redo log encryption includes the tablespace encryption key and is stored the in redo log file header. Removing the encryption metadata disables the redo log encryption.</p>
 <p>Without the keyring component or the encryption key, a normal restart is not possible. InnoDB scans the redo log pages during startup. If the encryption options are not available, InnoDB cannot scan these pages. A forced startup without the redo logs is possible.</p>
-<h2 id="option">Option<a class="headerlink" href="#option" title="Permanent link">&para;</a></h2>
-<h3 id="innodb_redo_log_encrypt"><code>innodb_redo_log_encrypt</code><a class="headerlink" href="#innodb_redo_log_encrypt" title="Permanent link">&para;</a></h3>
+<h2 id="option">Option<a data-markdown-ignore class="headerlink" href="#option" title="Permanent link">&para;</a></h2>
+<h3 id="innodb_redo_log_encrypt"><code>innodb_redo_log_encrypt</code><a data-markdown-ignore class="headerlink" href="#innodb_redo_log_encrypt" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10696,13 +10696,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Determines the encryption for the table redo log data. The default option for the variable is <code>OFF</code>.</p>
-<h2 id="undo-log-encryption">Undo Log encryption<a class="headerlink" href="#undo-log-encryption" title="Permanent link">&para;</a></h2>
+<h2 id="undo-log-encryption">Undo Log encryption<a data-markdown-ignore class="headerlink" href="#undo-log-encryption" title="Permanent link">&para;</a></h2>
 <p>Use the <code>innodb_undo_log_encrypt</code> option to enable or disable undo log data encryption. By default, the option to encrypt the undo log data is disabled.</p>
 <p>InnoDB uses the tablespace encryption key to encrypt the undo log data. If the encryption is enabled, when the server encrypts and writes the undo log data to the disk. When the server reads the undo log data from disk, the data is decrypted.</p>
 <p>Changing the encryption does not change existing undo log pages. Setting the option to <code>ON</code>, any existing pages remain unencrypted; writing new pages to disk encrypts them. Setting the option to <code>OFF</code>, any existing encrypted pages remain encrypted; writing new pages to disk are unencrypted.</p>
 <p>The metadata for the redo log encryption includes the tablespace encryption key and is stored the in undo log file header.</p>
 <p>The server requires the keyring component used to encrypt log data until that data is truncated, even if the current option setting is <code>OFF</code>. When the undo tablespace is truncated, the encryption header is removed.</p>
-<h2 id="innodb_undo_log_encrypt"><code>innodb_undo_log_encrypt</code><a class="headerlink" href="#innodb_undo_log_encrypt" title="Permanent link">&para;</a></h2>
+<h2 id="innodb_undo_log_encrypt"><code>innodb_undo_log_encrypt</code><a data-markdown-ignore class="headerlink" href="#innodb_undo_log_encrypt" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10771,6 +10771,34 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
     
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 

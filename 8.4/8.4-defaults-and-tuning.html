@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10657,9 +10657,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="defaults-and-tuning-guidance-for-84">Defaults and tuning guidance for 8.4<a class="headerlink" href="#defaults-and-tuning-guidance-for-84" title="Permanent link">&para;</a></h1>
+<h1 id="defaults-and-tuning-guidance-for-84">Defaults and tuning guidance for 8.4<a data-markdown-ignore class="headerlink" href="#defaults-and-tuning-guidance-for-84" title="Permanent link">&para;</a></h1>
 <p>MySQL 8.4 updates several server defaults to align with modern CPUs, memory sizes, and SSD/NVMe storage. An in-place upgrade that blindly reuses an 8.0-era <code>my.cnf</code> may miss out on these improvements or cause unexpected performance behaviors. Review and re-evaluate your configuration on 8.4, or generate a new config, rather than carrying old settings forward.</p>
-<h2 id="notable-innodb-default-changes">Notable InnoDB default changes<a class="headerlink" href="#notable-innodb-default-changes" title="Permanent link">&para;</a></h2>
+<h2 id="notable-innodb-default-changes">Notable InnoDB default changes<a data-markdown-ignore class="headerlink" href="#notable-innodb-default-changes" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10736,7 +10736,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li><code>innodb_change_buffering</code> set to <code>none</code> reduces overhead for modern storage that handles random writes efficiently.</li>
 <li><code>innodb_doublewrite_pages</code> increased to 128 improves doublewrite performance on fast storage.</li>
 </ul>
-<h2 id="configuration-review-checklist">Configuration review checklist<a class="headerlink" href="#configuration-review-checklist" title="Permanent link">&para;</a></h2>
+<h2 id="configuration-review-checklist">Configuration review checklist<a data-markdown-ignore class="headerlink" href="#configuration-review-checklist" title="Permanent link">&para;</a></h2>
 <p>Use this to adapt an 8.0 configuration to 8.4:</p>
 <ul>
 <li>Remove overrides that merely reassert old 8.0 defaults unless they are proven necessary.</li>
@@ -10746,7 +10746,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>If <code>innodb_numa_interleave</code> is set to <code>OFF</code>, review <code>innodb_buffer_pool_populate</code>. In 8.4.10, disabling NUMA interleave also skipped startup pre-faulting. In 8.4.11, you must set <code>innodb_buffer_pool_populate=OFF</code> to keep that behavior.</li>
 <li>Generate a fresh config for 8.4 when possible; only reapply carefully justified overrides.</li>
 </ul>
-<h2 id="numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate<a class="headerlink" href="#numa-interleave-and-buffer-pool-populate" title="Permanent link">&para;</a></h2>
+<h2 id="numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate<a data-markdown-ignore class="headerlink" href="#numa-interleave-and-buffer-pool-populate" title="Permanent link">&para;</a></h2>
 <p>In 8.4.10, <code>innodb_numa_interleave</code> controlled both interleaved NUMA allocation and whether buffer pool pages were pre-faulted on startup.</p>
 <p>In 8.4.11, those behaviors are separate:</p>
 <ul>
@@ -10767,13 +10767,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
 </code></pre></div>
 <p>Without <code>MAP_POPULATE</code> (<code>innodb_buffer_pool_populate=OFF</code> in 8.4.11, or <code>innodb_numa_interleave=OFF</code> in 8.4.10), <code>mmap</code> raises only virtual size (VSZ). Resident set size (RSS) grows as pages are first touched.</p>
-<h2 id="practical-evaluation-steps">Practical evaluation steps<a class="headerlink" href="#practical-evaluation-steps" title="Permanent link">&para;</a></h2>
+<h2 id="practical-evaluation-steps">Practical evaluation steps<a data-markdown-ignore class="headerlink" href="#practical-evaluation-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Benchmark with your workload: establish a baseline on 8.0, then restore to 8.4 and run the same tests.</li>
 <li>Compare Performance Schema metrics and wait events for regressions or new hotspots.</li>
 <li>Adjust a single variable at a time; document changes and their impacts.</li>
 </ul>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="upgrade.html">Upgrade overview</a></li>
 <li><a href="upgrade-checklist-8.4.html">Upgrade checklist for 8.4</a></li>

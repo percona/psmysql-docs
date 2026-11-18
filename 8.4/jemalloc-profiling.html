@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10721,9 +10721,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="jemalloc-memory-allocation-profiling">Jemalloc memory allocation profiling<a class="headerlink" href="#jemalloc-memory-allocation-profiling" title="Permanent link">&para;</a></h1>
+<h1 id="jemalloc-memory-allocation-profiling">Jemalloc memory allocation profiling<a data-markdown-ignore class="headerlink" href="#jemalloc-memory-allocation-profiling" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.</p>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<h2 id="requirements">Requirements<a data-markdown-ignore class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>This memory-profiling requires <a href="#jemalloc_detected">jemalloc_detected</a>. This read-only variable returns <code>true</code> if jemalloc with the profiling-enabled option is being used by <em>Percona Server for MySQL</em>.</p>
 <p>As root, customize jemalloc with the following flags:</p>
 <table>
@@ -10753,7 +10753,7 @@ export LD_PRELOAD=/usr/lib/libjemalloc.so
 <!-- note:
 
 Ensure the ``libjemalloc.so`` exists in the LD path. -->
-<h2 id="use-percona-server-for-mysql-with-jemalloc-with-profiling-enabled">Use Percona Server for MySQL with jemalloc with profiling enabled<a class="headerlink" href="#use-percona-server-for-mysql-with-jemalloc-with-profiling-enabled" title="Permanent link">&para;</a></h2>
+<h2 id="use-percona-server-for-mysql-with-jemalloc-with-profiling-enabled">Use Percona Server for MySQL with jemalloc with profiling enabled<a data-markdown-ignore class="headerlink" href="#use-percona-server-for-mysql-with-jemalloc-with-profiling-enabled" title="Permanent link">&para;</a></h2>
 <p>To detect if jemalloc is set, run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">jemalloc_detected</span><span class="p">;</span>
 </code></pre></div>
@@ -10794,7 +10794,7 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h2 id="dumping-the-profile">Dumping the profile<a class="headerlink" href="#dumping-the-profile" title="Permanent link">&para;</a></h2>
+<h2 id="dumping-the-profile">Dumping the profile<a data-markdown-ignore class="headerlink" href="#dumping-the-profile" title="Permanent link">&para;</a></h2>
 <p>The profiling samples the <code>malloc()</code> calls and stores the sampled stack traces in a separate location in memory. These samples can be dumped into the filesystem. A dump returns a detailed view of the state of the memory.</p>
 <p>The process is global; therefore, only a single concurrent run is available. Each dump creates a new file with a unique timestamp, and previous dumps are retained unless manually deleted.</p>
 <p>Use the following command to create a profile dump file:</p>
@@ -10836,10 +10836,10 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p class="admonition-title">Note</p>
 <p>An example of <a href="https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking">allocation graph <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
-<h2 id="performance_schema-tables">PERFORMANCE_SCHEMA tables<a class="headerlink" href="#performance_schema-tables" title="Permanent link">&para;</a></h2>
+<h2 id="performance_schema-tables">PERFORMANCE_SCHEMA tables<a data-markdown-ignore class="headerlink" href="#performance_schema-tables" title="Permanent link">&para;</a></h2>
 <p>The following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.</p>
 <p>More information about the stats that are returned can be found in <a href="https://jemalloc.net/jemalloc.3.html">jemalloc <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="malloc_stats_totals">malloc_stats_totals<a class="headerlink" href="#malloc_stats_totals" title="Permanent link">&para;</a></h2>
+<h2 id="malloc_stats_totals">malloc_stats_totals<a data-markdown-ignore class="headerlink" href="#malloc_stats_totals" title="Permanent link">&para;</a></h2>
 <p>The current stats for allocations. All measurements are in bytes.</p>
 <table>
 <thead>
@@ -10875,7 +10875,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </tr>
 </tbody>
 </table>
-<h2 id="malloc_stats">malloc_stats<a class="headerlink" href="#malloc_stats" title="Permanent link">&para;</a></h2>
+<h2 id="malloc_stats">malloc_stats<a data-markdown-ignore class="headerlink" href="#malloc_stats" title="Permanent link">&para;</a></h2>
 <p>The cumulative statistics for allocations and deallocations for a running instance.</p>
 <table>
 <thead>
@@ -10907,9 +10907,9 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </tr>
 </tbody>
 </table>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
 <p>The following variables have been added:</p>
-<h3 id="jemalloc_detected">jemalloc_detected<a class="headerlink" href="#jemalloc_detected" title="Permanent link">&para;</a></h3>
+<h3 id="jemalloc_detected">jemalloc_detected<a data-markdown-ignore class="headerlink" href="#jemalloc_detected" title="Permanent link">&para;</a></h3>
 <p>Description: This read-only variable returns <code>true</code> if jemalloc with profiling enabled is detected. The following options are required:</p>
 <ul>
 <li>
@@ -10934,7 +10934,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p>Default Value: false</p>
 </li>
 </ul>
-<h3 id="jemalloc_profiling">jemalloc_profiling<a class="headerlink" href="#jemalloc_profiling" title="Permanent link">&para;</a></h3>
+<h3 id="jemalloc_profiling">jemalloc_profiling<a data-markdown-ignore class="headerlink" href="#jemalloc_profiling" title="Permanent link">&para;</a></h3>
 <p>Description: Enables jemalloc profiling. The variable requires <a href="#jemalloc_detected">jemalloc_detected</a>.</p>
 <ul>
 <li>
@@ -10956,7 +10956,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 <p>Default Value: OFF</p>
 </li>
 </ul>
-<h2 id="disable-profiling">Disable profiling<a class="headerlink" href="#disable-profiling" title="Permanent link">&para;</a></h2>
+<h2 id="disable-profiling">Disable profiling<a data-markdown-ignore class="headerlink" href="#disable-profiling" title="Permanent link">&para;</a></h2>
 <p>To disable jemalloc profiling, in a MySQL client, run the following command:</p>
 <div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
 </code></pre></div>
@@ -10997,6 +10997,39 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 
     
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 

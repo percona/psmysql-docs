@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10615,10 +10615,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="reading-audit-log-filter-files">Reading Audit Log Filter files<a class="headerlink" href="#reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
+<h1 id="reading-audit-log-filter-files">Reading Audit Log Filter files<a data-markdown-ignore class="headerlink" href="#reading-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>Audit Log Filter exposes a SQL API to read audit files in JSON or JSONL only. Layout and the JSONL option are covered in <a href="audit-log-filter-json.html">Audit Log Filter format - JSON and JSONL</a> and <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a>. Set <code>audit_log_filter.format</code> accordingly; <a href="audit-log-filter-variables.html#audit_log_filterfile"><code>audit_log_filter.file</code></a> defines the path, base name, and suffix used to locate files.</p>
 <p>If a file no longer matches that pattern, readers ignore it.</p>
-<h2 id="reader-functions">Reader functions<a class="headerlink" href="#reader-functions" title="Permanent link">&para;</a></h2>
+<h2 id="reader-functions">Reader functions<a data-markdown-ignore class="headerlink" href="#reader-functions" title="Permanent link">&para;</a></h2>
 <p>Two functions read JSON or JSONL audit files:</p>
 <ul>
 <li>
@@ -10628,35 +10628,35 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="audit-log-filter-variables.html#audit_log_read_bookmark"><code>audit_log_read_bookmark</code></a> — returns a bookmark for the last read position. Pass it into <code>audit_log_read()</code> to resume.</p>
 </li>
 </ul>
-<h2 id="read-commands">Read commands<a class="headerlink" href="#read-commands" title="Permanent link">&para;</a></h2>
+<h2 id="read-commands">Read commands<a data-markdown-ignore class="headerlink" href="#read-commands" title="Permanent link">&para;</a></h2>
 <p>A session holds at most one active read context. Pick one of the following commands to open, advance, or close it. For the full argument reference, see <a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read()</code></a>.</p>
-<h3 id="resume-from-a-bookmark">Resume from a bookmark<a class="headerlink" href="#resume-from-a-bookmark" title="Permanent link">&para;</a></h3>
+<h3 id="resume-from-a-bookmark">Resume from a bookmark<a data-markdown-ignore class="headerlink" href="#resume-from-a-bookmark" title="Permanent link">&para;</a></h3>
 <p>Start a read at the position returned by <code>audit_log_read_bookmark()</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="n">audit_log_read_bookmark</span><span class="p">());</span>
 </code></pre></div>
-<h3 id="start-at-a-timestamp">Start at a timestamp<a class="headerlink" href="#start-at-a-timestamp" title="Permanent link">&para;</a></h3>
+<h3 id="start-at-a-timestamp">Start at a timestamp<a data-markdown-ignore class="headerlink" href="#start-at-a-timestamp" title="Permanent link">&para;</a></h3>
 <p>Start a read at an explicit timestamp. When the timestamp omits a time part, the component assumes <code>00:00:00</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}}'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20"}}'</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="address-one-specific-event">Address one specific event<a class="headerlink" href="#address-one-specific-event" title="Permanent link">&para;</a></h3>
+<h3 id="address-one-specific-event">Address one specific event<a data-markdown-ignore class="headerlink" href="#address-one-specific-event" title="Permanent link">&para;</a></h3>
 <p>Pass a bookmark literal with <code>timestamp</code> and <code>id</code> and no <code>start</code> envelope:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"timestamp": "2026-05-20 12:28:10", "id": 1561422}'</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="limit-the-events-per-call">Limit the events per call<a class="headerlink" href="#limit-the-events-per-call" title="Permanent link">&para;</a></h3>
+<h3 id="limit-the-events-per-call">Limit the events per call<a data-markdown-ignore class="headerlink" href="#limit-the-events-per-call" title="Permanent link">&para;</a></h3>
 <p>Cap how many events a single call returns by adding <code>max_array_length</code> to any positioning form:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}'</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="continue-from-the-current-cursor">Continue from the current cursor<a class="headerlink" href="#continue-from-the-current-cursor" title="Permanent link">&para;</a></h3>
+<h3 id="continue-from-the-current-cursor">Continue from the current cursor<a data-markdown-ignore class="headerlink" href="#continue-from-the-current-cursor" title="Permanent link">&para;</a></h3>
 <p>After a read sequence is open, continue advancing without supplying a new position:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">();</span>
 </code></pre></div>
-<h3 id="close-the-active-sequence">Close the active sequence<a class="headerlink" href="#close-the-active-sequence" title="Permanent link">&para;</a></h3>
+<h3 id="close-the-active-sequence">Close the active sequence<a data-markdown-ignore class="headerlink" href="#close-the-active-sequence" title="Permanent link">&para;</a></h3>
 <p>Release the reader cursor before opening a new sequence at a different position:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'null'</span><span class="p">);</span>
 </code></pre></div>
 <p>A read sequence also ends when the session ends. A single call cannot combine the <code>start</code> envelope with a top-level <code>timestamp</code> or <code>id</code>. To reposition while a sequence is active, close it first with <code>'null'</code>.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="audit-log-filter-json.html">Audit Log Filter format - JSON and JSONL</a></li>
 <li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>

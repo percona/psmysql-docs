@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10591,13 +10591,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="operating-system-libraries">Operating system libraries<a class="headerlink" href="#operating-system-libraries" title="Permanent link">&para;</a></h1>
+<h1 id="operating-system-libraries">Operating system libraries<a data-markdown-ignore class="headerlink" href="#operating-system-libraries" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL loads shared libraries from the operating system. The generic binary tarball bundles many of those libraries. The DEB and RPM packages link the operating system copies instead, and <code>apt</code> or <code>dnf</code> installs them.</p>
 <p>Install the libraries on this page before you start the server. Use the row for the tarball or package you installed.</p>
-<h2 id="generic-binary-tarball">Generic binary tarball<a class="headerlink" href="#generic-binary-tarball" title="Permanent link">&para;</a></h2>
+<h2 id="generic-binary-tarball">Generic binary tarball<a data-markdown-ignore class="headerlink" href="#generic-binary-tarball" title="Permanent link">&para;</a></h2>
 <p><code>bin/mysqld</code> loads bundled libraries from <code>lib/private</code>. The glibc 2.35 tarball bundles <code>libaio</code> and <code>libnuma</code>. It does not bundle OpenSSL.</p>
 <p>The <a href="binary-tarball-names.html">binary tarball file names</a> page lists the operating system each tarball was built on. That build selects the shared library file names. A tarball built against OpenSSL 1.1 looks for <code>libssl.so.1.1</code>. The glibc 2.35 tarball looks for <code>libssl.so.3</code>.</p>
-<h3 id="libraries-the-server-needs-to-start">Libraries the server needs to start<a class="headerlink" href="#libraries-the-server-needs-to-start" title="Permanent link">&para;</a></h3>
+<h3 id="libraries-the-server-needs-to-start">Libraries the server needs to start<a data-markdown-ignore class="headerlink" href="#libraries-the-server-needs-to-start" title="Permanent link">&para;</a></h3>
 <p>These libraries are not in the glibc 2.35 tarball. Install them before you run <code>bin/mysqld</code>. <code>libstdc++6</code> and <code>libgcc-s1</code> are part of a normal Ubuntu installation.</p>
 <table>
 <thead>
@@ -10637,7 +10637,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>On Ubuntu 26.04, install the OpenSSL package with this command:</p>
 <div class="highlight"><pre><span></span><code>sudo apt install libssl3t64
 </code></pre></div>
-<h3 id="libraries-for-optional-features">Libraries for optional features<a class="headerlink" href="#libraries-for-optional-features" title="Permanent link">&para;</a></h3>
+<h3 id="libraries-for-optional-features">Libraries for optional features<a data-markdown-ignore class="headerlink" href="#libraries-for-optional-features" title="Permanent link">&para;</a></h3>
 <p>Install a package in this table only when you use the feature. These file names are the ones the glibc 2.35 tarball loads.</p>
 <table>
 <thead>
@@ -10715,7 +10715,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>On RHEL, use this command:</p>
 <div class="highlight"><pre><span></span><code>sudo dnf install &lt;package&gt;
 </code></pre></div>
-<h3 id="tarballs-built-against-openssl-11">Tarballs built against OpenSSL 1.1<a class="headerlink" href="#tarballs-built-against-openssl-11" title="Permanent link">&para;</a></h3>
+<h3 id="tarballs-built-against-openssl-11">Tarballs built against OpenSSL 1.1<a data-markdown-ignore class="headerlink" href="#tarballs-built-against-openssl-11" title="Permanent link">&para;</a></h3>
 <p>The glibc 2.28 and glibc 2.31 tarballs link OpenSSL 1.1 and OpenLDAP 2.4. On Ubuntu 22.04, <code>ldd</code> reports these files as not found:</p>
 <table>
 <thead>
@@ -10744,7 +10744,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Use the glibc 2.35 tarball on Ubuntu 22.04 and later so the server loads <code>libssl.so.3</code>.</p>
-<h2 id="deb-and-rpm-packages">DEB and RPM packages<a class="headerlink" href="#deb-and-rpm-packages" title="Permanent link">&para;</a></h2>
+<h2 id="deb-and-rpm-packages">DEB and RPM packages<a data-markdown-ignore class="headerlink" href="#deb-and-rpm-packages" title="Permanent link">&para;</a></h2>
 <p>The <code>percona-server-server</code> package links the operating system libraries in the following table. It does not use the libraries bundled in the generic tarball. <code>apt</code> and <code>dnf</code> install these packages when you install the server. Install them yourself only when you install downloaded packages with <code>dpkg</code> or <code>rpm</code>. Those tools do not resolve dependencies. See <a href="apt-download-deb.html">Downloaded DEB packages</a> and <a href="yum-download-rpm.html">Downloaded RPM packages</a>.</p>
 <table>
 <thead>

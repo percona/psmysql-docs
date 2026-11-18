@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10745,10 +10745,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="breaking-and-incompatible-changes-in-84">Breaking and incompatible changes in 8.4<a class="headerlink" href="#breaking-and-incompatible-changes-in-84" title="Permanent link">&para;</a></h1>
+<h1 id="breaking-and-incompatible-changes-in-84">Breaking and incompatible changes in 8.4<a data-markdown-ignore class="headerlink" href="#breaking-and-incompatible-changes-in-84" title="Permanent link">&para;</a></h1>
 <p>Review these items before upgrading from 8.0 to 8.4. This document covers the most significant breaking behavioral changes, removed features, and removed variables that may affect your upgrade. Each entry includes the impact, replacement (if available), and recommended action.</p>
 <p>Review the <a href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4 Reference manual <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for more information.</p>
-<h2 id="authentication-and-user-management">Authentication and user management<a class="headerlink" href="#authentication-and-user-management" title="Permanent link">&para;</a></h2>
+<h2 id="authentication-and-user-management">Authentication and user management<a data-markdown-ignore class="headerlink" href="#authentication-and-user-management" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li>
@@ -10774,7 +10774,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>If necessary for temporary compatibility, you can enable <code>mysql_native_password</code> with <code>--mysql-native-password=ON</code>, but plan to migrate accounts as this plugin will be removed in future versions.</li>
 <li>Validate that drivers and clients support <code>caching_sha2_password</code> and TLS.</li>
 </ul>
-<h2 id="replication-terminology-and-commands">Replication terminology and commands<a class="headerlink" href="#replication-terminology-and-commands" title="Permanent link">&para;</a></h2>
+<h2 id="replication-terminology-and-commands">Replication terminology and commands<a data-markdown-ignore class="headerlink" href="#replication-terminology-and-commands" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li>
@@ -10806,7 +10806,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Re-test replication lifecycle: provisioning, change-source, failover.</p>
 </li>
 </ul>
-<h2 id="spatial-indexes">Spatial indexes<a class="headerlink" href="#spatial-indexes" title="Permanent link">&para;</a></h2>
+<h2 id="spatial-indexes">Spatial indexes<a data-markdown-ignore class="headerlink" href="#spatial-indexes" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li>A known issue can corrupt a spatial index (R-Tree index) in MySQL 8.4.0 through 8.4.3. The corruption is triggered when an <code>UPDATE</code> that slightly changes a geometry&rsquo;s MBR (Minimum Bounding Rectangle) is immediately followed by a <code>DELETE</code> of the same row. The R-Tree index can retain a dangling leaf, leading to &ldquo;Incorrect key file&rdquo; errors.</li>
@@ -10831,7 +10831,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>As a precautionary measure, you can drop spatial indexes before upgrade and re-create them after upgrade, then verify integrity.</p>
 </li>
 </ul>
-<h2 id="new-reserved-keywords">New reserved keywords<a class="headerlink" href="#new-reserved-keywords" title="Permanent link">&para;</a></h2>
+<h2 id="new-reserved-keywords">New reserved keywords<a data-markdown-ignore class="headerlink" href="#new-reserved-keywords" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li>New reserved words (for example, <code>MANUAL</code>, <code>PARALLEL</code>, <code>QUALIFY</code>, <code>TABLESAMPLE</code>) may conflict with unquoted identifiers and break queries.</li>
@@ -10845,7 +10845,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>See: <a href="https://dev.mysql.com/doc/refman/8.4/en/keywords.html">Keywords and Reserved Words in MySQL 8.4</a> for the complete list of reserved keywords.</p>
 </li>
 </ul>
-<h2 id="data-type-restrictions">Data type restrictions<a class="headerlink" href="#data-type-restrictions" title="Permanent link">&para;</a></h2>
+<h2 id="data-type-restrictions">Data type restrictions<a data-markdown-ignore class="headerlink" href="#data-type-restrictions" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li><code>AUTO_INCREMENT</code> is not permitted on <code>FLOAT</code> or <code>DOUBLE</code>.</li>
@@ -10854,7 +10854,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Evaluate each case for the best solution.</li>
 </ul>
-<h2 id="removed-sql-function">Removed SQL function<a class="headerlink" href="#removed-sql-function" title="Permanent link">&para;</a></h2>
+<h2 id="removed-sql-function">Removed SQL function<a data-markdown-ignore class="headerlink" href="#removed-sql-function" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li><code>WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS()</code> function is removed (deprecated in 8.0).</li>
@@ -10867,7 +10867,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Replace function usage in procedures, scripts, and runbooks.</li>
 </ul>
-<h2 id="binary-log-retention-variable">Binary log retention variable<a class="headerlink" href="#binary-log-retention-variable" title="Permanent link">&para;</a></h2>
+<h2 id="binary-log-retention-variable">Binary log retention variable<a data-markdown-ignore class="headerlink" href="#binary-log-retention-variable" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li><code>expire_logs_days</code> variable is removed.</li>
@@ -10880,7 +10880,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Adjust configuration and automation to use seconds-based retention.</li>
 </ul>
-<h2 id="memcached-related-variables-and-apis">Memcached-related variables and APIs<a class="headerlink" href="#memcached-related-variables-and-apis" title="Permanent link">&para;</a></h2>
+<h2 id="memcached-related-variables-and-apis">Memcached-related variables and APIs<a data-markdown-ignore class="headerlink" href="#memcached-related-variables-and-apis" title="Permanent link">&para;</a></h2>
 <p>Impact:</p>
 <ul>
 <li>Built-in memcached integration variables (for example, <code>daemon_memcached</code>, <code>innodb_api</code>, and related settings) are removed.</li>
@@ -10893,7 +10893,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul>
 <li>Remove dependencies on the built-in memcached functionality.</li>
 </ul>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="upgrade.html">Upgrade overview</a></li>
 <li><a href="upgrade-checklist-8.4.html">Upgrade checklist for 8.4</a></li>

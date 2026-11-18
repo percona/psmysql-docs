@@ -1,0 +1,131 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/8.4/llms.txt).
+
+# Upgrade from plugins to components
+
+[Need help navigating plugin to component transitions? Percona Support can assist](https://www.percona.com/services/support) .
+
+Percona Server for MySQL 8.4 introduces a shift from plugins to components for several key features, a change that requires a manual transition during the upgrade process. It is generally recommended to transition to the component version of a feature in the 8.0 series before performing the upgrade to 8.4 if both a plugin and a component are available for that feature.
+
+The following plugins have changed:
+
+| Plugin                                                      | 8.0 information                                                                                                                   | 8.4 changes                                                | Notes                                                                                                                                                                                                                                                                                                                           |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `keyring_file`                                              | Available as a plugin and component (`component_keyring_file`)                                                                    | Plugin removed; only `component_keyring_file` is available | Migrate the keys to the component in the 8.0 series **before** upgrading to 8.4. The 8.4 server cannot load the plugin, so it cannot open encrypted tablespaces, and the upgrade aborts. See [Migrate from the keyring_file plugin to component_keyring_file](#migrate-from-the-keyring_file-plugin-to-component_keyring_file). |
+| `keyring_vault`                                             | Only available as a plugin                                                                                                        | `component_keyring_vault`                                  | This plugin has been replaced by the `component_keyring_vault` component. The upgrade requires a manual conversion of the plugin’s configuration file from the `keyring_vault_config` system variable format to a JSON format.                                                                                                  |
+| `audit_log`                                                 | Only available as a plugin                                                                                                        | a deprecated plugin added in 8.4.7-7                       | The recommended replacement is `component_audit_log_filter`.                                                                                                                                                                                                                                                                    |
+| `audit_log_filter`                                          | Only available as a plugin                                                                                                        | `component_audit_log_filter`                               | This plugin has a corresponding component. The transition to the component should be performed after the upgrade to 8.4.                                                                                                                                                                                                        |
+| `data_masking`                                              | Available as a plugin and component                                                                                               | `component_masking_functions`                              | For this feature, it is specifically advised to transition to the `component_masking_functions` in the 8.0 series before upgrading to 8.4.                                                                                                                                                                                      |
+| `binlog_utils_udf` and `percona-udf` user defined functions | Previously installed via a plugin. Users must install the plugin and then run `CREATE FUNCTION ... SONAME ...` for each function. | `component_binlog_utils_udf` and `component_percona_udf`   | These user-defined functions, previously installed via plugins, are now available as components. After running `INSTALL COMPONENT`, all functions are automatically registered, which simplifies the process.                                                                                                                   |
+
+## Transition a plugin to a component
+
+The operation to transition from a plugin to a component can be complicated. Always test the migration in a staging environment before applying the changes to the production servers. To ensure there is minimal interruption, the key preparation steps are the following:
+
+- Plan for downtime
+- Create a comprehensive testing strategy
+- Verify that the existing functionality transfers correctly
+
+Before you start, review the differences between the plugin and the component. The configuration of these features changes: plugins use system variables and the `--early-plugin-load` option, while components rely on a separate configuration file and are loaded using a manifest.
+
+### General procedure
+
+The general procedure for transitioning from a plugin to a component involves:
+
+1. Setup the component’s configuration file.
+1. Load the component using the manifest (`INSTALL COMPONENT` or manifest file, as applicable).
+1. Confirm that the component works. Thoroughly test the component’s functionality in your staging environment. Run queries or other operations to verify all existing functionality is correctly transferred.
+1. After confirmation, remove the original plugin.
+
+This process should be carefully planned to minimize downtime and ensure that all existing functionality is correctly transferred.
+
+### Transition timing
+
+The timing of the transition depends on the specific plugin:
+
+- **Transition before upgrade**: For plugins that have both plugin and component versions available in 8.0 (for example, `data_masking`, `keyring_file`), transition to the component in 8.0 before upgrading to 8.4.
+- **Transition after upgrade**: For plugins that only exist as plugins in 8.0 but have component equivalents in 8.4 (for example, `audit_log_filter`, `keyring_vault`), you must upgrade to 8.4 first, then transition to the component. The general procedure for these cases is:
+- Test the plugin functionality in 8.0 to establish a baseline.
+- Stop the service and upgrade to 8.4.
+- Review and adjust configurations as needed (for example, convert `keyring_vault_config` system variable to JSON format for the component).
+- Start the new 8.4 server.
+- Transition to the component following the general procedure above.
+- Verify the component works correctly in 8.4.
+
+### Migrate from the keyring_file plugin to component_keyring_file
+
+8.4 does not include the `keyring_file` plugin. If you upgrade an 8.0 server that uses `early-plugin-load=keyring_file.so` and has encrypted tables, the first 8.4 start fails with errors like the following. The package installation then fails as well:
+
+```
+[ERROR] [MY-010901] [Server] Can't open shared library '/usr/lib/mysql/plugin/keyring_file.so' ...
+[ERROR] [MY-012657] [InnoDB] Encryption can't find master key, please check the keyring is loaded.
+[ERROR] [MY-011071] [Server] DD init failed: mode=DD_RESTART_OR_UPGRADE ...
+```
+
+You cannot fix this on the 8.4 side. `component_keyring_file` stores keys in a different (JSON) format and cannot read the plugin’s keyring file. Migrate the keys to the component while the server still runs 8.0, using a keyring migration server. For details, see [Migrating Keys Between Keyring Keystores](https://dev.mysql.com/doc/refman/8.0/en/keyring-key-migration.html) .
+
+The following procedure was tested with Percona Server for MySQL 8.0.46-37 on Ubuntu 24.04. It uses the Debian/Ubuntu paths: the plugin directory is `/usr/lib/mysql/plugin`, and the server binary is `/usr/sbin/mysqld`. Adjust the paths for your system; on RHEL and derivatives, the plugin directory is `/usr/lib64/mysql/plugin`. Back up the keyring file and the data directory before you start.
+
+1. Stop the 8.0 server:
+
+   ```
+   sudo systemctl stop mysql
+   ```
+
+1. Create the component configuration file. The `path` value is the new keyring file that the migration creates:
+
+   ```
+   echo '{ "path": "/var/lib/mysql-keyring/component_keyring_file", "read_only": false }' | sudo tee /usr/lib/mysql/plugin/component_keyring_file.cnf
+   ```
+
+   Do not create the manifest file (`mysqld.my`) yet. If the manifest already loads the component, the migration fails with `Can not perform keyring migration : Failed to initialize destination keyring`.
+
+1. Migrate the keys from the plugin keyring file (by default, `/var/lib/mysql-keyring/keyring`) to the component:
+
+   ```
+   sudo -u mysql /usr/sbin/mysqld --no-defaults --keyring-migration-to-component \
+      --keyring-migration-source=keyring_file.so --keyring_file_data=/var/lib/mysql-keyring/keyring \
+      --keyring-migration-destination=component_keyring_file.so
+   ```
+
+1. After the migration succeeds, create the global manifest file in the directory of the server binary so that the server loads the component:
+
+   ```
+   echo '{ "components": "file://component_keyring_file" }' | sudo tee /usr/sbin/mysqld.my
+   ```
+
+1. Remove the `early-plugin-load=keyring_file.so` and `keyring_file_data` options from the configuration file.
+
+1. Start the 8.0 server and confirm that the component is active and that the encrypted tables are readable:
+
+   ```
+   sudo systemctl start mysql
+   ```
+
+   ```
+   SELECT * FROM performance_schema.keyring_component_status;
+   ```
+
+After the migration, upgrade to 8.4. The manifest and the component configuration file are not owned by the packages, so they remain in place after the package upgrade.
+
+## Further reading
+
+- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.html)
+- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html)
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+
+### Component-specific documentation
+
+- [Install a component](https://docs.percona.com/percona-server/8.4/install-component.html)
+- [Uninstall a component](https://docs.percona.com/percona-server/8.4/uninstall-component.html)
+- [Use Keyring Vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html)
+- [Install Data Masking component](https://docs.percona.com/percona-server/8.4/install-data-masking-component.html)
+- [Audit Log Filter component overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
+- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.html)
+- [Manage Audit Log Filter](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)

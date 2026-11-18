@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10721,13 +10721,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="migrate-to-mysql-community-84">Migrate to MySQL Community 8.4<a class="headerlink" href="#migrate-to-mysql-community-84" title="Permanent link">&para;</a></h1>
+<h1 id="migrate-to-mysql-community-84">Migrate to MySQL Community 8.4<a data-markdown-ignore class="headerlink" href="#migrate-to-mysql-community-84" title="Permanent link">&para;</a></h1>
 <p>Percona Server supports Percona-only features for performance and security. You can migrate to MySQL Community Edition (CE) when you follow the <a href="#best-practices-migrating-to-mysql-ce">best practices</a>.</p>
 <p>Percona Server and MySQL CE share core code. Percona adds features that MySQL CE does not include. A few of those features create a <a href="#summary-of-the-one-way-door-risk">&ldquo;one-way door&rdquo;</a> because they change how data or metadata is written to disk, and MySQL CE cannot interpret the result. The one-way-door features are MyRocks, compressed columns, compression dictionaries, Percona keyring components (Vault, KMIP, AWS KMS), and Percona-only on-disk options such as enhanced encryption, specialized page compression, and <code>fast_checksum</code>.</p>
 <p>The remaining Percona-only features do not store or alter any data. The Percona Audit Log plugin, the Audit Log Filter, Data Masking, PAM/LDAP authentication, and the thread pool are runtime features. Turn them off and remove their variables from <code>my.cnf</code> before you migrate. No data is lost or changed. Oracle plans to release the MySQL Enterprise equivalents of these features as open source, so you can optionally enable those on the CE instance after migration.</p>
 <p>The following diagram summarizes migration paths. The paths cover a Percona-exclusive feature check, logical dump and restore (recommended), in-place binary swap with cleanup, and the main steps in each path.</p>
 <p><img alt="Percona Server for MySQL to MySQL Community Edition migration process" src="_static/ce-flowchart.png" style="max-width: 100%; height: auto; width: 960px;" /></p>
-<h2 id="exclusive-features">Exclusive features<a class="headerlink" href="#exclusive-features" title="Permanent link">&para;</a></h2>
+<h2 id="exclusive-features">Exclusive features<a data-markdown-ignore class="headerlink" href="#exclusive-features" title="Permanent link">&para;</a></h2>
 <p>When you plan a migration to MySQL CE, identify features that are exclusive to Percona. The following CE-incompatible features are inactive by default. You must install or configure MyRocks, the Percona Audit Log plugin, the Audit Log Filter component, Data Masking, and PAM/LDAP authentication explicitly. The thread pool is built in but inactive until you set <code>thread_handling=pool-of-threads</code> in the configuration. The following table summarizes the main exclusive features.</p>
 <table>
 <thead>
@@ -10763,7 +10763,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="performance-and-engine-features">Performance and engine features<a class="headerlink" href="#performance-and-engine-features" title="Permanent link">&para;</a></h2>
+<h2 id="performance-and-engine-features">Performance and engine features<a data-markdown-ignore class="headerlink" href="#performance-and-engine-features" title="Permanent link">&para;</a></h2>
 <p>Percona Server includes optimizations that MySQL Community cannot parse or execute. The following table describes migration actions for engine-related exclusive features. See <a href="#exclusive-features">Exclusive features</a> for the full list.</p>
 <table>
 <thead>
@@ -10793,7 +10793,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>Use the <a href="percona-server-system-variables.html">Percona Server system variables reference</a> to list Percona-specific <code>innodb_</code> variables. Remove from <code>my.cnf</code> any variable that does not exist in MySQL Community Edition 8.4.</p>
 <p>Compressed columns and compression dictionaries block many migrations. You cannot migrate to MySQL CE while user tables use compressed columns. Remove or alter those columns (such as decompress the columns) before a logical dump and restore. The compressed-columns feature also creates additional tables in the system tablespace. Query the <code>INFORMATION_SCHEMA</code> views <code>COMPRESSION_DICTIONARY</code> and <code>COMPRESSION_DICTIONARY_TABLES</code> to detect compression dictionaries. See <a href="compressed-columns.html">Compressed columns with dictionaries</a> for view structure. Those system tables may cause problems when moving to MySQL CE even when you do not use compressed columns in user tables.</p>
-<h2 id="security-and-auditing">Security and auditing<a class="headerlink" href="#security-and-auditing" title="Permanent link">&para;</a></h2>
+<h2 id="security-and-auditing">Security and auditing<a data-markdown-ignore class="headerlink" href="#security-and-auditing" title="Permanent link">&para;</a></h2>
 <p>The following table lists migration actions for security and auditing features that are exclusive to Percona. None of these features change stored data, so turning them off does not lose or alter anything. See <a href="#exclusive-features">Exclusive features</a> for the full list.</p>
 <table>
 <thead>
@@ -10821,7 +10821,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="operational-and-monitoring-features">Operational and monitoring features<a class="headerlink" href="#operational-and-monitoring-features" title="Permanent link">&para;</a></h2>
+<h2 id="operational-and-monitoring-features">Operational and monitoring features<a data-markdown-ignore class="headerlink" href="#operational-and-monitoring-features" title="Permanent link">&para;</a></h2>
 <p>The following table summarizes operational and monitoring features that affect migration to MySQL CE.</p>
 <table>
 <thead>
@@ -10872,7 +10872,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Remove Percona-only on-disk format options (such as <code>fast_checksum</code>) from the CE instance configuration.</p>
 </li>
 </ul>
-<h3 id="percona-toolkit-udfs">Percona Toolkit UDFs<a class="headerlink" href="#percona-toolkit-udfs" title="Permanent link">&para;</a></h3>
+<h3 id="percona-toolkit-udfs">Percona Toolkit UDFs<a data-markdown-ignore class="headerlink" href="#percona-toolkit-udfs" title="Permanent link">&para;</a></h3>
 <p>Percona Server can install optional <a href="udf-percona-toolkit.html">Percona Toolkit UDFs</a> (<code>fnv_64</code>, <code>fnv1a_64</code>, and <code>murmur_hash</code>) through the <code>component_percona_udf</code> component. MySQL CE does not include these functions. MySQL CE fails when parsing or executing a view, trigger, stored procedure, event, or generated column that references them. A logical restore also fails when dump metadata still references these functions.</p>
 <p>Before migration, locate registered functions and dependent SQL objects on Percona Server. Then remove or rewrite those objects:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span>
@@ -10900,9 +10900,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <p>When functions were registered through the older <code>mysql.func</code> mechanism, drop them explicitly after uninstalling the component. Rewrite or drop routines and views that still reference the function names. Then run a logical dump.</p>
-<h2 id="best-practices-migrating-to-mysql-ce">Best practices: migrating to MySQL CE<a class="headerlink" href="#best-practices-migrating-to-mysql-ce" title="Permanent link">&para;</a></h2>
+<h2 id="best-practices-migrating-to-mysql-ce">Best practices: migrating to MySQL CE<a data-markdown-ignore class="headerlink" href="#best-practices-migrating-to-mysql-ce" title="Permanent link">&para;</a></h2>
 <p>An in-place package swap rarely succeeds when you have used Percona-exclusive features. Follow the sections in this guide for a reliable migration.</p>
-<h3 id="requirement-for-logical-migration">Requirement for logical migration<a class="headerlink" href="#requirement-for-logical-migration" title="Permanent link">&para;</a></h3>
+<h3 id="requirement-for-logical-migration">Requirement for logical migration<a data-markdown-ignore class="headerlink" href="#requirement-for-logical-migration" title="Permanent link">&para;</a></h3>
 <p>Binary incompatibilities and Percona-specific metadata block many in-place paths. MyRocks and Percona keyring components are common causes. The reliable method to migrate to MySQL CE is a logical dump and restore.</p>
 <p>Complete these steps for logical migration:</p>
 <ul>
@@ -10916,7 +10916,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Restore: import the logical file into the fresh MySQL CE instance.</p>
 </li>
 </ul>
-<h3 id="metadata-and-sanitization-steps">Metadata and sanitization steps<a class="headerlink" href="#metadata-and-sanitization-steps" title="Permanent link">&para;</a></h3>
+<h3 id="metadata-and-sanitization-steps">Metadata and sanitization steps<a data-markdown-ignore class="headerlink" href="#metadata-and-sanitization-steps" title="Permanent link">&para;</a></h3>
 <p>Dump and restore alone often fail when Percona-specific features left traces in metadata. Apply the following sanitization steps before migration:</p>
 <ul>
 <li>
@@ -10941,7 +10941,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>System schemas (<code>performance_schema</code>, <code>sys</code>): Percona 8.4 adds telemetry and diagnostic tables that MySQL CE does not recognize. Reusing or restoring those schemas leaves orphaned metadata. Orphaned objects can collide with tables or columns during a future MySQL CE minor-version upgrade. Prefer a logical dump and restore of user data only. Let the MySQL CE instance create <code>performance_schema</code> and <code>sys</code> at startup. See <a href="telemetry.html">Telemetry on Percona Server for MySQL</a> and <a href="additional-performance-schema-tables.html">Additional PERFORMANCE_SCHEMA tables</a>.</p>
 </li>
 </ul>
-<h3 id="perform-a-clean-shutdown-before-an-in-place-binary-swap">Perform a clean shutdown before an in-place binary swap<a class="headerlink" href="#perform-a-clean-shutdown-before-an-in-place-binary-swap" title="Permanent link">&para;</a></h3>
+<h3 id="perform-a-clean-shutdown-before-an-in-place-binary-swap">Perform a clean shutdown before an in-place binary swap<a data-markdown-ignore class="headerlink" href="#perform-a-clean-shutdown-before-an-in-place-binary-swap" title="Permanent link">&para;</a></h3>
 <p>The log sequence number (LSN) is a 64-bit integer. InnoDB uses the LSN as a unique identifier for every database change. The LSN orders and recovers InnoDB work.</p>
 <p>Standard MySQL LSN records track inserts, updates, and deletes. Percona Server adds extra information to log records. The extra data supports fast checkpointing, parallel doublewrite buffers, and changed page tracking for incremental backups.</p>
 <p>Percona Server writes specialized record types into the redo log (<code>ib_logfile0</code>, <code>ib_logfile1</code>). When you shut down Percona Server and start MySQL CE against the same data directory, MySQL CE runs crash recovery on the redo log. The MySQL CE parser encounters Percona-specific log records without a matching definition. The MySQL service fails to start with an error similar to the following:</p>
@@ -10971,14 +10971,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Validate system metadata after MySQL CE starts. A clean shutdown clears the redo log but does not remove Percona telemetry or diagnostic objects from <code>performance_schema</code>, <code>sys</code>, or the shared <code>mysql</code> schema. Those structures remain in the system tablespace metadata. The MySQL CE data dictionary parser can encounter columns and tables that Percona authored but CE did not. Monitor the error log for data dictionary or schema upgrade warnings. Test a MySQL CE minor-version upgrade on a staging copy of the datadir before you upgrade production. See <a href="#system-schemas-during-an-in-place-binary-swap">System schemas during an in-place binary swap</a>.</p>
 </li>
 </ol>
-<h3 id="system-schemas-during-an-in-place-binary-swap">System schemas during an in-place binary swap<a class="headerlink" href="#system-schemas-during-an-in-place-binary-swap" title="Permanent link">&para;</a></h3>
+<h3 id="system-schemas-during-an-in-place-binary-swap">System schemas during an in-place binary swap<a data-markdown-ignore class="headerlink" href="#system-schemas-during-an-in-place-binary-swap" title="Permanent link">&para;</a></h3>
 <p>An in-place binary swap keeps the existing data directory. On-disk definitions for the <code>mysql</code>, <code>performance_schema</code>, and <code>sys</code> schemas remain. MySQL CE does not remove Percona-only telemetry or diagnostic objects from <code>performance_schema</code> and <code>sys</code>. The CE instance often starts after a clean shutdown and configuration cleanup. Extra tables are not required for normal operation. Extra objects remain on disk. They can cause errors or failed schema steps during a later MySQL CE minor-version upgrade. The CE binary expects a schema layout that matches a vanilla installation.</p>
 <p>The <code>mysql</code> system schema is also shared. Percona may add columns or internal structures that CE does not use. CE usually tolerates unused extras. Dumping and restoring the <code>mysql</code> schema during a logical migration can still produce severe mismatches. The same caution applies when you reuse a Percona-populated <code>mysql</code> schema after an in-place swap and later run upgrade helpers against that datadir.</p>
 <p>Treat an in-place swap as high risk when Percona telemetry or diagnostic tables are present. Prefer a logical dump and restore of user databases only. Let MySQL CE create fresh <code>performance_schema</code> and <code>sys</code> schemas. When you must use an in-place swap, validate after the first successful CE startup. Check the error log. Confirm <code>mysql.component</code> contains no Percona-only entries. Test a minor-version upgrade on a staging copy of the datadir before you upgrade production.</p>
-<h3 id="data-dictionary-and-sdi-compatibility">Data dictionary and SDI compatibility<a class="headerlink" href="#data-dictionary-and-sdi-compatibility" title="Permanent link">&para;</a></h3>
+<h3 id="data-dictionary-and-sdi-compatibility">Data dictionary and SDI compatibility<a data-markdown-ignore class="headerlink" href="#data-dictionary-and-sdi-compatibility" title="Permanent link">&para;</a></h3>
 <p>Starting in MySQL 8.0, table metadata lives in the InnoDB transactional data dictionary. Tablespace files also store Serialized Dictionary Information (SDI). User tables that use standard InnoDB row formats are binary-compatible between Percona Server 8.4 and MySQL CE 8.4. Compatibility applies when you do not use Percona-only on-disk features. Those features include compressed columns, specialized page compression, <code>fast_checksum</code>, and enhanced encryption layouts. A clean shutdown with <code>innodb_fast_shutdown = 0</code> can leave a data directory that CE opens for ordinary InnoDB user data after the redo log is cleared.</p>
 <p>SDI and dictionary compatibility do not apply when Percona-only features altered table or page layout. Those cases require a logical dump and restore. Do not use an in-place file swap.</p>
-<h3 id="replication-compatibility-for-rolling-migrations">Replication compatibility for rolling migrations<a class="headerlink" href="#replication-compatibility-for-rolling-migrations" title="Permanent link">&para;</a></h3>
+<h3 id="replication-compatibility-for-rolling-migrations">Replication compatibility for rolling migrations<a data-markdown-ignore class="headerlink" href="#replication-compatibility-for-rolling-migrations" title="Permanent link">&para;</a></h3>
 <p>Many production migrations use replication instead of full downtime. Operations teams often provision a MySQL CE 8.4 replica under a running Percona Server 8.4 source. The replica synchronizes until cutover. This rolling path reduces dump/restore windows when prerequisites are met.</p>
 <p>A MySQL CE 8.4 instance can replicate as a downstream replica from a Percona Server 8.4 source when the replica uses only CE-supported features. Confirm the following before cutover:</p>
 <ul>
@@ -11004,7 +11004,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>After cutover, run the <a href="#how-to-identify-active-percona-exclusive-features">identification queries</a> on the former source when that instance will also run MySQL CE.</p>
 <p>A clean shutdown and empty redo log do not remove other incompatibilities. Examples include Percona-only variables in <code>my.cnf</code>, plugins, and on-disk page formats. Prefer a logical dump and restore unless you sanitized configuration and confirmed no Percona-only features alter data or metadata.</p>
 <p>Percona-specific Data Compression modifies <code>.ibd</code> data files on disk. A clean shutdown does not fix that incompatibility. Standard MySQL cannot read those compressed pages. Before migration, use a logical dump (such as mysqldump) and import into a MySQL CE instance. Do not copy data files or attempt an in-place binary swap.</p>
-<h2 id="summary-of-the-one-way-door-risk">Summary of the one-way door risk<a class="headerlink" href="#summary-of-the-one-way-door-risk" title="Permanent link">&para;</a></h2>
+<h2 id="summary-of-the-one-way-door-risk">Summary of the one-way door risk<a data-markdown-ignore class="headerlink" href="#summary-of-the-one-way-door-risk" title="Permanent link">&para;</a></h2>
 <p>Only the high-risk rows are true one-way doors. Those features change data or metadata on disk and require conversion before you migrate. The low-risk rows are runtime features or configuration entries: turn them off, and your data is unaffected.</p>
 <table>
 <thead>
@@ -11062,9 +11062,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="how-to-identify-active-percona-exclusive-features">How to identify active Percona-exclusive features<a class="headerlink" href="#how-to-identify-active-percona-exclusive-features" title="Permanent link">&para;</a></h2>
+<h2 id="how-to-identify-active-percona-exclusive-features">How to identify active Percona-exclusive features<a data-markdown-ignore class="headerlink" href="#how-to-identify-active-percona-exclusive-features" title="Permanent link">&para;</a></h2>
 <p>Run the following SQL commands to find Percona-exclusive features in your environment. These queries target incompatible components and metadata that block migration to MySQL CE.</p>
-<h3 id="identify-active-exclusive-plugins">Identify active exclusive plugins<a class="headerlink" href="#identify-active-exclusive-plugins" title="Permanent link">&para;</a></h3>
+<h3 id="identify-active-exclusive-plugins">Identify active exclusive plugins<a data-markdown-ignore class="headerlink" href="#identify-active-exclusive-plugins" title="Permanent link">&para;</a></h3>
 <p>The following query identifies active plugins only (not components). The query returns Percona-exclusive plugins such as the Audit Log plugin, PAM/LDAP authentication, and MyRocks.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span>
@@ -11078,7 +11078,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">    </span><span class="s1">'ROCKSDB_LOCKS'</span>
 <span class="p">)</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'ACTIVE'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="identify-active-exclusive-components">Identify active exclusive components<a class="headerlink" href="#identify-active-exclusive-components" title="Permanent link">&para;</a></h3>
+<h3 id="identify-active-exclusive-components">Identify active exclusive components<a data-markdown-ignore class="headerlink" href="#identify-active-exclusive-components" title="Permanent link">&para;</a></h3>
 <p>Percona-exclusive components (such as the Audit Log Filter, Data Masking, and keyring components) register in <code>mysql.component</code>. The following query lists installed components whose URN matches known Percona-only components.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span>
@@ -11088,26 +11088,26 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%keyring_kmip%'</span><span class="w"> </span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%keyring_kms%'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="check-for-myrocks-storage-engine-usage">Check for MyRocks storage engine usage<a class="headerlink" href="#check-for-myrocks-storage-engine-usage" title="Permanent link">&para;</a></h3>
+<h3 id="check-for-myrocks-storage-engine-usage">Check for MyRocks storage engine usage<a data-markdown-ignore class="headerlink" href="#check-for-myrocks-storage-engine-usage" title="Permanent link">&para;</a></h3>
 <p>MyRocks is a high-risk one-way door. Check whether any user tables use the engine. Convert those tables to InnoDB before a logical dump.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'RocksDB'</span><span class="w"> </span>
 <span class="k">AND</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'information_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sys'</span><span class="p">,</span><span class="w"> </span><span class="s1">'performance_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'mysql'</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="identify-percona-specific-authentication">Identify Percona-specific authentication<a class="headerlink" href="#identify-percona-specific-authentication" title="Permanent link">&para;</a></h3>
+<h3 id="identify-percona-specific-authentication">Identify Percona-specific authentication<a data-markdown-ignore class="headerlink" href="#identify-percona-specific-authentication" title="Permanent link">&para;</a></h3>
 <p>MySQL CE does not recognize users that use Percona PAM or LDAP plugins. Find those users and change authentication to <code>caching_sha2_password</code> or <code>mysql_native_password</code> before migrating.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%pam%'</span><span class="w"> </span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ldap%'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="verify-thread-pool-status">Verify thread pool status<a class="headerlink" href="#verify-thread-pool-status" title="Permanent link">&para;</a></h3>
+<h3 id="verify-thread-pool-status">Verify thread pool status<a data-markdown-ignore class="headerlink" href="#verify-thread-pool-status" title="Permanent link">&para;</a></h3>
 <p>The thread pool code exists in Percona Server. The thread pool affects migration only when actively configured. The following command shows whether the server uses Percona scalable thread pool handling instead of the standard MySQL connection model.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'thread_handling'</span><span class="p">;</span>
 <span class="c1">-- When the result is 'pool-of-threads', the Percona Thread Pool is active.</span>
 </code></pre></div>
-<h3 id="identify-percona-toolkit-udfs">Identify Percona Toolkit UDFs<a class="headerlink" href="#identify-percona-toolkit-udfs" title="Permanent link">&para;</a></h3>
+<h3 id="identify-percona-toolkit-udfs">Identify Percona Toolkit UDFs<a data-markdown-ignore class="headerlink" href="#identify-percona-toolkit-udfs" title="Permanent link">&para;</a></h3>
 <p>Percona Toolkit UDFs (<code>fnv_64</code>, <code>fnv1a_64</code>, <code>murmur_hash</code>) support fast checksumming and hashing. Teams often use them in views, stored procedures, triggers, or generated columns for sharding or indexing. MySQL CE does not ship these compiled symbols.</p>
 <p>Audit the UDF registry and component installation on Percona Server before export:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span>
@@ -11135,11 +11135,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">VIEW_DEFINITION</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%murmur_hash%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Before migration, run <code>UNINSTALL COMPONENT 'file://component_percona_udf';</code> on Percona Server. Drop legacy <code>mysql.func</code> entries when present. Rewrite dependent objects. See <a href="udf-percona-toolkit.html">Percona Toolkit UDFs</a>.</p>
-<h3 id="check-for-data-masking-components">Check for Data Masking components<a class="headerlink" href="#check-for-data-masking-components" title="Permanent link">&para;</a></h3>
+<h3 id="check-for-data-masking-components">Check for Data Masking components<a data-markdown-ignore class="headerlink" href="#check-for-data-masking-components" title="Permanent link">&para;</a></h3>
 <p>To confirm Data Masking separately from the general components query in the preceding section, run:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking%'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="pre-migration-sanitization-summary">Pre-migration sanitization summary<a class="headerlink" href="#pre-migration-sanitization-summary" title="Permanent link">&para;</a></h3>
+<h3 id="pre-migration-sanitization-summary">Pre-migration sanitization summary<a data-markdown-ignore class="headerlink" href="#pre-migration-sanitization-summary" title="Permanent link">&para;</a></h3>
 <p>After you identify these features, apply the following actions:</p>
 <ul>
 <li>
@@ -11159,7 +11159,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Search <code>my.cnf</code> for variable names in the <a href="percona-server-system-variables.html">Percona Server system variables reference</a>. Remove any variable that MySQL CE does not support. MySQL CE exits at startup when a Percona-only variable remains in the configuration file.</p>
-<h2 id="pre-migration-checklist">Pre-migration checklist<a class="headerlink" href="#pre-migration-checklist" title="Permanent link">&para;</a></h2>
+<h2 id="pre-migration-checklist">Pre-migration checklist<a data-markdown-ignore class="headerlink" href="#pre-migration-checklist" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>

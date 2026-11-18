@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10681,7 +10681,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-format-json-and-jsonl">Audit Log Filter format - JSON and JSONL<a class="headerlink" href="#audit-log-filter-format-json-and-jsonl" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-filter-format-json-and-jsonl">Audit Log Filter format - JSON and JSONL<a data-markdown-ignore class="headerlink" href="#audit-log-filter-format-json-and-jsonl" title="Permanent link">&para;</a></h1>
 <p>JSON and JSONL emit the same key-value pairs per event. Required keys appear in every record; optional keys depend on event type and settings. Key order is not guaranteed; long values may be truncated.</p>
 <p>Only the file layout differs:</p>
 <table>
@@ -10708,8 +10708,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Percona Server for MySQL 8.4.9-9 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. <a href="#standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL</a> covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.</p>
 <p>Compression and encryption behave like JSON. <code>audit_log_read()</code> and <code>audit_log_read_bookmark()</code> read both formats.</p>
 <p>JSON and JSONL alone expose some statistics (for example, query timing and size)—use them to flag outliers in workload analysis.</p>
-<h2 id="standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL<a class="headerlink" href="#standard-jsonl-and-percona-jsonl" title="Permanent link">&para;</a></h2>
-<h3 id="what-standard-jsonl-represents">What standard JSONL represents<a class="headerlink" href="#what-standard-jsonl-represents" title="Permanent link">&para;</a></h3>
+<h2 id="standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL<a data-markdown-ignore class="headerlink" href="#standard-jsonl-and-percona-jsonl" title="Permanent link">&para;</a></h2>
+<h3 id="what-standard-jsonl-represents">What standard JSONL represents<a data-markdown-ignore class="headerlink" href="#what-standard-jsonl-represents" title="Permanent link">&para;</a></h3>
 <p>Standard JSONL (<a href="https://jsonlines.org/">JSON Lines</a>, also called newline-delimited JSON) stores a sequence of independent records:</p>
 <ul>
 <li>Each line is one complete JSON value. The specification permits any JSON value, including scalars and arrays, not only objects.</li>
@@ -10718,7 +10718,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>A file containing multiple records is not one JSON document. A reader parses and handles each line independently.</li>
 </ul>
 <p>That layout fits data that arrives as a stream of separate records: large exports, application logs, event feeds, and bulk loads. A process can append one line, split the file on newlines, or hand each line to a worker without reading the rest of the file.</p>
-<h3 id="how-percona-jsonl-differs">How Percona JSONL differs<a class="headerlink" href="#how-percona-jsonl-differs" title="Permanent link">&para;</a></h3>
+<h3 id="how-percona-jsonl-differs">How Percona JSONL differs<a data-markdown-ignore class="headerlink" href="#how-percona-jsonl-differs" title="Permanent link">&para;</a></h3>
 <p>Percona JSONL uses a JSON array containing one compact event object per line, with commas between objects. The array is a valid JSON document only after the writer closes the file, either at shutdown or on rotation. The active file has no closing <code>]</code>. If the server stops without closing the file, for example after a crash, that file never receives the closing <code>]</code> and is not valid JSON. </p>
 <p><code>audit_log_read()</code> supports both JSON and JSONL, but a general-purpose JSON parser needs the complete array. Line tools can inspect the event records, but <code>wc -l</code> counts the wrapper lines: a completed file that is neither compressed nor encrypted and contains N events has N+2 lines, so <code>wc -l</code> is not directly an event count.</p>
 <table>
@@ -10766,11 +10766,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">'.[]'</span><span class="w"> </span>audit.jsonl
 </code></pre></div>
 <p>To parse one event line in place, delete a trailing comma first, and skip the <code>[</code> and <code>]</code> lines. The <a href="#jsonl-example">JSONL example</a> shows the layout.</p>
-<h3 id="why-percona-jsonl-exists">Why Percona JSONL exists<a class="headerlink" href="#why-percona-jsonl-exists" title="Permanent link">&para;</a></h3>
+<h3 id="why-percona-jsonl-exists">Why Percona JSONL exists<a data-markdown-ignore class="headerlink" href="#why-percona-jsonl-exists" title="Permanent link">&para;</a></h3>
 <p>Pretty-printed JSON is easy to open in an editor, and each event spans many lines. That layout is a poor fit for a large log or for a pipeline that handles one event at a time. Line tools cut a single event into pieces; the file is larger, and a consumer has to reassemble the lines before the tool can parse.</p>
 <p>Percona JSONL keeps the JSON array, so existing JSON consumers can read a file after the writer closes it, including on rotation, and places each event on one line, so the file can be followed, filtered, counted, and shipped like a log. JSONL is the line-delimited format, with the same event fields as JSON. See <a href="migrate-to-audit-log-filter-component.html">Migrate from audit plugins</a>.</p>
 <p>The benefit is both properties at once: a closed file is valid JSON, and each audit event is one line.</p>
-<h3 id="when-to-choose-jsonl">When to choose JSONL<a class="headerlink" href="#when-to-choose-jsonl" title="Permanent link">&para;</a></h3>
+<h3 id="when-to-choose-jsonl">When to choose JSONL<a data-markdown-ignore class="headerlink" href="#when-to-choose-jsonl" title="Permanent link">&para;</a></h3>
 <p>Choose JSONL when another system reads the log, or when you work with the file as a stream of events. Choose JSON when a person reads the file. The event fields are the same either way.</p>
 <p>Prefer JSONL over JSON in these situations:</p>
 <table>
@@ -10812,8 +10812,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>You used the audit log plugin&rsquo;s CSV format for line-delimited ingest.</li>
 </ul>
 <p>Compression, encryption, and the SQL readers are the same for JSON and JSONL. Changing <code>audit_log_filter.format</code> requires a restart. Give JSONL its own <a href="audit-log-filter-variables.html#audit_log_filterfile"><code>audit_log_filter.file</code></a> name, for example, <code>audit.jsonl</code>. See <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a>.</p>
-<h2 id="version-changes">Version changes<a class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
-<h3 id="percona-server-for-mysql-849-9">Percona Server for MySQL 8.4.9-9<a class="headerlink" href="#percona-server-for-mysql-849-9" title="Permanent link">&para;</a></h3>
+<h2 id="version-changes">Version changes<a data-markdown-ignore class="headerlink" href="#version-changes" title="Permanent link">&para;</a></h2>
+<h3 id="percona-server-for-mysql-849-9">Percona Server for MySQL 8.4.9-9<a data-markdown-ignore class="headerlink" href="#percona-server-for-mysql-849-9" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Component startup and shutdown events include the <code>event</code>, <code>connection_id</code>, <code>account</code>, <code>login</code>, and <code>startup_data</code> fields. The <code>startup_data</code> object holds <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, and <code>args</code> (command-line arguments). Earlier releases exposed only <code>server_id</code> at the top level for those records.</p>
@@ -10828,7 +10828,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Message events: the <code>message_attributes</code> key is replaced by the <code>map</code> key; message events also include <code>account</code> and <code>login</code>.</p>
 </li>
 </ul>
-<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<h2 id="attributes">Attributes<a data-markdown-ignore class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
 <p>Field sets match between JSON and JSONL. Only the file layout differs. See <a href="#how-percona-jsonl-differs">How Percona JSONL differs</a>.</p>
 <p>Every event object includes at least:</p>
 <ul>
@@ -10900,7 +10900,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="json-example">JSON example<a class="headerlink" href="#json-example" title="Permanent link">&para;</a></h2>
+<h2 id="json-example">JSON example<a data-markdown-ignore class="headerlink" href="#json-example" title="Permanent link">&para;</a></h2>
 <p>The following shows four event types recorded in <code>REDUCED</code> event mode: startup, connection, table access, and general status.</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
@@ -10979,7 +10979,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
-<h2 id="jsonl-example">JSONL example<a class="headerlink" href="#jsonl-example" title="Permanent link">&para;</a></h2>
+<h2 id="jsonl-example">JSONL example<a data-markdown-ignore class="headerlink" href="#jsonl-example" title="Permanent link">&para;</a></h2>
 <p>In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example look like this:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:52"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"audit"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"startup"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"startup_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"server_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"os_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64-Linux"</span><span class="p">,</span><span class="w"> </span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.4.9-9"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--basedir=/usr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--user=mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datadir=/var/lib/mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--socket=/var/run/mysqld/mysqld.sock"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port=3306"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
@@ -10988,7 +10988,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"general_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Query"</span><span class="p">,</span><span class="w"> </span><span class="nt">"sql_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>
 <li><a href="audit-log-filter-new.html">Audit Log Filter format - XML (new style)</a></li>

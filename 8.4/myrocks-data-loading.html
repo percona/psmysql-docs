@@ -139,7 +139,7 @@ to speed up data loading dramatically.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10637,16 +10637,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="data-loading">Data loading<a class="headerlink" href="#data-loading" title="Permanent link">&para;</a></h1>
+<h1 id="data-loading">Data loading<a data-markdown-ignore class="headerlink" href="#data-loading" title="Permanent link">&para;</a></h1>
 <p>By default, MyRocks configurations are optimized for short transactions,
 and not for data loading. MyRocks has a couple of special session variables
 to speed up data loading dramatically.</p>
-<h2 id="sorted-bulk-loading">Sorted bulk loading<a class="headerlink" href="#sorted-bulk-loading" title="Permanent link">&para;</a></h2>
+<h2 id="sorted-bulk-loading">Sorted bulk loading<a data-markdown-ignore class="headerlink" href="#sorted-bulk-loading" title="Permanent link">&para;</a></h2>
 <p>If your data is guaranteed to be loaded in primary key order, then this method
 is recommended. This method works by dropping any secondary keys first, loading
 data into your table in primary key order, and then restoring the secondary
 keys via Fast Secondary Index Creation.</p>
-<h3 id="creating-secondary-indexes">Creating secondary indexes<a class="headerlink" href="#creating-secondary-indexes" title="Permanent link">&para;</a></h3>
+<h3 id="creating-secondary-indexes">Creating secondary indexes<a data-markdown-ignore class="headerlink" href="#creating-secondary-indexes" title="Permanent link">&para;</a></h3>
 <p>When loading data into empty tables, it is highly recommended to drop all
 secondary indexes first, then loading data, and adding all secondary indexes
 after finishing loading data. MyRocks has a feature called <code>Fast Secondary
@@ -10656,7 +10656,7 @@ Secondary Index Creation, the secondary index entries are directly written
 to bottommost RocksDB levels and bypassing compaction. This significantly
 reduces total write volume and CPU time for decompressing and compressing
 data on higher levels.</p>
-<h3 id="loading-data">Loading data<a class="headerlink" href="#loading-data" title="Permanent link">&para;</a></h3>
+<h3 id="loading-data">Loading data<a data-markdown-ignore class="headerlink" href="#loading-data" title="Permanent link">&para;</a></h3>
 <p>As described above, loading data is highly recommended for tables with primary
 key only (no secondary keys), with all secondary indexes added after loading
 data.</p>
@@ -10709,7 +10709,7 @@ order to match the expected order.</p>
 in some of the data being inserted in the table and some not. To resolve the
 problem, one can either fix the data order of the insert, truncate the table,
 and restart.</p>
-<h2 id="unsorted-bulk-loading">Unsorted bulk loading<a class="headerlink" href="#unsorted-bulk-loading" title="Permanent link">&para;</a></h2>
+<h2 id="unsorted-bulk-loading">Unsorted bulk loading<a data-markdown-ignore class="headerlink" href="#unsorted-bulk-loading" title="Permanent link">&para;</a></h2>
 <p>If your data is not ordered in primary key order, then this method is
 recommended. With this method, secondary keys do not need to be dropped and
 restored. However, writing to the primary key no longer goes directly to SST
@@ -10728,7 +10728,7 @@ cost to this method.</p>
 input data will go through an intermediate step that writes the rows to
 temporary SST files, sorts them rows in the primary key order, and then writes
 to final SST files in the correct order.</p>
-<h2 id="other-approaches">Other approaches<a class="headerlink" href="#other-approaches" title="Permanent link">&para;</a></h2>
+<h2 id="other-approaches">Other approaches<a data-markdown-ignore class="headerlink" href="#other-approaches" title="Permanent link">&para;</a></h2>
 <p>If <a href="myrocks-server-variables.html#rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a> is enabled, MyRocks implicitly
 commits every <a href="myrocks-server-variables.html#rocksdb_bulk_load_size">rocksdb_bulk_load_size</a> records (default is <code>1,000</code>)
 in the middle of your transaction. If your data loading fails in the middle of
@@ -10739,7 +10739,7 @@ need to truncate the table and loading data again.</p>
 <p class="admonition-title">Warning</p>
 <p>If you are loading large data without enabling <a href="myrocks-server-variables.html#rocksdb_bulk_load">rocksdb_bulk_load</a> or <a href="myrocks-server-variables.html#rocksdb_commit_in_the_middle">rocksdb_commit_in_the_middle</a>, please make sure transaction size is small enough. All modifications of the ongoing transactions are kept in memory.</p>
 </div>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<h2 id="other-reading">Other reading<a data-markdown-ignore class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="https://github.com/facebook/mysql-5.6/wiki/Data-Loading">Data Loading <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> -

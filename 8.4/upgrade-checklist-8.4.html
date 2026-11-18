@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10611,11 +10611,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="upgrade-checklist-for-84">Upgrade checklist for 8.4<a class="headerlink" href="#upgrade-checklist-for-84" title="Permanent link">&para;</a></h1>
+<h1 id="upgrade-checklist-for-84">Upgrade checklist for 8.4<a data-markdown-ignore class="headerlink" href="#upgrade-checklist-for-84" title="Permanent link">&para;</a></h1>
 <p>Thorough preparation and validation reduce risk more than any cutover tactic. Use this checklist to guide your upgrade from 8.0 to 8.4, validating each item in staging before upgrading production.</p>
-<h2 id="pre-upgrade-checks">Pre-upgrade checks<a class="headerlink" href="#pre-upgrade-checks" title="Permanent link">&para;</a></h2>
+<h2 id="pre-upgrade-checks">Pre-upgrade checks<a data-markdown-ignore class="headerlink" href="#pre-upgrade-checks" title="Permanent link">&para;</a></h2>
 <p>Complete these checks before starting the upgrade process.</p>
-<h3 id="authentication-and-connectivity">Authentication and connectivity<a class="headerlink" href="#authentication-and-connectivity" title="Permanent link">&para;</a></h3>
+<h3 id="authentication-and-connectivity">Authentication and connectivity<a data-markdown-ignore class="headerlink" href="#authentication-and-connectivity" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: <code>mysql_native_password</code> is disabled by default in 8.4; <code>default_authentication_plugin</code> is removed. New accounts default to <code>caching_sha2_password</code>. The <code>mysql_native_password</code> plugin can still be loaded using <code>--mysql-native-password=ON</code> if needed, but it will be completely removed in the MySQL 9.x series.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10624,7 +10624,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Plan account migration to <code>caching_sha2_password</code>. If temporary compatibility is needed, <code>--mysql-native-password=ON</code> can be used, but plan migration as this plugin will be removed in future versions.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="authentication-methods.html">authentication methods</a></li>
 </ul>
-<h3 id="replication-and-operational-scripts">Replication and operational scripts<a class="headerlink" href="#replication-and-operational-scripts" title="Permanent link">&para;</a></h3>
+<h3 id="replication-and-operational-scripts">Replication and operational scripts<a data-markdown-ignore class="headerlink" href="#replication-and-operational-scripts" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: MASTER/SLAVE syntax is removed and will cause syntax errors if used; use SOURCE/REPLICA commands.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10633,7 +10633,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Update Percona Toolkit calls: replace <code>pt-slave-find</code> with <code>pt-replica-find</code>, and <code>pt-slave-restart</code> with <code>pt-replica-restart</code>; remove <code>pt-slave-delay</code> usage.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="percona-toolkit-8.4-updates.html">Percona Toolkit updates for 8.4</a></li>
 </ul>
-<h3 id="removed-features-and-variables">Removed features and variables<a class="headerlink" href="#removed-features-and-variables" title="Permanent link">&para;</a></h3>
+<h3 id="removed-features-and-variables">Removed features and variables<a data-markdown-ignore class="headerlink" href="#removed-features-and-variables" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: Several legacy statements, status counters, variables, and functions are removed in 8.4.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10643,7 +10643,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Remove dependencies on built-in memcached variables/APIs.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="8.4-breaking-changes.html">Breaking and incompatible changes in 8.4</a></li>
 </ul>
-<h3 id="configuration-file">Configuration file<a class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h3>
+<h3 id="configuration-file">Configuration file<a data-markdown-ignore class="headerlink" href="#configuration-file" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: The server upgrades the data dictionary first and validates the configuration afterwards. If the configuration file still contains an option that was removed in 8.4, the first start of 8.4 aborts with <code>[ERROR] [MY-000067] [Server] unknown variable ...</code> <strong>after</strong> the data directory has already been upgraded. The 8.0 server can no longer start this data directory; to go back, you must restore the backup.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10661,20 +10661,20 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>On Debian and Ubuntu, the server configuration is in <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>.</p>
 </li>
 </ul>
-<h3 id="reserved-keywords-in-identifiers">Reserved keywords in identifiers<a class="headerlink" href="#reserved-keywords-in-identifiers" title="Permanent link">&para;</a></h3>
+<h3 id="reserved-keywords-in-identifiers">Reserved keywords in identifiers<a data-markdown-ignore class="headerlink" href="#reserved-keywords-in-identifiers" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: New reserved words (for example, <code>MANUAL</code>, <code>PARALLEL</code>, <code>QUALIFY</code>, <code>TABLESAMPLE</code>) can break schemas and queries.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Scan object names and queries for unquoted usage; quote or rename as needed.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="https://dev.mysql.com/doc/refman/8.4/en/keywords.html">Keywords and Reserved Words in MySQL 8.4 <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for the complete list of reserved keywords.</li>
 </ul>
-<h3 id="schema-constraints">Schema constraints<a class="headerlink" href="#schema-constraints" title="Permanent link">&para;</a></h3>
+<h3 id="schema-constraints">Schema constraints<a data-markdown-ignore class="headerlink" href="#schema-constraints" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: <code>AUTO_INCREMENT</code> is not allowed on <code>FLOAT</code>/<code>DOUBLE</code>.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Identify and convert any <code>FLOAT</code>/<code>DOUBLE</code> <code>AUTO_INCREMENT</code> columns to integer types prior to upgrade.</li>
 </ul>
-<h3 id="configuration-defaults-review">Configuration defaults review<a class="headerlink" href="#configuration-defaults-review" title="Permanent link">&para;</a></h3>
+<h3 id="configuration-defaults-review">Configuration defaults review<a data-markdown-ignore class="headerlink" href="#configuration-defaults-review" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: 8.4 changes several InnoDB defaults for modern hardware; old 8.0 configs may not be optimal and can cause behavior changes.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10682,7 +10682,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If <code>innodb_numa_interleave=OFF</code>, set <code>innodb_buffer_pool_populate=OFF</code> in 8.4.11 to keep 8.4.10 pre-faulting behavior. See <a href="8.4-defaults-and-tuning.html#numa-interleave-and-buffer-pool-populate">NUMA interleave and buffer pool populate</a>.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="8.4-defaults-and-tuning.html">Defaults and tuning guidance for 8.4</a></li>
 </ul>
-<h3 id="spatial-indexes">Spatial indexes<a class="headerlink" href="#spatial-indexes" title="Permanent link">&para;</a></h3>
+<h3 id="spatial-indexes">Spatial indexes<a data-markdown-ignore class="headerlink" href="#spatial-indexes" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: A known issue can corrupt a spatial index (R-Tree index) in MySQL 8.4.0 through 8.4.3. The corruption is triggered when an <code>UPDATE</code> that slightly changes a geometry&rsquo;s MBR (Minimum Bounding Rectangle) is immediately followed by a <code>DELETE</code> of the same row. This issue is fixed in 8.4.4 and later.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10691,20 +10691,20 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Plan to re-create any spatial indexes dropped pre-upgrade after upgrade completion.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="8.4-breaking-changes.html#spatial-indexes">Breaking and incompatible changes in 8.4</a> for detailed information and workarounds.</li>
 </ul>
-<h3 id="backup-and-recovery-rehearsal">Backup and recovery rehearsal<a class="headerlink" href="#backup-and-recovery-rehearsal" title="Permanent link">&para;</a></h3>
+<h3 id="backup-and-recovery-rehearsal">Backup and recovery rehearsal<a data-markdown-ignore class="headerlink" href="#backup-and-recovery-rehearsal" title="Permanent link">&para;</a></h3>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Take a hot backup with Percona XtraBackup; document restore steps and timings.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Restore into a clean 8.4 environment; validate startup and metadata upgrade.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="backup-restore-overview.html">Backup and restore overview</a></li>
 </ul>
-<h3 id="behavior-comparison-and-testing">Behavior comparison and testing<a class="headerlink" href="#behavior-comparison-and-testing" title="Permanent link">&para;</a></h3>
+<h3 id="behavior-comparison-and-testing">Behavior comparison and testing<a data-markdown-ignore class="headerlink" href="#behavior-comparison-and-testing" title="Permanent link">&para;</a></h3>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Use <code>pt-upgrade</code> to compare query plans/behavior between 8.0 and 8.4.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Run application smoke and load tests against a restored 8.4 copy.</li>
 </ul>
-<h3 id="plugins-to-components-transitions">Plugins to components transitions<a class="headerlink" href="#plugins-to-components-transitions" title="Permanent link">&para;</a></h3>
+<h3 id="plugins-to-components-transitions">Plugins to components transitions<a data-markdown-ignore class="headerlink" href="#plugins-to-components-transitions" title="Permanent link">&para;</a></h3>
 <p><strong>Impact</strong>: Some 8.0 plugins are removed or replaced by components in 8.4.</p>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
@@ -10713,46 +10713,46 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Plan configuration changes from plugin variables/<code>--early-plugin-load</code> to component manifests/config files.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="upgrade-components.html">Upgrade from plugins to components</a></li>
 </ul>
-<h3 id="rollback-feasibility">Rollback feasibility<a class="headerlink" href="#rollback-feasibility" title="Permanent link">&para;</a></h3>
+<h3 id="rollback-feasibility">Rollback feasibility<a data-markdown-ignore class="headerlink" href="#rollback-feasibility" title="Permanent link">&para;</a></h3>
 <p><strong>Action</strong>:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Define a rollback path (for example, keep 8.0 environment on standby or validate point-in-time recovery to 8.0-compatible readers if applicable).</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Confirm cutover/rollback runbooks with approvers.</li>
 </ul>
-<h2 id="post-upgrade-validation">Post-upgrade validation<a class="headerlink" href="#post-upgrade-validation" title="Permanent link">&para;</a></h2>
+<h2 id="post-upgrade-validation">Post-upgrade validation<a data-markdown-ignore class="headerlink" href="#post-upgrade-validation" title="Permanent link">&para;</a></h2>
 <p>Run these checks immediately after upgrading from 8.0 to 8.4 and before widening traffic.</p>
-<h3 id="connectivity-and-authentication">Connectivity and authentication<a class="headerlink" href="#connectivity-and-authentication" title="Permanent link">&para;</a></h3>
+<h3 id="connectivity-and-authentication">Connectivity and authentication<a data-markdown-ignore class="headerlink" href="#connectivity-and-authentication" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Verify application logins for every service account.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Confirm new account creations default to <code>caching_sha2_password</code> as expected.</li>
 </ul>
-<h3 id="replication-health-if-applicable">Replication health (if applicable)<a class="headerlink" href="#replication-health-if-applicable" title="Permanent link">&para;</a></h3>
+<h3 id="replication-health-if-applicable">Replication health (if applicable)<a data-markdown-ignore class="headerlink" href="#replication-health-if-applicable" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Confirm <code>SHOW REPLICA STATUS</code> reports healthy IO/SQL threads.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Exercise planned failover and change-source procedures.</li>
 </ul>
-<h3 id="spatial-indexes_1">Spatial indexes<a class="headerlink" href="#spatial-indexes_1" title="Permanent link">&para;</a></h3>
+<h3 id="spatial-indexes_1">Spatial indexes<a data-markdown-ignore class="headerlink" href="#spatial-indexes_1" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Re-create any spatial indexes dropped pre-upgrade.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Run integrity checks (for example, <code>CHECK TABLE ... EXTENDED</code>) and representative spatial queries to verify index health.</li>
 </ul>
-<h3 id="workload-and-performance-baselines">Workload and performance baselines<a class="headerlink" href="#workload-and-performance-baselines" title="Permanent link">&para;</a></h3>
+<h3 id="workload-and-performance-baselines">Workload and performance baselines<a data-markdown-ignore class="headerlink" href="#workload-and-performance-baselines" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Re-run baseline queries and workload tests; compare latency and throughput.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Review changes in 8.4 defaults that can affect performance (optimizer/costing, redo/undo, IO settings) and tune as needed.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> See: <a href="8.4-defaults-and-tuning.html">Defaults and tuning guidance for 8.4</a></li>
 </ul>
-<h3 id="logs-and-observability">Logs and observability<a class="headerlink" href="#logs-and-observability" title="Permanent link">&para;</a></h3>
+<h3 id="logs-and-observability">Logs and observability<a data-markdown-ignore class="headerlink" href="#logs-and-observability" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Review error logs and warnings post-startup and during smoke tests.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Inspect Performance Schema metrics and application SLOs for regressions.</li>
 </ul>
-<h3 id="backup-and-recovery">Backup and recovery<a class="headerlink" href="#backup-and-recovery" title="Permanent link">&para;</a></h3>
+<h3 id="backup-and-recovery">Backup and recovery<a data-markdown-ignore class="headerlink" href="#backup-and-recovery" title="Permanent link">&para;</a></h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Take a fresh full backup with Percona XtraBackup.</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Optionally perform a spot restore test to validate recovery on 8.4.</li>
 </ul>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="upgrade.html">Upgrade overview</a></li>
 <li><a href="upgrade-procedures.html">Upgrade procedures for 8.4</a></li>

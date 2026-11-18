@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10613,7 +10613,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="data-masking-overview">Data masking overview<a class="headerlink" href="#data-masking-overview" title="Permanent link">&para;</a></h1>
+<h1 id="data-masking-overview">Data masking overview<a data-markdown-ignore class="headerlink" href="#data-masking-overview" title="Permanent link">&para;</a></h1>
 <p>Data masking protects sensitive information by changing or replacing values so that readers see altered data instead of the originals. Use masking when you need to present, demonstrate, or test software without revealing real data. Masking keeps a similar data format, which reduces the risk of recovering originals.</p>
 <p>Masking is a data transformation, not a substitute for access control. It works alongside MySQL privileges (RBAC—role-based access control). RBAC is MySQL’s privilege system: it determines which users and roles can read, write, or administer tables. Users who have permission to read the table see the unmasked result; the component does not by itself restrict access or prevent privilege escalation. You still need to grant only the minimum required privileges so that only authorized users can access the data at all. For small value domains (for example, gender or state codes), inference or frequency analysis may still reveal or narrow down originals. Treat masking as one layer of protection, not a guarantee of irreversibility.</p>
 <p>Typical use cases:</p>
@@ -10650,7 +10650,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Use masking as part of a broader data-protection and access-control strategy, not as the only safeguard.</p>
 <p>The component offers two kinds of functions: those that mask existing values (for example, replace digits with a character) and those that generate replacement values (for example, random SSNs or emails). See <a href="data-masking-function-list.html">Data masking component functions</a> for the full catalog and to find a function by task.</p>
 <p>Next steps: <a href="install-data-masking-component.html">Install the data masking component</a>, then follow the <a href="quickstart-data-masking.html">Data masking quickstart</a> to create a test database and try masking. The quickstart covers required privileges and working examples.</p>
-<h2 id="version-updates">Version updates<a class="headerlink" href="#version-updates" title="Permanent link">&para;</a></h2>
+<h2 id="version-updates">Version updates<a data-markdown-ignore class="headerlink" href="#version-updates" title="Permanent link">&para;</a></h2>
 <p>Percona Server for MySQL 8.4.4-4 adds an internal term cache that speeds up dictionary lookups. The cache affects <a href="data-masking-function-list.html#gen_blockliststr-from_dictionary_name-to_dictionary_name">gen_blocklist()</a> and <a href="data-masking-function-list.html#gen_dictionarydictionary_name">gen_dictionary()</a>. Lookups are faster than querying the dictionary table each time, especially when processing many rows.</p>
 <p>Memory use grows with the size of your dictionaries. For very large dictionaries, consider server memory and monitor resource use.</p>
 <p>Cache and table can get out of sync if you change the dictionary table directly instead of using the management functions. Use the management functions to add or remove terms:</p>
@@ -10662,7 +10662,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If the cache and table do get out of sync, call <a href="data-masking-function-list.html#masking_dictionaries_flush">masking_dictionaries_flush()</a> to resync them. The function returns <code>1</code> when successful.</p>
 <p>Replication: Dictionary changes on the source are written to the binary log and applied to the replica’s table, but the replica’s term cache does not update immediately. During that lag, queries on the replica can see stale or inconsistent dictionary data. In sensitive or high-traffic setups, unmasked or incorrectly masked data may be visible until the cache is refreshed.</p>
 <p>To reduce that risk, set the <a href="data-masking-function-list.html#dictionaries_flush_interval_secondsinteger-unsigned">component_masking_functions.dictionaries_flush_interval_seconds</a> variable to a positive value (for example, 60). A background process then refreshes the cache at that interval so replicas stay in sync. The default is 0 (no automatic refresh). </p>
-<h2 id="limitations-and-security-considerations">Limitations and security considerations<a class="headerlink" href="#limitations-and-security-considerations" title="Permanent link">&para;</a></h2>
+<h2 id="limitations-and-security-considerations">Limitations and security considerations<a data-markdown-ignore class="headerlink" href="#limitations-and-security-considerations" title="Permanent link">&para;</a></h2>
 <p>This component is a data-presentation tool, not a data-redaction tool. The component changes how data is shown in query results; the component does not redact stored data or enforce a full secure data lifecycle.</p>
 <p>Referential integrity: The component does not enforce consistency across tables. The same logical identifier (for example, a customer ID) can be masked to different values in different tables. If you need consistent masked identities for joins or testing, use deterministic masking so the same input always maps to the same output (for example, <a href="data-masking-function-list.html#gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist()</code></a> with the same dictionaries, or a single mapping in application logic).</p>
 <p>Access control: Masking in a <code>SELECT</code> only protects that query. Users with <code>SELECT</code> on the base table can bypass masking by querying the table directly. Restrict access to views or stored procedures that apply the masking functions.</p>
@@ -10671,7 +10671,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Logs (slow query log, general query log, binary logs) may record query text or parameters. Restrict log access or redact as required. The component transforms values at query time; stored data is not altered. Behavior for empty strings or malformed identifiers is not fully specified; poor data quality can undermine masking.</p>
 <p>Granting privileges to <code>mysql.session</code> on the dictionary table has security implications; the documentation does not prove the absence of privilege escalation. Regional functions (for example, <code>mask_canada_sin</code>, <code>mask_uk_nin</code>, <code>mask_iban</code>) are not documented as compliant with current regulatory or format requirements in those jurisdictions; verify for your use case.</p>
 <p>Masking is applied per query, so the same column can appear differently in different contexts. Use views or standardized patterns for a consistent policy. For very large dictionaries, performance and memory use depend on size and workload; see the <a href="data-masking-function-list.html">function list</a> for cache behavior and operational notes.</p>
-<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<h2 id="additional-resources">Additional resources<a data-markdown-ignore class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="install-data-masking-component.html">Install the data masking component</a></li>
 <li><a href="uninstall-data-masking-component.html">Uninstall the data masking component</a></li>

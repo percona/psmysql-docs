@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10681,7 +10681,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-format-xml-new-style">Audit Log Filter format - XML (new style)<a class="headerlink" href="#audit-log-filter-format-xml-new-style" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-filter-format-xml-new-style">Audit Log Filter format - XML (new style)<a data-markdown-ignore class="headerlink" href="#audit-log-filter-format-xml-new-style" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:</p>
 <ul>
 <li>
@@ -10714,7 +10714,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Root <code>&lt;AUDIT&gt;</code> wraps <code>&lt;AUDIT_RECORD&gt;</code> elements—one event each.</p>
 <p>Element order matches the legacy audit plugin style; parse by name, not column position.</p>
 <p>Timestamps use the server local zone in <code>YYYY-MM-DDTHH:MM:SS</code> form without a <code>UTC</code> suffix.</p>
-<h2 id="example-reduced-mode-default">Example — REDUCED mode (default)<a class="headerlink" href="#example-reduced-mode-default" title="Permanent link">&para;</a></h2>
+<h2 id="example-reduced-mode-default">Example — REDUCED mode (default)<a data-markdown-ignore class="headerlink" href="#example-reduced-mode-default" title="Permanent link">&para;</a></h2>
 <p>With <code>audit_log_filter.event_mode=REDUCED</code> (default), the formatter emits the primary record per action. The following sample mixes record types. Actual fields depend on filters and configuration.</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;AUDIT&gt;</span>
@@ -10860,7 +10860,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="nt">&lt;/AUDIT&gt;</span>
 </code></pre></div>
-<h2 id="example-full-mode-additional-events">Example — FULL mode (additional events)<a class="headerlink" href="#example-full-mode-additional-events" title="Permanent link">&para;</a></h2>
+<h2 id="example-full-mode-additional-events">Example — FULL mode (additional events)<a data-markdown-ignore class="headerlink" href="#example-full-mode-additional-events" title="Permanent link">&para;</a></h2>
 <p>With <code>audit_log_filter.event_mode=FULL</code>, the formatter adds lifecycle records that wrap each action. The following fragment supplements the REDUCED example.</p>
 <div class="highlight"><pre><span></span><code><span class="w"> </span><span class="cm">&lt;!-- Pre-authentication (before credentials are verified) --&gt;</span>
 <span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
@@ -11032,7 +11032,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="nt">&lt;HOST&gt;&lt;/HOST&gt;</span>
 <span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 </code></pre></div>
-<h2 id="record-descriptions">Record descriptions<a class="headerlink" href="#record-descriptions" title="Permanent link">&para;</a></h2>
+<h2 id="record-descriptions">Record descriptions<a data-markdown-ignore class="headerlink" href="#record-descriptions" title="Permanent link">&para;</a></h2>
 <p>Query (<code>&lt;NAME&gt;Query&lt;/NAME&gt;</code>): carries <code>&lt;STATUS&gt;</code>, <code>&lt;STATUS_CODE&gt;</code>, <code>&lt;CONNECTION_ID&gt;</code>, <code>&lt;COMMAND_CLASS&gt;</code> (SQL command), usually <code>&lt;SQLTEXT&gt;</code>, plus <code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;USER&gt;</code>, <code>&lt;OS_LOGIN&gt;</code>.</p>
 <p>Table access (<code>TableRead</code>, <code>TableInsert</code>, <code>TableUpdate</code>, <code>TableDelete</code>): <code>&lt;DB&gt;</code>, <code>&lt;TABLE&gt;</code>, <code>&lt;COMMAND_CLASS&gt;</code>, <code>&lt;SQLTEXT&gt;</code>, <code>&lt;HOST&gt;</code>, <code>&lt;IP&gt;</code>, <code>&lt;USER&gt;</code>, <code>&lt;OS_LOGIN&gt;</code>—no <code>&lt;STATUS&gt;</code> / <code>&lt;STATUS_CODE&gt;</code>.</p>
 <p>Connection (<code>Connect</code>, <code>Quit</code>): <code>&lt;COMMAND_CLASS&gt;</code> = <code>connect</code>, <code>&lt;CONNECTION_TYPE&gt;</code>; <code>Connect</code> adds <code>&lt;PRIV_USER&gt;</code>, <code>&lt;PROXY_USER&gt;</code>, <code>&lt;DB&gt;</code>.</p>
@@ -11045,7 +11045,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Authentication subclasses (FULL): <code>Pre Authenticate</code>, <code>Auth Credential Change</code>, <code>Auth Authid Rename</code>, <code>Auth Authid Drop</code>, <code>Auth Flush</code>; <code>&lt;COMMAND_CLASS&gt;</code> is <code>Authentication</code> (or <code>connect</code> for pre-auth); include <code>&lt;STATUS&gt;</code>, <code>&lt;USER&gt;</code>, <code>&lt;HOST&gt;</code>.</p>
 <p>Empty values use self-closing tags (<code>&lt;TAG/&gt;</code>) for <code>USER</code>, <code>OS_LOGIN</code>, <code>HOST</code>, <code>IP</code>, <code>COMMAND_CLASS</code>, <code>PRIV_USER</code>, <code>PROXY_USER</code>, <code>DB</code>.</p>
 <p><code>&lt;RECORD_ID&gt;</code> starts at 1. Indent one space per nesting level under <code>&lt;AUDIT&gt;</code> (records at 1 space, children +1, and so on).</p>
-<h2 id="mandatory-elements">Mandatory elements<a class="headerlink" href="#mandatory-elements" title="Permanent link">&para;</a></h2>
+<h2 id="mandatory-elements">Mandatory elements<a data-markdown-ignore class="headerlink" href="#mandatory-elements" title="Permanent link">&para;</a></h2>
 <p>The following elements appear on every <code>&lt;AUDIT_RECORD&gt;</code> in the NEW XML format:</p>
 <table>
 <thead>
@@ -11069,7 +11069,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="optional-elements-by-record-category">Optional elements (by record category)<a class="headerlink" href="#optional-elements-by-record-category" title="Permanent link">&para;</a></h2>
+<h2 id="optional-elements-by-record-category">Optional elements (by record category)<a data-markdown-ignore class="headerlink" href="#optional-elements-by-record-category" title="Permanent link">&para;</a></h2>
 <p>Many elements appear only for specific event classes. The following table lists
 elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one
 event type. The table does not promise that every field appears in every record.</p>
@@ -11165,7 +11165,7 @@ event type. The table does not promise that every field appears in every record.
 </table>
 <p>The component XML-escapes characters such as <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, and <code>"</code> in element text.
 Server-side limits may truncate very long values.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></li>
 <li><a href="audit-log-filter-old.html">Audit Log Filter format - XML (old style)</a></li>

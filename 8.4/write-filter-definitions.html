@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10703,7 +10703,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="write-audit_log_filter-definitions">Write audit_log_filter definitions<a class="headerlink" href="#write-audit_log_filter-definitions" title="Permanent link">&para;</a></h1>
+<h1 id="write-audit_log_filter-definitions">Write audit_log_filter definitions<a data-markdown-ignore class="headerlink" href="#write-audit_log_filter-definitions" title="Permanent link">&para;</a></h1>
 <p>Audit log filters are JSON documents you pass to <code>audit_log_filter_set_filter()</code>.</p>
 <p>Every filter nests rules under a root <code>filter</code> object. For authoritative class, event, and field names that validation accepts, see <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
 <style>
@@ -10759,7 +10759,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="basic-structure">Basic structure<a class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h2>
+<h2 id="basic-structure">Basic structure<a data-markdown-ignore class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h2>
 <p>A filter is a JSON document whose root is a single <code>filter</code> object. <code>filter</code> contains an optional global <code>log</code> flag, an optional <code>id</code> (used for dynamic filter swapping), and one or more <code>class</code> rules. Each class rule can carry its own <code>log</code> condition and an optional <code>event</code> list; each event block can carry <code>log</code>, <code>abort</code>, <code>print</code>, or a nested <code>filter</code>. Conditions inside <code>log</code> / <code>abort</code> / <code>print</code> are built from <code>field</code>, <code>variable</code>, <code>function</code>, and the <code>and</code> / <code>or</code> / <code>not</code> logical operators.</p>
 <p>The tree below summarizes where each key legally nests:</p>
 <div class="highlight"><pre><span></span><code>filter                                   # root object
@@ -10800,7 +10800,7 @@ condition := {
 <span class="p">}</span>
 </code></pre></div>
 <p>Replace <code>class_type</code> with a real class name (<code>connection</code>, <code>general</code>, <code>table_access</code>, <code>message</code>) and <code>event_subclass</code> with one of its subclasses. Add a <code>log</code> condition under the class or the event to narrow which matching events are actually written.</p>
-<h3 id="practical-example">Practical example<a class="headerlink" href="#practical-example" title="Permanent link">&para;</a></h3>
+<h3 id="practical-example">Practical example<a data-markdown-ignore class="headerlink" href="#practical-example" title="Permanent link">&para;</a></h3>
 <p>The following filter logs only <code>connection</code> events whose <code>user.str</code> is <code>admin</code> or <code>developer</code> <strong>and</strong> whose <code>host.str</code> is <code>192.168.0.1</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10826,7 +10826,7 @@ condition := {
 <li>The condition is an <code>and</code> over two <code>field</code> comparisons. <code>user.str</code> and <code>host.str</code> are fields carried by every <code>connection</code> event (see <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>). <code>user.str</code>&rsquo;s <code>value</code> is an array, so the comparison is true when the field matches any value in the array.</li>
 </ul>
 <p>Rule-level conditions like this one narrow <em>which events are logged</em> — they do not determine <em>which filter a session uses</em>. Session-to-filter binding is separate, done with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a> and stored in <code>mysql.audit_log_user</code>. A session only reaches this JSON after the server has chosen this filter for it.</p>
-<h3 id="log-all-events">Log all events<a class="headerlink" href="#log-all-events" title="Permanent link">&para;</a></h3>
+<h3 id="log-all-events">Log all events<a data-markdown-ignore class="headerlink" href="#log-all-events" title="Permanent link">&para;</a></h3>
 <p>Toggle global logging with the top-level <code>log</code> flag:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
@@ -10881,7 +10881,7 @@ condition := {
 </tr>
 </tbody>
 </table>
-<h3 id="log-specific-event-classes">Log specific event classes<a class="headerlink" href="#log-specific-event-classes" title="Permanent link">&para;</a></h3>
+<h3 id="log-specific-event-classes">Log specific event classes<a data-markdown-ignore class="headerlink" href="#log-specific-event-classes" title="Permanent link">&para;</a></h3>
 <p>To limit logging to one class, set <code>class.name</code>, for example <code>connection</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10901,9 +10901,9 @@ condition := {
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="log-multiple-classes-or-events">Log multiple classes or events<a class="headerlink" href="#log-multiple-classes-or-events" title="Permanent link">&para;</a></h3>
+<h3 id="log-multiple-classes-or-events">Log multiple classes or events<a data-markdown-ignore class="headerlink" href="#log-multiple-classes-or-events" title="Permanent link">&para;</a></h3>
 <p>Log several classes either as separate objects in an array or as one array of names—equivalent when you do not need per-class options yet.</p>
-<h4 id="per-class-object-list">Per-class object list<a class="headerlink" href="#per-class-object-list" title="Permanent link">&para;</a></h4>
+<h4 id="per-class-object-list">Per-class object list<a data-markdown-ignore class="headerlink" href="#per-class-object-list" title="Permanent link">&para;</a></h4>
 <p>Use a list of class objects when you will add per-class keys (<code>user</code>, <code>event</code>, …) later.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10915,7 +10915,7 @@ condition := {
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h4 id="compact-name-array">Compact name array<a class="headerlink" href="#compact-name-array" title="Permanent link">&para;</a></h4>
+<h4 id="compact-name-array">Compact name array<a data-markdown-ignore class="headerlink" href="#compact-name-array" title="Permanent link">&para;</a></h4>
 <p>Combine class names in one array when rules stay uniform across the listed classes:</p>
 <p><div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10926,7 +10926,7 @@ condition := {
 <span class="p">}</span>
 </code></pre></div>
 Prefer this compact form only when no per-class overrides are needed.</p>
-<h4 id="list-of-event-and-subclass-options">List of event and subclass options<a class="headerlink" href="#list-of-event-and-subclass-options" title="Permanent link">&para;</a></h4>
+<h4 id="list-of-event-and-subclass-options">List of event and subclass options<a data-markdown-ignore class="headerlink" href="#list-of-event-and-subclass-options" title="Permanent link">&para;</a></h4>
 <p>Typical class and subclass pairs for authoring (subject to <a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a>); validate exact spellings in <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
 <div class="nowrap-first">
 <table>
@@ -11047,7 +11047,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </table>
 </div>
 <p>Mix and match subclasses under <code>event</code> to mirror your threat model.</p>
-<h2 id="event-classes-log-output-and-sql-commands">Event classes, log output, and SQL commands<a class="headerlink" href="#event-classes-log-output-and-sql-commands" title="Permanent link">&para;</a></h2>
+<h2 id="event-classes-log-output-and-sql-commands">Event classes, log output, and SQL commands<a data-markdown-ignore class="headerlink" href="#event-classes-log-output-and-sql-commands" title="Permanent link">&para;</a></h2>
 <p>Filter JSON uses lowercase class and event names (<code>query</code> / <code>start</code>). Log output uses different spellings depending on format:</p>
 <ul>
 <li>NEW and OLD XML — <code>&lt;NAME&gt;</code> carries a display string (for example <code>Query Start</code>, <code>TableRead</code>, <code>Log</code>).</li>
@@ -11060,9 +11060,9 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <li><code>FULL</code> — adds <code>command</code>, <code>parse</code>, <code>query</code>, <code>stored_program</code>, <code>global_variable</code>, and <code>authentication</code>. A single client statement can produce a sequence of ten or more records.</li>
 </ul>
 <p>Lifecycle records (<code>audit</code> / <code>server_startup</code> / <code>server_shutdown</code>) may appear in the log at startup or shutdown but are not valid filter-definition targets. See <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
-<h3 id="sql-command-values-by-category">SQL command values by category<a class="headerlink" href="#sql-command-values-by-category" title="Permanent link">&para;</a></h3>
+<h3 id="sql-command-values-by-category">SQL command values by category<a data-markdown-ignore class="headerlink" href="#sql-command-values-by-category" title="Permanent link">&para;</a></h3>
 <p>The following tables list common <code>COMMAND_CLASS</code> / <code>sql_command</code> values grouped by SQL category. The list is representative, not exhaustive. For the complete set, see <code>com_status_vars</code> in <code>sql/mysqld.cc</code>.</p>
-<h4 id="ddl-data-definition-language">DDL (Data Definition Language)<a class="headerlink" href="#ddl-data-definition-language" title="Permanent link">&para;</a></h4>
+<h4 id="ddl-data-definition-language">DDL (Data Definition Language)<a data-markdown-ignore class="headerlink" href="#ddl-data-definition-language" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11165,7 +11165,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="dml-data-manipulation-language">DML (Data Manipulation Language)<a class="headerlink" href="#dml-data-manipulation-language" title="Permanent link">&para;</a></h4>
+<h4 id="dml-data-manipulation-language">DML (Data Manipulation Language)<a data-markdown-ignore class="headerlink" href="#dml-data-manipulation-language" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11216,7 +11216,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="dcl-data-control-language">DCL (Data Control Language)<a class="headerlink" href="#dcl-data-control-language" title="Permanent link">&para;</a></h4>
+<h4 id="dcl-data-control-language">DCL (Data Control Language)<a data-markdown-ignore class="headerlink" href="#dcl-data-control-language" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11279,7 +11279,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="tcl-transaction-control-language">TCL (Transaction Control Language)<a class="headerlink" href="#tcl-transaction-control-language" title="Permanent link">&para;</a></h4>
+<h4 id="tcl-transaction-control-language">TCL (Transaction Control Language)<a data-markdown-ignore class="headerlink" href="#tcl-transaction-control-language" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11334,7 +11334,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="administration-replication-and-session">Administration, replication, and session<a class="headerlink" href="#administration-replication-and-session" title="Permanent link">&para;</a></h4>
+<h4 id="administration-replication-and-session">Administration, replication, and session<a data-markdown-ignore class="headerlink" href="#administration-replication-and-session" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11466,7 +11466,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p>Client-level COM names (not <code>sql_command</code>) appear on <code>command</code> class records in FULL mode. Common values include <code>Query</code>, <code>Init DB</code> (for <code>USE</code>), <code>Ping</code>, and <code>Quit</code>.</p>
-<h3 id="typical-event-sequences">Typical event sequences<a class="headerlink" href="#typical-event-sequences" title="Permanent link">&para;</a></h3>
+<h3 id="typical-event-sequences">Typical event sequences<a data-markdown-ignore class="headerlink" href="#typical-event-sequences" title="Permanent link">&para;</a></h3>
 <p>The tables below show which classes and events fire for common operations. Sequences assume <code>audit_log_filter.event_mode=FULL</code> and a filter that logs everything (<code>{"filter": {"log": true}}</code>). With <code>REDUCED</code> mode, only the rows marked REDUCED apply; other rows are skipped at runtime.</p>
 <p>Column key:</p>
 <ul>
@@ -11474,7 +11474,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <li><strong>Log <code>&lt;NAME&gt;</code></strong> — value in NEW XML <code>&lt;NAME&gt;</code> (JSON <code>event</code> uses the filter event name).</li>
 <li><strong><code>sql_command</code></strong> — value in <code>COMMAND_CLASS</code> or <code>general_sql_command.str</code> when present.</li>
 </ul>
-<h4 id="create-database-test1"><code>CREATE DATABASE test1</code><a class="headerlink" href="#create-database-test1" title="Permanent link">&para;</a></h4>
+<h4 id="create-database-test1"><code>CREATE DATABASE test1</code><a data-markdown-ignore class="headerlink" href="#create-database-test1" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11541,7 +11541,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="use-test1-followed-by-select-database"><code>USE test1</code> followed by <code>SELECT DATABASE()</code><a class="headerlink" href="#use-test1-followed-by-select-database" title="Permanent link">&para;</a></h4>
+<h4 id="use-test1-followed-by-select-database"><code>USE test1</code> followed by <code>SELECT DATABASE()</code><a data-markdown-ignore class="headerlink" href="#use-test1-followed-by-select-database" title="Permanent link">&para;</a></h4>
 <p><code>USE</code> and <code>SELECT</code> are separate client commands. Each command produces its own <code>command</code> / <code>start</code> … <code>command</code> / <code>end</code> wrapper.</p>
 <p><strong><code>USE test1</code></strong></p>
 <table>
@@ -11653,13 +11653,13 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="create-table-sbtest1"><code>CREATE TABLE sbtest1 (…)</code><a class="headerlink" href="#create-table-sbtest1" title="Permanent link">&para;</a></h4>
+<h4 id="create-table-sbtest1"><code>CREATE TABLE sbtest1 (…)</code><a data-markdown-ignore class="headerlink" href="#create-table-sbtest1" title="Permanent link">&para;</a></h4>
 <p>Same pattern as <code>CREATE DATABASE</code>, with <code>create_table</code> as the <code>sql_command</code> on <code>query</code> / <code>start</code> and <code>query</code> / <code>status_end</code>. <code>table_access</code> records are not emitted for DDL that does not read or write table data through the table-access API.</p>
-<h4 id="drop-table-sbtest1"><code>DROP TABLE sbtest1</code><a class="headerlink" href="#drop-table-sbtest1" title="Permanent link">&para;</a></h4>
+<h4 id="drop-table-sbtest1"><code>DROP TABLE sbtest1</code><a data-markdown-ignore class="headerlink" href="#drop-table-sbtest1" title="Permanent link">&para;</a></h4>
 <p>Same FULL-mode sequence as <code>CREATE TABLE</code>, with <code>drop_table</code> as the <code>sql_command</code>.</p>
-<h4 id="alter-table"><code>ALTER TABLE …</code><a class="headerlink" href="#alter-table" title="Permanent link">&para;</a></h4>
+<h4 id="alter-table"><code>ALTER TABLE …</code><a data-markdown-ignore class="headerlink" href="#alter-table" title="Permanent link">&para;</a></h4>
 <p>Same FULL-mode sequence as <code>CREATE DATABASE</code>, with <code>alter_table</code> as the <code>sql_command</code> on <code>query</code> / <code>start</code> and <code>query</code> / <code>status_end</code>.</p>
-<h4 id="create-index-drop-index"><code>CREATE INDEX</code> / <code>DROP INDEX</code><a class="headerlink" href="#create-index-drop-index" title="Permanent link">&para;</a></h4>
+<h4 id="create-index-drop-index"><code>CREATE INDEX</code> / <code>DROP INDEX</code><a data-markdown-ignore class="headerlink" href="#create-index-drop-index" title="Permanent link">&para;</a></h4>
 <p>Same FULL-mode sequence as <code>CREATE TABLE</code>. Index DDL uses <code>create_index</code> or <code>drop_index</code> as the <code>sql_command</code>:</p>
 <table>
 <thead>
@@ -11685,7 +11685,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="describe-tbl-desc-tbl"><code>DESCRIBE tbl</code> / <code>DESC tbl</code><a class="headerlink" href="#describe-tbl-desc-tbl" title="Permanent link">&para;</a></h4>
+<h4 id="describe-tbl-desc-tbl"><code>DESCRIBE tbl</code> / <code>DESC tbl</code><a data-markdown-ignore class="headerlink" href="#describe-tbl-desc-tbl" title="Permanent link">&para;</a></h4>
 <p><code>DESCRIBE</code> and <code>DESC</code> are logged as <code>show_fields</code>, not a separate <code>describe</code> command name:</p>
 <table>
 <thead>
@@ -11711,7 +11711,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="create-tablespace-drop-tablespace"><code>CREATE TABLESPACE</code> / <code>DROP TABLESPACE</code><a class="headerlink" href="#create-tablespace-drop-tablespace" title="Permanent link">&para;</a></h4>
+<h4 id="create-tablespace-drop-tablespace"><code>CREATE TABLESPACE</code> / <code>DROP TABLESPACE</code><a data-markdown-ignore class="headerlink" href="#create-tablespace-drop-tablespace" title="Permanent link">&para;</a></h4>
 <p>Both statements use <code>alter_tablespace</code> as the <code>sql_command</code> on the <code>query</code> records. The <code>command</code>, <code>parse</code>, and <code>general</code> wrapper matches other COM <code>Query</code> statements.</p>
 <table>
 <thead>
@@ -11737,7 +11737,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="create-compression_dictionary-drop-compression_dictionary"><code>CREATE COMPRESSION_DICTIONARY</code> / <code>DROP COMPRESSION_DICTIONARY</code><a class="headerlink" href="#create-compression_dictionary-drop-compression_dictionary" title="Permanent link">&para;</a></h4>
+<h4 id="create-compression_dictionary-drop-compression_dictionary"><code>CREATE COMPRESSION_DICTIONARY</code> / <code>DROP COMPRESSION_DICTIONARY</code><a data-markdown-ignore class="headerlink" href="#create-compression_dictionary-drop-compression_dictionary" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11762,9 +11762,9 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="drop-database-test2"><code>DROP DATABASE test2</code><a class="headerlink" href="#drop-database-test2" title="Permanent link">&para;</a></h4>
+<h4 id="drop-database-test2"><code>DROP DATABASE test2</code><a data-markdown-ignore class="headerlink" href="#drop-database-test2" title="Permanent link">&para;</a></h4>
 <p>Same FULL-mode sequence as <code>CREATE DATABASE</code>, with <code>drop_db</code> as the <code>sql_command</code>. After the database is dropped, the server may run an implicit <code>SELECT DATABASE()</code>; that statement produces a second <code>command</code> wrapper with <code>select</code> as the <code>sql_command</code>.</p>
-<h4 id="savepoint-save1"><code>SAVEPOINT save1</code><a class="headerlink" href="#savepoint-save1" title="Permanent link">&para;</a></h4>
+<h4 id="savepoint-save1"><code>SAVEPOINT save1</code><a data-markdown-ignore class="headerlink" href="#savepoint-save1" title="Permanent link">&para;</a></h4>
 <p>TCL statements routed through COM <code>Query</code> produce the same <code>command</code>, <code>parse</code>, and <code>general</code> wrapper as <code>CREATE DATABASE</code>. The <code>query</code> phase carries the TCL-specific <code>sql_command</code>:</p>
 <table>
 <thead>
@@ -11792,7 +11792,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </table>
 <p>In REDUCED mode, only <code>general</code> / <code>status</code> with <code>general_sql_command.str</code> = <code>savepoint</code> is emitted.</p>
 <p><code>RELEASE SAVEPOINT</code> and <code>ROLLBACK TO SAVEPOINT</code> use <code>release_savepoint</code> and <code>rollback_to_savepoint</code> respectively on the <code>query</code> records.</p>
-<h4 id="rollback"><code>ROLLBACK</code><a class="headerlink" href="#rollback" title="Permanent link">&para;</a></h4>
+<h4 id="rollback"><code>ROLLBACK</code><a data-markdown-ignore class="headerlink" href="#rollback" title="Permanent link">&para;</a></h4>
 <p>Same wrapper as other COM <code>Query</code> statements. The <code>query</code> phase uses <code>rollback</code> as the <code>sql_command</code>:</p>
 <table>
 <thead>
@@ -11819,7 +11819,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p>In REDUCED mode, only <code>general</code> / <code>status</code> with <code>general_sql_command.str</code> = <code>rollback</code> is emitted.</p>
-<h4 id="start-transaction"><code>START TRANSACTION</code><a class="headerlink" href="#start-transaction" title="Permanent link">&para;</a></h4>
+<h4 id="start-transaction"><code>START TRANSACTION</code><a data-markdown-ignore class="headerlink" href="#start-transaction" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11844,7 +11844,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="commit"><code>COMMIT</code><a class="headerlink" href="#commit" title="Permanent link">&para;</a></h4>
+<h4 id="commit"><code>COMMIT</code><a data-markdown-ignore class="headerlink" href="#commit" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11869,7 +11869,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="set-session"><code>SET @@SESSION.…</code><a class="headerlink" href="#set-session" title="Permanent link">&para;</a></h4>
+<h4 id="set-session"><code>SET @@SESSION.…</code><a data-markdown-ignore class="headerlink" href="#set-session" title="Permanent link">&para;</a></h4>
 <p>Session and global variable assignments use <code>set_option</code> on the <code>query</code> records. In FULL mode, <code>global_variable</code> / <code>set</code> records may also appear for some <code>SET</code> forms.</p>
 <table>
 <thead>
@@ -11895,7 +11895,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="optimize-table"><code>OPTIMIZE TABLE</code><a class="headerlink" href="#optimize-table" title="Permanent link">&para;</a></h4>
+<h4 id="optimize-table"><code>OPTIMIZE TABLE</code><a data-markdown-ignore class="headerlink" href="#optimize-table" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11921,7 +11921,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p><code>ANALYZE TABLE</code>, <code>CHECK TABLE</code>, and <code>REPAIR TABLE</code> use <code>analyze</code>, <code>check</code>, and <code>repair</code> respectively.</p>
-<h4 id="create-user"><code>CREATE USER</code><a class="headerlink" href="#create-user" title="Permanent link">&para;</a></h4>
+<h4 id="create-user"><code>CREATE USER</code><a data-markdown-ignore class="headerlink" href="#create-user" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11947,7 +11947,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p>In FULL mode, <code>authentication</code> / <code>authid_create</code> may also appear.</p>
-<h4 id="grant"><code>GRANT</code><a class="headerlink" href="#grant" title="Permanent link">&para;</a></h4>
+<h4 id="grant"><code>GRANT</code><a data-markdown-ignore class="headerlink" href="#grant" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11973,7 +11973,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p>The <code>SQLTEXT</code> on <code>Query Status End</code> may show normalized identifier quoting (for example backticks around schema and table names) that differs from the <code>Query Start</code> record.</p>
-<h4 id="drop-user"><code>DROP USER</code><a class="headerlink" href="#drop-user" title="Permanent link">&para;</a></h4>
+<h4 id="drop-user"><code>DROP USER</code><a data-markdown-ignore class="headerlink" href="#drop-user" title="Permanent link">&para;</a></h4>
 <p><code>DROP USER</code> emits an <code>authentication</code> record between the <code>query</code> bracket records:</p>
 <table>
 <thead>
@@ -12005,7 +12005,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tr>
 </tbody>
 </table>
-<h4 id="insert-into"><code>INSERT INTO …</code><a class="headerlink" href="#insert-into" title="Permanent link">&para;</a></h4>
+<h4 id="insert-into"><code>INSERT INTO …</code><a data-markdown-ignore class="headerlink" href="#insert-into" title="Permanent link">&para;</a></h4>
 <p>DML that touches a table adds a <code>table_access</code> record between the <code>query</code> bracket records. This sequence appears in both FULL and REDUCED modes for the <code>table_access</code> row.</p>
 <table>
 <thead>
@@ -12039,7 +12039,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </table>
 <p><code>UPDATE</code> and <code>DELETE</code> follow the same pattern with <code>TableUpdate</code> / <code>update</code> and <code>TableDelete</code> / <code>delete</code>. <code>SELECT</code> that reads tables emits <code>TableRead</code> / <code>read</code> instead.</p>
 <p>Unless noted otherwise, the <code>command</code>, <code>parse</code>, and <code>general</code> wrapper for the examples in this section matches <code>CREATE DATABASE</code>.</p>
-<h4 id="server-startup">Server startup<a class="headerlink" href="#server-startup" title="Permanent link">&para;</a></h4>
+<h4 id="server-startup">Server startup<a data-markdown-ignore class="headerlink" href="#server-startup" title="Permanent link">&para;</a></h4>
 <p>At component initialization the log receives lifecycle records that cannot be targeted in filter JSON:</p>
 <table>
 <thead>
@@ -12063,7 +12063,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p>MySQL <code>server_startup</code> tracking events are not written to the audit log by this component.</p>
-<h4 id="shutdown"><code>SHUTDOWN</code><a class="headerlink" href="#shutdown" title="Permanent link">&para;</a></h4>
+<h4 id="shutdown"><code>SHUTDOWN</code><a data-markdown-ignore class="headerlink" href="#shutdown" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -12095,7 +12095,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </tbody>
 </table>
 <p>Component shutdown writes an <code>audit</code> / <code>shutdown</code> record (XML <code>&lt;NAME&gt;NoAudit&lt;/NAME&gt;</code>). MySQL <code>server_shutdown</code> tracking events are not written.</p>
-<h3 id="filtering-by-statement-type">Filtering by statement type<a class="headerlink" href="#filtering-by-statement-type" title="Permanent link">&para;</a></h3>
+<h3 id="filtering-by-statement-type">Filtering by statement type<a data-markdown-ignore class="headerlink" href="#filtering-by-statement-type" title="Permanent link">&para;</a></h3>
 <p>To log only DDL against a schema, combine class rules with <code>general_sql_command.str</code> conditions:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12119,11 +12119,11 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </code></pre></div>
 <p>In FULL mode, add parallel rules under the <code>query</code> class using <code>sql_command_id</code> if you need the bracketing <code>query</code> / <code>start</code> and <code>query</code> / <code>status_end</code> records instead of (or in addition to) the <code>general</code> / <code>status</code> summary.</p>
 <p>For format-specific field layouts, see <a href="audit-log-filter-new.html">Audit Log Filter format - XML (new style)</a> and <a href="audit-log-filter-json.html">Audit Log Filter format - JSON and JSONL</a>.</p>
-<h2 id="filter-patterns">Filter patterns<a class="headerlink" href="#filter-patterns" title="Permanent link">&para;</a></h2>
+<h2 id="filter-patterns">Filter patterns<a data-markdown-ignore class="headerlink" href="#filter-patterns" title="Permanent link">&para;</a></h2>
 <p>Inclusive patterns list what to log; exclusive patterns drop noisy work from an otherwise-on stream. Pick one approach per filter — combining them in a single rule set is harder to reason about than two separate filters bound to different account patterns.</p>
-<h3 id="inclusive-filters">Inclusive filters<a class="headerlink" href="#inclusive-filters" title="Permanent link">&para;</a></h3>
+<h3 id="inclusive-filters">Inclusive filters<a data-markdown-ignore class="headerlink" href="#inclusive-filters" title="Permanent link">&para;</a></h3>
 <p>Inclusive rules list what to log—pair classes with <code>user</code>, <code>database</code>, <code>table</code>, <code>event</code>, <code>status</code>, and similar fields until the stream matches your policy.</p>
-<h4 id="when-to-use-inclusive-filters">When to use inclusive filters<a class="headerlink" href="#when-to-use-inclusive-filters" title="Permanent link">&para;</a></h4>
+<h4 id="when-to-use-inclusive-filters">When to use inclusive filters<a data-markdown-ignore class="headerlink" href="#when-to-use-inclusive-filters" title="Permanent link">&para;</a></h4>
 <p>Spell out:</p>
 <ul>
 <li>
@@ -12138,7 +12138,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </ul>
 <p>Typical uses: compliance evidence, privileged-user monitoring, schema-change tracking, incident response.</p>
 <p>Tighter filters mean less noise and less I/O—always stage-test rules before production.</p>
-<h4 id="inclusive-filter-example">Inclusive filter example<a class="headerlink" href="#inclusive-filter-example" title="Permanent link">&para;</a></h4>
+<h4 id="inclusive-filter-example">Inclusive filter example<a data-markdown-ignore class="headerlink" href="#inclusive-filter-example" title="Permanent link">&para;</a></h4>
 <p>Administrators often watch destructive <code>table_access</code> work—this skeleton logs <code>update</code> and <code>delete</code> only:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12170,7 +12170,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <li><code>"field"</code> — compares an event field against a value. <code>table_database.str</code> and <code>table_name.str</code> are fields carried by every <code>table_access</code> event (see <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a> for the full list).</li>
 </ul>
 <p>To widen or narrow the rule, change the field values, add <code>or</code> branches for multiple tables, or drop either <code>field</code> check to scope by database only or by table name only.</p>
-<h4 id="log-only-update-and-delete-on-a-specific-table">Log only UPDATE and DELETE on a specific table<a class="headerlink" href="#log-only-update-and-delete-on-a-specific-table" title="Permanent link">&para;</a></h4>
+<h4 id="log-only-update-and-delete-on-a-specific-table">Log only UPDATE and DELETE on a specific table<a data-markdown-ignore class="headerlink" href="#log-only-update-and-delete-on-a-specific-table" title="Permanent link">&para;</a></h4>
 <p>To log <code>update</code> and <code>delete</code> against a single table — or a short list of tables inside one database — combine <code>table_database.str</code> with an <code>or</code> over <code>table_name.str</code> values:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12199,13 +12199,13 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>To scope to one database only, omit the inner <code>or</code> and keep the <code>table_database.str</code> check. Note that <code>table_access</code> events do not carry a user field, so filtering by account must be done at assignment time with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>.</p>
-<h3 id="exclusive-filters">Exclusive filters<a class="headerlink" href="#exclusive-filters" title="Permanent link">&para;</a></h3>
+<h3 id="exclusive-filters">Exclusive filters<a data-markdown-ignore class="headerlink" href="#exclusive-filters" title="Permanent link">&para;</a></h3>
 <p>Exclusive (or negated) rules drop noisy work. There are two idioms:</p>
 <ul>
 <li>Set <code>"log": true</code> at the filter level, then set <code>"log": false</code> on a specific class or event to suppress just that slice.</li>
 <li>Use a <code>"not"</code> logical operator inside a <code>log</code> condition to drop matches that satisfy an expression.</li>
 </ul>
-<h4 id="suppress-one-class-while-logging-everything-else">Suppress one class while logging everything else<a class="headerlink" href="#suppress-one-class-while-logging-everything-else" title="Permanent link">&para;</a></h4>
+<h4 id="suppress-one-class-while-logging-everything-else">Suppress one class while logging everything else<a data-markdown-ignore class="headerlink" href="#suppress-one-class-while-logging-everything-else" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -12214,7 +12214,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>This logs every event <em>except</em> <code>general</code> class events. <code>log: true</code> at the top enables logging globally, then the class-level <code>log: false</code> carves out one class.</p>
-<h4 id="invert-a-field-match-with-not">Invert a field match with <code>not</code><a class="headerlink" href="#invert-a-field-match-with-not" title="Permanent link">&para;</a></h4>
+<h4 id="invert-a-field-match-with-not">Invert a field match with <code>not</code><a data-markdown-ignore class="headerlink" href="#invert-a-field-match-with-not" title="Permanent link">&para;</a></h4>
 <p>Wrap a condition in <code>not</code> inside a <code>log</code> item to drop the events that match it. Because inversion tests a field on the current event, use a field the class actually carries (for example, <code>table_database.str</code> on <code>table_access</code>; <code>user.str</code> on <code>connection</code>; <code>general_user.str</code> on <code>general</code>). The example below suppresses <code>table_access</code> events against the internal <code>mysql</code> schema:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12232,7 +12232,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>This logs <code>table_access</code> events except those touching the <code>mysql</code> system schema. For a user-based suppression, apply the <code>not</code> against a field that exists on the class you&rsquo;re filtering — <code>user.str</code> on <code>connection</code>, <code>general_user.str</code> on <code>general</code> — or scope the filter to specific accounts at assignment time with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>.</p>
-<h4 id="exclusive-filter-example">Exclusive filter example<a class="headerlink" href="#exclusive-filter-example" title="Permanent link">&para;</a></h4>
+<h4 id="exclusive-filter-example">Exclusive filter example<a data-markdown-ignore class="headerlink" href="#exclusive-filter-example" title="Permanent link">&para;</a></h4>
 <p>This filter logs everything except <code>general</code> events, and within <code>connection</code> events drops <code>connect</code>/<code>disconnect</code> subclasses (keeping only <code>change_user</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12256,10 +12256,10 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <li>The second class entry turns off the entire <code>general</code> class.</li>
 </ul>
 <p>Field-type rules (JSON numbers versus strings, <code>connection_type</code> symbolic constants such as <code>"::tcp/ip"</code>, and which types are accepted for each field) are described under <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and in <a href="audit-log-filter-definition-fields.html#connection">Audit Log Filter definition fields</a>.</p>
-<h2 id="advanced-filter-constructs">Advanced filter constructs<a class="headerlink" href="#advanced-filter-constructs" title="Permanent link">&para;</a></h2>
+<h2 id="advanced-filter-constructs">Advanced filter constructs<a data-markdown-ignore class="headerlink" href="#advanced-filter-constructs" title="Permanent link">&para;</a></h2>
 <p>The sections so far cover logging on or off at class/event granularity. The filter language also supports per-event <strong>conditions</strong>, execution <strong>blocking</strong>, references to server <strong>variables</strong> and <strong>functions</strong>, field-value <strong>replacement</strong> (redaction), and <strong>dynamic</strong> filter swapping.</p>
 <p>Validate exact field names and types against <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a> before deploying any of these to production.</p>
-<h3 id="test-event-field-values">Test event field values<a class="headerlink" href="#test-event-field-values" title="Permanent link">&para;</a></h3>
+<h3 id="test-event-field-values">Test event field values<a data-markdown-ignore class="headerlink" href="#test-event-field-values" title="Permanent link">&para;</a></h3>
 <p>Inside an <code>event</code> block, a <code>log</code> item can carry a <code>field</code> comparison. The rule logs the event only when the field equals the given value.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12288,7 +12288,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p><code>table_access</code>: <code>query.str</code>, <code>table_database.str</code>, <code>table_name.str</code></p>
 </li>
 </ul>
-<h3 id="combine-conditions-with-logical-operators">Combine conditions with logical operators<a class="headerlink" href="#combine-conditions-with-logical-operators" title="Permanent link">&para;</a></h3>
+<h3 id="combine-conditions-with-logical-operators">Combine conditions with logical operators<a data-markdown-ignore class="headerlink" href="#combine-conditions-with-logical-operators" title="Permanent link">&para;</a></h3>
 <p><code>and</code>, <code>or</code>, and <code>not</code> let you build compound conditions. They take an array (for <code>and</code> / <code>or</code>) or a single sub-condition (for <code>not</code>) and can be nested arbitrarily.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12318,9 +12318,9 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>This logs <code>general</code>/<code>status</code> events whose <code>general_command</code> is either <code>Query</code> (length 5) or <code>Execute</code> (length 7). Use <code>not</code> to invert any sub-expression — for example, <code>{ "not": { "field": { "name": "user.str", "value": "healthcheck" } } }</code> matches everything except the <code>healthcheck</code> account (on a class that actually carries <code>user.str</code>).</p>
-<h3 id="block-execution-with-abort">Block execution with <code>abort</code><a class="headerlink" href="#block-execution-with-abort" title="Permanent link">&para;</a></h3>
+<h3 id="block-execution-with-abort">Block execution with <code>abort</code><a data-markdown-ignore class="headerlink" href="#block-execution-with-abort" title="Permanent link">&para;</a></h3>
 <p>An <code>event</code> block can carry an <code>abort</code> item that prevents matching statements from executing. The same block cannot carry both <code>log</code> and <code>abort</code>; use separate event blocks when you need both behaviors on the same class. Because blocking is a policy-enforcement capability — not observability — it is covered on its own page: <a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a>.</p>
-<h3 id="reference-predefined-variables">Reference predefined variables<a class="headerlink" href="#reference-predefined-variables" title="Permanent link">&para;</a></h3>
+<h3 id="reference-predefined-variables">Reference predefined variables<a data-markdown-ignore class="headerlink" href="#reference-predefined-variables" title="Permanent link">&para;</a></h3>
 <p>A <code>log</code> or <code>abort</code> condition can test a predefined variable with a <code>variable</code> item. The condition is true when the variable equals the given value.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12346,7 +12346,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <li><code>audit_log_statement_policy_value</code> — <code>0</code>/<code>"::none"</code>, <code>1</code>/<code>"::errors"</code>, <code>2</code>/<code>"::all"</code>.</li>
 </ul>
 <p>Symbolic constants (<code>"::none"</code>, <code>"::all"</code>, …) are case-sensitive strings and are interchangeable with the numeric form.</p>
-<h3 id="reference-predefined-functions">Reference predefined functions<a class="headerlink" href="#reference-predefined-functions" title="Permanent link">&para;</a></h3>
+<h3 id="reference-predefined-functions">Reference predefined functions<a data-markdown-ignore class="headerlink" href="#reference-predefined-functions" title="Permanent link">&para;</a></h3>
 <p>Use a <code>function</code> item to call a built-in inside a <code>log</code>, <code>abort</code>, <code>print</code>, or <code>replace</code> condition. The <code>name</code> field holds the function name without parentheses. The <code>args</code> field is an array of arguments. Omit <code>args</code> when the function takes none.</p>
 <p>The Percona Server audit log filter component implements two predefined functions: <code>string_find</code> and <code>query_digest</code>. Other names from the upstream MySQL Enterprise Audit reference, such as <code>find_in_include_list</code>, <code>find_in_exclude_list</code>, and <code>debug_sleep</code>, are not recognized in this component. Calls to those names fail validation.</p>
 <p>The following filter logs <code>general</code>/<code>status</code> events only when the executed statement contains the substring <code>password</code>:</p>
@@ -12399,9 +12399,9 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </li>
 </ul>
 <p>A condition that calls a function evaluates to <code>true</code> when the function returns a truthy value. Truthy values include non-empty strings and Boolean <code>true</code>. Combine function calls with <code>and</code>, <code>or</code>, and <code>not</code> to build richer rules. For example, log only when <code>string_find</code> matches and the user is not on an allow list.</p>
-<h3 id="replace-event-field-values-redaction">Replace event field values (redaction)<a class="headerlink" href="#replace-event-field-values-redaction" title="Permanent link">&para;</a></h3>
+<h3 id="replace-event-field-values-redaction">Replace event field values (redaction)<a data-markdown-ignore class="headerlink" href="#replace-event-field-values-redaction" title="Permanent link">&para;</a></h3>
 <p>A <code>print</code> / <code>replace</code> item inside a class or event block rewrites statement text on one of four class/field pairs (<code>general</code>/<code>general_query.str</code>, <code>table_access</code>/<code>query.str</code>, <code>query</code>/<code>query.str</code>, <code>parse</code>/<code>query.str</code>; the last two require <code>FULL</code> mode) as a <code>query_digest</code> before the event is logged, which keeps literal values out of the audit stream. This is a compliance/PII capability covered on its own page: <a href="redact-audit-log-fields.html">Redact audit log fields</a>.</p>
-<h3 id="replace-a-filter-dynamically">Replace a filter dynamically<a class="headerlink" href="#replace-a-filter-dynamically" title="Permanent link">&para;</a></h3>
+<h3 id="replace-a-filter-dynamically">Replace a filter dynamically<a data-markdown-ignore class="headerlink" href="#replace-a-filter-dynamically" title="Permanent link">&para;</a></h3>
 <p>A filter can swap itself for a different rule set mid-session. Nest a <code>filter</code> block inside an event and give the outer filter an <code>id</code>; use <code>activate</code> to trigger the swap and <code>ref</code> to point back at the original.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12437,14 +12437,14 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </ul>
 <p>Net effect: you log one <code>general</code>/<code>status</code> entry per statement that touched <code>temp_1</code> or <code>temp_2</code>, instead of many <code>table_access</code> rows. A single <code>UPDATE temp_1, temp_3 SET ...</code> emits one log entry rather than one per row touched.</p>
 <p><code>activate</code> is only valid inside a subfilter — using it on the top-level <code>filter</code> raises an error. <code>id</code> values are scoped to the filter definition only; they are unrelated to the <code>audit_log_filter_id</code> system variable.</p>
-<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h2 id="best-practices">Best practices<a data-markdown-ignore class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Start wide, then narrow — begin with a noisy catch-all in staging, then peel away classes you do not need.</li>
 <li>Test combinations — overlapping rules and assignments surprise people; validate on a clone.</li>
 <li>Plan retention — pair filters with rotation, pruning, and disk budgets (<a href="manage-audit-log-filter.html">Manage the Audit Log Filter files</a>).</li>
 <li>Watch overhead — granular auditing costs CPU and I/O; ramp detail gradually and watch latency plus <code>audit_log_filter_*</code> status counters.</li>
 </ol>
-<h2 id="worked-example-financial-tracking-filter">Worked example: financial tracking filter<a class="headerlink" href="#worked-example-financial-tracking-filter" title="Permanent link">&para;</a></h2>
+<h2 id="worked-example-financial-tracking-filter">Worked example: financial tracking filter<a data-markdown-ignore class="headerlink" href="#worked-example-financial-tracking-filter" title="Permanent link">&para;</a></h2>
 <p>This page authors the JSON. To deploy a finished filter, store it with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>, bind it to accounts with <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a>, and reload sessions with <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a>. The <a href="audit-log-filter-quickstart.html">Audit Log Filter quickstart</a> and <a href="install-audit-log-filter.html">Install the audit log filter</a> cover the deploy sequence.</p>
 <p>The following worked example threads JSON authoring, deployment, and verification end-to-end.</p>
 <p>This filter logs DML on two tables in <code>financial_db</code> and all connection events. Account scoping is applied at assignment time, since <code>table_access</code> events do not carry a user field.</p>
@@ -12508,7 +12508,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_user</span><span class="p">;</span>
 </code></pre></div>
 <p>Tail the audit file (default under the data directory) to confirm events stream as expected.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a></li>
 <li><a href="redact-audit-log-fields.html">Redact audit log fields</a></li>

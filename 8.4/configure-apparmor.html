@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10657,11 +10657,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="configure-apparmor">Configure AppArmor<a class="headerlink" href="#configure-apparmor" title="Permanent link">&para;</a></h1>
-<h2 id="edit-profile">Edit profile<a class="headerlink" href="#edit-profile" title="Permanent link">&para;</a></h2>
+<h1 id="configure-apparmor">Configure AppArmor<a data-markdown-ignore class="headerlink" href="#configure-apparmor" title="Permanent link">&para;</a></h1>
+<h2 id="edit-profile">Edit profile<a data-markdown-ignore class="headerlink" href="#edit-profile" title="Permanent link">&para;</a></h2>
 <p>Only edit <code>/etc/apparmor.d/local/usr.sbin.mysql</code>. </p>
 <p>You should [switch the profile] to <code>Complain</code> mode before editing the file. Edit the file in any text editor. When finished, reload the profile and switch it to <code>Enforce</code> mode.</p>
-<h2 id="configure-data-directory-location">Configure data directory location<a class="headerlink" href="#configure-data-directory-location" title="Permanent link">&para;</a></h2>
+<h2 id="configure-data-directory-location">Configure data directory location<a data-markdown-ignore class="headerlink" href="#configure-data-directory-location" title="Permanent link">&para;</a></h2>
 <p>You can change the data directory to a non-default location, like /var/lib/mysqlcustom. You should enable audit mode to capture all actions and edit the profile to allow access to the custom location.</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
 </code></pre></div>
@@ -10719,7 +10719,7 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 <p>Restart mysql:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
-<h2 id="set-up-a-custom-log-location">Set up a custom log location<a class="headerlink" href="#set-up-a-custom-log-location" title="Permanent link">&para;</a></h2>
+<h2 id="set-up-a-custom-log-location">Set up a custom log location<a data-markdown-ignore class="headerlink" href="#set-up-a-custom-log-location" title="Permanent link">&para;</a></h2>
 <p>To move your logs to a custom location, you must edit the my.cnf configuration file and then edit the local profile to allow access:</p>
 <div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/etc/mysql/mysql.conf.d/mysqld.cnf
 </code></pre></div>
@@ -10785,7 +10785,7 @@ AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/custom
 <p>Restart Percona Server:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
-<h2 id="set-secure_file_priv-directory-location">Set <code>secure_file_priv</code> directory location<a class="headerlink" href="#set-secure_file_priv-directory-location" title="Permanent link">&para;</a></h2>
+<h2 id="set-secure_file_priv-directory-location">Set <code>secure_file_priv</code> directory location<a data-markdown-ignore class="headerlink" href="#set-secure_file_priv-directory-location" title="Permanent link">&para;</a></h2>
 <p>By default, secure_file_priv points to the following location:</p>
 <div class="highlight"><pre><span></span><code><span class="n">mysqlshow</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'secure_file_priv'</span><span class="p">;</span>
 </code></pre></div>
@@ -10822,7 +10822,7 @@ Allow data dir access
 <p>Restart Percona Server for MySQL:</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
-<h2 id="apparmor-links">AppArmor links:<a class="headerlink" href="#apparmor-links" title="Permanent link">&para;</a></h2>
+<h2 id="apparmor-links">AppArmor links:<a data-markdown-ignore class="headerlink" href="#apparmor-links" title="Permanent link">&para;</a></h2>
 <p><a href="apparmor.html">AppArmor</a><br>
 <a href="apparmor-profiles.html">AppArmor Profiles</a><br>
 <a href="manage-apparmor-profiles.html">Manage AppArmor Profiles</a><br>

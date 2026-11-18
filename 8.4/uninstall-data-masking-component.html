@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10613,9 +10613,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="uninstall-the-data-masking-component">Uninstall the data masking component<a class="headerlink" href="#uninstall-the-data-masking-component" title="Permanent link">&para;</a></h1>
+<h1 id="uninstall-the-data-masking-component">Uninstall the data masking component<a data-markdown-ignore class="headerlink" href="#uninstall-the-data-masking-component" title="Permanent link">&para;</a></h1>
 <p>Uninstalling removes the masking functions and (if you choose) the dictionary table. The steps below prioritize a clean removal. Before you run them, address dependencies, privileges, and the risk of exposing previously masked data.</p>
-<h2 id="before-you-uninstall">Before you uninstall<a class="headerlink" href="#before-you-uninstall" title="Permanent link">&para;</a></h2>
+<h2 id="before-you-uninstall">Before you uninstall<a data-markdown-ignore class="headerlink" href="#before-you-uninstall" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>Views, stored procedures, and triggers: Any view, routine, or trigger that calls masking functions (for example, in a <code>SELECT</code> or default expression) depends on the component. After <code>UNINSTALL COMPONENT</code>, those objects become invalid. Queries that use them can fail with an error such as a missing function or component. Before uninstalling, identify and either drop or replace those objects, or ensure no application uses them. If you leave them in place and uninstall, applications that query the view may fail or, if they fall back to base tables, may see unmasked data. Plan to replace masking-based views with restricted views, dummy tables, or access denial so that uninstallation does not inadvertently expose raw data.</p>
@@ -10635,7 +10635,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>In-flight use: Ensure no views, routines, or applications are actively using masking functions when you uninstall. Uninstalling while queries or background processes depend on the component can cause those operations to fail.</p>
 </li>
 </ul>
-<h2 id="uninstall-steps">Uninstall steps<a class="headerlink" href="#uninstall-steps" title="Permanent link">&para;</a></h2>
+<h2 id="uninstall-steps">Uninstall steps<a data-markdown-ignore class="headerlink" href="#uninstall-steps" title="Permanent link">&para;</a></h2>
 <p class="power-number">The following steps uninstall the component; the second step optionally drops the <code>masking_dictionaries</code> table.</p>
 <ol>
 <li>
@@ -10652,7 +10652,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If you granted privileges to <code>mysql.session</code> on this table and did not revoke them in &ldquo;Before you uninstall,&rdquo; the grant entries may remain in the system until you revoke them; revoking requires the table to exist, so revoke before dropping the table if you want a full cleanup.</p>
 </li>
 </ol>
-<h2 id="useful-links">Useful links<a class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
+<h2 id="useful-links">Useful links<a data-markdown-ignore class="headerlink" href="#useful-links" title="Permanent link">&para;</a></h2>
 <p><a href="install-data-masking-component.html">Install the data masking component</a></p>
 <p><a href="data-masking-function-list.html">Data masking component functions</a></p>
 

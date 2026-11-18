@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10743,13 +10743,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="percona-toolkit-udfs">Percona Toolkit UDFs<a class="headerlink" href="#percona-toolkit-udfs" title="Permanent link">&para;</a></h1>
+<h1 id="percona-toolkit-udfs">Percona Toolkit UDFs<a data-markdown-ignore class="headerlink" href="#percona-toolkit-udfs" title="Permanent link">&para;</a></h1>
 <p>The Percona Toolkit component adds user-defined functions (UDFs) that provide fast 64-bit hashing. These UDFs are primarily about speed and data integrity. They are implemented in C++ to perform the hashing operations much faster than standard SQL or stored procedures. With datasets often in the multi-terabyte range, they address several critical scenarios.</p>
 <div class="admonition note">
 <p class="admonition-title">Prerequisites</p>
 <p>Before using these functions, add the Percona Repository and install the component.</p>
 </div>
-<h2 id="why-use-these-functions">Why use these functions<a class="headerlink" href="#why-use-these-functions" title="Permanent link">&para;</a></h2>
+<h2 id="why-use-these-functions">Why use these functions<a data-markdown-ignore class="headerlink" href="#why-use-these-functions" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10781,7 +10781,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="functions-provided">Functions provided<a class="headerlink" href="#functions-provided" title="Permanent link">&para;</a></h2>
+<h2 id="functions-provided">Functions provided<a data-markdown-ignore class="headerlink" href="#functions-provided" title="Permanent link">&para;</a></h2>
 <p>The component registers these functions (one load registers all of them):</p>
 <table>
 <thead>
@@ -10806,7 +10806,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Each function takes a string or numeric value and returns an unsigned 64-bit integer.</p>
-<h2 id="technical-comparison-fnv-vs-murmur">Technical comparison: FNV vs Murmur<a class="headerlink" href="#technical-comparison-fnv-vs-murmur" title="Permanent link">&para;</a></h2>
+<h2 id="technical-comparison-fnv-vs-murmur">Technical comparison: FNV vs Murmur<a data-markdown-ignore class="headerlink" href="#technical-comparison-fnv-vs-murmur" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10834,7 +10834,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Benchmark with your own data and workload when you choose; performance depends on key length, data patterns, and hardware.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h2 id="installation">Installation<a data-markdown-ignore class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>The UDFs are shipped as a MySQL component (not as separate plugin files). After you install the Percona Server package, load the component. Full repository and package steps are in <a href="apt-repo.html#install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (Optional)</a>. Then run:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
@@ -10843,7 +10843,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Hash a single value (for example, for a lookup key or checksum):</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'test_string'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="mi">12345</span><span class="p">);</span>
@@ -10903,8 +10903,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +----+-----------+---------------------+
 </code></pre></div>
 </details>
-<h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
-<h3 id="verify-the-component-is-loaded">Verify the component is loaded<a class="headerlink" href="#verify-the-component-is-loaded" title="Permanent link">&para;</a></h3>
+<h2 id="maintenance">Maintenance<a data-markdown-ignore class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
+<h3 id="verify-the-component-is-loaded">Verify the component is loaded<a data-markdown-ignore class="headerlink" href="#verify-the-component-is-loaded" title="Permanent link">&para;</a></h3>
 <p>Check that the component is registered:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
@@ -10930,7 +10930,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>If the component is not loaded, you get an error such as “Unknown function &lsquo;fnv_64&rsquo;”.</p>
-<h3 id="uninstall-the-component">Uninstall the component<a class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h3>
+<h3 id="uninstall-the-component">Uninstall the component<a data-markdown-ignore class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h3>
 <p>To remove the UDFs, uninstall the component. Any views, stored procedures, or triggers that call these functions will become invalid after uninstall.</p>
 <div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
@@ -10940,7 +10940,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>You need the <code>DELETE</code> privilege on the <code>mysql.component</code> system table. See <a href="uninstall-component.html">UNINSTALL COMPONENT</a> for details.</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshooting">Troubleshooting<a data-markdown-ignore class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>If <code>INSTALL COMPONENT</code> fails:</p>
 <ul>
 <li>Check the error message for details.</li>
@@ -10948,7 +10948,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Ensure you have the required privileges (for example, <code>INSERT</code> on <code>mysql.component</code> for install, <code>DELETE</code> for uninstall).</li>
 </ul>
 <p>For further help, see <a href="https://www.percona.com/services/support">Percona Support <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next steps<a data-markdown-ignore class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="post-installation.html">Post-installation</a> — If you installed the server or the UDF component from a package, configure and secure the server next.</p>
@@ -10960,7 +10960,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="upgrade-components.html">Upgrade from plugins to components</a> — If you are migrating from the old UDF plugin to the component, see the upgrade path.</p>
 </li>
 </ul>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<h2 id="other-reading">Other reading<a data-markdown-ignore class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Percona Toolkit <a href="https://docs.percona.com/percona-toolkit/">documentation <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a></li>
 </ul>

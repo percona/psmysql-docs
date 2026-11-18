@@ -138,7 +138,7 @@ decrypted, remains the same.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10660,11 +10660,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a class="headerlink" href="#encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
+<h1 id="encrypt-schema-or-general-tablespace">Encrypt schema or general tablespace<a data-markdown-ignore class="headerlink" href="#encrypt-schema-or-general-tablespace" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL uses the same encryption architecture as MySQL, a two-tier system consisting of a master key and tablespace keys. The master key can be changed, or rotated in the keyring, as needed. Each tablespace key, when
 decrypted, remains the same.</p>
 <p>The feature requires the keyring plugin.</p>
-<h2 id="set-the-default-for-schemas-and-general-tablespace-encryption">Set the default for schemas and general tablespace encryption<a class="headerlink" href="#set-the-default-for-schemas-and-general-tablespace-encryption" title="Permanent link">&para;</a></h2>
+<h2 id="set-the-default-for-schemas-and-general-tablespace-encryption">Set the default for schemas and general tablespace encryption<a data-markdown-ignore class="headerlink" href="#set-the-default-for-schemas-and-general-tablespace-encryption" title="Permanent link">&para;</a></h2>
 <p>The tables in a general tablespace are either all encrypted or all unencrypted.
 A tablespace cannot contain a mixture of encrypted tables and unencrypted
 tables.</p>
@@ -10675,7 +10675,7 @@ ENCRYPTION clause in the CREATE SCHEMA or CREATE TABLESPACE statement.</p>
 connection.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">default_table_encryption</span><span class="o">=</span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="default_table_encryption"><code>default_table_encryption</code><a class="headerlink" href="#default_table_encryption" title="Permanent link">&para;</a></h2>
+<h2 id="default_table_encryption"><code>default_table_encryption</code><a data-markdown-ignore class="headerlink" href="#default_table_encryption" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10733,7 +10733,7 @@ and general tablespaces and is not applied to the MySQL system tablespace.</p>
 <p class="admonition-title">Note</p>
 <p>The <code>ALTER TABLE</code> statement changes the current encryption mode only if you use the <code>ENCRYPTION</code> clause.</p>
 </div>
-<h2 id="innodb_encrypt_online_alter_logs"><code>innodb_encrypt_online_alter_logs</code><a class="headerlink" href="#innodb_encrypt_online_alter_logs" title="Permanent link">&para;</a></h2>
+<h2 id="innodb_encrypt_online_alter_logs"><code>innodb_encrypt_online_alter_logs</code><a data-markdown-ignore class="headerlink" href="#innodb_encrypt_online_alter_logs" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10768,7 +10768,7 @@ and general tablespaces and is not applied to the MySQL system tablespace.</p>
 full-text search using parallel sorting, building indexes using merge sort, and
 online DDL logs created by InnoDB for online DDL. Encryption is available for
 file merges used in queries and backend processes.</p>
-<h2 id="use-encryption">Use ENCRYPTION<a class="headerlink" href="#use-encryption" title="Permanent link">&para;</a></h2>
+<h2 id="use-encryption">Use ENCRYPTION<a data-markdown-ignore class="headerlink" href="#use-encryption" title="Permanent link">&para;</a></h2>
 <p>If you do not set the default encryption setting, you can create general
 tablespaces with the <code>ENCRYPTION</code> setting.</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
@@ -10790,7 +10790,7 @@ generates the following error:</p>
 <p>The server diagnoses an attempt to create or move tables, including partitioned ones, to a
 general tablespace with an incompatible encryption setting and aborts the process.</p>
 <p>If you must move tables between incompatible tablespaces, create tables with the same structure in another tablespace and run <code>INSERT INTO SELECT</code> from each of the source tables into the destination tables.</p>
-<h2 id="export-an-encrypted-general-tablespace">Export an encrypted general tablespace<a class="headerlink" href="#export-an-encrypted-general-tablespace" title="Permanent link">&para;</a></h2>
+<h2 id="export-an-encrypted-general-tablespace">Export an encrypted general tablespace<a data-markdown-ignore class="headerlink" href="#export-an-encrypted-general-tablespace" title="Permanent link">&para;</a></h2>
 <p>You can only export encrypted file-per-table tablespaces</p>
 
 
@@ -10829,6 +10829,39 @@ general tablespace with an incompatible encryption setting and aborts the proces
 
     
     
+    
+      
+  <span class="md-source-file__fact">
+    
+      
+  <span class="md-icon" title="Contributors">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+  </span>
+  <span>GitHub</span>
+
+    
+    <nav>
+      
+        <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">
+          
+          <img src="https://avatars.githubusercontent.com/u/81975178?v=4&size=72" alt="alina-derkach-oaza">
+        </a>
+      
+        <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
+          
+          <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+        </a>
+      
+      
+      
+    </nav>
+  </span>
+
     
   </aside>
 
