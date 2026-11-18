@@ -1,0 +1,18 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# List of features available in Percona Server for MySQL releases
+
+The following table lists Percona features that differ between Percona Server for MySQL 8.4 and Percona Server for MySQL 9.7. Features with the same status in both versions are omitted. The 9.7 column reflects the 9.7 documentation set.
+
+For plugin transition steps, read [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.html).
+
+| Feature                                                                                                                   | Percona Server for MySQL 8.4                         | Percona Server for MySQL 9.7                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| [Audit Log Filter](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)                            | `component_audit_log_filter`, `format=OLD` available | `component_audit_log_filter`, `format=OLD` removed, JSONL default output format                                             |
+| [Audit log plugin](https://docs.percona.com/percona-server/9.7/audit-log-plugin.html)                                     | Deprecated plugin                                    | Removed. Use `component_audit_log_filter`                                                                                   |
+| [Binary log user-defined functions](https://docs.percona.com/percona-server/9.7/binlogging-replication-improvements.html) | `binlog_utils_udf` plugin                            | `component_binlog_utils_udf`                                                                                                |
+| [Data masking](https://docs.percona.com/percona-server/9.7/data-masking-overview.html)                                    | `data_masking` plugin and component                  | `component_masking_functions`                                                                                               |
+| [Keyring components](https://docs.percona.com/percona-server/9.7/keyring-components-plugins-overview.html)                | Keyring plugins and keyring components               | Keyring components only, `keyring_file` plugin removed                                                                      |
+| [Percona Toolkit UDFs](https://docs.percona.com/percona-server/9.7/udf-percona-toolkit.html)                              | Plugin                                               | `component_percona_udf`                                                                                                     |
+| `SEQUENCE_TABLE()` function                                                                                               | Deprecated                                           | Removed, replaced by [`PERCONA_SEQUENCE_TABLE(n)`](https://docs.percona.com/percona-server/9.7/percona-sequence-table.html) |
+| [Thread pool](https://docs.percona.com/percona-server/9.7/threadpool.html)                                                | Percona Server for MySQL thread pool plugin          | Percona Server for MySQL thread pool plugin in 9.7.1. MySQL thread pool plugin as of 9.7.2                                  |

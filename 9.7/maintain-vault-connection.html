@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10674,7 +10674,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="maintain-the-vault-connection">Maintain the Vault connection<a class="headerlink" href="#maintain-the-vault-connection" title="Permanent link">&para;</a></h1>
+<h1 id="maintain-the-vault-connection">Maintain the Vault connection<a data-markdown-ignore class="headerlink" href="#maintain-the-vault-connection" title="Permanent link">&para;</a></h1>
 <p>Installation of the <a href="use-keyring-vault-component.html">keyring vault component</a> is the first step. The most common production failure of <code>keyring_vault</code> is a lost connection to Vault, not a misconfigured component. Two conditions cause the loss:</p>
 <ul>
 <li>
@@ -10686,7 +10686,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Either condition prevents Percona Server from fetching master keys.</p>
 <p>The <code>keyring_vault</code> component reads the <code>token</code> value from the configuration file at startup. The component then uses the stored token for the lifetime of the <code>mysqld</code> process. The component does not renew the token and does not reread the configuration file at runtime. Renewal and rotation must run outside MySQL, on the Vault side or through a helper process.</p>
-<h2 id="renew-the-vault-token">Renew the Vault token<a class="headerlink" href="#renew-the-vault-token" title="Permanent link">&para;</a></h2>
+<h2 id="renew-the-vault-token">Renew the Vault token<a data-markdown-ignore class="headerlink" href="#renew-the-vault-token" title="Permanent link">&para;</a></h2>
 <p>Every Vault token has a time-to-live (TTL). When the TTL elapses, Vault revokes the token. Any subsequent Application Programming Interface (API) call returns HTTP 403, including the master-key fetch performed by <code>keyring_vault</code>.</p>
 <p>The following symptoms indicate an expired or revoked token:</p>
 <ul>
@@ -10704,7 +10704,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Because the component does not renew tokens, choose one of the following patterns to keep the configured token valid:</p>
-<h3 id="option-1-recommended-periodic-tokens">Option 1 (recommended): Periodic tokens<a class="headerlink" href="#option-1-recommended-periodic-tokens" title="Permanent link">&para;</a></h3>
+<h3 id="option-1-recommended-periodic-tokens">Option 1 (recommended): Periodic tokens<a data-markdown-ignore class="headerlink" href="#option-1-recommended-periodic-tokens" title="Permanent link">&para;</a></h3>
 <p>A <a href="https://developer.hashicorp.com/vault/docs/concepts/tokens#periodic-tokens">periodic token <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> has no maximum TTL. The token continues to work indefinitely as long as a renewal occurs within each period. This renewal model matches the lifetime of a long-running database server.</p>
 <p>Create a Vault role that issues periodic tokens, then mint the token referenced by <code>component_keyring_vault.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code>vault<span class="w"> </span>write<span class="w"> </span>auth/token/roles/percona-keyring<span class="w"> </span><span class="se">\</span>
@@ -10715,7 +10715,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 vault<span class="w"> </span>token<span class="w"> </span>create<span class="w"> </span>-role<span class="o">=</span>percona-keyring<span class="w"> </span>-format<span class="o">=</span>json
 </code></pre></div>
 <p>Store the issued token in the <code>token</code> field of the <code>keyring_vault</code> configuration file. Pair the periodic token with a renewer (see Option 2) so a renewal occurs at least once per <code>period</code>.</p>
-<h3 id="option-2-sidecar-renewer">Option 2: Sidecar renewer<a class="headerlink" href="#option-2-sidecar-renewer" title="Permanent link">&para;</a></h3>
+<h3 id="option-2-sidecar-renewer">Option 2: Sidecar renewer<a data-markdown-ignore class="headerlink" href="#option-2-sidecar-renewer" title="Permanent link">&para;</a></h3>
 <p>A sidecar process must call <code>vault token renew</code> before each expiry. The requirement applies whether the token is periodic or has a fixed maximum TTL. The following table compares two common implementations:</p>
 <table>
 <thead>
@@ -10736,7 +10736,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 </tbody>
 </table>
 <p>Configure alerts on renewal failure. Without alerts, a failed renewer behaves the same as no renewer at all. The failure surfaces only at the next <code>mysqld</code> restart, when startup fails.</p>
-<h3 id="operational-checklist">Operational checklist<a class="headerlink" href="#operational-checklist" title="Permanent link">&para;</a></h3>
+<h3 id="operational-checklist">Operational checklist<a data-markdown-ignore class="headerlink" href="#operational-checklist" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Treat the <code>token</code> value as a secret equal in sensitivity to the Vault unseal keys. Restrict file permissions on <code>component_keyring_vault.cnf</code> to the <code>mysql</code> user.</p>
@@ -10751,7 +10751,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <p>Assign one token to one server. The one-token-per-server rule complements the <code>secret_mount_point</code> warning in <a href="use-keyring-vault-component.html#configure-the-keyring-vault-component">Configure the keyring vault component</a>.</p>
 </li>
 </ul>
-<h2 id="handle-a-sealed-vault">Handle a sealed Vault<a class="headerlink" href="#handle-a-sealed-vault" title="Permanent link">&para;</a></h2>
+<h2 id="handle-a-sealed-vault">Handle a sealed Vault<a data-markdown-ignore class="headerlink" href="#handle-a-sealed-vault" title="Permanent link">&para;</a></h2>
 <p>The <code>keyring_vault</code> component calls the Vault HTTP API at startup and during every key operation. A <a href="https://developer.hashicorp.com/vault/docs/concepts/seal">sealed Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> returns HTTP 503 for any request to the secrets engine. The component cannot read or write keys against a sealed Vault, even with a valid token.</p>
 <p>Vault becomes sealed in the following situations:</p>
 <ul>
@@ -10788,7 +10788,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 </tr>
 </tbody>
 </table>
-<h3 id="recommended-practice">Recommended practice<a class="headerlink" href="#recommended-practice" title="Permanent link">&para;</a></h3>
+<h3 id="recommended-practice">Recommended practice<a data-markdown-ignore class="headerlink" href="#recommended-practice" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Unseal Vault before starting or restarting Percona Server. Confirm that <code>vault status</code> reports <code>Sealed</code> as <code>false</code>.</p>
@@ -10806,7 +10806,7 @@ vault<span class="w"> </span>token<span class="w"> </span>create<span class="w">
 <p>Keep unseal keys and recovery keys offline and distributed across custodians. The custody practice belongs to the Vault domain rather than Percona. Lost unseal keys produce permanent data loss for every Percona Server that depends on the sealed Vault.</p>
 </li>
 </ul>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <p>Percona Server documentation:</p>
 <ul>
 <li>

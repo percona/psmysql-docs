@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10716,13 +10716,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-overview">Audit Log Filter overview<a class="headerlink" href="#audit-log-filter-overview" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-filter-overview">Audit Log Filter overview<a data-markdown-ignore class="headerlink" href="#audit-log-filter-overview" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter component records, audits, and can block matching connections or statements on the configured server.</p>
 <p>With the component enabled, the server writes an audit log file. The file captures connection events, executed statements, and the schemas that sessions touched.</p>
-<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h2 id="architecture">Architecture<a data-markdown-ignore class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <p>The following diagram shows how the Audit Log Filter component sits between the server core, the filter rules, and the audit output.</p>
 <p><img alt="Audit Log Filter component architecture" src="_static/audit-log-filter-arch.png" /></p>
-<h3 id="why-the-filter-component">Why the filter component<a class="headerlink" href="#why-the-filter-component" title="Permanent link">&para;</a></h3>
+<h3 id="why-the-filter-component">Why the filter component<a data-markdown-ignore class="headerlink" href="#why-the-filter-component" title="Permanent link">&para;</a></h3>
 <p>The component replaces the <a href="audit-log-plugin.html">legacy audit log plugin</a>. The design meets three goals that the plugin could not:</p>
 <ul>
 <li>
@@ -10740,21 +10740,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The design delivers a secondary benefit. Events that a filter drops never reach the formatter or the writer. The server therefore avoids the cost of auditing every event and discarding most of the data at the sink. Combined with per-account scoping, operators can raise audit detail on sensitive accounts without paying for verbose logging elsewhere.</p>
 <p>See <a href="write-filter-definitions.html">Write audit_log_filter definitions</a> for the JSON grammar, <a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a> for <code>abort</code>, and <a href="redact-audit-log-fields.html">Redact audit log fields</a> for <code>print</code> and <code>replace</code>.</p>
-<h2 id="audit-data-flow">Audit data flow<a class="headerlink" href="#audit-data-flow" title="Permanent link">&para;</a></h2>
+<h2 id="audit-data-flow">Audit data flow<a data-markdown-ignore class="headerlink" href="#audit-data-flow" title="Permanent link">&para;</a></h2>
 <p>The following diagram traces audit events from the server through filtering and formatting into the log (file, syslog, or another handler).</p>
 <p><img alt="Audit Log Filter data flow" src="_static/audit-data-flow.png" /></p>
 <p>Set <a href="audit-log-filter-variables.html#audit_log_filterformat"><code>audit_log_filter.format</code></a> at startup. <a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a> compares JSONL (default), JSON, and NEW.</p>
 <p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> selects the event classes the component audits. The default is <code>REDUCED</code>. <code>FULL</code> enables every class the component supports, including classes beyond the four core classes. The variable reference lists the full class sets, validation rules, and behavior on older releases.</p>
 <p>The component stores filter definitions and account assignments in the <code>mysql</code> system database. Set <a href="audit-log-filter-variables.html#audit_log_filterdatabase"><code>audit_log_filter.database</code></a> at startup to use a different database.</p>
 <p>You need <code>AUDIT_ADMIN</code> to administer the Audit Log Filter component.</p>
-<h2 id="privileges">Privileges<a class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
+<h2 id="privileges">Privileges<a data-markdown-ignore class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
 <p>The server defines the Audit Log Filter privileges at startup.</p>
-<h3 id="audit_admin"><code>AUDIT_ADMIN</code><a class="headerlink" href="#audit_admin" title="Permanent link">&para;</a></h3>
+<h3 id="audit_admin"><code>AUDIT_ADMIN</code><a data-markdown-ignore class="headerlink" href="#audit_admin" title="Permanent link">&para;</a></h3>
 <p>Grantees of <code>AUDIT_ADMIN</code> can configure the component.</p>
-<h3 id="audit_abort_exempt"><code>AUDIT_ABORT_EXEMPT</code><a class="headerlink" href="#audit_abort_exempt" title="Permanent link">&para;</a></h3>
+<h3 id="audit_abort_exempt"><code>AUDIT_ABORT_EXEMPT</code><a data-markdown-ignore class="headerlink" href="#audit_abort_exempt" title="Permanent link">&para;</a></h3>
 <p>A filter may include an <code>abort</code> rule that blocks matching statements. To bypass those aborts, an account needs both <code>SYSTEM_USER</code> and the global <code>AUDIT_ABORT_EXEMPT</code> privilege granted on <code>*.*</code>.</p>
 <p>Only that pair lets matching statements run when a filter would otherwise abort the statement. The component still writes those statements to the audit log.</p>
-<h2 id="audit-log-filter-tables">Audit log filter tables<a class="headerlink" href="#audit-log-filter-tables" title="Permanent link">&para;</a></h2>
+<h2 id="audit-log-filter-tables">Audit log filter tables<a data-markdown-ignore class="headerlink" href="#audit-log-filter-tables" title="Permanent link">&para;</a></h2>
 <p>The Audit Log Filter component uses <code>mysql</code> system tables on <code>InnoDB</code>. The tables hold account assignments and filter JSON. Point the component at another database through <code>audit_log_filter.database</code> when the server starts.</p>
 <p>The <code>audit_log_filter</code> table stores named filter definitions:</p>
 <table>
@@ -10798,12 +10798,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="filter-storage-hierarchy">Filter storage hierarchy<a class="headerlink" href="#filter-storage-hierarchy" title="Permanent link">&para;</a></h3>
+<h3 id="filter-storage-hierarchy">Filter storage hierarchy<a data-markdown-ignore class="headerlink" href="#filter-storage-hierarchy" title="Permanent link">&para;</a></h3>
 <p>The following diagram shows how rows in <code>audit_log_filter</code> map to <code>audit_log_user</code>, including the default <code>%</code> account.</p>
 <p><img alt="Audit Log Filter storage hierarchy" src="_static/audit-filter-hierarchy.png" /></p>
 <p>On connect, the component loads one filter definition from the matching <code>USER</code>/<code>HOST</code> row in <code>mysql.audit_log_user</code>. If no row matches, the component falls back to the default account (<code>%</code>). A concrete account such as <code>admin</code>@<code>localhost</code> overrides a <code>%</code> assignment.</p>
 <p>Rules inside the filter&rsquo;s JSON apply after load. For example, <code>log</code> conditions that test <code>user.str</code> or <code>host.str</code> with <code>field</code> items narrow which events get written. The rules do not act as a second assigned filter. See <a href="filter-audit-log-filter-files.html#using-the-audit-log-filter-functions">Filter the Audit Log Filter logs</a> for assignment order and wildcards. See <a href="write-filter-definitions.html#test-event-field-values">Write audit_log_filter definitions</a> for the JSON grammar that <code>log</code> conditions use.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="install-audit-log-filter.html">Install the audit log filter</a></p>

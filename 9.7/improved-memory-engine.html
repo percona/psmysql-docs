@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10738,7 +10738,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="improved-memory-storage-engine">Improved MEMORY storage engine<a class="headerlink" href="#improved-memory-storage-engine" title="Permanent link">&para;</a></h1>
+<h1 id="improved-memory-storage-engine">Improved MEMORY storage engine<a data-markdown-ignore class="headerlink" href="#improved-memory-storage-engine" title="Permanent link">&para;</a></h1>
 <p>A <em>Fixed Row Format</em> (<code>FRF</code>) is used in the <code>MEMORY</code> storage engine. The fixed row format imposes restrictions on the type of columns as it assigns in advance a limited amount of memory per row. This renders a <code>VARCHAR</code> field in a <code>CHAR</code> field in practice and makes it impossible to have a <code>TEXT</code> or <code>BLOB</code> field with that engine implementation.</p>
 <p>To overcome this limitation, the <em>Improved MEMORY Storage Engine</em> is introduced in this release for supporting <strong>true</strong> <code>VARCHAR</code>, <code>VARBINARY</code>, <code>TEXT</code>, and <code>BLOB</code> fields in the <code>MEMORY</code> tables.</p>
 <p>This implementation is based on the <em>Dynamic Row Format</em> (<code>DFR</code>) introduced by the <a href="https://code.google.com/archive/p/mysql-heap-dynamic-rows/">mysql-heap-dynamic-rows <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> patch.</p>
@@ -10746,18 +10746,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Unlike the fixed implementation, each column value in <code>DRF</code> uses only as much space as required. Variable-length values can use up to 4 bytes to store the actual value length, and only the necessary number of blocks is used to store the value.</p>
 <p>Rows in <code>DFR</code> are represented internally by multiple memory blocks, which means that a single row can consist of multiple blocks organized into one set. Each row occupies at least one block, there can not be multiple rows within a single block. Block size can be configured when creating a table (see below).</p>
 <p>This <code>DFR</code> implementation has two caveats regarding ordering and indexes.</p>
-<h2 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
-<h3 id="ordering-of-rows">Ordering of rows<a class="headerlink" href="#ordering-of-rows" title="Permanent link">&para;</a></h3>
+<h2 id="caveats">Caveats<a data-markdown-ignore class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
+<h3 id="ordering-of-rows">Ordering of rows<a data-markdown-ignore class="headerlink" href="#ordering-of-rows" title="Permanent link">&para;</a></h3>
 <p>In the absence of <code>ORDER BY</code>, records may be returned in a different order than the previous <code>MEMORY</code> implementation.</p>
 <p>This is not a bug. Any application relying on a specific order without an <code>ORDER BY</code> clause may deliver unexpected results. A specific order without <code>ORDER BY</code> is a side effect of a storage engine and query optimizer implementation which may and will change between minor <em>MySQL</em> releases.</p>
-<h3 id="indexing">Indexing<a class="headerlink" href="#indexing" title="Permanent link">&para;</a></h3>
+<h3 id="indexing">Indexing<a data-markdown-ignore class="headerlink" href="#indexing" title="Permanent link">&para;</a></h3>
 <p>It is currently impossible to use indexes on <code>BLOB</code> columns due to some limitations of the <em>Dynamic Row Format</em>. Trying to create such an index will fail with the following error:</p>
 <details class="example">
 <summary>Expected output</summary>
 <div class="no-copy highlight"><pre><span></span><code>BLOB column '&lt;name&gt;' can't be used in key specification with the used table type.
 </code></pre></div>
 </details>
-<h2 id="restrictions">Restrictions<a class="headerlink" href="#restrictions" title="Permanent link">&para;</a></h2>
+<h2 id="restrictions">Restrictions<a data-markdown-ignore class="headerlink" href="#restrictions" title="Permanent link">&para;</a></h2>
 <p>For performance reasons, a mixed solution is implemented: the fixed format is used at the beginning of the row, while the dynamic one is used for the rest of it.</p>
 <p>The size of the fixed-format portion of the record is chosen automatically on <code>CREATE TABLE</code> and cannot be changed later. This, in particular, means that no indexes can be created later with <code>CREATE INDEX</code> or <code>ALTER TABLE</code> when the dynamic row format is used.</p>
 <p>All values for columns used in indexes are stored in fixed format at the first block of the row, then the following columns are handled with <code>DRF</code>.</p>
@@ -10770,13 +10770,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>the minimum size of the block used in the table.</p>
 </li>
 </ul>
-<h3 id="ordering-of-columns">Ordering of columns<a class="headerlink" href="#ordering-of-columns" title="Permanent link">&para;</a></h3>
+<h3 id="ordering-of-columns">Ordering of columns<a data-markdown-ignore class="headerlink" href="#ordering-of-columns" title="Permanent link">&para;</a></h3>
 <p>The columns used in fixed format must be defined before the dynamic ones in the <code>CREATE TABLE</code> statement. If this requirement is not met, the engine will not be able to add blocks to the set for these fields and they will be treated as fixed.</p>
-<h3 id="minimum-block-size">Minimum block size<a class="headerlink" href="#minimum-block-size" title="Permanent link">&para;</a></h3>
+<h3 id="minimum-block-size">Minimum block size<a data-markdown-ignore class="headerlink" href="#minimum-block-size" title="Permanent link">&para;</a></h3>
 <p>The block size has to be big enough to store all fixed-length information in the first block. If not, the <code>CREATE TABLE</code> or <code>ALTER TABLE</code> statements will fail (see below).</p>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h2 id="limitations">Limitations<a data-markdown-ignore class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <p><em>MyISAM</em> tables are still used for query optimizer internal temporary tables where the <code>MEMORY</code> tables could be used now instead: for temporary tables containing large <code>VARCHAR\</code>`s, ``BLOB<code>, and</code>TEXT` columns.</p>
-<h2 id="setting-row-format">Setting row format<a class="headerlink" href="#setting-row-format" title="Permanent link">&para;</a></h2>
+<h2 id="setting-row-format">Setting row format<a data-markdown-ignore class="headerlink" href="#setting-row-format" title="Permanent link">&para;</a></h2>
 <p>Taking the restrictions into account, the <em>Improved MEMORY Storage Engine</em> will choose <code>DRF</code> over <code>FRF</code> at the moment of creating the table according to following criteria:</p>
 <ul>
 <li>
@@ -10786,7 +10786,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>There is an explicit request of the user <strong>AND</strong> the overhead incurred by <code>DFR</code> is beneficial.</p>
 </li>
 </ul>
-<h3 id="implicit-request">Implicit request<a class="headerlink" href="#implicit-request" title="Permanent link">&para;</a></h3>
+<h3 id="implicit-request">Implicit request<a data-markdown-ignore class="headerlink" href="#implicit-request" title="Permanent link">&para;</a></h3>
 <p>The implicit request by the user is taken when there is at least one <code>BLOB</code> or <code>TEXT</code> column in the table definition. If there are none of these columns and no relevant option is given, the engine will choose <code>FRF</code>.</p>
 <p>For example, this will yield the use of the dynamic format:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="p">;</span>
@@ -10794,7 +10794,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>While this will not:</p>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="explicit-request">Explicit request<a class="headerlink" href="#explicit-request" title="Permanent link">&para;</a></h3>
+<h3 id="explicit-request">Explicit request<a data-markdown-ignore class="headerlink" href="#explicit-request" title="Permanent link">&para;</a></h3>
 <p>The explicit request is set with one of the following options in the <code>CREATE TABLE</code> statement:</p>
 <ul>
 <li>
@@ -10816,7 +10816,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>the engine will revert to the fixed format as it is more space efficient in such case. The row format being used by the engine can be checked using <code>SHOW TABLE STATUS</code>.</p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f3</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="n">f4</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">32</span><span class="p">),</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">f1</span><span class="p">))</span><span class="w"> </span><span class="n">KEY_BLOCK_SIZE</span><span class="o">=</span><span class="mi">124</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">HEAP</span><span class="p">;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'t1'</span><span class="p">;</span>
@@ -10827,7 +10827,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    KEY_BLOCK_SIZE=124
 </code></pre></div>
 </details>
-<h2 id="implementation-details">Implementation details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
+<h2 id="implementation-details">Implementation details<a data-markdown-ignore class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
 <p><em>MySQL</em> <em>MEMORY</em> tables keep data in arrays of fixed-size chunks. These chunks are organized into two groups of <code>HP_BLOCK</code> structures:</p>
 <ul>
 <li>

@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10980,10 +10980,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="troubleshoot-opentelemetry">Troubleshoot OpenTelemetry<a class="headerlink" href="#troubleshoot-opentelemetry" title="Permanent link">&para;</a></h1>
+<h1 id="troubleshoot-opentelemetry">Troubleshoot OpenTelemetry<a data-markdown-ignore class="headerlink" href="#troubleshoot-opentelemetry" title="Permanent link">&para;</a></h1>
 <p>Use the tasks in this guide to diagnose OpenTelemetry metrics, traces, and logs.</p>
 <p>Run the initial checks before you change the configuration. Save the original values before you apply a temporary change.</p>
-<h2 id="run-the-initial-checks">Run the initial checks<a class="headerlink" href="#run-the-initial-checks" title="Permanent link">&para;</a></h2>
+<h2 id="run-the-initial-checks">Run the initial checks<a data-markdown-ignore class="headerlink" href="#run-the-initial-checks" title="Permanent link">&para;</a></h2>
 <p>Confirm that the telemetry component is installed:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
@@ -11075,7 +11075,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="enable-diagnostic-messages">Enable diagnostic messages<a class="headerlink" href="#enable-diagnostic-messages" title="Permanent link">&para;</a></h2>
+<h2 id="enable-diagnostic-messages">Enable diagnostic messages<a data-markdown-ignore class="headerlink" href="#enable-diagnostic-messages" title="Permanent link">&para;</a></h2>
 <p>OpenTelemetry diagnostic messages are written to the server error log. The default <code>telemetry.otel_log_level</code> is <code>info</code>. The default <code>log_error_verbosity</code> is <code>2</code>, so the error log keeps errors and warnings and drops notes, including <code>[OTEL DEBUG]</code> lines.</p>
 <p>To record notes and debug detail while you reproduce a problem, raise both settings:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_error_verbosity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
@@ -11143,7 +11143,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_error_verbosity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 </code></pre></div>
 <p>The <code>debug</code> level can produce substantial error-log output.</p>
-<h2 id="confirm-that-the-collector-receives-data">Confirm that the collector receives data<a class="headerlink" href="#confirm-that-the-collector-receives-data" title="Permanent link">&para;</a></h2>
+<h2 id="confirm-that-the-collector-receives-data">Confirm that the collector receives data<a data-markdown-ignore class="headerlink" href="#confirm-that-the-collector-receives-data" title="Permanent link">&para;</a></h2>
 <p>Add the collector <code>debug</code> exporter to a temporary test configuration. The detailed output can contain SQL text and user data.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">otlp</span><span class="p">:</span>
@@ -11198,9 +11198,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The output must list the <code>otlp</code> receiver and <code>debug</code> exporter. The executable name can differ by distribution.</p>
 <p>Remove the <code>debug</code> exporter after testing. Detailed payloads can expose sensitive data and increase log volume.</p>
-<h2 id="fix-a-component-installation-failure">Fix a component installation failure<a class="headerlink" href="#fix-a-component-installation-failure" title="Permanent link">&para;</a></h2>
+<h2 id="fix-a-component-installation-failure">Fix a component installation failure<a data-markdown-ignore class="headerlink" href="#fix-a-component-installation-failure" title="Permanent link">&para;</a></h2>
 <p>The <code>INSTALL COMPONENT</code> statement fails, or the component is absent from <code>mysql.component</code>.</p>
-<h3 id="verify-the-installation">Verify the installation<a class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h3>
+<h3 id="verify-the-installation">Verify the installation<a data-markdown-ignore class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h3>
 <p>Run the installation statement and record the complete error:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
@@ -11209,7 +11209,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The directory must contain the telemetry component library for the operating system.</p>
 <p>The server process must be able to read the file.</p>
-<h3 id="resolve-the-failure">Resolve the failure<a class="headerlink" href="#resolve-the-failure" title="Permanent link">&para;</a></h3>
+<h3 id="resolve-the-failure">Resolve the failure<a data-markdown-ignore class="headerlink" href="#resolve-the-failure" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Confirm that the installed Percona Server package includes the telemetry component.</p>
@@ -11233,7 +11233,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Search the server error log for the component name.</p>
 <p>File-not-found, unresolved-symbol, dependency, and initialization messages identify the cause.</p>
 <p>Do not copy a component library from a different server version.</p>
-<h2 id="fix-a-client-plugin-load-failure">Fix a client plugin load failure<a class="headerlink" href="#fix-a-client-plugin-load-failure" title="Permanent link">&para;</a></h2>
+<h2 id="fix-a-client-plugin-load-failure">Fix a client plugin load failure<a data-markdown-ignore class="headerlink" href="#fix-a-client-plugin-load-failure" title="Permanent link">&para;</a></h2>
 <p>The <code>mysql</code> client does not print <code>Telemetry plugin &lt;telemetry_client&gt; is loaded.</code></p>
 <p>Run the client with help enabled:</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--otel-help<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
@@ -11242,12 +11242,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--plugin_dir<span class="o">=</span>&lt;PLUGIN_DIR&gt;<span class="w"> </span>--otel-help<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Replace <code>&lt;PLUGIN_DIR&gt;</code> with the directory that contains <code>telemetry_client.so</code>.</p>
-<h2 id="restore-missing-telemetry-variables">Restore missing telemetry variables<a class="headerlink" href="#restore-missing-telemetry-variables" title="Permanent link">&para;</a></h2>
+<h2 id="restore-missing-telemetry-variables">Restore missing telemetry variables<a data-markdown-ignore class="headerlink" href="#restore-missing-telemetry-variables" title="Permanent link">&para;</a></h2>
 <p>The server returns no rows for this statement:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The telemetry component registers these variables during installation.</p>
-<h3 id="verify-the-component-state">Verify the component state<a class="headerlink" href="#verify-the-component-state" title="Permanent link">&para;</a></h3>
+<h3 id="verify-the-component-state">Verify the component state<a data-markdown-ignore class="headerlink" href="#verify-the-component-state" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
@@ -11262,7 +11262,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The first query must return the component row. The run level must become <code>READY</code>.</p>
 <p>The provider variables contain component names when providers are configured.</p>
-<h3 id="resolve-the-failure_1">Resolve the failure<a class="headerlink" href="#resolve-the-failure_1" title="Permanent link">&para;</a></h3>
+<h3 id="resolve-the-failure_1">Resolve the failure<a data-markdown-ignore class="headerlink" href="#resolve-the-failure_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Install the component when the component row is absent.</p>
@@ -11281,14 +11281,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>An <code>Unknown system variable</code> error also indicates that the variable is not registered. Confirm the spelling and component state.</p>
-<h2 id="resolve-unavailable-signal-support">Resolve unavailable signal support<a class="headerlink" href="#resolve-unavailable-signal-support" title="Permanent link">&para;</a></h2>
+<h2 id="resolve-unavailable-signal-support">Resolve unavailable signal support<a data-markdown-ignore class="headerlink" href="#resolve-unavailable-signal-support" title="Permanent link">&para;</a></h2>
 <p>A <code>Telemetry_*_supported</code> status variable reports <code>OFF</code>.</p>
-<h3 id="verify-all-signals">Verify all signals<a class="headerlink" href="#verify-all-signals" title="Permanent link">&para;</a></h3>
+<h3 id="verify-all-signals">Verify all signals<a data-markdown-ignore class="headerlink" href="#verify-all-signals" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'Telemetry%_supported'</span><span class="p">;</span>
 </code></pre></div>
 <p>An <code>ON</code> value confirms that the server binary provides the related instrumentation service.</p>
 <p>An <code>OFF</code> value indicates unavailable support.</p>
-<h3 id="resolve-the-failure_2">Resolve the failure<a class="headerlink" href="#resolve-the-failure_2" title="Permanent link">&para;</a></h3>
+<h3 id="resolve-the-failure_2">Resolve the failure<a data-markdown-ignore class="headerlink" href="#resolve-the-failure_2" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Confirm the exact Percona Server version and package:</li>
 </ol>
@@ -11306,9 +11306,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>Installing <code>component_telemetry</code> cannot add instrumentation support that is absent from the server binary.</p>
-<h2 id="restore-data-flow-to-the-collector">Restore data flow to the collector<a class="headerlink" href="#restore-data-flow-to-the-collector" title="Permanent link">&para;</a></h2>
+<h2 id="restore-data-flow-to-the-collector">Restore data flow to the collector<a data-markdown-ignore class="headerlink" href="#restore-data-flow-to-the-collector" title="Permanent link">&para;</a></h2>
 <p>The component is <code>READY</code>, but the collector receives no metrics, traces, or logs.</p>
-<h3 id="verify-the-server-configuration">Verify the server configuration<a class="headerlink" href="#verify-the-server-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="verify-the-server-configuration">Verify the server configuration<a data-markdown-ignore class="headerlink" href="#verify-the-server-configuration" title="Permanent link">&para;</a></h3>
 <p>Run the initial checks. Confirm these conditions:</p>
 <ul>
 <li>
@@ -11347,7 +11347,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A <code>404</code> or <code>405</code> response can occur. The test does not send an OTLP payload.</p>
 <p>A connection refusal, name-resolution failure, or timeout indicates a network or listener problem.</p>
 <p>If an exporter uses a network namespace, run the test from that namespace.</p>
-<h3 id="verify-the-collector-configuration">Verify the collector configuration<a class="headerlink" href="#verify-the-collector-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="verify-the-collector-configuration">Verify the collector configuration<a data-markdown-ignore class="headerlink" href="#verify-the-collector-configuration" title="Permanent link">&para;</a></h3>
 <p>Confirm these conditions in the collector configuration:</p>
 <ul>
 <li>
@@ -11368,9 +11368,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Use the <code>debug</code> exporter to confirm reception before you test the backend exporter.</p>
 <p>Check the collector logs for receiver startup, binding, decoding, processing, and export errors.</p>
-<h2 id="restore-a-missing-signal">Restore a missing signal<a class="headerlink" href="#restore-a-missing-signal" title="Permanent link">&para;</a></h2>
+<h2 id="restore-a-missing-signal">Restore a missing signal<a data-markdown-ignore class="headerlink" href="#restore-a-missing-signal" title="Permanent link">&para;</a></h2>
 <p>Only one or two signals reach the collector.</p>
-<h3 id="compare-each-signal">Compare each signal<a class="headerlink" href="#compare-each-signal" title="Permanent link">&para;</a></h3>
+<h3 id="compare-each-signal">Compare each signal<a data-markdown-ignore class="headerlink" href="#compare-each-signal" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.metrics_enabled'</span><span class="p">,</span>
@@ -11390,15 +11390,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>For traces, <code>telemetry.trace_enabled</code> must be <code>ON</code>.</p>
 <p>Statement spans complete when statements end. Session spans complete when sessions end.</p>
 <p>For logs, <code>telemetry.log_enabled</code> must be <code>ON</code>. The required logger level must accept the event.</p>
-<h3 id="check-signal-specific-collector-pipelines">Check signal-specific collector pipelines<a class="headerlink" href="#check-signal-specific-collector-pipelines" title="Permanent link">&para;</a></h3>
+<h3 id="check-signal-specific-collector-pipelines">Check signal-specific collector pipelines<a data-markdown-ignore class="headerlink" href="#check-signal-specific-collector-pipelines" title="Permanent link">&para;</a></h3>
 <p>Confirm that the collector defines a pipeline for every required signal.</p>
 <p>A receiver definition does not activate a receiver by itself.</p>
 <p>Use the detailed <code>debug</code> exporter. Generate a small amount of test activity and check each pipeline separately.</p>
 <p>The backend can also discard one signal.</p>
 <p>If the debug exporter receives all signals, inspect the backend exporter and backend ingestion rules.</p>
-<h2 id="correct-a-rejected-variable-change">Correct a rejected variable change<a class="headerlink" href="#correct-a-rejected-variable-change" title="Permanent link">&para;</a></h2>
+<h2 id="correct-a-rejected-variable-change">Correct a rejected variable change<a data-markdown-ignore class="headerlink" href="#correct-a-rejected-variable-change" title="Permanent link">&para;</a></h2>
 <p>The server rejects a <code>SET</code> statement.</p>
-<h3 id="identify-the-cause">Identify the cause<a class="headerlink" href="#identify-the-cause" title="Permanent link">&para;</a></h3>
+<h3 id="identify-the-cause">Identify the cause<a data-markdown-ignore class="headerlink" href="#identify-the-cause" title="Permanent link">&para;</a></h3>
 <p>Record the complete SQL error. Common errors include:</p>
 <table>
 <thead>
@@ -11431,7 +11431,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>Runtime changes to global variables normally require <code>SYSTEM_VARIABLES_ADMIN</code> or the deprecated <code>SUPER</code> privilege.</p>
 <p>Persisting a startup-only variable also requires <code>PERSIST_RO_VARIABLES_ADMIN</code>.</p>
-<h3 id="apply-the-correct-change-method">Apply the correct change method<a class="headerlink" href="#apply-the-correct-change-method" title="Permanent link">&para;</a></h3>
+<h3 id="apply-the-correct-change-method">Apply the correct change method<a data-markdown-ignore class="headerlink" href="#apply-the-correct-change-method" title="Permanent link">&para;</a></h3>
 <p>Use <code>SET GLOBAL</code> for a dynamic, temporary change:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
@@ -11443,9 +11443,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/traces'</span><span class="p">;</span>
 </code></pre></div>
 <p>Restart the server after a <code>SET PERSIST_ONLY</code> change.</p>
-<h2 id="apply-startup-only-changes">Apply startup-only changes<a class="headerlink" href="#apply-startup-only-changes" title="Permanent link">&para;</a></h2>
+<h2 id="apply-startup-only-changes">Apply startup-only changes<a data-markdown-ignore class="headerlink" href="#apply-startup-only-changes" title="Permanent link">&para;</a></h2>
 <p>The server accepts a persisted change, but the active value does not change.</p>
-<h3 id="compare-active-and-persisted-values">Compare active and persisted values<a class="headerlink" href="#compare-active-and-persisted-values" title="Permanent link">&para;</a></h3>
+<h3 id="compare-active-and-persisted-values">Compare active and persisted values<a data-markdown-ignore class="headerlink" href="#compare-active-and-persisted-values" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_endpoint'</span><span class="p">;</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="n">VARIABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">VARIABLE_VALUE</span>
@@ -11453,7 +11453,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">WHERE</span><span class="w"> </span><span class="n">VARIABLE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_endpoint'</span><span class="p">;</span>
 </code></pre></div>
 <p>Different values indicate a pending startup-only change.</p>
-<h3 id="activate-the-change">Activate the change<a class="headerlink" href="#activate-the-change" title="Permanent link">&para;</a></h3>
+<h3 id="activate-the-change">Activate the change<a data-markdown-ignore class="headerlink" href="#activate-the-change" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Confirm the persisted value.</p>
@@ -11487,12 +11487,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>telemetry.otel_log_level</code></p>
 </li>
 </ul>
-<h2 id="resolve-certificate-and-authentication-failures">Resolve certificate and authentication failures<a class="headerlink" href="#resolve-certificate-and-authentication-failures" title="Permanent link">&para;</a></h2>
+<h2 id="resolve-certificate-and-authentication-failures">Resolve certificate and authentication failures<a data-markdown-ignore class="headerlink" href="#resolve-certificate-and-authentication-failures" title="Permanent link">&para;</a></h2>
 <p>The error log reports a Transport Layer Security (TLS) failure, or the collector returns HTTP <code>401</code> or <code>403</code>.</p>
 <p>Confirm that each TLS endpoint uses <code>https://</code>. An <code>http://</code> endpoint does not use TLS.</p>
 <p>Traces, metrics, and logs each have separate certificate variables. Check the signal that fails.</p>
 <p>Confirm that the collector OTLP HTTP receiver enables TLS. See <a href="https://github.com/open-telemetry/opentelemetry-collector/blob/main/config/configtls/README.md">OpenTelemetry Collector TLS configuration</a>.</p>
-<h3 id="verify-certificates">Verify certificates<a class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
+<h3 id="verify-certificates">Verify certificates<a data-markdown-ignore class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
 <p>Check the configured certificate values for the affected signal:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_certificates'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_client_certificates'</span><span class="p">;</span>
@@ -11505,7 +11505,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The certificate must be valid. The Subject Alternative Name must match the endpoint host.</p>
 <p>For mutual TLS, the client certificate and private key must form a pair. The collector must trust the client certificate issuer.</p>
-<h3 id="verify-authentication">Verify authentication<a class="headerlink" href="#verify-authentication" title="Permanent link">&para;</a></h3>
+<h3 id="verify-authentication">Verify authentication<a data-markdown-ignore class="headerlink" href="#verify-authentication" title="Permanent link">&para;</a></h3>
 <p>Inspect the secret provider and secret name for each affected signal:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
@@ -11535,9 +11535,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Persist corrected certificate or header settings. Restart the server to activate them.</p>
-<h2 id="correct-the-protocol-or-endpoint">Correct the protocol or endpoint<a class="headerlink" href="#correct-the-protocol-or-endpoint" title="Permanent link">&para;</a></h2>
+<h2 id="correct-the-protocol-or-endpoint">Correct the protocol or endpoint<a data-markdown-ignore class="headerlink" href="#correct-the-protocol-or-endpoint" title="Permanent link">&para;</a></h2>
 <p>The collector returns an HTTP error, cannot decode the request, or reports no matching receiver.</p>
-<h3 id="verify-the-protocol">Verify the protocol<a class="headerlink" href="#verify-the-protocol" title="Permanent link">&para;</a></h3>
+<h3 id="verify-the-protocol">Verify the protocol<a data-markdown-ignore class="headerlink" href="#verify-the-protocol" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_protocol'</span><span class="p">;</span>
 </code></pre></div>
 <p>The server supports these protocol values:</p>
@@ -11551,7 +11551,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Do not configure the server exporter for gRPC. Configure the collector OTLP HTTP receiver instead.</p>
 <p>The collector must accept the selected encoding. Many collector deployments accept OTLP Protocol Buffers on port <code>4318</code>.</p>
-<h3 id="verify-the-endpoint">Verify the endpoint<a class="headerlink" href="#verify-the-endpoint" title="Permanent link">&para;</a></h3>
+<h3 id="verify-the-endpoint">Verify the endpoint<a data-markdown-ignore class="headerlink" href="#verify-the-endpoint" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_endpoint'</span><span class="p">;</span>
 </code></pre></div>
 <p>Check the scheme, host, port, proxy path, and signal path.</p>
@@ -11587,9 +11587,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Persist corrected protocol or endpoint values. Restart the server and check the active values.</p>
-<h2 id="reduce-queue-pressure-and-dropped-data">Reduce queue pressure and dropped data<a class="headerlink" href="#reduce-queue-pressure-and-dropped-data" title="Permanent link">&para;</a></h2>
+<h2 id="reduce-queue-pressure-and-dropped-data">Reduce queue pressure and dropped data<a data-markdown-ignore class="headerlink" href="#reduce-queue-pressure-and-dropped-data" title="Permanent link">&para;</a></h2>
 <p>The error log reports a full queue, failed enqueue, timeout, or dropped telemetry.</p>
-<h3 id="check-server-queue-settings">Check server queue settings<a class="headerlink" href="#check-server-queue-settings" title="Permanent link">&para;</a></h3>
+<h3 id="check-server-queue-settings">Check server queue settings<a data-markdown-ignore class="headerlink" href="#check-server-queue-settings" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.otel_bsp_max_queue_size'</span><span class="p">,</span>
@@ -11610,7 +11610,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">);</span>
 </code></pre></div>
 <p>A nonzero value means that the related instrument could not be created. These values do not count exporter queue drops. For each definition, see <a href="opentelemetry-data-reference.html#server-status-variable-definitions">Server status variable definitions</a>.</p>
-<h3 id="check-collector-internal-metrics">Check collector internal metrics<a class="headerlink" href="#check-collector-internal-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="check-collector-internal-metrics">Check collector internal metrics<a data-markdown-ignore class="headerlink" href="#check-collector-internal-metrics" title="Permanent link">&para;</a></h3>
 <p>The collector exposes internal metrics on <code>http://127.0.0.1:8888/metrics</code> by default.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8888/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>rg<span class="w"> </span><span class="s1">'otelcol_(receiver|exporter)_(accepted|refused|queue|enqueue_failed|send_failed|sent)'</span>
@@ -11655,7 +11655,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Prometheus can add a <code>_total</code> suffix to counter names. Metric names can also differ between collector versions.</p>
-<h3 id="reduce-pressure">Reduce pressure<a class="headerlink" href="#reduce-pressure" title="Permanent link">&para;</a></h3>
+<h3 id="reduce-pressure">Reduce pressure<a data-markdown-ignore class="headerlink" href="#reduce-pressure" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Restore collector or backend availability.</p>
@@ -11681,9 +11681,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ol>
 <p>Larger queues can reduce short data gaps, but they also use more memory.</p>
 <p>Larger batches can exceed proxy or backend request limits.</p>
-<h2 id="remove-unexpected-query-text">Remove unexpected query text<a class="headerlink" href="#remove-unexpected-query-text" title="Permanent link">&para;</a></h2>
+<h2 id="remove-unexpected-query-text">Remove unexpected query text<a data-markdown-ignore class="headerlink" href="#remove-unexpected-query-text" title="Permanent link">&para;</a></h2>
 <p>Statement spans or logs contain SQL text that should not be exported.</p>
-<h3 id="disable-trace-query-text">Disable trace query text<a class="headerlink" href="#disable-trace-query-text" title="Permanent link">&para;</a></h3>
+<h3 id="disable-trace-query-text">Disable trace query text<a data-markdown-ignore class="headerlink" href="#disable-trace-query-text" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.query_text_enabled'</span><span class="p">;</span>
@@ -11691,7 +11691,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The result must show <code>OFF</code>. New statement spans omit the <code>mysql.sql_text</code> attribute.</p>
 <p>Previously exported spans remain in the backend until their retention period ends.</p>
 <p>The setting does not remove query text from OpenTelemetry general query or slow query logs.</p>
-<h3 id="control-query-text-in-logs">Control query text in logs<a class="headerlink" href="#control-query-text-in-logs" title="Permanent link">&para;</a></h3>
+<h3 id="control-query-text-in-logs">Control query text in logs<a data-markdown-ignore class="headerlink" href="#control-query-text-in-logs" title="Permanent link">&para;</a></h3>
 <p>Inspect the logger levels:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
@@ -11704,9 +11704,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>Use a collector processor or backend rule when query text must be redacted instead of excluded.</p>
 <p>Use the detailed <code>debug</code> exporter only in a protected test environment. The exporter prints complete payload fields.</p>
-<h2 id="reduce-opentelemetry-resource-use">Reduce OpenTelemetry resource use<a class="headerlink" href="#reduce-opentelemetry-resource-use" title="Permanent link">&para;</a></h2>
+<h2 id="reduce-opentelemetry-resource-use">Reduce OpenTelemetry resource use<a data-markdown-ignore class="headerlink" href="#reduce-opentelemetry-resource-use" title="Permanent link">&para;</a></h2>
 <p>CPU use, memory use, network traffic, or server error-log volume increases after telemetry is enabled.</p>
-<h3 id="measure-the-effect">Measure the effect<a class="headerlink" href="#measure-the-effect" title="Permanent link">&para;</a></h3>
+<h3 id="measure-the-effect">Measure the effect<a data-markdown-ignore class="headerlink" href="#measure-the-effect" title="Permanent link">&para;</a></h3>
 <p>Record a workload baseline before you enable telemetry. Compare the same workload after you enable each signal separately.</p>
 <p>On Linux, monitor the server process:</p>
 <div class="highlight"><pre><span></span><code>pidstat<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>pidof<span class="w"> </span>mysqld<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="m">1</span>
@@ -11729,7 +11729,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="s1">'telemetry.otel_log_level'</span>
 <span class="p">);</span>
 </code></pre></div>
-<h3 id="reduce-overhead">Reduce overhead<a class="headerlink" href="#reduce-overhead" title="Permanent link">&para;</a></h3>
+<h3 id="reduce-overhead">Reduce overhead<a data-markdown-ignore class="headerlink" href="#reduce-overhead" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Disable signals that have no operational requirement.</p>
@@ -11760,7 +11760,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Change one setting at a time. Repeat the same workload test after each change.</p>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="opentelemetry-overview.html">OpenTelemetry component overview</a></p>

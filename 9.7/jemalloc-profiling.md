@@ -1,0 +1,209 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# Jemalloc memory allocation profiling
+
+Percona Server for MySQL can take advantage of the memory-profiling ability of the jemalloc allocator. This ability provides a method to investigate memory-related issues.
+
+## Requirements
+
+This memory-profiling requires [jemalloc_detected](#jemalloc_detected). This read-only variable returns `true` if jemalloc with the profiling-enabled option is being used by *Percona Server for MySQL*.
+
+As root, customize jemalloc with the following flags:
+
+| Option        | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| –enable-stats | Enables statistics-gathering ability                    |
+| –enable-prof  | Enables heap profiling and the ability to detect leaks. |
+
+Using `LD_PRELOAD`. Build the library, configure the malloc configuration with the `prof:true` string, and then use `LD_PRELOAD` to preload the `libjemalloc.so` library. Percona Server for MySQL detects jemalloc with profiling enabled automatically when properly configured.
+
+The following is an example of the required commands:
+
+```
+./configure --enable-stats --enable-prof && make && make install
+export MALLOC_CONF=prof:true
+export LD_PRELOAD=/usr/lib/libjemalloc.so
+```
+
+## Use Percona Server for MySQL with jemalloc with profiling enabled
+
+To detect if jemalloc is set, run the following command:
+
+```
+SELECT @@jemalloc_detected;
+```
+
+To enable jemalloc profiling in a MySQL client, run the following command:
+
+```
+set global jemalloc_profiling=on;
+```
+
+The `malloc_stats_totals` table provides statistics, in bytes, of the memory usage.
+
+The following example commands display this result:
+
+```
+use performance_schema;
+```
+
+```
+SELECT * FROM malloc_stats_totals;
+```
+
+Expected output
+
+```
++------------+------------+------------+------------+-------------+------------+
+| ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
++------------+------------+------------+------------+-------------+------------+
+| 390977528  | 391012352  | 405291008  | 520167424  | 436813824   | 9933744    |
++------------+------------+------------+------------+-------------+------------+
+1 row in set (0.00 sec)
+```
+
+The [malloc_stats](#malloc_stats) table provides cumulative totals, in bytes, of several statistics per allocation size type (small, large, and huge).
+
+The following example commands display this result:
+
+```
+use performance_schema;
+```
+
+```
+SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
+```
+
+Expected output
+
+```
++--------+-------------+-------------+-------------+-------------+
+| TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
++--------+-------------+-------------+-------------+-------------+
+| small  | 23578872    | 586156      | 0           | 2649417     |
+| large  | 367382528   | 2218        | 0           | 6355        |
+| huge   | 0           | 0           | 0           | 0 |
++--------+-------------+-------------+-------------+-------------+
+3 rows in set (0.00 sec)
+```
+
+## Dumping the profile
+
+The profiling samples the `malloc()` calls and stores the sampled stack traces in a separate location in memory. These samples can be dumped into the filesystem. A dump returns a detailed view of the state of the memory.
+
+The process is global; therefore, only a single concurrent run is available. Each dump creates a new file with a unique timestamp, and previous dumps are retained unless manually deleted.
+
+Use the following command to create a profile dump file:
+
+```
+flush memory profile;
+```
+
+The generated memory profile dumps are written to the /tmp directory.
+
+You can analyze the dump files with `jeprof` program, which must be installed on the host system and available in the system PATH. This program is a C program that post-processes the dump files in their raw format. While jeprof can work with dumps from different jemalloc versions, compatibility issues may occur with significantly different versions.
+
+To verify the dump, run the following command:
+
+```
+ls /tmp/jeprof_mysqld*
+```
+
+Expected output
+
+```
+/tmp/jeprof_mysqld.1.0.170013202213
+```
+
+Then analyze the profile:
+
+```
+jeprof --show_bytes /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213
+```
+
+You can also access the memory profile to plot a graph of the memory use. This ability requires that `jeprof` and `dot` are available in the system PATH. For the graph to display useful information, the binary file must contain debug symbol information.
+
+Important considerations
+
+- Ensure the MySQL process has write permissions to `/tmp`
+- Profile dumps can be large; monitor available disk space
+- Profiling has performance overhead and should be used judiciously
+
+Run the following command:
+
+```
+jeprof --dot /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213 > /tmp/jeprof1.dot
+dot -Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
+```
+
+Note
+
+An example of [allocation graph](https://github.com/jemalloc/jemalloc/wiki/Use-Case%3A-Leak-Checking) .
+
+## PERFORMANCE_SCHEMA tables
+
+The following tables are implemented to retrieve memory allocation statistics for a running instance or return the cumulative number of allocations requested or allocations returned for a running instance.
+
+More information about the stats that are returned can be found in [jemalloc](https://jemalloc.net/jemalloc.3.html) .
+
+## malloc_stats_totals
+
+The current stats for allocations. All measurements are in bytes.
+
+| Column Name | Description                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ALLOCATED   | The total amount the application allocated                                                                                                                                                                                                                                                                                                                                                                              |
+| ACTIVE      | The total amount allocated by the application of active pages. A multiple of the page size and this value is greater than or equal to the stats.allocated value. The sum does not include allocator metadata pages and stats.arenas.[i].pdirty or stats.arenas.[i].pmuzzy.                                                                                                                                              |
+| MAPPED      | The total amount in chunks that are mapped by the allocator in active extents. This value does not include inactive chunks. The value is at least as large as the stats.active and is a multiple of the chunk size.                                                                                                                                                                                                     |
+| RESIDENT    | A maximum number the allocator has mapped in physically resident data pages. All allocator metadata pages and unused dirty pages are included in this value. Pages may not be physically resident if they correspond to demand-zeroed virtual memory that has not yet been touched. This value is a maximum rather than a precise value and is a multiple of the page size. The value is greater than the stats.active. |
+| RETAINED    | The amount retained by the virtual memory mappings of the operating system. This value does not include any returned mappings. This type of memory, usually de-committed, untouched, or purged. The value is associated with physical memory and is excluded from mapped memory statistics.                                                                                                                             |
+| METADATA    | The total amount dedicated to metadata. This value contains the base allocations which are used for bootstrap-sensitive allocator metadata structures. Transparent huge pages usage is not included.                                                                                                                                                                                                                    |
+
+## malloc_stats
+
+The cumulative statistics for allocations and deallocations for a running instance.
+
+| Column Name | Description                                                                                                                                                                                                         |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Type        | The type of object: small, large, and huge                                                                                                                                                                          |
+| ALLOCATED   | The number of bytes that are currently allocated to the application.                                                                                                                                                |
+| NMALLOC     | A cumulative number of times an allocation was requested from the arena’s bins. The number includes times when the allocation satisfied an allocation request or filled a relevant tcache if opt.tcache is enabled. |
+| NDALLOC     | A cumulative number of times an allocation was returned to the arena’s bins. The number includes times when the allocation was deallocated or flushed the relevant tcache if *opt.tcache* is enabled.               |
+| NREQUESTS   | The cumulative number of allocation requests satisfied.                                                                                                                                                             |
+
+## System variables
+
+The following variables have been added:
+
+### jemalloc_detected
+
+Description: This read-only variable returns `true` if jemalloc with profiling enabled is detected. The following options are required:
+
+- Jemalloc is installed and compiled with profiling enabled
+- *Percona Server for MySQL* is configured to use jemalloc by using the environment variable `LD_PRELOAD`.
+- The environment variable `MALLOC_CONF` is set to `prof:true`.
+
+Properties:
+
+- Scope: Global
+- Variable Type: Boolean
+- Default Value: false
+
+### jemalloc_profiling
+
+Description: Enables jemalloc profiling. The variable requires [jemalloc_detected](#jemalloc_detected).
+
+- Command Line: –jemalloc_profiling[=(OFF|ON)]
+- Config File: Yes
+- Scope: Global
+- Dynamic: Yes
+- Variable Type: Boolean
+- Default Value: OFF
+
+## Disable profiling
+
+To disable jemalloc profiling, in a MySQL client, run the following command:
+
+```
+set global jemalloc_profiling=off;
+```

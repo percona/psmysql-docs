@@ -133,7 +133,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10582,9 +10582,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="thread-states-for-drop-table-operations">Thread states for DROP TABLE operations<a class="headerlink" href="#thread-states-for-drop-table-operations" title="Permanent link">&para;</a></h1>
+<h1 id="thread-states-for-drop-table-operations">Thread states for DROP TABLE operations<a data-markdown-ignore class="headerlink" href="#thread-states-for-drop-table-operations" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL 9.7.2-2 adds two performance schema stages for <code>DROP TABLE</code> operations. The stages mark the start and the end of a table drop. Use the stages to check whether a session actively runs a table drop. The stages help diagnose long-running or blocked <code>DROP TABLE</code> statements.</p>
-<h2 id="stages">Stages<a class="headerlink" href="#stages" title="Permanent link">&para;</a></h2>
+<h2 id="stages">Stages<a data-markdown-ignore class="headerlink" href="#stages" title="Permanent link">&para;</a></h2>
 <p>The following table lists the two stages:</p>
 <table>
 <thead>
@@ -10605,7 +10605,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>A <code>DROP TABLE</code> statement completes fast. The two stages stay visible for a short time only. Query the stage history in Performance Schema to capture the stages. Do not rely only on <code>SHOW PROCESSLIST</code>.</p>
-<h2 id="stage-history-example">Stage history example<a class="headerlink" href="#stage-history-example" title="Permanent link">&para;</a></h2>
+<h2 id="stage-history-example">Stage history example<a data-markdown-ignore class="headerlink" href="#stage-history-example" title="Permanent link">&para;</a></h2>
 <p>Truncate the stage history, run a <code>DROP TABLE</code> statement, and query the recorded stage events:</p>
 <div class="highlight"><pre><span></span><code><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">events_stages_history_long</span><span class="p">;</span>
 
@@ -10630,7 +10630,7 @@ stage/sql/cleaning up
 </code></pre></div>
 </details>
 <p>The <code>INFORMATION_SCHEMA.PROFILING</code> table shows the same stages without the <code>stage/sql/</code> prefix: <code>dropping table</code> and <code>after drop</code>. Percona deprecated <code>INFORMATION_SCHEMA.PROFILING</code>. Use Performance Schema instead.</p>
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<h2 id="notes">Notes<a data-markdown-ignore class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <p>The following notes apply to the two stages:</p>
 <ul>
 <li>

@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10692,7 +10692,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="trigger-updates">Trigger updates<a class="headerlink" href="#trigger-updates" title="Permanent link">&para;</a></h1>
+<h1 id="trigger-updates">Trigger updates<a data-markdown-ignore class="headerlink" href="#trigger-updates" title="Permanent link">&para;</a></h1>
 <p>In MySQL, the system efficiently handles multiple client queries to the same table by opening separate table instances for each query. This prevents delays and conflicts. The use of a &ldquo;Table Cache&rdquo; speeds up access by reducing the need to repeatedly open and close tables, improving overall performance.</p>
 <p>The <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_table_open_cache">table_open_cache <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> system variable controls the number of tables MySQL can keep open simultaneously across all threads. By increasing this setting, MySQL can handle more open files, although this requires more file descriptors. Despite a soft limit, MySQL can temporarily exceed it if queries demand more open tables. Upon query completion, MySQL automatically manages the cache by closing the least recently used tables.</p>
 <p>The <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_table_open_cache_instances">table_open_cache_instances <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> system variable controls the number of open table cache instances in MySQL. By splitting the open tables cache into smaller segments (table_open_cache divided by table_open_cache_instances), sessions can access only one instance at a time for DML operations, reducing contention and improving performance when many sessions are running. For systems with 16 or more CPU cores, a value of 8 or 16 is recommended. However, if many large triggers are causing high memory usage, setting this variable to 1 can help limit memory consumption.</p>
@@ -10707,8 +10707,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>The additional system variable reduces the Table Cache memory consumption on the server when tables that contain trigger definitions also are part of a significant read-only workload.</p>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="table_open_cache_triggers">table_open_cache_triggers<a class="headerlink" href="#table_open_cache_triggers" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="table_open_cache_triggers">table_open_cache_triggers<a data-markdown-ignore class="headerlink" href="#table_open_cache_triggers" title="Permanent link">&para;</a></h3>
 <table width="100%">
     <col style="width:20%">
     <col style="width:80%">
@@ -10753,7 +10753,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>This variable sets a soft limit on the maximum number of open tables in the Table Cache, which holds fully loaded triggers. By default, this value is set to the maximum to prevent any changes in behavior for existing users. If the number of open table instances with fully loaded triggers exceeds this limit, the system removes the least recently used unused table instances. You can set this value as a start-up option or change it dynamically while the system runs.</p>
-<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
+<h2 id="status-variables">Status variables<a data-markdown-ignore class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
 <p>The following status variables are available:</p>
 <style>
     table th:first-of-type { width: 40%;
@@ -10784,9 +10784,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="show-create-trigger-statment-changes">SHOW CREATE TRIGGER statment changes<a class="headerlink" href="#show-create-trigger-statment-changes" title="Permanent link">&para;</a></h2>
+<h2 id="show-create-trigger-statment-changes">SHOW CREATE TRIGGER statment changes<a data-markdown-ignore class="headerlink" href="#show-create-trigger-statment-changes" title="Permanent link">&para;</a></h2>
 <p>The <code>SHOW CREATE TRIGGER</code> statement displays the SQL command that created a trigger, including definitions that may no longer be understandable. For example, if a trigger was created before a server upgrade that changed the trigger syntax, this statement will still show its definition.</p>
-<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<h2 id="additional-resources">Additional resources<a data-markdown-ignore class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <p>For more information, see <a href="https://dev.mysql.com/doc/refman/9.7/en/table-cache.html">How MySQL opens and closes tables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 
 

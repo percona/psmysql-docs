@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10848,7 +10848,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="get-started-with-distance">Get started with DISTANCE()<a class="headerlink" href="#get-started-with-distance" title="Permanent link">&para;</a></h1>
+<h1 id="get-started-with-distance">Get started with DISTANCE()<a data-markdown-ignore class="headerlink" href="#get-started-with-distance" title="Permanent link">&para;</a></h1>
 <p>This quickstart compares one stored vector with one query vector using every distance metric that <code>DISTANCE()</code> supports. The metric examples share one table and the same two unit-length vectors, <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> and <code>[0.2857142857, 0.4285714286, 0.8571428571]</code>, so the metric is what changes the result. Later sections use the same table to rank several vectors and to show how the function handles invalid input.</p>
 <p>The supported metrics are:</p>
 <ul>
@@ -10860,7 +10860,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>You need access to a Percona Server for MySQL 9.7 server and an account that can create a database and tables. </p>
 <p>For arguments and return values, see <a href="distance-function.html">DISTANCE() Function</a>.</p>
-<h2 id="create-the-sample-database-and-table">Create the sample database and table<a class="headerlink" href="#create-the-sample-database-and-table" title="Permanent link">&para;</a></h2>
+<h2 id="create-the-sample-database-and-table">Create the sample database and table<a data-markdown-ignore class="headerlink" href="#create-the-sample-database-and-table" title="Permanent link">&para;</a></h2>
 <p>The following statements create and select a dedicated <code>testdb</code> database so that the examples do not modify a table in your current database. If that database already exists, either <a href="#clean-up">remove it</a> or use another database name. The first statement drops <code>testdb</code> if the database already exists, including everything in that database.</p>
 <p><code>TO_VECTOR()</code> converts the string representation of a vector to a <code>VECTOR</code> value. The statements also create a <code>documents</code> table and store <code>[0.3333333333, 0.6666666667, 0.6666666667]</code> in the <code>embedding</code> column:</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
@@ -10887,7 +10887,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Precision of the results</p>
 <p>A <code>VECTOR</code> stores each element as a single-precision (4-byte) float, and <code>DISTANCE()</code> returns a <code>DOUBLE</code>. Results can therefore differ from exact arithmetic in the seventh or eighth significant digit. The calculation shown under each output gives the exact value, and the digits you see after the seventh decimal place may differ from the output shown here.</p>
 </div>
-<h2 id="euclidean-distance">Euclidean distance<a class="headerlink" href="#euclidean-distance" title="Permanent link">&para;</a></h2>
+<h2 id="euclidean-distance">Euclidean distance<a data-markdown-ignore class="headerlink" href="#euclidean-distance" title="Permanent link">&para;</a></h2>
 <p><code>EUCLIDEAN</code> measures the straight-line distance between the vectors.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
@@ -10907,7 +10907,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>The calculation is <code>sqrt((0.3333333333 - 0.2857142857)^2 + (0.6666666667 - 0.4285714286)^2 + (0.6666666667 - 0.8571428571)^2) = sqrt(0.0476190476^2 + 0.2380952381^2 + (-0.1904761904)^2) = sqrt(0.0952380952) ≈ 0.3086067</code>.</p>
-<h2 id="euclidean-squared-distance">Euclidean squared distance<a class="headerlink" href="#euclidean-squared-distance" title="Permanent link">&para;</a></h2>
+<h2 id="euclidean-squared-distance">Euclidean squared distance<a data-markdown-ignore class="headerlink" href="#euclidean-squared-distance" title="Permanent link">&para;</a></h2>
 <p><code>EUCLIDEAN_SQUARED</code> returns the square of the Euclidean distance. Use this metric when you only need to rank vectors, because the metric skips the square root.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
@@ -10927,7 +10927,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>The calculation is <code>(0.3333333333 - 0.2857142857)^2 + (0.6666666667 - 0.4285714286)^2 + (0.6666666667 - 0.8571428571)^2 = 0.0022675737 + 0.0566893424 + 0.0362811791 = 0.0952380952 ≈ 0.0952381</code>. The result ranges from <code>0</code> (same direction) through <code>1</code> (orthogonal) to <code>2</code> (opposite directions).</p>
-<h2 id="cosine-distance">Cosine distance<a class="headerlink" href="#cosine-distance" title="Permanent link">&para;</a></h2>
+<h2 id="cosine-distance">Cosine distance<a data-markdown-ignore class="headerlink" href="#cosine-distance" title="Permanent link">&para;</a></h2>
 <p><code>COSINE</code> returns <code>1 - cosine similarity</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
@@ -10948,7 +10948,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>Because both vectors are already unit length, cosine similarity here is the raw inner product: <code>0.3333333333 × 0.2857142857 + 0.6666666667 × 0.4285714286 + 0.6666666667 × 0.8571428571 = 0.0952380952 + 0.2857142857 + 0.5714285714 = 0.9523809524 ≈ 0.952381</code>. Cosine distance is <code>1 - 0.9523809524 = 0.0476190476 ≈ 0.047619</code>.</p>
 <p>For unit-length vectors, Euclidean distance is a monotonic function of cosine similarity, so both metrics produce the same ranking. For vectors of different lengths, they can differ.</p>
-<h2 id="dot-distance">DOT distance<a class="headerlink" href="#dot-distance" title="Permanent link">&para;</a></h2>
+<h2 id="dot-distance">DOT distance<a data-markdown-ignore class="headerlink" href="#dot-distance" title="Permanent link">&para;</a></h2>
 <p>For <code>DOT</code>, <code>DISTANCE()</code> returns the negative inner product, so a smaller value means the vectors are more closely aligned.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
@@ -10968,7 +10968,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>The inner product is <code>0.3333333333 × 0.2857142857 + 0.6666666667 × 0.4285714286 + 0.6666666667 × 0.8571428571 = 0.0952380952 + 0.2857142857 + 0.5714285714 = 0.9523809524 ≈ 0.952381</code>, and DISTANCE() returns its negative: <code>-0.952381</code>.</p>
-<h2 id="manhattan-distance">Manhattan distance<a class="headerlink" href="#manhattan-distance" title="Permanent link">&para;</a></h2>
+<h2 id="manhattan-distance">Manhattan distance<a data-markdown-ignore class="headerlink" href="#manhattan-distance" title="Permanent link">&para;</a></h2>
 <p><code>MANHATTAN</code> adds the absolute difference between corresponding elements. This metric is a Percona Server extension.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">embedding</span><span class="p">,</span>
@@ -10988,7 +10988,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>The calculation is <code>|0.3333333333 - 0.2857142857| + |0.6666666667 - 0.4285714286| + |0.6666666667 - 0.8571428571| = 0.0476190476 + 0.2380952381 + 0.1904761904 = 0.4761904761 ≈ 0.476190</code>.</p>
-<h2 id="find-the-closest-vectors">Find the closest vectors<a class="headerlink" href="#find-the-closest-vectors" title="Permanent link">&para;</a></h2>
+<h2 id="find-the-closest-vectors">Find the closest vectors<a data-markdown-ignore class="headerlink" href="#find-the-closest-vectors" title="Permanent link">&para;</a></h2>
 <p>A similarity search compares a query vector against many stored embeddings. Add three more documents to the sample table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">,</span><span class="w"> </span><span class="n">embedding</span><span class="p">)</span>
 <span class="k">VALUES</span>
@@ -11023,7 +11023,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>Lower distance values represent closer matches. The exact query vector ranks first because its cosine distance is <code>0</code>. The <code>Opposite document</code> row (id 3) does not appear because it is the farthest from the query vector. Its cosine distance is about <code>1.975</code>, the largest of the four rows, so <code>LIMIT 3</code> excludes it. Remove <code>LIMIT 3</code> to list all four rows.</p>
-<h3 id="compare-rankings-across-metrics">Compare rankings across metrics<a class="headerlink" href="#compare-rankings-across-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="compare-rankings-across-metrics">Compare rankings across metrics<a data-markdown-ignore class="headerlink" href="#compare-rankings-across-metrics" title="Permanent link">&para;</a></h3>
 <p>The metric can change which document ranks second. Run the same search with <code>EUCLIDEAN</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="n">content</span><span class="p">,</span>
@@ -11056,7 +11056,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>With <code>COSINE</code>, <code>Nearby document</code> ranks ahead of <code>Example document</code>. With <code>EUCLIDEAN</code>, the order is reversed. <code>Nearby document</code> points in almost exactly the same direction as the query vector but is much shorter, so cosine distance treats it as very close while Euclidean distance does not. </p>
 <p>The <code>Opposite document</code> row ranks last under both metrics, with a Euclidean distance of about <code>1.556</code>, so <code>LIMIT 3</code> excludes it here as well. The stored vectors here are not unit length, so the two metrics are not equivalent. Choose the metric that matches how your embedding model was trained, and normalize your vectors if you want direction alone to decide the ranking.</p>
-<h3 id="list-all-rows-under-both-metrics">List all rows under both metrics<a class="headerlink" href="#list-all-rows-under-both-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="list-all-rows-under-both-metrics">List all rows under both metrics<a data-markdown-ignore class="headerlink" href="#list-all-rows-under-both-metrics" title="Permanent link">&para;</a></h3>
 <p>To see every row under both metrics in one result, select both distances and remove <code>LIMIT</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="n">content</span><span class="p">,</span>
@@ -11079,7 +11079,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>The <code>Opposite document</code> row has the largest distance under both metrics, <code>1.9746318461970762</code> for <code>COSINE</code> and <code>1.5562374497485916</code> for <code>EUCLIDEAN</code>. It ranks last in both searches, so <code>LIMIT 3</code> excludes it.</p>
-<h2 id="compare-raw-and-normalized-vectors">Compare raw and normalized vectors<a class="headerlink" href="#compare-raw-and-normalized-vectors" title="Permanent link">&para;</a></h2>
+<h2 id="compare-raw-and-normalized-vectors">Compare raw and normalized vectors<a data-markdown-ignore class="headerlink" href="#compare-raw-and-normalized-vectors" title="Permanent link">&para;</a></h2>
 <p><code>COSINE</code> ignores the length of the vectors, but <code>EUCLIDEAN</code> does not. When two texts cover the same topic but differ greatly in length, the raw Euclidean distance can be large even though the cosine distance is close to <code>0</code>. Normalizing both vectors to length <code>1</code> removes the difference.</p>
 <p>The following example stores term-count vectors for a long article and a short summary of the same article. The eight dimensions count the words photosynthesis, light, chlorophyll, plant, energy, carbon, oxygen, and glucose. The article vector is about 21 times longer than the summary vector, but the word proportions are almost the same. The <code>normalized</code> rows hold the same two vectors divided by their own lengths, <code>sqrt(54994) ≈ 234.508</code> and <code>sqrt(123) ≈ 11.0905</code>.</p>
 <p>These vectors are simplified term counts that illustrate the length effect. Embeddings from a model typically have hundreds or thousands of dimensions, with smaller elements that can be positive or negative, so the distances between texts on the same topic are usually larger than the values in this example.</p>
@@ -11124,7 +11124,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>For the <code>normalized</code> rows, both vectors have length <code>1</code>, so the cosine distance is <code>1 - dot product</code>. The dot product of the two normalized vectors is approximately <code>0.998147</code>, so the cosine distance is approximately <code>0.001853</code>, which matches <code>0.001853019054323557</code> to six decimal places. The element differences are <code>-0.0293, 0.0018, -0.0098, 0.0085, 0.0280, 0.0116, -0.0183, 0.0378</code>, so the Euclidean distance is <code>sqrt(0.0037061290) ≈ 0.0608780</code>, which matches <code>0.06087799819964219</code>.</p>
 <p>The <code>normalized</code> cosine distance differs from the <code>raw</code> value in the sixth significant digit (<code>0.001853019…</code> compared with <code>0.001853064…</code>). The vector elements are stored as 4-byte floats, and the calculation subtracts a value close to <code>1</code> from <code>1</code>, so small rounding differences become visible. For more information, see the <a href="#create-the-sample-database-and-table">precision note</a>.</p>
 <p>The cosine distance is nearly the same for both rows because cosine distance divides out the vector length. The raw Euclidean distance reflects the length difference rather than the topic. Use <code>COSINE</code>, or normalize your vectors before you use <code>EUCLIDEAN</code>, when vector length does not carry meaning for your data.</p>
-<h2 id="handle-invalid-input">Handle invalid input<a class="headerlink" href="#handle-invalid-input" title="Permanent link">&para;</a></h2>
+<h2 id="handle-invalid-input">Handle invalid input<a data-markdown-ignore class="headerlink" href="#handle-invalid-input" title="Permanent link">&para;</a></h2>
 <p>Keep the following behaviors in mind when you build queries:</p>
 <ul>
 <li>Vectors with different dimensions cause an error.</li>
@@ -11134,11 +11134,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Metric names are case-insensitive, so <code>cosine</code> and <code>COSINE</code> are equivalent.</li>
 </ul>
 <p>For complete argument and return-value details, see <a href="distance-function.html">DISTANCE() Function</a>.</p>
-<h2 id="clean-up">Clean up<a class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
+<h2 id="clean-up">Clean up<a data-markdown-ignore class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
 <p>When you finish the quickstart, optionally remove the sample database and all of its contents:</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">testdb</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="distance-function.html">DISTANCE() Function</a></li>
 <li><a href="vector.html">The VECTOR Type</a></li>

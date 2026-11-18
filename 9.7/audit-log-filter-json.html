@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10696,7 +10696,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-format-json-and-jsonl">Audit Log Filter format - JSON and JSONL<a class="headerlink" href="#audit-log-filter-format-json-and-jsonl" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-filter-format-json-and-jsonl">Audit Log Filter format - JSON and JSONL<a data-markdown-ignore class="headerlink" href="#audit-log-filter-format-json-and-jsonl" title="Permanent link">&para;</a></h1>
 <p>JSON and JSONL emit the same key-value pairs per event. Required keys appear in every record. Optional keys depend on event type and settings. Key order is not guaranteed, and long values may be truncated.</p>
 <p>Only the file layout differs:</p>
 <table>
@@ -10723,7 +10723,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Unlike plain <a href="https://jsonlines.org/">JSON Lines</a>, Percona JSONL keeps a wrapping JSON array and commas between lines. The file stays valid JSON and remains line-friendly for <code>grep</code>, <code>jq</code>, <code>wc -l</code>, streams, and aggregators.</p>
 <p>Compression and encryption behave like JSON. <code>audit_log_read()</code> and <code>audit_log_read_bookmark()</code> read both formats.</p>
 <p>JSON and JSONL alone expose some statistics such as query timing and size. Use those statistics to flag outliers in workload analysis.</p>
-<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<h2 id="attributes">Attributes<a data-markdown-ignore class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
 <p>Field sets match between JSON and JSONL. Only the wrapping differs. See the preceding table.</p>
 <p>Every event object includes at least:</p>
 <ul>
@@ -10803,7 +10803,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="json-example">JSON example<a class="headerlink" href="#json-example" title="Permanent link">&para;</a></h2>
+<h2 id="json-example">JSON example<a data-markdown-ignore class="headerlink" href="#json-example" title="Permanent link">&para;</a></h2>
 <p>The following shows four event types recorded in <code>REDUCED</code> event mode: startup, connection, table access, and general status.</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
@@ -10882,7 +10882,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
-<h2 id="jsonl-example">JSONL example<a class="headerlink" href="#jsonl-example" title="Permanent link">&para;</a></h2>
+<h2 id="jsonl-example">JSONL example<a data-markdown-ignore class="headerlink" href="#jsonl-example" title="Permanent link">&para;</a></h2>
 <p>In the JSONL format, each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example appear as follows:</p>
 <div class="highlight"><pre><span></span><code><span class="p">[</span>
 <span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"2026-04-03 10:43:52"</span><span class="p">,</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"class"</span><span class="p">:</span><span class="s2">"audit"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:</span><span class="s2">"startup"</span><span class="p">,</span><span class="nt">"connection_id"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="nt">"account"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">},</span><span class="nt">"login"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"os"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"ip"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"proxy"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span><span class="nt">"startup_data"</span><span class="p">:{</span><span class="nt">"server_id"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"os_version"</span><span class="p">:</span><span class="s2">"x86_64-Linux"</span><span class="p">,</span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="s2">"9.7.0-0"</span><span class="p">,</span><span class="nt">"args"</span><span class="p">:[</span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span><span class="s2">"--basedir=/usr"</span><span class="p">,</span><span class="s2">"--user=mysql"</span><span class="p">,</span><span class="s2">"--datadir=/var/lib/mysql"</span><span class="p">,</span><span class="s2">"--socket=/var/run/mysqld/mysqld.sock"</span><span class="p">,</span><span class="s2">"--port=3306"</span><span class="p">]}},</span>
@@ -10891,7 +10891,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">{</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="nt">"id"</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span><span class="nt">"class"</span><span class="p">:</span><span class="s2">"general"</span><span class="p">,</span><span class="nt">"event"</span><span class="p">:</span><span class="s2">"status"</span><span class="p">,</span><span class="nt">"connection_id"</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="nt">"account"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"localhost"</span><span class="p">},</span><span class="nt">"login"</span><span class="p">:{</span><span class="nt">"user"</span><span class="p">:</span><span class="s2">"root"</span><span class="p">,</span><span class="nt">"os"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"ip"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="nt">"proxy"</span><span class="p">:</span><span class="s2">""</span><span class="p">},</span><span class="nt">"general_data"</span><span class="p">:{</span><span class="nt">"command"</span><span class="p">:</span><span class="s2">"Query"</span><span class="p">,</span><span class="nt">"sql_command"</span><span class="p">:</span><span class="s2">"select"</span><span class="p">,</span><span class="nt">"query"</span><span class="p">:</span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="nt">"status"</span><span class="p">:</span><span class="mi">0</span><span class="p">}}</span>
 <span class="p">]</span>
 </code></pre></div>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-formats.html">Audit Log Filter file format overview</a></p>

@@ -142,7 +142,7 @@ library.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10743,7 +10743,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="compressed-columns-with-dictionaries">Compressed columns with dictionaries<a class="headerlink" href="#compressed-columns-with-dictionaries" title="Permanent link">&para;</a></h1>
+<h1 id="compressed-columns-with-dictionaries">Compressed columns with dictionaries<a data-markdown-ignore class="headerlink" href="#compressed-columns-with-dictionaries" title="Permanent link">&para;</a></h1>
 <p>The <code>per-column compression</code> feature is a data type modifier, independent from
 user-level SQL and <em>InnoDB</em> data compression, that causes the data stored in the
 column to be compressed on writing to storage and decompressed on reading. For
@@ -10765,7 +10765,7 @@ dictionaries</p>
 row compression method). This feature is based on a patch provided by Weixiang Zhai.</p>
 </li>
 </ul>
-<h2 id="specifications">Specifications<a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h2>
+<h2 id="specifications">Specifications<a data-markdown-ignore class="headerlink" href="#specifications" title="Permanent link">&para;</a></h2>
 <p>The feature is limited to InnoDB/XtraDB storage engine and to columns of the
 following data types:</p>
 <ul>
@@ -10812,7 +10812,7 @@ compression/decompression request in an <code>ALTER TABLE</code>, it is forced t
 <code>COPY</code> algorithm.</p>
 <p>Two new variables: innodb_compressed_columns_zip_level and
 innodb_compressed_columns_threshold have been implemented.</p>
-<h2 id="compression-dictionary-support">Compression dictionary support<a class="headerlink" href="#compression-dictionary-support" title="Permanent link">&para;</a></h2>
+<h2 id="compression-dictionary-support">Compression dictionary support<a data-markdown-ignore class="headerlink" href="#compression-dictionary-support" title="Permanent link">&para;</a></h2>
 <p>To achieve a better compression ratio on relatively small individual data items,
 it is possible to predefine a compression dictionary, which is a set of strings
 for each compressed column.</p>
@@ -10825,12 +10825,12 @@ quoting is handled by regular SQL quoting. The maximum supported dictionary leng
 table is of the data dictionary kind, concurrent reads are allowed, but writes
 are serialized, and reads are blocked by writes. Table read through old read
 views are not supported, similar to <em>InnoDB</em> internal DDL transactions.</p>
-<h3 id="interaction-with-innodb_force_recovery-variable">Interaction with innodb_force_recovery variable<a class="headerlink" href="#interaction-with-innodb_force_recovery-variable" title="Permanent link">&para;</a></h3>
+<h3 id="interaction-with-innodb_force_recovery-variable">Interaction with innodb_force_recovery variable<a data-markdown-ignore class="headerlink" href="#interaction-with-innodb_force_recovery-variable" title="Permanent link">&para;</a></h3>
 <p>Compression dictionary operations are treated like DDL operations with the
 exception when innodb_force_value is set to <code>3</code>: with values
 less than <code>3</code>, compression dictionary operations are allowed, and with
 values &gt;= <code>3</code>, they are forbidden.</p>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<h3 id="example">Example<a data-markdown-ignore class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>In order to use the compression dictionary, you need to create it. This
 can be done by running:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dictionary_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'one'</span><span class="w"> </span><span class="s1">'two'</span><span class="w"> </span><span class="s1">'three'</span><span class="w"> </span><span class="s1">'four'</span><span class="p">;</span>
@@ -10888,9 +10888,9 @@ you should run:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">);</span>
 <span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="information_schema-tables">INFORMATION_SCHEMA Tables<a class="headerlink" href="#information_schema-tables" title="Permanent link">&para;</a></h2>
+<h2 id="information_schema-tables">INFORMATION_SCHEMA Tables<a data-markdown-ignore class="headerlink" href="#information_schema-tables" title="Permanent link">&para;</a></h2>
 <p>This feature implements two new <code>INFORMATION_SCHEMA</code> tables.</p>
-<h3 id="information_schemacompression_dictionary"><code>INFORMATION_SCHEMA.COMPRESSION_DICTIONARY</code><a class="headerlink" href="#information_schemacompression_dictionary" title="Permanent link">&para;</a></h3>
+<h3 id="information_schemacompression_dictionary"><code>INFORMATION_SCHEMA.COMPRESSION_DICTIONARY</code><a data-markdown-ignore class="headerlink" href="#information_schemacompression_dictionary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10915,7 +10915,7 @@ you should run:</p>
 </table>
 <p>This table provides a view of the internal compression dictionary. The
 <code>SUPER</code> privilege is required to query it.</p>
-<h3 id="information_schemacompression_dictionary_tables"><code>INFORMATION_SCHEMA.COMPRESSION_DICTIONARY_TABLES</code><a class="headerlink" href="#information_schemacompression_dictionary_tables" title="Permanent link">&para;</a></h3>
+<h3 id="information_schemacompression_dictionary_tables"><code>INFORMATION_SCHEMA.COMPRESSION_DICTIONARY_TABLES</code><a data-markdown-ignore class="headerlink" href="#information_schemacompression_dictionary_tables" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10945,7 +10945,7 @@ you should run:</p>
 <p>This table provides a view over the internal table that stores the mapping
 between the compression dictionaries and the columns using them. The <code>SUPER</code>
 privilege is require to query it.</p>
-<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<h2 id="limitations">Limitations<a data-markdown-ignore class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <p>Compressed columns cannot be used in indices (neither on their own nor as parts
 of composite keys).</p>
 <div class="admonition note">
@@ -10957,7 +10957,7 @@ of composite keys).</p>
 compressed columns. To export and import tablespaces with compressed columns,
 you uncompress them first with: <code>ALTER TABLE ... MODIFY ...
 COLUMN_FORMAT DEFAULT</code>.</p>
-<h2 id="mysqldump-command-line-parameters">mysqldump command line parameters<a class="headerlink" href="#mysqldump-command-line-parameters" title="Permanent link">&para;</a></h2>
+<h2 id="mysqldump-command-line-parameters">mysqldump command line parameters<a data-markdown-ignore class="headerlink" href="#mysqldump-command-line-parameters" title="Permanent link">&para;</a></h2>
 <p>By default, with no additional options, <code>mysqldump</code> will generate a <em>MySQL</em>
 compatible SQL output.</p>
 <p>All <code>/\*!50633 COLUMN_FORMAT COMPRESSED \*/</code> and <code>/\*!50633 COLUMN_FORMAT
@@ -10990,8 +10990,8 @@ add-drop-compression-dictionary and
 skip-add-drop-compression-dictionary options).</p>
 <div class="highlight"><pre><span></span><code>/*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS &lt;dictionary&gt;(...); */
 </code></pre></div>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="innodb_compressed_columns_zip_level"><code>innodb_compressed_columns_zip_level</code><a class="headerlink" href="#innodb_compressed_columns_zip_level" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="innodb_compressed_columns_zip_level"><code>innodb_compressed_columns_zip_level</code><a data-markdown-ignore class="headerlink" href="#innodb_compressed_columns_zip_level" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11033,7 +11033,7 @@ skip-add-drop-compression-dictionary options).</p>
 <p>This variable is used to specify the compression level used for compressed
 columns. Specifying <code>0</code> will use no compression, <code>1</code> the fastest, and <code>9</code>
 the best compression. The default value is <code>6</code>.</p>
-<h3 id="innodb_compressed_columns_threshold"><code>innodb_compressed_columns_threshold</code><a class="headerlink" href="#innodb_compressed_columns_threshold" title="Permanent link">&para;</a></h3>
+<h3 id="innodb_compressed_columns_threshold"><code>innodb_compressed_columns_threshold</code><a data-markdown-ignore class="headerlink" href="#innodb_compressed_columns_threshold" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>

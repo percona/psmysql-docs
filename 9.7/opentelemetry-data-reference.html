@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10760,11 +10760,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="opentelemetry-data-reference">OpenTelemetry data reference<a class="headerlink" href="#opentelemetry-data-reference" title="Permanent link">&para;</a></h1>
+<h1 id="opentelemetry-data-reference">OpenTelemetry data reference<a data-markdown-ignore class="headerlink" href="#opentelemetry-data-reference" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL exposes metrics, traces, and logs through OpenTelemetry.</p>
 <p>The available data can vary by server version and installed components.</p>
 <p>Use the Performance Schema tables to view the data available on your server.</p>
-<h2 id="signal-summary">Signal summary<a class="headerlink" href="#signal-summary" title="Permanent link">&para;</a></h2>
+<h2 id="signal-summary">Signal summary<a data-markdown-ignore class="headerlink" href="#signal-summary" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10797,10 +10797,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The OpenTelemetry Protocol (OTLP) exporter sends each enabled signal to its configured endpoint.</p>
 <p>The exporter uses the configured security, compression, timeout, queue, and batch settings.</p>
-<h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<h2 id="metrics">Metrics<a data-markdown-ignore class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
 <p>A meter groups related metrics. Each meter has a frequency and an enabled state.</p>
 <p>The frequency assigns the meter to a metric reader. The assigned reader controls the collection interval.</p>
-<h3 id="view-available-meters">View available meters<a class="headerlink" href="#view-available-meters" title="Permanent link">&para;</a></h3>
+<h3 id="view-available-meters">View available meters<a data-markdown-ignore class="headerlink" href="#view-available-meters" title="Permanent link">&para;</a></h3>
 <p>Query the <code>performance_schema.setup_meters</code> table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="p">,</span><span class="w"> </span><span class="n">ENABLED</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
@@ -10899,7 +10899,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>setup_meters</code> output is authoritative for the running server. Components can add meters.</p>
 <p>OTLP stores the meter name as the instrumentation scope name. OTLP stores the metric name separately.</p>
 <p>For example, <code>mysql.stats</code> is the scope name for the <code>bytes_received</code> metric.</p>
-<h3 id="control-meter-collection">Control meter collection<a class="headerlink" href="#control-meter-collection" title="Permanent link">&para;</a></h3>
+<h3 id="control-meter-collection">Control meter collection<a data-markdown-ignore class="headerlink" href="#control-meter-collection" title="Permanent link">&para;</a></h3>
 <p>You can change the <code>FREQUENCY</code> and <code>ENABLED</code> columns at runtime.</p>
 <p>The following statement disables a meter:</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
@@ -10917,7 +10917,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The <code>performance_schema_max_meter_classes</code> variable limits the number of meter instruments. Configure this startup-only variable before a component registers more meters than the current limit.</p>
 <p>See <a href="configure-opentelemetry.html#configure-metric-reader-frequencies">Configure metric reader frequencies</a> for the frequency assignment rules.</p>
-<h3 id="view-available-metrics">View available metrics<a class="headerlink" href="#view-available-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="view-available-metrics">View available metrics<a data-markdown-ignore class="headerlink" href="#view-available-metrics" title="Permanent link">&para;</a></h3>
 <p>Query the <code>performance_schema.setup_metrics</code> table for the complete metric catalog:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">METER</span><span class="p">,</span><span class="w"> </span><span class="n">METRIC_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">NUM_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">UNIT</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_metrics</span>
@@ -10977,7 +10977,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="relate-metrics-to-server-status">Relate metrics to server status<a class="headerlink" href="#relate-metrics-to-server-status" title="Permanent link">&para;</a></h3>
+<h3 id="relate-metrics-to-server-status">Relate metrics to server status<a data-markdown-ignore class="headerlink" href="#relate-metrics-to-server-status" title="Permanent link">&para;</a></h3>
 <p>Many OpenTelemetry metrics represent existing server status values. The meter groups identify the source area.</p>
 <table>
 <thead>
@@ -11027,7 +11027,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The <code>mysql.stats.com</code> metric name omits the <code>Com_</code> prefix. Other meter groups can also normalize source names.</p>
 <p>Query <code>performance_schema.setup_metrics</code> for the metric name, meter, type, unit, and description. Use <code>SHOW GLOBAL STATUS</code> to inspect the corresponding server value.</p>
-<h4 id="server-status-variable-definitions">Server status variable definitions<a class="headerlink" href="#server-status-variable-definitions" title="Permanent link">&para;</a></h4>
+<h4 id="server-status-variable-definitions">Server status variable definitions<a data-markdown-ignore class="headerlink" href="#server-status-variable-definitions" title="Permanent link">&para;</a></h4>
 <p>The following table defines the server status variables behind the representative metrics:</p>
 <table>
 <thead>
@@ -11167,7 +11167,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>OpenTelemetry uses <code>By</code> as the unit for bytes. An empty value means that the metric declares no unit.</p>
-<h3 id="metric-creation-and-export">Metric creation and export<a class="headerlink" href="#metric-creation-and-export" title="Permanent link">&para;</a></h3>
+<h3 id="metric-creation-and-export">Metric creation and export<a data-markdown-ignore class="headerlink" href="#metric-creation-and-export" title="Permanent link">&para;</a></h3>
 <p>The server processes a metric as follows:</p>
 <ol>
 <li>
@@ -11187,9 +11187,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>The server does not collect a meter when its <code>ENABLED</code> value is <code>NO</code>. Global metric collection must also be enabled.</p>
-<h2 id="traces">Traces<a class="headerlink" href="#traces" title="Permanent link">&para;</a></h2>
+<h2 id="traces">Traces<a data-markdown-ignore class="headerlink" href="#traces" title="Permanent link">&para;</a></h2>
 <p>The server creates <code>control</code>, <code>session</code>, and <code>stmt</code> spans. The <code>telemetry.trace_enabled</code> variable controls trace collection.</p>
-<h3 id="trace-format">Trace format<a class="headerlink" href="#trace-format" title="Permanent link">&para;</a></h3>
+<h3 id="trace-format">Trace format<a data-markdown-ignore class="headerlink" href="#trace-format" title="Permanent link">&para;</a></h3>
 <p>A trace groups spans that share one trace identifier. Each span is one server operation, with its own span identifier, start time, and end time.</p>
 <p>The component exports these span names:</p>
 <table>
@@ -11281,7 +11281,7 @@ mysql.session_attr.program_name: mysql
 mysql.session_attr._client_name: libmysql
 mysql.session_attr._os: Linux
 </code></pre></div>
-<h3 id="control-span">Control span<a class="headerlink" href="#control-span" title="Permanent link">&para;</a></h3>
+<h3 id="control-span">Control span<a data-markdown-ignore class="headerlink" href="#control-span" title="Permanent link">&para;</a></h3>
 <p>The <code>control</code> span records a telemetry lifecycle or configuration event. The span name is <code>control</code>.</p>
 <table>
 <thead>
@@ -11311,7 +11311,7 @@ mysql.session_attr._os: Linux
 </table>
 <p>The telemetry component creates this span when the telemetry configuration changes.</p>
 <p>Trace collection must be active for the span to reach the trace pipeline.</p>
-<h3 id="session-span">Session span<a class="headerlink" href="#session-span" title="Permanent link">&para;</a></h3>
+<h3 id="session-span">Session span<a data-markdown-ignore class="headerlink" href="#session-span" title="Permanent link">&para;</a></h3>
 <p>The <code>session</code> span represents a client session. The span name is <code>session</code>.</p>
 <table>
 <thead>
@@ -11349,9 +11349,9 @@ mysql.session_attr._os: Linux
 </table>
 <p>The span covers the period from the initial connection through the session close.</p>
 <p>The server emits the completed span when the session ends.</p>
-<h3 id="statement-span">Statement span<a class="headerlink" href="#statement-span" title="Permanent link">&para;</a></h3>
+<h3 id="statement-span">Statement span<a data-markdown-ignore class="headerlink" href="#statement-span" title="Permanent link">&para;</a></h3>
 <p>The <code>stmt</code> span represents a server statement event. The span name is <code>stmt</code>. The server completes the span when statement execution ends.</p>
-<h4 id="statement-identity-attributes">Statement identity attributes<a class="headerlink" href="#statement-identity-attributes" title="Permanent link">&para;</a></h4>
+<h4 id="statement-identity-attributes">Statement identity attributes<a data-markdown-ignore class="headerlink" href="#statement-identity-attributes" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11394,7 +11394,7 @@ mysql.session_attr._os: Linux
 </tr>
 </tbody>
 </table>
-<h4 id="statement-result-attributes">Statement result attributes<a class="headerlink" href="#statement-result-attributes" title="Permanent link">&para;</a></h4>
+<h4 id="statement-result-attributes">Statement result attributes<a data-markdown-ignore class="headerlink" href="#statement-result-attributes" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11437,7 +11437,7 @@ mysql.session_attr._os: Linux
 </tr>
 </tbody>
 </table>
-<h4 id="statement-performance-attributes">Statement performance attributes<a class="headerlink" href="#statement-performance-attributes" title="Permanent link">&para;</a></h4>
+<h4 id="statement-performance-attributes">Statement performance attributes<a data-markdown-ignore class="headerlink" href="#statement-performance-attributes" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -11512,15 +11512,15 @@ mysql.session_attr._os: Linux
 </tr>
 </tbody>
 </table>
-<h3 id="trace-export">Trace export<a class="headerlink" href="#trace-export" title="Permanent link">&para;</a></h3>
+<h3 id="trace-export">Trace export<a data-markdown-ignore class="headerlink" href="#trace-export" title="Permanent link">&para;</a></h3>
 <p>Completed spans enter the batch span processor queue.</p>
 <p>The processor forms batches according to the configured schedule and maximum batch size.</p>
 <p>The OTLP exporter sends each batch to the configured traces endpoint.</p>
 <p>A full queue can reject new spans. Export failures can prevent the backend from receiving spans.</p>
 <p>Monitor the collector and server error log for failures.</p>
-<h2 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h2>
+<h2 id="logs">Logs<a data-markdown-ignore class="headerlink" href="#logs" title="Permanent link">&para;</a></h2>
 <p>The server provides separate OpenTelemetry loggers for the error log, slow query log, and general query log.</p>
-<h3 id="view-available-loggers">View available loggers<a class="headerlink" href="#view-available-loggers" title="Permanent link">&para;</a></h3>
+<h3 id="view-available-loggers">View available loggers<a data-markdown-ignore class="headerlink" href="#view-available-loggers" title="Permanent link">&para;</a></h3>
 <p>Query the <code>performance_schema.setup_loggers</code> table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
@@ -11597,7 +11597,7 @@ mysql.session_attr._os: Linux
 </li>
 </ul>
 <p>Changing a file or table log setting does not change the matching OpenTelemetry logger.</p>
-<h3 id="log-creation-and-export">Log creation and export<a class="headerlink" href="#log-creation-and-export" title="Permanent link">&para;</a></h3>
+<h3 id="log-creation-and-export">Log creation and export<a data-markdown-ignore class="headerlink" href="#log-creation-and-export" title="Permanent link">&para;</a></h3>
 <p>The server processes a log record as follows:</p>
 <ol>
 <li>
@@ -11617,7 +11617,7 @@ mysql.session_attr._os: Linux
 </li>
 </ol>
 <p>Global log collection must be enabled. A logger with the <code>none</code> level does not create exportable records.</p>
-<h3 id="telemetry-logging-interface">Telemetry logging interface<a class="headerlink" href="#telemetry-logging-interface" title="Permanent link">&para;</a></h3>
+<h3 id="telemetry-logging-interface">Telemetry logging interface<a data-markdown-ignore class="headerlink" href="#telemetry-logging-interface" title="Permanent link">&para;</a></h3>
 <p><code>component_telemetry</code> exports instrumented log events to the OTLP logs endpoint. The server moves those events through two services. Together they are the telemetry logging interface.</p>
 <table>
 <thead>
@@ -11638,7 +11638,7 @@ mysql.session_attr._os: Linux
 </tbody>
 </table>
 <p><code>component_telemetry</code> registers that callback and sends the accepted records to the logs endpoint. The delivery service keeps a single callback and rejects another callback while the first one is registered.</p>
-<h2 id="resource-attributes">Resource attributes<a class="headerlink" href="#resource-attributes" title="Permanent link">&para;</a></h2>
+<h2 id="resource-attributes">Resource attributes<a data-markdown-ignore class="headerlink" href="#resource-attributes" title="Permanent link">&para;</a></h2>
 <p>Resource attributes identify the server that produced telemetry. Set custom attributes with <code>telemetry.otel_resource_attributes</code>.</p>
 <p>Use the OpenTelemetry resource attribute format:</p>
 <div class="highlight"><pre><span></span><code>service.name=payments-mysql,deployment.environment.name=production,service.instance.id=mysql-01
@@ -11670,7 +11670,7 @@ mysql.session_attr._os: Linux
 <p>Consistent attributes support correlation in the observability backend.</p>
 <p>The OpenTelemetry software development kit and resource providers can add other attributes.</p>
 <p>Inspect received telemetry to confirm the complete resource for your deployment.</p>
-<h2 id="sensitive-data">Sensitive data<a class="headerlink" href="#sensitive-data" title="Permanent link">&para;</a></h2>
+<h2 id="sensitive-data">Sensitive data<a data-markdown-ignore class="headerlink" href="#sensitive-data" title="Permanent link">&para;</a></h2>
 <p>Telemetry can contain confidential or regulated data. Review these fields before you enable export:</p>
 <table>
 <thead>
@@ -11732,7 +11732,7 @@ mysql.session_attr._os: Linux
 <p>Do not place secrets in custom resource attributes.</p>
 </li>
 </ul>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="opentelemetry-overview.html">OpenTelemetry component overview</a></p>

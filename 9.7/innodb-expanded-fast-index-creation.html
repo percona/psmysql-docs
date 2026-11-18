@@ -139,7 +139,7 @@ process of adding or dropping indexes on tables with many rows.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10716,7 +10716,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="expanded-fast-index-creation">Expanded fast index creation<a class="headerlink" href="#expanded-fast-index-creation" title="Permanent link">&para;</a></h1>
+<h1 id="expanded-fast-index-creation">Expanded fast index creation<a data-markdown-ignore class="headerlink" href="#expanded-fast-index-creation" title="Permanent link">&para;</a></h1>
 <p>Percona has implemented several changes related to <em>MySQL</em>’s fast index creation
 feature. Fast index creation was implemented in <em>MySQL</em> as a way to speed up the
 process of adding or dropping indexes on tables with many rows.</p>
@@ -10725,7 +10725,7 @@ creation. Besides optimizing DDL directly,
 <a href="#expanded-fast-index-creation">expand_fast_index_creation</a> may also optimize index access for
 subsequent DML statements because using it results in much less fragmented
 indexes.</p>
-<h2 id="the-mysqldump-command">The <strong>mysqldump</strong> command<a class="headerlink" href="#the-mysqldump-command" title="Permanent link">&para;</a></h2>
+<h2 id="the-mysqldump-command">The <strong>mysqldump</strong> command<a data-markdown-ignore class="headerlink" href="#the-mysqldump-command" title="Permanent link">&para;</a></h2>
 <p>A new option, <code>--innodb-optimize-keys</code>, was implemented in <strong>mysqldump</strong>. It
 changes the way <em>InnoDB</em> tables are dumped, so that secondary and foreign keys
 are created after loading the data, thus taking advantage of fast index
@@ -10740,7 +10740,7 @@ TABLE</code> statements corresponding to <em>InnoDB</em> tables.</p>
 create the previously omitted keys.</p>
 </li>
 </ul>
-<h2 id="alter-table"><code>ALTER TABLE</code><a class="headerlink" href="#alter-table" title="Permanent link">&para;</a></h2>
+<h2 id="alter-table"><code>ALTER TABLE</code><a data-markdown-ignore class="headerlink" href="#alter-table" title="Permanent link">&para;</a></h2>
 <p>When <code>ALTER TABLE</code> requires a table copy, secondary keys are now dropped and
 recreated later, after copying the data. The following restrictions apply:</p>
 <ul>
@@ -10756,11 +10756,11 @@ keys.</p>
 <p>If the table is partitioned, the optimization is disabled for all keys.</p>
 </li>
 </ul>
-<h2 id="optimize-table"><code>OPTIMIZE TABLE</code><a class="headerlink" href="#optimize-table" title="Permanent link">&para;</a></h2>
+<h2 id="optimize-table"><code>OPTIMIZE TABLE</code><a data-markdown-ignore class="headerlink" href="#optimize-table" title="Permanent link">&para;</a></h2>
 <p>Internally, <code>OPTIMIZE TABLE</code> is mapped to <code>ALTER TABLE ... ENGINE=innodb</code>
 for <em>InnoDB</em> tables. As a consequence, it now also benefits from fast index
 creation, with the same restrictions as for <code>ALTER TABLE</code>.</p>
-<h2 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
+<h2 id="caveats">Caveats<a data-markdown-ignore class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
 <p><em>InnoDB</em> fast index creation uses temporary files in tmpdir for all indexes
 being created. So make sure you have enough tmpdir space when using
 <a href="#expanded-fast-index-creation">expand_fast_index_creation</a>. It is a session variable, so you can
@@ -10798,8 +10798,8 @@ non-nullable columns when the table has no <code>PRIMARY KEY</code> defined, bec
 this case <em>InnoDB</em> picks such an index as the clustered one.</p>
 </li>
 </ul>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="expand_fast_index_creation"><code>expand_fast_index_creation</code><a class="headerlink" href="#expand_fast_index_creation" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="expand_fast_index_creation"><code>expand_fast_index_creation</code><a data-markdown-ignore class="headerlink" href="#expand_fast_index_creation" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>

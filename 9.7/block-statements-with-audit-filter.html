@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10784,7 +10784,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="block-statements-with-an-audit-log-filter">Block statements with an audit log filter<a class="headerlink" href="#block-statements-with-an-audit-log-filter" title="Permanent link">&para;</a></h1>
+<h1 id="block-statements-with-an-audit-log-filter">Block statements with an audit log filter<a data-markdown-ignore class="headerlink" href="#block-statements-with-an-audit-log-filter" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter does more than observe events. An <code>abort</code> item inside an <code>event</code> block <strong>prevents matching statements from executing</strong>. Blocked statements are still logged, and the client sees:</p>
 <div class="highlight"><pre><span></span><code>ERROR 1045 (28000): Statement was aborted by an audit log filter
 </code></pre></div>
@@ -10794,7 +10794,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Warning</p>
 <p>You can lock yourself out. If an <code>abort</code> rule matches a statement your own account runs, the statement fails. The <code>AUDIT_ABORT_EXEMPT</code> privilege (granted automatically to <code>SYSTEM_USER</code> accounts) bypasses <code>abort</code> conditions and lets you recover from a misconfiguration. Keep at least one such account available.</p>
 </div>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<h2 id="syntax">Syntax<a data-markdown-ignore class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p><code>abort</code> lives inside an <code>event</code> block and can be:</p>
 <ul>
 <li>
@@ -10810,9 +10810,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>For the field grammar used in conditions, see <a href="write-filter-definitions.html#test-event-field-values">Test event field values</a> and <a href="write-filter-definitions.html#combine-conditions-with-logical-operators">Combine conditions with logical operators</a> on the authoring page.</p>
-<h2 id="not-every-event-is-abortable">Not every event is abortable<a class="headerlink" href="#not-every-event-is-abortable" title="Permanent link">&para;</a></h2>
+<h2 id="not-every-event-is-abortable">Not every event is abortable<a data-markdown-ignore class="headerlink" href="#not-every-event-is-abortable" title="Permanent link">&para;</a></h2>
 <p>Only events marked <strong>Yes</strong> in the <a href="audit-log-filter-definition-fields.html#abortability">Abortability</a> table can be blocked. For example, <code>table_access</code> and <code>message</code> subclasses can be aborted, but <code>connection</code> and <code>general</code> subclasses cannot. When a filter tries to abort a non-abortable event, the server writes a warning to the error log and lets the statement through.</p>
-<h2 id="example-1-block-all-dml-on-any-table">Example 1: Block all DML on any table<a class="headerlink" href="#example-1-block-all-dml-on-any-table" title="Permanent link">&para;</a></h2>
+<h2 id="example-1-block-all-dml-on-any-table">Example 1: Block all DML on any table<a data-markdown-ignore class="headerlink" href="#example-1-block-all-dml-on-any-table" title="Permanent link">&para;</a></h2>
 <p>The following filter blocks <code>insert</code>, <code>update</code>, and <code>delete</code> statements against every table:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10827,7 +10827,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>Use this kind of rule on a standby or read-only replica to enforce immutability at the SQL surface. Then assign the filter with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>.</p>
-<h2 id="example-2-block-dml-on-a-specific-table">Example 2: Block DML on a specific table<a class="headerlink" href="#example-2-block-dml-on-a-specific-table" title="Permanent link">&para;</a></h2>
+<h2 id="example-2-block-dml-on-a-specific-table">Example 2: Block DML on a specific table<a data-markdown-ignore class="headerlink" href="#example-2-block-dml-on-a-specific-table" title="Permanent link">&para;</a></h2>
 <p>Restrict the block to a single table by comparing <code>table_database.str</code> and <code>table_name.str</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10847,7 +10847,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">}</span>
 </code></pre></div>
 <p>Every attempt to write to <code>finances.bank_account</code> fails with the audit abort error, regardless of which application issued the write. The component logs each attempt.</p>
-<h2 id="example-3-block-a-list-of-tables">Example 3: Block a list of tables<a class="headerlink" href="#example-3-block-a-list-of-tables" title="Permanent link">&para;</a></h2>
+<h2 id="example-3-block-a-list-of-tables">Example 3: Block a list of tables<a data-markdown-ignore class="headerlink" href="#example-3-block-a-list-of-tables" title="Permanent link">&para;</a></h2>
 <p>Use <code>or</code> to enumerate several target tables inside the same <code>and</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10872,7 +10872,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="combine-blocking-with-logging">Combine blocking with logging<a class="headerlink" href="#combine-blocking-with-logging" title="Permanent link">&para;</a></h2>
+<h2 id="combine-blocking-with-logging">Combine blocking with logging<a data-markdown-ignore class="headerlink" href="#combine-blocking-with-logging" title="Permanent link">&para;</a></h2>
 <p>Blocking and logging are independent. The same event can carry both a <code>log</code> and an <code>abort</code> item. For example, log every blocked attempt and also log failed <code>SELECT</code>s on the same object. Keep the two concerns as separate event blocks when the conditions differ:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -10896,7 +10896,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="recovery">Recovery<a class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
+<h2 id="recovery">Recovery<a data-markdown-ignore class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
 <p>When an <code>abort</code> rule prevents administrators from running essential statements:</p>
 <ol>
 <li>
@@ -10910,7 +10910,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>Test <code>abort</code> rules on a clone before applying them to production.</p>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="write-filter-definitions.html">Write audit_log_filter definitions</a> — base grammar and <code>log</code> conditions.</p>

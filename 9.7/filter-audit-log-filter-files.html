@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10762,7 +10762,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a class="headerlink" href="#filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
+<h1 id="filter-the-audit-log-filter-logs">Filter the Audit Log Filter logs<a data-markdown-ignore class="headerlink" href="#filter-the-audit-log-filter-logs" title="Permanent link">&para;</a></h1>
 <p>Rule-based filtering includes or excludes events by these attributes:</p>
 <ul>
 <li>
@@ -10781,7 +10781,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> controls which classes and subclasses you can target. Validated names appear in <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
 <p>Define multiple filters and assign any filter to multiple accounts. You can also register a default filter for accounts without a specific row. Define filters through SQL function calls.</p>
 <p>After you define a filter, the server persists the filter in <code>mysql</code> system tables.</p>
-<h2 id="audit-log-filter-functions">Audit log filter functions<a class="headerlink" href="#audit-log-filter-functions" title="Permanent link">&para;</a></h2>
+<h2 id="audit-log-filter-functions">Audit log filter functions<a data-markdown-ignore class="headerlink" href="#audit-log-filter-functions" title="Permanent link">&para;</a></h2>
 <p>The six management UDFs in the following table — <code>audit_log_filter_flush()</code>, <code>audit_log_filter_set_filter()</code>, <code>audit_log_filter_remove_filter()</code>, <code>audit_log_filter_set_user()</code>, <code>audit_log_filter_remove_user()</code>, and <a href="audit-log-filter-variables.html#audit_log_rotate"><code>audit_log_rotate()</code></a> — require the <code>AUDIT_ADMIN</code> privilege.</p>
 <p>The reader UDFs (<a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read()</code></a>, <a href="audit-log-filter-variables.html#audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a>), the session-id helper (<a href="audit-log-filter-variables.html#audit_log_session_filter_id"><code>audit_log_session_filter_id()</code></a>), and the keyring helpers (<a href="audit-log-filter-variables.html#audit_log_encryption_password_getkeyring_id"><code>audit_log_encryption_password_get()</code></a>, <a href="audit-log-filter-variables.html#audit_log_encryption_password_setnew_password"><code>audit_log_encryption_password_set()</code></a>) do not require <code>AUDIT_ADMIN</code>. The keyring helpers require an initialized keyring component or plugin.</p>
 <p>The following functions drive rule-based filtering:</p>
@@ -10836,12 +10836,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Post-flush session behavior.</p>
 </li>
 </ul>
-<h2 id="filter-modification-lifecycle">Filter modification lifecycle<a class="headerlink" href="#filter-modification-lifecycle" title="Permanent link">&para;</a></h2>
+<h2 id="filter-modification-lifecycle">Filter modification lifecycle<a data-markdown-ignore class="headerlink" href="#filter-modification-lifecycle" title="Permanent link">&para;</a></h2>
 <p>The following diagram shows how filter changes persist, reload into the component, and reach sessions, including when <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> runs.</p>
 <p><img alt="Audit Log Filter modification lifecycle" src="_static/audit-log-filter-modification-lifecycle.png" /></p>
-<h2 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Permanent link">&para;</a></h2>
+<h2 id="constraints">Constraints<a data-markdown-ignore class="headerlink" href="#constraints" title="Permanent link">&para;</a></h2>
 <p>Enable the <code>component_audit_log_filter</code> component and ensure audit tables exist before calling audit log filter functions. The account must hold the required privileges.</p>
-<h2 id="filter-definition-validation">Filter definition validation<a class="headerlink" href="#filter-definition-validation" title="Permanent link">&para;</a></h2>
+<h2 id="filter-definition-validation">Filter definition validation<a data-markdown-ignore class="headerlink" href="#filter-definition-validation" title="Permanent link">&para;</a></h2>
 <p>The server validates filter definitions at parse time and rejects invalid input with a clear error:</p>
 <ul>
 <li>
@@ -10866,8 +10866,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>An empty filter object <code>{}</code> is equivalent to <code>{"filter": {"log": true}}</code> and logs every event. To log nothing, use <code>{"filter": {"log": false}}</code>.</p>
 <p>Parse-phase subclass names must use <code>preparse</code> and <code>postparse</code>.</p>
 <p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> controls which classes new definitions may use. Filters saved under <code>FULL</code> can still load under <code>REDUCED</code> with some classes skipped. See the variable reference for details.</p>
-<h2 id="using-the-audit-log-filter-functions">Using the audit log filter functions<a class="headerlink" href="#using-the-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
-<h3 id="assignment-vs-rules-inside-the-json">Assignment vs rules inside the JSON<a class="headerlink" href="#assignment-vs-rules-inside-the-json" title="Permanent link">&para;</a></h3>
+<h2 id="using-the-audit-log-filter-functions">Using the audit log filter functions<a data-markdown-ignore class="headerlink" href="#using-the-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
+<h3 id="assignment-vs-rules-inside-the-json">Assignment vs rules inside the JSON<a data-markdown-ignore class="headerlink" href="#assignment-vs-rules-inside-the-json" title="Permanent link">&para;</a></h3>
 <p>Two mechanisms apply, in order:</p>
 <ol>
 <li>
@@ -10878,7 +10878,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>See <a href="write-filter-definitions.html#test-event-field-values">Test event field values</a> and <a href="write-filter-definitions.html#combine-conditions-with-logical-operators">Combine conditions with logical operators</a> for the grammar used in rule-level conditions.</p>
-<h3 id="which-audit_log_user-row-applies">Which <code>audit_log_user</code> row applies<a class="headerlink" href="#which-audit_log_user-row-applies" title="Permanent link">&para;</a></h3>
+<h3 id="which-audit_log_user-row-applies">Which <code>audit_log_user</code> row applies<a data-markdown-ignore class="headerlink" href="#which-audit_log_user-row-applies" title="Permanent link">&para;</a></h3>
 <p>On connect, the component selects a row in <code>mysql.audit_log_user</code> whose <code>USER</code> and <code>HOST</code> match the session account. Literal <code>user</code>@<code>host</code> pairs match when they equal the session identity. Wildcard characters <code>%</code> and <code>_</code> are allowed in the host portion of the assignment string. See <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a>. Pattern matching follows the behavior set by that function.</p>
 <p>Keep assignments non-overlapping when you use wildcards. When several rows could match one connection, precedence is not specified on this page. Prefer explicit literal <code>user</code>@<code>host</code> rows, or one clear pattern plus a <code>'%'</code> default. Confirm behavior on a test server.</p>
 <p>When no row matches, the component uses the default assignment: the account registered with <code>audit_log_filter_set_user()</code> using <code>%</code> as the user name.</p>
@@ -10886,9 +10886,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A specific account row overrides the default. When both <code>admin</code>@<code>localhost</code> and <code>%</code> have filters, <code>admin</code> from <code>localhost</code> uses the <code>admin</code>@<code>localhost</code> filter, not the default.</p>
 <p>You can bind filters to named accounts or remove those bindings.</p>
 <p>To clear a binding, unassign the filter or assign a different one. Session refresh on assignment change is described under <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a> and <a href="audit-log-filter-variables.html#audit_log_filter_remove_filterfilter_name"><code>audit_log_filter_remove_filter()</code></a>.</p>
-<h2 id="set_filter-options-and-available-filters">set_filter options and available filters<a class="headerlink" href="#set_filter-options-and-available-filters" title="Permanent link">&para;</a></h2>
+<h2 id="set_filter-options-and-available-filters">set_filter options and available filters<a data-markdown-ignore class="headerlink" href="#set_filter-options-and-available-filters" title="Permanent link">&para;</a></h2>
 <p>The JSON layout — <code>filter</code>, <code>class</code>, nested rules, and examples — appears in <a href="write-filter-definitions.html">Write audit_log_filter definitions</a>. The authoritative list of class names, event subclass names, and per-class field names that <code>audit_log_filter_set_filter()</code> accepts appears in <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>. This section lists the keys that may appear at each level of a filter definition.</p>
-<h3 id="filter-level-keys">Filter-level keys<a class="headerlink" href="#filter-level-keys" title="Permanent link">&para;</a></h3>
+<h3 id="filter-level-keys">Filter-level keys<a data-markdown-ignore class="headerlink" href="#filter-level-keys" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10911,7 +10911,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="class-block-keys">Class-block keys<a class="headerlink" href="#class-block-keys" title="Permanent link">&para;</a></h3>
+<h3 id="class-block-keys">Class-block keys<a data-markdown-ignore class="headerlink" href="#class-block-keys" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10938,7 +10938,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="event-block-keys">Event-block keys<a class="headerlink" href="#event-block-keys" title="Permanent link">&para;</a></h3>
+<h3 id="event-block-keys">Event-block keys<a data-markdown-ignore class="headerlink" href="#event-block-keys" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10969,7 +10969,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="conditions">Conditions<a class="headerlink" href="#conditions" title="Permanent link">&para;</a></h3>
+<h3 id="conditions">Conditions<a data-markdown-ignore class="headerlink" href="#conditions" title="Permanent link">&para;</a></h3>
 <p><code>log</code> and <code>abort</code> accept a Boolean (<code>true</code> or <code>false</code>) or a condition built from the following items:</p>
 <table>
 <thead>
@@ -11006,7 +11006,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Field-value typing appears under <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and in the <a href="audit-log-filter-definition-fields.html#connection"><code>connection</code></a> section of <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>. Examples include JSON numbers for integer fields such as <code>status</code>, strings for <code>*.str</code> fields, and <code>"::tcp/ip"</code>-style symbolic constants for <code>connection_type</code>.</p>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<h3 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <p>Start from a single-class filter that logs every <code>connection</code> event the component sees:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connection'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
@@ -11054,7 +11054,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> — <code>REDUCED</code> against <code>FULL</code> class sets.</p>
 </li>
 </ul>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="write-filter-definitions.html">Write audit_log_filter definitions</a></p>

@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10672,10 +10672,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="myrocks-limitations">MyRocks limitations<a class="headerlink" href="#myrocks-limitations" title="Permanent link">&para;</a></h1>
-<h2 id="online-ddl-limitations">Online DDL limitations<a class="headerlink" href="#online-ddl-limitations" title="Permanent link">&para;</a></h2>
+<h1 id="myrocks-limitations">MyRocks limitations<a data-markdown-ignore class="headerlink" href="#myrocks-limitations" title="Permanent link">&para;</a></h1>
+<h2 id="online-ddl-limitations">Online DDL limitations<a data-markdown-ignore class="headerlink" href="#online-ddl-limitations" title="Permanent link">&para;</a></h2>
 <p>MyRocks has limited support for <a href="https://dev.mysql.com/doc/refman/9.7/en/innodb-online-ddl.html">Online DDL operations <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> due to the lack of <a href="glossary.html#atomic-ddl-data-definition-language">atomic DDL</a>. As a result the schema changes are more restricted compared to InnoDB.</p>
-<h3 id="traditional-myrocks-ddl-behavior">Traditional MyRocks DDL behavior<a class="headerlink" href="#traditional-myrocks-ddl-behavior" title="Permanent link">&para;</a></h3>
+<h3 id="traditional-myrocks-ddl-behavior">Traditional MyRocks DDL behavior<a data-markdown-ignore class="headerlink" href="#traditional-myrocks-ddl-behavior" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10703,14 +10703,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p><strong>Note:</strong> MyRocks does not support <a href="glossary.html#atomic-ddl-data-definition-language">atomic DDL</a>. Even metadata-only operations may require a full table rebuild, depending on the nature of the change.</p>
-<h3 id="partition-management-support">Partition management support<a class="headerlink" href="#partition-management-support" title="Permanent link">&para;</a></h3>
+<h3 id="partition-management-support">Partition management support<a data-markdown-ignore class="headerlink" href="#partition-management-support" title="Permanent link">&para;</a></h3>
 <p>MyRocks supports <code>INPLACE</code> partition management for certain operations:</p>
 <p><div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INPLACE</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">PARTITION</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="k">LESS</span><span class="w"> </span><span class="k">THAN</span><span class="w"> </span><span class="p">(</span><span class="k">MAXVALUE</span><span class="p">)),</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="o">=</span><span class="n">INPLACE</span><span class="p">;</span>
 </code></pre></div>
 These operations does not require a full table rebuild. However, operations that modify partitioning schemes, such as changing <code>VALUES LESS THAN</code>, fall back to the <code>COPY</code> algorithm.</p>
 <p><strong>Note:</strong> Dropping a partition permanently deletes any data stored in it unless that data is reassigned to another partition.</p>
-<h3 id="instant-ddl-support">Instant DDL support<a class="headerlink" href="#instant-ddl-support" title="Permanent link">&para;</a></h3>
+<h3 id="instant-ddl-support">Instant DDL support<a data-markdown-ignore class="headerlink" href="#instant-ddl-support" title="Permanent link">&para;</a></h3>
 <p>MyRocks provides limited Instant DDL support that is disabled by default, and you can activate the specific instant operations you need by setting the appropriate configuration variables.</p>
 <table>
 <thead>
@@ -10752,7 +10752,7 @@ These operations does not require a full table rebuild. However, operations that
 <li>When the variable is <code>ON</code> but <code>ALGORITHM=INSTANT</code> is omitted, MyRocks falls back to the default (non‑instant) algorithm.</li>
 <li>When the variable is <code>OFF</code>, any <code>ALTER TABLE … ALGORITHM=INSTANT</code> statement fails with an error.</li>
 </ul>
-<h2 id="unsupported-innodb-features-in-myrocks">Unsupported InnoDB features in MyRocks<a class="headerlink" href="#unsupported-innodb-features-in-myrocks" title="Permanent link">&para;</a></h2>
+<h2 id="unsupported-innodb-features-in-myrocks">Unsupported InnoDB features in MyRocks<a data-markdown-ignore class="headerlink" href="#unsupported-innodb-features-in-myrocks" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="https://dev.mysql.com/doc/refman/9.7/en/partitioning-management-exchange.html">ALTER TABLE .. EXCHANGE PARTITION <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
@@ -10821,7 +10821,7 @@ These operations does not require a full table rebuild. However, operations that
 <p>Percona Server for MySQL 9.7 and Unicode 9.0.0 standards have defined a change in the handling of binary collations. These collations are handled as NO PAD, trailing spaces are included in key comparisons. A binary collation comparison may result in two unique rows inserted and does not generate a`DUP_ENTRY` error. MyRocks key encoding and comparison does not account for this character set attribute.</p>
 </li>
 </ul>
-<h2 id="not-supported-on-myrocks">Not supported on MyRocks<a class="headerlink" href="#not-supported-on-myrocks" title="Permanent link">&para;</a></h2>
+<h2 id="not-supported-on-myrocks">Not supported on MyRocks<a data-markdown-ignore class="headerlink" href="#not-supported-on-myrocks" title="Permanent link">&para;</a></h2>
 <p>MyRocks does not support the following:</p>
 <ul>
 <li>

@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10652,17 +10652,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a class="headerlink" href="#manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
+<h1 id="manage-the-audit-log-filter-files">Manage the Audit Log Filter files<a data-markdown-ignore class="headerlink" href="#manage-the-audit-log-filter-files" title="Permanent link">&para;</a></h1>
 <p>Audit log files can fill disks and grow without bound unless you cap them.</p>
 <p>Use rotation to rename the active file and start a fresh file with the original name. Rotate manually with a UDF or automatically by size.</p>
 <p>With automatic rotation enabled, prune old files by age, total size, or both.</p>
-<h2 id="manual-log-rotation">Manual log rotation<a class="headerlink" href="#manual-log-rotation" title="Permanent link">&para;</a></h2>
+<h2 id="manual-log-rotation">Manual log rotation<a data-markdown-ignore class="headerlink" href="#manual-log-rotation" title="Permanent link">&para;</a></h2>
 <p><a href="audit-log-filter-variables.html#audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> defaults to 1 GB. Set the variable to <code>0</code> to disable automatic rotation. You must then rotate by hand.</p>
 <p>Run <code>SELECT audit_log_rotate();</code> to rotate immediately. The call requires <code>AUDIT_ADMIN</code>.</p>
 <p>Rotation finishes immediately in the <code>ASYNCHRONOUS</code> and <code>PERFORMANCE</code> strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix, for example <code>audit_filter.20250401T120000-1.log</code>, so that files are not overwritten.</p>
 <p>Pruning runs when <code>audit_log_filter.max_size</code> or <code>audit_log_filter.prune_seconds</code> is greater than zero and <code>audit_log_filter.rotate_on_size</code> is greater than zero.</p>
 <p>After rotation, delete archived files you no longer need. <a href="audit-log-filter-variables.html#audit_log_read"><code>audit_log_read()</code></a> can read renamed files only when the file names still match the active naming pattern.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a> — rotation, size, and pruning options</p>

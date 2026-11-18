@@ -139,7 +139,7 @@ logical backups.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10804,11 +10804,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="backup-locks">Backup locks<a class="headerlink" href="#backup-locks" title="Permanent link">&para;</a></h1>
+<h1 id="backup-locks">Backup locks<a data-markdown-ignore class="headerlink" href="#backup-locks" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL offers the <code>LOCK TABLES FOR BACKUP</code> statement as a
 lightweight alternative to <code>FLUSH TABLES WITH READ LOCK</code> for both physical and
 logical backups.</p>
-<h2 id="flush-tables-with-read-lock">FLUSH TABLES WITH READ LOCK<a class="headerlink" href="#flush-tables-with-read-lock" title="Permanent link">&para;</a></h2>
+<h2 id="flush-tables-with-read-lock">FLUSH TABLES WITH READ LOCK<a data-markdown-ignore class="headerlink" href="#flush-tables-with-read-lock" title="Permanent link">&para;</a></h2>
 <p>The FLUSH TABLES WITH READ LOCK statement performs two main actions:</p>
 <ul>
 <li>
@@ -10822,7 +10822,7 @@ logical backups.</p>
 <p>The following command connects to the server and executes the <code>FLUSH TABLES WITH READ LOCK</code> statement. After running this command, no write operations can be performed until the lock is released.</p>
 <div class="highlight"><pre><span></span><code>mysql --user="user" --password="password" --host="host" --execute="FLUSH TABLES WITH READ LOCK"
 </code></pre></div>
-<h2 id="lock-tables-for-backup">LOCK TABLES FOR BACKUP<a class="headerlink" href="#lock-tables-for-backup" title="Permanent link">&para;</a></h2>
+<h2 id="lock-tables-for-backup">LOCK TABLES FOR BACKUP<a data-markdown-ignore class="headerlink" href="#lock-tables-for-backup" title="Permanent link">&para;</a></h2>
 <p><code>LOCK TABLES FOR BACKUP</code> uses a new MDL lock type to block updates to
 non-transactional tables and DDL statements for all tables. If there is an
 active <code>LOCK TABLES FOR BACKUP</code> lock then all DDL statements and all updates
@@ -10857,10 +10857,10 @@ UNLOCK TABLES
 ... get binlog coordinates ...
 ... wait for redo log copying to finish ...
 </code></pre></div>
-<h2 id="privileges">Privileges<a class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
+<h2 id="privileges">Privileges<a data-markdown-ignore class="headerlink" href="#privileges" title="Permanent link">&para;</a></h2>
 <p>The <code>LOCK TABLES FOR BACKUP</code> requires the <code>BACKUP_ADMIN</code>
 privilege.</p>
-<h2 id="interaction-with-other-global-locks">Interaction with other global locks<a class="headerlink" href="#interaction-with-other-global-locks" title="Permanent link">&para;</a></h2>
+<h2 id="interaction-with-other-global-locks">Interaction with other global locks<a data-markdown-ignore class="headerlink" href="#interaction-with-other-global-locks" title="Permanent link">&para;</a></h2>
 <p>The <code>LOCK TABLES FOR BACKUP</code> has no effect if the current connection already
 owns a <code>FLUSH TABLES WITH READ LOCK</code> lock, as that lock is more restrictive. If <code>FLUSH TABLES WITH READ LOCK</code> is executed in a connection that has
 acquired <code>LOCK TABLES FOR BACKUP</code>, <code>FLUSH TABLES WITH READ LOCK</code> fails with
@@ -10869,7 +10869,7 @@ an error.</p>
 to <code>1</code>), statements that are unsafe for backups will be either blocked or fail
 with an error, depending on whether they are executed in the same connection
 that owns a <code>LOCK TABLES FOR BACKUP</code> lock or other connections.</p>
-<h2 id="myisam-index-and-data-buffering">MyISAM index and data buffering<a class="headerlink" href="#myisam-index-and-data-buffering" title="Permanent link">&para;</a></h2>
+<h2 id="myisam-index-and-data-buffering">MyISAM index and data buffering<a data-markdown-ignore class="headerlink" href="#myisam-index-and-data-buffering" title="Permanent link">&para;</a></h2>
 <p>MyISAM key buffering is normally write-through, i.e. by the time each update
 to a MyISAM table is completed, all index updates are written to disk. The
 only exception is the delayed key writing feature which is disabled by default.</p>
@@ -10889,7 +10889,7 @@ backup created with backup locks.</p>
 INSERTs or <code>LOAD DATA</code> statements. Those caches, however, are flushed between
 statements, so do not affect physical backups as long as all statements
 updating MyISAM tables are blocked.</p>
-<h2 id="the-mysqldump-command">The mysqldump Command<a class="headerlink" href="#the-mysqldump-command" title="Permanent link">&para;</a></h2>
+<h2 id="the-mysqldump-command">The mysqldump Command<a data-markdown-ignore class="headerlink" href="#the-mysqldump-command" title="Permanent link">&para;</a></h2>
 <p>The <code>mysqldump</code> tool has also been extended with a new option,
 <a href="#backup-locks">lock-for-backup</a> (disabled by default). When used together with the
 <code>--single-transaction</code> option, the option makes <code>mysqldump</code> issue a
@@ -10901,8 +10901,8 @@ statements that would normally result in an inconsistent backup.</p>
 an error.</p>
 <p>If the backup locks feature is not supported by the target server, but
 <a href="#backup-locks">lock-for-backup</a> is specified on the command line, <code>mysqldump</code> aborts with an error.</p>
-<h2 id="system-variables">System Variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="have_backup_locks"><code>have_backup_locks</code><a class="headerlink" href="#have_backup_locks" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System Variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="have_backup_locks"><code>have_backup_locks</code><a data-markdown-ignore class="headerlink" href="#have_backup_locks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10941,8 +10941,8 @@ an error.</p>
 locking strategy can be implemented for a server. When available, the backup
 locks feature is supported by the server and the variable value is always
 <code>YES</code>.</p>
-<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<h3 id="com_lock_tables_for_backup"><code>Com_lock_tables_for_backup</code><a class="headerlink" href="#com_lock_tables_for_backup" title="Permanent link">&para;</a></h3>
+<h2 id="status-variables">Status variables<a data-markdown-ignore class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
+<h3 id="com_lock_tables_for_backup"><code>Com_lock_tables_for_backup</code><a data-markdown-ignore class="headerlink" href="#com_lock_tables_for_backup" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10963,8 +10963,8 @@ locks feature is supported by the server and the variable value is always
 </table>
 <p>This status variable indicates the number of times the corresponding statements
 have been executed.</p>
-<h2 id="client-command-line-parameter">Client command line parameter<a class="headerlink" href="#client-command-line-parameter" title="Permanent link">&para;</a></h2>
-<h3 id="lock-for-backup"><code>lock-for-backup</code><a class="headerlink" href="#lock-for-backup" title="Permanent link">&para;</a></h3>
+<h2 id="client-command-line-parameter">Client command line parameter<a data-markdown-ignore class="headerlink" href="#client-command-line-parameter" title="Permanent link">&para;</a></h2>
+<h3 id="lock-for-backup"><code>lock-for-backup</code><a data-markdown-ignore class="headerlink" href="#lock-for-backup" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>

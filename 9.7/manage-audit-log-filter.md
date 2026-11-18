@@ -1,0 +1,30 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# Manage the Audit Log Filter files
+
+Audit log files can fill disks and grow without bound unless you cap them.
+
+Use rotation to rename the active file and start a fresh file with the original name. Rotate manually with a UDF or automatically by size.
+
+With automatic rotation enabled, prune old files by age, total size, or both.
+
+## Manual log rotation
+
+[`audit_log_filter.rotate_on_size`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterrotate_on_size) defaults to 1 GB. Set the variable to `0` to disable automatic rotation. You must then rotate by hand.
+
+Run `SELECT audit_log_rotate();` to rotate immediately. The call requires `AUDIT_ADMIN`.
+
+Rotation finishes immediately in the `ASYNCHRONOUS` and `PERFORMANCE` strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix, for example `audit_filter.20250401T120000-1.log`, so that files are not overwritten.
+
+Pruning runs when `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` is greater than zero and `audit_log_filter.rotate_on_size` is greater than zero.
+
+After rotation, delete archived files you no longer need. [`audit_log_read()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_read) can read renamed files only when the file names still match the active naming pattern.
+
+## Additional reading
+
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) — rotation, size, and pruning options
+- [Audit Log Filter naming conventions](https://docs.percona.com/percona-server/9.7/audit-log-filter-naming.html)
+- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.html)
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.html)
+- [Audit Log Filter security](https://docs.percona.com/percona-server/9.7/audit-log-filter-security.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)

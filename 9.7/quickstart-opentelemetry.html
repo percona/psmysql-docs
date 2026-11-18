@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10804,16 +10804,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="quickstart-test-opentelemetry-locally">Quickstart: test OpenTelemetry locally<a class="headerlink" href="#quickstart-test-opentelemetry-locally" title="Permanent link">&para;</a></h1>
+<h1 id="quickstart-test-opentelemetry-locally">Quickstart: test OpenTelemetry locally<a data-markdown-ignore class="headerlink" href="#quickstart-test-opentelemetry-locally" title="Permanent link">&para;</a></h1>
 <p>Use the following procedure to test OpenTelemetry (OTel) on a single Docker host. Docker Compose starts Percona Server for MySQL and a local collector on one network. The collector uses a debug exporter. The debug exporter prints received data to the terminal.</p>
 <p>The quickstart procedure is a connectivity test. For production installation and configuration, see <a href="opentelemetry-lifecycle.html">Install and manage the OpenTelemetry component</a> and <a href="configure-opentelemetry.html">Configure OpenTelemetry</a>.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Docker Engine and Docker Compose</li>
 <li>Stable internet access</li>
 <li>The ability to create files in a working directory</li>
 </ul>
-<h2 id="step-1-create-the-compose-project">Step 1: Create the Compose project<a class="headerlink" href="#step-1-create-the-compose-project" title="Permanent link">&para;</a></h2>
+<h2 id="step-1-create-the-compose-project">Step 1: Create the Compose project<a data-markdown-ignore class="headerlink" href="#step-1-create-the-compose-project" title="Permanent link">&para;</a></h2>
 <p>Create a directory named <code>otel-quickstart</code> and open that directory:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>otel-quickstart
 <span class="nb">cd</span><span class="w"> </span>otel-quickstart
@@ -10859,7 +10859,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">otlp</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">debug</span><span class="p p-Indicator">]</span>
 </code></pre></div>
-<h2 id="step-2-start-the-stack">Step 2: Start the stack<a class="headerlink" href="#step-2-start-the-stack" title="Permanent link">&para;</a></h2>
+<h2 id="step-2-start-the-stack">Step 2: Start the stack<a data-markdown-ignore class="headerlink" href="#step-2-start-the-stack" title="Permanent link">&para;</a></h2>
 <p>Start both services:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
@@ -10867,7 +10867,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>psmysql
 </code></pre></div>
 <p>Continue when the log contains <code>ready for connections</code>.</p>
-<h2 id="step-3-install-the-component">Step 3: Install the component<a class="headerlink" href="#step-3-install-the-component" title="Permanent link">&para;</a></h2>
+<h2 id="step-3-install-the-component">Step 3: Install the component<a data-markdown-ignore class="headerlink" href="#step-3-install-the-component" title="Permanent link">&para;</a></h2>
 <p>Connect to Percona Server for MySQL in the <code>psmysql</code> service. The example password is <code>secret</code>.</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret
 </code></pre></div>
@@ -10876,7 +10876,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The <code>INSTALL COMPONENT</code> statement stores the component in the <code>mysql.component</code> table. The next server start loads the component from that table.</p>
 <p>Exit the client.</p>
-<h2 id="step-4-enable-one-signal">Step 4: Enable one signal<a class="headerlink" href="#step-4-enable-one-signal" title="Permanent link">&para;</a></h2>
+<h2 id="step-4-enable-one-signal">Step 4: Enable one signal<a data-markdown-ignore class="headerlink" href="#step-4-enable-one-signal" title="Permanent link">&para;</a></h2>
 <p>The procedure enables metrics only. <code>telemetry.metrics_enabled</code> and <code>telemetry.otel_exporter_otlp_metrics_endpoint</code> are startup-only variables. Add those settings in a configuration file. Then restart the <code>psmysql</code> service.</p>
 <div class="admonition warning">
 <p class="admonition-title">Verify this path</p>
@@ -10894,12 +10894,12 @@ docker<span class="w"> </span>compose<span class="w"> </span>restart<span class=
 </code></pre></div>
 <p>Wait for <code>ready for connections</code> in the <code>psmysql</code> logs before you continue.</p>
 <p>Do not add these telemetry settings before you install the component. The server treats the names as unknown variables when <code>component_telemetry</code> is not installed.</p>
-<h2 id="step-5-generate-sample-activity">Step 5: Generate sample activity<a class="headerlink" href="#step-5-generate-sample-activity" title="Permanent link">&para;</a></h2>
+<h2 id="step-5-generate-sample-activity">Step 5: Generate sample activity<a data-markdown-ignore class="headerlink" href="#step-5-generate-sample-activity" title="Permanent link">&para;</a></h2>
 <p>Connect and run a sample query to generate metric data:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT 1;"</span>
 </code></pre></div>
 <p>Wait 10 seconds. The default export interval for metrics is 10 seconds.</p>
-<h2 id="step-6-confirm-that-the-collector-receives-data">Step 6: Confirm that the collector receives data<a class="headerlink" href="#step-6-confirm-that-the-collector-receives-data" title="Permanent link">&para;</a></h2>
+<h2 id="step-6-confirm-that-the-collector-receives-data">Step 6: Confirm that the collector receives data<a data-markdown-ignore class="headerlink" href="#step-6-confirm-that-the-collector-receives-data" title="Permanent link">&para;</a></h2>
 <p>Check the collector logs:</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>otel-collector
 </code></pre></div>
@@ -10921,7 +10921,7 @@ See the [OpenTelemetry data reference](opentelemetry-data-reference.md) for the 
 
 For a production configuration with TLS and authentication, see [Configure OpenTelemetry](configure-opentelemetry.md).
 </code></pre></div>
-<h2 id="step-7-remove-the-test-stack">Step 7: Remove the test stack<a class="headerlink" href="#step-7-remove-the-test-stack" title="Permanent link">&para;</a></h2>
+<h2 id="step-7-remove-the-test-stack">Step 7: Remove the test stack<a data-markdown-ignore class="headerlink" href="#step-7-remove-the-test-stack" title="Permanent link">&para;</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 </div>
@@ -10937,7 +10937,7 @@ For a production configuration with TLS and authentication, see [Configure OpenT
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>..
 rm<span class="w"> </span>-rf<span class="w"> </span>otel-quickstart
 </code></pre></div>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="opentelemetry-overview.html">OpenTelemetry component overview</a></li>
 <li><a href="opentelemetry-lifecycle.html">Install and manage the OpenTelemetry component</a></li>

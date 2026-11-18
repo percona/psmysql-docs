@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10826,7 +10826,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="migrate-to-the-audit-log-filter-component">Migrate to the audit log filter component<a class="headerlink" href="#migrate-to-the-audit-log-filter-component" title="Permanent link">&para;</a></h1>
+<h1 id="migrate-to-the-audit-log-filter-component">Migrate to the audit log filter component<a data-markdown-ignore class="headerlink" href="#migrate-to-the-audit-log-filter-component" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL 9.7 replaces two legacy audit sources with <code>component_audit_log_filter</code>. The legacy sources are the <code>audit_log</code> plugin and the transitional <code>audit_log_filter</code> plugin.</p>
 <p>This page covers migration from either source. The page maps plugin configuration to the component&rsquo;s system variables and filter JSON, and walks through a safe cutover.</p>
 <p>Before you start, read:</p>
@@ -10839,7 +10839,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Note</p>
 <p>The component and the plugin use different system variables and a different on-disk format. Do not enable both at the same time, and do not set <code>audit_log_*</code> plugin variables on a server running the component. See the <a href="audit-log-plugin.html">removal notice</a> on the plugin page.</p>
 </div>
-<h2 id="which-source-are-you-migrating-from">Which source are you migrating from?<a class="headerlink" href="#which-source-are-you-migrating-from" title="Permanent link">&para;</a></h2>
+<h2 id="which-source-are-you-migrating-from">Which source are you migrating from?<a data-markdown-ignore class="headerlink" href="#which-source-are-you-migrating-from" title="Permanent link">&para;</a></h2>
 <p>Two legacy sources exist. The target is <code>component_audit_log_filter</code> in both cases. The starting point differs:</p>
 <table>
 <thead>
@@ -10868,7 +10868,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Move non-filter settings (file path, format, rotation, syslog) from <code>audit_log_filter_*</code> plugin variables to the <code>audit_log_filter.*</code> component variables listed in the <a href="#option-and-variable-mapping">variable mapping</a>.</li>
 </ol>
 <p>See also <a href="upgrade-components.html#transition-after-the-upgrade">Upgrade from plugins to components → Transition after upgrade</a>.</p>
-<h2 id="what-changes-at-a-glance">What changes, at a glance<a class="headerlink" href="#what-changes-at-a-glance" title="Permanent link">&para;</a></h2>
+<h2 id="what-changes-at-a-glance">What changes, at a glance<a data-markdown-ignore class="headerlink" href="#what-changes-at-a-glance" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>Configuration moves from global <code>audit_log_*</code> system variables into JSON filter definitions stored in <code>mysql.audit_log_filter</code>, plus per-account assignments in <code>mysql.audit_log_user</code>.</p>
@@ -10886,7 +10886,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>audit_log_handler = SYSLOG</code> path becomes <code>audit_log_filter.handler = SYSLOG</code>. The syslog sub-variables use the same values under renamed component names.</p>
 </li>
 </ul>
-<h2 id="migration-steps">Migration steps<a class="headerlink" href="#migration-steps" title="Permanent link">&para;</a></h2>
+<h2 id="migration-steps">Migration steps<a data-markdown-ignore class="headerlink" href="#migration-steps" title="Permanent link">&para;</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Migrate from the <code>audit_log</code> plugin before upgrading to 9.7</p>
 <p>The <code>audit_log</code> plugin is removed in 9.7. The plugin library <code>audit_log.so</code> is not built or packaged. Complete the following migration steps on the 8.4 server before upgrading. Otherwise, the upgrade fails in one of the following ways:</p>
@@ -10929,7 +10929,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><strong>Upgrade the server to 9.7</strong> by following <a href="upgrade-procedures.html">Upgrade procedures</a>.</p>
 </li>
 </ol>
-<h2 id="option-and-variable-mapping">Option and variable mapping<a class="headerlink" href="#option-and-variable-mapping" title="Permanent link">&para;</a></h2>
+<h2 id="option-and-variable-mapping">Option and variable mapping<a data-markdown-ignore class="headerlink" href="#option-and-variable-mapping" title="Permanent link">&para;</a></h2>
 <p>The following table maps plugin system variables (left) to component system variables (right). Variables not listed have no direct equivalent because the filter JSON grammar subsumes them.</p>
 <table>
 <thead>
@@ -11033,7 +11033,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>See <a href="write-filter-definitions.html">Write filter definitions</a> and the sub-pages.</p>
-<h2 id="translating-audit_log_policy-to-filter-json">Translating <code>audit_log_policy</code> to filter JSON<a class="headerlink" href="#translating-audit_log_policy-to-filter-json" title="Permanent link">&para;</a></h2>
+<h2 id="translating-audit_log_policy-to-filter-json">Translating <code>audit_log_policy</code> to filter JSON<a data-markdown-ignore class="headerlink" href="#translating-audit_log_policy-to-filter-json" title="Permanent link">&para;</a></h2>
 <p><code>audit_log_policy</code> gated what the plugin recorded. The component expresses the same four choices as filter definitions:</p>
 <table>
 <thead>
@@ -11065,9 +11065,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w">        </span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
-<h2 id="translating-includeexclude-lists">Translating include/exclude lists<a class="headerlink" href="#translating-includeexclude-lists" title="Permanent link">&para;</a></h2>
+<h2 id="translating-includeexclude-lists">Translating include/exclude lists<a data-markdown-ignore class="headerlink" href="#translating-includeexclude-lists" title="Permanent link">&para;</a></h2>
 <p>The plugin filtered globally. The component filters per account through <code>audit_log_user</code> and per event through <code>log</code> conditions that compare event fields. Most migrations combine both.</p>
-<h3 id="accounts">Accounts<a class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
+<h3 id="accounts">Accounts<a data-markdown-ignore class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app@%,admin@localhost'</span><span class="p">;</span>
 </code></pre></div>
@@ -11083,7 +11083,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'no_log'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": {} }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'monitor@%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'no_log'</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
+<h3 id="commands">Commands<a data-markdown-ignore class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'select,insert,update,delete'</span><span class="p">;</span>
 </code></pre></div>
@@ -11103,7 +11103,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>For exclusion, wrap the condition in <code>not</code>.</p>
-<h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
+<h3 id="databases">Databases<a data-markdown-ignore class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app,reports'</span><span class="p">;</span>
 </code></pre></div>
@@ -11123,7 +11123,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>For a complete grammar reference (field names, logical operators, variables, functions), see <a href="write-filter-definitions.html">Write filter definitions</a> and <a href="audit-log-filter-definition-fields.html">Definition fields reference</a>.</p>
-<h2 id="worked-example">Worked example<a class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
+<h2 id="worked-example">Worked example<a data-markdown-ignore class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
 <p>Starting plugin configuration in <code>my.cnf</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">plugin-load-add</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s">audit_log.so</span>
@@ -11162,7 +11162,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'admin@localhost'</span><span class="p">,</span><span class="w"> </span><span class="s1">'log_all_except_set_option'</span><span class="p">);</span>
 </code></pre></div>
 <p>Accounts that match neither <code>app@%</code> nor <code>admin@localhost</code>, and that have no explicit assignment to the default <code>%</code> filter, are not audited. The setup reproduces the plugin&rsquo;s include-list behavior.</p>
-<h2 id="cutover-and-verification">Cutover and verification<a class="headerlink" href="#cutover-and-verification" title="Permanent link">&para;</a></h2>
+<h2 id="cutover-and-verification">Cutover and verification<a data-markdown-ignore class="headerlink" href="#cutover-and-verification" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p>Confirm the component is live:</p>
@@ -11189,7 +11189,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Archive any pre-existing plugin log files you want to keep. The component does not ingest those files. You can run <a href="filter-audit-log-filter-files.html"><code>filter_audit_log_filter_files</code></a> to post-process component logs.</p>
 </li>
 </ol>
-<h2 id="known-caveats">Known caveats<a class="headerlink" href="#known-caveats" title="Permanent link">&para;</a></h2>
+<h2 id="known-caveats">Known caveats<a data-markdown-ignore class="headerlink" href="#known-caveats" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>Log content changes slightly even when you keep the same format. Some statements that the 8.0 plugin did not record appear in current logs because the server sends additional events. The plugin page describes the <code>SELECT $$</code> example. Percona does not plan to backport format changes to match 8.0 output.</p>
@@ -11204,7 +11204,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>audit_log_filter.event_mode</code> defaults to <code>REDUCED</code>. When you relied on plugin logging for classes beyond <code>connection</code>, <code>general</code>, <code>table_access</code>, and <code>message</code>, set <code>event_mode = FULL</code> to match the broader class set.</p>
 </li>
 </ul>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="upgrade-components.html">Upgrade from plugins to components</a></p>

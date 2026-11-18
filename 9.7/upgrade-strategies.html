@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10780,14 +10780,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="upgrade-strategies">Upgrade strategies<a class="headerlink" href="#upgrade-strategies" title="Permanent link">&para;</a></h1>
+<h1 id="upgrade-strategies">Upgrade strategies<a data-markdown-ignore class="headerlink" href="#upgrade-strategies" title="Permanent link">&para;</a></h1>
 <p><strong>Topic type</strong>: Concept</p>
 <p>For critical production systems, consider engaging <a href="https://www.percona.com/services/expert-support/">Percona Support <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to assist with your upgrade. Our experts can help you complete a smooth transition and minimize risk during this sensitive operation.</p>
 <p>The following strategies cover most 9.7 upgrade scenarios. Combine the prep steps in <a href="upgrade-procedures.html">Upgrade procedures for 9.7</a> with the strategy that matches your environment.</p>
 <p>For underlying MySQL guidance, see <a href="https://dev.mysql.com/doc/refman/9.7/en/replication-upgrade.html">Upgrading or Downgrading a Replication Topology <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="downgrade-options">Downgrade options<a class="headerlink" href="#downgrade-options" title="Permanent link">&para;</a></h2>
+<h2 id="downgrade-options">Downgrade options<a data-markdown-ignore class="headerlink" href="#downgrade-options" title="Permanent link">&para;</a></h2>
 <p>Review the <a href="downgrade.html">Downgrade options</a> to confirm that your downgrade path is supported.</p>
-<h2 id="choose-an-upgrade-strategy">Choose an upgrade strategy<a class="headerlink" href="#choose-an-upgrade-strategy" title="Permanent link">&para;</a></h2>
+<h2 id="choose-an-upgrade-strategy">Choose an upgrade strategy<a data-markdown-ignore class="headerlink" href="#choose-an-upgrade-strategy" title="Permanent link">&para;</a></h2>
 <p>Use the following table to choose the strategy that matches your downtime budget, risk tolerance, and infrastructure constraints.</p>
 <table>
 <thead>
@@ -10838,7 +10838,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>For supported upgrade paths and methods, see <a href="mysql-upgrade-paths.html">MySQL upgrade paths and supported methods</a>.</p>
-<h2 id="upgrade-in-place">Upgrade in place<a class="headerlink" href="#upgrade-in-place" title="Permanent link">&para;</a></h2>
+<h2 id="upgrade-in-place">Upgrade in place<a data-markdown-ignore class="headerlink" href="#upgrade-in-place" title="Permanent link">&para;</a></h2>
 <p>An in-place upgrade replaces binaries on the same host and restarts on the existing data directory. The strategy is the fastest binary swap and requires no parallel hardware.</p>
 <p>The procedure halts the server, replaces packages, and starts 9.7 against the same data files. Configure a slow shutdown by setting <code>innodb_fast_shutdown=0</code> before stopping. A slow shutdown leaves InnoDB in a state that is safe across releases.</p>
 <p>Take the following actions before the upgrade:</p>
@@ -10867,7 +10867,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Rollback path: stop the server, restore the verified backup, then revert the binaries. Test the rollback in staging.</p>
 <p>For step-by-step commands, see <a href="upgrade-procedures.html">Upgrade procedures for 9.7</a>.</p>
-<h2 id="use-logical-dump-and-restore">Use logical dump and restore<a class="headerlink" href="#use-logical-dump-and-restore" title="Permanent link">&para;</a></h2>
+<h2 id="use-logical-dump-and-restore">Use logical dump and restore<a data-markdown-ignore class="headerlink" href="#use-logical-dump-and-restore" title="Permanent link">&para;</a></h2>
 <p>A logical upgrade exports Structured Query Language (SQL) from the source server. The export reloads into a fresh 9.7 server. The path produces clean metadata at the cost of a longer maintenance window.</p>
 <p>Take the following actions before the upgrade:</p>
 <ul>
@@ -10895,7 +10895,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Rollback path: keep the source server available until validation completes. Redirect traffic back to the source if the 9.7 server fails validation.</p>
 <p>For step-by-step commands, see <a href="upgrade-procedures.html#perform-a-logical-upgrade-with-mysqldump">Perform a logical upgrade with mysqldump</a>.</p>
-<h2 id="run-a-side-by-side-migration-with-controlled-cutover">Run a side-by-side migration with controlled cutover<a class="headerlink" href="#run-a-side-by-side-migration-with-controlled-cutover" title="Permanent link">&para;</a></h2>
+<h2 id="run-a-side-by-side-migration-with-controlled-cutover">Run a side-by-side migration with controlled cutover<a data-markdown-ignore class="headerlink" href="#run-a-side-by-side-migration-with-controlled-cutover" title="Permanent link">&para;</a></h2>
 <p>A side-by-side migration runs the source and 9.7 environments in parallel and redirects traffic at a single cutover. The strategy provides the smallest outage and the cleanest rollback at the cost of parallel infrastructure.</p>
 <p>Take the following actions to build the parallel environment:</p>
 <ul>
@@ -10941,7 +10941,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Rollback path: before fail-forward, redirect traffic back to the source. Resume writes on the source.</p>
-<h2 id="use-mysql-clone-for-provisioning">Use MySQL Clone for provisioning<a class="headerlink" href="#use-mysql-clone-for-provisioning" title="Permanent link">&para;</a></h2>
+<h2 id="use-mysql-clone-for-provisioning">Use MySQL Clone for provisioning<a data-markdown-ignore class="headerlink" href="#use-mysql-clone-for-provisioning" title="Permanent link">&para;</a></h2>
 <p>MySQL Clone provides a physical InnoDB snapshot from a donor server to a recipient. The recipient receives a fully functional data directory. Cloning is a fast way to provision a 9.7 replica from a same-LTS donor.</p>
 <p>Cloning supports two operation modes:</p>
 <ul>
@@ -10969,7 +10969,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>For details, see <a href="https://dev.mysql.com/doc/refman/9.7/en/clone-plugin.html">The Clone Plugin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="run-a-rolling-upgrade-in-a-replication-topology">Run a rolling upgrade in a replication topology<a class="headerlink" href="#run-a-rolling-upgrade-in-a-replication-topology" title="Permanent link">&para;</a></h2>
+<h2 id="run-a-rolling-upgrade-in-a-replication-topology">Run a rolling upgrade in a replication topology<a data-markdown-ignore class="headerlink" href="#run-a-rolling-upgrade-in-a-replication-topology" title="Permanent link">&para;</a></h2>
 <p>A rolling upgrade rolls each server in a replication topology through the procedure in turn. Replication continues during the rollout. Replicas absorb traffic while the source upgrades.</p>
 <p>Replication supports an older source paired with a later replica, but not the inverse. Upgrade replicas first and then upgrade the source. A replica at an earlier release cannot process transactions from a source at a later release.</p>
 <p>The procedure has the following stages.</p>
@@ -10989,7 +10989,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ol>
 <p>Multi-source replication has a stricter constraint. A multi-source topology supports at most two MySQL versions concurrently. Plan the rollout to keep the active versions to two or fewer at any time.</p>
 <p>For the canonical procedure, see <a href="https://dev.mysql.com/doc/refman/9.7/en/replication-upgrade.html">Upgrading or Downgrading a Replication Topology <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h2 id="further-reading">Further reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<h2 id="further-reading">Further reading<a data-markdown-ignore class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <p>The following Percona Server for MySQL pages cover upgrade-related topics:</p>
 <ul>
 <li>

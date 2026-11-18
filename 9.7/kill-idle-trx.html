@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10714,7 +10714,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="kill-idle-transaction">Kill idle transaction<a class="headerlink" href="#kill-idle-transaction" title="Permanent link">&para;</a></h1>
+<h1 id="kill-idle-transaction">Kill idle transaction<a data-markdown-ignore class="headerlink" href="#kill-idle-transaction" title="Permanent link">&para;</a></h1>
 <p>Database servers face a constant challenge: managing resources efficiently while maintaining system stability. The kill idle transactions timeout option is a strategic tool to address this challenge. The server automatically stops any transaction that remains inactive for longer than this limit. This action prevents forgotten or stuck transactions from slowing down your database by blocking critical cleanup processes.</p>
 <p>The option has the following benefits:</p>
 <ul>
@@ -10757,7 +10757,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>We recommend that starting with a conservative timeout setting and reviewing the logs frequently to track terminated transactions.</p>
 <p>This feature works with all types of database storage that support transactions.</p>
-<h2 id="best-practices">Best practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h2 id="best-practices">Best practices<a data-markdown-ignore class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <p>Consider these recommended practices when configuring the idle transaction timeout:</p>
 <ul>
 <li>
@@ -10770,7 +10770,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Testing in a staging environment: Before applying any changes to the <code>kill_idle_transaction</code> setting in your production environment, thoroughly test the configuration in a staging or development environment that closely mirrors your production setup. This testing allows you to identify and resolve any unintended consequences, such as premature transaction terminations, without impacting your live application and data.</p>
 </li>
 </ul>
-<h2 id="determine-the-idle-transaction-threshold">Determine the idle transaction threshold<a class="headerlink" href="#determine-the-idle-transaction-threshold" title="Permanent link">&para;</a></h2>
+<h2 id="determine-the-idle-transaction-threshold">Determine the idle transaction threshold<a data-markdown-ignore class="headerlink" href="#determine-the-idle-transaction-threshold" title="Permanent link">&para;</a></h2>
 <p>When setting up a database, you must decide how long to let inactive transactions sit before ending them. This decision affects the database&rsquo;s performance.</p>
 <table>
 <thead>
@@ -10798,7 +10798,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="innodb-purge">InnoDB purge<a class="headerlink" href="#innodb-purge" title="Permanent link">&para;</a></h2>
+<h2 id="innodb-purge">InnoDB purge<a data-markdown-ignore class="headerlink" href="#innodb-purge" title="Permanent link">&para;</a></h2>
 <p>The InnoDB purge process removes outdated row versions (undo logs) from the system. When a transaction modifies data, InnoDB keeps old row versions for rollback and to support transactions running with multi-version concurrency control (MVCC). Once these versions are no longer needed, the purge process deletes them to free up space and improve performance.</p>
 <p>Blocking the InnoDB purge can lead to increased disk space usage and potential performance degradation. This feature helps prevent issues such as:</p>
 <table>
@@ -10823,8 +10823,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="kill_idle_transaction"><code>kill_idle_transaction</code><a class="headerlink" href="#kill_idle_transaction" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="kill_idle_transaction"><code>kill_idle_transaction</code><a data-markdown-ignore class="headerlink" href="#kill_idle_transaction" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10860,7 +10860,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>If set to a non-zero value, the server kills any idle transaction after it stays idle for this number of seconds.</p>
-<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
+<h4 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <p>The <code>SET GLOBAL kill_idle_transaction = 300;</code> command configures the server to automatically end any idle transaction that has lasted for 300 seconds (5 minutes). This command immediately takes effect for the current and new server sessions. An idle transaction holds resources, potentially preventing other operations from proceeding. This setting helps to release these resources if a transaction is unintentionally left open.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="p">;</span>
 </code></pre></div>
@@ -10869,7 +10869,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">kill_idle_transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">300</span>
 </code></pre></div>
-<h2 id="monitor-terminated-transactions">Monitor terminated transactions<a class="headerlink" href="#monitor-terminated-transactions" title="Permanent link">&para;</a></h2>
+<h2 id="monitor-terminated-transactions">Monitor terminated transactions<a data-markdown-ignore class="headerlink" href="#monitor-terminated-transactions" title="Permanent link">&para;</a></h2>
 <p>If the <code>kill_idle_transaction</code> setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the &ldquo;Killed idle transaction&rdquo; message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle. </p>
 <p>If the kill_idle_transaction setting is active and idle transactions have been terminated, this command will output any lines from the error log that contain the “Killed idle transaction” message. Each matching line typically includes a timestamp and details about the terminated transaction, such as its ID and the duration it was idle.</p>
 <p>The command produces no output if the server has not terminated any idle transactions since the last log rotation or server start. Regularly checking this log helps you verify that the idle transaction option is working as expected and provides insights into transaction management within your server.</p>

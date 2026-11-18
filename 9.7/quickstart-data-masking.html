@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10782,14 +10782,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="get-started-with-data-masking">Get started with Data Masking<a class="headerlink" href="#get-started-with-data-masking" title="Permanent link">&para;</a></h1>
+<h1 id="get-started-with-data-masking">Get started with Data Masking<a data-markdown-ignore class="headerlink" href="#get-started-with-data-masking" title="Permanent link">&para;</a></h1>
 <p>This quickstart gets the data masking component installed and lets you try the component with a test database. You need access to a Percona Server for MySQL 9.7 server. Follow the steps to install, set permissions, create sample data, and run masking examples. For production use and limitations, see the <a href="data-masking-overview.html">Data masking overview</a>.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Percona Server for MySQL (latest recommended).</li>
 <li>The <code>component_masking_functions</code> library in the server plugin directory. Run <code>SHOW VARIABLES LIKE 'plugin_dir';</code> and confirm the library exists in that directory. If the library is missing, see <a href="install-data-masking-component.html">Install the data masking component</a>.</li>
 </ul>
-<h2 id="install-the-component-and-set-permissions">Install the component and set permissions<a class="headerlink" href="#install-the-component-and-set-permissions" title="Permanent link">&para;</a></h2>
+<h2 id="install-the-component-and-set-permissions">Install the component and set permissions<a data-markdown-ignore class="headerlink" href="#install-the-component-and-set-permissions" title="Permanent link">&para;</a></h2>
 <p class="power-number">Do these once, in order. Full details: <a href="install-data-masking-component.html">Install the data masking component</a>.</p>
 <ol>
 <li>
@@ -10839,7 +10839,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>No <code>FLUSH PRIVILEGES</code> is needed; the grant takes effect immediately. If the privilege does not appear, reconnect to the server.</p>
 </li>
 </ol>
-<h2 id="create-the-test-database-and-tables">Create the test database and tables<a class="headerlink" href="#create-the-test-database-and-tables" title="Permanent link">&para;</a></h2>
+<h2 id="create-the-test-database-and-tables">Create the test database and tables<a data-markdown-ignore class="headerlink" href="#create-the-test-database-and-tables" title="Permanent link">&para;</a></h2>
 <p>Run the following script to create the database and both tables with sample rows. The script drops the database if the database already exists so you can run the script again without creating duplicate rows. The column types and values are chosen so you can try masking functions in the next sections.</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
@@ -10887,7 +10887,7 @@ Query OK, 0 rows affected (0.00 sec)
 Query OK, 3 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<h2 id="view-raw-data">View raw data<a class="headerlink" href="#view-raw-data" title="Permanent link">&para;</a></h2>
+<h2 id="view-raw-data">View raw data<a data-markdown-ignore class="headerlink" href="#view-raw-data" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">ssn</span><span class="p">,</span><span class="w"> </span><span class="n">card_no</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="n">phone</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
@@ -10902,9 +10902,9 @@ Query OK, 3 rows affected (0.00 sec)
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h2 id="mask-sensitive-columns-in-queries">Mask sensitive columns in queries<a class="headerlink" href="#mask-sensitive-columns-in-queries" title="Permanent link">&para;</a></h2>
+<h2 id="mask-sensitive-columns-in-queries">Mask sensitive columns in queries<a data-markdown-ignore class="headerlink" href="#mask-sensitive-columns-in-queries" title="Permanent link">&para;</a></h2>
 <p>The examples below use masking functions in <code>SELECT</code>; the table data is unchanged. Expected outputs in this guide are illustrative; results from random or dictionary-based functions vary on each run and may not match the examples. To enforce masking for other users, use a view (see <a href="#expose-masked-data-via-a-view">Expose masked data via a view</a>) and restrict access to the base table. For limitations and security, see the <a href="data-masking-overview.html#limitations-and-security-considerations">Data masking overview</a>.</p>
-<h3 id="payment-card-and-ssn">Payment card and SSN<a class="headerlink" href="#payment-card-and-ssn" title="Permanent link">&para;</a></h3>
+<h3 id="payment-card-and-ssn">Payment card and SSN<a data-markdown-ignore class="headerlink" href="#payment-card-and-ssn" title="Permanent link">&para;</a></h3>
 <p><a href="data-masking-function-list.html#mask_panstr-mask_char"><code>mask_pan</code></a> leaves the last four digits visible; <a href="data-masking-function-list.html#mask_ssnstr-mask_char"><code>mask_ssn</code></a> does the same for SSN.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
@@ -10924,7 +10924,7 @@ Query OK, 3 rows affected (0.00 sec)
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h3 id="inner-and-outer-parts-of-a-string">Inner and outer parts of a string<a class="headerlink" href="#inner-and-outer-parts-of-a-string" title="Permanent link">&para;</a></h3>
+<h3 id="inner-and-outer-parts-of-a-string">Inner and outer parts of a string<a data-markdown-ignore class="headerlink" href="#inner-and-outer-parts-of-a-string" title="Permanent link">&para;</a></h3>
 <p><a href="data-masking-function-list.html#mask_innerstr-margin1-margin2-mask_char"><code>mask_inner</code></a> keeps the first and last character(s); <a href="data-masking-function-list.html#mask_outerstr-margin1-margin2-mask_char"><code>mask_outer</code></a> masks the left and right ends. The third and fourth arguments are the number of characters to keep unmasked on the left and right.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
@@ -10944,7 +10944,7 @@ Query OK, 3 rows affected (0.00 sec)
 3 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h3 id="generated-values-for-testing">Generated values (for testing)<a class="headerlink" href="#generated-values-for-testing" title="Permanent link">&para;</a></h3>
+<h3 id="generated-values-for-testing">Generated values (for testing)<a data-markdown-ignore class="headerlink" href="#generated-values-for-testing" title="Permanent link">&para;</a></h3>
 <p><a href="data-masking-function-list.html#gen_rnd_emailname_size-surname_size-domain"><code>gen_rnd_email()</code></a> and <a href="data-masking-function-list.html#gen_rnd_ssn"><code>gen_rnd_ssn()</code></a> return new values each time. They are useful for generating test data, not for masking existing values in place.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
 <span class="w">    </span><span class="n">id</span><span class="p">,</span>
@@ -10965,7 +10965,7 @@ Query OK, 3 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Output will vary on each run and may not match the expected results above. For constraints and caveats, see <a href="data-masking-function-list.html">Data masking component functions and variables</a>.</p>
-<h3 id="international-data-masking-functions">International data masking functions<a class="headerlink" href="#international-data-masking-functions" title="Permanent link">&para;</a></h3>
+<h3 id="international-data-masking-functions">International data masking functions<a data-markdown-ignore class="headerlink" href="#international-data-masking-functions" title="Permanent link">&para;</a></h3>
 <p>The component includes functions for region-specific identifiers: Canadian Social Insurance Number (SIN) (<a href="data-masking-function-list.html#mask_canada_sinstr-mask_char"><code>mask_canada_sin</code></a>), United Kingdom National Insurance Number (NIN) (<a href="data-masking-function-list.html#mask_uk_ninstr-mask_char"><code>mask_uk_nin</code></a>), and International Bank Account Number (IBAN) (<a href="data-masking-function-list.html#mask_ibanstr-mask_char"><code>mask_iban</code></a>). The script above already created the <code>contacts_intl</code> table. View the raw data, then apply the region-specific masking functions:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">country</span><span class="p">,</span><span class="w"> </span><span class="n">canada_sin</span><span class="p">,</span><span class="w"> </span><span class="n">uk_nin</span><span class="p">,</span><span class="w"> </span><span class="n">iban</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">contacts_intl</span><span class="p">;</span>
 </code></pre></div>
@@ -11002,7 +11002,7 @@ Query OK, 3 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Each function returns NULL when the input is NULL. For more options (for example, custom mask characters) and the corresponding generators (<a href="data-masking-function-list.html#gen_rnd_canada_sin"><code>gen_rnd_canada_sin</code></a>, <a href="data-masking-function-list.html#gen_rnd_uk_nin"><code>gen_rnd_uk_nin</code></a>, <a href="data-masking-function-list.html#gen_rnd_ibancountry-size"><code>gen_rnd_iban</code></a>), see <a href="data-masking-function-list.html">Data masking component functions and variables</a>.</p>
-<h3 id="expose-masked-data-via-a-view">Expose masked data via a view<a class="headerlink" href="#expose-masked-data-via-a-view" title="Permanent link">&para;</a></h3>
+<h3 id="expose-masked-data-via-a-view">Expose masked data via a view<a data-markdown-ignore class="headerlink" href="#expose-masked-data-via-a-view" title="Permanent link">&para;</a></h3>
 <p>To ensure that only masked data is visible, define a view that applies the masking functions and grant <code>SELECT</code> on the view (not on the base table) to users who should see masked data. Example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">contacts_masked</span><span class="p">;</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">contacts_masked</span><span class="w"> </span><span class="k">AS</span>
@@ -11034,7 +11034,7 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>The view uses <a href="data-masking-function-list.html#mask_outerstr-margin1-margin2-mask_char"><code>mask_outer(..., 2, 4)</code></a> for email and phone. Grant <code>SELECT</code> on the view (not the base table) to users who should see masked data only. For access control and limitations, see the <a href="data-masking-overview.html#limitations-and-security-considerations">Data masking overview</a>.</p>
-<h2 id="optional-dictionary-based-masking">Optional: dictionary-based masking<a class="headerlink" href="#optional-dictionary-based-masking" title="Permanent link">&para;</a></h2>
+<h2 id="optional-dictionary-based-masking">Optional: dictionary-based masking<a data-markdown-ignore class="headerlink" href="#optional-dictionary-based-masking" title="Permanent link">&para;</a></h2>
 <p>Functions such as <a href="data-masking-function-list.html#gen_dictionarydictionary_name"><code>gen_dictionary</code></a> and <a href="data-masking-function-list.html#gen_blockliststr-from_dictionary_name-to_dictionary_name"><code>gen_blocklist</code></a> use the <code>mysql.masking_dictionaries</code> table. </p>
 <p>You need the <a href="#install-the-component-and-set-permissions">step 4 grant (MASKING_DICTIONARIES_ADMIN)</a> and the step 3 grant to <code>mysql.session</code> described in the <a href="install-data-masking-component.html">install guide</a>.</p>
 <p>Add a small dictionary with <a href="data-masking-function-list.html#masking_dictionary_term_adddictionary_name-term_name"><code>masking_dictionary_term_add</code></a>, then try <a href="data-masking-function-list.html#gen_dictionarydictionary_name"><code>gen_dictionary</code></a>. </p>
@@ -11079,7 +11079,7 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>To remove the dictionary when finished: <code>SELECT masking_dictionary_remove('roles');</code> (<a href="data-masking-function-list.html#masking_dictionary_removedictionary_name"><code>masking_dictionary_remove</code></a>). For large dictionaries or production use, see the <a href="data-masking-overview.html">Data masking overview</a> and <a href="data-masking-function-list.html">function list</a>.</p>
-<h2 id="clean-up-optional">Clean up (optional)<a class="headerlink" href="#clean-up-optional" title="Permanent link">&para;</a></h2>
+<h2 id="clean-up-optional">Clean up (optional)<a data-markdown-ignore class="headerlink" href="#clean-up-optional" title="Permanent link">&para;</a></h2>
 <p>To remove the test database and all objects in the database (tables, the <code>contacts_masked</code> view, and data):</p>
 <div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">masking_demo</span><span class="p">;</span>
 </code></pre></div>
@@ -11088,7 +11088,7 @@ Query OK, 0 rows affected (0.00 sec)
 <div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
-<h2 id="additional-resources">Additional resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<h2 id="additional-resources">Additional resources<a data-markdown-ignore class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="data-masking-overview.html">Data masking overview</a></li>
 <li><a href="install-data-masking-component.html">Install the data masking component</a></li>

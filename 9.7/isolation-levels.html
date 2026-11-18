@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10716,32 +10716,32 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="isolation-levels">Isolation levels<a class="headerlink" href="#isolation-levels" title="Permanent link">&para;</a></h1>
+<h1 id="isolation-levels">Isolation levels<a data-markdown-ignore class="headerlink" href="#isolation-levels" title="Permanent link">&para;</a></h1>
 <p>In databases, isolation levels define how transactions interact with each other and the data they access. They determine the level of concurrency and consistency in a multi-user database environment.</p>
 <p>In MySQL, there are four isolation levels available, each offering different trade-offs between concurrency and consistency:</p>
 <p>Each isolation level offers a different balance between concurrency and consistency, and the choice depends on the application&rsquo;s specific requirements. By selecting the appropriate isolation level, developers can ensure their MySQL database applications&rsquo; desired data integrity and performance level.</p>
-<h2 id="read-uncommitted">Read Uncommitted<a class="headerlink" href="#read-uncommitted" title="Permanent link">&para;</a></h2>
+<h2 id="read-uncommitted">Read Uncommitted<a data-markdown-ignore class="headerlink" href="#read-uncommitted" title="Permanent link">&para;</a></h2>
 <p>In the Read Uncommitted isolation level, transactions can read data that has been modified by other transactions but not yet committed. This level allows for the highest concurrency but can lead to dirty reads.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">UNCOMMITTED</span><span class="p">;</span>
 
 <span class="c1">-- Perform a SELECT query to read uncommitted data</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="read-committed">Read Committed<a class="headerlink" href="#read-committed" title="Permanent link">&para;</a></h2>
+<h2 id="read-committed">Read Committed<a data-markdown-ignore class="headerlink" href="#read-committed" title="Permanent link">&para;</a></h2>
 <p>In Read Committed isolation level, transactions can only read data that has been committed by other transactions. This level prevents dirty reads but allows for non-repeatable reads and phantom reads.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">READ</span><span class="w"> </span><span class="k">COMMITTED</span><span class="p">;</span>
 
 <span class="c1">-- Perform a SELECT query to read committed data</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="repeatable-read">Repeatable Read<a class="headerlink" href="#repeatable-read" title="Permanent link">&para;</a></h2>
+<h2 id="repeatable-read">Repeatable Read<a data-markdown-ignore class="headerlink" href="#repeatable-read" title="Permanent link">&para;</a></h2>
 <p>In Repeatable Read isolation level, transactions can only read data that has been committed by other transactions at the start of the transaction. This level prevents dirty reads and non-repeatable reads but allows for phantom reads.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">REPEATABLE</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span>
 
 <span class="c1">-- Perform a SELECT query to read data consistently within the transaction</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="serializable">Serializable<a class="headerlink" href="#serializable" title="Permanent link">&para;</a></h2>
+<h2 id="serializable">Serializable<a data-markdown-ignore class="headerlink" href="#serializable" title="Permanent link">&para;</a></h2>
 <p>In Serializable isolation level, transactions are executed serially, preventing any concurrent access to the data. This level provides the highest level of isolation but can lead to reduced concurrency and potential deadlock situations.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="w"> </span><span class="k">ISOLATION</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="k">SERIALIZABLE</span><span class="p">;</span>
 
@@ -10749,7 +10749,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table_name</span><span class="p">;</span>
 </code></pre></div>
 <p>These examples demonstrate how to set and use different isolation levels in SQL transactions, each providing consistency and concurrency control.</p>
-<h2 id="database-management">Database management<a class="headerlink" href="#database-management" title="Permanent link">&para;</a></h2>
+<h2 id="database-management">Database management<a data-markdown-ignore class="headerlink" href="#database-management" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="database.html">Database</a></li>
 <li><a href="modify-tables.html">Modify Tables</a></li>

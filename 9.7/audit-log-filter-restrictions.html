@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10674,8 +10674,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-restrictions">Audit Log Filter restrictions<a class="headerlink" href="#audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
-<h2 id="general-restrictions">General restrictions<a class="headerlink" href="#general-restrictions" title="Permanent link">&para;</a></h2>
+<h1 id="audit-log-filter-restrictions">Audit Log Filter restrictions<a data-markdown-ignore class="headerlink" href="#audit-log-filter-restrictions" title="Permanent link">&para;</a></h1>
+<h2 id="general-restrictions">General restrictions<a data-markdown-ignore class="headerlink" href="#general-restrictions" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p>The component logs SQL statements only, not NoSQL APIs such as the Memcached interface.</p>
@@ -10701,9 +10701,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Numeric fields in rules may use integer or string forms. <code>connection_type</code> accepts symbolic constants. See <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>.</p>
 </li>
 </ul>
-<h2 id="synchronizing-audit-log-filters-between-a-source-and-a-replica">Synchronizing audit log filters between a source and a replica<a class="headerlink" href="#synchronizing-audit-log-filters-between-a-source-and-a-replica" title="Permanent link">&para;</a></h2>
+<h2 id="synchronizing-audit-log-filters-between-a-source-and-a-replica">Synchronizing audit log filters between a source and a replica<a data-markdown-ignore class="headerlink" href="#synchronizing-audit-log-filters-between-a-source-and-a-replica" title="Permanent link">&para;</a></h2>
 <p>Replicate the filter tables and run <code>audit_log_filter_flush()</code> on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a>.</p>
-<h3 id="procedure-scheduled-event-to-flush-filters-on-the-replica">Procedure: scheduled event to flush filters on the replica<a class="headerlink" href="#procedure-scheduled-event-to-flush-filters-on-the-replica" title="Permanent link">&para;</a></h3>
+<h3 id="procedure-scheduled-event-to-flush-filters-on-the-replica">Procedure: scheduled event to flush filters on the replica<a data-markdown-ignore class="headerlink" href="#procedure-scheduled-event-to-flush-filters-on-the-replica" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Install Percona Server for MySQL on the source with Audit Log Filter.</p>
@@ -10731,9 +10731,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ol>
 <p>When nothing appears, wait for the next event tick or run <code>SELECT audit_log_filter_flush();</code> on the replica immediately. Confirm that replication applied the rows and that the event is <code>ENABLED</code>. Persistent gaps usually indicate a replication issue. Investigate the replica&rsquo;s replication health.</p>
 <p>When the component is missing on either host, install the component on source and replica independently.</p>
-<h3 id="limitation">Limitation<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
+<h3 id="limitation">Limitation<a data-markdown-ignore class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
 <p>Direct <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> on the source without a source-side <code>audit_log_filter_flush()</code> still replicate to the replica. The scheduled event flushes on the replica. Replica filters update while the source in-memory state stays stale until someone flushes on the source.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></p>

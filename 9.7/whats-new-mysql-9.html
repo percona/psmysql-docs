@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10848,13 +10848,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="mysql-97-technical-migration-overview">MySQL 9.7 technical migration overview<a class="headerlink" href="#mysql-97-technical-migration-overview" title="Permanent link">&para;</a></h1>
+<h1 id="mysql-97-technical-migration-overview">MySQL 9.7 technical migration overview<a data-markdown-ignore class="headerlink" href="#mysql-97-technical-migration-overview" title="Permanent link">&para;</a></h1>
 <p>MySQL 9 minor releases remove legacy plugins and change defaults for security and replication. Database administrators must align accounts, configuration files, and replication topology before they upgrade.</p>
 <p>Use this overview alongside the <a href="upgrade.html">upgrade overview</a>, <a href="installation.html">installation</a> guide, and <a href="upgrade-procedures.html">upgrade procedures</a>.</p>
 <p>You move from MySQL 8.4 Long-Term Support (LTS) toward Percona Server for MySQL 9.7. Percona behavior can differ from Oracle MySQL Community Edition.</p>
 <p>Read the <a href="release-notes/release-notes-index.html">release notes</a> for your build.</p>
 <p>The following sections group incompatible changes by feature area, describe MySQL 9.7 Community Server behavior, and provide a pre-upgrade checklist.</p>
-<h2 id="review-breaking-changes-before-upgrade">Review breaking changes before upgrade<a class="headerlink" href="#review-breaking-changes-before-upgrade" title="Permanent link">&para;</a></h2>
+<h2 id="review-breaking-changes-before-upgrade">Review breaking changes before upgrade<a data-markdown-ignore class="headerlink" href="#review-breaking-changes-before-upgrade" title="Permanent link">&para;</a></h2>
 <p>Address the following items before you upgrade production servers.</p>
 <p>High-impact items:</p>
 <ul>
@@ -10878,8 +10878,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Each subsection states impact, replacement options, and required actions.</p>
-<h2 id="authentication-and-accounts">Authentication and accounts<a class="headerlink" href="#authentication-and-accounts" title="Permanent link">&para;</a></h2>
-<h3 id="remove-mysql_native_password">Remove <code>mysql_native_password</code><a class="headerlink" href="#remove-mysql_native_password" title="Permanent link">&para;</a></h3>
+<h2 id="authentication-and-accounts">Authentication and accounts<a data-markdown-ignore class="headerlink" href="#authentication-and-accounts" title="Permanent link">&para;</a></h2>
+<h3 id="remove-mysql_native_password">Remove <code>mysql_native_password</code><a data-markdown-ignore class="headerlink" href="#remove-mysql_native_password" title="Permanent link">&para;</a></h3>
 <p>Oracle removed the <code>mysql_native_password</code> plugin and related server options in MySQL 9.0. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -10924,7 +10924,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'&lt;USERNAME&gt;'</span><span class="o">@</span><span class="s1">'&lt;HOST&gt;'</span>
 <span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;PASSWORD&gt;'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="configure-caching-sha-2-storage-format">Configure caching SHA-2 storage format<a class="headerlink" href="#configure-caching-sha-2-storage-format" title="Permanent link">&para;</a></h3>
+<h3 id="configure-caching-sha-2-storage-format">Configure caching SHA-2 storage format<a data-markdown-ignore class="headerlink" href="#configure-caching-sha-2-storage-format" title="Permanent link">&para;</a></h3>
 <p>MySQL 9.7 Community Server exposes the following variables for caching SHA-2 password storage:</p>
 <ul>
 <li>
@@ -10936,9 +10936,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>These variables support PBKDF2 storage with <code>caching_sha2_password</code>.</p>
 <p>See <a href="https://dev.mysql.com/doc/refman/9.7/en/caching-sha2-pluggable-authentication.html">Caching SHA-2 pluggable authentication</a>.</p>
-<h2 id="replication-and-gtid">Replication and GTID<a class="headerlink" href="#replication-and-gtid" title="Permanent link">&para;</a></h2>
+<h2 id="replication-and-gtid">Replication and GTID<a data-markdown-ignore class="headerlink" href="#replication-and-gtid" title="Permanent link">&para;</a></h2>
 <p>Replication behavior depends on Global Transaction Identifier (GTID) variables. Incorrect defaults cause most upgrade failures in mixed topologies.</p>
-<h3 id="configure-gtid-defaults">Configure GTID defaults<a class="headerlink" href="#configure-gtid-defaults" title="Permanent link">&para;</a></h3>
+<h3 id="configure-gtid-defaults">Configure GTID defaults<a data-markdown-ignore class="headerlink" href="#configure-gtid-defaults" title="Permanent link">&para;</a></h3>
 <p>Oracle changed GTID defaults in MySQL 9.0. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -10996,7 +10996,7 @@ enforce_gtid_consistency=OFF
 </tr>
 </tbody>
 </table>
-<h3 id="set-replica_parallel_workers-minimum">Set <code>replica_parallel_workers</code> minimum<a class="headerlink" href="#set-replica_parallel_workers-minimum" title="Permanent link">&para;</a></h3>
+<h3 id="set-replica_parallel_workers-minimum">Set <code>replica_parallel_workers</code> minimum<a data-markdown-ignore class="headerlink" href="#set-replica_parallel_workers-minimum" title="Permanent link">&para;</a></h3>
 <p>Oracle disallows <code>replica_parallel_workers=0</code> starting in MySQL 9.3. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -11018,7 +11018,7 @@ enforce_gtid_consistency=OFF
 <ul>
 <li>Before upgrade, change <code>replica_parallel_workers=0</code> to <code>1</code> or delete the line to restore the default.</li>
 </ul>
-<h3 id="replace-removed-group-replication-and-semisync-variables">Replace removed Group Replication and semisync variables<a class="headerlink" href="#replace-removed-group-replication-and-semisync-variables" title="Permanent link">&para;</a></h3>
+<h3 id="replace-removed-group-replication-and-semisync-variables">Replace removed Group Replication and semisync variables<a data-markdown-ignore class="headerlink" href="#replace-removed-group-replication-and-semisync-variables" title="Permanent link">&para;</a></h3>
 <p>Oracle removed several replication variables in MySQL 9.5. Semisynchronous replication moved from plugins to components. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -11051,7 +11051,7 @@ enforce_gtid_consistency=OFF
 <p>Install and configure semisync components as documented in the MySQL Reference Manual.</p>
 </li>
 </ul>
-<h3 id="configure-replication-across-versions">Configure replication across versions<a class="headerlink" href="#configure-replication-across-versions" title="Permanent link">&para;</a></h3>
+<h3 id="configure-replication-across-versions">Configure replication across versions<a data-markdown-ignore class="headerlink" href="#configure-replication-across-versions" title="Permanent link">&para;</a></h3>
 <p>MySQL 9.7 Community Server exposes the following replication-related settings:</p>
 <ul>
 <li>
@@ -11070,8 +11070,8 @@ enforce_gtid_consistency=OFF
 <p><a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-7-0.html">MySQL 9.7.0 release notes</a></p>
 </li>
 </ul>
-<h2 id="keyring-and-encryption">Keyring and encryption<a class="headerlink" href="#keyring-and-encryption" title="Permanent link">&para;</a></h2>
-<h3 id="migrate-from-keyring_file-to-component_keyring_file">Migrate from <code>keyring_file</code> to <code>component_keyring_file</code><a class="headerlink" href="#migrate-from-keyring_file-to-component_keyring_file" title="Permanent link">&para;</a></h3>
+<h2 id="keyring-and-encryption">Keyring and encryption<a data-markdown-ignore class="headerlink" href="#keyring-and-encryption" title="Permanent link">&para;</a></h2>
+<h3 id="migrate-from-keyring_file-to-component_keyring_file">Migrate from <code>keyring_file</code> to <code>component_keyring_file</code><a data-markdown-ignore class="headerlink" href="#migrate-from-keyring_file-to-component_keyring_file" title="Permanent link">&para;</a></h3>
 <p>Migration requires a component manifest. You cannot convert the plugin with a single <code>my.cnf</code> edit.</p>
 <p>Oracle removed the <code>keyring_file</code> plugin in MySQL 9.2. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
@@ -11110,8 +11110,8 @@ enforce_gtid_consistency=OFF
 <p>Remove <code>keyring_file</code> directives from <code>my.cnf</code> and other option files before upgrade.</p>
 </li>
 </ul>
-<h2 id="plugins-components-and-extensions">Plugins, components, and extensions<a class="headerlink" href="#plugins-components-and-extensions" title="Permanent link">&para;</a></h2>
-<h3 id="remove-early-plugin-load">Remove <code>--early-plugin-load</code><a class="headerlink" href="#remove-early-plugin-load" title="Permanent link">&para;</a></h3>
+<h2 id="plugins-components-and-extensions">Plugins, components, and extensions<a data-markdown-ignore class="headerlink" href="#plugins-components-and-extensions" title="Permanent link">&para;</a></h2>
+<h3 id="remove-early-plugin-load">Remove <code>--early-plugin-load</code><a data-markdown-ignore class="headerlink" href="#remove-early-plugin-load" title="Permanent link">&para;</a></h3>
 <p>Oracle removed the <code>--early-plugin-load</code> server option in MySQL 9.1. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -11130,7 +11130,7 @@ enforce_gtid_consistency=OFF
 <p>Move required behavior to components when the manual documents migration steps.</p>
 </li>
 </ul>
-<h3 id="migrate-connection-control-to-the-component">Migrate Connection Control to the component<a class="headerlink" href="#migrate-connection-control-to-the-component" title="Permanent link">&para;</a></h3>
+<h3 id="migrate-connection-control-to-the-component">Migrate Connection Control to the component<a data-markdown-ignore class="headerlink" href="#migrate-connection-control-to-the-component" title="Permanent link">&para;</a></h3>
 <p>Oracle deprecated the Connection Control plugins and removed them after MySQL 9.2. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -11149,7 +11149,7 @@ enforce_gtid_consistency=OFF
 <p>Update monitoring queries that read deprecated Information Schema tables.</p>
 </li>
 </ul>
-<h3 id="remove-version-tokens-usage">Remove Version Tokens usage<a class="headerlink" href="#remove-version-tokens-usage" title="Permanent link">&para;</a></h3>
+<h3 id="remove-version-tokens-usage">Remove Version Tokens usage<a data-markdown-ignore class="headerlink" href="#remove-version-tokens-usage" title="Permanent link">&para;</a></h3>
 <p>Oracle deprecated Version Tokens in MySQL 9.2 and removed the plugin in MySQL 9.3. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -11163,7 +11163,7 @@ enforce_gtid_consistency=OFF
 <ul>
 <li>Delete Version Tokens references from configuration and application code before upgrade.</li>
 </ul>
-<h3 id="install-components-that-community-edition-includes">Install components that Community Edition includes<a class="headerlink" href="#install-components-that-community-edition-includes" title="Permanent link">&para;</a></h3>
+<h3 id="install-components-that-community-edition-includes">Install components that Community Edition includes<a data-markdown-ignore class="headerlink" href="#install-components-that-community-edition-includes" title="Permanent link">&para;</a></h3>
 <p>MySQL 9.7 Community Server includes components that once required MySQL Enterprise Edition only.</p>
 <p>The following list orders components alphabetically by name:</p>
 <ul>
@@ -11184,8 +11184,8 @@ enforce_gtid_consistency=OFF
 </li>
 </ul>
 <p>See <a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-7-0.html">MySQL 9.7.0 release notes, Component notes</a>.</p>
-<h2 id="innodb-and-storage">InnoDB and storage<a class="headerlink" href="#innodb-and-storage" title="Permanent link">&para;</a></h2>
-<h3 id="remove-deprecated-innodb-variables">Remove deprecated InnoDB variables<a class="headerlink" href="#remove-deprecated-innodb-variables" title="Permanent link">&para;</a></h3>
+<h2 id="innodb-and-storage">InnoDB and storage<a data-markdown-ignore class="headerlink" href="#innodb-and-storage" title="Permanent link">&para;</a></h2>
+<h3 id="remove-deprecated-innodb-variables">Remove deprecated InnoDB variables<a data-markdown-ignore class="headerlink" href="#remove-deprecated-innodb-variables" title="Permanent link">&para;</a></h3>
 <p>Oracle removed legacy InnoDB sizing variables in MySQL 9.3. Redo and undo sizing follow variables documented for MySQL 9.7. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <p>The following variables are removed:</p>
@@ -11232,7 +11232,7 @@ enforce_gtid_consistency=OFF
 <p>Read redo and undo chapters in the MySQL Reference Manual for the target version.</p>
 </li>
 </ul>
-<h3 id="configure-innodb-redo-writers-and-binary-log-history">Configure InnoDB redo writers and binary log history<a class="headerlink" href="#configure-innodb-redo-writers-and-binary-log-history" title="Permanent link">&para;</a></h3>
+<h3 id="configure-innodb-redo-writers-and-binary-log-history">Configure InnoDB redo writers and binary log history<a data-markdown-ignore class="headerlink" href="#configure-innodb-redo-writers-and-binary-log-history" title="Permanent link">&para;</a></h3>
 <p>Oracle changed default behavior in MySQL 9.5 and later. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Default behavior depends on <code>innodb_log_writer_threads</code>:</p>
 <ul>
@@ -11245,7 +11245,7 @@ enforce_gtid_consistency=OFF
 </ul>
 <p>The <code>binlog_transaction_dependency_history_size</code> default is 1,000,000 in MySQL 9.5.0 and later. The maximum is 10,000,000.</p>
 <p>Existing explicit values stay unchanged.</p>
-<h3 id="recognize-atomic-ddl-for-databases">Recognize atomic DDL for databases<a class="headerlink" href="#recognize-atomic-ddl-for-databases" title="Permanent link">&para;</a></h3>
+<h3 id="recognize-atomic-ddl-for-databases">Recognize atomic DDL for databases<a data-markdown-ignore class="headerlink" href="#recognize-atomic-ddl-for-databases" title="Permanent link">&para;</a></h3>
 <p><code>CREATE DATABASE</code> and <code>DROP DATABASE</code> run as atomic, crash-safe operations.</p>
 <p>Oracle introduced this behavior in MySQL 9.1. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
@@ -11256,8 +11256,8 @@ enforce_gtid_consistency=OFF
 <ul>
 <li>No change required</li>
 </ul>
-<h2 id="sql-and-schema-behavior">SQL and schema behavior<a class="headerlink" href="#sql-and-schema-behavior" title="Permanent link">&para;</a></h2>
-<h3 id="fix-ignore-with-scalar-subqueries">Fix <code>IGNORE</code> with scalar subqueries<a class="headerlink" href="#fix-ignore-with-scalar-subqueries" title="Permanent link">&para;</a></h3>
+<h2 id="sql-and-schema-behavior">SQL and schema behavior<a data-markdown-ignore class="headerlink" href="#sql-and-schema-behavior" title="Permanent link">&para;</a></h2>
+<h3 id="fix-ignore-with-scalar-subqueries">Fix <code>IGNORE</code> with scalar subqueries<a data-markdown-ignore class="headerlink" href="#fix-ignore-with-scalar-subqueries" title="Permanent link">&para;</a></h3>
 <p><code>IGNORE</code> no longer hides <code>ER_SUBQUERY_NO_1_ROW</code> when a scalar subquery returns more than one row.</p>
 <p>Oracle introduced this behavior in MySQL 9.0. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
@@ -11277,7 +11277,7 @@ enforce_gtid_consistency=OFF
 <p>Correct the logic or remove unsafe <code>IGNORE</code> usage.</p>
 </li>
 </ul>
-<h3 id="enforce-inline-foreign-keys">Enforce inline foreign keys<a class="headerlink" href="#enforce-inline-foreign-keys" title="Permanent link">&para;</a></h3>
+<h3 id="enforce-inline-foreign-keys">Enforce inline foreign keys<a data-markdown-ignore class="headerlink" href="#enforce-inline-foreign-keys" title="Permanent link">&para;</a></h3>
 <p>Oracle enforces inline foreign key syntax that older releases parsed but ignored.</p>
 <p>Oracle introduced this enforcement in MySQL 9.0. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
@@ -11288,7 +11288,7 @@ enforce_gtid_consistency=OFF
 <ul>
 <li>Compare schemas and generated Data Definition Language (DDL) against intended constraints.</li>
 </ul>
-<h3 id="plan-migration-from-md5-and-sha1-in-sql">Plan migration from <code>MD5()</code> and <code>SHA1()</code> in SQL<a class="headerlink" href="#plan-migration-from-md5-and-sha1-in-sql" title="Permanent link">&para;</a></h3>
+<h3 id="plan-migration-from-md5-and-sha1-in-sql">Plan migration from <code>MD5()</code> and <code>SHA1()</code> in SQL<a data-markdown-ignore class="headerlink" href="#plan-migration-from-md5-and-sha1-in-sql" title="Permanent link">&para;</a></h3>
 <p>Oracle deprecates the <code>MD5()</code> and <code>SHA1()</code> SQL functions in MySQL 9.4. Legacy applications that compute hashes in SQL face the highest risk of breakage.</p>
 <p>Impact:</p>
 <ul>
@@ -11315,14 +11315,14 @@ enforce_gtid_consistency=OFF
 <p>Replace <code>MD5()</code> and <code>SHA1()</code> calls when compliance allows.</p>
 </li>
 </ul>
-<h3 id="review-foreign-key-cascade-handling">Review foreign key cascade handling<a class="headerlink" href="#review-foreign-key-cascade-handling" title="Permanent link">&para;</a></h3>
+<h3 id="review-foreign-key-cascade-handling">Review foreign key cascade handling<a data-markdown-ignore class="headerlink" href="#review-foreign-key-cascade-handling" title="Permanent link">&para;</a></h3>
 <p>The variable <code>enable_cascade_triggers</code> controls the foreign key cascade execution path in MySQL 9.7 Community Server. Oracle deprecated the variable in the same release.</p>
 <p>Follow the MySQL 9.7 manual for supported behavior after upgrade.</p>
-<h3 id="run-data-manipulation-language-dml-on-json-duality-views">Run Data Manipulation Language (DML) on JSON duality views<a class="headerlink" href="#run-data-manipulation-language-dml-on-json-duality-views" title="Permanent link">&para;</a></h3>
+<h3 id="run-data-manipulation-language-dml-on-json-duality-views">Run Data Manipulation Language (DML) on JSON duality views<a data-markdown-ignore class="headerlink" href="#run-data-manipulation-language-dml-on-json-duality-views" title="Permanent link">&para;</a></h3>
 <p>MySQL 9.7 Community Server supports <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> on JSON duality views.</p>
 <p>See <a href="https://dev.mysql.com/doc/refman/9.7/en/json-duality-views-updatable.html">DML operations on JSON duality views</a>.</p>
-<h2 id="client-tools-and-administration">Client tools and administration<a class="headerlink" href="#client-tools-and-administration" title="Permanent link">&para;</a></h2>
-<h3 id="adjust-mysql-client-g-and-c-usage">Adjust mysql client <code>\G</code> and <code>\C</code> usage<a class="headerlink" href="#adjust-mysql-client-g-and-c-usage" title="Permanent link">&para;</a></h3>
+<h2 id="client-tools-and-administration">Client tools and administration<a data-markdown-ignore class="headerlink" href="#client-tools-and-administration" title="Permanent link">&para;</a></h2>
+<h3 id="adjust-mysql-client-g-and-c-usage">Adjust mysql client <code>\G</code> and <code>\C</code> usage<a data-markdown-ignore class="headerlink" href="#adjust-mysql-client-g-and-c-usage" title="Permanent link">&para;</a></h3>
 <p>The <code>mysql</code> client accepts <code>\G</code> (vertical output) and <code>\C</code> (clear) only at the end of a statement.</p>
 <p>Oracle introduced this restriction in MySQL 9.1. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
@@ -11342,7 +11342,7 @@ enforce_gtid_consistency=OFF
 <p>Fix mid-statement tokens.</p>
 </li>
 </ul>
-<h3 id="replace-deprecated-flush-privileges-usage">Replace deprecated <code>FLUSH PRIVILEGES</code> usage<a class="headerlink" href="#replace-deprecated-flush-privileges-usage" title="Permanent link">&para;</a></h3>
+<h3 id="replace-deprecated-flush-privileges-usage">Replace deprecated <code>FLUSH PRIVILEGES</code> usage<a data-markdown-ignore class="headerlink" href="#replace-deprecated-flush-privileges-usage" title="Permanent link">&para;</a></h3>
 <p>Oracle deprecates <code>FLUSH PRIVILEGES</code> and related administration paths in MySQL 9.2. Percona Server for MySQL 9.7 includes this change.</p>
 <p>Impact:</p>
 <ul>
@@ -11361,19 +11361,19 @@ enforce_gtid_consistency=OFF
 <ul>
 <li>Update scripts, automation, and runbooks that still call deprecated flush commands.</li>
 </ul>
-<h2 id="what-changed-in-mysql-97-community-server">What changed in MySQL 9.7 Community Server<a class="headerlink" href="#what-changed-in-mysql-97-community-server" title="Permanent link">&para;</a></h2>
+<h2 id="what-changed-in-mysql-97-community-server">What changed in MySQL 9.7 Community Server<a data-markdown-ignore class="headerlink" href="#what-changed-in-mysql-97-community-server" title="Permanent link">&para;</a></h2>
 <p>The following statements describe Oracle MySQL Community Server 9.7 only.</p>
 <p>Percona Server for MySQL can differ. Read the Percona release notes for your build.</p>
-<h3 id="cross-reference-mysql-97-removal-lists">Cross-reference MySQL 9.7 removal lists<a class="headerlink" href="#cross-reference-mysql-97-removal-lists" title="Permanent link">&para;</a></h3>
+<h3 id="cross-reference-mysql-97-removal-lists">Cross-reference MySQL 9.7 removal lists<a data-markdown-ignore class="headerlink" href="#cross-reference-mysql-97-removal-lists" title="Permanent link">&para;</a></h3>
 <p>Section 1.5 of the MySQL 9.7 Reference Manual lists no options or variables removed only in MySQL 9.7. Compare <a href="https://dev.mysql.com/doc/refman/9.7/en/mysql-nutshell.html">What Is New in MySQL 9.7</a> with Section 1.5. Nutshell removal lists can repeat changes first documented in earlier MySQL 9 minor releases.</p>
 <p>Reference: <a href="https://dev.mysql.com/doc/refman/9.7/en/added-deprecated-removed.html">Server options and variables added, deprecated, or removed in MySQL 9.7</a>.</p>
-<h3 id="toggle-the-hypergraph-optimizer">Toggle the hypergraph optimizer<a class="headerlink" href="#toggle-the-hypergraph-optimizer" title="Permanent link">&para;</a></h3>
+<h3 id="toggle-the-hypergraph-optimizer">Toggle the hypergraph optimizer<a data-markdown-ignore class="headerlink" href="#toggle-the-hypergraph-optimizer" title="Permanent link">&para;</a></h3>
 <p>Community Server 9.7 exposes the hypergraph optimizer through <code>optimizer_switch</code>. Scope includes session, global, persisted, and statement hints.</p>
 <p>See <a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-7-0.html">MySQL 9.7.0 release notes, Optimizer</a>.</p>
-<h3 id="use-clone-across-consecutive-lts-releases">Use Clone across consecutive LTS releases<a class="headerlink" href="#use-clone-across-consecutive-lts-releases" title="Permanent link">&para;</a></h3>
+<h3 id="use-clone-across-consecutive-lts-releases">Use Clone across consecutive LTS releases<a data-markdown-ignore class="headerlink" href="#use-clone-across-consecutive-lts-releases" title="Permanent link">&para;</a></h3>
 <p>Clone supports donor and recipient pairs on consecutive LTS releases later than 9.7.0.</p>
 <p>Read <a href="https://dev.mysql.com/doc/refman/9.7/en/clone-plugin-limitations.html">Clone plugin limitations</a>. Read <a href="https://dev.mysql.com/doc/refman/9.7/en/clone-plugin-remote.html">Remote cloning prerequisites</a> before you rely on Clone for upgrades.</p>
-<h3 id="packaging-and-resource-limits">Packaging and resource limits<a class="headerlink" href="#packaging-and-resource-limits" title="Permanent link">&para;</a></h3>
+<h3 id="packaging-and-resource-limits">Packaging and resource limits<a data-markdown-ignore class="headerlink" href="#packaging-and-resource-limits" title="Permanent link">&para;</a></h3>
 <p>Review package builds and runtime resource behavior from the following notes:</p>
 <ul>
 <li>
@@ -11383,7 +11383,7 @@ enforce_gtid_consistency=OFF
 <p>InnoDB reads logical CPU counts from <code>cpuset</code> cgroup limits when those limits exist. See InnoDB notes in the <a href="https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-7-0.html">MySQL 9.7.0 release notes</a>.</p>
 </li>
 </ul>
-<h3 id="external-manuals-for-mysql-97">External manuals for MySQL 9.7<a class="headerlink" href="#external-manuals-for-mysql-97" title="Permanent link">&para;</a></h3>
+<h3 id="external-manuals-for-mysql-97">External manuals for MySQL 9.7<a data-markdown-ignore class="headerlink" href="#external-manuals-for-mysql-97" title="Permanent link">&para;</a></h3>
 <p>Oracle publishes the following manuals for MySQL 9.7 Community Server, listed alphabetically by title:</p>
 <ul>
 <li>
@@ -11399,9 +11399,9 @@ enforce_gtid_consistency=OFF
 <p><a href="https://dev.mysql.com/doc/refman/9.7/en/mysql-nutshell.html">What Is New in MySQL 9.7</a></p>
 </li>
 </ul>
-<h2 id="what-changed-in-percona-server-for-mysql-97">What changed in Percona Server for MySQL 9.7<a class="headerlink" href="#what-changed-in-percona-server-for-mysql-97" title="Permanent link">&para;</a></h2>
+<h2 id="what-changed-in-percona-server-for-mysql-97">What changed in Percona Server for MySQL 9.7<a data-markdown-ignore class="headerlink" href="#what-changed-in-percona-server-for-mysql-97" title="Permanent link">&para;</a></h2>
 <p>The following changes apply to Percona Server for MySQL 9.7 only. Oracle MySQL Community Server does not include these items.</p>
-<h3 id="removed-sequence_table-in-favor-of-percona_sequence_table">Removed <code>SEQUENCE_TABLE()</code> in favor of <code>PERCONA_SEQUENCE_TABLE()</code><a class="headerlink" href="#removed-sequence_table-in-favor-of-percona_sequence_table" title="Permanent link">&para;</a></h3>
+<h3 id="removed-sequence_table-in-favor-of-percona_sequence_table">Removed <code>SEQUENCE_TABLE()</code> in favor of <code>PERCONA_SEQUENCE_TABLE()</code><a data-markdown-ignore class="headerlink" href="#removed-sequence_table-in-favor-of-percona_sequence_table" title="Permanent link">&para;</a></h3>
 <p>Percona Server for MySQL 8.4 deprecated <code>SEQUENCE_TABLE()</code>. Percona Server for MySQL 9.7 removes the function.</p>
 <p>Impact:</p>
 <ul>
@@ -11426,13 +11426,13 @@ enforce_gtid_consistency=OFF
 </li>
 </ul>
 <p>See <a href="percona-sequence-table.html"><code>PERCONA_SEQUENCE_TABLE(n)</code> function</a> for syntax and examples.</p>
-<h2 id="pre-upgrade-checklist">Pre-upgrade checklist<a class="headerlink" href="#pre-upgrade-checklist" title="Permanent link">&para;</a></h2>
+<h2 id="pre-upgrade-checklist">Pre-upgrade checklist<a data-markdown-ignore class="headerlink" href="#pre-upgrade-checklist" title="Permanent link">&para;</a></h2>
 <p>Run the following checks in a non-production environment first.</p>
-<h3 id="authentication-and-accounts_1">Authentication and accounts<a class="headerlink" href="#authentication-and-accounts_1" title="Permanent link">&para;</a></h3>
+<h3 id="authentication-and-accounts_1">Authentication and accounts<a data-markdown-ignore class="headerlink" href="#authentication-and-accounts_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Confirm authentication plugins and migrate accounts off <code>mysql_native_password</code>.</li>
 </ul>
-<h3 id="replication-and-gtid_1">Replication and GTID<a class="headerlink" href="#replication-and-gtid_1" title="Permanent link">&para;</a></h3>
+<h3 id="replication-and-gtid_1">Replication and GTID<a data-markdown-ignore class="headerlink" href="#replication-and-gtid_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Document replication topology and Global Transaction Identifier (GTID) strategy.</p>
@@ -11444,11 +11444,11 @@ enforce_gtid_consistency=OFF
 <p>Change <code>replica_parallel_workers=0</code> to <code>1</code> or remove the setting.</p>
 </li>
 </ul>
-<h3 id="keyring-and-encryption_1">Keyring and encryption<a class="headerlink" href="#keyring-and-encryption_1" title="Permanent link">&para;</a></h3>
+<h3 id="keyring-and-encryption_1">Keyring and encryption<a data-markdown-ignore class="headerlink" href="#keyring-and-encryption_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Migrate from <code>keyring_file</code> to a supported keyring component.</li>
 </ul>
-<h3 id="plugins-components-and-extensions_1">Plugins, components, and extensions<a class="headerlink" href="#plugins-components-and-extensions_1" title="Permanent link">&para;</a></h3>
+<h3 id="plugins-components-and-extensions_1">Plugins, components, and extensions<a data-markdown-ignore class="headerlink" href="#plugins-components-and-extensions_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Delete deprecated variables, options, and plugins from configuration.</p>
@@ -11463,7 +11463,7 @@ enforce_gtid_consistency=OFF
 <p>Delete Version Tokens references from configuration and application code.</p>
 </li>
 </ul>
-<h3 id="innodb-and-storage_1">InnoDB and storage<a class="headerlink" href="#innodb-and-storage_1" title="Permanent link">&para;</a></h3>
+<h3 id="innodb-and-storage_1">InnoDB and storage<a data-markdown-ignore class="headerlink" href="#innodb-and-storage_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Validate InnoDB redo and undo settings against the target manual.</p>
@@ -11472,15 +11472,15 @@ enforce_gtid_consistency=OFF
 <p>Delete removed InnoDB sizing variables from option files.</p>
 </li>
 </ul>
-<h3 id="sql-and-schema-behavior_1">SQL and schema behavior<a class="headerlink" href="#sql-and-schema-behavior_1" title="Permanent link">&para;</a></h3>
+<h3 id="sql-and-schema-behavior_1">SQL and schema behavior<a data-markdown-ignore class="headerlink" href="#sql-and-schema-behavior_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Audit application SQL for <code>IGNORE</code> with scalar subqueries, inline foreign keys, and <code>MD5()</code> or <code>SHA1()</code> usage.</li>
 </ul>
-<h3 id="percona-specific">Percona-specific<a class="headerlink" href="#percona-specific" title="Permanent link">&para;</a></h3>
+<h3 id="percona-specific">Percona-specific<a data-markdown-ignore class="headerlink" href="#percona-specific" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Replace <code>SEQUENCE_TABLE()</code> calls with <code>PERCONA_SEQUENCE_TABLE()</code> in application code, stored routines, and scripts.</li>
 </ul>
-<h3 id="final-validation">Final validation<a class="headerlink" href="#final-validation" title="Permanent link">&para;</a></h3>
+<h3 id="final-validation">Final validation<a data-markdown-ignore class="headerlink" href="#final-validation" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Execute test upgrades, replication failover, and backup restore drills before production cutover.</li>
 </ul>

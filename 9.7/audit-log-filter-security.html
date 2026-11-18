@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10652,16 +10652,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-security">Audit Log Filter security<a class="headerlink" href="#audit-log-filter-security" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-filter-security">Audit Log Filter security<a data-markdown-ignore class="headerlink" href="#audit-log-filter-security" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter component writes audit files. Restrict the log directory to trusted operators and ensure that the server can write to the directory.</p>
 <p>Logs are plaintext by default and may hold credentials, SQL text, and other sensitive data.</p>
 <p>The default file under the data directory is <code>audit_filter.log</code>. Override the location with <code>audit_log_filter.file</code> at startup.</p>
 <p>When the parent directory is missing, the component errors and the server starts without Audit Log Filter active.</p>
 <p>Rotation leaves multiple files on disk. Protect every generation.</p>
-<h2 id="bypassing-the-os-page-cache">Bypassing the OS page cache<a class="headerlink" href="#bypassing-the-os-page-cache" title="Permanent link">&para;</a></h2>
+<h2 id="bypassing-the-os-page-cache">Bypassing the OS page cache<a data-markdown-ignore class="headerlink" href="#bypassing-the-os-page-cache" title="Permanent link">&para;</a></h2>
 <p>Audit log writes pass through the OS page cache by default. On busy servers with high audit throughput, recently written events can persist in kernel buffer memory until the page cache flushes them to disk. Other processes on the same host with read access to <code>/proc/&lt;pid&gt;/pagemap</code> or <code>/dev/mem</code> may observe those buffers.</p>
 <p>Enable <a href="audit-log-filter-variables.html#audit_log_filterdirect_io"><code>audit_log_filter.direct_io</code></a> to open the audit log file with <code>O_DIRECT</code> and bypass the OS page cache. The component falls back to buffered I/O with a warning when the file system does not support <code>O_DIRECT</code> or when a direct write fails at runtime. The variable is a tech preview and requires a server restart to change.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></p>

@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10626,7 +10626,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="utility-user">Utility user<a class="headerlink" href="#utility-user" title="Permanent link">&para;</a></h1>
+<h1 id="utility-user">Utility user<a data-markdown-ignore class="headerlink" href="#utility-user" title="Permanent link">&para;</a></h1>
 <p><em>Percona Server for MySQL</em> has implemented ability to have a <em>MySQL</em> user who has system access to do administrative tasks but limited access to user schema. This feature is especially useful to those operating <em>MySQL</em> As A Service.</p>
 <p>This user has a mixed and special scope of abilities and protection:</p>
 <ul>
@@ -10655,9 +10655,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>For example, <code>GRANT PROXY ON utility_user TO regular_user;</code> does not fail, but any actual attempt to impersonate as the utility user fails.</p>
 <p><code>GRANT PROXY ON regular_user TO utility_user;</code> fails when utility_user is an exact match or is more specific than than the utility user specified.</p>
 <p>At server start, the server notes in the log output that the utility user exists and the schemas that the utility user can access.</p>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
 <p>In order to have the ability for a special type of MySQL user, which will have a very limited and special amount of control over the system and can not be see or modified by any other user including the root user, three new options have been added.</p>
-<h3 id="utility_user"><code>utility_user</code><a class="headerlink" href="#utility_user" title="Permanent link">&para;</a></h3>
+<h3 id="utility_user"><code>utility_user</code><a data-markdown-ignore class="headerlink" href="#utility_user" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10709,7 +10709,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>As a result of these requirements, it is strongly recommended that a very unique user name and reasonably specific host be used. </p>
 <p>Verify the script or tools test they are running within the correct user by executing <code>SELECT CURRENT_USER()</code> and comparing the result against the known utility user.</p>
-<h3 id="utility_user_password"><code>utility_user_password</code><a class="headerlink" href="#utility_user_password" title="Permanent link">&para;</a></h3>
+<h3 id="utility_user_password"><code>utility_user_password</code><a data-markdown-ignore class="headerlink" href="#utility_user_password" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10751,7 +10751,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>utility_user_password=Passw0rD
 </code></pre></div>
 </details>
-<h3 id="utility_user_schema_access"><code>utility_user_schema_access</code><a class="headerlink" href="#utility_user_schema_access" title="Permanent link">&para;</a></h3>
+<h3 id="utility_user_schema_access"><code>utility_user_schema_access</code><a data-markdown-ignore class="headerlink" href="#utility_user_schema_access" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10793,7 +10793,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>utility_user_schema_access=schema1,schema2,schema3
 </code></pre></div>
 </details>
-<h3 id="utility_user_privileges"><code>utility_user_privileges</code><a class="headerlink" href="#utility_user_privileges" title="Permanent link">&para;</a></h3>
+<h3 id="utility_user_privileges"><code>utility_user_privileges</code><a data-markdown-ignore class="headerlink" href="#utility_user_privileges" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10835,7 +10835,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>utility-user-privileges =”CREATE,DROP,LOCK TABLES”;
 </code></pre></div>
 </details>
-<h3 id="utility_user_dynamic_privileges"><code>utility_user_dynamic_privileges</code><a class="headerlink" href="#utility_user_dynamic_privileges" title="Permanent link">&para;</a></h3>
+<h3 id="utility_user_dynamic_privileges"><code>utility_user_dynamic_privileges</code><a data-markdown-ignore class="headerlink" href="#utility_user_dynamic_privileges" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>

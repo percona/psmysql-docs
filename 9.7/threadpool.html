@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10714,7 +10714,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="thread-pool">Thread pool<a class="headerlink" href="#thread-pool" title="Permanent link">&para;</a></h1>
+<h1 id="thread-pool">Thread pool<a data-markdown-ignore class="headerlink" href="#thread-pool" title="Permanent link">&para;</a></h1>
 <p>Thread pooling can improve performance and scalability for MySQL databases. This technique reuses a fixed number of threads to handle multiple client connections and execute statements. It reduces the overhead of creating and destroying threads and avoids the contention and context switching that can occur when there are too many threads.</p>
 <p>If you have fewer than 20,000 connections, using the thread pool does not provide significant benefits. It’s better to keep thread pooling disabled and use the default method.</p>
 <p>The default method, called one-thread-per-connection, creates a new thread for each client that connects to the MySQL server. This thread manages all queries and responses for that connection until it’s closed. This approach works well for a moderate number of connections, but it can become inefficient as the number of connections increases.</p>
@@ -10765,7 +10765,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </ul>
 <p>Priority Queue:</p>
 <p>A queue that assigns a priority to each data element and processes them according to their priority. The data element with the highest priority is served first, regardless of its order in the queue. A priority queue can be implemented using an array, a linked list, a heap, or a binary search tree. It can also be ascending or descending, meaning that the highest priority is either the smallest or the largest value.</p>
-<h2 id="priority-connection-scheduling">Priority connection scheduling<a class="headerlink" href="#priority-connection-scheduling" title="Permanent link">&para;</a></h2>
+<h2 id="priority-connection-scheduling">Priority connection scheduling<a data-markdown-ignore class="headerlink" href="#priority-connection-scheduling" title="Permanent link">&para;</a></h2>
 <p>The thread pool limits the number of concurrently running queries. The number of open transactions may remain high. Connections with already-started transactions are added to the end of the queue. A high number of open transactions has implications for the currently running queries. The <a href="#thread_pool_high_prio_tickets">thread_pool_high_prio_tickets</a> variable controls the high-priority queue policy and assigns tickets to each new connection.</p>
 <p>The thread pool adds the connection to the high-priority queue and decrements the ticket if the connection has the following attributes:</p>
 <ul>
@@ -10780,14 +10780,14 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <p>Each time, the thread pool checks the high-priority queue for the next connection. When the high-priority queue is empty, the thread pool picks connections from the normal-priority queue. The default behavior is to put events from already started transactions into the high-priority queue.</p>
 <p>If the value equals <code>0</code>, all connections are put into the normal-priority queue. If the value exceeds zero, each connection could be put into a high-priority queue.</p>
 <p>The <a href="#thread_pool_high_prio_mode">thread_pool_high_prio_mode</a> variable prioritizes all statements for a connection or assigns connections to the normal-priority queue. To implement this new <a href="#thread_pool_high_prio_mode">thread_pool_high_prio_mode</a> variable</p>
-<h2 id="normal-priority-queue-throttling">Normal-priority queue throttling<a class="headerlink" href="#normal-priority-queue-throttling" title="Permanent link">&para;</a></h2>
+<h2 id="normal-priority-queue-throttling">Normal-priority queue throttling<a data-markdown-ignore class="headerlink" href="#normal-priority-queue-throttling" title="Permanent link">&para;</a></h2>
 <p>Thread pool performance can degrade, or even deadlock, under high concurrency when a thread group becomes oversubscribed — that is, when the number of active worker threads in the group reaches <a href="#thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code></a> — and most of those threads are simultaneously waiting on locks held by a transaction whose connection has not yet been picked up by the thread pool.</p>
 <p>The oversubscribe limit does not account for threads that have marked themselves inactive while waiting. As a result, the total number of threads in the pool (both active and waiting) continues to grow until the pool reaches <a href="#thread_pool_max_threads"><code>thread_pool_max_threads</code></a>. If the connection executing the transaction that holds the lock enters the thread pool before <code>thread_pool_max_threads</code> is reached, the pool ends up running a large number of threads concurrently (proportional to <a href="#thread_pool_max_threads"><code>thread_pool_max_threads</code></a>), resulting in suboptimal performance. Otherwise, the pool deadlocks, because no more threads can be created to process the blocking transactions and release their locks.</p>
 <p>To prevent this scenario, the thread pool throttles the normal-priority queue when the total number of worker threads (both active and waiting) reaches the <a href="#thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code></a> limit. While the pool is throttled, new transactions are not started and no new threads are created; the pool processes only queued events from already-started transactions, allowing their locks to be released so the pool can drain.</p>
-<h2 id="handling-long-network-waits">Handling long network waits<a class="headerlink" href="#handling-long-network-waits" title="Permanent link">&para;</a></h2>
+<h2 id="handling-long-network-waits">Handling long network waits<a data-markdown-ignore class="headerlink" href="#handling-long-network-waits" title="Permanent link">&para;</a></h2>
 <p>Specific workloads (large result sets, BLOBs, slow clients) can wait longer on network I/O (socket reads and writes). Whenever the server waits, this should be communicated to the thread pool so it can start a new query by either waking a waiting thread or sometimes creating a new one.</p>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="thread_handling"><code>thread_handling</code><a class="headerlink" href="#thread_handling" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="thread_handling"><code>thread_handling</code><a data-markdown-ignore class="headerlink" href="#thread_handling" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10845,7 +10845,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tr>
 </tbody>
 </table>
-<h3 id="thread_pool_high_prio_mode"><code>thread_pool_high_prio_mode</code><a class="headerlink" href="#thread_pool_high_prio_mode" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_high_prio_mode"><code>thread_pool_high_prio_mode</code><a data-markdown-ignore class="headerlink" href="#thread_pool_high_prio_mode" title="Permanent link">&para;</a></h3>
 <p>This variable provides more fine-grained control over high-priority scheduling globally or per connection.</p>
 <p>The following values are allowed:</p>
 <table>
@@ -10870,7 +10870,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tr>
 </tbody>
 </table>
-<h3 id="thread_pool_high_prio_tickets"><code>thread_pool_high_prio_tickets</code><a class="headerlink" href="#thread_pool_high_prio_tickets" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_high_prio_tickets"><code>thread_pool_high_prio_tickets</code><a data-markdown-ignore class="headerlink" href="#thread_pool_high_prio_tickets" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10906,7 +10906,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This variable controls the high-priority queue policy. Assigns the selected number of tickets to each new connection to enter the high-priority queue. Setting this variable to <code>0</code> disables the high-priority queue.</p>
-<h3 id="thread_pool_idle_timeout"><code>thread_pool_idle_timeout</code><a class="headerlink" href="#thread_pool_idle_timeout" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_idle_timeout"><code>thread_pool_idle_timeout</code><a data-markdown-ignore class="headerlink" href="#thread_pool_idle_timeout" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10942,7 +10942,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>Defines the number of seconds a worker thread that has no work remains in the thread pool before exiting. When an idle thread&rsquo;s wait exceeds <code>thread_pool_idle_timeout</code>, the thread is removed from the pool, freeing memory and OS resources; if load returns, a new worker thread is created (subject to <a href="#thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code></a> and <a href="#thread_pool_max_threads"><code>thread_pool_max_threads</code></a>). A lower value reclaims resources faster under bursty or intermittent workloads but increases thread-creation overhead when activity resumes; a higher value keeps threads warm and reduces creation churn at the cost of additional idle memory. Observe <a href="#threadpool_idle_threads"><code>Threadpool_idle_threads</code></a> and <a href="#threadpool_threads"><code>Threadpool_threads</code></a> to see how many threads are being retained in the pool at the current setting.</p>
-<h3 id="thread_pool_max_threads"><code>thread_pool_max_threads</code><a class="headerlink" href="#thread_pool_max_threads" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_max_threads"><code>thread_pool_max_threads</code><a data-markdown-ignore class="headerlink" href="#thread_pool_max_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10978,7 +10978,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This variable can limit the maximum number of threads in the pool. When the limit is reached, the server does not create new threads.</p>
-<h3 id="thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code><a class="headerlink" href="#thread_pool_oversubscribe" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code><a data-markdown-ignore class="headerlink" href="#thread_pool_oversubscribe" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11014,7 +11014,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>Defines the maximum number of worker threads that may be active simultaneously within a single thread group. When a worker thread in a group blocks (on I/O, a lock, or is otherwise stalled — see <a href="#thread_pool_stall_limit"><code>thread_pool_stall_limit</code></a>), the group may create additional worker threads up to the <code>thread_pool_oversubscribe</code> limit so that queued requests can continue to be processed. A higher value improves responsiveness under workloads that frequently block, at the cost of more context switching and contention; a lower value keeps concurrency tighter to the CPU, but values below the default of <code>3</code> can cause frequent thread sleep and wake-up cycles. When the total number of worker threads in a group (both active and waiting) reaches the <code>thread_pool_oversubscribe</code> limit, the thread pool throttles the normal-priority queue (see <a href="#normal-priority-queue-throttling">Normal-priority queue throttling</a>) to prevent deadlocks and runaway thread creation. Tune alongside <a href="#thread_pool_size"><code>thread_pool_size</code></a> and observe <a href="#threadpool_threads"><code>Threadpool_threads</code></a> together with the queue-wait metrics to evaluate the effect.</p>
-<h3 id="thread_pool_size"><code>thread_pool_size</code><a class="headerlink" href="#thread_pool_size" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_size"><code>thread_pool_size</code><a data-markdown-ignore class="headerlink" href="#thread_pool_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11050,7 +11050,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>Defines the number of thread groups in the thread pool. Each thread group maintains its own high-priority and normal-priority queues and handles the connections assigned to the group, using one active worker thread at a time; additional worker threads may be created within the group up to the <a href="#thread_pool_oversubscribe"><code>thread_pool_oversubscribe</code></a> limit. New connections are distributed across the thread groups in round-robin order, so <code>thread_pool_size</code> effectively sets the target concurrency of the thread pool. As a starting point, use a value equal to the number of available CPU cores and tune from there based on observed <a href="#threadpool_idle_threads"><code>Threadpool_idle_threads</code></a>, <a href="#threadpool_threads"><code>Threadpool_threads</code></a>, and the queue-wait metrics <a href="#threadpool_average_queue_wait_us"><code>Threadpool_average_queue_wait_us</code></a> and <a href="#threadpool_average_hp_queue_wait_us"><code>Threadpool_average_hp_queue_wait_us</code></a>.</p>
-<h3 id="thread_pool_stall_limit"><code>thread_pool_stall_limit</code><a class="headerlink" href="#thread_pool_stall_limit" title="Permanent link">&para;</a></h3>
+<h3 id="thread_pool_stall_limit"><code>thread_pool_stall_limit</code><a data-markdown-ignore class="headerlink" href="#thread_pool_stall_limit" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11086,8 +11086,8 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>Defines the number of milliseconds before a running thread is considered stalled. When this limit is reached, the thread pool will wake up or create another thread. This variable prevents a long-running query from monopolizing the pool.</p>
-<h2 id="status-variables">Status variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<h3 id="threadpool_average_hp_queue_wait_us"><code>Threadpool_average_hp_queue_wait_us</code><a class="headerlink" href="#threadpool_average_hp_queue_wait_us" title="Permanent link">&para;</a></h3>
+<h2 id="status-variables">Status variables<a data-markdown-ignore class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
+<h3 id="threadpool_average_hp_queue_wait_us"><code>Threadpool_average_hp_queue_wait_us</code><a data-markdown-ignore class="headerlink" href="#threadpool_average_hp_queue_wait_us" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11110,7 +11110,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <div class="highlight"><pre><span></span><code>avg: 0.000, min: 0.000, max: 0.000, dev: 0.000, cnt: 0
 </code></pre></div>
 <p>Each sample is a single wait-time measurement, in microseconds, taken when a request is dequeued by a worker thread. Every dequeued request contributes exactly one sample. The <code>cnt</code> field shows the number of samples collected since server start; <code>avg</code>, <code>min</code>, <code>max</code>, and <code>dev</code> (standard deviation) are computed across all samples. Requests that the listener thread picks up immediately, without waiting, are included as zero-valued samples.</p>
-<h3 id="threadpool_average_queue_wait_us"><code>Threadpool_average_queue_wait_us</code><a class="headerlink" href="#threadpool_average_queue_wait_us" title="Permanent link">&para;</a></h3>
+<h3 id="threadpool_average_queue_wait_us"><code>Threadpool_average_queue_wait_us</code><a data-markdown-ignore class="headerlink" href="#threadpool_average_queue_wait_us" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11133,7 +11133,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <div class="highlight"><pre><span></span><code>avg: 590.000, min: 470.000, max: 736.000, dev: 110.266, cnt: 5
 </code></pre></div>
 <p>Each sample is a single wait-time measurement, in microseconds, taken when a request is dequeued by a worker thread. Every dequeued request contributes exactly one sample. The <code>cnt</code> field shows the number of samples collected since server start; <code>avg</code>, <code>min</code>, <code>max</code>, and <code>dev</code> (standard deviation) are computed across all samples. Requests that the listener thread picks up immediately, without waiting, are included as zero-valued samples.</p>
-<h3 id="threadpool_idle_threads"><code>Threadpool_idle_threads</code><a class="headerlink" href="#threadpool_idle_threads" title="Permanent link">&para;</a></h3>
+<h3 id="threadpool_idle_threads"><code>Threadpool_idle_threads</code><a data-markdown-ignore class="headerlink" href="#threadpool_idle_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11153,7 +11153,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This status variable shows the number of idle threads in the pool — worker threads that are part of the pool but are not currently executing a request. Together with <a href="#threadpool_threads"><code>Threadpool_threads</code></a>, <code>Threadpool_idle_threads</code> indicates how busy the pool is: when the value is close to <code>Threadpool_threads</code>, the pool is underutilized; when the value is near zero, the pool is saturated. Threads that remain idle longer than <a href="#thread_pool_idle_timeout"><code>thread_pool_idle_timeout</code></a> seconds may exit the pool.</p>
-<h3 id="threadpool_requests_starved_in_queue"><code>Threadpool_requests_starved_in_queue</code><a class="headerlink" href="#threadpool_requests_starved_in_queue" title="Permanent link">&para;</a></h3>
+<h3 id="threadpool_requests_starved_in_queue"><code>Threadpool_requests_starved_in_queue</code><a data-markdown-ignore class="headerlink" href="#threadpool_requests_starved_in_queue" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11173,7 +11173,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This status variable shows the number of requests in the normal-priority queue that are being starved by requests in the high-priority queue. A non-zero value indicates that worker threads are busy processing high-priority traffic and normal-priority requests are not being picked up, which can be used as an indicator of thread pool saturation.</p>
-<h3 id="threadpool_requests_waiting_in_hp_queue"><code>Threadpool_requests_waiting_in_hp_queue</code><a class="headerlink" href="#threadpool_requests_waiting_in_hp_queue" title="Permanent link">&para;</a></h3>
+<h3 id="threadpool_requests_waiting_in_hp_queue"><code>Threadpool_requests_waiting_in_hp_queue</code><a data-markdown-ignore class="headerlink" href="#threadpool_requests_waiting_in_hp_queue" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11193,7 +11193,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This status variable shows the number of requests currently waiting in the thread pool&rsquo;s high-priority queue. Which requests enter the high-priority queue is governed by <a href="#thread_pool_high_prio_mode"><code>thread_pool_high_prio_mode</code></a> and <a href="#thread_pool_high_prio_tickets"><code>thread_pool_high_prio_tickets</code></a>. A sustained or growing value indicates that high-priority traffic is arriving faster than worker threads can drain the queue. Observe <code>Threadpool_requests_waiting_in_hp_queue</code> alongside <a href="#threadpool_average_hp_queue_wait_us"><code>Threadpool_average_hp_queue_wait_us</code></a> to gauge the effect on latency, and alongside <a href="#threadpool_requests_starved_in_queue"><code>Threadpool_requests_starved_in_queue</code></a> to detect when high-priority traffic is starving the normal-priority queue.</p>
-<h3 id="threadpool_requests_waiting_in_queue"><code>Threadpool_requests_waiting_in_queue</code><a class="headerlink" href="#threadpool_requests_waiting_in_queue" title="Permanent link">&para;</a></h3>
+<h3 id="threadpool_requests_waiting_in_queue"><code>Threadpool_requests_waiting_in_queue</code><a data-markdown-ignore class="headerlink" href="#threadpool_requests_waiting_in_queue" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11213,7 +11213,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This status variable shows the number of requests currently waiting in the thread pool&rsquo;s normal-priority queue. Requests enter the normal-priority queue when they do not meet the criteria for the high-priority queue set by <a href="#thread_pool_high_prio_mode"><code>thread_pool_high_prio_mode</code></a> and <a href="#thread_pool_high_prio_tickets"><code>thread_pool_high_prio_tickets</code></a>. A sustained or growing value indicates either that normal-priority traffic is arriving faster than worker threads can drain the queue, or that high-priority traffic is monopolizing the worker threads. Observe <code>Threadpool_requests_waiting_in_queue</code> alongside <a href="#threadpool_average_queue_wait_us"><code>Threadpool_average_queue_wait_us</code></a> to gauge the effect on latency, and alongside <a href="#threadpool_requests_starved_in_queue"><code>Threadpool_requests_starved_in_queue</code></a> to detect starvation by the high-priority queue.</p>
-<h3 id="threadpool_threads"><code>Threadpool_threads</code><a class="headerlink" href="#threadpool_threads" title="Permanent link">&para;</a></h3>
+<h3 id="threadpool_threads"><code>Threadpool_threads</code><a data-markdown-ignore class="headerlink" href="#threadpool_threads" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>

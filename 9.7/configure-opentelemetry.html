@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10760,7 +10760,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="configure-opentelemetry">Configure OpenTelemetry<a class="headerlink" href="#configure-opentelemetry" title="Permanent link">&para;</a></h1>
+<h1 id="configure-opentelemetry">Configure OpenTelemetry<a data-markdown-ignore class="headerlink" href="#configure-opentelemetry" title="Permanent link">&para;</a></h1>
 <p>Percona Server for MySQL 9.7 exports metrics, traces, and logs to an OpenTelemetry-compatible backend. The server uses OpenTelemetry Protocol (OTLP) over HTTP.</p>
 <p>Install and verify the OpenTelemetry component before configuration. See <a href="opentelemetry-lifecycle.html">Install and manage the OpenTelemetry component</a>.</p>
 <div class="admonition note">
@@ -10769,7 +10769,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The examples use the standard OTLP/HTTP port, <code>4318</code>.</p>
 <p>Replace the example address with the address of your collector or compatible backend.</p>
 </div>
-<h2 id="before-you-begin">Before you begin<a class="headerlink" href="#before-you-begin" title="Permanent link">&para;</a></h2>
+<h2 id="before-you-begin">Before you begin<a data-markdown-ignore class="headerlink" href="#before-you-begin" title="Permanent link">&para;</a></h2>
 <p>Confirm that the OpenTelemetry component is installed:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
@@ -10806,9 +10806,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Configure startup-only variables with <code>SET PERSIST_ONLY</code>. Then, restart the server.</p>
 <p>You need the <code>SYSTEM_VARIABLES_ADMIN</code> privilege to change global system variables.</p>
 <p>You also need <code>PERSIST_RO_VARIABLES_ADMIN</code> to persist startup-only variables.</p>
-<h2 id="configure-metrics">Configure metrics<a class="headerlink" href="#configure-metrics" title="Permanent link">&para;</a></h2>
+<h2 id="configure-metrics">Configure metrics<a data-markdown-ignore class="headerlink" href="#configure-metrics" title="Permanent link">&para;</a></h2>
 <p>Metrics telemetry periodically exports measurements from the server meters to an OTLP-compatible endpoint.</p>
-<h3 id="set-the-metrics-endpoint-and-enable-metrics">Set the metrics endpoint and enable metrics<a class="headerlink" href="#set-the-metrics-endpoint-and-enable-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="set-the-metrics-endpoint-and-enable-metrics">Set the metrics endpoint and enable metrics<a data-markdown-ignore class="headerlink" href="#set-the-metrics-endpoint-and-enable-metrics" title="Permanent link">&para;</a></h3>
 <p>Persist the endpoint and enable metrics at the next server start:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/metrics'</span><span class="p">;</span>
@@ -10820,7 +10820,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Note</p>
 <p><code>telemetry.metrics_enabled</code> and the metrics exporter variables are startup-only. <code>SET GLOBAL</code> rejects changes to these variables.</p>
 </div>
-<h3 id="select-the-metrics-protocol">Select the metrics protocol<a class="headerlink" href="#select-the-metrics-protocol" title="Permanent link">&para;</a></h3>
+<h3 id="select-the-metrics-protocol">Select the metrics protocol<a data-markdown-ignore class="headerlink" href="#select-the-metrics-protocol" title="Permanent link">&para;</a></h3>
 <p>The metrics exporter supports the following OTLP/HTTP encodings:</p>
 <table>
 <thead>
@@ -10844,7 +10844,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_protocol</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http/protobuf'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="configure-meters">Configure meters<a class="headerlink" href="#configure-meters" title="Permanent link">&para;</a></h3>
+<h3 id="configure-meters">Configure meters<a data-markdown-ignore class="headerlink" href="#configure-meters" title="Permanent link">&para;</a></h3>
 <p>The <code>performance_schema.setup_meters</code> table controls each meter. You can change the <code>FREQUENCY</code> and <code>ENABLED</code> columns at runtime.</p>
 <p>The following statement disables the MyISAM meter:</p>
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
@@ -10863,7 +10863,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The command-line form is <code>--performance-schema-meter='&lt;METER_NAME&gt;=frequency:&lt;SECONDS&gt;,enabled:ON|OFF'</code>.</p>
 <p>The <code>performance_schema_max_meter_classes</code> variable sets the maximum number of meter instruments. This variable is startup-only.</p>
-<h3 id="configure-metric-reader-frequencies">Configure metric reader frequencies<a class="headerlink" href="#configure-metric-reader-frequencies" title="Permanent link">&para;</a></h3>
+<h3 id="configure-metric-reader-frequencies">Configure metric reader frequencies<a data-markdown-ignore class="headerlink" href="#configure-metric-reader-frequencies" title="Permanent link">&para;</a></h3>
 <p>The component assigns each meter to a metric reader. The meter&rsquo;s <code>FREQUENCY</code> value determines the assignment.</p>
 <table>
 <thead>
@@ -10931,10 +10931,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_compression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'gzip'</span><span class="p">;</span>
 </code></pre></div>
 <p>The timeout uses milliseconds. Compression accepts <code>none</code> or <code>gzip</code>.</p>
-<h2 id="configure-traces">Configure traces<a class="headerlink" href="#configure-traces" title="Permanent link">&para;</a></h2>
+<h2 id="configure-traces">Configure traces<a data-markdown-ignore class="headerlink" href="#configure-traces" title="Permanent link">&para;</a></h2>
 <p>Trace telemetry records client sessions and statement executions as spans.</p>
 <p>A supported client or connector can propagate trace context for distributed traces.</p>
-<h3 id="set-the-traces-endpoint-and-enable-traces">Set the traces endpoint and enable traces<a class="headerlink" href="#set-the-traces-endpoint-and-enable-traces" title="Permanent link">&para;</a></h3>
+<h3 id="set-the-traces-endpoint-and-enable-traces">Set the traces endpoint and enable traces<a data-markdown-ignore class="headerlink" href="#set-the-traces-endpoint-and-enable-traces" title="Permanent link">&para;</a></h3>
 <p>Persist the exporter endpoint and trace setting:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/traces'</span><span class="p">;</span>
@@ -10947,7 +10947,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Use <code>SET PERSIST</code> instead when the runtime change must survive a restart.</p>
-<h3 id="control-sql-query-text">Control SQL query text<a class="headerlink" href="#control-sql-query-text" title="Permanent link">&para;</a></h3>
+<h3 id="control-sql-query-text">Control SQL query text<a data-markdown-ignore class="headerlink" href="#control-sql-query-text" title="Permanent link">&para;</a></h3>
 <p>Statement spans include the original SQL text by default. SQL text may contain sensitive values, such as passwords or personal information.</p>
 <p>To omit SQL text from exported spans:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
@@ -10958,12 +10958,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Other trace attributes may contain sensitive information after you disable query text.</p>
 <p>Review the exported attributes before you enable traces in production. Also review the collector retention and access policies.</p>
 </div>
-<h3 id="select-the-traces-protocol">Select the traces protocol<a class="headerlink" href="#select-the-traces-protocol" title="Permanent link">&para;</a></h3>
+<h3 id="select-the-traces-protocol">Select the traces protocol<a data-markdown-ignore class="headerlink" href="#select-the-traces-protocol" title="Permanent link">&para;</a></h3>
 <p>The traces exporter supports <code>http/protobuf</code> and <code>http/json</code>. Persist a protocol change and restart the server:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_protocol</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http/protobuf'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="configure-trace-batching">Configure trace batching<a class="headerlink" href="#configure-trace-batching" title="Permanent link">&para;</a></h3>
+<h3 id="configure-trace-batching">Configure trace batching<a data-markdown-ignore class="headerlink" href="#configure-trace-batching" title="Permanent link">&para;</a></h3>
 <p>The component uses a Batch Span Processor (BSP) to buffer and export spans.</p>
 <table>
 <thead>
@@ -11008,7 +11008,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_compression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'gzip'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="understand-the-emitted-spans">Understand the emitted spans<a class="headerlink" href="#understand-the-emitted-spans" title="Permanent link">&para;</a></h3>
+<h3 id="understand-the-emitted-spans">Understand the emitted spans<a data-markdown-ignore class="headerlink" href="#understand-the-emitted-spans" title="Permanent link">&para;</a></h3>
 <p>The component emits the following span types. For the span record, parent trace context, and session-attribute names, see <a href="opentelemetry-data-reference.html#trace-format">Trace format</a>.</p>
 <table>
 <thead>
@@ -11042,7 +11042,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>Statement spans can also include error details, affected-row counts, and resource-use measurements.</p>
 <p><code>mysql.sql_text</code> is included only when <code>telemetry.query_text_enabled</code> is <code>ON</code>.</p>
-<h2 id="configure-logs">Configure logs<a class="headerlink" href="#configure-logs" title="Permanent link">&para;</a></h2>
+<h2 id="configure-logs">Configure logs<a data-markdown-ignore class="headerlink" href="#configure-logs" title="Permanent link">&para;</a></h2>
 <p>Log telemetry exports instrumented server log records in OTLP format. <code>component_telemetry</code> is the exporter included with Percona Server for MySQL. See <a href="opentelemetry-data-reference.html#telemetry-logging-interface">Telemetry logging interface</a>.</p>
 <p>Percona Server for MySQL provides logger instruments for the following logs:</p>
 <ul>
@@ -11056,7 +11056,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>General query log</p>
 </li>
 </ul>
-<h3 id="set-the-logs-endpoint-and-enable-logs">Set the logs endpoint and enable logs<a class="headerlink" href="#set-the-logs-endpoint-and-enable-logs" title="Permanent link">&para;</a></h3>
+<h3 id="set-the-logs-endpoint-and-enable-logs">Set the logs endpoint and enable logs<a data-markdown-ignore class="headerlink" href="#set-the-logs-endpoint-and-enable-logs" title="Permanent link">&para;</a></h3>
 <p>Persist the exporter endpoint and log setting:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/logs'</span><span class="p">;</span>
@@ -11069,7 +11069,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">log_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Use <code>SET PERSIST</code> instead when the runtime change must survive a restart.</p>
-<h3 id="configure-logger-levels">Configure logger levels<a class="headerlink" href="#configure-logger-levels" title="Permanent link">&para;</a></h3>
+<h3 id="configure-logger-levels">Configure logger levels<a data-markdown-ignore class="headerlink" href="#configure-logger-levels" title="Permanent link">&para;</a></h3>
 <p>Inspect the available logger instruments and their current levels:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span><span class="p">;</span>
@@ -11080,12 +11080,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'warn'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="select-the-logs-protocol">Select the logs protocol<a class="headerlink" href="#select-the-logs-protocol" title="Permanent link">&para;</a></h3>
+<h3 id="select-the-logs-protocol">Select the logs protocol<a data-markdown-ignore class="headerlink" href="#select-the-logs-protocol" title="Permanent link">&para;</a></h3>
 <p>The logs exporter supports <code>http/protobuf</code> and <code>http/json</code>. Persist a protocol change and restart the server:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_protocol</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http/protobuf'</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="configure-log-batching">Configure log batching<a class="headerlink" href="#configure-log-batching" title="Permanent link">&para;</a></h3>
+<h3 id="configure-log-batching">Configure log batching<a data-markdown-ignore class="headerlink" href="#configure-log-batching" title="Permanent link">&para;</a></h3>
 <p>The component uses a Batch Log Record Processor (BLRP) to buffer and export log records.</p>
 <table>
 <thead>
@@ -11130,7 +11130,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_compression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'gzip'</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="secure-exporter-connections">Secure exporter connections<a class="headerlink" href="#secure-exporter-connections" title="Permanent link">&para;</a></h2>
+<h2 id="secure-exporter-connections">Secure exporter connections<a data-markdown-ignore class="headerlink" href="#secure-exporter-connections" title="Permanent link">&para;</a></h2>
 <p>The examples use <code>http://</code> to show each OTLP path.</p>
 <p>A TLS connection to the collector requires an <code>https://</code> endpoint. An <code>http://</code> endpoint does not use TLS.</p>
 <p>Traces, metrics, and logs use separate exporters. Certificate, key, and TLS settings apply to one signal only. Repeat the TLS settings for each signal that uses HTTPS, even when all three signals use the same collector.</p>
@@ -11200,7 +11200,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 getcap<span class="w"> </span>&lt;MYSQLD_PATH&gt;
 </code></pre></div>
 <p>Replace <code>&lt;MYSQLD_PATH&gt;</code> with the path to the <code>mysqld</code> binary. Repeat <code>setcap</code> after you replace the binary, including after a package upgrade.</p>
-<h2 id="verify-the-configuration">Verify the configuration<a class="headerlink" href="#verify-the-configuration" title="Permanent link">&para;</a></h2>
+<h2 id="verify-the-configuration">Verify the configuration<a data-markdown-ignore class="headerlink" href="#verify-the-configuration" title="Permanent link">&para;</a></h2>
 <p>After restarting the server, inspect the active settings:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.%enabled'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_endpoint'</span><span class="p">;</span>
@@ -11222,7 +11222,7 @@ getcap<span class="w"> </span>&lt;MYSQLD_PATH&gt;
 <p>Check the collector logs when the collector does not receive an enabled signal.</p>
 <p><code>telemetry.otel_log_level</code> filters OpenTelemetry diagnostic messages in the server error log. The default displayed value is <code>info</code>. With the default <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_log_error_verbosity"><code>log_error_verbosity</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> of <code>2</code>, that level records errors and warnings. Notes and debug detail require <code>log_error_verbosity</code> of <code>3</code>. See <a href="opentelemetry-variables.html#diagnostic-messages">Diagnostic messages</a>.</p>
 <p><code>telemetry.otel_log_level</code> is dynamic. Use <code>debug</code> only while troubleshooting. The <code>debug</code> level can produce substantial output.</p>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="opentelemetry-overview.html">OpenTelemetry component overview</a></p>

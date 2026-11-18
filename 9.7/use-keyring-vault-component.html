@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10828,10 +10828,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="use-the-keyring-vault-component">Use the keyring vault component<a class="headerlink" href="#use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
+<h1 id="use-the-keyring-vault-component">Use the keyring vault component<a data-markdown-ignore class="headerlink" href="#use-the-keyring-vault-component" title="Permanent link">&para;</a></h1>
 <p>The <code>keyring_vault</code> component connects Percona Server to a <a href="https://www.hashicorp.com/en/products/vault">HashiCorp Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> server. The component stores and retrieves the encryption keys that protect data at rest.</p>
 <p>A keyring component loads at server startup from a manifest file. The component reads a JSON configuration file during initialization. Do not load a keyring component with <code>INSTALL COMPONENT</code>. InnoDB needs the keyring before the <code>mysql.component</code> table is available.</p>
-<h2 id="available-keyring-components">Available keyring components<a class="headerlink" href="#available-keyring-components" title="Permanent link">&para;</a></h2>
+<h2 id="available-keyring-components">Available keyring components<a data-markdown-ignore class="headerlink" href="#available-keyring-components" title="Permanent link">&para;</a></h2>
 <p>Percona Server provides the following keyring components:</p>
 <table>
 <thead>
@@ -10862,7 +10862,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Each component uses the same manifest mechanism. Each component reads its own configuration file. The name of the configuration file matches the component name with a <code>.cnf</code></p>
 <p>Create a global manifest file named <code>mysqld.my</code> in the directory that contains the <code>mysqld</code> binary. For multiple instances on one host, create a local manifest file with the same name in each data directory.</p>
 <p>If the manifest file does not exist, the server does not load the keyring component. During startup, the server reads the global manifest from the installation directory. The global manifest can list the component directly or point to a local manifest in the data directory.</p>
-<h2 id="manifest-files">Manifest files<a class="headerlink" href="#manifest-files" title="Permanent link">&para;</a></h2>
+<h2 id="manifest-files">Manifest files<a data-markdown-ignore class="headerlink" href="#manifest-files" title="Permanent link">&para;</a></h2>
 <p>The manifest is a JavaScript Object Notation (JSON) object with the following fields:</p>
 <table>
 <thead>
@@ -10888,7 +10888,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="manifest-examples">Manifest examples<a class="headerlink" href="#manifest-examples" title="Permanent link">&para;</a></h3>
+<h3 id="manifest-examples">Manifest examples<a data-markdown-ignore class="headerlink" href="#manifest-examples" title="Permanent link">&para;</a></h3>
 <p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#available-keyring-components">Available keyring components</a>.</p>
 <p>The following example shows a global manifest that loads a component directly:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -10905,7 +10905,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="manifest-locations">Manifest locations<a class="headerlink" href="#manifest-locations" title="Permanent link">&para;</a></h3>
+<h3 id="manifest-locations">Manifest locations<a data-markdown-ignore class="headerlink" href="#manifest-locations" title="Permanent link">&para;</a></h3>
 <p>Percona Server reads two manifest files at startup:</p>
 <table>
 <thead>
@@ -10929,7 +10929,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Both files use the name <code>mysqld.my</code>. The global manifest declares the component directly or delegates to the local manifest.</p>
-<h3 id="why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a class="headerlink" href="#why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
+<h3 id="why-the-manifest-is-the-only-supported-load-path">Why the manifest is the only supported load path<a data-markdown-ignore class="headerlink" href="#why-the-manifest-is-the-only-supported-load-path" title="Permanent link">&para;</a></h3>
 <p>The keyring must load before <code>InnoDB</code> opens an encrypted page. Any mechanism that depends on the Structured Query Language (SQL) layer therefore loads the keyring too late.</p>
 <p>A <code>mysqld</code> startup proceeds in the following order:</p>
 <ol>
@@ -10966,7 +10966,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>A component registered through <code>INSTALL COMPONENT</code> on a running server does not persist across restarts. On the next restart, <code>InnoDB</code> cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed <code>mysqld.my</code> therefore prevents startup for any instance with encrypted tablespaces.</p>
-<h2 id="install-a-keyring-component">Install a keyring component<a class="headerlink" href="#install-a-keyring-component" title="Permanent link">&para;</a></h2>
+<h2 id="install-a-keyring-component">Install a keyring component<a data-markdown-ignore class="headerlink" href="#install-a-keyring-component" title="Permanent link">&para;</a></h2>
 <p>To install a keyring component:</p>
 <ol>
 <li>
@@ -10991,13 +10991,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Start the <code>mysqld</code> process.</p>
 </li>
 </ol>
-<h2 id="verify-the-installation">Verify the installation<a class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h2>
+<h2 id="verify-the-installation">Verify the installation<a data-markdown-ignore class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h2>
 <p>Connect to the server and run the following query:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
 </code></pre></div>
 <p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
-<h2 id="operate-the-keyring">Operate the keyring<a class="headerlink" href="#operate-the-keyring" title="Permanent link">&para;</a></h2>
-<h3 id="rotate-the-master-key">Rotate the master key<a class="headerlink" href="#rotate-the-master-key" title="Permanent link">&para;</a></h3>
+<h2 id="operate-the-keyring">Operate the keyring<a data-markdown-ignore class="headerlink" href="#operate-the-keyring" title="Permanent link">&para;</a></h2>
+<h3 id="rotate-the-master-key">Rotate the master key<a data-markdown-ignore class="headerlink" href="#rotate-the-master-key" title="Permanent link">&para;</a></h3>
 <p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence. Scheduled rotation limits the volume of data wrapped by any single master key. See <a href="data-at-rest-encryption.html">Data at Rest Encryption</a> for the role of the master key.</p>
 <p>Run the following statement to rotate the master key:</p>
 <div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
@@ -11006,9 +11006,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
 <p>Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.</p>
 <p>For required privileges and the full rotation procedure, see <a href="rotate-master-key.html">Rotate the master encryption key</a>.</p>
-<h3 id="monitor-the-keyring">Monitor the keyring<a class="headerlink" href="#monitor-the-keyring" title="Permanent link">&para;</a></h3>
+<h3 id="monitor-the-keyring">Monitor the keyring<a data-markdown-ignore class="headerlink" href="#monitor-the-keyring" title="Permanent link">&para;</a></h3>
 <p>Use the query in <a href="#verify-the-installation">Verify the installation</a> to inspect the keyring at runtime. Configure alerts on <code>Component_status</code> transitions to <code>Disabled</code>. Watch the server error log for keyring-related errors. The server writes manifest parse errors, configuration parse errors, and backend connection errors to the error log.</p>
-<h3 id="back-up-and-restore">Back up and restore<a class="headerlink" href="#back-up-and-restore" title="Permanent link">&para;</a></h3>
+<h3 id="back-up-and-restore">Back up and restore<a data-markdown-ignore class="headerlink" href="#back-up-and-restore" title="Permanent link">&para;</a></h3>
 <p>A backup of an encrypted tablespace requires keyring access on the destination host. The destination host must read the same key material that encrypted the backup.</p>
 <p>The following table summarizes the keyring requirement for each backend:</p>
 <table>
@@ -11038,7 +11038,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Test a restore on a separate host before relying on the backup. A restore that runs on the original host can succeed even when the keyring configuration is incorrect.</p>
-<h2 id="replace-or-remove-a-keyring-component">Replace or remove a keyring component<a class="headerlink" href="#replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
+<h2 id="replace-or-remove-a-keyring-component">Replace or remove a keyring component<a data-markdown-ignore class="headerlink" href="#replace-or-remove-a-keyring-component" title="Permanent link">&para;</a></h2>
 <p>To replace a keyring component:</p>
 <ol>
 <li>
@@ -11073,7 +11073,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Warning</p>
 <p>Configure exactly one keyring per server instance. Percona Server does not support multiple keyring plugins, multiple keyring components, or any combination of plugin and component. Such configurations risk data loss.</p>
 </div>
-<h2 id="configure-the-keyring-vault-component">Configure the keyring vault component<a class="headerlink" href="#configure-the-keyring-vault-component" title="Permanent link">&para;</a></h2>
+<h2 id="configure-the-keyring-vault-component">Configure the keyring vault component<a data-markdown-ignore class="headerlink" href="#configure-the-keyring-vault-component" title="Permanent link">&para;</a></h2>
 <p>The configuration settings live in either a global configuration file or a local configuration file.</p>
 <p>The component connects to the <a href="https://developer.hashicorp.com/vault/docs/install">HashiCorp Vault server <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> over Hypertext Transfer Protocol Secure (HTTPS) for production deployments. The component also accepts plain <code>http://</code> URLs for development. Prepare the certificate and key files for the secure connection. Each Vault server instance requires three artifacts:</p>
 <ul>
@@ -11089,9 +11089,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>You can generate the artifacts with <a href="https://www.openssl.org/docs/man3.0/index.html">OpenSSL <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> or reuse existing files. The key files contain sensitive material. Store the key files and the password for each key in a secure location.</p>
 <p>You can also <a href="https://developer.hashicorp.com/vault/tutorials/secrets-management/pki-engine">build a CA inside Vault <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The Vault CA can then issue the server certificate.</p>
-<h3 id="configuration-parameters">Configuration parameters<a class="headerlink" href="#configuration-parameters" title="Permanent link">&para;</a></h3>
+<h3 id="configuration-parameters">Configuration parameters<a data-markdown-ignore class="headerlink" href="#configuration-parameters" title="Permanent link">&para;</a></h3>
 <p>The <code>component_keyring_vault.cnf</code> file contains required and optional parameters.</p>
-<h4 id="required-parameters">Required parameters<a class="headerlink" href="#required-parameters" title="Permanent link">&para;</a></h4>
+<h4 id="required-parameters">Required parameters<a data-markdown-ignore class="headerlink" href="#required-parameters" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
 <p><code>secret_mount_point</code> — the mount point name where <code>keyring_vault</code> stores the keys.</p>
@@ -11103,7 +11103,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>vault_url</code> — the address of the Vault server. The address must start with <code>http://</code> or <code>https://</code>. Use <code>https://</code> for production traffic. Use <code>http://</code> only for development. The component follows HTTP redirects returned by Vault. This behavior supports cluster setups where a load balancer redirects clients to the active Vault node.</p>
 </li>
 </ul>
-<h4 id="optional-parameters">Optional parameters<a class="headerlink" href="#optional-parameters" title="Permanent link">&para;</a></h4>
+<h4 id="optional-parameters">Optional parameters<a data-markdown-ignore class="headerlink" href="#optional-parameters" title="Permanent link">&para;</a></h4>
 <p>The component checks the value of <code>read_local_config</code> before any other parameter.</p>
 <ul>
 <li>
@@ -11123,7 +11123,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The component trims leading and trailing whitespace from each parameter value before parsing.</p>
 <p>Run <code>SELECT * FROM performance_schema.keyring_component_status</code> to inspect the loaded configuration. The view reports each parameter value and the <code>Active</code> or <code>Disabled</code> status. The view also reports the component identity fields: <code>Component_name</code>, <code>Author</code>, <code>License</code>, <code>Implementation_name</code>, and <code>Version</code>.</p>
-<h4 id="example-configuration">Example configuration<a class="headerlink" href="#example-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="example-configuration">Example configuration<a data-markdown-ignore class="headerlink" href="#example-configuration" title="Permanent link">&para;</a></h4>
 <p>The following example shows a <code>component_keyring_vault.cnf</code> file in JSON format with sample values for each parameter.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
@@ -11162,7 +11162,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Assign a unique <code>secret_mount_point</code> to each Percona Server instance.</p>
 </div>
 <p>The component fetches the key type and data from the Vault server on the first request for that key.</p>
-<h4 id="validation-rules">Validation rules<a class="headerlink" href="#validation-rules" title="Permanent link">&para;</a></h4>
+<h4 id="validation-rules">Validation rules<a data-markdown-ignore class="headerlink" href="#validation-rules" title="Permanent link">&para;</a></h4>
 <p>The component validates each parameter at startup. The following table lists the rejected configurations and their effects:</p>
 <table>
 <thead>
@@ -11198,7 +11198,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="secret_mount_point_version-values"><code>secret_mount_point_version</code> values<a class="headerlink" href="#secret_mount_point_version-values" title="Permanent link">&para;</a></h3>
+<h3 id="secret_mount_point_version-values"><code>secret_mount_point_version</code> values<a data-markdown-ignore class="headerlink" href="#secret_mount_point_version-values" title="Permanent link">&para;</a></h3>
 <p>The <code>secret_mount_point_version</code> parameter accepts one of the following values:</p>
 <table>
 <thead>
@@ -11249,7 +11249,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h4 id="auto-detection-algorithm">Auto-detection algorithm<a class="headerlink" href="#auto-detection-algorithm" title="Permanent link">&para;</a></h4>
+<h4 id="auto-detection-algorithm">Auto-detection algorithm<a data-markdown-ignore class="headerlink" href="#auto-detection-algorithm" title="Permanent link">&para;</a></h4>
 <p>The component runs the auto-detection probe during initialization in two cases:</p>
 <ul>
 <li>
@@ -11261,7 +11261,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The probe walks <code>secret_mount_point</code> from the longest prefix to the shortest. The probe queries the Vault metadata configuration endpoint for each prefix. The first prefix that returns a <code>kv-v2</code> response defines the mount point path. The remainder of <code>secret_mount_point</code> becomes the directory path. The component falls back to <code>kv</code> when no prefix returns <code>kv-v2</code>.</p>
 <p>The probe writes one informational message per prefix to the server log. The messages identify successful matches, unreadable responses, and rejected prefixes.</p>
-<h3 id="upgrade-from-vault-secrets-engine-version-1-to-version-2">Upgrade from Vault Secrets Engine Version 1 to Version 2<a class="headerlink" href="#upgrade-from-vault-secrets-engine-version-1-to-version-2" title="Permanent link">&para;</a></h3>
+<h3 id="upgrade-from-vault-secrets-engine-version-1-to-version-2">Upgrade from Vault Secrets Engine Version 1 to Version 2<a data-markdown-ignore class="headerlink" href="#upgrade-from-vault-secrets-engine-version-1-to-version-2" title="Permanent link">&para;</a></h3>
 <p>Use either of the following methods to upgrade from Version 1 to Version 2:</p>
 <ul>
 <li>
@@ -11275,7 +11275,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Note</p>
 <p>The <code>keyring_vault</code> component does not use the built-in key versioning of <code>kv-v2</code>. The component encodes each version into the keyring key name.</p>
 </div>
-<h2 id="services-exposed-by-the-component">Services exposed by the component<a class="headerlink" href="#services-exposed-by-the-component" title="Permanent link">&para;</a></h2>
+<h2 id="services-exposed-by-the-component">Services exposed by the component<a data-markdown-ignore class="headerlink" href="#services-exposed-by-the-component" title="Permanent link">&para;</a></h2>
 <p>The <code>keyring_vault</code> component implements the following services for keyring operations. Other components and the server core consume these services to manage keys backed by Vault:</p>
 <table>
 <thead>
@@ -11320,13 +11320,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>The <code>keyring_aes</code> service supports server-side encryption at rest. The service also supports the AES UDFs when paired with the encryption UDF component.</p>
-<h2 id="operate-the-vault-component">Operate the vault component<a class="headerlink" href="#operate-the-vault-component" title="Permanent link">&para;</a></h2>
+<h2 id="operate-the-vault-component">Operate the vault component<a data-markdown-ignore class="headerlink" href="#operate-the-vault-component" title="Permanent link">&para;</a></h2>
 <p>The shared Operate the keyring section covers rotation, monitoring, and backup procedures that apply to every keyring component. The following notes describe behaviors that are specific to <code>keyring_vault</code>.</p>
-<h3 id="rotate-the-master-key_1">Rotate the master key<a class="headerlink" href="#rotate-the-master-key_1" title="Permanent link">&para;</a></h3>
+<h3 id="rotate-the-master-key_1">Rotate the master key<a data-markdown-ignore class="headerlink" href="#rotate-the-master-key_1" title="Permanent link">&para;</a></h3>
 <p>Each <code>ALTER INSTANCE ROTATE INNODB MASTER KEY</code> statement writes a master key entry to Vault under the configured <code>secret_mount_point</code>. The previous key remains in Vault history when <code>secret_mount_point_version</code> is <code>2</code>. The previous key also remains when the AUTO probe identifies a <code>kv-v2</code> mount. The component contacts Vault during the rotation, so a slow or unreachable Vault delays statement completion. Schedule rotation during a low-load window.</p>
-<h3 id="monitor-the-component">Monitor the component<a class="headerlink" href="#monitor-the-component" title="Permanent link">&para;</a></h3>
+<h3 id="monitor-the-component">Monitor the component<a data-markdown-ignore class="headerlink" href="#monitor-the-component" title="Permanent link">&para;</a></h3>
 <p>Compare the values returned by <code>performance_schema.keyring_component_status</code> against <code>component_keyring_vault.cnf</code>. The comparison detects drift in <code>vault_url</code>, <code>secret_mount_point</code>, <code>vault_ca</code>, and <code>secret_mount_point_version</code>. Watch the server error log for <code>HTTP 403</code> (token expiration) and <code>HTTP 503</code> (sealed Vault). Configure alerts on both patterns.</p>
-<h3 id="back-up-and-restore_1">Back up and restore<a class="headerlink" href="#back-up-and-restore_1" title="Permanent link">&para;</a></h3>
+<h3 id="back-up-and-restore_1">Back up and restore<a data-markdown-ignore class="headerlink" href="#back-up-and-restore_1" title="Permanent link">&para;</a></h3>
 <p>A Vault-backed restore requires the following on the destination host:</p>
 <ul>
 <li>
@@ -11342,7 +11342,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>kv-v2</code> history retention that covers the time between backup and restore. A backup taken before a master-key rotation cannot decrypt later tablespaces. The post-rotation key must remain in Vault history for the restore to succeed.</p>
 </li>
 </ul>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="data-at-rest-encryption.html">Data at Rest Encryption</a> describes how Percona Server uses the keyring to protect tablespace data.</p>

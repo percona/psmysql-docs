@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10696,9 +10696,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-functions-options-and-variables">Audit log filter functions, options, and variables<a class="headerlink" href="#audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-filter-functions-options-and-variables">Audit log filter functions, options, and variables<a data-markdown-ignore class="headerlink" href="#audit-log-filter-functions-options-and-variables" title="Permanent link">&para;</a></h1>
 <p>Reference for audit log filter <a href="#audit-log-filter-functions">functions</a> and <a href="#audit-log-filter-options-and-variables">options / variables</a>.</p>
-<h2 id="audit-log-filter-functions">Audit log filter functions<a class="headerlink" href="#audit-log-filter-functions" title="Permanent link">&para;</a></h2>
+<h2 id="audit-log-filter-functions">Audit log filter functions<a data-markdown-ignore class="headerlink" href="#audit-log-filter-functions" title="Permanent link">&para;</a></h2>
 <p>Available UDFs:</p>
 <table>
 <thead>
@@ -10742,13 +10742,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)<a class="headerlink" href="#audit_log_encryption_password_getkeyring_id" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_encryption_password_getkeyring_id">audit_log_encryption_password_get(keyring_id)<a data-markdown-ignore class="headerlink" href="#audit_log_encryption_password_getkeyring_id" title="Permanent link">&para;</a></h3>
 <p>Returns the audit encryption password (and iteration metadata) from the enabled keyring. Without a working keyring, the call errors.</p>
-<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+<h4 id="parameters">Parameters<a data-markdown-ignore class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
 <p><code>keyring_id</code> — Omit to fetch the active password. Pass a keyring ID to read a specific archived or current entry.</p>
-<h4 id="returns">Returns<a class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
+<h4 id="returns">Returns<a data-markdown-ignore class="headerlink" href="#returns" title="Permanent link">&para;</a></h4>
 <p>JSON with <code>password</code> and <code>iterations</code> for the requested keyring entry.</p>
-<h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
+<h4 id="example">Example<a data-markdown-ignore class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_get</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
@@ -10760,13 +10760,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +---------------------------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)<a class="headerlink" href="#audit_log_encryption_password_setnew_password" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)<a data-markdown-ignore class="headerlink" href="#audit_log_encryption_password_setnew_password" title="Permanent link">&para;</a></h3>
 <p>Sets a new audit encryption password in the keyring. The call may also rotate the log file when encryption is active. See <a href="audit-log-filter-compression-encryption.html">Audit Log Filter compression and encryption</a>.</p>
-<h4 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_1">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h4>
 <p><code>new_password</code> — String up to 766 bytes.</p>
-<h4 id="returns_1">Returns<a class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
+<h4 id="returns_1">Returns<a data-markdown-ignore class="headerlink" href="#returns_1" title="Permanent link">&para;</a></h4>
 <p><code>OK</code> on success; an error string on failure.</p>
-<h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
+<h4 id="example_1">Example<a data-markdown-ignore class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_set</span><span class="p">(</span><span class="s1">'passw0rd'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
@@ -10778,15 +10778,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +-----------------------------------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_filter_flush">audit_log_filter_flush()<a class="headerlink" href="#audit_log_filter_flush" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filter_flush">audit_log_filter_flush()<a data-markdown-ignore class="headerlink" href="#audit_log_filter_flush" title="Permanent link">&para;</a></h3>
 <p>Reloads filter JSON and account rows from <code>mysql.audit_log_filter</code> / <code>mysql.audit_log_user</code> into the component so memory matches disk.</p>
 <p>Table edits alone do not refresh every open session. Table edits include direct DML and <a href="#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>. Call <code>audit_log_filter_flush()</code> when all sessions must see new rules. For details, see Persistence and refreshing on <a href="#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>.</p>
 <p>A flush detaches existing sessions until those sessions reconnect or run <code>CHANGE_USER</code>. New connections apply the reloaded registry immediately. When you cannot tolerate a gap, reconnect clients after flushing.</p>
-<h4 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_2">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h4>
 <p>None.</p>
-<h4 id="returns_2">Returns<a class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
+<h4 id="returns_2">Returns<a data-markdown-ignore class="headerlink" href="#returns_2" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
+<h4 id="example_2">Example<a data-markdown-ignore class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_flush</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
@@ -10798,9 +10798,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +--------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_read">audit_log_read()<a class="headerlink" href="#audit_log_read" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_read">audit_log_read()<a data-markdown-ignore class="headerlink" href="#audit_log_read" title="Permanent link">&para;</a></h3>
 <p>Reads JSON or JSONL audit files and returns events as a JSON array string. Other formats error.</p>
-<h4 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_3">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h4>
 <p>The function accepts a single JSON argument that selects a starting point. Four forms are valid:</p>
 <ul>
 <li>
@@ -10851,9 +10851,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Seed reads with <a href="#audit_log_read_bookmark"><code>audit_log_read_bookmark()</code></a> when you want to resume from the tail of the log.</p>
-<h4 id="returns_3">Returns<a class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
+<h4 id="returns_3">Returns<a data-markdown-ignore class="headerlink" href="#returns_3" title="Permanent link">&para;</a></h4>
 <p>JSON array text, JSON <code>NULL</code> when no more events are available, the literal string <code>OK</code> when the call closes the active read sequence with the <code>'null'</code> argument, or an error. Output is strictly valid JSON, honors <code>max_array_length</code>, and resumes cleanly from bookmarks.</p>
-<h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
+<h4 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
 <p>Resume from the most recent event (typical pattern):</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="n">audit_log_read_bookmark</span><span class="p">());</span>
 </code></pre></div>
@@ -10884,16 +10884,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Close the current read sequence:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'null'</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="audit_log_read_bookmark">audit_log_read_bookmark()<a class="headerlink" href="#audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_read_bookmark">audit_log_read_bookmark()<a data-markdown-ignore class="headerlink" href="#audit_log_read_bookmark" title="Permanent link">&para;</a></h3>
 <p>Returns a JSON bookmark for the latest event. Supported for JSON and JSONL formats only. Other formats return an error.</p>
 <p>Pass the bookmark into <a href="#audit_log_read"><code>audit_log_read()</code></a> to begin there.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="n">audit_log_read_bookmark</span><span class="p">());</span>
 </code></pre></div>
-<h4 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_4">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h4>
 <p>None.</p>
-<h4 id="returns_4">Returns<a class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
+<h4 id="returns_4">Returns<a data-markdown-ignore class="headerlink" href="#returns_4" title="Permanent link">&para;</a></h4>
 <p>This function returns a <code>JSON</code> string containing a bookmark for success or  <code>NULL</code> and an error for failure.</p>
-<h4 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
+<h4 id="example_3">Example<a data-markdown-ignore class="headerlink" href="#example_3" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read_bookmark</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
@@ -10905,17 +10905,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +----------------------------------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_session_filter_id"><code>audit_log_session_filter_id()</code><a class="headerlink" href="#audit_log_session_filter_id" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_session_filter_id"><code>audit_log_session_filter_id()</code><a data-markdown-ignore class="headerlink" href="#audit_log_session_filter_id" title="Permanent link">&para;</a></h3>
 <p>Returns the active filter ID for this session, or 0 when no filter applies.</p>
-<h3 id="audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)<a class="headerlink" href="#audit_log_filter_remove_filterfilter_name" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)<a data-markdown-ignore class="headerlink" href="#audit_log_filter_remove_filterfilter_name" title="Permanent link">&para;</a></h3>
 <p>Drops a filter definition and clears <code>mysql.audit_log_user</code> rows that pointed at it.</p>
 <p>Only sessions using that filter detach; others keep logging.</p>
-<h4 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_5">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h4>
 <p><code>filter_name</code> - a selected filter name as a string.</p>
-<h4 id="returns_5">Returns<a class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
+<h4 id="returns_5">Returns<a data-markdown-ignore class="headerlink" href="#returns_5" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <p>If the filter name does not exist, no error is generated. </p>
-<h4 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
+<h4 id="example_4">Example<a data-markdown-ignore class="headerlink" href="#example_4" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_filter</span><span class="p">(</span><span class="s1">'filter-name'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
@@ -10927,16 +10927,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +------------------------------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)<a class="headerlink" href="#audit_log_filter_remove_useruser_name" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filter_remove_useruser_name">audit_log_filter_remove_user(user_name)<a data-markdown-ignore class="headerlink" href="#audit_log_filter_remove_useruser_name" title="Permanent link">&para;</a></h3>
 <p>Removes the <code>mysql.audit_log_user</code> row for that account pattern.</p>
 <p>Open sessions keep the cached filter until reconnect or <code>CHANGE_USER</code>. New sessions fall back to the <code>%</code> default, or stop auditing when no default exists.</p>
 <p>Passing <code>user_name = '%'</code> clears the default assignment.</p>
-<h4 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_6">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h4>
 <p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
-<h4 id="returns_6">Returns<a class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h4>
+<h4 id="returns_6">Returns<a data-markdown-ignore class="headerlink" href="#returns_6" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
 <p>If the user_name has no filter assigned, no error is generated. </p>
-<h4 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h4>
+<h4 id="example_5">Example<a data-markdown-ignore class="headerlink" href="#example_5" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_remove_user</span><span class="p">(</span><span class="s1">'user-name@localhost'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
@@ -10948,26 +10948,26 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +------------------------------------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_rotate">audit_log_rotate()<a class="headerlink" href="#audit_log_rotate" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_rotate">audit_log_rotate()<a data-markdown-ignore class="headerlink" href="#audit_log_rotate" title="Permanent link">&para;</a></h3>
 <p>Rotates the active audit file and returns the archived name.</p>
 <p>Colliding timestamps add a <code>-N</code> suffix so rotations never overwrite each other.</p>
-<h4 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_7">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h4>
 <p>None.</p>
-<h4 id="returns_7">Returns<a class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h4>
+<h4 id="returns_7">Returns<a data-markdown-ignore class="headerlink" href="#returns_7" title="Permanent link">&para;</a></h4>
 <p>This function returns the renamed file name.</p>
-<h4 id="example_6">Example<a class="headerlink" href="#example_6" title="Permanent link">&para;</a></h4>
+<h4 id="example_6">Example<a data-markdown-ignore class="headerlink" href="#example_6" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_rotate</span><span class="p">();</span>
 </code></pre></div>
-<h3 id="audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a data-markdown-ignore class="headerlink" href="#audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
 <p>Writes JSON for <code>filter_name</code> to <code>mysql.audit_log_filter</code> (create or update). Each stored revision gets a new filter ID.</p>
 <p>Validation runs at parse time. Bad fields, unknown classes or subclasses, empty arrays, stray JSON keys, and broken <code>print</code> rules abort the call with a detailed error. For example:</p>
 <div class="highlight"><pre><span></span><code>ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 </code></pre></div>
 <p>In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).</p>
-<h4 id="persistence-and-refreshing">Persistence and refreshing<a class="headerlink" href="#persistence-and-refreshing" title="Permanent link">&para;</a></h4>
+<h4 id="persistence-and-refreshing">Persistence and refreshing<a data-markdown-ignore class="headerlink" href="#persistence-and-refreshing" title="Permanent link">&para;</a></h4>
 <p><code>audit_log_filter_set_filter()</code> persists JSON but does not patch in-memory state for every open session. Run <a href="#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> to reload all definitions into the component.</p>
 <p>After a flush, existing sessions detach until reconnect or <code>CHANGE_USER</code>. New sessions apply changes immediately.</p>
-<h4 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_8">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
 <p><code>filter_name</code> - a selected filter name as a string.</p>
@@ -10976,9 +10976,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>definition</code> - Defines the definition as a JSON value.</p>
 </li>
 </ul>
-<h4 id="returns_8">Returns<a class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h4>
+<h4 id="returns_8">Returns<a data-markdown-ignore class="headerlink" href="#returns_8" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<h4 id="example_7">Example<a class="headerlink" href="#example_7" title="Permanent link">&para;</a></h4>
+<h4 id="example_7">Example<a data-markdown-ignore class="headerlink" href="#example_7" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'filter-name'</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">filter</span><span class="p">);</span>
 </code></pre></div>
@@ -10991,7 +10991,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +-------------------------------------------------------------+
 </code></pre></div>
 </details>
-<h3 id="audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)<a class="headerlink" href="#audit_log_filter_set_useruser_name-filter_name" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filter_set_useruser_name-filter_name">audit_log_filter_set_user(user_name, filter_name)<a data-markdown-ignore class="headerlink" href="#audit_log_filter_set_useruser_name-filter_name" title="Permanent link">&para;</a></h3>
 <p>Binds <code>filter_name</code> to a login pattern in <code>mysql.audit_log_user</code>.</p>
 <p>Host wildcards (<code>%</code>, <code>_</code>) work in the host portion (<code>'usr1@%'</code>, <code>'usr2%172.16.10.%'</code>, <code>'usr3@%.mycorp.com'</code>, …).</p>
 <p>This UDF controls which named filter loads for a session. JSON <code>user</code> and <code>host</code> keys inside the filter still narrow events after load, but those keys are not a second assignment row. See <a href="filter-audit-log-filter-files.html#assignment-vs-rules-inside-the-json">Assignment vs rules inside the JSON</a>.</p>
@@ -10999,7 +10999,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>One active mapping exists per account row. The call replaces any previous mapping.</p>
 <p>Open sessions keep the old mapping until reconnect or <code>CHANGE_USER</code>. Flush when you must realign all sessions immediately.</p>
 <p>The special user <code>%</code> is the default row used when no literal match exists. Specific <code>user@host</code> rows always beat <code>%</code>.</p>
-<h4 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h4>
+<h4 id="parameters_9">Parameters<a data-markdown-ignore class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
 <p><code>user_name</code> - a selected user name in either the <code>user_name</code>@<code>host_name</code> format or <code>%</code>.</p>
@@ -11008,9 +11008,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>filter_name</code> - a selected filter name as a string.</p>
 </li>
 </ul>
-<h4 id="returns_9">Returns<a class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h4>
+<h4 id="returns_9">Returns<a data-markdown-ignore class="headerlink" href="#returns_9" title="Permanent link">&para;</a></h4>
 <p>This function returns either an <code>OK</code> for success or an error message for failure.</p>
-<h4 id="example_8">Example<a class="headerlink" href="#example_8" title="Permanent link">&para;</a></h4>
+<h4 id="example_8">Example<a data-markdown-ignore class="headerlink" href="#example_8" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'user-name@localhost'</span><span class="p">,</span><span class="w"> </span><span class="s1">'filter-name'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
@@ -11022,11 +11022,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +-------------------------------------------------------------------+
 </code></pre></div>
 </details>
-<h2 id="audit-log-filter-options-and-variables">Audit log filter options and variables<a class="headerlink" href="#audit-log-filter-options-and-variables" title="Permanent link">&para;</a></h2>
+<h2 id="audit-log-filter-options-and-variables">Audit log filter options and variables<a data-markdown-ignore class="headerlink" href="#audit-log-filter-options-and-variables" title="Permanent link">&para;</a></h2>
 <p>Audit Log Filter component uses the SQL form <code>audit_log_filter.&lt;option&gt;</code> (for example <code>audit_log_filter.file</code>).</p>
-<h3 id="examples-command-line-and-option-file">Examples: command line and option file<a class="headerlink" href="#examples-command-line-and-option-file" title="Permanent link">&para;</a></h3>
+<h3 id="examples-command-line-and-option-file">Examples: command line and option file<a data-markdown-ignore class="headerlink" href="#examples-command-line-and-option-file" title="Permanent link">&para;</a></h3>
 <p>Use the same option spelling as the Command-line field in each variable&rsquo;s reference table. The long name uses hyphens in the <code>audit-log-filter</code> prefix and keeps a dot before the option, for example <code>--audit-log-filter.file</code>. Read-only options require a server restart. Use <code>SET GLOBAL</code> only where the variable is documented as dynamic.</p>
-<h3 id="startup-and-runtime-variables">Startup and runtime variables<a class="headerlink" href="#startup-and-runtime-variables" title="Permanent link">&para;</a></h3>
+<h3 id="startup-and-runtime-variables">Startup and runtime variables<a data-markdown-ignore class="headerlink" href="#startup-and-runtime-variables" title="Permanent link">&para;</a></h3>
 <p>The following settings are system variables (<code>audit_log_filter.&lt;option&gt;</code>). Each subsection lists the command-line name and whether the variable is dynamic.</p>
 <table>
 <thead>
@@ -11100,7 +11100,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h3 id="audit_log_filterbuffer_size"><code>audit_log_filter.buffer_size</code><a class="headerlink" href="#audit_log_filterbuffer_size" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterbuffer_size"><code>audit_log_filter.buffer_size</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterbuffer_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11149,12 +11149,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>Read-only size of the asynchronous audit buffer (multiples of 4096 bytes). Events queue here before hitting disk. Requires restart to change.</p>
 <p>The component allocates one buffer for its lifetime.</p>
-<h4 id="example_9">Example<a class="headerlink" href="#example_9" title="Permanent link">&para;</a></h4>
+<h4 id="example_9">Example<a data-markdown-ignore class="headerlink" href="#example_9" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.buffer-size</span><span class="o">=</span><span class="s">2097152</span>
 </code></pre></div>
-<h3 id="audit_log_filtercompression"><code>audit_log_filter.compression</code><a class="headerlink" href="#audit_log_filtercompression" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filtercompression"><code>audit_log_filter.compression</code><a data-markdown-ignore class="headerlink" href="#audit_log_filtercompression" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11190,12 +11190,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Read-only compression mode: <code>NONE</code> (default) or <code>GZIP</code>. Requires restart.</p>
-<h4 id="example_10">Example<a class="headerlink" href="#example_10" title="Permanent link">&para;</a></h4>
+<h4 id="example_10">Example<a data-markdown-ignore class="headerlink" href="#example_10" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.compression</span><span class="o">=</span><span class="s">GZIP</span>
 </code></pre></div>
-<h3 id="audit_log_filterdatabase"><code>audit_log_filter.database</code><a class="headerlink" href="#audit_log_filterdatabase" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterdatabase"><code>audit_log_filter.database</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterdatabase" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11227,12 +11227,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Read-only database that hosts <code>audit_log_filter</code> and <code>audit_log_user</code>. The value must be non-<code>NULL</code>, 64 characters or fewer, and valid. An invalid value prevents the component from starting. Restart to change the value.</p>
-<h4 id="example_11">Example<a class="headerlink" href="#example_11" title="Permanent link">&para;</a></h4>
+<h4 id="example_11">Example<a data-markdown-ignore class="headerlink" href="#example_11" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.database</span><span class="o">=</span><span class="s">mysql</span>
 </code></pre></div>
-<h3 id="audit_log_filterdirect_io"><code>audit_log_filter.direct_io</code><a class="headerlink" href="#audit_log_filterdirect_io" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterdirect_io"><code>audit_log_filter.direct_io</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterdirect_io" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11269,12 +11269,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Writes use a 4 KB aligned staging buffer internally.</p>
 <p>If the file system does not support <code>O_DIRECT</code> or a direct write fails at runtime, the component gracefully falls back to buffered I/O with a warning.</p>
 <p>Whether <code>O_DIRECT</code> works depends on the file system that backs the audit log path. Local ext4 and XFS volumes usually support direct I/O. <code>tmpfs</code> usually does not. Confirm support for the audit log directory before enabling <code>audit_log_filter.direct_io</code>.</p>
-<h4 id="example_12">Example<a class="headerlink" href="#example_12" title="Permanent link">&para;</a></h4>
+<h4 id="example_12">Example<a data-markdown-ignore class="headerlink" href="#example_12" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.direct-io</span><span class="o">=</span><span class="s">ON</span>
 </code></pre></div>
-<h3 id="audit_log_filterdisable"><code>audit_log_filter.disable</code><a class="headerlink" href="#audit_log_filterdisable" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterdisable"><code>audit_log_filter.disable</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterdisable" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11307,7 +11307,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>When ON, stops audit output for all sessions.</p>
 <p>Runtime changes need <code>SYSTEM_VARIABLES_ADMIN</code> and <code>AUDIT_ADMIN</code>.</p>
-<h4 id="example_13">Example<a class="headerlink" href="#example_13" title="Permanent link">&para;</a></h4>
+<h4 id="example_13">Example<a data-markdown-ignore class="headerlink" href="#example_13" title="Permanent link">&para;</a></h4>
 <p>Runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
@@ -11315,7 +11315,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.disable</span><span class="o">=</span><span class="s">ON</span>
 </code></pre></div>
-<h3 id="audit_log_filterencryption"><code>audit_log_filter.encryption</code><a class="headerlink" href="#audit_log_filterencryption" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterencryption"><code>audit_log_filter.encryption</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterencryption" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11359,12 +11359,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>AES</code> </p>
 </li>
 </ul>
-<h4 id="example_14">Example<a class="headerlink" href="#example_14" title="Permanent link">&para;</a></h4>
+<h4 id="example_14">Example<a data-markdown-ignore class="headerlink" href="#example_14" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.encryption</span><span class="o">=</span><span class="s">AES</span>
 </code></pre></div>
-<h3 id="audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code><a class="headerlink" href="#audit_log_filterevent_mode" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterevent_mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11454,7 +11454,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>In REDUCED mode, calling a stored procedure logs the outer <code>CALL</code> statement but not the individual SQL statements executed inside the procedure body. The <code>general/status</code> event generated by the internal <code>Quit</code> command is also suppressed in REDUCED mode.</p>
 <p><code>FULL</code> — all event classes and subclasses are processed, including <code>global_variable</code>, <code>command</code>, <code>query</code>, <code>stored_program</code>, <code>authentication</code>, and <code>parse</code> on top of the <code>REDUCED</code> set. The default is <code>REDUCED</code>.</p>
 <p>Changing <code>event_mode</code> at runtime triggers an automatic filter reload.</p>
-<h4 id="switching-event_mode-at-runtime">Switching <code>event_mode</code> at runtime<a class="headerlink" href="#switching-event_mode-at-runtime" title="Permanent link">&para;</a></h4>
+<h4 id="switching-event_mode-at-runtime">Switching <code>event_mode</code> at runtime<a data-markdown-ignore class="headerlink" href="#switching-event_mode-at-runtime" title="Permanent link">&para;</a></h4>
 <p>The component reads <code>event_mode</code> on every audit event, not at session bind time. The switch is not atomic across an event stream:</p>
 <ul>
 <li>
@@ -11480,7 +11480,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Persisted filters that reference classes disabled under the new mode are not removed. The component silently skips those classes and logs a warning. See the rules under <a href="#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>.</p>
-<h4 id="example_15">Example<a class="headerlink" href="#example_15" title="Permanent link">&para;</a></h4>
+<h4 id="example_15">Example<a data-markdown-ignore class="headerlink" href="#example_15" title="Permanent link">&para;</a></h4>
 <p>Runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">event_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'FULL'</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">GLOBAL</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">event_mode</span><span class="p">;</span>
@@ -11490,7 +11490,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit-log-filter.event-mode</span><span class="o">=</span><span class="s">FULL</span>
 </code></pre></div>
 <p>In <code>REDUCED</code> mode, a call to <code>audit_log_filter_set_filter()</code> with a filter definition that references disabled event classes or subclasses fails. The server returns a descriptive error and does not store the filter. Persisted filters created under <code>FULL</code> mode that reference disabled classes still load after a restart or <code>audit_log_filter_flush()</code>. The disabled classes are silently skipped with a warning.</p>
-<h3 id="audit_log_filterfile"><code>audit_log_filter.file</code><a class="headerlink" href="#audit_log_filterfile" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterfile"><code>audit_log_filter.file</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterfile" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11533,7 +11533,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>If you use a full path name, ensure the directory exists and is accessible only to users who need to view the log and the server. If the parent directory does not exist, the component reports an error and the server starts without the audit log filter component active.</p>
 <p>For more information, see <a href="audit-log-filter-naming.html">Naming conventions</a></p>
-<h4 id="example_16">Example<a class="headerlink" href="#example_16" title="Permanent link">&para;</a></h4>
+<h4 id="example_16">Example<a data-markdown-ignore class="headerlink" href="#example_16" title="Permanent link">&para;</a></h4>
 <p>Relative to the data directory (<code>my.cnf</code>, restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.file</span><span class="o">=</span><span class="s">audit_filter.log</span>
@@ -11542,7 +11542,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.file</span><span class="o">=</span><span class="s">/var/log/mysql/audit_filter.log</span>
 </code></pre></div>
-<h3 id="audit_log_filterformat"><code>audit_log_filter.format</code><a class="headerlink" href="#audit_log_filterformat" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterformat"><code>audit_log_filter.format</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterformat" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11590,12 +11590,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><a href="audit-log-filter-new.html">NEW (new-style XML)</a></p>
 </li>
 </ul>
-<h4 id="example_17">Example<a class="headerlink" href="#example_17" title="Permanent link">&para;</a></h4>
+<h4 id="example_17">Example<a data-markdown-ignore class="headerlink" href="#example_17" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.format</span><span class="o">=</span><span class="s">JSONL</span>
 </code></pre></div>
-<h3 id="audit_log_filterformat_unix_timestamp"><code>audit_log_filter.format_unix_timestamp</code><a class="headerlink" href="#audit_log_filterformat_unix_timestamp" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterformat_unix_timestamp"><code>audit_log_filter.format_unix_timestamp</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterformat_unix_timestamp" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11629,7 +11629,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>This option is supported for JSON-format and JSONL-format files.</p>
 <p>Enabling this option adds a <code>time</code> field to JSON-format and JSONL-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the <code>time</code> field. This option requires the <code>AUDIT_ADMIN</code> and <code>SYSTEM_VARIABLES_ADMIN</code> privileges.</p>
 <p>This option does nothing when used with other format types.</p>
-<h4 id="example_18">Example<a class="headerlink" href="#example_18" title="Permanent link">&para;</a></h4>
+<h4 id="example_18">Example<a data-markdown-ignore class="headerlink" href="#example_18" title="Permanent link">&para;</a></h4>
 <p>Runtime (JSON-format or JSONL-format only; causes rotation when toggled):</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">format_unix_timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
@@ -11637,7 +11637,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.format-unix-timestamp</span><span class="o">=</span><span class="s">ON</span>
 </code></pre></div>
-<h3 id="audit_log_filterhandler"><code>audit_log_filter.handler</code><a class="headerlink" href="#audit_log_filterhandler" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterhandler"><code>audit_log_filter.handler</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterhandler" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11677,7 +11677,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>SYSLOG</code> - component writes to the syslog</p>
 </li>
 </ul>
-<h4 id="example_19">Example<a class="headerlink" href="#example_19" title="Permanent link">&para;</a></h4>
+<h4 id="example_19">Example<a data-markdown-ignore class="headerlink" href="#example_19" title="Permanent link">&para;</a></h4>
 <p>Write to a file under the data directory (<code>my.cnf</code>, restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.handler</span><span class="o">=</span><span class="s">FILE</span>
@@ -11688,7 +11688,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit-log-filter.handler</span><span class="o">=</span><span class="s">SYSLOG</span>
 <span class="na">audit-log-filter.syslog-tag</span><span class="o">=</span><span class="s">myapp-audit</span>
 </code></pre></div>
-<h3 id="audit_log_filterkey_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code><a class="headerlink" href="#audit_log_filterkey_derivation_iterations_count_mean" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterkey_derivation_iterations_count_mean"><code>audit_log_filter.key_derivation_iterations_count_mean</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterkey_derivation_iterations_count_mean" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11728,11 +11728,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Defines the mean value of iterations used by the password-based derivation routine while calculating the encryption key and iv values. A random number represents the actual iteration count and deviates no more than 10% from this value.</p>
-<h4 id="example_20">Example<a class="headerlink" href="#example_20" title="Permanent link">&para;</a></h4>
+<h4 id="example_20">Example<a data-markdown-ignore class="headerlink" href="#example_20" title="Permanent link">&para;</a></h4>
 <p>Runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">key_derivation_iterations_count_mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120000</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="audit_log_filtermax_size"><code>audit_log_filter.max_size</code><a class="headerlink" href="#audit_log_filtermax_size" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filtermax_size"><code>audit_log_filter.max_size</code><a data-markdown-ignore class="headerlink" href="#audit_log_filtermax_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11800,11 +11800,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 * <a href="#audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> - enables rotation
 * <a href="#audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a> - enables size-based pruning<br />
 * <a href="#audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a> - enables time-based pruning</p>
-<h4 id="example_21">Example<a class="headerlink" href="#example_21" title="Permanent link">&para;</a></h4>
+<h4 id="example_21">Example<a data-markdown-ignore class="headerlink" href="#example_21" title="Permanent link">&para;</a></h4>
 <p>Combined size cap for pruning (example: 10 GiB), with rotation and age pruning configured elsewhere:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10737418240</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="audit_log_filterpassword_history_keep_days"><code>audit_log_filter.password_history_keep_days</code><a class="headerlink" href="#audit_log_filterpassword_history_keep_days" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterpassword_history_keep_days"><code>audit_log_filter.password_history_keep_days</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterpassword_history_keep_days" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11840,11 +11840,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The default value is 0 (zero). This value disables the expiration of passwords. Passwords are retained forever. </p>
 <p>If the component starts and encryption is enabled, the component checks for an audit log filter encryption password. If a password is not found, the component generates a random password and stores it in the keyring. To read the active password (or iteration metadata), call <a href="#audit_log_encryption_password_getkeyring_id"><code>audit_log_encryption_password_get()</code></a>.</p>
 <p>Call <a href="#audit_log_encryption_password_setnew_password">audit_log_encryption_password_set(new_password)</a> to set a specific password.</p>
-<h4 id="example_22">Example<a class="headerlink" href="#example_22" title="Permanent link">&para;</a></h4>
+<h4 id="example_22">Example<a data-markdown-ignore class="headerlink" href="#example_22" title="Permanent link">&para;</a></h4>
 <p>Retain archived encryption passwords for 30 days:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">password_history_keep_days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code><a class="headerlink" href="#audit_log_filterprune_seconds" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterprune_seconds" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11896,11 +11896,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>Enable log rotation by setting <a href="#audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a></li>
 <li>Add a value greater than 0 (zero) for either <a href="#audit_log_filtermax_size"><code>audit_log_filter.max_size</code></a> or <a href="#audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a> </li>
 </ul>
-<h4 id="example_23">Example<a class="headerlink" href="#example_23" title="Permanent link">&para;</a></h4>
+<h4 id="example_23">Example<a data-markdown-ignore class="headerlink" href="#example_23" title="Permanent link">&para;</a></h4>
 <p>Prune files older than seven days (604800 seconds), with rotation enabled:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">prune_seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">604800</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="audit_log_filterread_buffer_size"><code>audit_log_filter.read_buffer_size</code><a class="headerlink" href="#audit_log_filterread_buffer_size" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterread_buffer_size"><code>audit_log_filter.read_buffer_size</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterread_buffer_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11945,11 +11945,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>This option is supported for JSON-format and JSONL-format files.</p>
 <p>The size of the buffer for reading from the audit log filter file. <code>audit_log_read()</code> reads only from this buffer size.</p>
-<h4 id="example_24">Example<a class="headerlink" href="#example_24" title="Permanent link">&para;</a></h4>
+<h4 id="example_24">Example<a data-markdown-ignore class="headerlink" href="#example_24" title="Permanent link">&para;</a></h4>
 <p>Runtime:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">read_buffer_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">65536</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code><a class="headerlink" href="#audit_log_filterrotate_on_size" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterrotate_on_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11982,11 +11982,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>Performs an automatic log file rotation based on the size. The default value is 1073741824. If the value is greater than 0, when the log file size exceeds the value, the component renames the current file and opens a new log file using the original name.</p>
 <p>If you set the value to less than 4096, the component does not automatically rotate the log files. You can rotate the log files manually using <a href="#audit_log_rotate"><code>audit_log_rotate()</code></a>. If the value is not a multiple of 4096, the component truncates the value to the nearest multiple.</p>
-<h4 id="example_25">Example<a class="headerlink" href="#example_25" title="Permanent link">&para;</a></h4>
+<h4 id="example_25">Example<a data-markdown-ignore class="headerlink" href="#example_25" title="Permanent link">&para;</a></h4>
 <p>Rotate when the file reaches 512 MiB:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_filter</span><span class="p">.</span><span class="n">rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">536870912</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="audit_log_filterstrategy"><code>audit_log_filter.strategy</code><a class="headerlink" href="#audit_log_filterstrategy" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filterstrategy"><code>audit_log_filter.strategy</code><a data-markdown-ignore class="headerlink" href="#audit_log_filterstrategy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -12046,15 +12046,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The following diagram summarizes buffering, dropping behavior, and durability characteristics for each strategy value.</p>
 <p><img alt="Audit Log Filter logging strategies" src="_static/audit-logging-strategy.png" /></p>
-<h4 id="performance-trade-offs">Performance trade-offs<a class="headerlink" href="#performance-trade-offs" title="Permanent link">&para;</a></h4>
+<h4 id="performance-trade-offs">Performance trade-offs<a data-markdown-ignore class="headerlink" href="#performance-trade-offs" title="Permanent link">&para;</a></h4>
 <p>Switch from the default <code>ASYNCHRONOUS</code> to <code>SYNCHRONOUS</code> only when durability is more important than throughput and latency. Examples include strict compliance or forensic environments, where every audit event must be on durable storage before the client sees the audited statement complete.</p>
 <p>The main risk of <code>ASYNCHRONOUS</code> is a crash or power-loss window: the newest audit events can still be in memory and may be lost if they have not yet been flushed or synced to disk. That is not the same as dropping under load: <code>ASYNCHRONOUS</code> waits for buffer space and does not discard events when the buffer is full. The mode that can drop whole events when the outer buffer lacks space is <code>PERFORMANCE</code>.</p>
-<h4 id="example_26">Example<a class="headerlink" href="#example_26" title="Permanent link">&para;</a></h4>
+<h4 id="example_26">Example<a data-markdown-ignore class="headerlink" href="#example_26" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.strategy</span><span class="o">=</span><span class="s">SYNCHRONOUS</span>
 </code></pre></div>
-<h3 id="audit_log_filtersyslog_tag"><code>audit_log_filter.syslog_tag</code><a class="headerlink" href="#audit_log_filtersyslog_tag" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filtersyslog_tag"><code>audit_log_filter.syslog_tag</code><a data-markdown-ignore class="headerlink" href="#audit_log_filtersyslog_tag" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -12086,12 +12086,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>This read-only variable specifies the syslog tag value. This variable requires a server restart to change.</p>
-<h4 id="example_27">Example<a class="headerlink" href="#example_27" title="Permanent link">&para;</a></h4>
+<h4 id="example_27">Example<a data-markdown-ignore class="headerlink" href="#example_27" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required; use with <code>audit-log-filter.handler=SYSLOG</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.syslog-tag</span><span class="o">=</span><span class="s">myapp-audit</span>
 </code></pre></div>
-<h3 id="audit_log_filtersyslog_facility"><code>audit_log_filter.syslog_facility</code><a class="headerlink" href="#audit_log_filtersyslog_facility" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filtersyslog_facility"><code>audit_log_filter.syslog_facility</code><a data-markdown-ignore class="headerlink" href="#audit_log_filtersyslog_facility" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -12123,12 +12123,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>This read-only variable specifies the syslog <code>facility</code> value. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h4 id="example_28">Example<a class="headerlink" href="#example_28" title="Permanent link">&para;</a></h4>
+<h4 id="example_28">Example<a data-markdown-ignore class="headerlink" href="#example_28" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.syslog-facility</span><span class="o">=</span><span class="s">LOG_USER</span>
 </code></pre></div>
-<h3 id="audit_log_filtersyslog_priority"><code>audit_log_filter.syslog_priority</code><a class="headerlink" href="#audit_log_filtersyslog_priority" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_filtersyslog_priority"><code>audit_log_filter.syslog_priority</code><a data-markdown-ignore class="headerlink" href="#audit_log_filtersyslog_priority" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -12160,12 +12160,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>This read-only variable defines the <code>priority</code> value for the syslog. This variable requires a server restart to change. The option has the same meaning as the appropriate parameter described in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
-<h4 id="example_29">Example<a class="headerlink" href="#example_29" title="Permanent link">&para;</a></h4>
+<h4 id="example_29">Example<a data-markdown-ignore class="headerlink" href="#example_29" title="Permanent link">&para;</a></h4>
 <p><code>my.cnf</code> (restart required):</p>
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit-log-filter.syslog-priority</span><span class="o">=</span><span class="s">LOG_INFO</span>
 </code></pre></div>
-<h2 id="audit-log-filter-status-variables">Audit log filter status variables<a class="headerlink" href="#audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
+<h2 id="audit-log-filter-status-variables">Audit log filter status variables<a data-markdown-ignore class="headerlink" href="#audit-log-filter-status-variables" title="Permanent link">&para;</a></h2>
 <p>Counters and gauges for audit filter activity. These are not configuration: you cannot <code>SET</code> them; they only change as the server processes audit events. For how they differ from system variables (naming, <code>SHOW</code> commands, and purpose), see the table at the start of <a href="#audit-log-filter-options-and-variables">Audit log filter options and variables</a>. For <code>SHOW GLOBAL STATUS</code> examples, see <a href="#examples-command-line-and-option-file">Examples: command line and option file</a>. These names use underscores only (<code>audit_log_filter_&lt;name&gt;</code>). Names and counters are registered as <code>SHOW_VAR status_vars[]</code> in <a href="https://github.com/percona/percona-server/blob/9.7/components/audit_log_filter/sys_vars.cc"><code>sys_vars.cc</code></a>; behavior is documented on the <code>SysVars</code> helpers in <a href="https://github.com/percona/percona-server/blob/9.7/components/audit_log_filter/sys_vars.h"><code>sys_vars.h</code></a>. Buffering and drop behavior for file logging is implemented in <a href="https://github.com/percona/percona-server/blob/9.7/components/audit_log_filter/log_writer/file_writer_buffering.cc"><code>file_writer_buffering.cc</code></a>.</p>
 <table border="0" cellpadding="6" cellspacing="0">
   <thead>
@@ -12229,7 +12229,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">global_status</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">variable_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'audit_log_filter_events_written'</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></li>
 <li><a href="write-filter-definitions.html">Write audit_log_filter definitions</a></li>

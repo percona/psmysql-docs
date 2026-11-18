@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10802,7 +10802,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-plugin">Audit log plugin<a class="headerlink" href="#audit-log-plugin" title="Permanent link">&para;</a></h1>
+<h1 id="audit-log-plugin">Audit log plugin<a data-markdown-ignore class="headerlink" href="#audit-log-plugin" title="Permanent link">&para;</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Removed in 9.7</p>
 <p>The audit log plugin was deprecated in Percona Server for MySQL 8.4 and is removed in Percona Server for MySQL 9.7. The plugin library <code>audit_log.so</code> is not built or packaged, so you cannot install the plugin. This page is kept as a reference for migrating from 8.4. The <a href="audit-log-filter-overview.html">audit log filter component</a> is the replacement. Migrate to the component for equivalent functionality with improved flexibility, performance, and filtering capabilities.</p>
@@ -10821,7 +10821,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Percona does not plan to modify current audit logs to match the format or content of 8.0 logs.</p>
 </div>
 <p>The Percona Audit Log Plugin monitors and logs connection and query activity on a specific server. The plugin stores the activity information in a log file.</p>
-<h2 id="install-the-plugin">Install the plugin<a class="headerlink" href="#install-the-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="install-the-plugin">Install the plugin<a data-markdown-ignore class="headerlink" href="#install-the-plugin" title="Permanent link">&para;</a></h2>
 <p>The Audit Log plugin ships with Percona Server for MySQL but is not enabled by default. To check whether the plugin is enabled, run the following statement. The query searches for plugins with names that contain the word &ldquo;audit&rdquo; in the <code>information_schema.PLUGINS</code> table.</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%audit%'</span><span class="p">;</span>
 </code></pre></div>
@@ -10910,11 +10910,11 @@ PLUGIN_LIBRARY_VERSION: 1.7
 18 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h2 id="log-format">Log format<a class="headerlink" href="#log-format" title="Permanent link">&para;</a></h2>
+<h2 id="log-format">Log format<a data-markdown-ignore class="headerlink" href="#log-format" title="Permanent link">&para;</a></h2>
 <p>The plugin supports the following log formats: <code>NEW</code>, <code>JSON</code>, and <code>CSV</code>. The <code>NEW</code> format is based on XML and defines each log record with XML tags. The information logged is the same for all three formats. The <code>audit_log_format</code> variable controls the format choice.</p>
-<h3 id="format-examples">Format examples<a class="headerlink" href="#format-examples" title="Permanent link">&para;</a></h3>
+<h3 id="format-examples">Format examples<a data-markdown-ignore class="headerlink" href="#format-examples" title="Permanent link">&para;</a></h3>
 <p>The following formats are available:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">New log format</label><label for="__tabbed_1_2">JSON format</label><label for="__tabbed_1_3">CSV format</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">New log format</label><label for="__tabbed_1_2">JSON format</label><label for="__tabbed_1_3">CSV format</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="no-copy highlight"><pre><span></span><code>&lt;AUDIT_RECORD&gt;
@@ -10942,9 +10942,9 @@ PLUGIN_LIBRARY_VERSION: 1.7
 </div>
 </div>
 </div>
-<h2 id="audit-log-events">Audit log events<a class="headerlink" href="#audit-log-events" title="Permanent link">&para;</a></h2>
+<h2 id="audit-log-events">Audit log events<a data-markdown-ignore class="headerlink" href="#audit-log-events" title="Permanent link">&para;</a></h2>
 <p>The Audit Log plugin generates log records for the following events.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Audit</label><label for="__tabbed_2_2">Connect or Disconnect</label><label for="__tabbed_2_3">Query</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_2_1">Audit</label><label for="__tabbed_2_2">Connect or Disconnect</label><label for="__tabbed_2_3">Query</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An <code>Audit</code> event indicates that audit logging started or finished. The <code>NAME</code> field contains <code>Audit</code> when logging started and <code>NoAudit</code> when logging finished. The audit record also includes the server version and command-line arguments.</p>
@@ -11036,15 +11036,15 @@ DB=""
 </div>
 </div>
 </div>
-<h2 id="stream-the-audit-log-to-syslog">Stream the audit log to syslog<a class="headerlink" href="#stream-the-audit-log-to-syslog" title="Permanent link">&para;</a></h2>
+<h2 id="stream-the-audit-log-to-syslog">Stream the audit log to syslog<a data-markdown-ignore class="headerlink" href="#stream-the-audit-log-to-syslog" title="Permanent link">&para;</a></h2>
 <p>To stream the audit log to syslog, set the <code>audit_log_handler</code> variable to <code>SYSLOG</code>. Use <code>audit_log_syslog_ident</code>, <code>audit_log_syslog_facility</code>, and <code>audit_log_syslog_priority</code> to control the syslog handler. These variables share the meanings of the corresponding parameters documented in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>FILE</code> handler is the only handler that captures the effects of <code>audit_log_strategy</code>, <code>audit_log_buffer_size</code>, <code>audit_log_rotate_on_size</code>, and <code>audit_log_rotations</code>.</p>
 </div>
-<h2 id="filter-methods">Filter methods<a class="headerlink" href="#filter-methods" title="Permanent link">&para;</a></h2>
+<h2 id="filter-methods">Filter methods<a data-markdown-ignore class="headerlink" href="#filter-methods" title="Permanent link">&para;</a></h2>
 <p>Filter the results with any of the following methods.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Filter by user</label><label for="__tabbed_3_2">Filter by SQL command type</label><label for="__tabbed_3_3">Filtering by database</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_3_1">Filter by user</label><label for="__tabbed_3_2">Filter by SQL command type</label><label for="__tabbed_3_3">Filtering by database</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Filtering by user uses two global variables, <code>audit_log_include_accounts</code> and <code>audit_log_exclude_accounts</code>, which specify the user accounts to include in or exclude from audit logging.</p>
@@ -11064,9 +11064,9 @@ DB=""
 </div>
 </div>
 </div>
-<h2 id="filter-examples">Filter examples<a class="headerlink" href="#filter-examples" title="Permanent link">&para;</a></h2>
+<h2 id="filter-examples">Filter examples<a data-markdown-ignore class="headerlink" href="#filter-examples" title="Permanent link">&para;</a></h2>
 <p>The following are examples of the different filters.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Filter by user</label><label for="__tabbed_4_2">Filter by SQL command type</label><label for="__tabbed_4_3">Filter by database</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_4_1">Filter by user</label><label for="__tabbed_4_2">Filter by SQL command type</label><label for="__tabbed_4_3">Filter by database</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The following example adds users who will be monitored:</p>
@@ -11284,8 +11284,8 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </div>
 </div>
 </div>
-<h2 id="system-variables">System variables<a class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
-<h3 id="audit_log_strategy"><code>audit_log_strategy</code><a class="headerlink" href="#audit_log_strategy" title="Permanent link">&para;</a></h3>
+<h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
+<h3 id="audit_log_strategy"><code>audit_log_strategy</code><a data-markdown-ignore class="headerlink" href="#audit_log_strategy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11336,7 +11336,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </li>
 </ul>
 <p>The variable has effect only when <code>audit_log_handler</code> is set to <code>FILE</code>.</p>
-<h3 id="audit_log_file"><code>audit_log_file</code><a class="headerlink" href="#audit_log_file" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_file"><code>audit_log_file</code><a data-markdown-ignore class="headerlink" href="#audit_log_file" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11368,7 +11368,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the filename that stores the audit log. The value may be a path relative to the data directory or an absolute path.</p>
-<h3 id="audit_log_flush"><code>audit_log_flush</code><a class="headerlink" href="#audit_log_flush" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_flush"><code>audit_log_flush</code><a data-markdown-ignore class="headerlink" href="#audit_log_flush" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11400,7 +11400,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>When the variable is set to <code>ON</code>, the server closes and reopens the log file.</p>
-<h3 id="audit_log_buffer_size"><code>audit_log_buffer_size</code><a class="headerlink" href="#audit_log_buffer_size" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_buffer_size"><code>audit_log_buffer_size</code><a data-markdown-ignore class="headerlink" href="#audit_log_buffer_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11432,7 +11432,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the size of the memory buffer used for logging when <code>audit_log_strategy</code> is <code>ASYNCHRONOUS</code> or <code>PERFORMANCE</code>. The variable has effect only when <code>audit_log_handler</code> is set to <code>FILE</code>.</p>
-<h3 id="audit_log_exclude_accounts"><code>audit_log_exclude_accounts</code><a class="headerlink" href="#audit_log_exclude_accounts" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_exclude_accounts"><code>audit_log_exclude_accounts</code><a data-markdown-ignore class="headerlink" href="#audit_log_exclude_accounts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11460,7 +11460,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the list of users to which filtering by user applies. The value may be <code>NULL</code> or a comma-separated list of accounts in the form <code>user@host</code> or <code>'user'@'host'</code> (use the quoted form when the user or host contains a comma). When <code>audit_log_exclude_accounts</code> is set, leave <code>audit_log_include_accounts</code> unset, and vice versa.</p>
-<h3 id="audit_log_exclude_commands"><code>audit_log_exclude_commands</code><a class="headerlink" href="#audit_log_exclude_commands" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_exclude_commands"><code>audit_log_exclude_commands</code><a data-markdown-ignore class="headerlink" href="#audit_log_exclude_commands" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11488,7 +11488,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the list of commands to which filtering by SQL command type applies. The value may be <code>NULL</code> or a comma-separated list of commands. When <code>audit_log_exclude_commands</code> is set, leave <code>audit_log_include_commands</code> unset, and vice versa.</p>
-<h3 id="audit_log_exclude_databases"><code>audit_log_exclude_databases</code><a class="headerlink" href="#audit_log_exclude_databases" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_exclude_databases"><code>audit_log_exclude_databases</code><a data-markdown-ignore class="headerlink" href="#audit_log_exclude_databases" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11516,7 +11516,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the databases to filter. The value may be <code>NULL</code> or a comma-separated list of databases. When <code>audit_log_exclude_databases</code> is set, leave <code>audit_log_include_databases</code> unset, and vice versa.</p>
-<h3 id="audit_log_format"><code>audit_log_format</code><a class="headerlink" href="#audit_log_format" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_format"><code>audit_log_format</code><a data-markdown-ignore class="headerlink" href="#audit_log_format" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11552,7 +11552,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the audit log format. The audit log plugin supports three log formats: <code>NEW</code>, <code>JSON</code>, and <code>CSV</code>. The <code>NEW</code> format is based on XML and outputs log record properties as XML tags. The information logged is the same in all three formats.</p>
-<h3 id="audit_log_include_accounts"><code>audit_log_include_accounts</code><a class="headerlink" href="#audit_log_include_accounts" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_include_accounts"><code>audit_log_include_accounts</code><a data-markdown-ignore class="headerlink" href="#audit_log_include_accounts" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11580,7 +11580,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the list of users to which filtering by user applies. The value may be <code>NULL</code> or a comma-separated list of accounts in the form <code>user@host</code> or <code>'user'@'host'</code> (use the quoted form when the user or host contains a comma). When <code>audit_log_include_accounts</code> is set, leave <code>audit_log_exclude_accounts</code> unset, and vice versa.</p>
-<h3 id="audit_log_include_commands"><code>audit_log_include_commands</code><a class="headerlink" href="#audit_log_include_commands" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_include_commands"><code>audit_log_include_commands</code><a data-markdown-ignore class="headerlink" href="#audit_log_include_commands" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11608,7 +11608,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the list of commands to which filtering by SQL command type applies. The value may be <code>NULL</code> or a comma-separated list of commands. When <code>audit_log_include_commands</code> is set, leave <code>audit_log_exclude_commands</code> unset, and vice versa.</p>
-<h3 id="audit_log_include_databases"><code>audit_log_include_databases</code><a class="headerlink" href="#audit_log_include_databases" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_include_databases"><code>audit_log_include_databases</code><a data-markdown-ignore class="headerlink" href="#audit_log_include_databases" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11636,7 +11636,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the list of databases to filter. The value may be <code>NULL</code> or a comma-separated list of databases. When <code>audit_log_include_databases</code> is set, leave <code>audit_log_exclude_databases</code> unset, and vice versa.</p>
-<h3 id="audit_log_policy"><code>audit_log_policy</code><a class="headerlink" href="#audit_log_policy" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_policy"><code>audit_log_policy</code><a data-markdown-ignore class="headerlink" href="#audit_log_policy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11686,7 +11686,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 <p><code>NONE</code> — log no events.</p>
 </li>
 </ul>
-<h3 id="audit_log_rotate_on_size"><code>audit_log_rotate_on_size</code><a class="headerlink" href="#audit_log_rotate_on_size" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_rotate_on_size"><code>audit_log_rotate_on_size</code><a data-markdown-ignore class="headerlink" href="#audit_log_rotate_on_size" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11720,7 +11720,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 <p>Specifies the maximum audit log file size in bytes. When the audit log reaches this size, the server rotates the log. Rotated log files remain in the same directory as the current log file. The server appends a sequence number to the log file name on rotation.</p>
 <p>When the value is <code>0</code> (the default), the audit log files do not rotate.</p>
 <p>Set <code>audit_log_handler</code> to <code>FILE</code> to enable this variable.</p>
-<h3 id="audit_log_rotations"><code>audit_log_rotations</code><a class="headerlink" href="#audit_log_rotations" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_rotations"><code>audit_log_rotations</code><a data-markdown-ignore class="headerlink" href="#audit_log_rotations" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11752,7 +11752,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies how many log files to keep when <code>audit_log_rotate_on_size</code> is set to a non-zero value. The variable has effect only when <code>audit_log_handler</code> is set to <code>FILE</code>.</p>
-<h3 id="audit_log_handler"><code>audit_log_handler</code><a class="headerlink" href="#audit_log_handler" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_handler"><code>audit_log_handler</code><a data-markdown-ignore class="headerlink" href="#audit_log_handler" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11788,7 +11788,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies where to write the audit log. <code>FILE</code> writes to the file specified by <code>audit_log_file</code>. <code>SYSLOG</code> writes to syslog.</p>
-<h3 id="audit_log_syslog_ident"><code>audit_log_syslog_ident</code><a class="headerlink" href="#audit_log_syslog_ident" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_syslog_ident"><code>audit_log_syslog_ident</code><a data-markdown-ignore class="headerlink" href="#audit_log_syslog_ident" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11820,7 +11820,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the <code>ident</code> value for syslog. The variable has the same meaning as the corresponding parameter in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
-<h3 id="audit_log_syslog_facility"><code>audit_log_syslog_facility</code><a class="headerlink" href="#audit_log_syslog_facility" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_syslog_facility"><code>audit_log_syslog_facility</code><a data-markdown-ignore class="headerlink" href="#audit_log_syslog_facility" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11852,7 +11852,7 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 </tbody>
 </table>
 <p>Specifies the <code>facility</code> value for syslog. The variable has the same meaning as the corresponding parameter in the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3) manual</a>.</p>
-<h3 id="audit_log_syslog_priority"><code>audit_log_syslog_priority</code><a class="headerlink" href="#audit_log_syslog_priority" title="Permanent link">&para;</a></h3>
+<h3 id="audit_log_syslog_priority"><code>audit_log_syslog_priority</code><a data-markdown-ignore class="headerlink" href="#audit_log_syslog_priority" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11892,8 +11892,8 @@ first set the currently active filtering variable to <code>NULL</code>:</p>
 <p>The default <code>LOG_INFO</code> represents ordinary informational messages. Raise or lower the level as needed. The facility stays at the default unless you change it explicitly.</p>
 <p>For more details about syslog priority levels, see the <a href="https://man7.org/linux/man-pages/man3/syslog.3.html">syslog(3)
 manual</a>.</p>
-<h2 id="status-variables">Status Variables<a class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
-<h3 id="audit_log_buffer_size_overflow"><code>Audit_log_buffer_size_overflow</code><a class="headerlink" href="#audit_log_buffer_size_overflow" title="Permanent link">&para;</a></h3>
+<h2 id="status-variables">Status Variables<a data-markdown-ignore class="headerlink" href="#status-variables" title="Permanent link">&para;</a></h2>
+<h3 id="audit_log_buffer_size_overflow"><code>Audit_log_buffer_size_overflow</code><a data-markdown-ignore class="headerlink" href="#audit_log_buffer_size_overflow" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -11913,7 +11913,7 @@ manual</a>.</p>
 </tbody>
 </table>
 <p>The number of times an audit log entry was dropped or written directly to the file because the entry size exceeded <code>audit_log_buffer_size</code>.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-overview.html">Audit Log Filter overview</a> — recommended replacement component</p>

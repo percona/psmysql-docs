@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10696,8 +10696,8 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a class="headerlink" href="#audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
-<h2 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h2>
+<h1 id="audit-log-filter-compression-and-encryption">Audit Log Filter compression and encryption<a data-markdown-ignore class="headerlink" href="#audit-log-filter-compression-and-encryption" title="Permanent link">&para;</a></h1>
+<h2 id="compression">Compression<a data-markdown-ignore class="headerlink" href="#compression" title="Permanent link">&para;</a></h2>
 <p>Enable compression for any <a href="audit-log-filter-formats.html">format</a> with <code>audit_log_filter.compression</code> at server startup.</p>
 <p>Allowed values:</p>
 <ul>
@@ -10709,7 +10709,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>With both compression and encryption enabled, the component compresses first and then encrypts. To recover a file manually, decrypt first and then decompress.</p>
-<h2 id="encryption">Encryption<a class="headerlink" href="#encryption" title="Permanent link">&para;</a></h2>
+<h2 id="encryption">Encryption<a data-markdown-ignore class="headerlink" href="#encryption" title="Permanent link">&para;</a></h2>
 <p>Encrypt any audit log format. The component generates the first password. You can rotate to custom passwords afterward. Passwords live in the keyring. Enable a keyring first.</p>
 <p>Set <code>audit_log_filter.encryption</code> at startup. Values:</p>
 <ul>
@@ -10742,7 +10742,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p><code>audit_log_filter.password_history_keep_days</code> controls how long archived passwords stay available. When the value is non-zero, calling <code>audit_log_encryption_password_set()</code> can expire older keyring entries.</p>
 <p>On startup with encryption enabled, the component generates a password and stores the password when none exists. Call <code>audit_log_encryption_password_get()</code> to inspect the password.</p>
-<h2 id="manually-uncompress-and-decrypt-audit-log-filter-files">Manually uncompress and decrypt audit log filter files<a class="headerlink" href="#manually-uncompress-and-decrypt-audit-log-filter-files" title="Permanent link">&para;</a></h2>
+<h2 id="manually-uncompress-and-decrypt-audit-log-filter-files">Manually uncompress and decrypt audit log filter files<a data-markdown-ignore class="headerlink" href="#manually-uncompress-and-decrypt-audit-log-filter-files" title="Permanent link">&para;</a></h2>
 <p>Decrypt with OpenSSL. For example:</p>
 <div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span>-pass<span class="w"> </span>pass:password
 <span class="w">    </span>-iter<span class="w"> </span>iterations<span class="w"> </span>-md<span class="w"> </span>sha256
@@ -10758,7 +10758,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="no-copy highlight"><pre><span></span><code>{"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
 </code></pre></div>
 </details>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-variables.html">Audit log filter functions, options, and variables</a> — encryption and compression options</p>

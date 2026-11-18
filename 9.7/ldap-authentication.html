@@ -139,7 +139,7 @@ individuals, groups, and organizations.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10784,14 +10784,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="using-ldap-authentication-plugins">Using LDAP authentication plugins<a class="headerlink" href="#using-ldap-authentication-plugins" title="Permanent link">&para;</a></h1>
+<h1 id="using-ldap-authentication-plugins">Using LDAP authentication plugins<a data-markdown-ignore class="headerlink" href="#using-ldap-authentication-plugins" title="Permanent link">&para;</a></h1>
 <p>LDAP (Lightweight Directory Access Protocol) provides an alternative method to
 access existing directory servers, which maintain information about
 individuals, groups, and organizations.</p>
 <p>Percona Server for MySQL supports the simple LDAP authentication. The Percona simple LDAP authentication plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin. Percona Server for MySQL also supports an SASL-based LDAP authentication plugin. This plugin only supports the SCRAM-SHA-1 SASL mechanism. </p>
-<h2 id="plugin-names-and-file-names">Plugin names and file names<a class="headerlink" href="#plugin-names-and-file-names" title="Permanent link">&para;</a></h2>
+<h2 id="plugin-names-and-file-names">Plugin names and file names<a data-markdown-ignore class="headerlink" href="#plugin-names-and-file-names" title="Permanent link">&para;</a></h2>
 <p>The following tables show the plugin names and the file name for simple LDAP authentication and SASL-based LDAP authentication.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Simple LDAP authentication plugin names and library name</label><label for="__tabbed_1_2">SASL-based LDAP authentication plugin names and library names</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">Simple LDAP authentication plugin names and library name</label><label for="__tabbed_1_2">SASL-based LDAP authentication plugin names and library names</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -10843,7 +10843,7 @@ individuals, groups, and organizations.</p>
 </div>
 </div>
 </div>
-<h2 id="how-does-the-authentication-work">How does the authentication work<a class="headerlink" href="#how-does-the-authentication-work" title="Permanent link">&para;</a></h2>
+<h2 id="how-does-the-authentication-work">How does the authentication work<a data-markdown-ignore class="headerlink" href="#how-does-the-authentication-work" title="Permanent link">&para;</a></h2>
 <p>The server-side LDAP plugins work only with the specific client-side plugin:</p>
 <ul>
 <li>
@@ -10858,7 +10858,7 @@ individuals, groups, and organizations.</p>
 <p>If the LDAP server finds multiple matches or no match, authentication fails.</p>
 <p>If the password is correct, and the LDAP server finds a match, then LDAP authentication succeeds. The LDAP server returns the LDAP entry and the authentication plugin determines the authenticated user&rsquo;s name based on the entry. If the LDAP entry has no group attribute, the plugin returns the client user name as the authenticated name. If the LDAP entry has a group attribute, the plugin returns the group value as the authenticated name.</p>
 <p>The database server compares the client user name to the authenticated user name. If these names are the same, the database server uses the client user name to check for privileges. If the name differs, then the database server looks for an account that matches the authenticated name.</p>
-<h2 id="external-roles">External roles<a class="headerlink" href="#external-roles" title="Permanent link">&para;</a></h2>
+<h2 id="external-roles">External roles<a data-markdown-ignore class="headerlink" href="#external-roles" title="Permanent link">&para;</a></h2>
 <p>The mechanism already keeps a container with external roles (ones granted on request of the authentication plugin). On connection, the server compares roles returned by the authentication plugin with existing external roles and:</p>
 <ul>
 <li>Grants returned roles not in the container (roles already in the container were granted previously),</li>
@@ -10870,7 +10870,7 @@ individuals, groups, and organizations.</p>
 <p>External role privileges are granted or revoked on the user&rsquo;s connection. Group membership is determined by the group attribute from LDAP.</p>
 </div>
 <p>Privileges are not revoked immediately when a user is removed from a group, because the MySQL server does not directly synchronize with the LDAP server.</p>
-<h2 id="prerequisites-for-authentication">Prerequisites for authentication<a class="headerlink" href="#prerequisites-for-authentication" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites-for-authentication">Prerequisites for authentication<a data-markdown-ignore class="headerlink" href="#prerequisites-for-authentication" title="Permanent link">&para;</a></h2>
 <p>The LDAP authentication plugins required the following:</p>
 <ul>
 <li>
@@ -10895,11 +10895,11 @@ individuals, groups, and organizations.</p>
 <p>Services are configured to use the supported SCRAM-SHA-1 SASL mechanism</p>
 </li>
 </ul>
-<h2 id="install-the-plugins">Install the plugins<a class="headerlink" href="#install-the-plugins" title="Permanent link">&para;</a></h2>
+<h2 id="install-the-plugins">Install the plugins<a data-markdown-ignore class="headerlink" href="#install-the-plugins" title="Permanent link">&para;</a></h2>
 <p>You can use either of the following methods to install the plugins.</p>
-<h3 id="load-the-plugins-at-server-start">Load the plugins at server start<a class="headerlink" href="#load-the-plugins-at-server-start" title="Permanent link">&para;</a></h3>
+<h3 id="load-the-plugins-at-server-start">Load the plugins at server start<a data-markdown-ignore class="headerlink" href="#load-the-plugins-at-server-start" title="Permanent link">&para;</a></h3>
 <p>Use either of the following methods to load the plugin at server start.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Load the simple LDAP authentication</label><label for="__tabbed_2_2">Load the SASL_based LDAP authentication plugin</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_2_1">Load the simple LDAP authentication</label><label for="__tabbed_2_2">Load the SASL_based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Add the following statements to your <code>my.cnf</code> file to load simple LDAP authentication:</p>
@@ -10920,9 +10920,9 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 </div>
 </div>
 </div>
-<h3 id="load-the-plugins-at-runtime">Load the plugins at runtime<a class="headerlink" href="#load-the-plugins-at-runtime" title="Permanent link">&para;</a></h3>
+<h3 id="load-the-plugins-at-runtime">Load the plugins at runtime<a data-markdown-ignore class="headerlink" href="#load-the-plugins-at-runtime" title="Permanent link">&para;</a></h3>
 <p>Install the plugin with the following statements.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Load the simple LDAP authentication plugin</label><label for="__tabbed_3_2">Load the SASL-based LDAP authentication plugin</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_3_1">Load the simple LDAP authentication plugin</label><label for="__tabbed_3_2">Load the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'authentication_ldap_simple.so'</span><span class="p">;</span>
@@ -10942,9 +10942,9 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 </div>
 </div>
 </div>
-<h2 id="create-a-user-using-simple-ldap-authentication">Create a user using simple LDAP authentication<a class="headerlink" href="#create-a-user-using-simple-ldap-authentication" title="Permanent link">&para;</a></h2>
+<h2 id="create-a-user-using-simple-ldap-authentication">Create a user using simple LDAP authentication<a data-markdown-ignore class="headerlink" href="#create-a-user-using-simple-ldap-authentication" title="Permanent link">&para;</a></h2>
 <p>There are several methods to add or modify a user.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Use authentication_ldap_simple plugin</label><label for="__tabbed_4_2">Use the authentication string in simple LDAP</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_4_1">Use authentication_ldap_simple plugin</label><label for="__tabbed_4_2">Use the authentication string in simple LDAP</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, for simple LDAP authentication, you can specify the <code>authentication_ldap_simple</code> plugin in the <code>IDENTIFIED WITH</code> clause:</p>
@@ -10979,9 +10979,9 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 </div>
 </div>
 </div>
-<h2 id="create-a-user-using-sasl-based-ldap-authentication">Create a user using SASL-based LDAP authentication<a class="headerlink" href="#create-a-user-using-sasl-based-ldap-authentication" title="Permanent link">&para;</a></h2>
+<h2 id="create-a-user-using-sasl-based-ldap-authentication">Create a user using SASL-based LDAP authentication<a data-markdown-ignore class="headerlink" href="#create-a-user-using-sasl-based-ldap-authentication" title="Permanent link">&para;</a></h2>
 <p>There are several methods to add or modify a user.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Use authentication_ldap_sasl plugin</label><label for="__tabbed_5_2">Use the authentication string in SASL-based LDAP</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_5_1">Use authentication_ldap_sasl plugin</label><label for="__tabbed_5_2">Use the authentication string in SASL-based LDAP</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For SASL-based LDAP authentication, in the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, you can specify the <code>authentication_ldap_sasl</code> plugin:</p>
@@ -11015,12 +11015,12 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 </div>
 </div>
 </div>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following sections are examples of using simple LDAP authentication and SASL-based LDAP authentication.</p>
 <p>For the purposes of this example, we use the following LDAP user:</p>
 <div class="highlight"><pre><span></span><code>uid=ldapuser,ou=testusers,dc=percona,dc=com
 </code></pre></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Simple LDAP authentication</label><label for="__tabbed_6_2">SASL-based LDAP authentication</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_6_1">Simple LDAP authentication</label><label for="__tabbed_6_2">SASL-based LDAP authentication</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connects to the database server.</p>
@@ -11049,9 +11049,9 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 </div>
 </div>
 </div>
-<h3 id="uninstall-the-plugins">Uninstall the plugins<a class="headerlink" href="#uninstall-the-plugins" title="Permanent link">&para;</a></h3>
+<h3 id="uninstall-the-plugins">Uninstall the plugins<a data-markdown-ignore class="headerlink" href="#uninstall-the-plugins" title="Permanent link">&para;</a></h3>
 <p>If you installed either plugin at <a href="#load-the-plugins-at-server-start">server startup</a>, remove those options from the <code>my.cnf</code> file, remove any startup options that set LDAP system variables, and restart the server.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Uninstall the simple LDAP authentication plugin</label><label for="__tabbed_7_2">Uninstall the SASL-based LDAP authentication plugin</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_7_1">Uninstall the simple LDAP authentication plugin</label><label for="__tabbed_7_2">Uninstall the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>

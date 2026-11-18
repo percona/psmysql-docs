@@ -1,0 +1,49 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# Additional INFORMATION_SCHEMA tables
+
+This document lists the additional `INFORMATION_SCHEMA` tables provided by Percona Server for MySQL that are not documented elsewhere in this documentation.
+
+## Temporary tables
+
+Note
+
+**This feature implementation is considered tech preview quality.**
+
+Only the temporary tables that were explicitly created with CREATE TEMPORARY TABLE or ALTER TABLE are shown, and not the ones created to process complex queries.
+
+### `INFORMATION_SCHEMA.GLOBAL_TEMPORARY_TABLES`
+
+| Column Name      | Description                                                 |
+| ---------------- | ----------------------------------------------------------- |
+| ‘SESSION_ID’     | ‘MySQL connection id’                                       |
+| ‘TABLE_SCHEMA’   | ‘Schema in which the temporary table is created’            |
+| ‘TABLE_NAME’     | ‘Name of the temporary table’                               |
+| ‘ENGINE’         | ‘Engine of the temporary table’                             |
+| ‘NAME’           | ‘Internal name of the temporary table’                      |
+| ‘TABLE_ROWS’     | ‘Number of rows of the temporary table’                     |
+| ‘AVG_ROW_LENGTH’ | ‘Average row length of the temporary table’                 |
+| ‘DATA_LENGTH’    | ‘Size of the data (Bytes)’                                  |
+| ‘INDEX_LENGTH’   | ‘Size of the indexes (Bytes)’                               |
+| ‘CREATE_TIME’    | ‘Date and time of creation of the temporary table’          |
+| ‘UPDATE_TIME’    | ‘Date and time of the latest update of the temporary table’ |
+
+This table holds information on the temporary tables that exist for all connections. No special privileges are required to query this table.
+
+### `INFORMATION_SCHEMA.TEMPORARY_TABLES`
+
+| Column Name      | Description                                                 |
+| ---------------- | ----------------------------------------------------------- |
+| ‘SESSION_ID’     | ‘MySQL connection id’                                       |
+| ‘TABLE_SCHEMA’   | ‘Schema in which the temporary table is created’            |
+| ‘TABLE_NAME’     | ‘Name of the temporary table’                               |
+| ‘ENGINE’         | ‘Engine of the temporary table’                             |
+| ‘NAME’           | ‘Internal name of the temporary table’                      |
+| ‘TABLE_ROWS’     | ‘Number of rows of the temporary table’                     |
+| ‘AVG_ROW_LENGTH’ | ‘Average row length of the temporary table’                 |
+| ‘DATA_LENGTH’    | ‘Size of the data (Bytes)’                                  |
+| ‘INDEX_LENGTH’   | ‘Size of the indexes (Bytes)’                               |
+| ‘CREATE_TIME’    | ‘Date and time of creation of the temporary table’          |
+| ‘UPDATE_TIME’    | ‘Date and time of the latest update of the temporary table’ |
+
+This table holds information on the temporary tables existing for the running connection.

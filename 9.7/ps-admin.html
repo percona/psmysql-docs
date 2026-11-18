@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10912,11 +10912,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="the-ps-admin-script">The ps-admin script<a class="headerlink" href="#the-ps-admin-script" title="Permanent link">&para;</a></h1>
+<h1 id="the-ps-admin-script">The ps-admin script<a data-markdown-ignore class="headerlink" href="#the-ps-admin-script" title="Permanent link">&para;</a></h1>
 <p>The <code>ps-admin</code> script is an administrative helper in Percona Server for MySQL 9.7.</p>
 <p>The script enables or disables optional plugins and the MyRocks storage engine on a running server.</p>
 <p>The script connects with administrator credentials and runs the required <code>INSTALL PLUGIN</code> or <code>UNINSTALL PLUGIN</code> statements.</p>
-<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<h2 id="requirements">Requirements<a data-markdown-ignore class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>Meet the following requirements before you run <code>ps-admin</code>:</p>
 <ul>
 <li>
@@ -10934,7 +10934,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>Run <code>ps-admin</code> as the operating system <code>root</code> user or with <code>sudo</code>.</p>
 <p>Install the <code>percona-server-rocksdb</code> package before you enable MyRocks.</p>
-<h2 id="command-syntax">Command syntax<a class="headerlink" href="#command-syntax" title="Permanent link">&para;</a></h2>
+<h2 id="command-syntax">Command syntax<a data-markdown-ignore class="headerlink" href="#command-syntax" title="Permanent link">&para;</a></h2>
 <p>The following syntax is the general form of the command:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>&lt;ACTION&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_ADMIN_USER&gt;<span class="w"> </span>-p<span class="o">[</span>&lt;MYSQL_ADMIN_PASSWORD&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="o">[</span>-S<span class="w"> </span>&lt;SOCKET&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;HOST&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;PORT&gt;<span class="o">]</span>
@@ -10945,7 +10945,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Print the option list with the following command:</p>
 <div class="highlight"><pre><span></span><code>ps-admin<span class="w"> </span>--help
 </code></pre></div>
-<h2 id="connection-options">Connection options<a class="headerlink" href="#connection-options" title="Permanent link">&para;</a></h2>
+<h2 id="connection-options">Connection options<a data-markdown-ignore class="headerlink" href="#connection-options" title="Permanent link">&para;</a></h2>
 <p>The following table lists options that control the MySQL connection:</p>
 <table>
 <thead>
@@ -10988,7 +10988,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="plugin-and-engine-options">Plugin and engine options<a class="headerlink" href="#plugin-and-engine-options" title="Permanent link">&para;</a></h2>
+<h2 id="plugin-and-engine-options">Plugin and engine options<a data-markdown-ignore class="headerlink" href="#plugin-and-engine-options" title="Permanent link">&para;</a></h2>
 <p>The following table lists options that enable or disable plugins and MyRocks:</p>
 <table>
 <thead>
@@ -11041,7 +11041,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="enable-myrocks">Enable MyRocks<a class="headerlink" href="#enable-myrocks" title="Permanent link">&para;</a></h2>
+<h2 id="enable-myrocks">Enable MyRocks<a data-markdown-ignore class="headerlink" href="#enable-myrocks" title="Permanent link">&para;</a></h2>
 <p>Install the MyRocks package first. For package steps, see <a href="install-myrocks.html">Percona MyRocks installation guide</a>.</p>
 <p>Enable MyRocks with the following command:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
@@ -11065,7 +11065,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>ROCKSDB</code> row must show <code>YES</code> in the <code>Support</code> column.</p>
 <p>InnoDB remains the default storage engine after the enable command. To create tables on MyRocks, set <code>default-storage-engine=rocksdb</code> in the <code>[mysqld]</code> section of <code>my.cnf</code>, or add <code>ENGINE=RocksDB</code> to each <code>CREATE TABLE</code> statement.</p>
 <p>For more detail, see <a href="install-myrocks.html">Percona MyRocks installation guide</a>.</p>
-<h2 id="enable-the-pam-authentication-plugin">Enable the PAM authentication plugin<a class="headerlink" href="#enable-the-pam-authentication-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="enable-the-pam-authentication-plugin">Enable the PAM authentication plugin<a data-markdown-ignore class="headerlink" href="#enable-the-pam-authentication-plugin" title="Permanent link">&para;</a></h2>
 <p>Enable the full PAM plugin with the following command:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
@@ -11079,7 +11079,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam_compat</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam_compat.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>Configure the PAM stack after the plugin is active. For PAM files, user accounts, and client requirements, see <a href="pam-plugin.html">PAM authentication plugin</a>.</p>
-<h2 id="enable-the-mysql-x-plugin">Enable the MySQL X plugin<a class="headerlink" href="#enable-the-mysql-x-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="enable-the-mysql-x-plugin">Enable the MySQL X plugin<a data-markdown-ignore class="headerlink" href="#enable-the-mysql-x-plugin" title="Permanent link">&para;</a></h2>
 <p>The MySQL X plugin provides X Protocol support. The plugin is enabled by default in Percona Server for MySQL 9.7. Use <code>--enable-mysqlx</code> only if <code>SHOW PLUGINS</code> does not list <code>mysqlx</code> as <code>ACTIVE</code>.</p>
 <p>Enable the MySQL X plugin with the following command:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
@@ -11088,7 +11088,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">mysqlx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'mysqlx.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>For X Protocol and plugin options, see the <a href="https://dev.mysql.com/doc/refman/9.7/en/x-plugin.html">X Plugin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> documentation.</p>
-<h2 id="disable-a-plugin-or-engine">Disable a plugin or engine<a class="headerlink" href="#disable-a-plugin-or-engine" title="Permanent link">&para;</a></h2>
+<h2 id="disable-a-plugin-or-engine">Disable a plugin or engine<a data-markdown-ignore class="headerlink" href="#disable-a-plugin-or-engine" title="Permanent link">&para;</a></h2>
 <p>Disable MyRocks with the following command:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
@@ -11101,7 +11101,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
-<h2 id="verify-plugin-status">Verify plugin status<a class="headerlink" href="#verify-plugin-status" title="Permanent link">&para;</a></h2>
+<h2 id="verify-plugin-status">Verify plugin status<a data-markdown-ignore class="headerlink" href="#verify-plugin-status" title="Permanent link">&para;</a></h2>
 <p>The script checks <code>INFORMATION_SCHEMA.PLUGINS</code> before each change.</p>
 <p>Confirm the result with the following statement:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span>
@@ -11115,14 +11115,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The <code>PLUGIN_STATUS</code> value is <code>ACTIVE</code> after a successful enable operation.</p>
 <p>An empty result after a disable operation means the plugin is not loaded.</p>
-<h2 id="connection-examples">Connection examples<a class="headerlink" href="#connection-examples" title="Permanent link">&para;</a></h2>
+<h2 id="connection-examples">Connection examples<a data-markdown-ignore class="headerlink" href="#connection-examples" title="Permanent link">&para;</a></h2>
 <p>Prompt for the password on a local socket:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
 </code></pre></div>
 <p>Connect over TCP:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span>
 </code></pre></div>
-<h2 id="troubleshoot">Troubleshoot<a class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshoot">Troubleshoot<a data-markdown-ignore class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
 <p>Use the following actions after a script error:</p>
 <ul>
 <li>
@@ -11139,11 +11139,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Review the server error log after an install or uninstall failure.</p>
-<h2 id="removed-audit-log-options">Removed Audit Log options<a class="headerlink" href="#removed-audit-log-options" title="Permanent link">&para;</a></h2>
+<h2 id="removed-audit-log-options">Removed Audit Log options<a data-markdown-ignore class="headerlink" href="#removed-audit-log-options" title="Permanent link">&para;</a></h2>
 <p>The Audit Log plugin (<code>audit_log</code>) is removed in Percona Server for MySQL 9.7. The plugin library <code>audit_log.so</code> is not built or packaged, so you cannot install the plugin.</p>
 <p>The script still parses <code>--enable-audit</code> (<code>-a</code>) and <code>--disable-audit</code> (<code>-w</code>). Those flags do not install the plugin. <code>--enable-audit</code> runs <code>INSTALL PLUGIN audit_log SONAME 'audit_log.so';</code>, which fails because the library is not present.</p>
 <p>Use the <a href="audit-log-filter-overview.html">Audit Log Filter component</a> instead. See <a href="install-audit-log-filter.html">Install the audit log filter</a> and <a href="migrate-to-audit-log-filter-component.html">Migrate to the audit log filter component</a>.</p>
-<h2 id="removed-tokudb-options">Removed TokuDB options<a class="headerlink" href="#removed-tokudb-options" title="Permanent link">&para;</a></h2>
+<h2 id="removed-tokudb-options">Removed TokuDB options<a data-markdown-ignore class="headerlink" href="#removed-tokudb-options" title="Permanent link">&para;</a></h2>
 <p>The script still parses the following TokuDB and TokuBackup flags:</p>
 <ul>
 <li>
@@ -11169,7 +11169,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>If you pass any of these flags, the script prints an error and exits. The script does not enable or disable TokuDB or TokuBackup. The TokuDB storage engine and the TokuBackup plugin were removed in Percona Server for MySQL 8.0.28-19 and are not available in 9.7.</p>
-<h2 id="other-reading">Other reading<a class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
+<h2 id="other-reading">Other reading<a data-markdown-ignore class="headerlink" href="#other-reading" title="Permanent link">&para;</a></h2>
 <p>The following topics describe the features that <code>ps-admin</code> enables or disables:</p>
 <ul>
 <li>

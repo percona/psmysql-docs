@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10738,18 +10738,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="distance-function">DISTANCE() Function<a class="headerlink" href="#distance-function" title="Permanent link">&para;</a></h1>
+<h1 id="distance-function">DISTANCE() Function<a data-markdown-ignore class="headerlink" href="#distance-function" title="Permanent link">&para;</a></h1>
 <p>The <code>DISTANCE()</code> function computes the distance between two <code>VECTOR</code> values to enable similarity searches and other vector-based operations.</p>
 <p>A vector is an ordered list of numeric values, such as <code>[1, 2, 3]</code>. The distance between two vectors is a numeric value that indicates how similar the vectors are.</p>
 <p>A distance metric defines how the function calculates this value. Different metrics compare properties such as vector values, direction, or magnitude. In general, a smaller distance indicates greater similarity.</p>
 <p><code>VECTOR_DISTANCE()</code> is a synonym for <code>DISTANCE()</code> and provides compatibility with MySQL 9.x syntax. Both functions accept the same arguments and return the same result.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<h2 id="syntax">Syntax<a data-markdown-ignore class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
 
 <span class="n">VECTOR_DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
 </code></pre></div>
 <p>Both functions require exactly three arguments.</p>
-<h2 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
+<h2 id="arguments">Arguments<a data-markdown-ignore class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
 <p><code>DISTANCE()</code> accepts the following arguments:</p>
 <ul>
 <li>
@@ -10761,7 +10761,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>For a binary-string vector, the byte length must be a multiple of 4 because each vector element is a 4-byte single-precision floating-point value. An invalid byte length causes an error.</p>
 <p>The <code>metric</code> argument cannot be <code>NULL</code>. An unsupported metric name causes an error.</p>
-<h2 id="supported-distance-metrics">Supported distance metrics<a class="headerlink" href="#supported-distance-metrics" title="Permanent link">&para;</a></h2>
+<h2 id="supported-distance-metrics">Supported distance metrics<a data-markdown-ignore class="headerlink" href="#supported-distance-metrics" title="Permanent link">&para;</a></h2>
 <p>The following distance metrics are supported:</p>
 <table>
 <thead>
@@ -10805,13 +10805,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 <p>The query returns the five closest vectors without requiring a different sort direction for <code>COSINE</code> or <code>DOT</code>.</p>
-<h2 id="return-value">Return value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h2>
+<h2 id="return-value">Return value<a data-markdown-ignore class="headerlink" href="#return-value" title="Permanent link">&para;</a></h2>
 <p><code>DISTANCE()</code> returns a <code>DOUBLE</code> value that represents the result of the selected distance metric. <code>DOUBLE</code> is a floating-point numeric data type that can represent fractional values, for example, <code>5.196152</code>.</p>
 <p>If either input vector is <code>NULL</code>, <code>DISTANCE()</code> returns <code>NULL</code>.</p>
 <p>With the <code>COSINE</code> metric, <code>DISTANCE()</code> returns <code>NULL</code> if either vector has a zero L2 norm (magnitude), such as <code>[0, 0, 0]</code>. Cosine distance is undefined for a zero vector.</p>
 <p>The result is nullable regardless of whether the input columns allow <code>NULL</code>. When you use <code>DISTANCE()</code> with <code>CREATE TABLE ... SELECT</code>, MySQL creates the result column with the <code>DOUBLE</code> data type.</p>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<h3 id="calculate-the-distance-between-two-vectors">Calculate the distance between two vectors<a class="headerlink" href="#calculate-the-distance-between-two-vectors" title="Permanent link">&para;</a></h3>
+<h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<h3 id="calculate-the-distance-between-two-vectors">Calculate the distance between two vectors<a data-markdown-ignore class="headerlink" href="#calculate-the-distance-between-two-vectors" title="Permanent link">&para;</a></h3>
 <p><code>TO_VECTOR()</code> converts the string representation of a vector to a <code>VECTOR</code> value.</p>
 <p>The following example calculates the Euclidean distance between two vectors:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
@@ -10830,7 +10830,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 +-------------------+
 </code></pre></div>
 </details>
-<h3 id="use-another-distance-metric">Use another distance metric<a class="headerlink" href="#use-another-distance-metric" title="Permanent link">&para;</a></h3>
+<h3 id="use-another-distance-metric">Use another distance metric<a data-markdown-ignore class="headerlink" href="#use-another-distance-metric" title="Permanent link">&para;</a></h3>
 <p>Specify a different metric in the third argument to change how <code>DISTANCE()</code> compares the vectors.</p>
 <p>The following example calculates the cosine distance:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
@@ -10839,7 +10839,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">    </span><span class="s1">'COSINE'</span>
 <span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="find-similar-vectors">Find similar vectors<a class="headerlink" href="#find-similar-vectors" title="Permanent link">&para;</a></h3>
+<h3 id="find-similar-vectors">Find similar vectors<a data-markdown-ignore class="headerlink" href="#find-similar-vectors" title="Permanent link">&para;</a></h3>
 <p>Assume that the <code>documents</code> table contains an <code>embedding</code> column defined as <code>VECTOR(3)</code>.</p>
 <p>Use <code>DISTANCE()</code> in an <code>ORDER BY</code> clause to rank stored vectors by their distance from a query vector. Sorting by distance in ascending order places the closest vectors first.</p>
 <p>The following query uses cosine distance to return the five closest vectors:</p>
@@ -10864,7 +10864,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">ASC</span>
 <span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="calculate-similarity-values">Calculate similarity values<a class="headerlink" href="#calculate-similarity-values" title="Permanent link">&para;</a></h3>
+<h3 id="calculate-similarity-values">Calculate similarity values<a data-markdown-ignore class="headerlink" href="#calculate-similarity-values" title="Permanent link">&para;</a></h3>
 <p><code>DISTANCE()</code> returns distance-oriented values so that lower values consistently represent closer vectors. You can convert the result back to the underlying similarity value for the <code>COSINE</code> and <code>DOT</code> metrics.</p>
 <p>For <code>COSINE</code>, subtract the distance from <code>1</code> to calculate cosine similarity:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
@@ -10884,7 +10884,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="quickstart-distance.html">Get started with DISTANCE()</a></li>
 <li><a href="vector.html">The VECTOR Type</a></li>

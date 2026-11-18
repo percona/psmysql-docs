@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10716,10 +10716,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="the-vector-type">The VECTOR Type<a class="headerlink" href="#the-vector-type" title="Permanent link">&para;</a></h1>
+<h1 id="the-vector-type">The VECTOR Type<a data-markdown-ignore class="headerlink" href="#the-vector-type" title="Permanent link">&para;</a></h1>
 <p>The <code>VECTOR</code> data type stores an ordered list of numeric values, called a vector, in a table column. For example, <code>[0.1, 0.3, 0.2]</code> represents a vector with three elements.</p>
 <p>Vectors can represent numerical features, such as embeddings used for similarity search and machine learning. Each element in a <code>VECTOR</code> value uses a single-precision floating-point number.</p>
-<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<h2 id="syntax">Syntax<a data-markdown-ignore class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">VECTOR</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 </code></pre></div>
 <p><code>N</code> specifies the dimension of the <code>VECTOR</code> column and defines the maximum number of elements that a stored vector can contain.</p>
@@ -10732,7 +10732,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>A <code>VECTOR(3)</code> column can store a vector with up to three elements. For example, it accepts vectors with two or three elements but rejects a vector with four elements.</p>
 <p>Using the same number of elements as the declared dimension is strongly recommended.</p>
-<h2 id="store-vector-values">Store vector values<a class="headerlink" href="#store-vector-values" title="Permanent link">&para;</a></h2>
+<h2 id="store-vector-values">Store vector values<a data-markdown-ignore class="headerlink" href="#store-vector-values" title="Permanent link">&para;</a></h2>
 <p>Use <code>TO_VECTOR()</code> to convert the string representation of a vector to a <code>VECTOR</code> value.</p>
 <p>The following statement inserts a three-element vector into the <code>embedding</code> column:</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">documents</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">embedding</span><span class="p">)</span>
@@ -10743,12 +10743,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="p">);</span>
 </code></pre></div>
 <p>The number of elements in the vector must not exceed the dimension specified for the <code>VECTOR</code> column.</p>
-<h2 id="retrieve-vector-values">Retrieve vector values<a class="headerlink" href="#retrieve-vector-values" title="Permanent link">&para;</a></h2>
+<h2 id="retrieve-vector-values">Retrieve vector values<a data-markdown-ignore class="headerlink" href="#retrieve-vector-values" title="Permanent link">&para;</a></h2>
 <p>Use a <code>SELECT</code> statement to retrieve vector values:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">embedding</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="compare-vectors">Compare vectors<a class="headerlink" href="#compare-vectors" title="Permanent link">&para;</a></h2>
+<h2 id="compare-vectors">Compare vectors<a data-markdown-ignore class="headerlink" href="#compare-vectors" title="Permanent link">&para;</a></h2>
 <p>Vector applications often compare vectors to determine how similar they are. The result of a comparison is a numeric distance between the vectors.</p>
 <p>Use <code>DISTANCE()</code> to calculate the distance between two vectors with a supported distance metric. The two vector values passed to <code>DISTANCE()</code> must contain the same number of elements. A mismatch causes an error.</p>
 <p>For example:</p>
@@ -10760,7 +10760,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
 </code></pre></div>
 <p>Different distance metrics compare vectors in different ways. The <a href="quickstart-distance.html">DISTANCE() quickstart</a> runs every supported metric against the same stored vector and the same query vector. For arguments, return values, and metric definitions, see <a href="distance-function.html">DISTANCE() Function</a>.</p>
-<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="see-also">See also<a data-markdown-ignore class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="quickstart-distance.html">Get started with DISTANCE()</a></li>
 <li><a href="distance-function.html">DISTANCE() Function</a></li>

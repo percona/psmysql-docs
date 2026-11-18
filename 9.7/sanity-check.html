@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10780,14 +10780,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="sanity-check-first-five-minutes">Sanity check: First five minutes<a class="headerlink" href="#sanity-check-first-five-minutes" title="Permanent link">&para;</a></h1>
+<h1 id="sanity-check-first-five-minutes">Sanity check: First five minutes<a data-markdown-ignore class="headerlink" href="#sanity-check-first-five-minutes" title="Permanent link">&para;</a></h1>
 <p>This guide helps you verify that the <a href="first-five-minutes.html">First five minutes</a> security and stability steps have been applied correctly. Run these checks after completing the First five minutes, or on an existing server to see if those steps are in place.</p>
 <p>You need:</p>
 <ul>
 <li>Access to the MySQL server as a user with enough <em>privileges</em> (permissions to run statements and see system data) to run the SQL checks—for example, <code>root</code> (the default MySQL administrative user) or the admin user you created.</li>
 <li>Ability to run shell commands (and <code>systemctl</code>, the systemd command to inspect and manage services) on the host (the machine where MySQL runs).</li>
 </ul>
-<h2 id="summary-what-we-check">Summary: what we check<a class="headerlink" href="#summary-what-we-check" title="Permanent link">&para;</a></h2>
+<h2 id="summary-what-we-check">Summary: what we check<a data-markdown-ignore class="headerlink" href="#summary-what-we-check" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -10818,7 +10818,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tr>
 </tbody>
 </table>
-<h2 id="1-root-and-security-script">1. Root and security script<a class="headerlink" href="#1-root-and-security-script" title="Permanent link">&para;</a></h2>
+<h2 id="1-root-and-security-script">1. Root and security script<a data-markdown-ignore class="headerlink" href="#1-root-and-security-script" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm the MySQL <code>root</code> account is not empty and that <code>mysql_secure_installation</code>–style hardening is in place.</p>
 <p>1.1 Root has a password<br />
 Try connecting without a password; the connection should fail:</p>
@@ -10840,7 +10840,7 @@ The default <code>test</code> database (a sample database that is often removed 
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW DATABASES LIKE 'test';"</span>
 </code></pre></div>
 <p>Expected: empty result set.</p>
-<h2 id="2-least-privilege-admin-user">2. Least-privilege admin user<a class="headerlink" href="#2-least-privilege-admin-user" title="Permanent link">&para;</a></h2>
+<h2 id="2-least-privilege-admin-user">2. Least-privilege admin user<a data-markdown-ignore class="headerlink" href="#2-least-privilege-admin-user" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm you have a dedicated admin user and that the account does not have full <code>SUPER</code> (a powerful built-in privilege) or global privileges on all databases (<code>*.*</code>) unless you intentionally grant them.</p>
 <p>2.1 List admin-like users<br />
 Adjust the user name if you used something other than <code>admin</code>:</p>
@@ -10856,12 +10856,12 @@ Replace <code>'admin'@'localhost'</code> with your admin user and <em>host</em> 
 To see the full <em>effective</em> privilege set (the combined permissions a user actually has, including from roles), use <a href="extended-show-grants.html">SHOW EFFECTIVE GRANTS</a> if your server supports that statement:</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SHOW EFFECTIVE GRANTS FOR 'admin'@'localhost';"</span>
 </code></pre></div>
-<h2 id="3-oom-killer-guardrail">3. OOM-killer guardrail<a class="headerlink" href="#3-oom-killer-guardrail" title="Permanent link">&para;</a></h2>
+<h2 id="3-oom-killer-guardrail">3. OOM-killer guardrail<a data-markdown-ignore class="headerlink" href="#3-oom-killer-guardrail" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm that the MySQL systemd service has a lower <em>OOM score</em> (a value the kernel uses when choosing which process to terminate when the system is out of memory; lower means less likely to be killed) so the kernel is less likely to kill MySQL.</p>
 <div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>mysql<span class="w"> </span>-p<span class="w"> </span>OOMScoreAdjust
 </code></pre></div>
 <p>Expected: <code>OOMScoreAdjust=-500</code> (or another negative value). If you see an empty value or <code>OOMScoreAdjust=0</code>, the First five minutes OOM guardrail is not applied.</p>
-<h2 id="4-diagnostic-logging">4. Diagnostic logging<a class="headerlink" href="#4-diagnostic-logging" title="Permanent link">&para;</a></h2>
+<h2 id="4-diagnostic-logging">4. Diagnostic logging<a data-markdown-ignore class="headerlink" href="#4-diagnostic-logging" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm the error log and slow query log are enabled and that paths are set so you can find them.</p>
 <p>4.1 Error log<br />
 Check that the <em>error log</em> (the file where the server records errors, warnings, and startup messages) is set and that the server is writing to that file:</p>
@@ -10875,7 +10875,7 @@ Check that the <em>slow query log</em> (the file that records SQL statements tha
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT @@slow_query_log, @@slow_query_log_file, @@long_query_time;"</span>
 </code></pre></div>
 <p>Expected: <code>slow_query_log = 1</code>, and <code>slow_query_log_file</code> set to a path you can monitor. Optionally confirm the file exists and is writable after the server has been running with slow log enabled.</p>
-<h2 id="5-backup-path">5. Backup path<a class="headerlink" href="#5-backup-path" title="Permanent link">&para;</a></h2>
+<h2 id="5-backup-path">5. Backup path<a data-markdown-ignore class="headerlink" href="#5-backup-path" title="Permanent link">&para;</a></h2>
 <p>Goal: Confirm the directory you use for backups exists and is writable by the MySQL <em>system user</em> (the operating-system user that runs the MySQL process or backup tool; often named <code>mysql</code>).</p>
 <p>5.1 Choose your backup path<br />
 Use the same path you configured in <a href="first-five-minutes.html#verify-the-backup-path">First five minutes — Verify the backup path</a> (e.g. <code>/var/backups/mysql</code>). Set that path in a variable for the next commands:</p>
@@ -10888,7 +10888,7 @@ Use the same path you configured in <a href="first-five-minutes.html#verify-the-
 Replace <code>mysql</code> with the user that runs your backup tool if different:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"OK: backup path is writable"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"FAIL: backup path not writable by mysql"</span>
 </code></pre></div>
-<h2 id="optional-run-checks-in-one-go">Optional: run checks in one go<a class="headerlink" href="#optional-run-checks-in-one-go" title="Permanent link">&para;</a></h2>
+<h2 id="optional-run-checks-in-one-go">Optional: run checks in one go<a data-markdown-ignore class="headerlink" href="#optional-run-checks-in-one-go" title="Permanent link">&para;</a></h2>
 <p>You can run a subset of these checks from the shell in one pass. The following assumes:</p>
 <ul>
 <li>Service name is <code>mysqld</code> (change to <code>mysql</code> if needed).</li>
@@ -10919,7 +10919,7 @@ mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </sp
 <span class="nb">test</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>touch<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$BACKUP_DIR</span><span class="s2">/.write_test"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"OK: writable"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"FAIL or missing"</span>
 </code></pre></div>
 <p>Interpret the output using the expected results described in each section above.</p>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="next-steps">Next steps<a data-markdown-ignore class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>If any check fails, re-read the corresponding section in <a href="first-five-minutes.html">First five minutes</a> and apply or fix the step.</li>
 <li>Re-run this sanity check after changes to confirm everything passes.</li>

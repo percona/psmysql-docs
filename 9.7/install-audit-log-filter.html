@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10694,14 +10694,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="install-the-audit-log-filter">Install the audit log filter<a class="headerlink" href="#install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
-<h2 id="installation-script">Installation script<a class="headerlink" href="#installation-script" title="Permanent link">&para;</a></h2>
+<h1 id="install-the-audit-log-filter">Install the audit log filter<a data-markdown-ignore class="headerlink" href="#install-the-audit-log-filter" title="Permanent link">&para;</a></h1>
+<h2 id="installation-script">Installation script<a data-markdown-ignore class="headerlink" href="#installation-script" title="Permanent link">&para;</a></h2>
 <p>Run <code>audit_log_filter_linux_install.sql</code> from the server <code>share</code> directory. The script creates the audit tables and then installs the component.</p>
-<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<h3 id="prerequisites">Prerequisites<a data-markdown-ignore class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
 <p><code>plugin_dir</code> locates the component library. Set the variable at startup when the default path is wrong.</p>
-<h3 id="database-selection">Database selection<a class="headerlink" href="#database-selection" title="Permanent link">&para;</a></h3>
+<h3 id="database-selection">Database selection<a data-markdown-ignore class="headerlink" href="#database-selection" title="Permanent link">&para;</a></h3>
 <p>By default, the script runs against the <code>mysql</code> database. To use a different database, set <a href="audit-log-filter-variables.html#audit_log_filterdatabase"><code>audit_log_filter.database</code></a> at server startup before running the install script.</p>
-<h3 id="install-the-component">Install the component<a class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h3>
+<h3 id="install-the-component">Install the component<a data-markdown-ignore class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h3>
 <p>Use either approach:</p>
 <ul>
 <li>
@@ -10717,7 +10717,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Replace <code>/path/to/mysql/share/</code> with the path to the server installation&rsquo;s <code>share</code> directory. For package installations, the script is in <code>/usr/share/mysql/</code> on Debian and Ubuntu, and in <code>/usr/share/percona-server/</code> on RHEL-based distributions.</p>
 </li>
 </ul>
-<h3 id="verify-installation">Verify installation<a class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h3>
+<h3 id="verify-installation">Verify installation<a data-markdown-ignore class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h3>
 <p>Confirm the audit tables exist:</p>
 <div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">mysql</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">'aud%'</span><span class="p">;</span>
 </code></pre></div>
@@ -10732,12 +10732,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 2 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h2 id="alternative-install-component-method">Alternative: INSTALL COMPONENT method<a class="headerlink" href="#alternative-install-component-method" title="Permanent link">&para;</a></h2>
+<h2 id="alternative-install-component-method">Alternative: INSTALL COMPONENT method<a data-markdown-ignore class="headerlink" href="#alternative-install-component-method" title="Permanent link">&para;</a></h2>
 <p><code>INSTALL COMPONENT</code> loads the binary only. The statement does not create tables, so filter UDFs fail until you run the install script.</p>
 <div class="highlight"><pre><span></span><code><span class="k">INSTALL</span><span class="w"> </span><span class="k">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_audit_log_filter'</span><span class="p">;</span>
 </code></pre></div>
 <p>The URN must include the <code>component_</code> prefix. <code>file://audit_log_filter</code> fails to load the component.</p>
-<h3 id="verify-component-installation">Verify component installation<a class="headerlink" href="#verify-component-installation" title="Permanent link">&para;</a></h3>
+<h3 id="verify-component-installation">Verify component installation<a data-markdown-ignore class="headerlink" href="#verify-component-installation" title="Permanent link">&para;</a></h3>
 <p>Confirm the component row exists:</p>
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="p">;</span>
 </code></pre></div>
@@ -10752,7 +10752,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 2 rows in set (0.00 sec)
 </code></pre></div>
 </details>
-<h3 id="test-filter-functionality">Test filter functionality<a class="headerlink" href="#test-filter-functionality" title="Permanent link">&para;</a></h3>
+<h3 id="test-filter-functionality">Test filter functionality<a data-markdown-ignore class="headerlink" href="#test-filter-functionality" title="Permanent link">&para;</a></h3>
 <p>Exercise a filter UDF:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{"filter": {"log": true}}'</span><span class="p">);</span>
 </code></pre></div>
@@ -10770,7 +10770,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Note</p>
 <p>The error appears when the component loads without the tables. Run <code>audit_log_filter_linux_install.sql</code> first.</p>
 </div>
-<h3 id="fix-missing-tables">Fix missing tables<a class="headerlink" href="#fix-missing-tables" title="Permanent link">&para;</a></h3>
+<h3 id="fix-missing-tables">Fix missing tables<a data-markdown-ignore class="headerlink" href="#fix-missing-tables" title="Permanent link">&para;</a></h3>
 <p>When the component is installed but tables are missing, run the install script against <code>mysql</code>:</p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql<span class="w"> </span>&lt;<span class="w"> </span>/path/to/mysql/share/audit_log_filter_linux_install.sql
 </code></pre></div>
@@ -10779,9 +10779,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">source</span><span class="w"> </span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="k">to</span><span class="o">/</span><span class="n">mysql</span><span class="o">/</span><span class="k">share</span><span class="o">/</span><span class="n">audit_log_filter_linux_install</span><span class="p">.</span><span class="k">sql</span><span class="p">;</span>
 </code></pre></div>
 <p>The script adds the tables and does not reinstall the component.</p>
-<h2 id="additional-information">Additional information<a class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h2>
+<h2 id="additional-information">Additional information<a data-markdown-ignore class="headerlink" href="#additional-information" title="Permanent link">&para;</a></h2>
 <p>When you are replacing an existing audit plugin (the legacy <code>audit_log</code> plugin or the transitional <code>audit_log_filter</code> plugin) with the component, see <a href="migrate-to-audit-log-filter-component.html">Migrate to the audit log filter component</a> for the variable mapping, policy translation, and a worked example. The general plugin-to-component framing appears in <a href="upgrade-components.html">Upgrade from plugins to components</a>.</p>
-<h2 id="additional-reading">Additional reading<a class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
+<h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="audit-log-filter-overview.html">Audit Log Filter overview</a></p>

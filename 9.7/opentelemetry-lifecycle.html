@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10694,26 +10694,26 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   
 
 
-<h1 id="install-and-manage-the-opentelemetry-component">Install and manage the OpenTelemetry component<a class="headerlink" href="#install-and-manage-the-opentelemetry-component" title="Permanent link">&para;</a></h1>
+<h1 id="install-and-manage-the-opentelemetry-component">Install and manage the OpenTelemetry component<a data-markdown-ignore class="headerlink" href="#install-and-manage-the-opentelemetry-component" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The OpenTelemetry component (<code>component_telemetry</code>) is a community MySQL 9.7 feature. Percona Server for MySQL includes this component. The component works the same as in upstream MySQL.</p>
 </div>
 <p>The OpenTelemetry component is a dynamically loadable module. Percona Server for MySQL does not load this component by default. To stream metrics, traces, and logs to your configured endpoints, install the component first.</p>
 <p>The <code>mysql</code> client uses a separate <code>telemetry_client</code> plugin. See <a href="opentelemetry-client.html">OpenTelemetry client plugin</a>.</p>
-<h2 id="install-the-component">Install the component<a class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h2>
+<h2 id="install-the-component">Install the component<a data-markdown-ignore class="headerlink" href="#install-the-component" title="Permanent link">&para;</a></h2>
 <p>To install the component, connect to the server with a user account that has the <code>INSERT</code> privilege on the <code>mysql.component</code> system table. Run the following statement:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>This statement registers the component in the <code>mysql.component</code> system table. Percona Server loads the component automatically on every server restart. You do not need to add loading directives to your <code>my.cnf</code> file.</p>
-<h2 id="verify-the-installation">Verify the installation<a class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h2>
+<h2 id="verify-the-installation">Verify the installation<a data-markdown-ignore class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h2>
 <p>To confirm that the component is loaded, query the <code>mysql.component</code> system table:</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>A returned row with <code>file://component_telemetry</code> confirms the installation. You can then configure your metrics, traces, and logging endpoints.</p>
-<h2 id="uninstall-the-component">Uninstall the component<a class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h2>
+<h2 id="uninstall-the-component">Uninstall the component<a data-markdown-ignore class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h2>
 <p>You can remove the component without restarting the database server.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -10723,7 +10723,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>This statement unloads the component from memory and also removes the component entry from the <code>mysql.component</code> table. After uninstallation, the component does not load during future server restarts. The statement does not clear persisted telemetry variables.</p>
-<h2 id="related-reading">Related reading<a class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
+<h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
 <p><a href="opentelemetry-overview.html">OpenTelemetry component overview</a></p>
