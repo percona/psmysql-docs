@@ -28,7 +28,7 @@ The plugin provides the following capabilities:
 
 * Support the signature algorithms listed in [Supported signature algorithms](#supported-signature-algorithms).
 
-Proxy support is a Percona-specific addition. The upstream MySQL OIDC plugin does not include this capability.
+Proxy support is a Percona-specific addition. The MySQL OIDC plugin does not include this capability.
 
 The server-side plugin pairs with the `authentication_openid_connect_client` client-side plugin distributed with Percona Server for MySQL.
 
@@ -94,11 +94,27 @@ The plugin accepts the token only when every check in the following table passes
 
 The plugin selects the authentication mode from the fields present in the account's `IDENTIFIED ... AS` JSON:
 
-| Fields in the `AS` JSON              | Mode                  | The plugin authenticates as                       |
-|---|---|---|
-| `identity_provider`, `user`          | Direct authentication | The handshake account (no proxying)               |
-| `identity_provider`, `group`         | Named-group proxying  | The literal value of `group`                      |
-| `identity_provider` only             | Anonymous proxying    | The first entry in the token's `groups` claim     |
+| Fields in the `AS` JSON              | Server version                     | Mode                  | The plugin authenticates as                       |
+|---|---|---|---|
+| `identity_provider`, `user`          | All versions                       | Direct authentication | The handshake account (no proxying)               |
+| `identity_provider`, `group`         | All versions                       | Named-group proxying  | The literal value of `group`                      |
+| `identity_provider` only             | All versions                       | Anonymous proxying    | The first entry in the token's `groups` claim     |
+| `identity_provider`, `user`, `group` | Before Percona Server 8.4.12-12 | Direct authentication | The handshake account. The `group` field is ignored. |
+| `identity_provider`, `user`, `group` | As of Percona Server 8.4.12-12  | Connection denied     | No session is created                             |
+
+!!! warning "Do not combine `user` and `group`"
+
+    When the `IDENTIFIED ... AS` JSON contains both `user` and `group`, the combination is ambiguous.
+
+    Before Percona Server 8.4.12-12, the plugin ignores `group` and uses direct authentication.
+
+    As of Percona Server 8.4.12-12, the plugin denies the connection and writes this message to the server error log:
+
+    `both user and group specified in IDENTIFIED AS, only one is allowed.`
+
+    `CREATE USER` and `ALTER USER` still accept the JSON. The denial happens when the user connects.
+
+    Use `user` for direct authentication. Use `group` for named-group proxying.
 
 The `sub` claim is verified against `user` only in direct authentication. Proxy modes verify group membership instead.
 
@@ -388,6 +404,8 @@ The clause requires two fields:
 
 * `user` must match the `sub` claim in the Identity tokens that the IDP issues for this user.
 
+Do not add a `group` field to this JSON. Before Percona Server 8.4.12-12, the plugin ignores `group` and uses direct authentication. As of Percona Server 8.4.12-12, the plugin denies the connection and writes `both user and group specified in IDENTIFIED AS, only one is allowed.` to the server error log. `CREATE USER` still succeeds. See [How does OpenID Connect authentication work?](#how-does-openid-connect-authentication-work).
+
 For Keycloak, the `sub` claim contains the user UUID. For other providers, the claim may contain an email address or another stable identifier.
 
 The server validates the JSON at connection time, not at user creation. The connection fails when either field is missing. The connection also fails when the configuration does not contain the referenced IDP.
@@ -551,7 +569,7 @@ The two subsections that follow show end-to-end examples for both proxy modes. B
 
 In named-group proxying, the connecting MySQL user names the IDP group for the session. Named-group proxying suits users who belong to multiple groups and need to choose between them per session.
 
-Create one MySQL account per group. The `group` field in the `AS` JSON pins the account to one IDP group:
+Create one MySQL account per group. The `group` field in the `AS` JSON pins the account to one IDP group. Do not include a `user` field in the same JSON. Before Percona Server 8.4.12-12, the plugin ignores `group` and uses direct authentication when both fields are present. As of Percona Server 8.4.12-12, the plugin denies the connection and writes a message to the server error log. `CREATE USER` still succeeds:
 
 ```sql
 CREATE USER 'accounting'@'%'
@@ -909,4 +927,5 @@ The following table follows a Symptoms, Diagnosis, and Solution model for the mo
 | `JWKS: HTTP GET from <url> failed` in the server log                            | The IDP is unreachable or returned a non-2xx status. The host may also require an outbound HTTP proxy.            | Verify network reachability. For corporate egress, see [Route JWKS traffic through an HTTP proxy](#route-jwks-traffic-through-an-http-proxy). Run `update_jwks()` after the IDP recovers. |
 | `incorrect number of keys` in the server log                                    | The token has no `kid` header but the plugin loaded multiple keys for the IDP.                                    | Set `keys` to a single entry that matches the IDP signing key.                      |
 | `user is not a member of the required group` in the server log                  | The account uses named-group proxying but the token's `groups` claim does not contain the configured `group`.     | Verify the user's group membership at the IDP, or have the user select a different MySQL account that maps to a group they belong to. |
+| `both user and group specified in IDENTIFIED AS, only one is allowed.` in the server log | As of Percona Server 8.4.12-12, the account `IDENTIFIED ... AS` JSON contains both `user` and `group`. | Remove one field with `ALTER USER`. Keep `user` for direct authentication, or keep `group` for named-group proxying. |
 | `CREATE USER` fails for a proxy target, or proxy authentication fails            | The group value in the token exceeds the 32-character MySQL account name limit, or the claim contains a group ID instead of a group name. | Group names longer than 32 characters cannot be used by the proxying feature. Prefer group names over group IDs. See [Proxying](#proxying). |
