@@ -17,6 +17,15 @@ More information can be found in [Backup Locks](backup-locks.md).
 More information can be found in
 [Compressed columns with dictionaries](compressed-columns.md).
 
+## `InnoDB` secondary keys and `--innodb-optimize-keys`
+
+For *InnoDB* tables, `--innodb-optimize-keys` omits secondary keys (and related
+constraints) from the initial `CREATE TABLE` in the dump and adds them in a
+follow-up `ALTER TABLE` after the data is loaded. That pattern lets the server
+build the indexes with [InnoDB fast index creation](innodb-expanded-fast-index-creation.md)
+after the data is loaded. See that page for limitations (foreign keys,
+partitioned tables, `AUTO_INCREMENT`, implicit primary keys, and others).
+
 ## Taking backup by descending primary key order
 
 –order-by-primary-desc tells `mysqldump` to take the backup by
