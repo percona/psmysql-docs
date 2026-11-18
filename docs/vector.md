@@ -71,7 +71,16 @@ FROM documents;
 
 Different distance metrics compare vectors in different ways. The [DISTANCE() quickstart](quickstart-distance.md) runs every supported metric against the same stored vector and the same query vector. For arguments, return values, and metric definitions, see [DISTANCE() Function](distance-function.md).
 
+## Limitations
+
+* `TO_VECTOR()` rejects very small values close to zero, such as `1e-40`, and returns the `ER_TO_VECTOR_CONVERSION` error. To store such a value, insert the vector as a binary string instead of a string representation.
+
+* With `INSERT IGNORE` or a non-strict SQL mode, a vector with more elements than the column dimension does not cause an error. The server stores an empty value instead. Use strict SQL mode and plain `INSERT` statements for `VECTOR` columns.
+
+* In a `MEMORY` table, place `VECTOR` columns after all columns that belong to a key. If a `VECTOR` column comes before the last key column, `CREATE TABLE` fails with the `ER_TABLE_CANT_HANDLE_BLOB` error.
+
 ## See also
 
 * [Get started with DISTANCE()](quickstart-distance.md)
 * [DISTANCE() Function](distance-function.md)
+* [Vector indexes](vector-index.md)

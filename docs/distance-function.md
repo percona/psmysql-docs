@@ -176,3 +176,4 @@ FROM documents;
 
 * [Get started with DISTANCE()](quickstart-distance.md)
 * [The VECTOR Type](vector.md)
+* [Vector indexes](vector-index.md)
