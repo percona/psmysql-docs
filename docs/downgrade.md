@@ -46,6 +46,12 @@ Downgrading has the following risks:
 | Performance | Downgrading may result in a loss of performance |
 | Security | Newer versions have security updates that are not available in the older versions, which could lead to exposure. |
 
+## MyRocks downgrade
+
+MyRocks 9.7.4-1 has additional downgrade steps.
+
+See [Downgrade to MyRocks 9.3.1](myrocks-added-features.md#downgrade-to-myrocks-931).
+
 ## Further reading
 
 * [Upgrade overview](./upgrade.md)
