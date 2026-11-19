@@ -18,15 +18,31 @@ You can use stored procedures and functions written in JS with a MySQL-compatibl
 
 ## Limitations
 
-The JS procedure parameters cannot be JS reserved words and must be [legal JS identifiers :octicons-link-external-16:](https://www.capscode.in/blog/valid-identifier-in-js).
+The JS procedure parameters cannot be JS reserved words and must be [legal JS identifiers :octicons-link-external-16:](https://www.capscode.in/blog/valid-identifier-in-js). A reserved word such as `class`, or a name that is not a legal JS identifier, fails at `CREATE`. The failure does not wait until you call the routine.
 
-Our implementation offers the same level of JS support as the V8 engine inside the context of a database engine. You can check out the details at [v8.dev/docs :octicons-link-external-16:](https://v8.dev/docs) and [tc39.es/ecma262 :octicons-link-external-16:](https://v8.dev/docs). Developers have access to standard operators, data types, objects (such as Math), and functions defined in the ECMAScript standard. However, objects and modules specific to Node.NS or DOM, which are only available in browsers, are not accessible. 
+```sql
+CREATE FUNCTION f_reserved(class INT) RETURNS INT LANGUAGE JS AS $$
+  return 1;
+$$;
+```
+
+??? example "Expected result"
+
+    ```{.text .no-copy}
+    ERROR 6000 (HY000): SyntaxError: Unexpected token ')'
+    ```
+
+A name that is not a legal JS identifier also fails at `CREATE` with `ERROR 6000`. The message begins with `SyntaxError:`.
+
+Our implementation offers the same level of JS support as the V8 engine inside the context of a database engine. You can check out the details at [v8.dev/docs :octicons-link-external-16:](https://v8.dev/docs) and [tc39.es/ecma262 :octicons-link-external-16:](https://v8.dev/docs). Developers have access to standard operators, data types, objects (such as Math), and functions defined in the ECMAScript standard. However, objects and modules specific to Node.NS or DOM, which are only available in browsers, are not accessible.
+
+The names `require`, `process`, `fetch`, `document`, `window`, `XMLHttpRequest`, and `setTimeout` are undefined. `Math` and `JSON` are available. 
 
 In a typical database environment, direct access to external files (like reading or writing files on the server's file system) is restricted. Our implementation adheres to a trusted external routine language policy, ensuring routines cannot perform operations beyond what is normally possible for database users. Consequently, file or network I/O operations are not supported within our routines.
 
 Our system supports asynchronous JS code, but it does not work well for database routines. Since everything runs on the same thread and there is nothing to wait for asynchronously, using asynchronous code is unnecessary and not recommended.
 
-We always run JS code in strict mode, and developers cannot disable or change this setting.
+We always run JS code in strict mode, and developers cannot disable or change this setting. Assigning to an undeclared variable fails with `ERROR 6000: ReferenceError: undeclared_var is not defined`.
 
 ## Type conversions
 
@@ -51,9 +67,9 @@ These variables help prevent runaway scripts from consuming excessive memory or 
 
 The js_lang component provides global status variables for monitoring JS routine execution:
 
-* **Memory usage**: `js_lang_total_heap_size`, `js_lang_peak_total_heap_size`, `js_lang_used_heap_size`, `js_lang_peak_used_heap_size`, `js_lang_external_memory_size`, `js_lang_peak_external_memory_size`
-* **Contexts**: `js_lang_contexts`, `js_lang_peak_contexts`
-* **Call count**: `js_lang_stored_program_call_count`
+* **Memory usage**: `Js_lang_total_heap_size`, `Js_lang_peak_total_heap_size`, `Js_lang_used_heap_size`, `Js_lang_peak_used_heap_size`, `Js_lang_external_memory_size`, `Js_lang_peak_external_memory_size`
+* **Contexts**: `Js_lang_contexts`, `Js_lang_peak_contexts`
+* **Call count**: `Js_lang_stored_program_call_count`
 
 !!! note
     Status variable values are approximate as they are refreshed at Isolate creation/destruction and GC time, not on each operation.
@@ -70,7 +86,7 @@ The following UDFs are helpful for debugging JS code:
 
 * `JS_CLEAR_LAST_ERROR()`: Resets the information about the last JS error for the current connection and user, as if no error had occurred.
 
-* `JS_GET_MEMORY_USAGE_JSON()`: Returns information about memory usage by the JS environment (isolate) for the current user and connection pair, as well as total memory usage by all JS environments in the server, in the form of a JSON object. The returned object includes `local` (per-environment) and `global` (aggregated) memory statistics with heap sizes, external memory, and context counts. If there is no JS environment for the current user-connection pair, the `local` member is `null`.
+* `JS_GET_MEMORY_USAGE_JSON()`: Returns information about memory usage by the JS environment (isolate) for the current user and connection pair, as well as total memory usage by all JS environments in the server, in the form of a JSON object. The object has `local` and `global` members. `local` is JSON `null` until the connection runs its first JS routine. After that routine, `local` is an object with `usedHeapSize`, `totalHeapSize`, and `externalMemorySize`. The `global` member has `contexts`, `peakContexts`, `usedHeapSize`, `totalHeapSize`, `peakUsedHeapSize`, `peakTotalHeapSize`, `externalMemorySize`, and `peakExternalMemorySize`.
 
 For more information about using these functions for troubleshooting, see [Troubleshoot js_lang procedures and functions](js-lang-troubleshoot.md).
 
