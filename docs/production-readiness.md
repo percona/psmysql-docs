@@ -31,7 +31,7 @@ Example output on this page uses sample paths, numbers, and service names from o
 This page assumes the following:
 
 - A shell account with `sudo` access on the MySQL host.
-- A `systemd` host. The service is named `mysql` on Debian and Ubuntu and `mysqld` on Red Hat Enterprise Linux and Oracle Linux. The scripts on this page detect whichever name exists.
+- A `systemd` host. The service is named `mysql` on Debian and Ubuntu and `mysqld` on Red Hat Enterprise Linux and Oracle Linux. The scripts detect whichever name exists.
 - A completed installation and a working `root` login. See [First five minutes after installation](first-five-minutes.md).
 - A tested backup. See [Backup and restore overview](backup-restore-overview.md).
 - For the optional reserved admin interface, an `admin` account created as described in [First five minutes after installation](first-five-minutes.md).
@@ -371,7 +371,7 @@ Keep this shell open. Edit with `sudoedit "$DROPIN"`. On rollback, restore that 
 
 Run these checks on the database host before you tune MySQL.
 
-Open a client for the SQL on this page. After `mysql_secure_installation`, connect with the root password:
+Open a client for the SQL. After `mysql_secure_installation`, connect with the root password:
 
 ```shell
 mysql -u root -p
@@ -788,7 +788,7 @@ SHOW VARIABLES LIKE 'max_connections';
 
     The connection values depend on the workload. `Max_used_connections` must remain below `max_connections`.
 
-    Pass: `Max_used_connections` stays below `max_connections`. A starting point is to keep the peak under 80% of `max_connections`, the same default as the PMM template on this page. Traffic spikes can require a larger or smaller margin. 80% is not a universal failure rule.
+    Pass: `Max_used_connections` stays below `max_connections`. A starting point is to keep the peak under 80% of `max_connections`, the same default as the PMM template. Traffic spikes can require a larger or smaller margin. 80% is not a universal failure rule.
 
     Stop: `Max_used_connections` equals `max_connections`, or applications already hit connection errors. Raise capacity only after you confirm application pool limits.
 
