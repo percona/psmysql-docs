@@ -19,7 +19,9 @@ In case a user tries to enable [enforce_storage_engine](#enforce_storage_engine)
     the upgraded server. In 8.4 there is no `mysql_upgrade` step: the server
     upgrades the data dictionary and system tables itself at startup, as
     controlled by the `--upgrade` server option (default `AUTO`). See
-    [Upgrade procedures](upgrade-procedures.md).
+    [Upgrade procedures](upgrade-procedures.md). After the server has started
+    and completed the upgrade, set `enforce_storage_engine` again in the
+    option file.
 
 ## System variables
 

@@ -19,7 +19,8 @@ KEYS = ("tag", "arm_tag")
 
 
 def read_tags(path):
-    text = open(path, encoding="utf-8").read()
+    with open(path, encoding="utf-8") as handle:
+        text = handle.read()
     tags = {}
     for key in KEYS:
         match = re.search(rf"^{key}:\s*['\"]?([^'\"\s#]+)", text, re.MULTILINE)
@@ -47,9 +48,10 @@ def main():
     path = sys.argv[1] if len(sys.argv) > 1 else "variables.yml"
     missing = []
     for key, tag in read_tags(path).items():
-        if tag_exists(tag) is False:
+        exists = tag_exists(tag)
+        if exists is False:
             missing.append(f"{key}: {tag}")
-        else:
+        elif exists:
             print(f"ok: {key} {tag}")
     if missing:
         print("Tags not found on Docker Hub (percona/percona-server):")
