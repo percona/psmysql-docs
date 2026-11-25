@@ -12,7 +12,7 @@ With automatic rotation enabled, prune old files by age, total size, or both.
 
 Run `SELECT audit_log_rotate();` to rotate immediately. Requires `AUDIT_ADMIN`.
 
-Starting in Percona Server for MySQL 8.4.9-9, rotation finishes immediately in `ASYNCHRONOUS` and `PERFORMANCE` strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix (for example `audit_filter.20250401T120000-1.log`) so files are not overwritten.
+Starting in Percona Server for MySQL 8.4.10-10, rotation finishes immediately in `ASYNCHRONOUS` and `PERFORMANCE` strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix (for example `audit_filter.20250401T120000-1.log`) so files are not overwritten.
 
 Pruning runs when `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` is greater than zero. The server prunes immediately when you set either variable, and again on rotation (automatic when `rotate_on_size` &gt; 0, or manual via `audit_log_rotate()`). There is no background timer — with automatic rotation disabled, schedule manual rotations or rely on the prune that runs when you set the variable.
 
