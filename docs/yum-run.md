@@ -38,4 +38,4 @@ The following commands start, provide the server status, stop the server, and re
 
 For information on working with SELinux, see [Working with SELinux](selinux.md).
 
-The RHEL 8 distributions and derivatives have added [system-wide cryptographic policies component](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening). This component allows the configuration of cryptographic subsystems.
+The RHEL 8 distributions and derivatives have added [system-wide cryptographic policies component](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening). This component allows the configuration of cryptographic subsystems.
