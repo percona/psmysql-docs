@@ -9,9 +9,10 @@
             return;
         }
 
-        const search = document.querySelector(".md-search");
+        // The Algolia search container in the header (partials/header.html)
+        const container = document.querySelector("#docsearch");
 
-        if (!search || !search.parentNode) {
+        if (!container) {
             return;
         }
 
@@ -35,7 +36,7 @@
         });
 
         // Place button AFTER search component
-        search.parentNode.insertBefore(button, search.nextSibling);
+        container.appendChild(button);
     }
 
     createAIButton();
