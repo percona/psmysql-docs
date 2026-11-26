@@ -1,7 +1,5 @@
 # Downgrade Percona Server for MySQL
 
-**Topic type**: Concept
-
 --8<--- "get-help-snip.md"
 
 [Need help planning a downgrade? Percona Support can assist :octicons-link-external-16:](https://www.percona.com/services/expert-support/).
@@ -19,6 +17,8 @@ Review the following prerequisites before starting a downgrade:
 * Take a verified backup before any downgrade attempt.
 
 * Do not attempt to downgrade below 8.4. Earlier paths are not supported.
+
+* If the server has vector indexes, drop every vector index before you downgrade to a release earlier than 9.7.4-4. See [Downgrade a server with vector indexes](#downgrade-a-server-with-vector-indexes).
 
 For the underlying MySQL guidance, see [Downgrading MySQL :octicons-link-external-16:](https://dev.mysql.com/doc/refman/{{vers}}/en/downgrading.html).
 
@@ -48,6 +48,57 @@ The following methods support the paths in [Identify a supported downgrade path]
 * Replication: configure replication from {{vers}} to the older version, validate the replica, and cut traffic over.
 
 For cutover and validation guidance during a downgrade, see [Upgrade strategies](./upgrade-strategies.md).
+
+## Downgrade a server with vector indexes
+
+Percona Server for MySQL 9.7.4-4 introduces [vector indexes](vector-index.md). Releases earlier than 9.7.4-4 cannot read a vector index. Starting an earlier release on a data directory that contains a vector index causes an unexpected server exit when a statement accesses the table. If the server exits during an `INSERT`, the earlier release cannot restart on that data directory.
+
+The other downgrade methods fail as well:
+
+* A MySQL Clone recipient that runs an earlier release exits unexpectedly on start.
+
+* A logical dump that contains vector index definitions fails to load on an earlier release with a syntax error.
+
+Before you downgrade to a release earlier than 9.7.4-4, drop every vector index:
+
+1. List the vector indexes on the server:
+
+    ```sql
+    SELECT DISTINCT TABLE_SCHEMA, TABLE_NAME, INDEX_NAME
+    FROM INFORMATION_SCHEMA.STATISTICS
+    WHERE INDEX_TYPE = 'VECTOR';
+    ```
+
+2. Drop each vector index that the query returns:
+
+    ```sql
+    ALTER TABLE <schema>.<table> DROP INDEX <index_name>;
+    ```
+
+3. Run the query from step 1 again. The query must return no rows.
+
+4. Shut down the server with a slow shutdown, so that InnoDB writes all changes to the data files:
+
+    ```sql
+    SET GLOBAL innodb_fast_shutdown = 0;
+    SHUTDOWN;
+    ```
+
+5. Downgrade with the method that you chose.
+
+Dropping a vector index keeps your data. The `VECTOR` columns and their values stay in the table. To use vector search again, upgrade the server and create the indexes again.
+
+### Recover from a failed downgrade
+
+If you started a release earlier than 9.7.4-4 on a data directory that contains a vector index, and that server no longer starts, follow these steps:
+
+1. Start the release that you downgraded from (9.7.4-4 or later) on the same data directory. This release rolls back the incomplete statement.
+
+2. Drop every vector index, as described in the previous steps.
+
+3. Shut down the server with `innodb_fast_shutdown = 0`.
+
+4. Start the release that you want to downgrade to.
 
 ## Assess downgrade risks
 
