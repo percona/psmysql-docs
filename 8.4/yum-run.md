@@ -38,4 +38,4 @@ The RHEL distributions and derivatives come with [systemd](https:/freedesktop.or
 
 For information on working with SELinux, see [Working with SELinux](https://docs.percona.com/percona-server/8.4/selinux.html).
 
-The RHEL 8 distributions and derivatives have added [system-wide cryptographic policies component](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening). This component allows the configuration of cryptographic subsystems.
+The RHEL 8 distributions and derivatives have added [system-wide cryptographic policies component](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening). This component allows the configuration of cryptographic subsystems.

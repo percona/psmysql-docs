@@ -33,7 +33,7 @@ COMMENT 'cfname=Foo; Creating the Foo family name'
 
 See also
 
-Using `COMMENT` to Specify Column Family Names with Multiple Table Partitions https://github.com/facebook/mysql-5.6/wiki/Column-Families-on-Partitioned-Tables.
+Using `COMMENT` to Specify Column Family Names with Multiple Table Partitions https://github.com/meta/mysql-5.6/wiki/Column-Families-on-Partitioned-Tables.
 
 ### Controlling the number of column families to reduce memory consumption
 

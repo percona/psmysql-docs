@@ -41,22 +41,22 @@ This comparison table compares *Percona Server for MySQL 8.4* with *MySQL 8.4 Co
 | [Extra Hash/Digest Functions](https://docs.percona.com/percona-server/8.4/encryption-functions.html)             | Yes                          | No                          |
 | [UUID_VX Component](https://docs.percona.com/percona-server/8.4/uuid-versions.html)                              | Yes                          | No                          |
 
-| Instrumentation and Troubleshooting Features                                                                                                             | Percona Server for MySQL 8.4 | MySQL 8.4 Community Edition |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------- |
-| INFORMATION_SCHEMA Tables                                                                                                                                | 95                           | 65                          |
-| Global Performance and Status Counters                                                                                                                   | 853                          | 434                         |
-| Optimizer Histograms                                                                                                                                     | Yes                          | Yes                         |
-| [Per-Table Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schematable_statistics)                         | Yes                          | No                          |
-| [Per-Index Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemaindex_statistics)                         | Yes                          | No                          |
-| [Per-User Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemauser_statistics)                           | Yes                          | No                          |
-| [Per-Client Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemaclient_statistics)                       | Yes                          | No                          |
-| [Per-Thread Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemathread_statistics)                       | Yes                          | No                          |
-| [Global Query Response Time Statistics](https://docs.percona.com/percona-server/8.4/index-info-schema-tables.html#information_schemaquery_response_time) | Yes                          | No                          |
-| [Enhanced SHOW INNODB ENGINE STATUS](https://docs.percona.com/percona-server/8.4/innodb-show-status.html)                                                | Yes                          | No                          |
-| [Undo Segment Information](https://docs.percona.com/percona-server/8.4/innodb-show-status.html)                                                          | Yes                          | No                          |
-| [Temporary Tables Information](https://docs.percona.com/percona-server/8.4/misc-info-schema-tables.html#information_schematemporary_tables)              | Yes                          | No                          |
-| [Extended Slow Query Logging](https://docs.percona.com/percona-server/8.4/slow-extended.html)                                                            | Yes                          | No                          |
-| [User Statistics](https://docs.percona.com/percona-server/8.4/user-stats.html)                                                                           | Yes                          | No                          |
+| Instrumentation and Troubleshooting Features                                                                                                | Percona Server for MySQL 8.4 | MySQL 8.4 Community Edition |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------- |
+| INFORMATION_SCHEMA Tables                                                                                                                   | 95                           | 65                          |
+| Global Performance and Status Counters                                                                                                      | 853                          | 434                         |
+| Optimizer Histograms                                                                                                                        | Yes                          | Yes                         |
+| [Per-Table Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schematable_statistics)            | Yes                          | No                          |
+| [Per-Index Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemaindex_statistics)            | Yes                          | No                          |
+| [Per-User Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemauser_statistics)              | Yes                          | No                          |
+| [Per-Client Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemaclient_statistics)          | Yes                          | No                          |
+| [Per-Thread Performance Counters](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemathread_statistics)          | Yes                          | No                          |
+| [Global Query Response Time Statistics](https://docs.percona.com/percona-server/8.4/index-info-schema-tables.html)                          | Yes                          | No                          |
+| [Enhanced SHOW INNODB ENGINE STATUS](https://docs.percona.com/percona-server/8.4/innodb-show-status.html)                                   | Yes                          | No                          |
+| [Undo Segment Information](https://docs.percona.com/percona-server/8.4/innodb-show-status.html)                                             | Yes                          | No                          |
+| [Temporary Tables Information](https://docs.percona.com/percona-server/8.4/misc-info-schema-tables.html#information_schematemporary_tables) | Yes                          | No                          |
+| [Extended Slow Query Logging](https://docs.percona.com/percona-server/8.4/slow-extended.html)                                               | Yes                          | No                          |
+| [User Statistics](https://docs.percona.com/percona-server/8.4/user-stats.html)                                                              | Yes                          | No                          |
 
 | Performance and Scalability Features                                                                                             | Percona Server for MySQL 8.4 | MySQL 8.4 Community Edition |
 | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- | --------------------------- |
