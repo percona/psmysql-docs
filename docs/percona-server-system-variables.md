@@ -2,6 +2,28 @@
 
 ## System variables
 
+!!! note "Version notice"
+
+    The built-in thread pool variables apply to Percona Server for MySQL 9.7.1-1 and earlier 9.7 releases.
+
+    Percona Server for MySQL 9.7.2-2 removes `thread_pool_high_prio_mode`, `thread_pool_high_prio_tickets`, `thread_pool_idle_timeout`, `thread_pool_max_threads`, and `thread_pool_oversubscribe`.
+
+    The names `thread_pool_size` and `thread_pool_stall_limit` remain in the [MySQL thread pool plugin](mysql-thread-pool.md).
+
+    The plugin does not keep the built-in defaults, units, or dynamic settings for `thread_pool_size` and `thread_pool_stall_limit`.
+
+    `thread_pool_size` default: number of processors in the built-in pool, `16` in the plugin.
+
+    `thread_pool_size` is dynamic in the built-in pool. The plugin does not permit runtime changes.
+
+    `thread_pool_stall_limit` unit: milliseconds in the built-in pool, 10-millisecond intervals in the plugin.
+
+    `thread_pool_stall_limit` default: `500` in the built-in pool, `6` in the plugin.
+
+    See [Thread pool](threadpool.md) for the built-in variables.
+
+    See [MySQL thread pool plugin](mysql-thread-pool.md) for the plugin variables.
+
 | Name | Cmd-Line | Option File | Var Scope | Dynamic |
 | --- | --- | --- | --- | --- |
 | csv_mode | Yes | Yes | Both | Yes |
@@ -39,19 +61,27 @@
 | secure_log_path | Yes | Yes | Global | No |
 | slow_query_log_always_write_time | Yes | Yes | Global | Yes |
 | slow_query_log_use_global_control | Yes | Yes | Global | Yes |
-| thread_pool_high_prio_mode | Yes | Yes | Both | Yes |
-| thread_pool_high_prio_tickets | Yes | Yes | Both | Yes |
-| thread_pool_idle_timeout | Yes | Yes | Global | Yes |
-| thread_pool_max_threads | Yes | Yes | Global | Yes |
-| thread_pool_oversubscribe | Yes | Yes | Global | Yes |
-| thread_pool_size | Yes | Yes | Global | Yes |
-| thread_pool_stall_limit | Yes | Yes | Global | No |
+| thread_pool_high_prio_mode (9.7.1-1 and earlier) | Yes | Yes | Both | Yes |
+| thread_pool_high_prio_tickets (9.7.1-1 and earlier) | Yes | Yes | Both | Yes |
+| thread_pool_idle_timeout (9.7.1-1 and earlier) | Yes | Yes | Global | Yes |
+| thread_pool_max_threads (9.7.1-1 and earlier) | Yes | Yes | Global | Yes |
+| thread_pool_oversubscribe (9.7.1-1 and earlier) | Yes | Yes | Global | Yes |
+| thread_pool_size (name in both; behavior differs) | Yes | Yes | Global | Yes |
+| thread_pool_stall_limit (name in both; behavior differs) | Yes | Yes | Global | No |
 | thread_statistics | Yes | Yes | Global | Yes |
 | userstat | Yes | Yes | Global | Yes |
 | version_comment | Yes | Yes | Global | Yes |
 | version_suffix | Yes | Yes | Global | Yes |
 
 ## Status variables
+
+!!! note "Version notice"
+
+    The `Threadpool_*` status variables belong to the built-in thread pool on Percona Server for MySQL 9.7.1-1 and earlier 9.7 releases.
+
+    Percona Server for MySQL 9.7.2-2 removes all `Threadpool_*` status variables.
+
+    The [MySQL thread pool plugin](mysql-thread-pool.md) reports state in the `performance_schema.tp_thread_group_state`, `performance_schema.tp_thread_group_stats`, and `performance_schema.tp_thread_state` tables.
 
 | Name | Var Type | Var Scope |
 | --- | --- | --- |
@@ -83,10 +113,10 @@
 | Innodb_oldest_view_low_limit_trx_id | Numeric | Global |
 | Innodb_purge_trx_id | Numeric | Global |
 | Innodb_purge_undo_no | Numeric | Global |
-| Threadpool_average_hp_queue_wait_us | String | Global |
-| Threadpool_average_queue_wait_us | String | Global |
-| Threadpool_idle_threads | Numeric | Global |
-| Threadpool_requests_starved_in_queue | Numeric | Global |
-| Threadpool_requests_waiting_in_hp_queue | Numeric | Global |
-| Threadpool_requests_waiting_in_queue | Numeric | Global |
-| Threadpool_threads | Numeric | Global |
+| Threadpool_average_hp_queue_wait_us (9.7.1-1 and earlier) | String | Global |
+| Threadpool_average_queue_wait_us (9.7.1-1 and earlier) | String | Global |
+| Threadpool_idle_threads (9.7.1-1 and earlier) | Numeric | Global |
+| Threadpool_requests_starved_in_queue (9.7.1-1 and earlier) | Numeric | Global |
+| Threadpool_requests_waiting_in_hp_queue (9.7.1-1 and earlier) | Numeric | Global |
+| Threadpool_requests_waiting_in_queue (9.7.1-1 and earlier) | Numeric | Global |
+| Threadpool_threads (9.7.1-1 and earlier) | Numeric | Global |
