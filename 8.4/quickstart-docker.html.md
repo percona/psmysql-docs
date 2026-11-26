@@ -23,7 +23,7 @@ Choose one of the following methods:
    ```yaml
    services:
      mysql:
-       image: percona/percona-server:8.4.12
+       image: percona/percona-server:8.4.11-12
        container_name: psmysql
        ports:
          - "3306:3306"
@@ -36,7 +36,7 @@ Choose one of the following methods:
      myvol:
    ```
 
-   To run the Docker ARM64 version of Percona Server for MySQL, use the `8.4.12-arm64` tag instead of `8.4.12` in the `image` line. If needed, you can replace the `secret` password with a [stronger password](#security-best-practices).
+   To run the Docker ARM64 version of Percona Server for MySQL, use the `8.4.11-12-arm64` tag instead of `8.4.11-12` in the `image` line. If needed, you can replace the `secret` password with a [stronger password](#security-best-practices).
 
 1. Start the container:
 
@@ -56,29 +56,29 @@ Choose one of the following methods:
 
 If you prefer to run the container manually, use the following. The command has the following options:
 
-| Option                          | Description                                                           |
-| ------------------------------- | --------------------------------------------------------------------- |
-| `-d`                            | Runs the container in detached mode.                                  |
-| `-p 3306:3306`                  | Maps the container’s MySQL port (3306) to the same port on your host. |
-| `--name psmysql`                | Container name (required for the connect step below).                 |
-| `-e MYSQL_ROOT_PASSWORD=secret` | Sets the root password.                                               |
-| `-v myvol:/var/lib/mysql`       | Named volume for persistent storage.                                  |
-| `percona/percona-server:8.4.12` | Image and tag for the release.                                        |
+| Option                             | Description                                                           |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `-d`                               | Runs the container in detached mode.                                  |
+| `-p 3306:3306`                     | Maps the container’s MySQL port (3306) to the same port on your host. |
+| `--name psmysql`                   | Container name (required for the connect step below).                 |
+| `-e MYSQL_ROOT_PASSWORD=secret`    | Sets the root password.                                               |
+| `-v myvol:/var/lib/mysql`          | Named volume for persistent storage.                                  |
+| `percona/percona-server:8.4.11-12` | Image and tag for the release.                                        |
 
-You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub](https://hub.docker.com/r/percona/percona-server) . For ARM64, use the `8.4.12-arm64` tag instead of `8.4.12`.
+You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub](https://hub.docker.com/r/percona/percona-server) . For ARM64, use the `8.4.11-12-arm64` tag instead of `8.4.11-12`.
 
 ```shell
 docker run -d -p 3306:3306 --name psmysql \
 --platform linux/amd64 \
 -e MYSQL_ROOT_PASSWORD=secret \
 -v myvol:/var/lib/mysql \
-percona/percona-server:8.4.12
+percona/percona-server:8.4.11-12
 ```
 
 Expected output
 
 ```text
-Unable to find image 'percona/percona-server:8.4.12' locally
+Unable to find image 'percona/percona-server:8.4.11-12' locally
 Pulling from percona/percona-server
 b902d6b6048a: Pull complete
 ...
@@ -122,7 +122,7 @@ Expected output
 ```text
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
-Server version: 8.4.12 Percona Server (GPL), Release 1, Revision 238b3c02
+Server version: 8.4.11-12 Percona Server (GPL), Release 1, Revision 238b3c02
 
 Copyright (c) 2009-2026 Percona LLC and/or its affiliates
 Copyright (c) 2000, 2026, Oracle and/or its affiliates.

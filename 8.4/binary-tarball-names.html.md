@@ -26,7 +26,7 @@ Run the following command to find the CPU architecture, and select the matching 
 uname -m
 ```
 
-Generic binary tarballs are built for `x86_64`. If this command prints `aarch64`, Percona does not publish a tarball for that CPU. Use an [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) or [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) package, a [Docker](https://docs.percona.com/percona-server/8.4/docker.md) image with the `8.4.12-arm64` tag, or [compile from source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md).
+Generic binary tarballs are built for `x86_64`. If this command prints `aarch64`, Percona does not publish a tarball for that CPU. Use an [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) or [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) package, a [Docker](https://docs.percona.com/percona-server/8.4/docker.md) image with the `8.4.11-12-arm64` tag, or [compile from source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md).
 
 Ubuntu 26.04 reports glibc 2.43. Use the glibc 2.35 tarball on that release. The steps are on the [Install from a binary tarball](https://docs.percona.com/percona-server/8.4/binary-tarball-install.md) page.
 

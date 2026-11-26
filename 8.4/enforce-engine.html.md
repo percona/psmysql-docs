@@ -10,7 +10,7 @@ In case a user tries to enable [enforce_storage_engine](#enforce_storage_engine)
 
 Note
 
-If you’re using enforce_storage_engine, you must either disable it before doing `mysql_upgrade` or perform `mysql_upgrade` with server started with `--skip-grants-tables`.
+If you’re using enforce_storage_engine, disable it before you start the upgraded server. In 8.4 there is no `mysql_upgrade` step: the server upgrades the data dictionary and system tables itself at startup, as controlled by the `--upgrade` server option (default `AUTO`). See [Upgrade procedures](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md). After the server has started and completed the upgrade, set `enforce_storage_engine` again in the option file.
 
 ## System variables
 

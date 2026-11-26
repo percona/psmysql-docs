@@ -24,8 +24,8 @@
 
 ### Filter validation
 
-- Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md).
-- Before 8.4.9-9, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example `classes` instead of `class`, `events` instead of `event`, `names` instead of `name`, `logs` instead of `log`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
+- Starting in Percona Server for MySQL 8.4.10-10, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md).
+- Before 8.4.10-10, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example `classes` instead of `class`, `events` instead of `event`, `names` instead of `name`, `logs` instead of `log`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.10-10 or later to catch these mistakes at parse time.
 
 ## Synchronizing audit log filters between a source and a replica
 
@@ -48,7 +48,7 @@ Replicate the filter tables and run `audit_log_filter_flush()` on the replica so
          SELECT audit_log_filter_flush();
    ```
 
-   The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.9-9+), see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush).
+   The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.10-10+), see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush).
 
 1. On the source, define a filter, assign it to users (UDFs or direct table edits), and call `audit_log_filter_flush()` on the source when needed.
 

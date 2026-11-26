@@ -1,6 +1,6 @@
 # Percona Server for MySQL 8.4
 
-> Documentation
+> Percona Server for MySQL 8.4, a drop-in replacement for MySQL Community 8.4: what Percona adds or changes, with installation, upgrade, security and operations guides
 
 Each page below is also available as markdown. For the documentation of all Percona products, see https://docs.percona.com/llms.txt.
 
@@ -8,7 +8,11 @@ Each page below is also available as markdown. For the documentation of all Perc
 
 # Percona Server for MySQL 8.4 - Documentation
 
-This documentation is for the latest release: Percona Server for MySQL 8.4.11-12 ([Release Notes](https://docs.percona.com/percona-server/8.4/release-notes/8.4.11-12.md)).
+This documentation is for Percona Server for MySQL 8.4 LTS, release 8.4.11-12 ([Release Notes](https://docs.percona.com/percona-server/8.4/release-notes/8.4.11-12.md)).
+
+Scope of this manual
+
+This manual covers what Percona Server adds to or changes in MySQL 8.4. For everything else, see the [MySQL 8.4 Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/) .
 
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, and increased visibility and instrumentation.
 
@@ -994,12 +998,12 @@ If `LOAD_DATA` references files, the component does not log file contents.
 
 Set format with [`audit_log_filter.format`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterformat) at startup. Options:
 
-| Format Type                                                                            | Command                         | Description                                                                                                                                                                                                                                                        |
-| -------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.md) | `audit_log_filter.format=NEW`   | New XML layout (default in Percona Server 8.4)                                                                                                                                                                                                                     |
-| [XML (old style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-old.md) | `audit_log_filter.format=OLD`   | Legacy XML layout. Deprecated and may be removed in a later version.                                                                                                                                                                                               |
-| [JSON](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)           | `audit_log_filter.format=JSON`  | One top-level JSON array of events                                                                                                                                                                                                                                 |
-| [JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)          | `audit_log_filter.format=JSONL` | Added in 8.4.9-9. One compact JSON object per line inside a wrapping array. This layout is not standard JSON Lines. See [Standard JSONL and Percona JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md#standard-jsonl-and-percona-jsonl). |
+| Format Type                                                                            | Command                         | Description                                                                                                                                                                                                                                                          |
+| -------------------------------------------------------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.md) | `audit_log_filter.format=NEW`   | New XML layout (default in Percona Server 8.4)                                                                                                                                                                                                                       |
+| [XML (old style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-old.md) | `audit_log_filter.format=OLD`   | Legacy XML layout. Deprecated and may be removed in a later version.                                                                                                                                                                                                 |
+| [JSON](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)           | `audit_log_filter.format=JSON`  | One top-level JSON array of events                                                                                                                                                                                                                                   |
+| [JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)          | `audit_log_filter.format=JSONL` | Added in 8.4.10-10. One compact JSON object per line inside a wrapping array. This layout is not standard JSON Lines. See [Standard JSONL and Percona JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md#standard-jsonl-and-percona-jsonl). |
 
 By default, new-style XML logs are neither compressed nor encrypted.
 
@@ -1017,7 +1021,7 @@ When you change `audit_log_filter.format`, rename `audit_log_filter.file` as wel
 
 # Audit Log Filter format - XML (new style)
 
-Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:
+Percona Server for MySQL 8.4.10-10 tightens the NEW XML formatter:
 
 - 1-based `<RECORD_ID>` values (not 0-based)
 - Self-closing empty tags (`<OS_LOGIN/>`), not empty pairs
@@ -1026,9 +1030,9 @@ Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:
 - Richer startup (`<NAME>Audit</NAME>`): adds `<VERSION>`, `<STARTUP_OPTIONS>`, `<OS_VERSION>`, `<MYSQL_VERSION>`
 - Message events: `<MAP>` / `<ELEMENT>` / `<KEY>` / `<VALUE>` replace `<MESSAGE_ATTRIBUTES>`; records also carry `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, `<STATUS_CODE>`
 - Consistent `<COMMAND_CLASS>` spellings (for example `create_table`, `set_option`)
-- [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) decides which events appear: `REDUCED` (default) keeps core classes; `FULL` adds lifecycle-heavy record types (see that page for lists and pre-8.4.9-9 behavior).
+- [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) decides which events appear: `REDUCED` (default) keeps core classes; `FULL` adds lifecycle-heavy record types (see that page for lists and pre-8.4.10-10 behavior).
 
-On builds before 8.4.9-9, spot-check your own logs—output may differ. Code reference: `components/audit_log_filter/log_record_formatter/new.cc`, `base.cc`.
+On builds before 8.4.10-10, spot-check your own logs—output may differ. Code reference: `components/audit_log_filter/log_record_formatter/new.cc`, `base.cc`.
 
 With `audit_log_filter.format=NEW`, the component writes UTF-8 XML.
 
@@ -1053,7 +1057,7 @@ With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the pr
   <VERSION>1</VERSION>
   <STARTUP_OPTIONS>/usr/sbin/mysqld --defaults-file=/etc/my.cnf --basedir=/usr --port=3306 --socket=/var/run/mysqld/mysqld.sock --datadir=/var/lib/mysql</STARTUP_OPTIONS>
   <OS_VERSION>x86_64-Linux</OS_VERSION>
-  <MYSQL_VERSION>8.4.9-9</MYSQL_VERSION>
+  <MYSQL_VERSION>8.4.10-10</MYSQL_VERSION>
  </AUDIT_RECORD>
  <AUDIT_RECORD>
   <TIMESTAMP>2026-03-27T20:00:59</TIMESTAMP>
@@ -1154,7 +1158,7 @@ With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the pr
    </ATTRIBUTE>
    <ATTRIBUTE>
     <NAME>_client_version</NAME>
-    <VALUE>8.4.9-9</VALUE>
+    <VALUE>8.4.10-10</VALUE>
    </ATTRIBUTE>
    <ATTRIBUTE>
     <NAME>program_name</NAME>
@@ -1402,7 +1406,7 @@ The following elements appear on every `<AUDIT_RECORD>` in the NEW XML format:
 
 ## Optional elements (by record category)
 
-Many elements appear only for specific event classes. The following table lists elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one event type. The table does not promise that every field appears in every record.
+Many elements appear only for specific event classes. The following table lists elements that the NEW XML formatter (Percona Server for MySQL 8.4.10-10 onward) uses for at least one event type. The table does not promise that every field appears in every record.
 
 | Element                                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1559,7 +1563,7 @@ Only the file layout differs:
 | JSON   | One top-level JSON array. Each event is a pretty-printed JSON object spanning multiple lines.              | `audit_log_filter.format=JSON`  |
 | JSONL  | One top-level JSON array. Each event is a single compact JSON object on its own line, separated by commas. | `audit_log_filter.format=JSONL` |
 
-Percona Server for MySQL 8.4.9-9 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. [Standard JSONL and Percona JSONL](#standard-jsonl-and-percona-jsonl) covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.
+Percona Server for MySQL 8.4.10-10 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. [Standard JSONL and Percona JSONL](#standard-jsonl-and-percona-jsonl) covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.
 
 Compression and encryption behave like JSON. `audit_log_read()` and `audit_log_read_bookmark()` read both formats.
 
@@ -1636,7 +1640,7 @@ Compression, encryption, and the SQL readers are the same for JSON and JSONL. Ch
 
 ## Version changes
 
-### Percona Server for MySQL 8.4.9-9
+### Percona Server for MySQL 8.4.10-10
 
 - Component startup and shutdown events include the `event`, `connection_id`, `account`, `login`, and `startup_data` fields. The `startup_data` object holds `server_id`, `os_version`, `mysql_version`, and `args` (command-line arguments). Earlier releases exposed only `server_id` at the top level for those records.
 - Lifecycle `event` values changed from the internal names `audit` / `noaudit` to `startup` / `shutdown`.
@@ -1656,21 +1660,21 @@ Every event object includes at least:
 
 Other common keys:
 
-| Name                | Description                                                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `account`           | Database account for the event                                                                             |
-| `connection_data`   | Client connection details. From 8.4.9-9, `connection_attributes` nest here on connection events.           |
-| `connection_id`     | Client connection ID                                                                                       |
-| `general_data`      | Statement or command when `class` is `general`                                                             |
-| `id`                | Event ID                                                                                                   |
-| `login`             | How the client attached to the server                                                                      |
-| `map`               | 8.4.9-9+ Message payload (replaces `message_attributes`). Message events also carry `account` and `login`. |
-| `query_statistics`  | Optional metrics for outlier detection                                                                     |
-| `shutdown_data`     | Component shutdown                                                                                         |
-| `startup_data`      | Component startup; from 8.4.9-9 includes `server_id`, `os_version`, `mysql_version`, `args`                |
-| `table_access_data` | Table access details                                                                                       |
-| `time`              | UNIX timestamp (integer) when present                                                                      |
-| `timestamp`         | UTC time `YYYY-MM-DD hh:mm:ss`                                                                             |
+| Name                | Description                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `account`           | Database account for the event                                                                               |
+| `connection_data`   | Client connection details. From 8.4.10-10, `connection_attributes` nest here on connection events.           |
+| `connection_id`     | Client connection ID                                                                                         |
+| `general_data`      | Statement or command when `class` is `general`                                                               |
+| `id`                | Event ID                                                                                                     |
+| `login`             | How the client attached to the server                                                                        |
+| `map`               | 8.4.10-10+ Message payload (replaces `message_attributes`). Message events also carry `account` and `login`. |
+| `query_statistics`  | Optional metrics for outlier detection                                                                       |
+| `shutdown_data`     | Component shutdown                                                                                           |
+| `startup_data`      | Component startup; from 8.4.10-10 includes `server_id`, `os_version`, `mysql_version`, `args`                |
+| `table_access_data` | Table access details                                                                                         |
+| `time`              | UNIX timestamp (integer) when present                                                                        |
+| `timestamp`         | UTC time `YYYY-MM-DD hh:mm:ss`                                                                               |
 
 ## JSON example
 
@@ -1689,7 +1693,7 @@ The following shows four event types recorded in `REDUCED` event mode: startup, 
     "startup_data": {
       "server_id": 1,
       "os_version": "x86_64-Linux",
-      "mysql_version": "8.4.9-9",
+      "mysql_version": "8.4.10-10",
       "args": [
         "/usr/sbin/mysqld",
         "--defaults-file=/etc/my.cnf",
@@ -1761,7 +1765,7 @@ In the JSONL format each event is a single compact JSON object on its own line, 
 
 ```json
 [
-{ "timestamp": "2026-04-03 10:43:52", "id": 0, "class": "audit", "event": "startup", "connection_id": 12, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "startup_data": { "server_id": 1, "os_version": "x86_64-Linux", "mysql_version": "8.4.9-9", "args": ["/usr/sbin/mysqld", "--defaults-file=/etc/my.cnf", "--basedir=/usr", "--user=mysql", "--datadir=/var/lib/mysql", "--socket=/var/run/mysqld/mysqld.sock", "--port=3306"] } },
+{ "timestamp": "2026-04-03 10:43:52", "id": 0, "class": "audit", "event": "startup", "connection_id": 12, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "startup_data": { "server_id": 1, "os_version": "x86_64-Linux", "mysql_version": "8.4.10-10", "args": ["/usr/sbin/mysqld", "--defaults-file=/etc/my.cnf", "--basedir=/usr", "--user=mysql", "--datadir=/var/lib/mysql", "--socket=/var/run/mysqld/mysqld.sock", "--port=3306"] } },
 { "timestamp": "2026-04-03 10:43:53", "id": 1, "class": "connection", "event": "connect", "connection_id": 39, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "connection_data": { "connection_type": "socket", "status": 0, "db": "test", "connection_attributes": { "_pid": "824388", "_platform": "x86_64", "_client_version": "8.0.45", "_os": "Linux", "_client_name": "libmysql" } } },
 { "timestamp": "2026-04-03 10:43:53", "id": 9, "class": "table_access", "event": "read", "connection_id": 40, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "table_access_data": { "db": "test", "table": "sbtest2", "query": "SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099", "sql_command": "select" } },
 { "timestamp": "2026-04-03 10:43:53", "id": 11, "class": "general", "event": "status", "connection_id": 40, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "general_data": { "command": "Query", "sql_command": "select", "query": "SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099", "status": 0 } }
@@ -2009,7 +2013,7 @@ The SQL statement type appears separately as `COMMAND_CLASS` in XML or as `sql_c
 
 [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) controls how many classes are emitted:
 
-- `REDUCED` (default from 8.4.9-9) — `connection`, `general`/`status`, `table_access`, and `message` only. DDL, DCL, TCL, and most administrative statements appear as a single `general`/`status` record (XML `<NAME>Query</NAME>`) or as `table_access` when the server reports table touches.
+- `REDUCED` (default from 8.4.10-10) — `connection`, `general`/`status`, `table_access`, and `message` only. DDL, DCL, TCL, and most administrative statements appear as a single `general`/`status` record (XML `<NAME>Query</NAME>`) or as `table_access` when the server reports table touches.
 - `FULL` — adds `command`, `parse`, `query`, `stored_program`, `global_variable`, and `authentication`. A single client statement can produce a sequence of ten or more records.
 
 Lifecycle records (`audit` / `server_startup` / `server_shutdown`) may appear in the log at startup or shutdown but are not valid filter-definition targets. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md).
@@ -2695,7 +2699,7 @@ Available functions:
   - No argument: the function returns the normalized statement digest of the current event’s SQL text. Use this shape inside a `replace` clause to substitute literal SQL with the digest. For details, see [Redact audit log fields](https://docs.percona.com/percona-server/8.4/redact-audit-log-fields.md).
   - One string argument: the function returns `true` when the supplied digest equals the current event’s digest. Use this shape inside a `log`, `abort`, or `print` condition. Wrap the call in `not` to invert the match. Use this form to act on specific statement patterns. For example, block any statement whose digest matches `SELECT ?`.
 
-  Starting in Percona Server for MySQL 8.4.9-9, `query_digest` accepts a string shorthand for its single argument: `"args": "SELECT ?"`. The shorthand is equivalent to the verbose form `"args": [{ "string": { "string": "SELECT ?" } }]`. Earlier releases require the verbose form. The shorthand is specific to `query_digest` — `string_find` requires the verbose form for both arguments.
+  Starting in Percona Server for MySQL 8.4.10-10, `query_digest` accepts a string shorthand for its single argument: `"args": "SELECT ?"`. The shorthand is equivalent to the verbose form `"args": [{ "string": { "string": "SELECT ?" } }]`. Earlier releases require the verbose form. The shorthand is specific to `query_digest` — `string_find` requires the verbose form for both arguments.
 
 A condition that calls a function evaluates to `true` when the function returns a truthy value. Truthy values include non-empty strings and Boolean `true`. Combine function calls with `and`, `or`, and `not` to build richer rules. For example, log only when `string_find` matches and the user is not on an allow list.
 
@@ -3214,7 +3218,7 @@ For SQL command values (`create_db`, `select`, `grant`, and so on), typical even
 
 - Only documented class names pass validation.
 
-- When [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) is `REDUCED` (the default from 8.4.9-9 onward), only these events are tracked and accepted by filter-definition validation:
+- When [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) is `REDUCED` (the default from 8.4.10-10 onward), only these events are tracked and accepted by filter-definition validation:
 
   - `general`: `status`
   - `connection`: `connect`, `disconnect`, `change_user`
@@ -3411,7 +3415,7 @@ Logs are plaintext by default and may hold credentials, SQL text, and other sens
 
 The default file under the data directory is `audit_filter.log`. Override location with `audit_log_filter.file` at startup.
 
-Starting in Percona Server for MySQL 8.4.9-9, if the parent directory is missing the component errors and the server starts without Audit Log Filter active.
+Starting in Percona Server for MySQL 8.4.10-10, if the parent directory is missing the component errors and the server starts without Audit Log Filter active.
 
 Rotation leaves multiple files on disk—protect every generation.
 
@@ -3619,7 +3623,7 @@ Enable the `component_audit_log_filter` component and ensure audit tables exist 
 
 ## Filter definition validation
 
-*Introduced in Percona Server for MySQL 8.4.9-9.*
+*Introduced in Percona Server for MySQL 8.4.10-10.*
 
 The server validates filter definitions at parse time and rejects invalid input with a clear error:
 
@@ -3632,9 +3636,9 @@ The server validates filter definitions at parse time and rejects invalid input 
 
 An empty filter object `{}` is equivalent to `{"filter": {"log": true}}` and logs every event. To log nothing, use `{"filter": {"log": false}}`.
 
-#### Behavior before 8.4.9-9
+#### Behavior before 8.4.10-10
 
-Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter `{"filter": {"classes": [...]}}` (note `classes` instead of `class`) was parsed as `{"filter": {}}`, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to `events` instead of `event`, `names` instead of `name`, and `logs` instead of `log`. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
+Before 8.4.10-10, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter `{"filter": {"classes": [...]}}` (note `classes` instead of `class`) was parsed as `{"filter": {}}`, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to `events` instead of `event`, `names` instead of `name`, and `logs` instead of `log`. Upgrade to 8.4.10-10 or later to catch these mistakes at parse time.
 
 Parse-phase subclass names must use `preparse` and `postparse`.
 
@@ -3788,7 +3792,7 @@ With automatic rotation enabled, prune old files by age, total size, or both.
 
 Run `SELECT audit_log_rotate();` to rotate immediately. Requires `AUDIT_ADMIN`.
 
-Starting in Percona Server for MySQL 8.4.9-9, rotation finishes immediately in `ASYNCHRONOUS` and `PERFORMANCE` strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix (for example `audit_filter.20250401T120000-1.log`) so files are not overwritten.
+Starting in Percona Server for MySQL 8.4.10-10, rotation finishes immediately in `ASYNCHRONOUS` and `PERFORMANCE` strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix (for example `audit_filter.20250401T120000-1.log`) so files are not overwritten.
 
 Pruning runs when `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` is greater than zero. The server prunes immediately when you set either variable, and again on rotation (automatic when `rotate_on_size` > 0, or manual via `audit_log_rotate()`). There is no background timer — with automatic rotation disabled, schedule manual rotations or rely on the prune that runs when you set the variable.
 
@@ -3858,7 +3862,7 @@ The password with the highest sequence for a given timestamp is current.
 
 ## Rotation sequence suffix
 
-Starting in Percona Server for MySQL 8.4.9-9, multiple rotations in the same second append `-N` so the server never overwrites a prior file:
+Starting in Percona Server for MySQL 8.4.10-10, multiple rotations in the same second append `-N` so the server never overwrites a prior file:
 
 ```text
 audit_filter.20250401T120000.log      -- first rotation at 12:00:00
@@ -3965,7 +3969,7 @@ Reloads filter JSON and account rows from `mysql.audit_log_filter` / `mysql.audi
 
 Table edits alone—including direct DML and [`audit_log_filter_set_filter()`](#audit_log_filter_set_filterfilter_name-definition)—do not refresh every open session. Call `audit_log_filter_flush()` when all sessions must see new rules (details under Persistence and refreshing on [`audit_log_filter_set_filter()`](#audit_log_filter_set_filterfilter_name-definition)).
 
-From Percona Server for MySQL 8.4.9-9 onward, a flush detaches existing sessions until they reconnect or run `CHANGE_USER`; new connections pick up the reloaded registry immediately. If you cannot tolerate a gap, reconnect clients after flushing.
+From Percona Server for MySQL 8.4.10-10 onward, a flush detaches existing sessions until they reconnect or run `CHANGE_USER`; new connections pick up the reloaded registry immediately. If you cannot tolerate a gap, reconnect clients after flushing.
 
 If `audit_log_filter_flush()` fails, the call returns an error message in the result string and the previously loaded filter rules and user assignments stay in effect. The audit log keeps writing under the prior configuration until the next successful flush replaces it. Retry the call after correcting the underlying cause so that the new on-disk rules take effect.
 
@@ -4108,7 +4112,7 @@ Returns the active filter ID for this session, or 0 when no filter applies.
 
 Drops a filter definition and clears `mysql.audit_log_user` rows that pointed at it.
 
-From Percona Server for MySQL 8.4.9-9, only sessions using that filter detach; others keep logging.
+From Percona Server for MySQL 8.4.10-10, only sessions using that filter detach; others keep logging.
 
 This function requires the `AUDIT_ADMIN` privilege.
 
@@ -4178,7 +4182,7 @@ Expected output
 
 Rotates the active audit file immediately and returns the archived name.
 
-From 8.4.9-9, colliding timestamps add a `-N` suffix so rotations never overwrite each other.
+From 8.4.10-10, colliding timestamps add a `-N` suffix so rotations never overwrite each other.
 
 This function requires the `AUDIT_ADMIN` privilege.
 
@@ -4200,13 +4204,13 @@ SELECT audit_log_rotate();
 
 Writes JSON for `filter_name` to `mysql.audit_log_filter` (create or update). Each stored revision gets a new filter ID.
 
-From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken `print` rules abort the call with a detailed error, for example:
+From Percona Server for MySQL 8.4.10-10, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken `print` rules abort the call with a detailed error, for example:
 
 ```text
 ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 ```
 
-Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example `classes` instead of `class`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see [Filter definition validation](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#filter-definition-validation).
+Before 8.4.10-10, the parser silently ignored unknown keys. Misspelling a structural key (for example `classes` instead of `class`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.10-10 or later to catch these mistakes. For details, see [Filter definition validation](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#filter-definition-validation).
 
 In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).
 
@@ -4216,7 +4220,7 @@ This function requires the `AUDIT_ADMIN` privilege.
 
 `audit_log_filter_set_filter()` persists JSON but does not patch in-memory state for every open session. Run [`audit_log_filter_flush()`](#audit_log_filter_flush) to reload all definitions into the component.
 
-After 8.4.9-9 flushes, existing sessions detach until reconnect/`CHANGE_USER`; brand-new sessions pick up changes immediately.
+After 8.4.10-10 flushes, existing sessions detach until reconnect/`CHANGE_USER`; brand-new sessions pick up changes immediately.
 
 #### Parameters
 
@@ -4256,7 +4260,7 @@ Avoid overlapping patterns unless you accept ambiguous matches—prefer literals
 
 One active mapping per account row; this call replaces any previous mapping.
 
-From 8.4.9-9, open sessions keep the old mapping until reconnect/`CHANGE_USER`; flush if you must realign everyone immediately.
+From 8.4.10-10, open sessions keep the old mapping until reconnect/`CHANGE_USER`; flush if you must realign everyone immediately.
 
 The special user `%` is the default row used when no literal match exists; specific `user@host` rows always beat `%`.
 
@@ -4405,7 +4409,7 @@ audit-log-filter.database=mysql
 | Data type    | Boolean                     |
 | Default      | OFF                         |
 
-*Introduced in Percona Server for MySQL 8.4.9-9.*
+*Introduced in Percona Server for MySQL 8.4.10-10.*
 
 This variable is [tech preview](https://docs.percona.com/percona-server/8.4/glossary.md#tech-preview) and may be removed in a future release.
 
@@ -4493,7 +4497,7 @@ audit-log-filter.encryption=AES
 | Default          | REDUCED                      |
 | Available values | REDUCED, FULL                |
 
-*Introduced in Percona Server for MySQL 8.4.9-9.*
+*Introduced in Percona Server for MySQL 8.4.10-10.*
 
 This variable controls which event classes and subclasses are processed by the audit log filter component.
 
@@ -4522,7 +4526,7 @@ The audit log filter disables the following subclasses in REDUCED mode:
 
 In REDUCED mode, calling a stored procedure logs the outer `CALL` statement but not the individual SQL statements executed inside the procedure body. The `general/status` event generated by the internal `Quit` command is also suppressed in REDUCED mode.
 
-`FULL` — all event classes and subclasses are processed, including `global_variable`, `command`, `query`, `stored_program`, `authentication`, and `parse` on top of the `REDUCED` set. Through Percona Server for MySQL 8.4.8-8 there was no `audit_log_filter.event_mode` setting; the component always processed the full class set (equivalent to `FULL`). The variable was introduced in 8.4.9-9 with default `REDUCED`.
+`FULL` — all event classes and subclasses are processed, including `global_variable`, `command`, `query`, `stored_program`, `authentication`, and `parse` on top of the `REDUCED` set. Through Percona Server for MySQL 8.4.8-8 there was no `audit_log_filter.event_mode` setting; the component always processed the full class set (equivalent to `FULL`). The variable was introduced in 8.4.10-10 with default `REDUCED`.
 
 #### Runtime mode switch
 
@@ -4633,7 +4637,7 @@ audit-log-filter.format=JSON
 | Data type    | Boolean                                 |
 | Default      | OFF                                     |
 
-Introduced in Percona Server for MySQL 8.4.9-9, this option is supported for JSON-format and JSONL-format files.
+Introduced in Percona Server for MySQL 8.4.10-10, this option is supported for JSON-format and JSONL-format files.
 
 Enabling this option adds a `time` field to JSON-format and JSONL-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the `time` field. This option requires the `AUDIT_ADMIN` and `SYSTEM_VARIABLES_ADMIN` privileges.
 
@@ -4818,7 +4822,7 @@ SET GLOBAL audit_log_filter.prune_seconds = 604800;
 | Minimum value | 32768                              |
 | Maximum value | 4294967295                         |
 
-Introduced in Percona Server for MySQL 8.4.9-9, this option is supported for JSON-format and JSONL-format files.
+Introduced in Percona Server for MySQL 8.4.10-10, this option is supported for JSON-format and JSONL-format files.
 
 The size of the buffer for reading from the audit log filter file. `audit_log_read()` reads only from this buffer size.
 
@@ -4881,9 +4885,9 @@ Switch from the default `ASYNCHRONOUS` to `SYNCHRONOUS` only when durability is 
 
 The main risk of `ASYNCHRONOUS` is a crash or power-loss window: the newest audit events can still be in memory and may be lost if they have not yet been flushed or synced to disk. That is not the same as dropping under load: `ASYNCHRONOUS` waits for buffer space and does not discard events when the buffer is full. The mode that can drop whole events when the outer buffer lacks space is `PERFORMANCE`.
 
-#### SYNCHRONOUS behavior change in 8.4.9-9
+#### SYNCHRONOUS behavior change in 8.4.10-10
 
-Through Percona Server for MySQL 8.4.8-8, the `SYNCHRONOUS` value did not call `fsync()` per event. The `sync_on_write` flag was set but never honored, so the strategy behaved as `SEMISYNCHRONOUS`. From 8.4.9-9 onward, `SYNCHRONOUS` issues an `fsync()` after every audit event write, matching the documented contract.
+Through Percona Server for MySQL 8.4.8-8, the `SYNCHRONOUS` value did not call `fsync()` per event. The `sync_on_write` flag was set but never honored, so the strategy behaved as `SEMISYNCHRONOUS`. From 8.4.10-10 onward, `SYNCHRONOUS` issues an `fsync()` after every audit event write, matching the documented contract.
 
 The fix affects only configurations that already set `strategy=SYNCHRONOUS`. Such configurations see new write latency on every audited statement after the upgrade. Expect higher CPU on the audit write path and higher tail latency on the audited workload. Plan capacity before upgrading durability-critical instances, or switch to `SEMISYNCHRONOUS` if the prior (lower-latency) behavior is acceptable for the compliance posture.
 
@@ -5030,8 +5034,8 @@ WHERE variable_name = 'audit_log_filter_events_written';
 
 ### Filter validation
 
-- Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md).
-- Before 8.4.9-9, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example `classes` instead of `class`, `events` instead of `event`, `names` instead of `name`, `logs` instead of `log`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
+- Starting in Percona Server for MySQL 8.4.10-10, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md).
+- Before 8.4.10-10, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example `classes` instead of `class`, `events` instead of `event`, `names` instead of `name`, `logs` instead of `log`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.10-10 or later to catch these mistakes at parse time.
 
 ## Synchronizing audit log filters between a source and a replica
 
@@ -5054,7 +5058,7 @@ Replicate the filter tables and run `audit_log_filter_flush()` on the replica so
          SELECT audit_log_filter_flush();
    ```
 
-   The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.9-9+), see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush).
+   The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.10-10+), see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush).
 
 1. On the source, define a filter, assign it to users (UDFs or direct table edits), and call `audit_log_filter_flush()` on the source when needed.
 
@@ -7152,7 +7156,7 @@ Choose one of the following methods:
    ```yaml
    services:
      mysql:
-       image: percona/percona-server:8.4.12
+       image: percona/percona-server:8.4.11-12
        container_name: psmysql
        ports:
          - "3306:3306"
@@ -7165,7 +7169,7 @@ Choose one of the following methods:
      myvol:
    ```
 
-   To run the Docker ARM64 version of Percona Server for MySQL, use the `8.4.12-arm64` tag instead of `8.4.12` in the `image` line. If needed, you can replace the `secret` password with a [stronger password](#security-best-practices).
+   To run the Docker ARM64 version of Percona Server for MySQL, use the `8.4.11-12-arm64` tag instead of `8.4.11-12` in the `image` line. If needed, you can replace the `secret` password with a [stronger password](#security-best-practices).
 
 1. Start the container:
 
@@ -7185,29 +7189,29 @@ Choose one of the following methods:
 
 If you prefer to run the container manually, use the following. The command has the following options:
 
-| Option                          | Description                                                           |
-| ------------------------------- | --------------------------------------------------------------------- |
-| `-d`                            | Runs the container in detached mode.                                  |
-| `-p 3306:3306`                  | Maps the container’s MySQL port (3306) to the same port on your host. |
-| `--name psmysql`                | Container name (required for the connect step below).                 |
-| `-e MYSQL_ROOT_PASSWORD=secret` | Sets the root password.                                               |
-| `-v myvol:/var/lib/mysql`       | Named volume for persistent storage.                                  |
-| `percona/percona-server:8.4.12` | Image and tag for the release.                                        |
+| Option                             | Description                                                           |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `-d`                               | Runs the container in detached mode.                                  |
+| `-p 3306:3306`                     | Maps the container’s MySQL port (3306) to the same port on your host. |
+| `--name psmysql`                   | Container name (required for the connect step below).                 |
+| `-e MYSQL_ROOT_PASSWORD=secret`    | Sets the root password.                                               |
+| `-v myvol:/var/lib/mysql`          | Named volume for persistent storage.                                  |
+| `percona/percona-server:8.4.11-12` | Image and tag for the release.                                        |
 
-You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub](https://hub.docker.com/r/percona/percona-server) . For ARM64, use the `8.4.12-arm64` tag instead of `8.4.12`.
+You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub](https://hub.docker.com/r/percona/percona-server) . For ARM64, use the `8.4.11-12-arm64` tag instead of `8.4.11-12`.
 
 ```shell
 docker run -d -p 3306:3306 --name psmysql \
 --platform linux/amd64 \
 -e MYSQL_ROOT_PASSWORD=secret \
 -v myvol:/var/lib/mysql \
-percona/percona-server:8.4.12
+percona/percona-server:8.4.11-12
 ```
 
 Expected output
 
 ```text
-Unable to find image 'percona/percona-server:8.4.12' locally
+Unable to find image 'percona/percona-server:8.4.11-12' locally
 Pulling from percona/percona-server
 b902d6b6048a: Pull complete
 ...
@@ -7251,7 +7255,7 @@ Expected output
 ```text
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
-Server version: 8.4.12 Percona Server (GPL), Release 1, Revision 238b3c02
+Server version: 8.4.11-12 Percona Server (GPL), Release 1, Revision 238b3c02
 
 Copyright (c) 2009-2026 Percona LLC and/or its affiliates
 Copyright (c) 2000, 2026, Oracle and/or its affiliates.
@@ -8184,19 +8188,19 @@ If you installed Percona Server for MySQL using Docker, follow these steps:
 1. Remove the Docker image:
 
    ```shell
-   docker image rmi percona/percona-server:8.4.12
+   docker image rmi percona/percona-server:8.4.11-12
    ```
 
    If you are running the ARM64 version of Percona Server, use:
 
    ```shell
-   docker image rmi percona/percona-server:8.4.12-arm64
+   docker image rmi percona/percona-server:8.4.11-12-arm64
    ```
 
    Expected output
 
    ```text
-   Untagged: percona/percona-server:8.4.12
+   Untagged: percona/percona-server:8.4.11-12
    Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
    Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
    ...
@@ -9370,7 +9374,7 @@ For all other cases, use [APT](https://docs.percona.com/percona-server/8.4/apt-r
 
 This page installs the glibc 2.35 tarball on Ubuntu 26.04 (`x86_64`). For other operating systems, select a tarball on the [binary tarball file names](https://docs.percona.com/percona-server/8.4/binary-tarball-names.md) page. Package names for other libraries are on the [Operating system libraries](https://docs.percona.com/percona-server/8.4/os-libraries.md) page.
 
-Generic binary tarballs are built for `x86_64`. Percona publishes ARM64 (`aarch64`) builds as [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) and [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) packages, as [Docker](https://docs.percona.com/percona-server/8.4/docker.md) images (use the `8.4.12-arm64` tag), and as [source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md) that you can compile on the target host.
+Generic binary tarballs are built for `x86_64`. Percona publishes ARM64 (`aarch64`) builds as [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) and [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) packages, as [Docker](https://docs.percona.com/percona-server/8.4/docker.md) images (use the `8.4.11-12-arm64` tag), and as [source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md) that you can compile on the target host.
 
 ## Install on Ubuntu 26.04
 
@@ -9601,7 +9605,7 @@ Run the following command to find the CPU architecture, and select the matching 
 uname -m
 ```
 
-Generic binary tarballs are built for `x86_64`. If this command prints `aarch64`, Percona does not publish a tarball for that CPU. Use an [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) or [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) package, a [Docker](https://docs.percona.com/percona-server/8.4/docker.md) image with the `8.4.12-arm64` tag, or [compile from source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md).
+Generic binary tarballs are built for `x86_64`. If this command prints `aarch64`, Percona does not publish a tarball for that CPU. Use an [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) or [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) package, a [Docker](https://docs.percona.com/percona-server/8.4/docker.md) image with the `8.4.11-12-arm64` tag, or [compile from source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md).
 
 Ubuntu 26.04 reports glibc 2.43. Use the glibc 2.35 tarball on that release. The steps are on the [Install from a binary tarball](https://docs.percona.com/percona-server/8.4/binary-tarball-install.md) page.
 
@@ -10822,7 +10826,7 @@ Complete these checks before starting the upgrade process.
 - If you run the MySQL Shell upgrade checker, pass your configuration file with `--config-path`. Without this option, the checker does not check the configuration file:
 
   ```shell
-  mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version=8.4.12 --config-path=/etc/my.cnf
+  mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version=8.4.11-12 --config-path=/etc/my.cnf
   ```
 
   On Debian and Ubuntu, the server configuration is in `/etc/mysql/mysql.conf.d/mysqld.cnf`.
@@ -26190,7 +26194,7 @@ In case a user tries to enable [enforce_storage_engine](#enforce_storage_engine)
 
 Note
 
-If you’re using enforce_storage_engine, you must either disable it before doing `mysql_upgrade` or perform `mysql_upgrade` with server started with `--skip-grants-tables`.
+If you’re using enforce_storage_engine, disable it before you start the upgraded server. In 8.4 there is no `mysql_upgrade` step: the server upgrades the data dictionary and system tables itself at startup, as controlled by the `--upgrade` server option (default `AUTO`). See [Upgrade procedures](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md). After the server has started and completed the upgrade, set `enforce_storage_engine` again in the option file.
 
 ## System variables
 
@@ -32266,6 +32270,10 @@ This is a list of the `INFORMATION_SCHEMA TABLES` that exist in Percona Server f
 
 # Frequently asked questions
 
+## Q: What does this manual cover?
+
+A: This manual covers what Percona Server adds to or changes in MySQL 8.4. For everything else, see the [MySQL 8.4 Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/) .
+
 ## Q: Will *Percona Server for MySQL* with *XtraDB* invalidate our *MySQL* support?
 
 A: We don’t know the details of your support contract. You should check with your *Oracle* representative. We have heard anecdotal stories from *MySQL* Support team members that they have customers who use *Percona Server for MySQL* with *XtraDB*, but you should not base your decision on that.
@@ -32790,7 +32798,7 @@ Get started with [Quickstart Guide for Percona Server for MySQL](https://docs.pe
 
 ### Percona Server for MySQL 8.4.5-5
 
-- Updates the C++ level of the KMPI library to enhance error handling capabilities.
+- Updates the C++ level of the KMIP library to enhance error handling capabilities.
 - Improves optimizer behavior by restoring correct handling of const tables in `test_quick_select()`. A MySQL Upstream refactor (commit [9a13c1c](https://github.com/percona/percona-server/commit/9a13c1c6971f4bd56d143179ecfb34cca8ecc018)) removed the `QEP_TAB` dependency, causing `get_quick_record_count()` to no longer pass const table information. This could lead to suboptimal range scan boundaries. The applied patch resolves the issue by explicitly passing `const_tables` to `test_quick_select()`, ensuring consistent behavior with the pre-refactor logic.
 
 The latest MyRocks storage engine incorporates code based on RocksDB version 9.3.1. Percona has applied minor modifications to the original RocksDB codebase. Check the list of modifications at [https://github.com/percona/rocksdb/](https://github.com/percona/rocksdb/commit/2864cd95ca72bc4a2e93fe461dbd980f8e2357be).
@@ -32848,7 +32856,7 @@ Find the complete list of bug fixes and changes in the [MySQL 8.4.5 release note
 
 ### Improvements
 
-- [PS-9561](https://perconadev.atlassian.net/browse/PS-9561): Updates the C++ level of the KMPI library to enhance error handling capabilities.
+- [PS-9561](https://perconadev.atlassian.net/browse/PS-9561): Updates the C++ level of the KMIP library to enhance error handling capabilities.
 - [PS-9810](https://perconadev.atlassian.net/browse/PS-9810): Updates the list of MyRocks variables. You can find the list of variables in [MyRocks server variables](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md).
 
 ## Bug Fixes

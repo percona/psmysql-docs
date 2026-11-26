@@ -35,19 +35,19 @@ If you installed Percona Server for MySQL using Docker, follow these steps:
 1. Remove the Docker image:
 
    ```shell
-   docker image rmi percona/percona-server:8.4.12
+   docker image rmi percona/percona-server:8.4.11-12
    ```
 
    If you are running the ARM64 version of Percona Server, use:
 
    ```shell
-   docker image rmi percona/percona-server:8.4.12-arm64
+   docker image rmi percona/percona-server:8.4.11-12-arm64
    ```
 
    Expected output
 
    ```text
-   Untagged: percona/percona-server:8.4.12
+   Untagged: percona/percona-server:8.4.11-12
    Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
    Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
    ...

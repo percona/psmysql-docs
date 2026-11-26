@@ -18,7 +18,7 @@ For SQL command values (`create_db`, `select`, `grant`, and so on), typical even
 
 - Only documented class names pass validation.
 
-- When [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) is `REDUCED` (the default from 8.4.9-9 onward), only these events are tracked and accepted by filter-definition validation:
+- When [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) is `REDUCED` (the default from 8.4.10-10 onward), only these events are tracked and accepted by filter-definition validation:
 
   - `general`: `status`
   - `connection`: `connect`, `disconnect`, `change_user`

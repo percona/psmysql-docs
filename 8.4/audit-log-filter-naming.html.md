@@ -55,7 +55,7 @@ The password with the highest sequence for a given timestamp is current.
 
 ## Rotation sequence suffix
 
-Starting in Percona Server for MySQL 8.4.9-9, multiple rotations in the same second append `-N` so the server never overwrites a prior file:
+Starting in Percona Server for MySQL 8.4.10-10, multiple rotations in the same second append `-N` so the server never overwrites a prior file:
 
 ```text
 audit_filter.20250401T120000.log      -- first rotation at 12:00:00

@@ -84,7 +84,7 @@ Reloads filter JSON and account rows from `mysql.audit_log_filter` / `mysql.audi
 
 Table edits alone—including direct DML and [`audit_log_filter_set_filter()`](#audit_log_filter_set_filterfilter_name-definition)—do not refresh every open session. Call `audit_log_filter_flush()` when all sessions must see new rules (details under Persistence and refreshing on [`audit_log_filter_set_filter()`](#audit_log_filter_set_filterfilter_name-definition)).
 
-From Percona Server for MySQL 8.4.9-9 onward, a flush detaches existing sessions until they reconnect or run `CHANGE_USER`; new connections pick up the reloaded registry immediately. If you cannot tolerate a gap, reconnect clients after flushing.
+From Percona Server for MySQL 8.4.10-10 onward, a flush detaches existing sessions until they reconnect or run `CHANGE_USER`; new connections pick up the reloaded registry immediately. If you cannot tolerate a gap, reconnect clients after flushing.
 
 If `audit_log_filter_flush()` fails, the call returns an error message in the result string and the previously loaded filter rules and user assignments stay in effect. The audit log keeps writing under the prior configuration until the next successful flush replaces it. Retry the call after correcting the underlying cause so that the new on-disk rules take effect.
 
@@ -227,7 +227,7 @@ Returns the active filter ID for this session, or 0 when no filter applies.
 
 Drops a filter definition and clears `mysql.audit_log_user` rows that pointed at it.
 
-From Percona Server for MySQL 8.4.9-9, only sessions using that filter detach; others keep logging.
+From Percona Server for MySQL 8.4.10-10, only sessions using that filter detach; others keep logging.
 
 This function requires the `AUDIT_ADMIN` privilege.
 
@@ -297,7 +297,7 @@ Expected output
 
 Rotates the active audit file immediately and returns the archived name.
 
-From 8.4.9-9, colliding timestamps add a `-N` suffix so rotations never overwrite each other.
+From 8.4.10-10, colliding timestamps add a `-N` suffix so rotations never overwrite each other.
 
 This function requires the `AUDIT_ADMIN` privilege.
 
@@ -319,13 +319,13 @@ SELECT audit_log_rotate();
 
 Writes JSON for `filter_name` to `mysql.audit_log_filter` (create or update). Each stored revision gets a new filter ID.
 
-From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken `print` rules abort the call with a detailed error, for example:
+From Percona Server for MySQL 8.4.10-10, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken `print` rules abort the call with a detailed error, for example:
 
 ```text
 ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 ```
 
-Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example `classes` instead of `class`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see [Filter definition validation](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#filter-definition-validation).
+Before 8.4.10-10, the parser silently ignored unknown keys. Misspelling a structural key (for example `classes` instead of `class`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.10-10 or later to catch these mistakes. For details, see [Filter definition validation](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#filter-definition-validation).
 
 In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).
 
@@ -335,7 +335,7 @@ This function requires the `AUDIT_ADMIN` privilege.
 
 `audit_log_filter_set_filter()` persists JSON but does not patch in-memory state for every open session. Run [`audit_log_filter_flush()`](#audit_log_filter_flush) to reload all definitions into the component.
 
-After 8.4.9-9 flushes, existing sessions detach until reconnect/`CHANGE_USER`; brand-new sessions pick up changes immediately.
+After 8.4.10-10 flushes, existing sessions detach until reconnect/`CHANGE_USER`; brand-new sessions pick up changes immediately.
 
 #### Parameters
 
@@ -375,7 +375,7 @@ Avoid overlapping patterns unless you accept ambiguous matches—prefer literals
 
 One active mapping per account row; this call replaces any previous mapping.
 
-From 8.4.9-9, open sessions keep the old mapping until reconnect/`CHANGE_USER`; flush if you must realign everyone immediately.
+From 8.4.10-10, open sessions keep the old mapping until reconnect/`CHANGE_USER`; flush if you must realign everyone immediately.
 
 The special user `%` is the default row used when no literal match exists; specific `user@host` rows always beat `%`.
 
@@ -524,7 +524,7 @@ audit-log-filter.database=mysql
 | Data type    | Boolean                     |
 | Default      | OFF                         |
 
-*Introduced in Percona Server for MySQL 8.4.9-9.*
+*Introduced in Percona Server for MySQL 8.4.10-10.*
 
 This variable is [tech preview](https://docs.percona.com/percona-server/8.4/glossary.md#tech-preview) and may be removed in a future release.
 
@@ -612,7 +612,7 @@ audit-log-filter.encryption=AES
 | Default          | REDUCED                      |
 | Available values | REDUCED, FULL                |
 
-*Introduced in Percona Server for MySQL 8.4.9-9.*
+*Introduced in Percona Server for MySQL 8.4.10-10.*
 
 This variable controls which event classes and subclasses are processed by the audit log filter component.
 
@@ -641,7 +641,7 @@ The audit log filter disables the following subclasses in REDUCED mode:
 
 In REDUCED mode, calling a stored procedure logs the outer `CALL` statement but not the individual SQL statements executed inside the procedure body. The `general/status` event generated by the internal `Quit` command is also suppressed in REDUCED mode.
 
-`FULL` — all event classes and subclasses are processed, including `global_variable`, `command`, `query`, `stored_program`, `authentication`, and `parse` on top of the `REDUCED` set. Through Percona Server for MySQL 8.4.8-8 there was no `audit_log_filter.event_mode` setting; the component always processed the full class set (equivalent to `FULL`). The variable was introduced in 8.4.9-9 with default `REDUCED`.
+`FULL` — all event classes and subclasses are processed, including `global_variable`, `command`, `query`, `stored_program`, `authentication`, and `parse` on top of the `REDUCED` set. Through Percona Server for MySQL 8.4.8-8 there was no `audit_log_filter.event_mode` setting; the component always processed the full class set (equivalent to `FULL`). The variable was introduced in 8.4.10-10 with default `REDUCED`.
 
 #### Runtime mode switch
 
@@ -752,7 +752,7 @@ audit-log-filter.format=JSON
 | Data type    | Boolean                                 |
 | Default      | OFF                                     |
 
-Introduced in Percona Server for MySQL 8.4.9-9, this option is supported for JSON-format and JSONL-format files.
+Introduced in Percona Server for MySQL 8.4.10-10, this option is supported for JSON-format and JSONL-format files.
 
 Enabling this option adds a `time` field to JSON-format and JSONL-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the `time` field. This option requires the `AUDIT_ADMIN` and `SYSTEM_VARIABLES_ADMIN` privileges.
 
@@ -937,7 +937,7 @@ SET GLOBAL audit_log_filter.prune_seconds = 604800;
 | Minimum value | 32768                              |
 | Maximum value | 4294967295                         |
 
-Introduced in Percona Server for MySQL 8.4.9-9, this option is supported for JSON-format and JSONL-format files.
+Introduced in Percona Server for MySQL 8.4.10-10, this option is supported for JSON-format and JSONL-format files.
 
 The size of the buffer for reading from the audit log filter file. `audit_log_read()` reads only from this buffer size.
 
@@ -1000,9 +1000,9 @@ Switch from the default `ASYNCHRONOUS` to `SYNCHRONOUS` only when durability is 
 
 The main risk of `ASYNCHRONOUS` is a crash or power-loss window: the newest audit events can still be in memory and may be lost if they have not yet been flushed or synced to disk. That is not the same as dropping under load: `ASYNCHRONOUS` waits for buffer space and does not discard events when the buffer is full. The mode that can drop whole events when the outer buffer lacks space is `PERFORMANCE`.
 
-#### SYNCHRONOUS behavior change in 8.4.9-9
+#### SYNCHRONOUS behavior change in 8.4.10-10
 
-Through Percona Server for MySQL 8.4.8-8, the `SYNCHRONOUS` value did not call `fsync()` per event. The `sync_on_write` flag was set but never honored, so the strategy behaved as `SEMISYNCHRONOUS`. From 8.4.9-9 onward, `SYNCHRONOUS` issues an `fsync()` after every audit event write, matching the documented contract.
+Through Percona Server for MySQL 8.4.8-8, the `SYNCHRONOUS` value did not call `fsync()` per event. The `sync_on_write` flag was set but never honored, so the strategy behaved as `SEMISYNCHRONOUS`. From 8.4.10-10 onward, `SYNCHRONOUS` issues an `fsync()` after every audit event write, matching the documented contract.
 
 The fix affects only configurations that already set `strategy=SYNCHRONOUS`. Such configurations see new write latency on every audited statement after the upgrade. Expect higher CPU on the audit write path and higher tail latency on the audited workload. Plan capacity before upgrading durability-critical instances, or switch to `SEMISYNCHRONOUS` if the prior (lower-latency) behavior is acceptable for the compliance posture.
 

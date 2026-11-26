@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:">
+        <meta name="description" content="Percona Server for MySQL 8.4.10-10 tightens the NEW XML formatter:">
       
       
         <meta name="author" content="Percona LLC">
@@ -10682,7 +10682,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 
 <h1 id="audit-log-filter-format-xml-new-style">Audit Log Filter format - XML (new style)<a data-markdown-ignore class="headerlink" href="#audit-log-filter-format-xml-new-style" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:</p>
+<p>Percona Server for MySQL 8.4.10-10 tightens the NEW XML formatter:</p>
 <ul>
 <li>
 <p>1-based <code>&lt;RECORD_ID&gt;</code> values (not 0-based)</p>
@@ -10706,10 +10706,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Consistent <code>&lt;COMMAND_CLASS&gt;</code> spellings (for example <code>create_table</code>, <code>set_option</code>)</p>
 </li>
 <li>
-<p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> decides which events appear: <code>REDUCED</code> (default) keeps core classes; <code>FULL</code> adds lifecycle-heavy record types (see that page for lists and pre-8.4.9-9 behavior).</p>
+<p><a href="audit-log-filter-variables.html#audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> decides which events appear: <code>REDUCED</code> (default) keeps core classes; <code>FULL</code> adds lifecycle-heavy record types (see that page for lists and pre-8.4.10-10 behavior).</p>
 </li>
 </ul>
-<p>On builds before 8.4.9-9, spot-check your own logs—output may differ. Code reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code>, <code>base.cc</code>.</p>
+<p>On builds before 8.4.10-10, spot-check your own logs—output may differ. Code reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code>, <code>base.cc</code>.</p>
 <p>With <code>audit_log_filter.format=NEW</code>, the component writes UTF-8 XML.</p>
 <p>Root <code>&lt;AUDIT&gt;</code> wraps <code>&lt;AUDIT_RECORD&gt;</code> elements—one event each.</p>
 <p>Element order matches the legacy audit plugin style; parse by name, not column position.</p>
@@ -10726,7 +10726,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">  </span><span class="nt">&lt;VERSION&gt;</span>1<span class="nt">&lt;/VERSION&gt;</span>
 <span class="w">  </span><span class="nt">&lt;STARTUP_OPTIONS&gt;</span>/usr/sbin/mysqld<span class="w"> </span>--defaults-file=/etc/my.cnf<span class="w"> </span>--basedir=/usr<span class="w"> </span>--port=3306<span class="w"> </span>--socket=/var/run/mysqld/mysqld.sock<span class="w"> </span>--datadir=/var/lib/mysql<span class="nt">&lt;/STARTUP_OPTIONS&gt;</span>
 <span class="w">  </span><span class="nt">&lt;OS_VERSION&gt;</span>x86_64-Linux<span class="nt">&lt;/OS_VERSION&gt;</span>
-<span class="w">  </span><span class="nt">&lt;MYSQL_VERSION&gt;</span>8.4.9-9<span class="nt">&lt;/MYSQL_VERSION&gt;</span>
+<span class="w">  </span><span class="nt">&lt;MYSQL_VERSION&gt;</span>8.4.10-10<span class="nt">&lt;/MYSQL_VERSION&gt;</span>
 <span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
 <span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
@@ -10827,7 +10827,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
 <span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
 <span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_client_version<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>8.4.9-9<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>8.4.10-10<span class="nt">&lt;/VALUE&gt;</span>
 <span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
 <span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
 <span class="w">    </span><span class="nt">&lt;NAME&gt;</span>program_name<span class="nt">&lt;/NAME&gt;</span>
@@ -11071,7 +11071,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <h2 id="optional-elements-by-record-category">Optional elements (by record category)<a data-markdown-ignore class="headerlink" href="#optional-elements-by-record-category" title="Permanent link">&para;</a></h2>
 <p>Many elements appear only for specific event classes. The following table lists
-elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one
+elements that the NEW XML formatter (Percona Server for MySQL 8.4.10-10 onward) uses for at least one
 event type. The table does not promise that every field appears in every record.</p>
 <table>
 <thead>
@@ -11196,7 +11196,7 @@ Server-side limits may truncate very long values.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 21, 2026 21:58:55 UTC">July 21, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 26, 2026 15:25:18 UTC">November 26, 2026</span>
   </span>
 
     
@@ -11224,14 +11224,19 @@ Server-side limits may truncate very long values.</p>
     
     <nav>
       
-        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+        <a href="https://github.com/EvgeniyPatlan" class="md-author" title="@EvgeniyPatlan">
           
-          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
+          <img src="https://avatars.githubusercontent.com/u/18436759?v=4&size=72" alt="EvgeniyPatlan">
         </a>
       
         <a href="https://github.com/web-flow" class="md-author" title="@web-flow">
           
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4&size=72" alt="web-flow">
+        </a>
+      
+        <a href="https://github.com/patrickbirch" class="md-author" title="@patrickbirch">
+          
+          <img src="https://avatars.githubusercontent.com/u/48594400?v=4&size=72" alt="patrickbirch">
         </a>
       
         <a href="https://github.com/alina-derkach-oaza" class="md-author" title="@alina-derkach-oaza">

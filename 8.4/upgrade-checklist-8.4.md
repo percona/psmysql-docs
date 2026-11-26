@@ -61,7 +61,7 @@ Complete these checks before starting the upgrade process.
 - If you run the MySQL Shell upgrade checker, pass your configuration file with `--config-path`. Without this option, the checker does not check the configuration file:
 
   ```shell
-  mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version=8.4.12 --config-path=/etc/my.cnf
+  mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version=8.4.11-12 --config-path=/etc/my.cnf
   ```
 
   On Debian and Ubuntu, the server configuration is in `/etc/mysql/mysql.conf.d/mysqld.cnf`.

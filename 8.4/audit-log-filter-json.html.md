@@ -11,7 +11,7 @@ Only the file layout differs:
 | JSON   | One top-level JSON array. Each event is a pretty-printed JSON object spanning multiple lines.              | `audit_log_filter.format=JSON`  |
 | JSONL  | One top-level JSON array. Each event is a single compact JSON object on its own line, separated by commas. | `audit_log_filter.format=JSONL` |
 
-Percona Server for MySQL 8.4.9-9 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. [Standard JSONL and Percona JSONL](#standard-jsonl-and-percona-jsonl) covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.
+Percona Server for MySQL 8.4.10-10 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. [Standard JSONL and Percona JSONL](#standard-jsonl-and-percona-jsonl) covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.
 
 Compression and encryption behave like JSON. `audit_log_read()` and `audit_log_read_bookmark()` read both formats.
 
@@ -88,7 +88,7 @@ Compression, encryption, and the SQL readers are the same for JSON and JSONL. Ch
 
 ## Version changes
 
-### Percona Server for MySQL 8.4.9-9
+### Percona Server for MySQL 8.4.10-10
 
 - Component startup and shutdown events include the `event`, `connection_id`, `account`, `login`, and `startup_data` fields. The `startup_data` object holds `server_id`, `os_version`, `mysql_version`, and `args` (command-line arguments). Earlier releases exposed only `server_id` at the top level for those records.
 - Lifecycle `event` values changed from the internal names `audit` / `noaudit` to `startup` / `shutdown`.
@@ -108,21 +108,21 @@ Every event object includes at least:
 
 Other common keys:
 
-| Name                | Description                                                                                                |
-| ------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `account`           | Database account for the event                                                                             |
-| `connection_data`   | Client connection details. From 8.4.9-9, `connection_attributes` nest here on connection events.           |
-| `connection_id`     | Client connection ID                                                                                       |
-| `general_data`      | Statement or command when `class` is `general`                                                             |
-| `id`                | Event ID                                                                                                   |
-| `login`             | How the client attached to the server                                                                      |
-| `map`               | 8.4.9-9+ Message payload (replaces `message_attributes`). Message events also carry `account` and `login`. |
-| `query_statistics`  | Optional metrics for outlier detection                                                                     |
-| `shutdown_data`     | Component shutdown                                                                                         |
-| `startup_data`      | Component startup; from 8.4.9-9 includes `server_id`, `os_version`, `mysql_version`, `args`                |
-| `table_access_data` | Table access details                                                                                       |
-| `time`              | UNIX timestamp (integer) when present                                                                      |
-| `timestamp`         | UTC time `YYYY-MM-DD hh:mm:ss`                                                                             |
+| Name                | Description                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `account`           | Database account for the event                                                                               |
+| `connection_data`   | Client connection details. From 8.4.10-10, `connection_attributes` nest here on connection events.           |
+| `connection_id`     | Client connection ID                                                                                         |
+| `general_data`      | Statement or command when `class` is `general`                                                               |
+| `id`                | Event ID                                                                                                     |
+| `login`             | How the client attached to the server                                                                        |
+| `map`               | 8.4.10-10+ Message payload (replaces `message_attributes`). Message events also carry `account` and `login`. |
+| `query_statistics`  | Optional metrics for outlier detection                                                                       |
+| `shutdown_data`     | Component shutdown                                                                                           |
+| `startup_data`      | Component startup; from 8.4.10-10 includes `server_id`, `os_version`, `mysql_version`, `args`                |
+| `table_access_data` | Table access details                                                                                         |
+| `time`              | UNIX timestamp (integer) when present                                                                        |
+| `timestamp`         | UTC time `YYYY-MM-DD hh:mm:ss`                                                                               |
 
 ## JSON example
 
@@ -141,7 +141,7 @@ The following shows four event types recorded in `REDUCED` event mode: startup, 
     "startup_data": {
       "server_id": 1,
       "os_version": "x86_64-Linux",
-      "mysql_version": "8.4.9-9",
+      "mysql_version": "8.4.10-10",
       "args": [
         "/usr/sbin/mysqld",
         "--defaults-file=/etc/my.cnf",
@@ -213,7 +213,7 @@ In the JSONL format each event is a single compact JSON object on its own line, 
 
 ```json
 [
-{ "timestamp": "2026-04-03 10:43:52", "id": 0, "class": "audit", "event": "startup", "connection_id": 12, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "startup_data": { "server_id": 1, "os_version": "x86_64-Linux", "mysql_version": "8.4.9-9", "args": ["/usr/sbin/mysqld", "--defaults-file=/etc/my.cnf", "--basedir=/usr", "--user=mysql", "--datadir=/var/lib/mysql", "--socket=/var/run/mysqld/mysqld.sock", "--port=3306"] } },
+{ "timestamp": "2026-04-03 10:43:52", "id": 0, "class": "audit", "event": "startup", "connection_id": 12, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "startup_data": { "server_id": 1, "os_version": "x86_64-Linux", "mysql_version": "8.4.10-10", "args": ["/usr/sbin/mysqld", "--defaults-file=/etc/my.cnf", "--basedir=/usr", "--user=mysql", "--datadir=/var/lib/mysql", "--socket=/var/run/mysqld/mysqld.sock", "--port=3306"] } },
 { "timestamp": "2026-04-03 10:43:53", "id": 1, "class": "connection", "event": "connect", "connection_id": 39, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "connection_data": { "connection_type": "socket", "status": 0, "db": "test", "connection_attributes": { "_pid": "824388", "_platform": "x86_64", "_client_version": "8.0.45", "_os": "Linux", "_client_name": "libmysql" } } },
 { "timestamp": "2026-04-03 10:43:53", "id": 9, "class": "table_access", "event": "read", "connection_id": 40, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "table_access_data": { "db": "test", "table": "sbtest2", "query": "SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099", "sql_command": "select" } },
 { "timestamp": "2026-04-03 10:43:53", "id": 11, "class": "general", "event": "status", "connection_id": 40, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "general_data": { "command": "Query", "sql_command": "select", "query": "SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099", "status": 0 } }

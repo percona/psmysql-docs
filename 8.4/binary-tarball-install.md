@@ -13,7 +13,7 @@ For all other cases, use [APT](https://docs.percona.com/percona-server/8.4/apt-r
 
 This page installs the glibc 2.35 tarball on Ubuntu 26.04 (`x86_64`). For other operating systems, select a tarball on the [binary tarball file names](https://docs.percona.com/percona-server/8.4/binary-tarball-names.md) page. Package names for other libraries are on the [Operating system libraries](https://docs.percona.com/percona-server/8.4/os-libraries.md) page.
 
-Generic binary tarballs are built for `x86_64`. Percona publishes ARM64 (`aarch64`) builds as [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) and [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) packages, as [Docker](https://docs.percona.com/percona-server/8.4/docker.md) images (use the `8.4.12-arm64` tag), and as [source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md) that you can compile on the target host.
+Generic binary tarballs are built for `x86_64`. Percona publishes ARM64 (`aarch64`) builds as [APT](https://docs.percona.com/percona-server/8.4/apt-repo.md) and [DNF](https://docs.percona.com/percona-server/8.4/yum-repo.md) packages, as [Docker](https://docs.percona.com/percona-server/8.4/docker.md) images (use the `8.4.11-12-arm64` tag), and as [source](https://docs.percona.com/percona-server/8.4/compile-percona-server.md) that you can compile on the target host.
 
 ## Install on Ubuntu 26.04
 

@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona Server for MySQL 8.4, a drop-in replacement for MySQL Community 8.4: what Percona adds or changes, with installation, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -13891,7 +13891,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </p>
 <h1>Percona Server for MySQL</h1>
 
-<h1>Documentation</h1>
+<h1>Percona Server for MySQL 8.4, a drop-in replacement for MySQL Community 8.4: what Percona adds or changes, with installation, upgrade, security and operations guides</h1>
  
 <h2>8.4.11-12 (November 12, 2026)</h2>
 <!--<h3>Percona Technical Documentation Team</h3>-->
@@ -13906,7 +13906,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         </section>
         <section class="print-page" id="index" heading-number="1"><h1 id="index-percona-server-for-mysql-84-documentation">Percona Server for MySQL 8.4 - Documentation<a class="headerlink" href="#index-percona-server-for-mysql-84-documentation" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
-<p>This documentation is for the latest release: Percona Server for MySQL 8.4.11-12 (<a href="#release-notes-8.4.11-12">Release Notes</a>).</p>
+<p>This documentation is for Percona Server for MySQL 8.4 LTS, release 8.4.11-12 (<a href="#release-notes-8.4.11-12">Release Notes</a>).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Scope of this manual</p>
+<p>This manual covers what Percona Server adds to or changes in MySQL 8.4. For everything else, see the <a href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4 Reference Manual <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 </div>
 <p>Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, and increased visibility and instrumentation.</p>
 <p>Thousands of enterprises trust Percona Server for MySQL to provide better performance and concurrency for their most demanding workloads.</p>
@@ -14842,7 +14846,7 @@ If these two counts differ, the formula calculates the wrong capacity, leading t
 <h3 id="release-notes-8.4.5-5-percona-server-for-mysql-845-5">Percona Server for MySQL 8.4.5-5<a class="headerlink" href="#release-notes-8.4.5-5-percona-server-for-mysql-845-5" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Updates the C++ level of the KMPI library to enhance error handling capabilities.</p>
+<p>Updates the C++ level of the KMIP library to enhance error handling capabilities.</p>
 </li>
 <li>
 <p>Improves optimizer behavior by restoring correct handling of const tables in <code>test_quick_select()</code>. A MySQL Upstream refactor (commit <a href="https://github.com/percona/percona-server/commit/9a13c1c6971f4bd56d143179ecfb34cca8ecc018">9a13c1c</a>) removed the <code>QEP_TAB</code> dependency, causing <code>get_quick_record_count()</code> to no longer pass const table information. This could lead to suboptimal range scan boundaries. The applied patch resolves the issue by explicitly passing <code>const_tables</code> to <code>test_quick_select()</code>, ensuring consistent behavior with the pre-refactor logic.</p>
@@ -14918,7 +14922,7 @@ If these two counts differ, the formula calculates the wrong capacity, leading t
 <h3 id="release-notes-8.4.5-5-improvements">Improvements<a class="headerlink" href="#release-notes-8.4.5-5-improvements" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p><a href="https://perconadev.atlassian.net/browse/PS-9561">PS-9561</a>: Updates the C++ level of the KMPI library to enhance error handling capabilities.</p>
+<p><a href="https://perconadev.atlassian.net/browse/PS-9561">PS-9561</a>: Updates the C++ level of the KMIP library to enhance error handling capabilities.</p>
 </li>
 <li>
 <p><a href="https://perconadev.atlassian.net/browse/PS-9810">PS-9810</a>: Updates the list of MyRocks variables. You can find the list of variables in <a href="#myrocks-server-variables">MyRocks server variables</a>.</p>
@@ -15985,7 +15989,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <tr>
 <td><a href="#audit-log-filter-json">JSONL</a></td>
 <td><code>audit_log_filter.format=JSONL</code></td>
-<td>Added in 8.4.9-9. One compact JSON object per line inside a wrapping array. This layout is not standard JSON Lines. See <a href="#audit-log-filter-json-standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL</a>.</td>
+<td>Added in 8.4.10-10. One compact JSON object per line inside a wrapping array. This layout is not standard JSON Lines. See <a href="#audit-log-filter-json-standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -16001,7 +16005,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <li><a href="#reading-audit-log-filter-files">Reading Audit Log Filter files</a></li>
 <li><a href="#audit-log-filter-compression-encryption">Audit Log Filter compression and encryption</a></li>
 </ul></section><section class="print-page" id="audit-log-filter-new" heading-number="5.2.5.2"><h1 id="audit-log-filter-new-audit-log-filter-format-xml-new-style">Audit Log Filter format - XML (new style)<a class="headerlink" href="#audit-log-filter-new-audit-log-filter-format-xml-new-style" title="Permanent link">&para;</a></h1>
-<p>Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:</p>
+<p>Percona Server for MySQL 8.4.10-10 tightens the NEW XML formatter:</p>
 <ul>
 <li>
 <p>1-based <code>&lt;RECORD_ID&gt;</code> values (not 0-based)</p>
@@ -16025,10 +16029,10 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <p>Consistent <code>&lt;COMMAND_CLASS&gt;</code> spellings (for example <code>create_table</code>, <code>set_option</code>)</p>
 </li>
 <li>
-<p><a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> decides which events appear: <code>REDUCED</code> (default) keeps core classes; <code>FULL</code> adds lifecycle-heavy record types (see that page for lists and pre-8.4.9-9 behavior).</p>
+<p><a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> decides which events appear: <code>REDUCED</code> (default) keeps core classes; <code>FULL</code> adds lifecycle-heavy record types (see that page for lists and pre-8.4.10-10 behavior).</p>
 </li>
 </ul>
-<p>On builds before 8.4.9-9, spot-check your own logs—output may differ. Code reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code>, <code>base.cc</code>.</p>
+<p>On builds before 8.4.10-10, spot-check your own logs—output may differ. Code reference: <code>components/audit_log_filter/log_record_formatter/new.cc</code>, <code>base.cc</code>.</p>
 <p>With <code>audit_log_filter.format=NEW</code>, the component writes UTF-8 XML.</p>
 <p>Root <code>&lt;AUDIT&gt;</code> wraps <code>&lt;AUDIT_RECORD&gt;</code> elements—one event each.</p>
 <p>Element order matches the legacy audit plugin style; parse by name, not column position.</p>
@@ -16045,7 +16049,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <span class="w">  </span><span class="nt">&lt;VERSION&gt;</span>1<span class="nt">&lt;/VERSION&gt;</span>
 <span class="w">  </span><span class="nt">&lt;STARTUP_OPTIONS&gt;</span>/usr/sbin/mysqld<span class="w"> </span>--defaults-file=/etc/my.cnf<span class="w"> </span>--basedir=/usr<span class="w"> </span>--port=3306<span class="w"> </span>--socket=/var/run/mysqld/mysqld.sock<span class="w"> </span>--datadir=/var/lib/mysql<span class="nt">&lt;/STARTUP_OPTIONS&gt;</span>
 <span class="w">  </span><span class="nt">&lt;OS_VERSION&gt;</span>x86_64-Linux<span class="nt">&lt;/OS_VERSION&gt;</span>
-<span class="w">  </span><span class="nt">&lt;MYSQL_VERSION&gt;</span>8.4.9-9<span class="nt">&lt;/MYSQL_VERSION&gt;</span>
+<span class="w">  </span><span class="nt">&lt;MYSQL_VERSION&gt;</span>8.4.10-10<span class="nt">&lt;/MYSQL_VERSION&gt;</span>
 <span class="w"> </span><span class="nt">&lt;/AUDIT_RECORD&gt;</span>
 <span class="w"> </span><span class="nt">&lt;AUDIT_RECORD&gt;</span>
 <span class="w">  </span><span class="nt">&lt;TIMESTAMP&gt;</span>2026-03-27T20:00:59<span class="nt">&lt;/TIMESTAMP&gt;</span>
@@ -16146,7 +16150,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 <span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
 <span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
 <span class="w">    </span><span class="nt">&lt;NAME&gt;</span>_client_version<span class="nt">&lt;/NAME&gt;</span>
-<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>8.4.9-9<span class="nt">&lt;/VALUE&gt;</span>
+<span class="w">    </span><span class="nt">&lt;VALUE&gt;</span>8.4.10-10<span class="nt">&lt;/VALUE&gt;</span>
 <span class="w">   </span><span class="nt">&lt;/ATTRIBUTE&gt;</span>
 <span class="w">   </span><span class="nt">&lt;ATTRIBUTE&gt;</span>
 <span class="w">    </span><span class="nt">&lt;NAME&gt;</span>program_name<span class="nt">&lt;/NAME&gt;</span>
@@ -16390,7 +16394,7 @@ MySQL 8.4 Community Edition in addition to enterprise-grade features developed b
 </table>
 <h2 id="audit-log-filter-new-optional-elements-by-record-category">Optional elements (by record category)<a class="headerlink" href="#audit-log-filter-new-optional-elements-by-record-category" title="Permanent link">&para;</a></h2>
 <p>Many elements appear only for specific event classes. The following table lists
-elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one
+elements that the NEW XML formatter (Percona Server for MySQL 8.4.10-10 onward) uses for at least one
 event type. The table does not promise that every field appears in every record.</p>
 <table>
 <thead>
@@ -16683,7 +16687,7 @@ Server-side limits may truncate very long values.</p>
 </tr>
 </tbody>
 </table>
-<p>Percona Server for MySQL 8.4.9-9 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. <a href="#audit-log-filter-json-standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL</a> covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.</p>
+<p>Percona Server for MySQL 8.4.10-10 introduced JSONL. JSONL is the usual shorthand for JSON Lines: one complete JSON value on each line, with nothing wrapping the file. Percona Server uses that name because each event is one line, and writes a different layout: a JSON array of compact event objects, one object per line, with commas between them. <a href="#audit-log-filter-json-standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL</a> covers how that layout differs from JSON Lines, why Percona JSONL exists, and when to choose Percona JSONL instead of JSON.</p>
 <p>Compression and encryption behave like JSON. <code>audit_log_read()</code> and <code>audit_log_read_bookmark()</code> read both formats.</p>
 <p>JSON and JSONL alone expose some statistics (for example, query timing and size)—use them to flag outliers in workload analysis.</p>
 <h2 id="audit-log-filter-json-standard-jsonl-and-percona-jsonl">Standard JSONL and Percona JSONL<a class="headerlink" href="#audit-log-filter-json-standard-jsonl-and-percona-jsonl" title="Permanent link">&para;</a></h2>
@@ -16791,7 +16795,7 @@ Server-side limits may truncate very long values.</p>
 </ul>
 <p>Compression, encryption, and the SQL readers are the same for JSON and JSONL. Changing <code>audit_log_filter.format</code> requires a restart. Give JSONL its own <a href="#audit-log-filter-variables-audit_log_filterfile"><code>audit_log_filter.file</code></a> name, for example, <code>audit.jsonl</code>. See <a href="#audit-log-filter-formats">Audit Log Filter file format overview</a>.</p>
 <h2 id="audit-log-filter-json-version-changes">Version changes<a class="headerlink" href="#audit-log-filter-json-version-changes" title="Permanent link">&para;</a></h2>
-<h3 id="audit-log-filter-json-percona-server-for-mysql-849-9">Percona Server for MySQL 8.4.9-9<a class="headerlink" href="#audit-log-filter-json-percona-server-for-mysql-849-9" title="Permanent link">&para;</a></h3>
+<h3 id="audit-log-filter-json-percona-server-for-mysql-8410-10">Percona Server for MySQL 8.4.10-10<a class="headerlink" href="#audit-log-filter-json-percona-server-for-mysql-8410-10" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p>Component startup and shutdown events include the <code>event</code>, <code>connection_id</code>, <code>account</code>, <code>login</code>, and <code>startup_data</code> fields. The <code>startup_data</code> object holds <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, and <code>args</code> (command-line arguments). Earlier releases exposed only <code>server_id</code> at the top level for those records.</p>
@@ -16830,7 +16834,7 @@ Server-side limits may truncate very long values.</p>
 </tr>
 <tr>
 <td><code>connection_data</code></td>
-<td>Client connection details. From 8.4.9-9, <code>connection_attributes</code> nest here on connection events.</td>
+<td>Client connection details. From 8.4.10-10, <code>connection_attributes</code> nest here on connection events.</td>
 </tr>
 <tr>
 <td><code>connection_id</code></td>
@@ -16850,7 +16854,7 @@ Server-side limits may truncate very long values.</p>
 </tr>
 <tr>
 <td><code>map</code></td>
-<td>8.4.9-9+ Message payload (replaces <code>message_attributes</code>). Message events also carry <code>account</code> and <code>login</code>.</td>
+<td>8.4.10-10+ Message payload (replaces <code>message_attributes</code>). Message events also carry <code>account</code> and <code>login</code>.</td>
 </tr>
 <tr>
 <td><code>query_statistics</code></td>
@@ -16862,7 +16866,7 @@ Server-side limits may truncate very long values.</p>
 </tr>
 <tr>
 <td><code>startup_data</code></td>
-<td>Component startup; from 8.4.9-9 includes <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, <code>args</code></td>
+<td>Component startup; from 8.4.10-10 includes <code>server_id</code>, <code>os_version</code>, <code>mysql_version</code>, <code>args</code></td>
 </tr>
 <tr>
 <td><code>table_access_data</code></td>
@@ -16892,7 +16896,7 @@ Server-side limits may truncate very long values.</p>
 <span class="w">    </span><span class="nt">"startup_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"server_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"os_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64-Linux"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.4.9-9"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.4.10-10"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span>
 <span class="w">        </span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span>
@@ -16960,7 +16964,7 @@ Server-side limits may truncate very long values.</p>
 <h2 id="audit-log-filter-json-jsonl-example">JSONL example<a class="headerlink" href="#audit-log-filter-json-jsonl-example" title="Permanent link">&para;</a></h2>
 <p>In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example look like this:</p>
 <div class="language-json highlight"><pre><span></span><code><span class="p">[</span>
-<span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:52"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"audit"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"startup"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"startup_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"server_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"os_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64-Linux"</span><span class="p">,</span><span class="w"> </span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.4.9-9"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--basedir=/usr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--user=mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datadir=/var/lib/mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--socket=/var/run/mysqld/mysqld.sock"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port=3306"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:52"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"audit"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"startup"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"startup_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"server_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"os_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64-Linux"</span><span class="p">,</span><span class="w"> </span><span class="nt">"mysql_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.4.10-10"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/sbin/mysqld"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--defaults-file=/etc/my.cnf"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--basedir=/usr"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--user=mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--datadir=/var/lib/mysql"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--socket=/var/run/mysqld/mysqld.sock"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port=3306"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
 <span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connection"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connect"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">39</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"connection_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"connection_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"socket"</span><span class="p">,</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"_pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"824388"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_client_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.0.45"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_os"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Linux"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"libmysql"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
 <span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"table_access_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"db"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w"> </span><span class="nt">"table"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sbtest2"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="w"> </span><span class="nt">"sql_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
 <span class="p">{</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-04-03 10:43:53"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span><span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span><span class="p">,</span><span class="w"> </span><span class="nt">"connection_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="s2">"root"</span><span class="p">,</span><span class="w"> </span><span class="nt">"os"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"ip"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nt">"general_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Query"</span><span class="p">,</span><span class="w"> </span><span class="nt">"sql_command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SELECT c FROM sbtest2 WHERE id BETWEEN 83000 AND 83099"</span><span class="p">,</span><span class="w"> </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
@@ -17331,7 +17335,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>The SQL statement type appears separately as <code>COMMAND_CLASS</code> in XML or as <code>sql_command</code> inside event-specific objects in JSON. Filter on statement type with <code>general_sql_command.str</code> (REDUCED <code>general</code>/<code>status</code> records and FULL-mode <code>general</code> events) or <code>sql_command_id</code> (<code>query</code> class in FULL mode). The authoritative list of valid <code>sql_command</code> strings is the <code>com_status_vars</code> array in <code>sql/mysqld.cc</code> in the Percona Server source tree.</p>
 <p><a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> controls how many classes are emitted:</p>
 <ul>
-<li><code>REDUCED</code> (default from 8.4.9-9) — <code>connection</code>, <code>general</code>/<code>status</code>, <code>table_access</code>, and <code>message</code> only. DDL, DCL, TCL, and most administrative statements appear as a single <code>general</code>/<code>status</code> record (XML <code>&lt;NAME&gt;Query&lt;/NAME&gt;</code>) or as <code>table_access</code> when the server reports table touches.</li>
+<li><code>REDUCED</code> (default from 8.4.10-10) — <code>connection</code>, <code>general</code>/<code>status</code>, <code>table_access</code>, and <code>message</code> only. DDL, DCL, TCL, and most administrative statements appear as a single <code>general</code>/<code>status</code> record (XML <code>&lt;NAME&gt;Query&lt;/NAME&gt;</code>) or as <code>table_access</code> when the server reports table touches.</li>
 <li><code>FULL</code> — adds <code>command</code>, <code>parse</code>, <code>query</code>, <code>stored_program</code>, <code>global_variable</code>, and <code>authentication</code>. A single client statement can produce a sequence of ten or more records.</li>
 </ul>
 <p>Lifecycle records (<code>audit</code> / <code>server_startup</code> / <code>server_shutdown</code>) may appear in the log at startup or shutdown but are not valid filter-definition targets. See <a href="#audit-log-filter-definition-fields">Audit Log Filter definition fields</a>.</p>
@@ -18670,7 +18674,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>One string argument: the function returns <code>true</code> when the supplied digest equals the current event&rsquo;s digest. Use this shape inside a <code>log</code>, <code>abort</code>, or <code>print</code> condition. Wrap the call in <code>not</code> to invert the match. Use this form to act on specific statement patterns. For example, block any statement whose digest matches <code>SELECT ?</code>.</p>
 </li>
 </ul>
-<p>Starting in Percona Server for MySQL 8.4.9-9, <code>query_digest</code> accepts a string shorthand for its single argument: <code>"args": "SELECT ?"</code>. The shorthand is equivalent to the verbose form <code>"args": [{ "string": { "string": "SELECT ?" } }]</code>. Earlier releases require the verbose form. The shorthand is specific to <code>query_digest</code> — <code>string_find</code> requires the verbose form for both arguments.</p>
+<p>Starting in Percona Server for MySQL 8.4.10-10, <code>query_digest</code> accepts a string shorthand for its single argument: <code>"args": "SELECT ?"</code>. The shorthand is equivalent to the verbose form <code>"args": [{ "string": { "string": "SELECT ?" } }]</code>. Earlier releases require the verbose form. The shorthand is specific to <code>query_digest</code> — <code>string_find</code> requires the verbose form for both arguments.</p>
 </li>
 </ul>
 <p>A condition that calls a function evaluates to <code>true</code> when the function returns a truthy value. Truthy values include non-empty strings and Boolean <code>true</code>. Combine function calls with <code>and</code>, <code>or</code>, and <code>not</code> to build richer rules. For example, log only when <code>string_find</code> matches and the user is not on an allow list.</p>
@@ -19134,7 +19138,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>Only documented class names pass validation.</p>
 </li>
 <li>
-<p>When <a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> is <code>REDUCED</code> (the default from 8.4.9-9 onward), only these events are tracked and accepted by filter-definition validation:</p>
+<p>When <a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> is <code>REDUCED</code> (the default from 8.4.10-10 onward), only these events are tracked and accepted by filter-definition validation:</p>
 <ul>
 <li>
 <p><code>general</code>: <code>status</code></p>
@@ -19749,7 +19753,7 @@ REDUCED mode: all events</p>
 <p>The Audit Log Filter component writes audit files. Restrict the log directory to trusted operators and ensure the server can write there.</p>
 <p>Logs are plaintext by default and may hold credentials, SQL text, and other sensitive data.</p>
 <p>The default file under the data directory is <code>audit_filter.log</code>. Override location with <code>audit_log_filter.file</code> at startup.</p>
-<p>Starting in Percona Server for MySQL 8.4.9-9, if the parent directory is missing the component errors and the server starts without Audit Log Filter active.</p>
+<p>Starting in Percona Server for MySQL 8.4.10-10, if the parent directory is missing the component errors and the server starts without Audit Log Filter active.</p>
 <p>Rotation leaves multiple files on disk—protect every generation.</p>
 <h2 id="audit-log-filter-security-additional-reading">Additional reading<a class="headerlink" href="#audit-log-filter-security-additional-reading" title="Permanent link">&para;</a></h2>
 <ul>
@@ -19929,7 +19933,7 @@ REDUCED mode: all events</p>
 <h2 id="filter-audit-log-filter-files-constraints">Constraints<a class="headerlink" href="#filter-audit-log-filter-files-constraints" title="Permanent link">&para;</a></h2>
 <p>Enable the <code>component_audit_log_filter</code> component and ensure audit tables exist before calling audit log filter functions. The account must hold the required privileges.</p>
 <h2 id="filter-audit-log-filter-files-filter-definition-validation">Filter definition validation<a class="headerlink" href="#filter-audit-log-filter-files-filter-definition-validation" title="Permanent link">&para;</a></h2>
-<p><em>Introduced in Percona Server for MySQL 8.4.9-9.</em></p>
+<p><em>Introduced in Percona Server for MySQL 8.4.10-10.</em></p>
 <p>The server validates filter definitions at parse time and rejects invalid input with a clear error:</p>
 <ul>
 <li>
@@ -19952,8 +19956,8 @@ REDUCED mode: all events</p>
 </li>
 </ul>
 <p>An empty filter object <code>{}</code> is equivalent to <code>{"filter": {"log": true}}</code> and logs every event. To log nothing, use <code>{"filter": {"log": false}}</code>.</p>
-<h4 id="filter-audit-log-filter-files-behavior-before-849-9">Behavior before 8.4.9-9<a class="headerlink" href="#filter-audit-log-filter-files-behavior-before-849-9" title="Permanent link">&para;</a></h4>
-<p>Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter <code>{"filter": {"classes": [...]}}</code> (note <code>classes</code> instead of <code>class</code>) was parsed as <code>{"filter": {}}</code>, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to <code>events</code> instead of <code>event</code>, <code>names</code> instead of <code>name</code>, and <code>logs</code> instead of <code>log</code>. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.</p>
+<h4 id="filter-audit-log-filter-files-behavior-before-8410-10">Behavior before 8.4.10-10<a class="headerlink" href="#filter-audit-log-filter-files-behavior-before-8410-10" title="Permanent link">&para;</a></h4>
+<p>Before 8.4.10-10, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter <code>{"filter": {"classes": [...]}}</code> (note <code>classes</code> instead of <code>class</code>) was parsed as <code>{"filter": {}}</code>, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to <code>events</code> instead of <code>event</code>, <code>names</code> instead of <code>name</code>, and <code>logs</code> instead of <code>log</code>. Upgrade to 8.4.10-10 or later to catch these mistakes at parse time.</p>
 <p>Parse-phase subclass names must use <code>preparse</code> and <code>postparse</code>.</p>
 <p><a href="#audit-log-filter-variables-audit_log_filterevent_mode"><code>audit_log_filter.event_mode</code></a> controls which classes new definitions may use; filters saved under <code>FULL</code> can still load under <code>REDUCED</code> with some classes skipped (see that variable).</p>
 <h2 id="filter-audit-log-filter-files-using-the-audit-log-filter-functions">Using the audit log filter functions<a class="headerlink" href="#filter-audit-log-filter-files-using-the-audit-log-filter-functions" title="Permanent link">&para;</a></h2>
@@ -20153,7 +20157,7 @@ REDUCED mode: all events</p>
 <h2 id="manage-audit-log-filter-manual-log-rotation">Manual log rotation<a class="headerlink" href="#manage-audit-log-filter-manual-log-rotation" title="Permanent link">&para;</a></h2>
 <p><a href="#audit-log-filter-variables-audit_log_filterrotate_on_size"><code>audit_log_filter.rotate_on_size</code></a> defaults to 1 GB. Set it to <code>0</code> to disable automatic rotation; you must rotate by hand.</p>
 <p>Run <code>SELECT audit_log_rotate();</code> to rotate immediately. Requires <code>AUDIT_ADMIN</code>.</p>
-<p>Starting in Percona Server for MySQL 8.4.9-9, rotation finishes immediately in <code>ASYNCHRONOUS</code> and <code>PERFORMANCE</code> strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix (for example <code>audit_filter.20250401T120000-1.log</code>) so files are not overwritten.</p>
+<p>Starting in Percona Server for MySQL 8.4.10-10, rotation finishes immediately in <code>ASYNCHRONOUS</code> and <code>PERFORMANCE</code> strategies instead of waiting on the background flush thread. Several rotations in the same second add a numeric suffix (for example <code>audit_filter.20250401T120000-1.log</code>) so files are not overwritten.</p>
 <p>Pruning runs when <code>audit_log_filter.max_size</code> or <code>audit_log_filter.prune_seconds</code> is greater than zero. The server prunes immediately when you set either variable, and again on rotation (automatic when <code>rotate_on_size</code> &gt; 0, or manual via <code>audit_log_rotate()</code>). There is no background timer — with automatic rotation disabled, schedule manual rotations or rely on the prune that runs when you set the variable.</p>
 <p>After rotation, delete archived files you no longer need yourself. <a href="#audit-log-filter-variables-audit_log_read"><code>audit_log_read()</code></a> can read renamed files only if their names still match the active naming pattern.</p>
 <h2 id="manage-audit-log-filter-additional-reading">Additional reading<a class="headerlink" href="#manage-audit-log-filter-additional-reading" title="Permanent link">&para;</a></h2>
@@ -20238,7 +20242,7 @@ audit_filter.log.20230301T061400-2.enc
 </code></pre></div>
 <p>The password with the highest sequence for a given timestamp is current.</p>
 <h2 id="audit-log-filter-naming-rotation-sequence-suffix">Rotation sequence suffix<a class="headerlink" href="#audit-log-filter-naming-rotation-sequence-suffix" title="Permanent link">&para;</a></h2>
-<p>Starting in Percona Server for MySQL 8.4.9-9, multiple rotations in the same second append <code>-N</code> so the server never overwrites a prior file:</p>
+<p>Starting in Percona Server for MySQL 8.4.10-10, multiple rotations in the same second append <code>-N</code> so the server never overwrites a prior file:</p>
 <div class="language-text highlight"><pre><span></span><code>audit_filter.20250401T120000.log      -- first rotation at 12:00:00
 audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </code></pre></div>
@@ -20342,7 +20346,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <h3 id="audit-log-filter-variables-audit_log_filter_flush">audit_log_filter_flush()<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_flush" title="Permanent link">&para;</a></h3>
 <p>Reloads filter JSON and account rows from <code>mysql.audit_log_filter</code> / <code>mysql.audit_log_user</code> into the component so memory matches disk.</p>
 <p>Table edits alone—including direct DML and <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>—do not refresh every open session. Call <code>audit_log_filter_flush()</code> when all sessions must see new rules (details under Persistence and refreshing on <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>).</p>
-<p>From Percona Server for MySQL 8.4.9-9 onward, a flush detaches existing sessions until they reconnect or run <code>CHANGE_USER</code>; new connections pick up the reloaded registry immediately. If you cannot tolerate a gap, reconnect clients after flushing.</p>
+<p>From Percona Server for MySQL 8.4.10-10 onward, a flush detaches existing sessions until they reconnect or run <code>CHANGE_USER</code>; new connections pick up the reloaded registry immediately. If you cannot tolerate a gap, reconnect clients after flushing.</p>
 <p>If <code>audit_log_filter_flush()</code> fails, the call returns an error message in the result string and the previously loaded filter rules and user assignments stay in effect. The audit log keeps writing under the prior configuration until the next successful flush replaces it. Retry the call after correcting the underlying cause so that the new on-disk rules take effect.</p>
 <p>This function requires the <code>AUDIT_ADMIN</code> privilege.</p>
 <h4 id="audit-log-filter-variables-parameters_2">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_2" title="Permanent link">&para;</a></h4>
@@ -20437,7 +20441,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <p>Returns the active filter ID for this session, or 0 when no filter applies.</p>
 <h3 id="audit-log-filter-variables-audit_log_filter_remove_filterfilter_name">audit_log_filter_remove_filter(filter_name)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_remove_filterfilter_name" title="Permanent link">&para;</a></h3>
 <p>Drops a filter definition and clears <code>mysql.audit_log_user</code> rows that pointed at it.</p>
-<p>From Percona Server for MySQL 8.4.9-9, only sessions using that filter detach; others keep logging.</p>
+<p>From Percona Server for MySQL 8.4.10-10, only sessions using that filter detach; others keep logging.</p>
 <p>This function requires the <code>AUDIT_ADMIN</code> privilege.</p>
 <h4 id="audit-log-filter-variables-parameters_5">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_5" title="Permanent link">&para;</a></h4>
 <p><code>filter_name</code> - a selected filter name as a string.</p>
@@ -20480,7 +20484,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </details>
 <h3 id="audit-log-filter-variables-audit_log_rotate">audit_log_rotate()<a class="headerlink" href="#audit-log-filter-variables-audit_log_rotate" title="Permanent link">&para;</a></h3>
 <p>Rotates the active audit file immediately and returns the archived name.</p>
-<p>From 8.4.9-9, colliding timestamps add a <code>-N</code> suffix so rotations never overwrite each other.</p>
+<p>From 8.4.10-10, colliding timestamps add a <code>-N</code> suffix so rotations never overwrite each other.</p>
 <p>This function requires the <code>AUDIT_ADMIN</code> privilege.</p>
 <h4 id="audit-log-filter-variables-parameters_7">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_7" title="Permanent link">&para;</a></h4>
 <p>None.</p>
@@ -20491,15 +20495,15 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </code></pre></div>
 <h3 id="audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition">audit_log_filter_set_filter(filter_name, definition)<a class="headerlink" href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition" title="Permanent link">&para;</a></h3>
 <p>Writes JSON for <code>filter_name</code> to <code>mysql.audit_log_filter</code> (create or update). Each stored revision gets a new filter ID.</p>
-<p>From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken <code>print</code> rules abort the call with a detailed error, for example:</p>
+<p>From Percona Server for MySQL 8.4.10-10, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken <code>print</code> rules abort the call with a detailed error, for example:</p>
 <div class="language-text no-copy highlight"><pre><span></span><code>ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 </code></pre></div>
-<p>Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see <a href="#filter-audit-log-filter-files-filter-definition-validation">Filter definition validation</a>.</p>
+<p>Before 8.4.10-10, the parser silently ignored unknown keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.10-10 or later to catch these mistakes. For details, see <a href="#filter-audit-log-filter-files-filter-definition-validation">Filter definition validation</a>.</p>
 <p>In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).</p>
 <p>This function requires the <code>AUDIT_ADMIN</code> privilege.</p>
 <h4 id="audit-log-filter-variables-persistence-and-refreshing">Persistence and refreshing<a class="headerlink" href="#audit-log-filter-variables-persistence-and-refreshing" title="Permanent link">&para;</a></h4>
 <p><code>audit_log_filter_set_filter()</code> persists JSON but does not patch in-memory state for every open session. Run <a href="#audit-log-filter-variables-audit_log_filter_flush"><code>audit_log_filter_flush()</code></a> to reload all definitions into the component.</p>
-<p>After 8.4.9-9 flushes, existing sessions detach until reconnect/<code>CHANGE_USER</code>; brand-new sessions pick up changes immediately.</p>
+<p>After 8.4.10-10 flushes, existing sessions detach until reconnect/<code>CHANGE_USER</code>; brand-new sessions pick up changes immediately.</p>
 <h4 id="audit-log-filter-variables-parameters_8">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_8" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
@@ -20530,7 +20534,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <p>This UDF controls which named filter loads for a session. JSON <code>user</code> / <code>host</code> keys inside the filter still narrow events after load—they are not a second assignment row. See <a href="#filter-audit-log-filter-files-assignment-vs-rules-inside-the-json">Assignment vs rules inside the JSON</a>.</p>
 <p>Avoid overlapping patterns unless you accept ambiguous matches—prefer literals or one pattern plus <code>%</code>.</p>
 <p>One active mapping per account row; this call replaces any previous mapping.</p>
-<p>From 8.4.9-9, open sessions keep the old mapping until reconnect/<code>CHANGE_USER</code>; flush if you must realign everyone immediately.</p>
+<p>From 8.4.10-10, open sessions keep the old mapping until reconnect/<code>CHANGE_USER</code>; flush if you must realign everyone immediately.</p>
 <p>The special user <code>%</code> is the default row used when no literal match exists; specific <code>user@host</code> rows always beat <code>%</code>.</p>
 <p>This function requires the <code>AUDIT_ADMIN</code> privilege.</p>
 <h4 id="audit-log-filter-variables-parameters_9">Parameters<a class="headerlink" href="#audit-log-filter-variables-parameters_9" title="Permanent link">&para;</a></h4>
@@ -20798,7 +20802,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </tr>
 </tbody>
 </table>
-<p><em>Introduced in Percona Server for MySQL 8.4.9-9.</em></p>
+<p><em>Introduced in Percona Server for MySQL 8.4.10-10.</em></p>
 <p>This variable is <a href="#glossary-tech-preview">tech preview</a> and may be removed in a future release.</p>
 <p>This read-only variable opens the audit log file with <code>O_DIRECT</code> on Linux, bypassing the OS page cache. This variable requires a server restart to change.</p>
 <p>When enabled, audit log writes bypass the Linux page cache, reducing memory pressure on busy servers with high audit log throughput. </p>
@@ -20935,7 +20939,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </tr>
 </tbody>
 </table>
-<p><em>Introduced in Percona Server for MySQL 8.4.9-9.</em></p>
+<p><em>Introduced in Percona Server for MySQL 8.4.10-10.</em></p>
 <p>This variable controls which event classes and subclasses are processed by the audit log filter component.</p>
 <p><code>REDUCED</code> (default) — limits processing to the four classes <code>general</code>, <code>connection</code>, <code>table_access</code>, and <code>message</code>. Only the subclasses in the following list are enabled. The extended classes are not processed in this mode.</p>
 <ul>
@@ -20989,7 +20993,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </li>
 </ul>
 <p>In REDUCED mode, calling a stored procedure logs the outer <code>CALL</code> statement but not the individual SQL statements executed inside the procedure body. The <code>general/status</code> event generated by the internal <code>Quit</code> command is also suppressed in REDUCED mode.</p>
-<p><code>FULL</code> — all event classes and subclasses are processed, including <code>global_variable</code>, <code>command</code>, <code>query</code>, <code>stored_program</code>, <code>authentication</code>, and <code>parse</code> on top of the <code>REDUCED</code> set. Through Percona Server for MySQL 8.4.8-8 there was no <code>audit_log_filter.event_mode</code> setting; the component always processed the full class set (equivalent to <code>FULL</code>). The variable was introduced in 8.4.9-9 with default <code>REDUCED</code>.</p>
+<p><code>FULL</code> — all event classes and subclasses are processed, including <code>global_variable</code>, <code>command</code>, <code>query</code>, <code>stored_program</code>, <code>authentication</code>, and <code>parse</code> on top of the <code>REDUCED</code> set. Through Percona Server for MySQL 8.4.8-8 there was no <code>audit_log_filter.event_mode</code> setting; the component always processed the full class set (equivalent to <code>FULL</code>). The variable was introduced in 8.4.10-10 with default <code>REDUCED</code>.</p>
 <h4 id="audit-log-filter-variables-runtime-mode-switch">Runtime mode switch<a class="headerlink" href="#audit-log-filter-variables-runtime-mode-switch" title="Permanent link">&para;</a></h4>
 <p>Set <code>event_mode</code> in <code>my.cnf</code> and restart the server. Changing the value on a running server produces inconsistent audit output and is not recommended.</p>
 <p>Changing <code>event_mode</code> at runtime invalidates the cached audit rules and bumps the filter generation. Each session recompiles its filter against the new mode on the next event the session emits.</p>
@@ -21153,7 +21157,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </tr>
 </tbody>
 </table>
-<p>Introduced in Percona Server for MySQL 8.4.9-9, this option is supported for JSON-format and JSONL-format files.</p>
+<p>Introduced in Percona Server for MySQL 8.4.10-10, this option is supported for JSON-format and JSONL-format files.</p>
 <p>Enabling this option adds a <code>time</code> field to JSON-format and JSONL-format files. The integer represents the UNIX timestamp value and indicates the date and time when the audit event was generated. Changing the value causes a file rotation because all records must either have or do not have the <code>time</code> field. This option requires the <code>AUDIT_ADMIN</code> and <code>SYSTEM_VARIABLES_ADMIN</code> privileges.</p>
 <p>This option does nothing when used with other format types.</p>
 <h4 id="audit-log-filter-variables-example_18">Example<a class="headerlink" href="#audit-log-filter-variables-example_18" title="Permanent link">&para;</a></h4>
@@ -21473,7 +21477,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </tr>
 </tbody>
 </table>
-<p>Introduced in Percona Server for MySQL 8.4.9-9, this option is supported for JSON-format and JSONL-format files.</p>
+<p>Introduced in Percona Server for MySQL 8.4.10-10, this option is supported for JSON-format and JSONL-format files.</p>
 <p>The size of the buffer for reading from the audit log filter file. <code>audit_log_read()</code> reads only from this buffer size.</p>
 <h4 id="audit-log-filter-variables-example_24">Example<a class="headerlink" href="#audit-log-filter-variables-example_24" title="Permanent link">&para;</a></h4>
 <p>Runtime:</p>
@@ -21579,8 +21583,8 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <h4 id="audit-log-filter-variables-performance-trade-offs">Performance trade-offs<a class="headerlink" href="#audit-log-filter-variables-performance-trade-offs" title="Permanent link">&para;</a></h4>
 <p>Switch from the default <code>ASYNCHRONOUS</code> to <code>SYNCHRONOUS</code> only when durability is more important than throughput and latency—for example strict compliance or forensic environments where every audit event must be on durable storage before the client sees the audited statement complete.</p>
 <p>The main risk of <code>ASYNCHRONOUS</code> is a crash or power-loss window: the newest audit events can still be in memory and may be lost if they have not yet been flushed or synced to disk. That is not the same as dropping under load: <code>ASYNCHRONOUS</code> waits for buffer space and does not discard events when the buffer is full. The mode that can drop whole events when the outer buffer lacks space is <code>PERFORMANCE</code>.</p>
-<h4 id="audit-log-filter-variables-synchronous-behavior-change-in-849-9">SYNCHRONOUS behavior change in 8.4.9-9<a class="headerlink" href="#audit-log-filter-variables-synchronous-behavior-change-in-849-9" title="Permanent link">&para;</a></h4>
-<p>Through Percona Server for MySQL 8.4.8-8, the <code>SYNCHRONOUS</code> value did not call <code>fsync()</code> per event. The <code>sync_on_write</code> flag was set but never honored, so the strategy behaved as <code>SEMISYNCHRONOUS</code>. From 8.4.9-9 onward, <code>SYNCHRONOUS</code> issues an <code>fsync()</code> after every audit event write, matching the documented contract.</p>
+<h4 id="audit-log-filter-variables-synchronous-behavior-change-in-8410-10">SYNCHRONOUS behavior change in 8.4.10-10<a class="headerlink" href="#audit-log-filter-variables-synchronous-behavior-change-in-8410-10" title="Permanent link">&para;</a></h4>
+<p>Through Percona Server for MySQL 8.4.8-8, the <code>SYNCHRONOUS</code> value did not call <code>fsync()</code> per event. The <code>sync_on_write</code> flag was set but never honored, so the strategy behaved as <code>SEMISYNCHRONOUS</code>. From 8.4.10-10 onward, <code>SYNCHRONOUS</code> issues an <code>fsync()</code> after every audit event write, matching the documented contract.</p>
 <p>The fix affects only configurations that already set <code>strategy=SYNCHRONOUS</code>. Such configurations see new write latency on every audited statement after the upgrade. Expect higher CPU on the audit write path and higher tail latency on the audited workload. Plan capacity before upgrading durability-critical instances, or switch to <code>SEMISYNCHRONOUS</code> if the prior (lower-latency) behavior is acceptable for the compliance posture.</p>
 <p>Compressed file writers also issue <code>Z_SYNC_FLUSH</code> before each <code>fsync()</code> so that compressed bytes reach disk along with the underlying records.</p>
 <h4 id="audit-log-filter-variables-example_26">Example<a class="headerlink" href="#audit-log-filter-variables-example_26" title="Permanent link">&para;</a></h4>
@@ -21809,10 +21813,10 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <h3 id="audit-log-filter-restrictions-filter-validation">Filter validation<a class="headerlink" href="#audit-log-filter-restrictions-filter-validation" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and <code>connection_type</code> accepts symbolic constants—see <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and <a href="#audit-log-filter-definition-fields">Audit Log Filter definition fields</a>.</p>
+<p>Starting in Percona Server for MySQL 8.4.10-10, numeric fields in rules may use integer or string forms, and <code>connection_type</code> accepts symbolic constants—see <a href="#audit-log-filter-variables-audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and <a href="#audit-log-filter-definition-fields">Audit Log Filter definition fields</a>.</p>
 </li>
 <li>
-<p>Before 8.4.9-9, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>, <code>events</code> instead of <code>event</code>, <code>names</code> instead of <code>name</code>, <code>logs</code> instead of <code>log</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.</p>
+<p>Before 8.4.10-10, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example <code>classes</code> instead of <code>class</code>, <code>events</code> instead of <code>event</code>, <code>names</code> instead of <code>name</code>, <code>logs</code> instead of <code>log</code>) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.10-10 or later to catch these mistakes at parse time.</p>
 </li>
 </ul>
 <h2 id="audit-log-filter-restrictions-synchronizing-audit-log-filters-between-a-source-and-a-replica">Synchronizing audit log filters between a source and a replica<a class="headerlink" href="#audit-log-filter-restrictions-synchronizing-audit-log-filters-between-a-source-and-a-replica" title="Permanent link">&para;</a></h2>
@@ -21834,7 +21838,7 @@ audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 <span class="w">    </span><span class="k">DO</span>
 <span class="w">      </span><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_flush</span><span class="p">();</span>
 </code></pre></div>
-<p>The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.9-9+), see <a href="#audit-log-filter-variables-audit_log_filter_flush"><code>audit_log_filter_flush()</code></a>.</p>
+<p>The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.10-10+), see <a href="#audit-log-filter-variables-audit_log_filter_flush"><code>audit_log_filter_flush()</code></a>.</p>
 </li>
 <li>
 <p>On the source, define a filter, assign it to users (UDFs or direct table edits), and call <code>audit_log_filter_flush()</code> on the source when needed.</p>
@@ -24715,7 +24719,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <p>Create a directory and add a <code>docker-compose.yml</code> file:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">mysql</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-server:8.4.12</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-server:8.4.11-12</span>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">psmysql</span>
 <span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"3306:3306"</span>
@@ -24727,7 +24731,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <span class="nt">volumes</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">myvol</span><span class="p">:</span>
 </code></pre></div>
-<p>To run the Docker ARM64 version of Percona Server for MySQL, use the <code>8.4.12-arm64</code> tag instead of <code>8.4.12</code> in the <code>image</code> line. If needed, you can replace the <code>secret</code> password with a <a href="#quickstart-docker-security-best-practices">stronger password</a>.</p>
+<p>To run the Docker ARM64 version of Percona Server for MySQL, use the <code>8.4.11-12-arm64</code> tag instead of <code>8.4.11-12</code> in the <code>image</code> line. If needed, you can replace the <code>secret</code> password with a <a href="#quickstart-docker-security-best-practices">stronger password</a>.</p>
 </li>
 <li>
 <p>Start the container:</p>
@@ -24774,21 +24778,21 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 <td>Named volume for persistent storage.</td>
 </tr>
 <tr>
-<td><code>percona/percona-server:8.4.12</code></td>
+<td><code>percona/percona-server:8.4.11-12</code></td>
 <td>Image and tag for the release.</td>
 </tr>
 </tbody>
 </table>
-<p>You must set at least one environment variable (for example <code>MYSQL_ROOT_PASSWORD</code>) or the instance refuses to initialize. For more on tags and images, see <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For ARM64, use the <code>8.4.12-arm64</code> tag instead of <code>8.4.12</code>.</p>
+<p>You must set at least one environment variable (for example <code>MYSQL_ROOT_PASSWORD</code>) or the instance refuses to initialize. For more on tags and images, see <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For ARM64, use the <code>8.4.11-12-arm64</code> tag instead of <code>8.4.11-12</code>.</p>
 <div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span><span class="se">\</span>
 --platform<span class="w"> </span>linux/amd64<span class="w"> </span><span class="se">\</span>
 -e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>secret<span class="w"> </span><span class="se">\</span>
 -v<span class="w"> </span>myvol:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
-percona/percona-server:8.4.12
+percona/percona-server:8.4.11-12
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="language-text no-copy highlight"><pre><span></span><code>Unable to find image 'percona/percona-server:8.4.12' locally
+<div class="language-text no-copy highlight"><pre><span></span><code>Unable to find image 'percona/percona-server:8.4.11-12' locally
 Pulling from percona/percona-server
 b902d6b6048a: Pull complete
 ...
@@ -24844,7 +24848,7 @@ b902d6b6048a: Pull complete
 <summary>Expected output</summary>
 <div class="language-text no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
-Server version: 8.4.12 Percona Server (GPL), Release 1, Revision 238b3c02
+Server version: 8.4.11-12 Percona Server (GPL), Release 1, Revision 238b3c02
 
 Copyright (c) 2009-2026 Percona LLC and/or its affiliates
 Copyright (c) 2000, 2026, Oracle and/or its affiliates.
@@ -25766,14 +25770,14 @@ Rows matched: 1  Changed: 1  Warnings: 0
 </li>
 <li>
 <p>Remove the Docker image:</p>
-<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>image<span class="w"> </span>rmi<span class="w"> </span>percona/percona-server:8.4.12
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>image<span class="w"> </span>rmi<span class="w"> </span>percona/percona-server:8.4.11-12
 </code></pre></div>
 <p>If you are running the ARM64 version of Percona Server, use:</p>
-<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>image<span class="w"> </span>rmi<span class="w"> </span>percona/percona-server:8.4.12-arm64
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>image<span class="w"> </span>rmi<span class="w"> </span>percona/percona-server:8.4.11-12-arm64
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="language-text no-copy highlight"><pre><span></span><code>Untagged: percona/percona-server:8.4.12
+<div class="language-text no-copy highlight"><pre><span></span><code>Untagged: percona/percona-server:8.4.11-12
 Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
 Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
 ...
@@ -26947,7 +26951,7 @@ rm<span class="w"> </span>-f<span class="w"> </span>/etc/my.cnf
 </ul>
 <p>For all other cases, use <a href="#apt-repo">APT</a> or <a href="#yum-repo">DNF</a> packages.</p>
 <p>This page installs the glibc 2.35 tarball on Ubuntu 26.04 (<code>x86_64</code>). For other operating systems, select a tarball on the <a href="#binary-tarball-names">binary tarball file names</a> page. Package names for other libraries are on the <a href="#os-libraries">Operating system libraries</a> page.</p>
-<p>Generic binary tarballs are built for <code>x86_64</code>. Percona publishes ARM64 (<code>aarch64</code>) builds as <a href="#apt-repo">APT</a> and <a href="#yum-repo">DNF</a> packages, as <a href="#docker">Docker</a> images (use the <code>8.4.12-arm64</code> tag), and as <a href="#compile-percona-server">source</a> that you can compile on the target host.</p>
+<p>Generic binary tarballs are built for <code>x86_64</code>. Percona publishes ARM64 (<code>aarch64</code>) builds as <a href="#apt-repo">APT</a> and <a href="#yum-repo">DNF</a> packages, as <a href="#docker">Docker</a> images (use the <code>8.4.11-12-arm64</code> tag), and as <a href="#compile-percona-server">source</a> that you can compile on the target host.</p>
 <h2 id="binary-tarball-install-install-on-ubuntu-2604">Install on Ubuntu 26.04<a class="headerlink" href="#binary-tarball-install-install-on-ubuntu-2604" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
@@ -27154,7 +27158,7 @@ Written by Roland McGrath and Ulrich Drepper.
 <p>Run the following command to find the CPU architecture, and select the matching tarball. The example on the install page uses <code>x86_64</code>:</p>
 <div class="language-shell highlight"><pre><span></span><code>uname<span class="w"> </span>-m
 </code></pre></div>
-<p>Generic binary tarballs are built for <code>x86_64</code>. If this command prints <code>aarch64</code>, Percona does not publish a tarball for that CPU. Use an <a href="#apt-repo">APT</a> or <a href="#yum-repo">DNF</a> package, a <a href="#docker">Docker</a> image with the <code>8.4.12-arm64</code> tag, or <a href="#compile-percona-server">compile from source</a>.</p>
+<p>Generic binary tarballs are built for <code>x86_64</code>. If this command prints <code>aarch64</code>, Percona does not publish a tarball for that CPU. Use an <a href="#apt-repo">APT</a> or <a href="#yum-repo">DNF</a> package, a <a href="#docker">Docker</a> image with the <code>8.4.11-12-arm64</code> tag, or <a href="#compile-percona-server">compile from source</a>.</p>
 <p>Ubuntu 26.04 reports glibc 2.43. Use the glibc 2.35 tarball on that release. The steps are on the <a href="#binary-tarball-install">Install from a binary tarball</a> page.</p>
 <p>The tarball links shared libraries from the operating system it was built on. Package names for those libraries are on the <a href="#os-libraries">Operating system libraries</a> page.</p>
 <h2 id="binary-tarball-names-binary-tarball-file-name-organization">Binary tarball file name organization<a class="headerlink" href="#binary-tarball-names-binary-tarball-file-name-organization" title="Permanent link">&para;</a></h2>
@@ -28821,7 +28825,7 @@ Percona Support can help assess and mitigate them <span class="twemoji"><svg xml
 </li>
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If you run the MySQL Shell upgrade checker, pass your configuration file with <code>--config-path</code>. Without this option, the checker does not check the configuration file:</p>
-<div class="language-shell highlight"><pre><span></span><code>mysqlsh<span class="w"> </span>--<span class="w"> </span>util<span class="w"> </span>check-for-server-upgrade<span class="w"> </span>root@localhost:3306<span class="w"> </span>--target-version<span class="o">=</span><span class="m">8</span>.4.12<span class="w"> </span>--config-path<span class="o">=</span>/etc/my.cnf
+<div class="language-shell highlight"><pre><span></span><code>mysqlsh<span class="w"> </span>--<span class="w"> </span>util<span class="w"> </span>check-for-server-upgrade<span class="w"> </span>root@localhost:3306<span class="w"> </span>--target-version<span class="o">=</span><span class="m">8</span>.4.11-12<span class="w"> </span>--config-path<span class="o">=</span>/etc/my.cnf
 </code></pre></div>
 <p>On Debian and Ubuntu, the server configuration is in <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>.</p>
 </li>
@@ -48542,9 +48546,13 @@ are not available unless <code>NO_ENGINE_SUBSTITUTION</code> is set).</p>
 <p>In case a user tries to enable <a href="#enforce-engine-enforce_storage_engine">enforce_storage_engine</a> with an engine that isn’t available, the system will not start.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you’re using enforce_storage_engine, you must either disable
-it before doing <code>mysql_upgrade</code> or perform <code>mysql_upgrade</code> with server
-started with <code>--skip-grants-tables</code>.</p>
+<p>If you’re using enforce_storage_engine, disable it before you start
+the upgraded server. In 8.4 there is no <code>mysql_upgrade</code> step: the server
+upgrades the data dictionary and system tables itself at startup, as
+controlled by the <code>--upgrade</code> server option (default <code>AUTO</code>). See
+<a href="#upgrade-procedures">Upgrade procedures</a>. After the server has started
+and completed the upgrade, set <code>enforce_storage_engine</code> again in the
+option file.</p>
 </div>
 <h2 id="enforce-engine-system-variables">System variables<a class="headerlink" href="#enforce-engine-system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="enforce-engine-enforce_storage_engine"><code>enforce_storage_engine</code><a class="headerlink" href="#enforce-engine-enforce_storage_engine" title="Permanent link">&para;</a></h3>
@@ -62059,6 +62067,8 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>percona-teleme
 <p><a href="#innodb-show-status-information_schemaxtradb_read_view">INFORMATION_SCHEMA.XTRADB_READ_VIEW</a></p>
 </li>
 </ul></section><section class="print-page" id="faq" heading-number="18.10"><h1 id="faq-frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#faq-frequently-asked-questions" title="Permanent link">&para;</a></h1>
+<h2 id="faq-q-what-does-this-manual-cover">Q: What does this manual cover?<a class="headerlink" href="#faq-q-what-does-this-manual-cover" title="Permanent link">&para;</a></h2>
+<p>A: This manual covers what Percona Server adds to or changes in MySQL 8.4. For everything else, see the <a href="https://dev.mysql.com/doc/refman/8.4/en/">MySQL 8.4 Reference Manual <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <h2 id="faq-q-will-percona-server-for-mysql-with-xtradb-invalidate-our-mysql-support">Q: Will <em>Percona Server for MySQL</em> with <em>XtraDB</em> invalidate our <em>MySQL</em> support?<a class="headerlink" href="#faq-q-will-percona-server-for-mysql-with-xtradb-invalidate-our-mysql-support" title="Permanent link">&para;</a></h2>
 <p>A: We don’t know the details of your support contract. You should check with
 your <em>Oracle</em> representative. We have heard anecdotal stories from <em>MySQL</em>
