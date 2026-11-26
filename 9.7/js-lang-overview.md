@@ -2,7 +2,7 @@
 
 # js_lang stored procedure and function overview
 
-This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 You can use stored procedures and functions written in JS with a MySQL-compatible database. This feature helps you manage complex data processing tasks. This method improves performance. This method lets developers run complex operations faster. If you know JS, you can use your existing skills. Using stored procedures and functions reduces the work done by client applications. Using stored procedures and functions also improves overall system performance. Using stored procedures and functions helps developers process data faster. Using stored procedures and functions also makes maintenance and scaling easier. This approach is a good solution for developers who know JS.
 
@@ -33,20 +33,20 @@ We always run JS code in strict mode, and developers cannot disable or change th
 
 SQL and JS use different data types, so the js_lang component converts values when passing SQL parameters to JS and back. SQL `NULL` values are converted to JS `null` values, and JS `null` and `undefined` values are always mapped to SQL `NULL`. When converting to JS strings, data is automatically converted from the SQL parameter’s character set to `utf8mb4`.
 
-For detailed information about type conversions, including complete conversion tables and rules, see [js_lang type conversions](https://docs.percona.com/percona-server/9.7/js-lang-type-conversions.html).
+For detailed information about type conversions, including complete conversion tables and rules, see [js_lang type conversions](https://docs.percona.com/percona-server/9.7/js-lang-type-conversions.md).
 
 ## System variables
 
 The js_lang component provides the following system variables for configuring JS routine execution:
 
-| Variable name                                                                                                                                        | Description                                      | Default      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------ |
-| [`js_lang.max_mem_size`](https://docs.percona.com/percona-server/9.7/js-lang-variables.html#js_langmax_mem_size)                                     | Maximum memory size (soft limit) for JS routines | 8 MB         |
-| [`js_lang.max_mem_size_hard_limit_factor`](https://docs.percona.com/percona-server/9.7/js-lang-variables.html#js_langmax_mem_size_hard_limit_factor) | Hard limit factor for memory allocation          | 0 (disabled) |
+| Variable name                                                                                                                                      | Description                                      | Default      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------ |
+| [`js_lang.max_mem_size`](https://docs.percona.com/percona-server/9.7/js-lang-variables.md#js_langmax_mem_size)                                     | Maximum memory size (soft limit) for JS routines | 8 MB         |
+| [`js_lang.max_mem_size_hard_limit_factor`](https://docs.percona.com/percona-server/9.7/js-lang-variables.md#js_langmax_mem_size_hard_limit_factor) | Hard limit factor for memory allocation          | 0 (disabled) |
 
 The `js_lang.max_mem_size` variable sets a soft limit on memory usage per JS environment. The `js_lang.max_mem_size_hard_limit_factor` variable (settable only at start-up) allows you to override V8’s internal hard memory limit, though this is not recommended for most users.
 
-These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options, examples, and memory limit behavior, see [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.html).
+These variables help prevent runaway scripts from consuming excessive memory or CPU time. For detailed information about each variable, including configuration options, examples, and memory limit behavior, see [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.md).
 
 ## Status variables
 
@@ -71,7 +71,7 @@ The following UDFs are helpful for debugging JS code:
 - `JS_CLEAR_LAST_ERROR()`: Resets the information about the last JS error for the current connection and user, as if no error had occurred.
 - `JS_GET_MEMORY_USAGE_JSON()`: Returns information about memory usage by the JS environment (isolate) for the current user and connection pair, as well as total memory usage by all JS environments in the server, in the form of a JSON object. The returned object includes `local` (per-environment) and `global` (aggregated) memory statistics with heap sizes, external memory, and context counts. If there is no JS environment for the current user-connection pair, the `local` member is `null`.
 
-For more information about using these functions for troubleshooting, see [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.html).
+For more information about using these functions for troubleshooting, see [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.md).
 
 ## Console API
 
@@ -79,15 +79,15 @@ The js_lang component provides support for the JS Console API as described at [c
 
 Our implementation supports logging calls (`assert()`, `clear()`, `debug()`, `error()`, `info()`, `log()`, `warn()`), counting (`count()`, `countReset()`), grouping (`group()`, `groupCollapsed()`, `groupEnd()`), and timing (`time()`, `timeLog()`, `timeEnd()`). Each user-connection pair has its own separate console log instance, with size limits controlled by the `js_lang.max_console_log_size` variable.
 
-For detailed information about the Console API, including supported calls, format specifiers, log severity levels, and UDFs for accessing console logs, see [js_lang Console API](https://docs.percona.com/percona-server/9.7/js-lang-console-api.html).
+For detailed information about the Console API, including supported calls, format specifiers, log severity levels, and UDFs for accessing console logs, see [js_lang Console API](https://docs.percona.com/percona-server/9.7/js-lang-console-api.md).
 
 ## Further reading
 
-- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.html)
-- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.html)
-- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.html)
-- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.html)
-- [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.html)
-- [js_lang type conversions](https://docs.percona.com/percona-server/9.7/js-lang-type-conversions.html)
-- [js_lang Console API](https://docs.percona.com/percona-server/9.7/js-lang-console-api.html)
-- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.html)
+- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.md)
+- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.md)
+- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.md)
+- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.md)
+- [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.md)
+- [js_lang type conversions](https://docs.percona.com/percona-server/9.7/js-lang-type-conversions.md)
+- [js_lang Console API](https://docs.percona.com/percona-server/9.7/js-lang-console-api.md)
+- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.md)

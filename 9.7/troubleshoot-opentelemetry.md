@@ -10,7 +10,7 @@ Run the initial checks before you change the configuration. Save the original va
 
 Confirm that the telemetry component is installed:
 
-```
+```sql
 SELECT component_urn
 FROM mysql.component
 WHERE component_urn = 'file://component_telemetry';
@@ -20,7 +20,7 @@ The query must return one row with `file://component_telemetry`.
 
 Check the component state and signal support:
 
-```
+```sql
 SHOW GLOBAL STATUS
 WHERE Variable_name IN (
   'telemetry.run_level',
@@ -43,7 +43,7 @@ The expected results are:
 
 Check the signal states, endpoints, and protocols:
 
-```
+```sql
 SHOW GLOBAL VARIABLES
 WHERE Variable_name IN (
   'telemetry.metrics_enabled',
@@ -74,7 +74,7 @@ OpenTelemetry diagnostic messages are written to the server error log. The defau
 
 To record notes and debug detail while you reproduce a problem, raise both settings:
 
-```
+```sql
 SET GLOBAL log_error_verbosity = 3;
 SET GLOBAL telemetry.otel_log_level = 'debug';
 
@@ -86,13 +86,13 @@ The results must show `debug` and `3`.
 
 Search the server error log for relevant messages. Diagnostic lines from the OpenTelemetry library start with `[OTEL]` or `[OTEL DEBUG]`.
 
-```
+```bash
 rg -i '\[OTEL|component_telemetry|opentelemetry|telemetry|otlp|export|http|tls|certificate' <ERROR_LOG>
 ```
 
 On a system that writes the error log to the system journal, use this command:
 
-```
+```bash
 journalctl -u <MYSQL_SERVICE> -b | rg -i '\[OTEL|opentelemetry|telemetry|otlp|export|http|tls|certificate'
 ```
 
@@ -112,7 +112,7 @@ Message text can differ by server build and OpenTelemetry library version. Look 
 
 Restore the defaults after testing:
 
-```
+```sql
 SET GLOBAL telemetry.otel_log_level = 'info';
 SET GLOBAL log_error_verbosity = 2;
 ```
@@ -123,7 +123,7 @@ The `debug` level can produce substantial error-log output.
 
 Add the collector `debug` exporter to a temporary test configuration. The detailed output can contain SQL text and user data.
 
-```
+```yaml
 receivers:
   otlp:
     protocols:
@@ -163,7 +163,7 @@ The exact entry names and format can differ between collector versions.
 
 Confirm that the collector distribution contains the required components:
 
-```
+```bash
 otelcol components
 ```
 
@@ -179,13 +179,13 @@ The `INSTALL COMPONENT` statement fails, or the component is absent from `mysql.
 
 Run the installation statement and record the complete error:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_telemetry';
 ```
 
 Check the component directory:
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'plugin_dir';
 ```
 
@@ -214,13 +214,13 @@ The `mysql` client does not print `Telemetry plugin <telemetry_client> is loaded
 
 Run the client with help enabled:
 
-```
+```bash
 mysql --telemetry_client --otel-help -u root -p
 ```
 
 If the load message is absent, locate `telemetry_client.so` and pass that directory:
 
-```
+```bash
 mysql --telemetry_client --plugin_dir=<PLUGIN_DIR> --otel-help -u root -p
 ```
 
@@ -230,7 +230,7 @@ Replace `<PLUGIN_DIR>` with the directory that contains `telemetry_client.so`.
 
 The server returns no rows for this statement:
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'telemetry.%';
 ```
 
@@ -238,7 +238,7 @@ The telemetry component registers these variables during installation.
 
 ### Verify the component state
 
-```
+```sql
 SELECT component_urn
 FROM mysql.component
 WHERE component_urn = 'file://component_telemetry';
@@ -272,7 +272,7 @@ A `Telemetry_*_supported` status variable reports `OFF`.
 
 ### Verify all signals
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'Telemetry%_supported';
 ```
 
@@ -284,7 +284,7 @@ An `OFF` value indicates unavailable support.
 
 1. Confirm the exact Percona Server version and package:
 
-```
+```sql
 SELECT VERSION();
 ```
 
@@ -313,22 +313,22 @@ The `mysqld` binary has the `CAP_SYS_ADMIN` capability when a network namespace 
 
 Inspect the configured network namespaces:
 
-```
+```sql
 SHOW GLOBAL VARIABLES
 LIKE 'telemetry.otel_exporter_otlp_%_network_namespace';
 ```
 
 If a namespace value is set, confirm that `mysqld` has `CAP_SYS_ADMIN`:
 
-```
+```bash
 getcap <MYSQLD_PATH>
 ```
 
-The output must include `cap_sys_admin`. If the capability is missing, see [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html#secure-exporter-connections).
+The output must include `cap_sys_admin`. If the capability is missing, see [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md#secure-exporter-connections).
 
 Test the HTTP listener from the server host:
 
-```
+```bash
 curl --verbose --connect-timeout 5 \
   http://<COLLECTOR_HOST>:4318/v1/traces
 ```
@@ -361,7 +361,7 @@ Only one or two signals reach the collector.
 
 ### Compare each signal
 
-```
+```sql
 SHOW GLOBAL VARIABLES
 WHERE Variable_name IN (
   'telemetry.metrics_enabled',
@@ -415,7 +415,7 @@ Record the complete SQL error. Common errors include:
 
 Check the account privileges:
 
-```
+```sql
 SHOW GRANTS;
 ```
 
@@ -427,19 +427,19 @@ Persisting a startup-only variable also requires `PERSIST_RO_VARIABLES_ADMIN`.
 
 Use `SET GLOBAL` for a dynamic, temporary change:
 
-```
+```sql
 SET GLOBAL telemetry.trace_enabled = ON;
 ```
 
 Use `SET PERSIST` for a dynamic change that must survive a restart:
 
-```
+```sql
 SET PERSIST telemetry.query_text_enabled = OFF;
 ```
 
 Use `SET PERSIST_ONLY` for a startup-only variable:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_endpoint =
   'http://otel-collector.example.com:4318/v1/traces';
 ```
@@ -452,7 +452,7 @@ The server accepts a persisted change, but the active value does not change.
 
 ### Compare active and persisted values
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_traces_endpoint';
 
 SELECT VARIABLE_NAME, VARIABLE_VALUE
@@ -493,7 +493,7 @@ Confirm that the collector OTLP HTTP receiver enables TLS. See [OpenTelemetry Co
 
 Check the configured certificate values for the affected signal:
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_traces_certificates';
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_traces_client_certificates';
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_traces_client_key';
@@ -505,7 +505,7 @@ Confirm that the server process can read each configured file. Confirm that each
 
 Inspect a certificate without displaying a private key:
 
-```
+```bash
 openssl x509 -in <CERTIFICATE_FILE> -noout -subject -issuer -dates -ext subjectAltName
 ```
 
@@ -517,7 +517,7 @@ For mutual TLS, the client certificate and private key must form a pair. The col
 
 Inspect the secret provider and secret name for each affected signal:
 
-```
+```sql
 SHOW GLOBAL VARIABLES
 WHERE Variable_name IN (
   'telemetry.secret_provider',
@@ -547,7 +547,7 @@ The collector returns an HTTP error, cannot decode the request, or reports no ma
 
 ### Verify the protocol
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_%_protocol';
 ```
 
@@ -562,7 +562,7 @@ The collector must accept the selected encoding. Many collector deployments acce
 
 ### Verify the endpoint
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_%_endpoint';
 ```
 
@@ -586,7 +586,7 @@ The error log reports a full queue, failed enqueue, timeout, or dropped telemetr
 
 ### Check server queue settings
 
-```
+```sql
 SHOW GLOBAL VARIABLES
 WHERE Variable_name IN (
   'telemetry.otel_bsp_max_queue_size',
@@ -602,7 +602,7 @@ The batch span processor uses the `bsp` settings. The batch log record processor
 
 Check Performance Schema instrument registration failures:
 
-```
+```sql
 SHOW GLOBAL STATUS
 WHERE Variable_name IN (
   'Performance_schema_logger_lost',
@@ -611,13 +611,13 @@ WHERE Variable_name IN (
 );
 ```
 
-A nonzero value means that the related instrument could not be created. These values do not count exporter queue drops. For each definition, see [Server status variable definitions](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html#server-status-variable-definitions).
+A nonzero value means that the related instrument could not be created. These values do not count exporter queue drops. For each definition, see [Server status variable definitions](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md#server-status-variable-definitions).
 
 ### Check collector internal metrics
 
 The collector exposes internal metrics on `http://127.0.0.1:8888/metrics` by default.
 
-```
+```bash
 curl --silent --show-error http://127.0.0.1:8888/metrics | \
   rg 'otelcol_(receiver|exporter)_(accepted|refused|queue|enqueue_failed|send_failed|sent)'
 ```
@@ -656,7 +656,7 @@ Statement spans or logs contain SQL text that should not be exported.
 
 ### Disable trace query text
 
-```
+```sql
 SET PERSIST telemetry.query_text_enabled = OFF;
 
 SHOW GLOBAL VARIABLES LIKE 'telemetry.query_text_enabled';
@@ -672,7 +672,7 @@ The setting does not remove query text from OpenTelemetry general query or slow 
 
 Inspect the logger levels:
 
-```
+```sql
 SELECT NAME, LEVEL
 FROM performance_schema.setup_loggers
 WHERE NAME IN ('logger/sql/general_log', 'logger/sql/slow_log');
@@ -680,7 +680,7 @@ WHERE NAME IN ('logger/sql/general_log', 'logger/sql/slow_log');
 
 Set an unused logger to `none`:
 
-```
+```sql
 UPDATE performance_schema.setup_loggers
 SET LEVEL = 'none'
 WHERE NAME = 'logger/sql/general_log';
@@ -700,7 +700,7 @@ Record a workload baseline before you enable telemetry. Compare the same workloa
 
 On Linux, monitor the server process:
 
-```
+```bash
 pidstat -p "$(pidof mysqld)" 1
 ```
 
@@ -708,7 +708,7 @@ Monitor collector CPU use, memory use, queue size, and export latency. The colle
 
 Check telemetry settings that affect volume:
 
-```
+```sql
 SELECT NAME, FREQUENCY, ENABLED
 FROM performance_schema.setup_meters
 ORDER BY FREQUENCY, NAME;
@@ -742,13 +742,13 @@ Change one setting at a time. Repeat the same workload test after each change.
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
 - [OpenTelemetry Collector troubleshooting](https://opentelemetry.io/docs/collector/troubleshooting/)
 - [OpenTelemetry Collector internal telemetry](https://opentelemetry.io/docs/collector/internal-telemetry/)
 - [OpenTelemetry Collector TLS configuration](https://github.com/open-telemetry/opentelemetry-collector/blob/main/config/configtls/README.md)

@@ -13,7 +13,7 @@ You have the basics. To go further with Percona Server for MySQL, consider:
 - Security — Use users, roles, privileges, and encryption.
 - Debugging and testing — Use logs, error messages, and assertions to find and fix issues.
 
-For full details, see the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/9.7/index.html).
+For full details, see the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/9.7/index.md).
 
 ## Other database servers you might try
 
@@ -60,9 +60,9 @@ Percona Operator for MySQL and Percona Operator for MySQL based on Percona XtraD
 
 ## Additional resources
 
-- [Quickstart - Overview](https://docs.percona.com/percona-server/9.7/quickstart-overview.html)
-- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.html)
-- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.html)
-- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/9.7/quickstart-yum.html)
-- [Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.html)
-- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.html)
+- [Quickstart - Overview](https://docs.percona.com/percona-server/9.7/quickstart-overview.md)
+- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.md)
+- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.md)
+- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/9.7/quickstart-yum.md)
+- [Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.md)
+- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.md)

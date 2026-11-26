@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -11008,14 +11008,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Field-value typing appears under <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and in the <a href="audit-log-filter-definition-fields.html#connection"><code>connection</code></a> section of <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a>. Examples include JSON numbers for integer fields such as <code>status</code>, strings for <code>*.str</code> fields, and <code>"::tcp/ip"</code>-style symbolic constants for <code>connection_type</code>.</p>
 <h3 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <p>Start from a single-class filter that logs every <code>connection</code> event the component sees:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connection'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connection'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": { "name": "connection" }</span>
 <span class="s1">  }</span>
 <span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Narrow to a single subclass by nesting <code>event</code> inside the class block (not as a sibling of <code>class</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connect_only'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_connect_only'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": {</span>
 <span class="s1">      "name": "connection",</span>
@@ -11025,7 +11025,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="s1">}'</span><span class="p">);</span>
 </code></pre></div>
 <p>Narrow further by adding a <code>log</code> condition that tests event fields. The following example logs <code>connect</code> events from only two accounts, originating from one host:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_admin_connect'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_admin_connect'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": {</span>
 <span class="s1">      "name": "connection",</span>

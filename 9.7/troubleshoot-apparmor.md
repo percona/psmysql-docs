@@ -4,7 +4,7 @@
 
 Troubleshooting AppArmor profiles ensure that applications can access necessary resources without compromising system security.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Profile Modes
 
@@ -42,8 +42,8 @@ You may need to edit AppArmor profiles to troubleshoot access issues and allow s
 
 ## AppArmor links
 
-[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.html)\
-[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.html)\
-[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.html)\
-[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.html)\
-[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.html)
+[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.md)\
+[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.md)\
+[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md)\
+[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.md)\
+[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.md)

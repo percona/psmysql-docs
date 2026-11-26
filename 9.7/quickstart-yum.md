@@ -4,7 +4,7 @@
 
 Use the Percona repositories to install using YUM.
 
-Quickstart path: Step 1 — Install. Next: [Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.html) (step 2).
+Quickstart path: Step 1 — Install. Next: [Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.md) (step 2).
 
 The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
@@ -19,7 +19,7 @@ The `percona-release` tool is a command-line utility that simplifies the managem
 
 1. Install `percona-release`:
 
-   ```
+   ```shell
    sudo yum install -y https://repo.percona.com/yum/percona-release-latest.noarch.rpm
    ```
 
@@ -27,57 +27,57 @@ The `percona-release` tool is a command-line utility that simplifies the managem
 
    On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), you must disable the distribution’s MySQL module first. Otherwise, the module hides the Percona packages and the installation fails with `All matches were filtered out by modular filtering`. On RHEL 9 this step is not needed. On RHEL 10 skip this step: RHEL 10 has no MySQL module, and the command fails.
 
-   ```
+   ```shell
    sudo dnf module disable mysql -y
    ```
 
    Then enable only the Percona Server for MySQL 9.7 release repository. This command disables any other Percona repositories:
 
-   ```
+   ```shell
    sudo percona-release enable-only ps-97-lts release
    ```
 
 1. Check that the repository is enabled. The output must list the `ps-97-lts-release-<arch>` repository:
 
-   ```
+   ```shell
    sudo dnf repolist | grep ps-97-lts
    ```
 
 1. Install Percona Server for MySQL:
 
-   ```
+   ```shell
    sudo yum install -y percona-server-server
    ```
 
 1. Start the MySQL service:
 
-   ```
+   ```shell
    sudo systemctl restart mysql
    ```
 
 1. Retrieve the temporary password:
 
-   ```
+   ```shell
    sudo grep 'temporary password' /var/log/mysqld.log
    ```
 
 1. Log in to the server using the temporary password:
 
-   ```
+   ```shell
    mysql -uroot -p
    Enter password:
    ```
 
 1. Change the temporary password:
 
-   ```
+   ```sql
    ALTER USER 'root'@'localhost' IDENTIFIED BY '[your password]';
    exit
    ```
 
 1. Log in again with the new password to verify:
 
-   ```
+   ```shell
    mysql -uroot -p
    Enter password:
    ```
@@ -93,7 +93,7 @@ The `percona-release` tool is a command-line utility that simplifies the managem
 - Remove the test database
 - Reload the privilege table
 
-```
+```shell
 sudo mysql_secure_installation
 ```
 
@@ -103,19 +103,19 @@ sudo mysql_secure_installation
 
   - Check that the MySQL service is running:
 
-    ```
+    ```shell
     sudo systemctl status mysql
     ```
 
   - If the service is not active, start it:
 
-    ```
+    ```shell
     sudo systemctl start mysql
     ```
 
   - Try connecting with the password you set during installation:
 
-    ```
+    ```shell
     mysql -uroot -p
     Enter password:
     ```
@@ -124,7 +124,7 @@ sudo mysql_secure_installation
 
   If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:
 
-  ```
+  ```sql
   GRANT CREATE ON *.* TO 'username'@'localhost';
   FLUSH PRIVILEGES;
   ```
@@ -135,11 +135,11 @@ sudo mysql_secure_installation
 
   Check the system log for errors during installation:
 
-  ```
+  ```shell
   sudo journalctl -u mysqld -n 50
   ```
 
-  For specific error messages, see the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/9.7/index.html) or the [Percona community forum](https://forums.percona.com/).
+  For specific error messages, see the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/9.7/index.md) or the [Percona community forum](https://forums.percona.com/).
 
 ## Security best practices
 
@@ -151,12 +151,12 @@ sudo mysql_secure_installation
 
 ## Work with a database
 
-[Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.html)
+[Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.md)
 
 ## Additional resources
 
-- [Quickstart - Overview](https://docs.percona.com/percona-server/9.7/quickstart-overview.html)
-- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.html)
-- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.html)
-- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.html)
-- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.html)
+- [Quickstart - Overview](https://docs.percona.com/percona-server/9.7/quickstart-overview.md)
+- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.md)
+- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.md)
+- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.md)
+- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.md)

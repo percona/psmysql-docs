@@ -2,7 +2,7 @@
 
 # js_lang component system variables
 
-This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 The following sections describe the system variables available in the js_lang component.
 
@@ -46,13 +46,13 @@ This variable is dynamic and can be changed at runtime using the `SET` statement
 
 An example of setting the variable:
 
-```
+```sql
 SET GLOBAL js_lang.max_mem_size = 16777216;
 ```
 
 This sets the limit to 16 MB. To make the change persistent across server restarts, add this setting to your configuration file:
 
-```
+```ini
 [mysqld]
 js_lang.max_mem_size = 16777216
 ```
@@ -90,13 +90,13 @@ In earlier versions, the component set the V8 memory limit to `js_lang.max_mem_s
 
 Note
 
-This variable relates to the internal heap limit for JS routines and works in conjunction with `js_lang.max_mem_size`. For more information about memory limits and troubleshooting, see [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.html).
+This variable relates to the internal heap limit for JS routines and works in conjunction with `js_lang.max_mem_size`. For more information about memory limits and troubleshooting, see [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.md).
 
 ## Further reading
 
-- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.html)
-- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.html)
-- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.html)
-- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.html)
-- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.html)
-- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.html)
+- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.md)
+- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.md)
+- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.md)
+- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.md)
+- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.md)
+- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.md)

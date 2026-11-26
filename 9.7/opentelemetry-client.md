@@ -2,7 +2,7 @@
 
 # OpenTelemetry client plugin
 
-The `mysql` command-line client can export OpenTelemetry (OTel) traces. The client uses the `telemetry_client` plugin. The plugin is separate from the server `component_telemetry` component. The plugin is also separate from [Percona telemetry](https://docs.percona.com/percona-server/9.7/telemetry.html).
+The `mysql` command-line client can export OpenTelemetry (OTel) traces. The client uses the `telemetry_client` plugin. The plugin is separate from the server `component_telemetry` component. The plugin is also separate from [Percona telemetry](https://docs.percona.com/percona-server/9.7/telemetry.md).
 
 The client plugin exports traces only. The plugin does not export metrics or logs.
 
@@ -20,13 +20,13 @@ The plugin is `OFF` by default.
 
 To enable the plugin for one session, start the client with `--telemetry_client`:
 
-```
+```bash
 mysql --telemetry_client -u root -p
 ```
 
 The client loads `telemetry_client.so` from the plugin directory. If the plugin is not in the default directory, set `--plugin_dir` to the directory that contains `telemetry_client.so`:
 
-```
+```bash
 mysql --telemetry_client --plugin_dir=<PLUGIN_DIR> -u root -p
 ```
 
@@ -34,7 +34,7 @@ Replace `<PLUGIN_DIR>` with the plugin directory for your packages. Common paths
 
 To enable the plugin for every `mysql` client start, add the option under `[mysql]`:
 
-```
+```ini
 [mysql]
 telemetry-client=ON
 ```
@@ -43,13 +43,13 @@ With `telemetry-client=ON` in the option file, you do not pass `--telemetry_clie
 
 To print the client telemetry option help, run the following command:
 
-```
+```bash
 mysql --telemetry_client --otel-help
 ```
 
 A successful load prints the option table and this message:
 
-```
+```text
 Telemetry plugin <telemetry_client> is loaded.
 ```
 
@@ -63,7 +63,7 @@ Command-line flags override the option file for the same setting.
 
 The following example sends traces to a collector on the standard OTLP/HTTP port `4318`:
 
-```
+```ini
 [mysql]
 telemetry-client=ON
 
@@ -79,7 +79,7 @@ otel-exporter-otlp-traces-headers=authorization=Bearer <TOKEN>
 
 The following command sets the same endpoint for one client session:
 
-```
+```bash
 mysql --telemetry_client \
   --otel_exporter_otlp_traces_endpoint=http://otel-collector.example.com:4318/v1/traces \
   --otel_exporter_otlp_traces_protocol=http/protobuf \
@@ -99,7 +99,7 @@ The plugin does not support OTLP over gRPC.
 
 Use `http://` for an unencrypted collector. A TLS collector connection requires `https://` in the endpoint URL. The default endpoint is `http://localhost:4318/v1/traces`.
 
-The collector must also enable TLS on the OTLP HTTP receiver. See [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html#secure-exporter-connections).
+The collector must also enable TLS on the OTLP HTTP receiver. See [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md#secure-exporter-connections).
 
 ## Client telemetry options
 
@@ -123,7 +123,7 @@ The following table lists the client telemetry options. The table uses the comma
 
 With the default `silent`, the plugin writes no OpenTelemetry diagnostic lines. Any other value prints error diagnostics to standard error:
 
-```
+```text
 telemetry_client: [OTEL] <file>:<line> <message>
 ```
 
@@ -131,7 +131,7 @@ telemetry_client: [OTEL] <file>:<line> <message>
 
 When the plugin starts trace export, it also writes the exporter endpoint to standard error. That line is written at every log level, including `silent`:
 
-```
+```text
 telemetry_client: Using OTLP HTTP exporter to endpoint <url>
 ```
 
@@ -149,7 +149,7 @@ The `mysql` client reads option files at start. Common client option files are `
 
 Limit read access to the file owner:
 
-```
+```bash
 chmod 600 ~/.my.cnf
 ```
 
@@ -157,7 +157,7 @@ chmod 600 ~/.my.cnf
 
 Client export and server export are independent.
 
-To collect server-side spans for the same session, install `component_telemetry`. Then configure the server exporter. See [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html) and [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html).
+To collect server-side spans for the same session, install `component_telemetry`. Then configure the server exporter. See [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md) and [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md).
 
 A collector can receive both streams. Configure each exporter with an OTLP/HTTP traces receiver. The traces path is `/v1/traces` on port `4318`.
 
@@ -175,12 +175,12 @@ The client plugin has the following limits:
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)
 - [OpenTelemetry Protocol specification](https://opentelemetry.io/docs/specs/otlp/)
 - [OpenTelemetry Collector TLS configuration](https://github.com/open-telemetry/opentelemetry-collector/blob/main/config/configtls/README.md)

@@ -14,7 +14,7 @@ The supported metrics are:
 
 You need access to a Percona Server for MySQL 9.7 server and an account that can create a database and tables.
 
-For arguments and return values, see [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.html).
+For arguments and return values, see [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.md).
 
 ## Create the sample database and table
 
@@ -22,7 +22,7 @@ The following statements create and select a dedicated `testdb` database so that
 
 `TO_VECTOR()` converts the string representation of a vector to a `VECTOR` value. The statements also create a `documents` table and store `[0.3333333333, 0.6666666667, 0.6666666667]` in the `embedding` column:
 
-```
+```sql
 DROP DATABASE IF EXISTS testdb;
 
 CREATE DATABASE testdb CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
@@ -53,7 +53,7 @@ A `VECTOR` stores each element as a single-precision (4-byte) float, and `DISTAN
 
 `EUCLIDEAN` measures the straight-line distance between the vectors.
 
-```
+```sql
 SELECT DISTANCE(
     embedding,
     TO_VECTOR('[0.2857142857, 0.4285714286, 0.8571428571]'),
@@ -64,7 +64,7 @@ FROM documents;
 
 Expected output
 
-```
+```text
 +--------------------+
 | distance           |
 +--------------------+
@@ -79,7 +79,7 @@ The calculation is `sqrt((0.3333333333 - 0.2857142857)^2 + (0.6666666667 - 0.428
 
 `EUCLIDEAN_SQUARED` returns the square of the Euclidean distance. Use this metric when you only need to rank vectors, because the metric skips the square root.
 
-```
+```sql
 SELECT DISTANCE(
     embedding,
     TO_VECTOR('[0.2857142857, 0.4285714286, 0.8571428571]'),
@@ -90,7 +90,7 @@ FROM documents;
 
 Expected output
 
-```
+```text
 +---------------------+
 | distance            |
 +---------------------+
@@ -105,7 +105,7 @@ The calculation is `(0.3333333333 - 0.2857142857)^2 + (0.6666666667 - 0.42857142
 
 `COSINE` returns `1 - cosine similarity`.
 
-```
+```sql
 SELECT DISTANCE(
     embedding,
     TO_VECTOR('[0.2857142857, 0.4285714286, 0.8571428571]'),
@@ -116,7 +116,7 @@ FROM documents;
 
 Expected output
 
-```
+```text
 +---------------------+
 | distance            |
 +---------------------+
@@ -133,7 +133,7 @@ For unit-length vectors, Euclidean distance is a monotonic function of cosine si
 
 For `DOT`, `DISTANCE()` returns the negative inner product, so a smaller value means the vectors are more closely aligned.
 
-```
+```sql
 SELECT DISTANCE(
     embedding,
     TO_VECTOR('[0.2857142857, 0.4285714286, 0.8571428571]'),
@@ -144,7 +144,7 @@ FROM documents;
 
 Expected output
 
-```
+```text
 +---------------------+
 | distance            |
 +---------------------+
@@ -159,7 +159,7 @@ The inner product is `0.3333333333 × 0.2857142857 + 0.6666666667 × 0.428571428
 
 `MANHATTAN` adds the absolute difference between corresponding elements. This metric is a Percona Server extension.
 
-```
+```sql
 SELECT DISTANCE(
     embedding,
     TO_VECTOR('[0.2857142857, 0.4285714286, 0.8571428571]'),
@@ -170,7 +170,7 @@ FROM documents;
 
 Expected output
 
-```
+```text
 +--------------------+
 | distance           |
 +--------------------+
@@ -185,7 +185,7 @@ The calculation is `|0.3333333333 - 0.2857142857| + |0.6666666667 - 0.4285714286
 
 A similarity search compares a query vector against many stored embeddings. Add three more documents to the sample table:
 
-```
+```sql
 INSERT INTO documents (id, content, embedding)
 VALUES
     (2, 'Nearby document', TO_VECTOR('[0.25, 0.375, 0.5]')),
@@ -195,7 +195,7 @@ VALUES
 
 Use `DISTANCE()` in the `ORDER BY` clause and sort in ascending order. `LIMIT 3` returns the three closest vectors:
 
-```
+```sql
 SELECT id,
        content,
        CAST(
@@ -212,7 +212,7 @@ LIMIT 3;
 
 Expected output
 
-```
+```text
 +----+--------------------+----------+
 | id | content            | distance |
 +----+--------------------+----------+
@@ -229,7 +229,7 @@ Lower distance values represent closer matches. The exact query vector ranks fir
 
 The metric can change which document ranks second. Run the same search with `EUCLIDEAN`:
 
-```
+```sql
 SELECT id,
        content,
        CAST(
@@ -250,7 +250,7 @@ LIMIT 3;
 
 Expected output
 
-```
+```text
 +----+--------------------+----------+
 | id | content            | distance |
 +----+--------------------+----------+
@@ -269,7 +269,7 @@ The `Opposite document` row ranks last under both metrics, with a Euclidean dist
 
 To see every row under both metrics in one result, select both distances and remove `LIMIT`:
 
-```
+```sql
 SELECT id,
        content,
        DISTANCE(embedding, TO_VECTOR('[0.5, 0.625, 0.75]'), 'COSINE') AS cosine_distance,
@@ -280,7 +280,7 @@ ORDER BY id;
 
 Expected output
 
-```
+```text
 +----+--------------------+-----------------------+---------------------+
 | id | content            | cosine_distance       | euclidean_distance  |
 +----+--------------------+-----------------------+---------------------+
@@ -304,7 +304,7 @@ These vectors are simplified term counts that illustrate the length effect. Embe
 
 The statements use the `testdb` database from the first section:
 
-```
+```sql
 CREATE TABLE doc_vectors (
     doc VARCHAR(10),
     kind VARCHAR(12),
@@ -322,7 +322,7 @@ VALUES
 
 Compare the article with the summary using both metrics:
 
-```
+```sql
 SELECT a.kind AS vector_type,
        DISTANCE(a.embedding, s.embedding, 'COSINE') AS cosine_distance,
        DISTANCE(a.embedding, s.embedding, 'EUCLIDEAN') AS euclidean_distance
@@ -336,7 +336,7 @@ ORDER BY a.kind DESC;
 
 Expected output
 
-```
+```text
 +-------------+-----------------------+---------------------+
 | vector_type | cosine_distance       | euclidean_distance  |
 +-------------+-----------------------+---------------------+
@@ -364,17 +364,17 @@ Keep the following behaviors in mind when you build queries:
 - An unsupported or misspelled metric name causes an error.
 - Metric names are case-insensitive, so `cosine` and `COSINE` are equivalent.
 
-For complete argument and return-value details, see [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.html).
+For complete argument and return-value details, see [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.md).
 
 ## Clean up
 
 When you finish the quickstart, optionally remove the sample database and all of its contents:
 
-```
+```sql
 DROP DATABASE IF EXISTS testdb;
 ```
 
 ## See also
 
-- [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.html)
-- [The VECTOR Type](https://docs.percona.com/percona-server/9.7/vector.html)
+- [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.md)
+- [The VECTOR Type](https://docs.percona.com/percona-server/9.7/vector.md)

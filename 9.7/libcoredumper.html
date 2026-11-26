@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/libcoredumper.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/libcoredumper.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/libcoredumper.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10606,18 +10606,18 @@ older <code>core-file</code> variable.</p>
 <h3 id="verifying-the-libcoredumper-is-active">Verifying the <code>libcoredumper</code> is active<a data-markdown-ignore class="headerlink" href="#verifying-the-libcoredumper-is-active" title="Permanent link">&para;</a></h3>
 <p>MySQL writes to the log when generating a core file and delegates the core
 dump operation to the Linux kernel. </p>
-<div class="no-copy highlight"><pre><span></span><code>Writing a core file
+<div class="language-text no-copy highlight"><pre><span></span><code>Writing a core file
 </code></pre></div>
 <p>MySQL using the <code>libcoredumper</code> to generate the file creates the following
 message in the log:</p>
-<div class="no-copy highlight"><pre><span></span><code>Writing a core file using lib coredumper
+<div class="language-text no-copy highlight"><pre><span></span><code>Writing a core file using lib coredumper
 </code></pre></div>
 <p>Every core file adds a crash timestamp instead of a PID for the following
 reasons:</p>
 <ul>
 <li>Correlates the core file with the crash. MySQL prints a UTC timestamp on the crash log.</li>
 </ul>
-<div class="no-copy highlight"><pre><span></span><code>10:02:09 UTC - mysqld got signal 11;
+<div class="language-text no-copy highlight"><pre><span></span><code>10:02:09 UTC - mysqld got signal 11;
 </code></pre></div>
 <ul>
 <li>Stores multiple core files.</li>

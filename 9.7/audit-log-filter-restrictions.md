@@ -6,9 +6,9 @@
 
 - The component logs SQL statements only, not NoSQL APIs such as the Memcached interface.
 
-- Event coverage follows [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterevent_mode). In `REDUCED` mode, stored programs log the outer `CALL`, not each statement inside the body. The component never logs file contents referenced by statements such as `LOAD DATA`.
+- Event coverage follows [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filterevent_mode). In `REDUCED` mode, stored programs log the outer `CALL`, not each statement inside the body. The component never logs file contents referenced by statements such as `LOAD DATA`.
 
-- Changing [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterevent_mode) at runtime is not atomic across an event stream. Events from a single statement may split across the switch. For a clean cutover, pause the workload before changing the value or restart the server with the new value in the option file. See [Switching `event_mode` at runtime](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#switching-event_mode-at-runtime).
+- Changing [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filterevent_mode) at runtime is not atomic across an event stream. Events from a single statement may split across the switch. For a clean cutover, pause the workload before changing the value or restart the server with the new value in the option file. See [Switching `event_mode` at runtime](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#switching-event_mode-at-runtime).
 
 - On a cluster, install Audit Log Filter on every node that runs SQL.
 
@@ -20,11 +20,11 @@
 
   Replicated table rows alone do not refresh in-memory filter state. Restart the server, reload the component, or run `audit_log_filter_flush()` to apply table changes to the running component.
 
-- Numeric fields in rules may use integer or string forms. `connection_type` accepts symbolic constants. See [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html).
+- Numeric fields in rules may use integer or string forms. `connection_type` accepts symbolic constants. See [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md).
 
 ## Synchronizing audit log filters between a source and a replica
 
-Replicate the filter tables and run `audit_log_filter_flush()` on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filter_flush).
+Replicate the filter tables and run `audit_log_filter_flush()` on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filter_flush).
 
 ### Procedure: scheduled event to flush filters on the replica
 
@@ -34,7 +34,7 @@ Replicate the filter tables and run `audit_log_filter_flush()` on the replica so
 
 1. On the replica, create a one-minute event:
 
-   ```
+   ```sql
    USE mysql;
    CREATE EVENT auditflush
        ON SCHEDULE EVERY 1 MINUTE
@@ -43,7 +43,7 @@ Replicate the filter tables and run `audit_log_filter_flush()` on the replica so
          SELECT audit_log_filter_flush();
    ```
 
-   The event applies replicated filter changes shortly after replication commits them. For session details after flush, see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filter_flush).
+   The event applies replicated filter changes shortly after replication commits them. For session details after flush, see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filter_flush).
 
 1. On the source, define a filter, assign it to users (UDFs or direct table edits), and call `audit_log_filter_flush()` on the source when needed.
 
@@ -59,9 +59,9 @@ Direct `INSERT`, `UPDATE`, or `DELETE` on the source without a source-side `audi
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
-- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) — `audit_log_filter_flush()`
-- [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.html)
-- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/9.7/upgrade.html)
-- [Binlogging and replication improvements](https://docs.percona.com/percona-server/9.7/binlogging-replication-improvements.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)
+- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md) — `audit_log_filter_flush()`
+- [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.md)
+- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/9.7/upgrade.md)
+- [Binlogging and replication improvements](https://docs.percona.com/percona-server/9.7/binlogging-replication-improvements.md)

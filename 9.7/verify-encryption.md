@@ -6,14 +6,14 @@ If a general tablespace contains tables, check the table information to see if t
 
 For single tablespaces, verify the ENCRYPTION option using INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.
 
-```
+```sql
 SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS FROM
        INFORMATION_SCHEMA.TABLES WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
 ```
 
 Expected output
 
-```
+```text
 +----------------------+-------------------+------------------------------+
 | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
 +----------------------+-------------------+------------------------------+
@@ -23,7 +23,7 @@ Expected output
 
 A `flag` field in the `INFORMATION_SCHEMA.INNODB_TABLESPACES` has bit number 13 set if the tablespace is encrypted. This bit can be checked with the `flag & 8192` expression in the following way:
 
-```
+```text
 SELECT space, name, flag, (flag & 8192) != 0 AS encrypted FROM
 INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in ('foo', 'test/t2', 'bar',
 'noencrypt');
@@ -35,13 +35,13 @@ Note
 
 **This table is in tech preview and may change in future releases.**
 
-```
+```sql
    DESCRIBE INNODB_TABLESPACES_ENCRYPTION;
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------+--------------------+-----+----+--------+------+
 | Field                       | Type               | Null| Key| Default| Extra|
 +-----------------------------+--------------------+-----+----+--------+------+
@@ -60,14 +60,14 @@ Expected output
 
 To identify encryption-enabled schemas, query the INFORMATION_SCHEMA.SCHEMATA table:
 
-```
+```sql
 SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION FROM
 INFORMATION_SCHEMA.SCHEMATA WHERE DEFAULT_ENCRYPTION='YES';
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+---------------------------------+
 | SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
 +------------------------------+---------------------------------+

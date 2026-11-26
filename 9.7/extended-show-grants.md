@@ -10,7 +10,7 @@ In MySQL, `SHOW GRANTS` has the following limitations:
 
 Other privileges might be available to the account but are not displayed. For example:
 
-```
+```sql
 -- Create named and anonymous users
 CREATE USER 'user1'@'localhost';
 CREATE USER ''@'localhost';
@@ -19,14 +19,14 @@ CREATE USER ''@'localhost';
 GRANT SELECT ON db.* TO ''@'localhost';
 ```
 
-```
+```sql
 -- Check user1's grants
 SHOW GRANTS FOR 'user1'@'localhost';
 ```
 
 Expected output
 
-```
+```text
 GRANT USAGE ON *.* TO 'user1'@'localhost'
 ```
 
@@ -46,55 +46,55 @@ The benefits are:
 
 If we create the following users:
 
-```
+```sql
 CREATE USER grantee@localhost IDENTIFIED BY 'grantee1';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.50 sec)
 ```
 
-```
+```sql
 CREATE USER grantee IDENTIFIED BY 'grantee2';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.09 sec)
 ```
 
-```
+```sql
 CREATE DATABASE db2;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.20 sec)
 ```
 
-```
+```sql
 GRANT ALL PRIVILEGES ON db2.* TO grantee WITH GRANT OPTION;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.12 sec)
 ```
 
 - `SHOW EFFECTIVE GRANTS` output before the change:
 
-```
+```sql
 SHOW EFFECTIVE GRANTS;
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------------------------------------------------------------------------------------+
 | Grants for grantee@localhost                                                                                   |
 +----------------------------------------------------------------------------------------------------------------+
@@ -105,29 +105,29 @@ Expected output
 
 Although the grant for the `db2` database isn’t shown, `grantee` user has enough privileges to create the table in that database:
 
-```
+```shell
 user@trusty:~mysql -ugrantee -pgrantee1 -h localhost
 ```
 
-```
+```sql
 CREATE TABLE db2.t1(a int);
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (1.21 sec)
 ```
 
 - The output of `SHOW EFFECTIVE GRANTS` after the change shows all the privileges for the `grantee` user:
 
-```
+```sql
 SHOW EFFECTIVE GRANTS;
 ```
 
 Expected output
 
-```
+```text
 +-------------------------------------------------------------------+
 | Grants for grantee@localhost                                      |
 +-------------------------------------------------------------------+

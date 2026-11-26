@@ -22,21 +22,21 @@ If AppArmor must be disabled, run the following commands:
 
 1. Check the status.
 
-   ```
+   ```shell
    sudo apparmor_status
    ```
 
 1. Stop and disable AppArmor.
 
-   ```
+   ```shell
    sudo systemctl stop apparmor
    sudo systemctl disable apparmor
    ```
 
 ## AppArmor links
 
-[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.html)\
-[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.html)\
-[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.html)\
-[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.html)\
-[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.html)
+[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.md)\
+[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.md)\
+[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md)\
+[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.md)\
+[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.md)

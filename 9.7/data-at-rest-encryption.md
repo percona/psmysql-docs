@@ -17,10 +17,10 @@ An InnoDB tablespace file is comprised of multiple logical and physical pages. P
 
 An encrypted page is decrypted at the I/O layer, added to the buffer pool, and used to access the data. A buffer pool page is not encrypted. The page is encrypted by the I/O layer before the page is flushed to disk.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Percona XtraBackup support
 
 Percona XtraBackup version 9.7 supports the backup of encrypted general tablespaces.
 
-Percona XtraBackup only supports features that are [Generally Available (GA)](https://docs.percona.com/percona-server/9.7/glossary.html#general-availability-ga) in Percona Server for MySQL. Due to time constraints, a GA feature may be supported in a later Percona XtraBackup release. Review the [Percona XtraBackup release notes](https://docs.percona.com/percona-xtrabackup/9.7/release-notes/release-notes.html) for more information.
+Percona XtraBackup only supports features that are [Generally Available (GA)](https://docs.percona.com/percona-server/9.7/glossary.md#general-availability-ga) in Percona Server for MySQL. Due to time constraints, a GA feature may be supported in a later Percona XtraBackup release. Review the [Percona XtraBackup release notes](https://docs.percona.com/percona-xtrabackup/9.7/release-notes/release-notes.html) for more information.

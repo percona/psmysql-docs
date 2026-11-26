@@ -18,23 +18,23 @@ You are welcome to name any items to match your organization’s standards or us
 
 To create a database, use the `CREATE DATABASE` statement. After the database is created, select the database using the `USE` statement.
 
-```
+```sql
 CREATE DATABASE mydb;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.01 sec)
 ```
 
-```
+```sql
 USE mydb;
 ```
 
 Expected output
 
-```
+```text
 Database changed
 ```
 
@@ -44,7 +44,7 @@ Create tables using the `CREATE TABLE` statement. You can specify data types, co
 
 First, create the `departments` table:
 
-```
+```sql
 CREATE TABLE `departments` (
     `id` INT AUTO_INCREMENT,
     `name` VARCHAR(100),
@@ -54,13 +54,13 @@ CREATE TABLE `departments` (
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 Next, create the `employees` table with a foreign key to the departments table:
 
-```
+```sql
 CREATE TABLE `employees` (
     `id` INT AUTO_INCREMENT,
     `name` VARCHAR(255),
@@ -73,7 +73,7 @@ CREATE TABLE `employees` (
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected, 1 warning (0.03 sec)
 ```
 
@@ -81,7 +81,7 @@ Query OK, 0 rows affected, 1 warning (0.03 sec)
 
 Insert data into the `departments` table first:
 
-```
+```sql
 INSERT INTO `departments` (`name`)
 VALUES
     ("Engineering"),
@@ -91,7 +91,7 @@ VALUES
 
 Expected output
 
-```
+```text
 Query OK, 3 rows affected (0.01 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 ```
@@ -100,7 +100,7 @@ Insert data into the `employees` table using the `INSERT INTO` SQL statement. Th
 
 Insert data into the table using the `INSERT INTO` SQL statement. This statement adds multiple records into a table in one statement.
 
-```
+```sql
 INSERT INTO `employees` (`name`,`department_id`,`country`)
 VALUES
     ("Erasmus Richardson",1,"England"),
@@ -117,7 +117,7 @@ VALUES
 
 Expected output
 
-```
+```text
 Query OK, 10 rows affected (0.02 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 ```
@@ -126,13 +126,13 @@ Records: 10  Duplicates: 0  Warnings: 0
 
 To view all records in a table, use `SELECT *` to retrieve all columns:
 
-```
+```sql
 SELECT * FROM employees;
 ```
 
 Expected output
 
-```
+```text
 +----+---------------------+--------------+------------+
 | id | name                | department_id| country    |
 +----+---------------------+--------------+------------+
@@ -156,7 +156,7 @@ JOIN queries combine data from multiple tables based on a related column. Use JO
 
 Join the `employees` and `departments` tables to display employee names with their department names:
 
-```
+```sql
 SELECT e.id, e.name, d.name AS department, e.country 
 FROM employees e 
 JOIN departments d ON e.department_id = d.id;
@@ -164,7 +164,7 @@ JOIN departments d ON e.department_id = d.id;
 
 Expected output
 
-```
+```text
 +----+---------------------+------------+------------+
 | id | name                | department | country    |
 +----+---------------------+------------+------------+
@@ -186,7 +186,7 @@ Expected output
 
 SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.
 
-```
+```sql
 SELECT e.id, e.name, d.name AS department, e.country 
 FROM employees e 
 JOIN departments d ON e.department_id = d.id 
@@ -195,7 +195,7 @@ WHERE e.country = 'Poland';
 
 Expected output
 
-```
+```text
 +----+-------------------+------------+---------+
 | id | name              | department | country |
 +----+-------------------+------------+---------+
@@ -211,24 +211,24 @@ UPDATE queries modify existing data in a table. They are used to change or corre
 
 Run an UPDATE query to change a record, and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the update.
 
-```
+```sql
 UPDATE employees SET name = 'Zofia Niemec' WHERE id = 6;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 ```
 
-```
+```sql
 SELECT name FROM employees WHERE id = 6;
 ```
 
 Expected output
 
-```
+```text
 +--------------+
 | name         |
 +--------------+
@@ -243,7 +243,7 @@ INSERT queries add new data to a table. They are used to populate the database w
 
 Insert a row into a table and then run a [SELECT](#run-a-select-query) with a WHERE clause to verify the record was inserted.
 
-```
+```sql
 INSERT INTO `employees` (`name`,`department_id`,`country`)
 VALUES
 ("Kenzo Sasaki",1,"Japan");
@@ -251,11 +251,11 @@ VALUES
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.01 sec)
 ```
 
-```
+```sql
 SELECT e.id, e.name, d.name AS department, e.country 
 FROM employees e 
 JOIN departments d ON e.department_id = d.id 
@@ -264,7 +264,7 @@ WHERE e.id = 11;
 
 Expected output
 
-```
+```text
 +----+--------------+------------+---------+
 | id | name         | department | country |
 +----+--------------+------------+---------+
@@ -279,17 +279,17 @@ DELETE queries remove existing data from a table. They are used to clean up the 
 
 Delete a row in the table and run a [SELECT](#run-a-select-query) with a WHERE clause to verify the deletion.
 
-```
+```sql
 DELETE FROM employees WHERE id >= 11;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.01 sec)
 ```
 
-```
+```sql
 SELECT e.id, e.name, d.name AS department, e.country 
 FROM employees e 
 JOIN departments d ON e.department_id = d.id 
@@ -298,7 +298,7 @@ WHERE e.id > 10;
 
 Expected output
 
-```
+```text
 Empty set (0.00 sec)
 ```
 
@@ -306,13 +306,13 @@ Empty set (0.00 sec)
 
 Use the `COUNT()` function to count the number of records that match a condition:
 
-```
+```sql
 SELECT COUNT(*) FROM employees;
 ```
 
 Expected output
 
-```
+```text
 +----------+
 | COUNT(*) |
 +----------+
@@ -321,7 +321,7 @@ Expected output
 1 row in set (0.00 sec)
 ```
 
-```
+```sql
 SELECT d.name AS department, COUNT(*) AS employee_count
 FROM employees e
 JOIN departments d ON e.department_id = d.id
@@ -330,7 +330,7 @@ GROUP BY d.name;
 
 Expected output
 
-```
+```text
 +------------+---------------+
 | department | employee_count|
 +------------+---------------+
@@ -343,14 +343,14 @@ Expected output
 
 ## Next step
 
-- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.html) (optional)
-- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.html)
+- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.md) (optional)
+- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.md)
 
 ## Additional resources
 
-- [Quickstart - Overview](https://docs.percona.com/percona-server/9.7/quickstart-overview.html)
-- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.html)
-- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.html)
-- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/9.7/quickstart-yum.html)
-- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.html)
-- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.html)
+- [Quickstart - Overview](https://docs.percona.com/percona-server/9.7/quickstart-overview.md)
+- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.md)
+- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.md)
+- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/9.7/quickstart-yum.md)
+- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.md)
+- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.md)

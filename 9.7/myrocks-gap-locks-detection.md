@@ -8,6 +8,6 @@ If a transactional storage engine does not support gap locks (for example MyRock
 
 Error message
 
-```
+```text
 ERROR HY000: Using Gap Lock without full unique key in multi-table or multi-statement transactions is not allowed. You need to either rewrite queries to use all unique key columns in WHERE equal conditions, or rewrite to single-table, single-statement transaction.
 ```

@@ -4,7 +4,7 @@
 
 **Topic type**: Concept
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 [Need expert guidance for your upgrade? Percona Support can assist](https://www.percona.com/services/expert-support/) .
 
@@ -69,13 +69,13 @@ The following steps describe the upgrade workflow from 8.4 to 9.7.
 
 Review the following resources to understand behavior changes, removed features, and toolkit impacts:
 
-- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html) describes toolkit changes
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html) confirms supported upgrade paths
+- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md) describes toolkit changes
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md) confirms supported upgrade paths
 - [Keywords and Reserved Words in MySQL 9.7](https://dev.mysql.com/doc/refman/9.7/en/keywords.html) lists reserved words that break unquoted identifiers
 
 ### Step 2: Complete pre-upgrade preparation
 
-Work through the pre-upgrade checks in the [upgrade checklist](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html). The pre-upgrade checks cover the following topics:
+Work through the pre-upgrade checks in the [upgrade checklist](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md). The pre-upgrade checks cover the following topics:
 
 - Authentication methods and client compatibility
 - Backup and restore procedures
@@ -88,16 +88,16 @@ Work through the pre-upgrade checks in the [upgrade checklist](https://docs.perc
 
 Select an upgrade method that fits your environment:
 
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html) confirms supported upgrade paths
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html) covers in-place, logical dump and restore, side-by-side, MySQL Clone, and rolling-replication methods
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md) confirms supported upgrade paths
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md) covers in-place, logical dump and restore, side-by-side, MySQL Clone, and rolling-replication methods
 
 ### Step 4: Run the upgrade
 
-Follow the procedures in [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html). The procedures cover repository-based and standalone package upgrades.
+Follow the procedures in [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md). The procedures cover repository-based and standalone package upgrades.
 
 ### Step 5: Validate the upgrade
 
-Complete the post-upgrade validation in the [upgrade checklist](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html#post-upgrade-validation). The validation steps cover the following topics:
+Complete the post-upgrade validation in the [upgrade checklist](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md#post-upgrade-validation). The validation steps cover the following topics:
 
 - Backup and recovery testing
 - Connectivity and authentication
@@ -124,7 +124,7 @@ Data loss risk
 
 Percona Server for MySQL 9.7 does not provide a supported in-place downgrade to an earlier major version. Plan the rollback path before the upgrade. The most reliable rollback is to restore a backup taken before the upgrade. Logical dump and load, or replication into the older version, are also supported.
 
-Operations in 9.7 can change data formats, which breaks binary compatibility with older versions. The safest approach is to provision a fresh server on the older version and reload your data. Do not expect a one-step undo of the upgrade. See [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html) for more details.
+Operations in 9.7 can change data formats, which breaks binary compatibility with older versions. The safest approach is to provision a fresh server on the older version and reload your data. Do not expect a one-step undo of the upgrade. See [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md) for more details.
 
 We recommend upgrading to the most recent LTS release for security, performance, and full support.
 
@@ -134,20 +134,20 @@ We recommend upgrading to the most recent LTS release for security, performance,
 
 The following Percona Server for MySQL pages cover upgrade-related topics:
 
-- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html)
-- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html)
-- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.html)
-- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html)
+- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md)
+- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md)
+- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.md)
+- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md)
 
 ### Additional MySQL documentation
 
 The following MySQL documentation pages cover the upgrade process:
 
 - [Before You Begin](https://dev.mysql.com/doc/refman/9.7/en/upgrade-before-you-begin.html)
-- [Percona Server for MySQL 9.7 Release notes](https://docs.percona.com/percona-server/9.7/release-notes/release-notes-index.html)
+- [Percona Server for MySQL 9.7 Release notes](https://docs.percona.com/percona-server/9.7/release-notes/release-notes-index.md)
 - [Preparing your Installation for Upgrade](https://dev.mysql.com/doc/refman/9.7/en/upgrade-prerequisites.html)
 - [Rebuilding or Repairing Tables or Indexes](https://dev.mysql.com/doc/refman/9.7/en/rebuilding-tables.html)
 - [Upgrade Paths](https://dev.mysql.com/doc/refman/9.7/en/upgrade-paths.html)

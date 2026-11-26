@@ -17,7 +17,7 @@ Confirm the following before you select a path or method:
 
 Plan for rollback
 
-A downgrade across an LTS boundary is not supported. Restore the pre-upgrade backup if you must roll back. Verify the backup is restorable before you start. For supported in-series downgrades, refer to [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html).
+A downgrade across an LTS boundary is not supported. Restore the pre-upgrade backup if you must roll back. Verify the backup is restorable before you start. For supported in-series downgrades, refer to [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md).
 
 ## Identify a supported upgrade path
 
@@ -37,7 +37,7 @@ The following constraints affect path selection:
 - LTS series cannot be skipped. To upgrade from MySQL 5.7 to 9.7, upgrade to 8.0, then 8.4, then 9.7.
 - Land on the latest release in each LTS series before crossing to the next series. The trailing patches in each series carry the upgrade-readiness fixes the next series expects.
 - MySQL Clone applies only within the same release series. Use MySQL Clone for same-series provisioning, not as a cross-series upgrade method.
-- Replication is supported across most paths but enforces a strict source-version constraint. Refer to [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html) for the replicas-first rule.
+- Replication is supported across most paths but enforces a strict source-version constraint. Refer to [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md) for the replicas-first rule.
 - An in-place upgrade requires a supported operating system on the source and target releases. Upgrade the operating system first if the current platform is not supported by 9.7.
 
 ## Choose an upgrade method
@@ -49,7 +49,7 @@ The following list compares the supported single-server methods:
 - MySQL Clone copies a consistent physical snapshot from a donor to a recipient. The method requires the same major series and provisions replicas quickly.
 - A replication-based upgrade rolls each server in a topology through the rolling upgrade scheme. The method delivers the lowest downtime for high-availability (HA) deployments at the cost of additional infrastructure.
 
-For procedural detail, refer to [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html) and [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html).
+For procedural detail, refer to [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md) and [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md).
 
 ## Upgrade replication topologies
 
@@ -61,16 +61,16 @@ Apply the following rules during a topology upgrade:
 - Promote a fully upgraded replica to source after you upgrade every replica. The original source then becomes a replica. Upgrade the original source last.
 - Limit cross-source skew to one major version when a replica connects to multiple upstream sources.
 
-For complete guidance, refer to [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html) and the upstream [Upgrading or Downgrading a Replication Topology](https://dev.mysql.com/doc/refman/9.7/en/replication-upgrade.html) documentation.
+For complete guidance, refer to [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md) and the upstream [Upgrading or Downgrading a Replication Topology](https://dev.mysql.com/doc/refman/9.7/en/replication-upgrade.html) documentation.
 
 ## Further reading
 
 The following Percona Server for MySQL pages cover related topics:
 
-- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html)
-- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html)
-- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.html)
-- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html)
-- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html)
+- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md)
+- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md)
+- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.md)
+- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md)
+- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md)

@@ -2,7 +2,7 @@
 
 # Troubleshoot SELinux issues
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Relabel the Entire File System
 
@@ -16,7 +16,7 @@ On the other hand, `.autorelabel` is used when you want the relabeling process t
 
 This command relabels the entire file system without requiring a system reboot.
 
-```
+```shell
 fixfiles -f relabel
 ```
 
@@ -40,7 +40,7 @@ It’s important to note that running `fixfiles -f relabel` can be a resource-in
 
 Creating the `.autorelabel` file initiates a relabeling process that often requires a reboot to apply the changes effectively. During this reboot, SELinux relabels all files based on their defined policies.
 
-```
+```shell
 touch /.autorelabel
 ```
 
@@ -64,7 +64,7 @@ It would be best to use `restorecon` when you restore the default SELinux contex
 
 The following command configures the SELinux context for a custom data directory in the server.
 
-```
+```shell
 semanage fcontext -a -t mysqld_db_t "/path/to/custom/data(/.*)?"
 ```
 
@@ -82,7 +82,7 @@ This command tells SELinux to label all files and subdirectories within the `/pa
 
 ### Use restorecon
 
-```
+```shell
 restorecon -Rv /path/to/custom/data
 ```
 
@@ -102,13 +102,13 @@ When setting a custom log location for the server, SELinux permissions may need 
 
 This command associates the `var_log_t` type with the custom log directory and contents.
 
-```
+```shell
 semanage fcontext -a -t var_log_t "/path/to/custom/logs(/.*)?"
 ```
 
 This command restores SELinux contexts recursively for the custom log directory, ensuring proper permissions for the server to write logs.
 
-```
+```shell
 restorecon -Rv /path/to/custom/logs
 ```
 
@@ -118,12 +118,12 @@ When configuring the server’s `secure_file_priv` directory, you must update th
 
 This command associates the `mysqld_db_t` type with the `secure_file_priv` directory and its contents.
 
-```
+```shell
 semanage fcontext -a -t mysqld_db_t "/path/to/secure_file_priv(/.*)?"
 ```
 
 This command restores SELinux contexts recursively for the `secure_file_priv` directory, ensuring proper permissions for the server file operations.
 
-```
+```shell
 restorecon -Rv /path/to/secure_file_priv
 ```

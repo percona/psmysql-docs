@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona Server for MySQL 9.7, a drop-in replacement for MySQL Community with added performance, scalability and backup features, with installation, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10908,11 +10908,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h2 id="install-the-utilities-used-to-control-apparmor">Install the utilities used to control AppArmor<a data-markdown-ignore class="headerlink" href="#install-the-utilities-used-to-control-apparmor" title="Permanent link">&para;</a></h2>
 <p>Install the <code>apparmor-utils</code> package to work with profiles. Use these utilities to create, update, enforce, switch to complain mode, and disable profiles, as needed:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apparmor-utils
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>apparmor-utils
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Reading package lists... Done
+<div class="language-text no-copy highlight"><pre><span></span><code>Reading package lists... Done
 Building dependency tree
 ...
 The following additional packages will be installed:
@@ -10925,43 +10925,43 @@ The following additional packages will be installed:
 <ol>
 <li>
 <p>Download the current version of the AppArmor:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-9.7.2-3/build-ps/debian/percona-server-server.install
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>https://raw.githubusercontent.com/percona/percona-server/release-9.7.2-3/build-ps/debian/percona-server-server.install
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
 </details>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="language-text no-copy highlight"><pre><span></span><code>...
 Saving to 'apparamor-profile`
 ...
 </code></pre></div>
 </li>
 <li>
 <p>Move the file to /etc/apparmor.d/usr.sbin.mysqld</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>apparmor-profile<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Create an empty file for editing:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/apparmor.d/local/usr.sbin.mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Load the profile:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-r<span class="w"> </span>-T<span class="w"> </span>-W<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 </li>
 <li>
 <p>Restart <em>Percona Server for MySQL</em>:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Verify the profile status:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>...
+<div class="language-text no-copy highlight"><pre><span></span><code>...
 processes are in enforce mode
 ...
 /usr/sbin/mysqld (100840)
@@ -10972,11 +10972,11 @@ processes are in enforce mode
 </ol>
 <h2 id="check-the-current-status">Check the current status<a data-markdown-ignore class="headerlink" href="#check-the-current-status" title="Permanent link">&para;</a></h2>
 <p>As root or using <code>sudo</code>, you can check the AppArmor status:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-status
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>apparmor module is loaded.
+<div class="language-text no-copy highlight"><pre><span></span><code>apparmor module is loaded.
 34 profiles are loaded.
 32 profiles in enforce mode.
 ...
@@ -10992,39 +10992,39 @@ processes are in enforce mode
 </details>
 <h2 id="switch-a-profile-to-complain-mode">Switch a profile to complain mode<a data-markdown-ignore class="headerlink" href="#switch-a-profile-to-complain-mode" title="Permanent link">&para;</a></h2>
 <p>Switch a profile to complain mode when the program is in your path with this command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>&lt;program&gt;
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>&lt;program&gt;
 </code></pre></div>
 <p>If needed, specify the program’s path in the command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/sbin/&lt;program&gt;
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/sbin/&lt;program&gt;
 </code></pre></div>
 <p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/path/to/profiles/&lt;program&gt;
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-complain<span class="w"> </span>/path/to/profiles/&lt;program&gt;
 </code></pre></div>
 <h2 id="switch-a-profile-to-enforce-mode">Switch a profile to enforce mode<a data-markdown-ignore class="headerlink" href="#switch-a-profile-to-enforce-mode" title="Permanent link">&para;</a></h2>
 <p>Switch a profile to the enforce mode when the program is in your path with this command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>&lt;program&gt;
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>&lt;program&gt;
 </code></pre></div>
 <p>If needed, specify the program’s path in the command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/sbin/&lt;program&gt;
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/sbin/&lt;program&gt;
 </code></pre></div>
 <p>If the profile is not stored in <code>/etc/apparmor.d/</code>, use the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/path/to/profile
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>aa-enforce<span class="w"> </span>/path/to/profile
 </code></pre></div>
 <h2 id="disable-one-profile">Disable one profile<a data-markdown-ignore class="headerlink" href="#disable-one-profile" title="Permanent link">&para;</a></h2>
 <p>You can disable a profile but it is recommended to Switch a Profile to Complain mode.</p>
 <p>Use either of the following methods to disable a profile:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld<span class="w"> </span>/etc/apparmor.d/disable/
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld<span class="w"> </span>/etc/apparmor.d/disable/
 $<span class="w"> </span>sudo<span class="w"> </span>apparmor_parser<span class="w"> </span>-R<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <p>or</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>aa-disable<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>aa-disable<span class="w"> </span>/etc/apparmor.d/usr.sbin.mysqld
 </code></pre></div>
 <h2 id="reload-all-profiles">Reload all profiles<a data-markdown-ignore class="headerlink" href="#reload-all-profiles" title="Permanent link">&para;</a></h2>
 <p>Run either of the following commands to reload all profiles:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>apparmor<span class="w"> </span>reload
 </code></pre></div>
 <p>or</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>apparmor.service
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>reload<span class="w"> </span>apparmor.service
 </code></pre></div>
 <h2 id="reload-one-profile">Reload one profile<a data-markdown-ignore class="headerlink" href="#reload-one-profile" title="Permanent link">&para;</a></h2>
 <p>To reload one profile, run the following:

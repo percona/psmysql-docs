@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/opentelemetry-client.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/opentelemetry-client.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/opentelemetry-client.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10770,29 +10770,29 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="enable-the-plugin">Enable the plugin<a data-markdown-ignore class="headerlink" href="#enable-the-plugin" title="Permanent link">&para;</a></h2>
 <p>The plugin is <code>OFF</code> by default.</p>
 <p>To enable the plugin for one session, start the client with <code>--telemetry_client</code>:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>The client loads <code>telemetry_client.so</code> from the plugin directory. If the plugin is not in the default directory, set <code>--plugin_dir</code> to the directory that contains <code>telemetry_client.so</code>:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--plugin_dir<span class="o">=</span>&lt;PLUGIN_DIR&gt;<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--plugin_dir<span class="o">=</span>&lt;PLUGIN_DIR&gt;<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Replace <code>&lt;PLUGIN_DIR&gt;</code> with the plugin directory for your packages. Common paths are <code>/usr/lib/mysql/plugin</code> and <code>/usr/lib64/mysql/plugin</code>.</p>
 <p>To enable the plugin for every <code>mysql</code> client start, add the option under <code>[mysql]</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysql]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysql]</span>
 <span class="na">telemetry-client</span><span class="o">=</span><span class="s">ON</span>
 </code></pre></div>
 <p>With <code>telemetry-client=ON</code> in the option file, you do not pass <code>--telemetry_client</code> on the command line.</p>
 <p>To print the client telemetry option help, run the following command:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--otel-help
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--otel-help
 </code></pre></div>
 <p>A successful load prints the option table and this message:</p>
-<div class="highlight"><pre><span></span><code>Telemetry plugin &lt;telemetry_client&gt; is loaded.
+<div class="language-text highlight"><pre><span></span><code>Telemetry plugin &lt;telemetry_client&gt; is loaded.
 </code></pre></div>
 <p>If that message is absent, the client did not load the plugin. Confirm that <code>telemetry_client.so</code> exists in the plugin directory. Then retry with <code>--plugin_dir</code>.</p>
 <h2 id="configure-the-plugin">Configure the plugin<a data-markdown-ignore class="headerlink" href="#configure-the-plugin" title="Permanent link">&para;</a></h2>
 <p>The client reads telemetry settings from the <code>[telemetry_client]</code> group in the option file.</p>
 <p>Command-line flags override the option file for the same setting.</p>
 <p>The following example sends traces to a collector on the standard OTLP/HTTP port <code>4318</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysql]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysql]</span>
 <span class="na">telemetry-client</span><span class="o">=</span><span class="s">ON</span>
 
 <span class="k">[telemetry_client]</span>
@@ -10805,7 +10805,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">otel-exporter-otlp-traces-headers</span><span class="o">=</span><span class="s">authorization=Bearer &lt;TOKEN&gt;</span>
 </code></pre></div>
 <p>The following command sets the same endpoint for one client session:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--otel_exporter_otlp_traces_endpoint<span class="o">=</span>http://otel-collector.example.com:4318/v1/traces<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--otel_exporter_otlp_traces_protocol<span class="o">=</span>http/protobuf<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-u<span class="w"> </span>root<span class="w"> </span>-p
@@ -10912,11 +10912,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>With the default <code>silent</code>, the plugin writes no OpenTelemetry diagnostic lines. Any other value prints error diagnostics to standard error:</p>
-<div class="highlight"><pre><span></span><code>telemetry_client: [OTEL] &lt;file&gt;:&lt;line&gt; &lt;message&gt;
+<div class="language-text highlight"><pre><span></span><code>telemetry_client: [OTEL] &lt;file&gt;:&lt;line&gt; &lt;message&gt;
 </code></pre></div>
 <p><code>warning</code>, <code>info</code>, and <code>debug</code> print those same error diagnostics.</p>
 <p>When the plugin starts trace export, it also writes the exporter endpoint to standard error. That line is written at every log level, including <code>silent</code>:</p>
-<div class="highlight"><pre><span></span><code>telemetry_client: Using OTLP HTTP exporter to endpoint &lt;url&gt;
+<div class="language-text highlight"><pre><span></span><code>telemetry_client: Using OTLP HTTP exporter to endpoint &lt;url&gt;
 </code></pre></div>
 <p>These certificate options exist in the client but have no effect:</p>
 <ul>
@@ -10934,7 +10934,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Keep authentication tokens out of the shell history. Store HTTP headers in the client option file.</p>
 <p>The <code>mysql</code> client reads option files at start. Common client option files are <code>/etc/my.cnf</code> and <code>~/.my.cnf</code>. Add the headers in the <code>[telemetry_client]</code> group. See the example in <a href="#configure-the-plugin">Configure the plugin</a>.</p>
 <p>Limit read access to the file owner:</p>
-<div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.my.cnf
+<div class="language-bash highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.my.cnf
 </code></pre></div>
 <h2 id="use-the-plugin-with-the-server-component">Use the plugin with the server component<a data-markdown-ignore class="headerlink" href="#use-the-plugin-with-the-server-component" title="Permanent link">&para;</a></h2>
 <p>Client export and server export are independent.</p>

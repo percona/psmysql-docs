@@ -19,7 +19,7 @@ Percona Server for MySQL 8.4 deprecated `SEQUENCE_TABLE()`. Percona Server for M
 
 To maintain compatibility with existing third-party software, `SEQUENCE_TABLE` is no longer a reserved term and can be used as a regular identifier.
 
-`PERCONA_SEQUENCE_TABLE` is a reserved word. If you have existing tables, columns, or aliases named percona_sequence_table, quote them with backticks (for example, `percona_sequence_table`) or rename them before upgrading. See [Reserved words](https://docs.percona.com/percona-server/9.7/reserved-words.html) for the full list.
+`PERCONA_SEQUENCE_TABLE` is a reserved word. If you have existing tables, columns, or aliases named percona_sequence_table, quote them with backticks (for example, `percona_sequence_table`) or rename them before upgrading. See [Reserved words](https://docs.percona.com/percona-server/9.7/reserved-words.md) for the full list.
 
 ## Table functions
 
@@ -33,13 +33,13 @@ The result set is a single column with the predefined column name `value` of typ
 
 ### PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
-```
+```text
 SELECT … FROM PERCONA_SEQUENCE_TABLE(n) [AS] alias
 
 PERCONA_SEQUENCE_TABLE(n) [AS] alias
 ```
 
-```
+```text
 SELECT * FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 SELECT <expr(value)> FROM PERCONA_SEQUENCE_TABLE(n) AS tt;
 ```
@@ -50,13 +50,13 @@ The first number in the series, the initial term, is defined as `0`, and the ser
 
 In this example, the following statement generates a sequence:
 
-```
+```sql
 SELECT * FROM PERCONA_SEQUENCE_TABLE(3) AS tt;
 ```
 
 Expected output
 
-```
+```text
 +-------+
 | value |
 +-------+
@@ -70,7 +70,7 @@ Expected output
 
 You can define the initial value using the `WHERE` clause. The following example starts the sequence with `4`.
 
-```
+```sql
 SELECT value AS result \
        FROM \
             (SELECT seq AS value
@@ -80,7 +80,7 @@ SELECT value AS result \
 
 Expected output
 
-```
+```text
 +--------+
 | result |
 +--------+
@@ -97,7 +97,7 @@ Consecutive terms increase or decrease by a common difference. The default commo
 
 The following example prints only even numbers from the 0..7 range:
 
-```
+```sql
 SELECT value AS result \
        FROM PERCONA_SEQUENCE_TABLE(8) AS tt \
        WHERE value % 2 = 0;
@@ -105,7 +105,7 @@ SELECT value AS result \
 
 Expected output
 
-```
+```text
 +--------+
 | result |
 +--------+
@@ -120,7 +120,7 @@ Expected output
 
 The following is an example of using the function to populate a table with a set of random numbers:
 
-```
+```sql
 SELECT FLOOR(RAND() * 100) AS result \
        FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 ```
@@ -129,7 +129,7 @@ The output could be the following:
 
 Expected output
 
-```
+```text
 +--------+
 | result |
 +--------+
@@ -144,14 +144,14 @@ Expected output
 
 You can populate a table with a set of pseudo-random strings with the following statement:
 
-```
+```sql
 SELECT MD5(value) AS result \
        FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------+
 | result                           |
 +----------------------------------+
@@ -166,7 +166,7 @@ Expected output
 
 You can add the sequence as a column to a new table or an existing table, as shown in this example:
 
-```
+```sql
 CREATE TABLE t1 AS SELECT * FROM PERCONA_SEQUENCE_TABLE(4) AS tt;
 
 SELECT * FROM t1;
@@ -174,7 +174,7 @@ SELECT * FROM t1;
 
 Expected output
 
-```
+```text
 +-------+
 | value |
 +-------+

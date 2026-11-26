@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10985,13 +10985,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Run the initial checks before you change the configuration. Save the original values before you apply a temporary change.</p>
 <h2 id="run-the-initial-checks">Run the initial checks<a data-markdown-ignore class="headerlink" href="#run-the-initial-checks" title="Permanent link">&para;</a></h2>
 <p>Confirm that the telemetry component is installed:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>The query must return one row with <code>file://component_telemetry</code>.</p>
 <p>Check the component state and signal support:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.run_level'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'telemetry.live_sessions'</span><span class="p">,</span>
@@ -11038,7 +11038,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Check the signal states, endpoints, and protocols:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.metrics_enabled'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'telemetry.trace_enabled'</span><span class="p">,</span>
@@ -11078,7 +11078,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="enable-diagnostic-messages">Enable diagnostic messages<a data-markdown-ignore class="headerlink" href="#enable-diagnostic-messages" title="Permanent link">&para;</a></h2>
 <p>OpenTelemetry diagnostic messages are written to the server error log. The default <code>telemetry.otel_log_level</code> is <code>info</code>. The default <code>log_error_verbosity</code> is <code>2</code>, so the error log keeps errors and warnings and drops notes, including <code>[OTEL DEBUG]</code> lines.</p>
 <p>To record notes and debug detail while you reproduce a problem, raise both settings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_error_verbosity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_error_verbosity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_log_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'debug'</span><span class="p">;</span>
 
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_log_level'</span><span class="p">;</span>
@@ -11086,10 +11086,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The results must show <code>debug</code> and <code>3</code>.</p>
 <p>Search the server error log for relevant messages. Diagnostic lines from the OpenTelemetry library start with <code>[OTEL]</code> or <code>[OTEL DEBUG]</code>.</p>
-<div class="highlight"><pre><span></span><code>rg<span class="w"> </span>-i<span class="w"> </span><span class="s1">'\[OTEL|component_telemetry|opentelemetry|telemetry|otlp|export|http|tls|certificate'</span><span class="w"> </span>&lt;ERROR_LOG&gt;
+<div class="language-bash highlight"><pre><span></span><code>rg<span class="w"> </span>-i<span class="w"> </span><span class="s1">'\[OTEL|component_telemetry|opentelemetry|telemetry|otlp|export|http|tls|certificate'</span><span class="w"> </span>&lt;ERROR_LOG&gt;
 </code></pre></div>
 <p>On a system that writes the error log to the system journal, use this command:</p>
-<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_SERVICE&gt;<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>rg<span class="w"> </span>-i<span class="w"> </span><span class="s1">'\[OTEL|opentelemetry|telemetry|otlp|export|http|tls|certificate'</span>
+<div class="language-bash highlight"><pre><span></span><code>journalctl<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_SERVICE&gt;<span class="w"> </span>-b<span class="w"> </span><span class="p">|</span><span class="w"> </span>rg<span class="w"> </span>-i<span class="w"> </span><span class="s1">'\[OTEL|opentelemetry|telemetry|otlp|export|http|tls|certificate'</span>
 </code></pre></div>
 <p>Message text can differ by server build and OpenTelemetry library version. Look for these message patterns:</p>
 <table>
@@ -11139,13 +11139,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Restore the defaults after testing:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_log_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'info'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_log_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'info'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_error_verbosity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 </code></pre></div>
 <p>The <code>debug</code> level can produce substantial error-log output.</p>
 <h2 id="confirm-that-the-collector-receives-data">Confirm that the collector receives data<a data-markdown-ignore class="headerlink" href="#confirm-that-the-collector-receives-data" title="Permanent link">&para;</a></h2>
 <p>Add the collector <code>debug</code> exporter to a temporary test configuration. The detailed output can contain SQL text and user data.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">otlp</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">protocols</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">http</span><span class="p">:</span>
@@ -11194,7 +11194,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>The exact entry names and format can differ between collector versions.</p>
 <p>Confirm that the collector distribution contains the required components:</p>
-<div class="highlight"><pre><span></span><code>otelcol<span class="w"> </span>components
+<div class="language-bash highlight"><pre><span></span><code>otelcol<span class="w"> </span>components
 </code></pre></div>
 <p>The output must list the <code>otlp</code> receiver and <code>debug</code> exporter. The executable name can differ by distribution.</p>
 <p>Remove the <code>debug</code> exporter after testing. Detailed payloads can expose sensitive data and increase log volume.</p>
@@ -11202,10 +11202,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>INSTALL COMPONENT</code> statement fails, or the component is absent from <code>mysql.component</code>.</p>
 <h3 id="verify-the-installation">Verify the installation<a data-markdown-ignore class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h3>
 <p>Run the installation statement and record the complete error:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>Check the component directory:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'plugin_dir'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'plugin_dir'</span><span class="p">;</span>
 </code></pre></div>
 <p>The directory must contain the telemetry component library for the operating system.</p>
 <p>The server process must be able to read the file.</p>
@@ -11236,19 +11236,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="fix-a-client-plugin-load-failure">Fix a client plugin load failure<a data-markdown-ignore class="headerlink" href="#fix-a-client-plugin-load-failure" title="Permanent link">&para;</a></h2>
 <p>The <code>mysql</code> client does not print <code>Telemetry plugin &lt;telemetry_client&gt; is loaded.</code></p>
 <p>Run the client with help enabled:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--otel-help<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--otel-help<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>If the load message is absent, locate <code>telemetry_client.so</code> and pass that directory:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--plugin_dir<span class="o">=</span>&lt;PLUGIN_DIR&gt;<span class="w"> </span>--otel-help<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--telemetry_client<span class="w"> </span>--plugin_dir<span class="o">=</span>&lt;PLUGIN_DIR&gt;<span class="w"> </span>--otel-help<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Replace <code>&lt;PLUGIN_DIR&gt;</code> with the directory that contains <code>telemetry_client.so</code>.</p>
 <h2 id="restore-missing-telemetry-variables">Restore missing telemetry variables<a data-markdown-ignore class="headerlink" href="#restore-missing-telemetry-variables" title="Permanent link">&para;</a></h2>
 <p>The server returns no rows for this statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.%'</span><span class="p">;</span>
 </code></pre></div>
 <p>The telemetry component registers these variables during installation.</p>
 <h3 id="verify-the-component-state">Verify the component state<a data-markdown-ignore class="headerlink" href="#verify-the-component-state" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 
@@ -11284,7 +11284,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="resolve-unavailable-signal-support">Resolve unavailable signal support<a data-markdown-ignore class="headerlink" href="#resolve-unavailable-signal-support" title="Permanent link">&para;</a></h2>
 <p>A <code>Telemetry_*_supported</code> status variable reports <code>OFF</code>.</p>
 <h3 id="verify-all-signals">Verify all signals<a data-markdown-ignore class="headerlink" href="#verify-all-signals" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'Telemetry%_supported'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'Telemetry%_supported'</span><span class="p">;</span>
 </code></pre></div>
 <p>An <code>ON</code> value confirms that the server binary provides the related instrumentation service.</p>
 <p>An <code>OFF</code> value indicates unavailable support.</p>
@@ -11292,7 +11292,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>Confirm the exact Percona Server version and package:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span>
 </code></pre></div>
 <ol>
 <li>
@@ -11332,15 +11332,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The <code>mysqld</code> binary has the <code>CAP_SYS_ADMIN</code> capability when a network namespace is set.</p>
 <p>Inspect the configured network namespaces:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_network_namespace'</span><span class="p">;</span>
 </code></pre></div>
 <p>If a namespace value is set, confirm that <code>mysqld</code> has <code>CAP_SYS_ADMIN</code>:</p>
-<div class="highlight"><pre><span></span><code>getcap<span class="w"> </span>&lt;MYSQLD_PATH&gt;
+<div class="language-bash highlight"><pre><span></span><code>getcap<span class="w"> </span>&lt;MYSQLD_PATH&gt;
 </code></pre></div>
 <p>The output must include <code>cap_sys_admin</code>. If the capability is missing, see <a href="configure-opentelemetry.html#secure-exporter-connections">Configure OpenTelemetry</a>.</p>
 <p>Test the HTTP listener from the server host:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--verbose<span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>curl<span class="w"> </span>--verbose<span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>http://&lt;COLLECTOR_HOST&gt;:4318/v1/traces
 </code></pre></div>
 <p>An HTTP response confirms network access to a listener.</p>
@@ -11371,7 +11371,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="restore-a-missing-signal">Restore a missing signal<a data-markdown-ignore class="headerlink" href="#restore-a-missing-signal" title="Permanent link">&para;</a></h2>
 <p>Only one or two signals reach the collector.</p>
 <h3 id="compare-each-signal">Compare each signal<a data-markdown-ignore class="headerlink" href="#compare-each-signal" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.metrics_enabled'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'telemetry.trace_enabled'</span><span class="p">,</span>
@@ -11427,26 +11427,26 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Check the account privileges:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span>
 </code></pre></div>
 <p>Runtime changes to global variables normally require <code>SYSTEM_VARIABLES_ADMIN</code> or the deprecated <code>SUPER</code> privilege.</p>
 <p>Persisting a startup-only variable also requires <code>PERSIST_RO_VARIABLES_ADMIN</code>.</p>
 <h3 id="apply-the-correct-change-method">Apply the correct change method<a data-markdown-ignore class="headerlink" href="#apply-the-correct-change-method" title="Permanent link">&para;</a></h3>
 <p>Use <code>SET GLOBAL</code> for a dynamic, temporary change:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Use <code>SET PERSIST</code> for a dynamic change that must survive a restart:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 </code></pre></div>
 <p>Use <code>SET PERSIST_ONLY</code> for a startup-only variable:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_endpoint</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/traces'</span><span class="p">;</span>
 </code></pre></div>
 <p>Restart the server after a <code>SET PERSIST_ONLY</code> change.</p>
 <h2 id="apply-startup-only-changes">Apply startup-only changes<a data-markdown-ignore class="headerlink" href="#apply-startup-only-changes" title="Permanent link">&para;</a></h2>
 <p>The server accepts a persisted change, but the active value does not change.</p>
 <h3 id="compare-active-and-persisted-values">Compare active and persisted values<a data-markdown-ignore class="headerlink" href="#compare-active-and-persisted-values" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_endpoint'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_endpoint'</span><span class="p">;</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="n">VARIABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">VARIABLE_VALUE</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">persisted_variables</span>
@@ -11494,20 +11494,20 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Confirm that the collector OTLP HTTP receiver enables TLS. See <a href="https://github.com/open-telemetry/opentelemetry-collector/blob/main/config/configtls/README.md">OpenTelemetry Collector TLS configuration</a>.</p>
 <h3 id="verify-certificates">Verify certificates<a data-markdown-ignore class="headerlink" href="#verify-certificates" title="Permanent link">&para;</a></h3>
 <p>Check the configured certificate values for the affected signal:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_certificates'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_certificates'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_client_certificates'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_traces_client_key'</span><span class="p">;</span>
 </code></pre></div>
 <p>Replace <code>traces</code> with <code>metrics</code> or <code>logs</code> for another signal.</p>
 <p>Confirm that the server process can read each configured file. Confirm that each file uses Privacy-Enhanced Mail (PEM) format.</p>
 <p>Inspect a certificate without displaying a private key:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>&lt;CERTIFICATE_FILE&gt;<span class="w"> </span>-noout<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-dates<span class="w"> </span>-ext<span class="w"> </span>subjectAltName
+<div class="language-bash highlight"><pre><span></span><code>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>&lt;CERTIFICATE_FILE&gt;<span class="w"> </span>-noout<span class="w"> </span>-subject<span class="w"> </span>-issuer<span class="w"> </span>-dates<span class="w"> </span>-ext<span class="w"> </span>subjectAltName
 </code></pre></div>
 <p>The certificate must be valid. The Subject Alternative Name must match the endpoint host.</p>
 <p>For mutual TLS, the client certificate and private key must form a pair. The collector must trust the client certificate issuer.</p>
 <h3 id="verify-authentication">Verify authentication<a data-markdown-ignore class="headerlink" href="#verify-authentication" title="Permanent link">&para;</a></h3>
 <p>Inspect the secret provider and secret name for each affected signal:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.secret_provider'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'telemetry.otel_exporter_otlp_traces_secret_headers'</span>
@@ -11538,7 +11538,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="correct-the-protocol-or-endpoint">Correct the protocol or endpoint<a data-markdown-ignore class="headerlink" href="#correct-the-protocol-or-endpoint" title="Permanent link">&para;</a></h2>
 <p>The collector returns an HTTP error, cannot decode the request, or reports no matching receiver.</p>
 <h3 id="verify-the-protocol">Verify the protocol<a data-markdown-ignore class="headerlink" href="#verify-the-protocol" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_protocol'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_protocol'</span><span class="p">;</span>
 </code></pre></div>
 <p>The server supports these protocol values:</p>
 <ul>
@@ -11552,7 +11552,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Do not configure the server exporter for gRPC. Configure the collector OTLP HTTP receiver instead.</p>
 <p>The collector must accept the selected encoding. Many collector deployments accept OTLP Protocol Buffers on port <code>4318</code>.</p>
 <h3 id="verify-the-endpoint">Verify the endpoint<a data-markdown-ignore class="headerlink" href="#verify-the-endpoint" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_endpoint'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_endpoint'</span><span class="p">;</span>
 </code></pre></div>
 <p>Check the scheme, host, port, proxy path, and signal path.</p>
 <p>Use these HTTP responses to guide the investigation:</p>
@@ -11590,7 +11590,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="reduce-queue-pressure-and-dropped-data">Reduce queue pressure and dropped data<a data-markdown-ignore class="headerlink" href="#reduce-queue-pressure-and-dropped-data" title="Permanent link">&para;</a></h2>
 <p>The error log reports a full queue, failed enqueue, timeout, or dropped telemetry.</p>
 <h3 id="check-server-queue-settings">Check server queue settings<a data-markdown-ignore class="headerlink" href="#check-server-queue-settings" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'telemetry.otel_bsp_max_queue_size'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'telemetry.otel_bsp_max_export_batch_size'</span><span class="p">,</span>
@@ -11602,7 +11602,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <p>The batch span processor uses the <code>bsp</code> settings. The batch log record processor uses the <code>blrp</code> settings.</p>
 <p>Check Performance Schema instrument registration failures:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">Variable_name</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'Performance_schema_logger_lost'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'Performance_schema_meter_lost'</span><span class="p">,</span>
@@ -11612,7 +11612,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A nonzero value means that the related instrument could not be created. These values do not count exporter queue drops. For each definition, see <a href="opentelemetry-data-reference.html#server-status-variable-definitions">Server status variable definitions</a>.</p>
 <h3 id="check-collector-internal-metrics">Check collector internal metrics<a data-markdown-ignore class="headerlink" href="#check-collector-internal-metrics" title="Permanent link">&para;</a></h3>
 <p>The collector exposes internal metrics on <code>http://127.0.0.1:8888/metrics</code> by default.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8888/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>curl<span class="w"> </span>--silent<span class="w"> </span>--show-error<span class="w"> </span>http://127.0.0.1:8888/metrics<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>rg<span class="w"> </span><span class="s1">'otelcol_(receiver|exporter)_(accepted|refused|queue|enqueue_failed|send_failed|sent)'</span>
 </code></pre></div>
 <p>Check these metric groups:</p>
@@ -11684,7 +11684,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="remove-unexpected-query-text">Remove unexpected query text<a data-markdown-ignore class="headerlink" href="#remove-unexpected-query-text" title="Permanent link">&para;</a></h2>
 <p>Statement spans or logs contain SQL text that should not be exported.</p>
 <h3 id="disable-trace-query-text">Disable trace query text<a data-markdown-ignore class="headerlink" href="#disable-trace-query-text" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.query_text_enabled'</span><span class="p">;</span>
 </code></pre></div>
@@ -11693,12 +11693,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The setting does not remove query text from OpenTelemetry general query or slow query logs.</p>
 <h3 id="control-query-text-in-logs">Control query text in logs<a data-markdown-ignore class="headerlink" href="#control-query-text-in-logs" title="Permanent link">&para;</a></h3>
 <p>Inspect the logger levels:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'logger/sql/general_log'</span><span class="p">,</span><span class="w"> </span><span class="s1">'logger/sql/slow_log'</span><span class="p">);</span>
 </code></pre></div>
 <p>Set an unused logger to <code>none</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'none'</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'logger/sql/general_log'</span><span class="p">;</span>
 </code></pre></div>
@@ -11709,11 +11709,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="measure-the-effect">Measure the effect<a data-markdown-ignore class="headerlink" href="#measure-the-effect" title="Permanent link">&para;</a></h3>
 <p>Record a workload baseline before you enable telemetry. Compare the same workload after you enable each signal separately.</p>
 <p>On Linux, monitor the server process:</p>
-<div class="highlight"><pre><span></span><code>pidstat<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>pidof<span class="w"> </span>mysqld<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="m">1</span>
+<div class="language-bash highlight"><pre><span></span><code>pidstat<span class="w"> </span>-p<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>pidof<span class="w"> </span>mysqld<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="m">1</span>
 </code></pre></div>
 <p>Monitor collector CPU use, memory use, queue size, and export latency. The collector exposes process and pipeline metrics.</p>
 <p>Check telemetry settings that affect volume:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="p">,</span><span class="w"> </span><span class="n">ENABLED</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="p">,</span><span class="w"> </span><span class="n">ENABLED</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="p">,</span><span class="w"> </span><span class="n">NAME</span><span class="p">;</span>
 

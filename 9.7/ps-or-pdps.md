@@ -56,8 +56,8 @@ If you run your workloads on Kubernetes (a platform for running containerized ap
 
 Percona Server for MySQL
 
-- [Quickstart guide](https://docs.percona.com/percona-server/9.7/quickstart-overview.html)
-- [Install Percona Server for MySQL 8.4](https://docs.percona.com/percona-server/9.7/installation.html)
+- [Quickstart guide](https://docs.percona.com/percona-server/9.7/quickstart-overview.md)
+- [Install Percona Server for MySQL 8.4](https://docs.percona.com/percona-server/9.7/installation.md)
 
 Percona Distribution for MySQL
 

@@ -2,7 +2,7 @@
 
 # Modify a table
 
-The `ALTER TABLE` command acts like a toolkit that allows you to change the structure of existing tables. You can add new sections (columns), remove old ones, or change how information is stored [(data types)](https://docs.percona.com/percona-server/9.7/data-types-basic.html). This command helps you adapt your database to new needs or improve efficiency.
+The `ALTER TABLE` command acts like a toolkit that allows you to change the structure of existing tables. You can add new sections (columns), remove old ones, or change how information is stored [(data types)](https://docs.percona.com/percona-server/9.7/data-types-basic.md). This command helps you adapt your database to new needs or improve efficiency.
 
 ## Things to Watch Out For
 
@@ -16,7 +16,7 @@ After a table has been created, you may need to modify its structure or properti
 
 The following is an example using an `ALTER TABLE` command:
 
-```
+```sql
 ALTER TABLE users
 ADD COLUMN age INT,
 MODIFY COLUMN city VARCHAR(100),
@@ -25,9 +25,9 @@ DROP COLUMN username;
 
 ## Database management
 
-- [Database](https://docs.percona.com/percona-server/9.7/database.html)
-- [Tables](https://docs.percona.com/percona-server/9.7/table.html)
-- [Create table](https://docs.percona.com/percona-server/9.7/create-table.html)
-- [Isolation Levels](https://docs.percona.com/percona-server/9.7/isolation-levels.html)
-- [Transaction Management](https://docs.percona.com/percona-server/9.7/transaction-mgmt.html)
-- [Views](https://docs.percona.com/percona-server/9.7/views.html)
+- [Database](https://docs.percona.com/percona-server/9.7/database.md)
+- [Tables](https://docs.percona.com/percona-server/9.7/table.md)
+- [Create table](https://docs.percona.com/percona-server/9.7/create-table.md)
+- [Isolation Levels](https://docs.percona.com/percona-server/9.7/isolation-levels.md)
+- [Transaction Management](https://docs.percona.com/percona-server/9.7/transaction-mgmt.md)
+- [Views](https://docs.percona.com/percona-server/9.7/views.md)

@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10786,7 +10786,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 
 <h1 id="block-statements-with-an-audit-log-filter">Block statements with an audit log filter<a data-markdown-ignore class="headerlink" href="#block-statements-with-an-audit-log-filter" title="Permanent link">&para;</a></h1>
 <p>The Audit Log Filter does more than observe events. An <code>abort</code> item inside an <code>event</code> block <strong>prevents matching statements from executing</strong>. Blocked statements are still logged, and the client sees:</p>
-<div class="highlight"><pre><span></span><code>ERROR 1045 (28000): Statement was aborted by an audit log filter
+<div class="language-text highlight"><pre><span></span><code>ERROR 1045 (28000): Statement was aborted by an audit log filter
 </code></pre></div>
 <p>Use blocking to enforce policy at the SQL layer. For example, stop writes against a sensitive table from any application path, independently of <code>GRANT</code>.</p>
 <p>For background on filter authoring, see <a href="write-filter-definitions.html">Write audit_log_filter definitions</a>. This page assumes you have a working filter JSON and want to add blocking.</p>
@@ -10804,7 +10804,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A condition built from <code>field</code>, <code>and</code>, <code>or</code>, <code>not</code>, <code>variable</code>, or <code>function</code> items, using the same grammar as a <code>log</code> condition. The event is aborted when the condition evaluates to true.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"qualifying subclass names"</span><span class="w"> </span><span class="p">],</span>
 <span class="w">  </span><span class="nt">"abort"</span><span class="p">:</span><span class="w"> </span><span class="err">co</span><span class="kc">n</span><span class="err">di</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span>
 <span class="p">}</span>
@@ -10814,7 +10814,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Only events marked <strong>Yes</strong> in the <a href="audit-log-filter-definition-fields.html#abortability">Abortability</a> table can be blocked. For example, <code>table_access</code> and <code>message</code> subclasses can be aborted, but <code>connection</code> and <code>general</code> subclasses cannot. When a filter tries to abort a non-abortable event, the server writes a warning to the error log and lets the statement through.</p>
 <h2 id="example-1-block-all-dml-on-any-table">Example 1: Block all DML on any table<a data-markdown-ignore class="headerlink" href="#example-1-block-all-dml-on-any-table" title="Permanent link">&para;</a></h2>
 <p>The following filter blocks <code>insert</code>, <code>update</code>, and <code>delete</code> statements against every table:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="p">,</span>
@@ -10829,7 +10829,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Use this kind of rule on a standby or read-only replica to enforce immutability at the SQL surface. Then assign the filter with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>.</p>
 <h2 id="example-2-block-dml-on-a-specific-table">Example 2: Block DML on a specific table<a data-markdown-ignore class="headerlink" href="#example-2-block-dml-on-a-specific-table" title="Permanent link">&para;</a></h2>
 <p>Restrict the block to a single table by comparing <code>table_database.str</code> and <code>table_name.str</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="p">,</span>
@@ -10849,7 +10849,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Every attempt to write to <code>finances.bank_account</code> fails with the audit abort error, regardless of which application issued the write. The component logs each attempt.</p>
 <h2 id="example-3-block-a-list-of-tables">Example 3: Block a list of tables<a data-markdown-ignore class="headerlink" href="#example-3-block-a-list-of-tables" title="Permanent link">&para;</a></h2>
 <p>Use <code>or</code> to enumerate several target tables inside the same <code>and</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="p">,</span>
@@ -10874,7 +10874,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h2 id="combine-blocking-with-logging">Combine blocking with logging<a data-markdown-ignore class="headerlink" href="#combine-blocking-with-logging" title="Permanent link">&para;</a></h2>
 <p>Blocking and logging are independent. The same event can carry both a <code>log</code> and an <code>abort</code> item. For example, log every blocked attempt and also log failed <code>SELECT</code>s on the same object. Keep the two concerns as separate event blocks when the conditions differ:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"table_access"</span><span class="p">,</span>

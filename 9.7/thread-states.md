@@ -19,7 +19,7 @@ A `DROP TABLE` statement completes fast. The two stages stay visible for a short
 
 Truncate the stage history, run a `DROP TABLE` statement, and query the recorded stage events:
 
-```
+```sql
 TRUNCATE TABLE performance_schema.events_stages_history_long;
 
 DROP TABLE test.t1;
@@ -31,7 +31,7 @@ ORDER BY EVENT_ID;
 
 Expected output
 
-```
+```text
 EVENT_NAME
 stage/sql/starting
 stage/sql/checking permissions

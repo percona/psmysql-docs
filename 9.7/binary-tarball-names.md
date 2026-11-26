@@ -4,13 +4,13 @@
 
 For later of Percona Server for MySQL, the tar files are organized by the `glibc2` version. You can find this version on your operating system with the following command:
 
-```
+```shell
 ldd --version
 ```
 
 Expected output
 
-```
+```text
 ldd (Ubuntu GLIBC 2.35-0ubuntu3.1) 2.35
 Copyright (C) 2022 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO

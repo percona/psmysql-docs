@@ -4,11 +4,11 @@
 
 MySQL 9 minor releases remove legacy plugins and change defaults for security and replication. Database administrators must align accounts, configuration files, and replication topology before they upgrade.
 
-Use this overview alongside the [upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html), [installation](https://docs.percona.com/percona-server/9.7/installation.html) guide, and [upgrade procedures](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html).
+Use this overview alongside the [upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md), [installation](https://docs.percona.com/percona-server/9.7/installation.md) guide, and [upgrade procedures](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md).
 
 You move from MySQL 8.4 Long-Term Support (LTS) toward Percona Server for MySQL 9.7. Percona behavior can differ from Oracle MySQL Community Edition.
 
-Read the [release notes](https://docs.percona.com/percona-server/9.7/release-notes/release-notes-index.html) for your build.
+Read the [release notes](https://docs.percona.com/percona-server/9.7/release-notes/release-notes-index.md) for your build.
 
 The following sections group incompatible changes by feature area, describe MySQL 9.7 Community Server behavior, and provide a pre-upgrade checklist.
 
@@ -54,7 +54,7 @@ Action:
 
 Example statement:
 
-```
+```sql
 ALTER USER '<USERNAME>'@'<HOST>'
 IDENTIFIED WITH caching_sha2_password BY '<PASSWORD>';
 ```
@@ -95,7 +95,7 @@ Action:
 
 - If you do not use GTID yet, add the following lines to configuration before upgrade:
 
-```
+```text
 gtid_mode=OFF
 enforce_gtid_consistency=OFF
 ```
@@ -470,7 +470,7 @@ Action:
 - Search application code, stored routines, and scripts for `SEQUENCE_TABLE(` occurrences.
 - Replace each call with `PERCONA_SEQUENCE_TABLE(` before you upgrade.
 
-See [`PERCONA_SEQUENCE_TABLE(n)` function](https://docs.percona.com/percona-server/9.7/percona-sequence-table.html) for syntax and examples.
+See [`PERCONA_SEQUENCE_TABLE(n)` function](https://docs.percona.com/percona-server/9.7/percona-sequence-table.md) for syntax and examples.
 
 ## Pre-upgrade checklist
 
@@ -514,4 +514,4 @@ Run the following checks in a non-production environment first.
 
 - Execute test upgrades, replication failover, and backup restore drills before production cutover.
 
-For upgrade sequencing, return to the [upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html) and [upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html).
+For upgrade sequencing, return to the [upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md) and [upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md).

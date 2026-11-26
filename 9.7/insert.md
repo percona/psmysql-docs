@@ -28,7 +28,7 @@ The number of values in the `VALUES` clause must always match the number of colu
 
 To insert data into a table, you use the INSERT INTO statement followed by the table name and a list of column names (if specified) or the `VALUES` keyword, followed by the values you want to insert into the table.
 
-```
+```sql
 INSERT INTO table_name (column1, column2, ...)
 VALUES (value1, value2, ...);
 ```
@@ -38,16 +38,16 @@ In this example, we are doing the following:
 - Inserting a new row into the “employees” table.
 - The values 1, ‘John Doe’, and 50000 are being inserted into the “id”, “name”, and “salary” columns, respectively.
 
-```
+```sql
 INSERT INTO employees (id, name, salary)
         VALUES (1, 'John Doe', 50000);
 ```
 
 Fundamental SQL links:
 
-- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.html)
-- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.html)
-- [SELECT](https://docs.percona.com/percona-server/9.7/select.html)
-- [DELETE](https://docs.percona.com/percona-server/9.7/delete.html)
-- [UPDATE](https://docs.percona.com/percona-server/9.7/update.html)
-- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.html)
+- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.md)
+- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.md)
+- [SELECT](https://docs.percona.com/percona-server/9.7/select.md)
+- [DELETE](https://docs.percona.com/percona-server/9.7/delete.md)
+- [UPDATE](https://docs.percona.com/percona-server/9.7/update.md)
+- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.md)

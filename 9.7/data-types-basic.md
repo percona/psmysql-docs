@@ -69,12 +69,12 @@ Date and time types are used to store date and time information.
 
 ## Advanced SQL features
 
-- [Functions](https://docs.percona.com/percona-server/9.7/functions.html)
-- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.html)
-- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.html)
-- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.html)
-- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.html)
-- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.html)
+- [Functions](https://docs.percona.com/percona-server/9.7/functions.md)
+- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.md)
+- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.md)
+- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.md)
+- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.md)
+- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.md)

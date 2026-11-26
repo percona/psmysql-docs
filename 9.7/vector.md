@@ -8,7 +8,7 @@ Vectors can represent numerical features, such as embeddings used for similarity
 
 ## Syntax
 
-```
+```sql
 VECTOR(N)
 ```
 
@@ -16,7 +16,7 @@ VECTOR(N)
 
 For example, the following statement creates an `embedding` column with a dimension of three:
 
-```
+```sql
 CREATE TABLE documents (
     id INT PRIMARY KEY,
     title VARCHAR(255),
@@ -34,7 +34,7 @@ Use `TO_VECTOR()` to convert the string representation of a vector to a `VECTOR`
 
 The following statement inserts a three-element vector into the `embedding` column:
 
-```
+```sql
 INSERT INTO documents (id, title, embedding)
 VALUES (
     1,
@@ -49,7 +49,7 @@ The number of elements in the vector must not exceed the dimension specified for
 
 Use a `SELECT` statement to retrieve vector values:
 
-```
+```sql
 SELECT id, embedding
 FROM documents;
 ```
@@ -62,7 +62,7 @@ Use `DISTANCE()` to calculate the distance between two vectors with a supported 
 
 For example:
 
-```
+```sql
 SELECT DISTANCE(
     embedding,
     TO_VECTOR('[0.1, 0.3, 0.2]'),
@@ -71,9 +71,9 @@ SELECT DISTANCE(
 FROM documents;
 ```
 
-Different distance metrics compare vectors in different ways. The [DISTANCE() quickstart](https://docs.percona.com/percona-server/9.7/quickstart-distance.html) runs every supported metric against the same stored vector and the same query vector. For arguments, return values, and metric definitions, see [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.html).
+Different distance metrics compare vectors in different ways. The [DISTANCE() quickstart](https://docs.percona.com/percona-server/9.7/quickstart-distance.md) runs every supported metric against the same stored vector and the same query vector. For arguments, return values, and metric definitions, see [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.md).
 
 ## See also
 
-- [Get started with DISTANCE()](https://docs.percona.com/percona-server/9.7/quickstart-distance.html)
-- [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.html)
+- [Get started with DISTANCE()](https://docs.percona.com/percona-server/9.7/quickstart-distance.md)
+- [DISTANCE() Function](https://docs.percona.com/percona-server/9.7/distance-function.md)

@@ -24,7 +24,7 @@ Percona Server for MySQL supports different transaction isolation levels, such a
 
 ## Database management
 
-- [Database](https://docs.percona.com/percona-server/9.7/database.html)
-- [Modify Tables](https://docs.percona.com/percona-server/9.7/modify-tables.html)
-- [Isolation Levels](https://docs.percona.com/percona-server/9.7/isolation-levels.html)
-- [Views](https://docs.percona.com/percona-server/9.7/views.html)
+- [Database](https://docs.percona.com/percona-server/9.7/database.md)
+- [Modify Tables](https://docs.percona.com/percona-server/9.7/modify-tables.md)
+- [Isolation Levels](https://docs.percona.com/percona-server/9.7/isolation-levels.md)
+- [Views](https://docs.percona.com/percona-server/9.7/views.md)

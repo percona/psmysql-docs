@@ -4,7 +4,7 @@
 
 The following steps configure OpenID Connect (OIDC) authentication against a Keycloak realm. Allow about 20 minutes.
 
-You install the server-side plugin, configure trust for Keycloak, create a MySQL user, obtain an ID token, and connect. See [OpenID Connect authentication](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html) for production guidance, the configuration schema, and troubleshooting.
+You install the server-side plugin, configure trust for Keycloak, create a MySQL user, obtain an ID token, and connect. See [OpenID Connect authentication](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md) for production guidance, the configuration schema, and troubleshooting.
 
 ## Before you begin
 
@@ -35,19 +35,19 @@ Replace the following example values with values from your environment:
 
 Load the plugin during the current server session:
 
-```
+```sql
 INSTALL PLUGIN auth_openid_connect SONAME 'auth_openid_connect.so';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 Confirm that the plugin loaded:
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
 FROM INFORMATION_SCHEMA.PLUGINS
 WHERE PLUGIN_NAME = 'auth_openid_connect';
@@ -55,7 +55,7 @@ WHERE PLUGIN_NAME = 'auth_openid_connect';
 
 Expected output
 
-```
+```text
 +---------------------+---------------+
 | PLUGIN_NAME         | PLUGIN_STATUS |
 +---------------------+---------------+
@@ -64,13 +64,13 @@ Expected output
 1 row in set (0.00 sec)
 ```
 
-To load the plugin at server start, see [Install the plugin](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html#install-the-plugin).
+To load the plugin at server start, see [Install the plugin](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md#install-the-plugin).
 
 ## Configure trust for Keycloak
 
 Set the `auth_openid_connect_configuration` system variable to a JSON document for the Keycloak realm. The plugin fetches signing keys from the realm JWKS endpoint:
 
-```
+```sql
 SET GLOBAL auth_openid_connect_configuration = 'JSON://{
   "my-keycloak": {
     "issuer-name": "https://keycloak.example.com/realms/master",
@@ -86,11 +86,11 @@ SET GLOBAL auth_openid_connect_configuration = 'JSON://{
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
-`SET GLOBAL` lasts only until the next restart. To persist the configuration, run the same statement with `SET PERSIST_ONLY`. See [Persist the configuration](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html#persist-the-configuration).
+`SET GLOBAL` lasts only until the next restart. To persist the configuration, run the same statement with `SET PERSIST_ONLY`. See [Persist the configuration](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md#persist-the-configuration).
 
 ## Create demo objects and an OIDC user
 
@@ -102,7 +102,7 @@ Create demo objects in the following order:
 
 Create a small database that the OIDC user reads through the role:
 
-```
+```sql
 CREATE DATABASE oidc_demo;
 CREATE TABLE oidc_demo.invoices (id INT, amount DECIMAL(10, 2));
 INSERT INTO oidc_demo.invoices VALUES (1, 99.95), (2, 145.00);
@@ -110,7 +110,7 @@ INSERT INTO oidc_demo.invoices VALUES (1, 99.95), (2, 145.00);
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.00 sec)
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 2 rows affected (0.00 sec)
@@ -118,21 +118,21 @@ Query OK, 2 rows affected (0.00 sec)
 
 Create the MySQL role and grant access to the table:
 
-```
+```sql
 CREATE ROLE accounting;
 GRANT SELECT ON oidc_demo.* TO accounting;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 Create the OIDC-authenticated user. Replace the `user` value with the `sub` claim that Keycloak issues for the account:
 
-```
+```sql
 CREATE USER 'alice'@'%'
   IDENTIFIED WITH 'auth_openid_connect'
   AS '{"identity_provider": "my-keycloak", "user": "4c28d537-a635-4b6d-957f-58e3c8860bcc"}';
@@ -140,7 +140,7 @@ CREATE USER 'alice'@'%'
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
@@ -150,7 +150,7 @@ The OIDC user does not need an explicit `GRANT` for `oidc_demo`. When the token 
 
 Run the following command on the workstation. The command writes the ID token to `/run/user/1000/id_token.jwt`. Replace `<password>` with the password for `alice`:
 
-```
+```bash
 curl -s -X POST \
   https://keycloak.example.com/realms/master/protocol/openid-connect/token \
   -d 'grant_type=password' \
@@ -163,19 +163,19 @@ curl -s -X POST \
 chmod 600 /run/user/1000/id_token.jwt
 ```
 
-The password grant suits scripted demos. Production deployments use authorization code with Proof Key for Code Exchange (PKCE) or device authorization. See [Obtain an Identity token](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html#obtain-an-identity-token) for details.
+The password grant suits scripted demos. Production deployments use authorization code with Proof Key for Code Exchange (PKCE) or device authorization. See [Obtain an Identity token](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md#obtain-an-identity-token) for details.
 
 Note
 
 The plugin requires the ID token, not the access token. The Keycloak token request selects the `id_token` field from the response.
 
-The example assumes a public Keycloak client. Confidential clients require an additional `-d 'client_secret=<SECRET>'` parameter. See [Obtain an Identity token](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html#obtain-an-identity-token) for details.
+The example assumes a public Keycloak client. Confidential clients require an additional `-d 'client_secret=<SECRET>'` parameter. See [Obtain an Identity token](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md#obtain-an-identity-token) for details.
 
 ## Connect with the OIDC token
 
 Connect as `alice` and pass the token file:
 
-```
+```bash
 mysql --host=mysql.example.com \
       --ssl-mode=REQUIRED \
       --user=alice \
@@ -188,13 +188,13 @@ Successful authentication opens the MySQL prompt. The plugin rejects the connect
 
 Confirm the connected identity:
 
-```
+```sql
 SELECT CURRENT_USER();
 ```
 
 Expected output
 
-```
+```text
 +----------------+
 | CURRENT_USER() |
 +----------------+
@@ -205,14 +205,14 @@ Expected output
 
 Activate the role and read from the table:
 
-```
+```sql
 SET ROLE accounting;
 SELECT * FROM oidc_demo.invoices;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 
 +------+--------+
@@ -230,7 +230,7 @@ The token contains `/accounting` in the `groups` claim, so `SET ROLE accounting`
 
 Remove the demo objects when you finish:
 
-```
+```sql
 DROP USER 'alice'@'%';
 DROP ROLE accounting;
 DROP DATABASE oidc_demo;
@@ -238,17 +238,17 @@ DROP DATABASE oidc_demo;
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 1 row affected (0.01 sec)
 ```
 
-To remove the plugin and any UDFs, see [Uninstall the plugin](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html#uninstall-the-plugin).
+To remove the plugin and any UDFs, see [Uninstall the plugin](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md#uninstall-the-plugin).
 
 ## Additional resources
 
-- [OpenID Connect authentication](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.html): full reference, configuration schema, and troubleshooting
-- [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.html): overview of supported plugins
-- [SSL improvements](https://docs.percona.com/percona-server/9.7/ssl-improvement.html): configure the encrypted transport that OIDC requires
+- [OpenID Connect authentication](https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md): full reference, configuration schema, and troubleshooting
+- [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.md): overview of supported plugins
+- [SSL improvements](https://docs.percona.com/percona-server/9.7/ssl-improvement.md): configure the encrypted transport that OIDC requires
 - [Keycloak server administration guide](https://www.keycloak.org/docs/latest/server_admin/) : configure realms, clients, users, and groups

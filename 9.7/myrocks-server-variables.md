@@ -628,7 +628,7 @@ Cancels all ongoing manual compactions.
 | Data type    | Boolean                |
 | Default      | OFF                    |
 
-This variable is [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html) and may be removed in the future releases.
+This variable is [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md) and may be removed in the future releases.
 
 Turns on RocksDB memory-charging related features (BlockBasedTableOptions::cache_usage_options.options.charged) from `cnf` files. This variable is related to [`rocksdb_use_write_buffer_manager`](#rocksdb_use_write_buffer_manager).
 
@@ -1098,7 +1098,7 @@ The `rocksdb_default_cf_options` string centralizes control over compaction styl
 
 The default varies by MyRocks version. The default generally balances LZ4 compression with moderate buffer sizes, such as 64 MB memtables. The default value is:
 
-```
+```text
 block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
 ```
 
@@ -1144,7 +1144,7 @@ Deletes the column family by name. The default value is “” , an empty string
 
 For example:
 
-```
+```text
 SET @@global.ROCKSDB_DELETE_CF = 'cf_primary_key';
 ```
 
@@ -2756,7 +2756,7 @@ Enables the use of `io_uring` for RocksDB.
 | Data type    | Boolean                           |
 | Default      | OFF                               |
 
-This variable is [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview) and may be removed in the future releases.
+This variable is [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview) and may be removed in the future releases.
 
 Allows to turn on the write buffer manager (WriteBufferManager) from `cnf` files. This variable is related to [`rocksdb_charge_memory`](#rocksdb_charge_memory).
 

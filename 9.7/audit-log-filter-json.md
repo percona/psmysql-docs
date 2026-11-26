@@ -50,7 +50,7 @@ Other common keys:
 
 The following shows four event types recorded in `REDUCED` event mode: startup, connection, table access, and general status.
 
-```
+```json
 [
   {
     "timestamp": "2026-04-03 10:43:52",
@@ -133,7 +133,7 @@ The following shows four event types recorded in `REDUCED` event mode: startup, 
 
 In the JSONL format, each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example appear as follows:
 
-```
+```json
 [
 {"timestamp":"2026-04-03 10:43:52","id":0,"class":"audit","event":"startup","connection_id":12,"account":{"user":"root","host":"localhost"},"login":{"user":"root","os":"","ip":"","proxy":""},"startup_data":{"server_id":1,"os_version":"x86_64-Linux","mysql_version":"9.7.0-0","args":["/usr/sbin/mysqld","--defaults-file=/etc/my.cnf","--basedir=/usr","--user=mysql","--datadir=/var/lib/mysql","--socket=/var/run/mysqld/mysqld.sock","--port=3306"]}},
 {"timestamp":"2026-04-03 10:43:53","id":1,"class":"connection","event":"connect","connection_id":39,"account":{"user":"root","host":"localhost"},"login":{"user":"root","os":"","ip":"","proxy":""},"connection_data":{"connection_type":"socket","status":0,"db":"test","connection_attributes":{"_pid":"824388","_platform":"x86_64","_client_version":"8.0.45","_os":"Linux","_client_name":"libmysql"}}},
@@ -144,9 +144,9 @@ In the JSONL format, each event is a single compact JSON object on its own line,
 
 ## Additional reading
 
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-formats.html)
-- [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/9.7/audit-log-filter-new.html)
-- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) — `audit_log_read()`, `audit_log_read_bookmark()`, and format options
-- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.html)
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.html)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-formats.md)
+- [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/9.7/audit-log-filter-new.md)
+- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md) — `audit_log_read()`, `audit_log_read_bookmark()`, and format options
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.md)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.md)

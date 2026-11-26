@@ -25,13 +25,13 @@ By carefully reviewing and testing your AppArmor profile changes, you can minimi
 
 Install the `apparmor-utils` package to work with profiles. Use these utilities to create, update, enforce, switch to complain mode, and disable profiles, as needed:
 
-```
+```shell
 $ sudo apt install apparmor-utils
 ```
 
 Expected output
 
-```
+```text
 Reading package lists... Done
 Building dependency tree
 ...
@@ -46,13 +46,13 @@ Add the mysqld profile with the following procedure:
 
 1. Download the current version of the AppArmor:
 
-   ```
+   ```shell
    $ wget https://raw.githubusercontent.com/percona/percona-server/release-9.7.2-3/build-ps/debian/percona-server-server.install
    ```
 
    Expected output
 
-   ```
+   ```text
    ...
    Saving to 'apparamor-profile`
    ...
@@ -60,37 +60,37 @@ Add the mysqld profile with the following procedure:
 
 1. Move the file to /etc/apparmor.d/usr.sbin.mysqld
 
-   ```
+   ```shell
    $ sudo mv apparmor-profile /etc/apparmor.d/usr.sbin.mysqld
    ```
 
 1. Create an empty file for editing:
 
-   ```
+   ```shell
    $ sudo touch /etc/apparmor.d/local/usr.sbin.mysqld
    ```
 
 1. Load the profile:
 
-   ```
+   ```shell
    $ sudo apparmor_parser -r -T -W /etc/apparmor.d/usr.sbin.mysqld
    ```
 
 1. Restart *Percona Server for MySQL*:
 
-   ```
+   ```shell
    $ sudo systemctl restart mysql
    ```
 
 1. Verify the profile status:
 
-   ```
+   ```shell
    $ sudo aa-status
    ```
 
    Expected output
 
-   ```
+   ```text
    ...
    processes are in enforce mode
    ...
@@ -102,13 +102,13 @@ Add the mysqld profile with the following procedure:
 
 As root or using `sudo`, you can check the AppArmor status:
 
-```
+```shell
 $ sudo aa-status
 ```
 
 Expected output
 
-```
+```text
 apparmor module is loaded.
 34 profiles are loaded.
 32 profiles in enforce mode.
@@ -127,19 +127,19 @@ apparmor module is loaded.
 
 Switch a profile to complain mode when the program is in your path with this command:
 
-```
+```shell
 $ sudo aa-complain <program>
 ```
 
 If needed, specify the program’s path in the command:
 
-```
+```shell
 $ sudo aa-complain /sbin/<program>
 ```
 
 If the profile is not stored in `/etc/apparmor.d/`, use the following command:
 
-```
+```shell
 $ sudo aa-complain /path/to/profiles/<program>
 ```
 
@@ -147,19 +147,19 @@ $ sudo aa-complain /path/to/profiles/<program>
 
 Switch a profile to the enforce mode when the program is in your path with this command:
 
-```
+```shell
 $ sudo aa-enforce <program>
 ```
 
 If needed, specify the program’s path in the command:
 
-```
+```shell
 $ sudo aa-enforce /sbin/<program>
 ```
 
 If the profile is not stored in `/etc/apparmor.d/`, use the following command:
 
-```
+```shell
 $ sudo aa-enforce /path/to/profile
 ```
 
@@ -169,14 +169,14 @@ You can disable a profile but it is recommended to Switch a Profile to Complain 
 
 Use either of the following methods to disable a profile:
 
-```
+```shell
 $ sudo ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
 $ sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
 ```
 
 or
 
-```
+```shell
 $ aa-disable /etc/apparmor.d/usr.sbin.mysqld
 ```
 
@@ -184,13 +184,13 @@ $ aa-disable /etc/apparmor.d/usr.sbin.mysqld
 
 Run either of the following commands to reload all profiles:
 
-```
+```shell
 $ sudo service apparmor reload
 ```
 
 or
 
-```
+```shell
 $ sudo systemctl reload apparmor.service
 ```
 
@@ -200,8 +200,8 @@ To reload one profile, run the following: You may need to restart the program fo
 
 ## Useful links:
 
-[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.html)\
-[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.html)\
-[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.html)\
-[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.html)\
-[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.html)
+[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.md)\
+[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.md)\
+[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.md)\
+[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.md)\
+[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.md)

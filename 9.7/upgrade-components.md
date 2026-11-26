@@ -14,13 +14,13 @@ For underlying MySQL guidance, see [Installing and Uninstalling Components](http
 
 The following table lists the affected plugins.
 
-| Plugin                                                      | Status before 9.7                                                                                       | 9.7 state                                                                                   | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `keyring_vault`                                             | Available only as a plugin                                                                              | `component_keyring_vault`                                                                   | The plugin is replaced by the `component_keyring_vault` component. Convert the configuration from the `keyring_vault_config` system variable format to JavaScript Object Notation (JSON) manually.                                                                                                                                                                                                                                                                                                                       |
-| `audit_log`                                                 | Deprecated plugin in 8.4                                                                                | Removed. `audit_log.so` is not built or packaged. Replacement: `component_audit_log_filter` | Migrate to `component_audit_log_filter` on 8.4 before upgrading. Then run `UNINSTALL PLUGIN audit_log;` and remove `plugin-load-add=audit_log.so` and the plugin’s `audit_log_*` options, such as `audit_log_format` and `audit_log_policy`, from `my.cnf`. If the options remain, 9.7 aborts at startup. If only the plugin registration remains, 9.7 starts without auditing. See [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.html). |
-| `audit_log_filter`                                          | Available only as a plugin                                                                              | `component_audit_log_filter`                                                                | The plugin has a corresponding component. Transition to the component after upgrading to 9.7.                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `data_masking`                                              | Available as both a plugin and a component                                                              | `component_masking_functions`                                                               | Transition to `component_masking_functions` before upgrading to 9.7.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `binlog_utils_udf` and `percona-udf` user-defined functions | Installed via a plugin. The plugin install requires `CREATE FUNCTION ... SONAME ...` for each function. | `component_binlog_utils_udf` and `component_percona_udf`                                    | User-defined functions are available as components in 9.7. After `INSTALL COMPONENT`, all functions register automatically.                                                                                                                                                                                                                                                                                                                                                                                              |
+| Plugin                                                      | Status before 9.7                                                                                       | 9.7 state                                                                                   | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `keyring_vault`                                             | Available only as a plugin                                                                              | `component_keyring_vault`                                                                   | The plugin is replaced by the `component_keyring_vault` component. Convert the configuration from the `keyring_vault_config` system variable format to JavaScript Object Notation (JSON) manually.                                                                                                                                                                                                                                                                                                                     |
+| `audit_log`                                                 | Deprecated plugin in 8.4                                                                                | Removed. `audit_log.so` is not built or packaged. Replacement: `component_audit_log_filter` | Migrate to `component_audit_log_filter` on 8.4 before upgrading. Then run `UNINSTALL PLUGIN audit_log;` and remove `plugin-load-add=audit_log.so` and the plugin’s `audit_log_*` options, such as `audit_log_format` and `audit_log_policy`, from `my.cnf`. If the options remain, 9.7 aborts at startup. If only the plugin registration remains, 9.7 starts without auditing. See [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.md). |
+| `audit_log_filter`                                          | Available only as a plugin                                                                              | `component_audit_log_filter`                                                                | The plugin has a corresponding component. Transition to the component after upgrading to 9.7.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `data_masking`                                              | Available as both a plugin and a component                                                              | `component_masking_functions`                                                               | Transition to `component_masking_functions` before upgrading to 9.7.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `binlog_utils_udf` and `percona-udf` user-defined functions | Installed via a plugin. The plugin install requires `CREATE FUNCTION ... SONAME ...` for each function. | `component_binlog_utils_udf` and `component_percona_udf`                                    | User-defined functions are available as components in 9.7. After `INSTALL COMPONENT`, all functions register automatically.                                                                                                                                                                                                                                                                                                                                                                                            |
 
 ## How components differ from plugins
 
@@ -79,7 +79,7 @@ Take the following actions:
 
 - Use JSON content that names the component to load. For example:
 
-  ```
+  ```json
   {
     "components": "file://component_keyring_vault"
   }
@@ -97,7 +97,7 @@ Use the following queries to confirm component state after server start:
 
 - For keyring components, query the Performance Schema status table.
 
-  ```
+  ```sql
   SELECT * FROM performance_schema.keyring_component_status;
   ```
 
@@ -105,7 +105,7 @@ Use the following queries to confirm component state after server start:
 
 - For runtime-loaded components, query the `mysql.component` system table.
 
-  ```
+  ```sql
   SELECT component_id, component_group_id, component_urn FROM mysql.component;
   ```
 
@@ -119,7 +119,7 @@ The transition timing depends on the plugin. The following sub-sections describe
 
 Transition to the component before upgrading to 9.7 when your release exposes both forms. The `data_masking` plugin and the `component_masking_functions` component fit this case.
 
-The `audit_log` plugin also requires a transition before the upgrade, because 9.7 does not include the plugin. Migrate to `component_audit_log_filter` on 8.4, as described in [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.html).
+The `audit_log` plugin also requires a transition before the upgrade, because 9.7 does not include the plugin. Migrate to `component_audit_log_filter` on 8.4, as described in [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.md).
 
 #### Transition after the upgrade
 
@@ -136,21 +136,21 @@ Some features exist only as plugins in your existing release. Examples include `
 
 The following Percona Server for MySQL pages cover related topics:
 
-- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html)
-- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html)
-- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html)
-- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html)
-- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html)
+- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md)
+- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md)
+- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md)
+- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md)
+- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md)
 
 ### Component-specific documentation
 
 The following pages describe specific components:
 
-- [Audit Log Filter component overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
-- [Install a component](https://docs.percona.com/percona-server/9.7/install-component.html)
-- [Install Data Masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.html)
-- [Manage Audit Log Filter](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.html)
-- [Uninstall a component](https://docs.percona.com/percona-server/9.7/uninstall-component.html)
-- [Use Keyring Vault component](https://docs.percona.com/percona-server/9.7/use-keyring-vault-component.html)
+- [Audit Log Filter component overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)
+- [Install a component](https://docs.percona.com/percona-server/9.7/install-component.md)
+- [Install Data Masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.md)
+- [Manage Audit Log Filter](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.md)
+- [Uninstall a component](https://docs.percona.com/percona-server/9.7/uninstall-component.md)
+- [Use Keyring Vault component](https://docs.percona.com/percona-server/9.7/use-keyring-vault-component.md)

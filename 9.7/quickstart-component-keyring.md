@@ -10,7 +10,7 @@ Enable only one keyring at a time. Do not use legacy keyring plugins (such as `k
 
 If you are upgrading from 8.0 or another release and already have data encrypted with a legacy keyring plugin, do not enable the component keyring without a migration plan. Data encrypted with the old plugin will not be readable by the new component; existing encrypted tables can become unreadable.
 
-See [Upgrade components](https://docs.percona.com/percona-server/9.7/upgrade-components.html) and your upgrade documentation before switching. For migrating keys from a legacy keyring to the component keyring, check MySQL and Percona documentation for your version (for example, the mysql_migrate_keyring utility where applicable).
+See [Upgrade components](https://docs.percona.com/percona-server/9.7/upgrade-components.md) and your upgrade documentation before switching. For migrating keys from a legacy keyring to the component keyring, check MySQL and Percona documentation for your version (for example, the mysql_migrate_keyring utility where applicable).
 
 This guide is based on [Configuring the Component Keyring in Percona Server and PXC 8.4](https://percona.community/blog/2026/01/13/configuring-the-component-keyring-in-percona-server-and-pxc-8.4/) (Percona Community).
 
@@ -40,13 +40,13 @@ Note: jq only checks syntax. It does not verify that the component library exist
 
    A common path is `/usr/sbin/mysqld.my`. Custom builds or container images may use `/usr/bin`, `/usr/local/sbin`, or another directory. Some packages or security modules (for example, AppArmor or SELinux) may block writing under `/usr/sbin`. Create the manifest file at the path you confirmed:
 
-   ```
+   ```bash
    sudo vi /usr/sbin/mysqld.my
    ```
 
 1. Add the following JSON (check spelling and quotes):
 
-   ```
+   ```json
    {
      "components": "file://component_keyring_file"
    }
@@ -54,7 +54,7 @@ Note: jq only checks syntax. It does not verify that the component library exist
 
 1. Set ownership and permissions:
 
-   ```
+   ```bash
    sudo chown root:root /usr/sbin/mysqld.my
    sudo chmod 644 /usr/sbin/mysqld.my
    ```
@@ -63,7 +63,7 @@ Note: jq only checks syntax. It does not verify that the component library exist
 
 The keyring directory holds encryption keys. Restrict access.
 
-```
+```bash
 sudo mkdir -p /var/lib/mysql-keyring
 sudo chown mysql:mysql /var/lib/mysql-keyring
 sudo chmod 750 /var/lib/mysql-keyring
@@ -93,19 +93,19 @@ Create the component configuration file in the MySQL plugin directory. Use the p
 
 1. Go to the plugin directory (use the path from `@@plugin_dir` or adjust for your distribution):
 
-   ```
+   ```bash
    cd /usr/lib64/mysql/plugin
    ```
 
 1. Create the config file:
 
-   ```
+   ```bash
    sudo vi component_keyring_file.cnf
    ```
 
 1. Add (adjust `path` if you used a different keyring directory):
 
-   ```
+   ```json
    {
      "path": "/var/lib/mysql-keyring/component_keyring_file",
      "read_only": false
@@ -116,7 +116,7 @@ Create the component configuration file in the MySQL plugin directory. Use the p
 
 1. Set ownership and permissions:
 
-   ```
+   ```bash
    sudo chown root:root component_keyring_file.cnf
    sudo chmod 640 component_keyring_file.cnf
    ```
@@ -125,7 +125,7 @@ Create the component configuration file in the MySQL plugin directory. Use the p
 
 Loading the component from the manifest requires a server restart. On a typical system:
 
-```
+```bash
 sudo systemctl restart mysql
 ```
 
@@ -137,7 +137,7 @@ If the server does not start, check the error log. To see where it is written, r
 
 In a MySQL session:
 
-```
+```sql
 SELECT * FROM performance_schema.keyring_component_status;
 ```
 
@@ -145,7 +145,7 @@ You should see `component_keyring_file` with `Component_status` = Active and the
 
 Example:
 
-```
+```text
 +---------------------+-----------------------------------------------+
 | STATUS_KEY          | STATUS_VALUE                                  |
 +---------------------+-----------------------------------------------+
@@ -170,7 +170,7 @@ With the keyring loaded, the server can encrypt data on disk (transparent data e
 
 Create a new table with encryption:
 
-```
+```sql
 CREATE TABLE myapp.sensitive_data (
   id INT PRIMARY KEY,
   payload VARCHAR(255)
@@ -179,13 +179,13 @@ CREATE TABLE myapp.sensitive_data (
 
 Encrypt an existing table:
 
-```
+```sql
 ALTER TABLE myapp.existing_table ENCRYPTION='Y';
 ```
 
 Set default encryption for a schema so new tables are encrypted by default:
 
-```
+```sql
 ALTER SCHEMA myapp DEFAULT ENCRYPTION='Y';
 ```
 
@@ -193,13 +193,13 @@ ALTER SCHEMA myapp DEFAULT ENCRYPTION='Y';
 
 Encrypt the system tablespace (data dictionary, `mysql` system tablespace):
 
-```
+```sql
 ALTER TABLESPACE mysql ENCRYPTION='Y';
 ```
 
 Requires the `CREATE TABLESPACE` privilege on the MySQL user you use (having OS sudo does not grant MySQL privileges).
 
-Encrypting the system tablespace can be a long-running, high-I/O operation. On a large instance it may take minutes or hours and can increase load or cause blocking. Do not assume it is safe to run on a heavily loaded production system without a maintenance window. Plan for a maintenance window and expect significant I/O. See [Encrypt system tablespace](https://docs.percona.com/percona-server/9.7/encrypt-system-tablespace.html).
+Encrypting the system tablespace can be a long-running, high-I/O operation. On a large instance it may take minutes or hours and can increase load or cause blocking. Do not assume it is safe to run on a heavily loaded production system without a maintenance window. Plan for a maintenance window and expect significant I/O. See [Encrypt system tablespace](https://docs.percona.com/percona-server/9.7/encrypt-system-tablespace.md).
 
 ### Redo and undo logs
 
@@ -209,14 +209,14 @@ All `SET GLOBAL` settings are temporary and are lost at restart. For redo/undo l
 
 Add these options to your MySQL config file (for example, `my.cnf`) so they persist:
 
-```
+```ini
 innodb_redo_log_encrypt = ON
 innodb_undo_log_encrypt = ON
 ```
 
 Restart the server (or add the options and plan a restart). If these settings are only set with `SET GLOBAL` and not in the config file, the server will stop encrypting new redo/undo pages after a restart with no clear indication.
 
-New log pages are encrypted when written; existing pages are unchanged until they are rewritten. See [Log encryption](https://docs.percona.com/percona-server/9.7/encrypt-logs.html).
+New log pages are encrypted when written; existing pages are unchanged until they are rewritten. See [Log encryption](https://docs.percona.com/percona-server/9.7/encrypt-logs.md).
 
 ### Verify encryption
 
@@ -226,7 +226,7 @@ InnoDB encrypts data when the option is set. These queries only confirm that the
 
 Tables: List tables that have the encryption option set. Such tables show `ENCRYPTION="Y"` in `CREATE_OPTIONS`:
 
-```
+```sql
 SELECT TABLE_SCHEMA, TABLE_NAME, CREATE_OPTIONS
 FROM INFORMATION_SCHEMA.TABLES
 WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
@@ -234,14 +234,14 @@ WHERE CREATE_OPTIONS LIKE '%ENCRYPTION%';
 
 Tablespaces: Check whether a tablespace has the encryption flag set in `INNODB_TABLESPACES`. Bit 13 (value 8192) is set when the tablespace is marked encrypted:
 
-```
+```sql
 SELECT name, (flag & 8192) != 0 AS encrypted
 FROM INFORMATION_SCHEMA.INNODB_TABLESPACES;
 ```
 
 Schemas: List schemas that have default encryption (new tables in schemas with default encryption are encrypted by default):
 
-```
+```sql
 SELECT SCHEMA_NAME, DEFAULT_ENCRYPTION
 FROM INFORMATION_SCHEMA.SCHEMATA
 WHERE DEFAULT_ENCRYPTION = 'YES';
@@ -249,12 +249,12 @@ WHERE DEFAULT_ENCRYPTION = 'YES';
 
 Redo and undo logs: Confirm whether redo and undo log encryption is enabled:
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'innodb_redo_log_encrypt';
 SHOW GLOBAL VARIABLES LIKE 'innodb_undo_log_encrypt';
 ```
 
-For more (binary logs, doublewrite, temporary files, and INNODB_TABLESPACES_ENCRYPTION), see [Verify encryption](https://docs.percona.com/percona-server/9.7/verify-encryption.html).
+For more (binary logs, doublewrite, temporary files, and INNODB_TABLESPACES_ENCRYPTION), see [Verify encryption](https://docs.percona.com/percona-server/9.7/verify-encryption.md).
 
 ## Clean up
 
@@ -264,20 +264,20 @@ Disable redo and undo log encryption. If you added them to `my.cnf`, remove or c
 
 To turn off only for the current run:
 
-```
+```sql
 SET GLOBAL innodb_redo_log_encrypt = OFF;
 SET GLOBAL innodb_undo_log_encrypt = OFF;
 ```
 
 Revert system tablespace encryption (only if you ran `ALTER TABLESPACE mysql ENCRYPTION='Y'`):
 
-```
+```sql
 ALTER TABLESPACE mysql ENCRYPTION='N';
 ```
 
 Remove the example schema default and tables. If you created the `myapp` schema or the example tables used in this guide:
 
-```
+```sql
 ALTER SCHEMA myapp DEFAULT ENCRYPTION='N';
 DROP TABLE IF EXISTS myapp.sensitive_data;
 ```
@@ -288,8 +288,8 @@ The keyring remains loaded and the keyring files on disk are unchanged. To remov
 
 ## Next steps
 
-- Use [data at rest encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html) (for example, encrypt tablespaces, redo/undo logs) with the keyring in place.
-- [Verify encryption](https://docs.percona.com/percona-server/9.7/verify-encryption.html) for your tablespaces and logs.
+- Use [data at rest encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.md) (for example, encrypt tablespaces, redo/undo logs) with the keyring in place.
+- [Verify encryption](https://docs.percona.com/percona-server/9.7/verify-encryption.md) for your tablespaces and logs.
 - For Percona XtraDB Cluster (PXC): keyring file is not replicated; copy the keyring file from the bootstrap node to other nodes before starting them.
 
 ## Operational notes
@@ -297,5 +297,5 @@ The keyring remains loaded and the keyring files on disk are unchanged. To remov
 - Treat the keyring file as a secret: restrict access and include it in your secure backup strategy.
 - Back up the keyring file and its directory. If the keyring is lost or damaged (for example, after a migration or permission change), you cannot decrypt data that was encrypted with the keyring. Recovery is not possible. Duplicate or back up the keyring before major changes to the server or filesystem.
 - If the keyring is lost and you have encrypted data, recovery is not possible.
-- To change the master key (for example, for rotation or compliance), use `ALTER INSTANCE ROTATE INNODB MASTER KEY`; see [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.html). Do not delete or replace the keyring file manually to “reset” or rotate. You will lose access to all data encrypted with it.
+- To change the master key (for example, for rotation or compliance), use `ALTER INSTANCE ROTATE INNODB MASTER KEY`; see [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.md). Do not delete or replace the keyring file manually to “reset” or rotate. You will lose access to all data encrypted with it.
 - For MySQL 8.4 and later, components are the supported keyring model; avoid mixing with legacy keyring plugins.

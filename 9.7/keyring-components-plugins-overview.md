@@ -10,12 +10,12 @@ Enable only one keyring component at a time for each server instance. Enabling m
 
 Percona Server supports the following keyring components:
 
-[Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.html)
+[Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.md)
 
-[Use the keyring file component](https://docs.percona.com/percona-server/9.7/use-keyring-file.html)
+[Use the keyring file component](https://docs.percona.com/percona-server/9.7/use-keyring-file.md)
 
-[Use the keyring vault component](https://docs.percona.com/percona-server/9.7/use-keyring-vault-component.html)
+[Use the keyring vault component](https://docs.percona.com/percona-server/9.7/use-keyring-vault-component.md)
 
-[Use the Key Management Interoperability Protocol (KMIP)](https://docs.percona.com/percona-server/9.7/using-amz-kms.html)
+[Use the Key Management Interoperability Protocol (KMIP)](https://docs.percona.com/percona-server/9.7/using-amz-kms.md)
 
-[Use the Amazon Key Management Service (AWS KMS)](https://docs.percona.com/percona-server/9.7/using-kmip.html)
+[Use the Amazon Key Management Service (AWS KMS)](https://docs.percona.com/percona-server/9.7/using-kmip.md)

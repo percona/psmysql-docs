@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10802,7 +10802,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The frequency assigns the meter to a metric reader. The assigned reader controls the collection interval.</p>
 <h3 id="view-available-meters">View available meters<a data-markdown-ignore class="headerlink" href="#view-available-meters" title="Permanent link">&para;</a></h3>
 <p>Query the <code>performance_schema.setup_meters</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="p">,</span><span class="w"> </span><span class="n">ENABLED</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="p">,</span><span class="w"> </span><span class="n">ENABLED</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">NAME</span><span class="p">;</span>
 </code></pre></div>
@@ -10902,24 +10902,24 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="control-meter-collection">Control meter collection<a data-markdown-ignore class="headerlink" href="#control-meter-collection" title="Permanent link">&para;</a></h3>
 <p>You can change the <code>FREQUENCY</code> and <code>ENABLED</code> columns at runtime.</p>
 <p>The following statement disables a meter:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">ENABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'NO'</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'mysql.myisam'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following statement changes a meter frequency:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'mysql.inno'</span><span class="p">;</span>
 </code></pre></div>
 <p>Use the <code>performance-schema-meter</code> option to apply meter settings at server startup:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">performance-schema-meter</span><span class="o">=</span><span class="s">'mysql.inno=frequency:60,enabled:ON'</span>
 </code></pre></div>
 <p>The <code>performance_schema_max_meter_classes</code> variable limits the number of meter instruments. Configure this startup-only variable before a component registers more meters than the current limit.</p>
 <p>See <a href="configure-opentelemetry.html#configure-metric-reader-frequencies">Configure metric reader frequencies</a> for the frequency assignment rules.</p>
 <h3 id="view-available-metrics">View available metrics<a data-markdown-ignore class="headerlink" href="#view-available-metrics" title="Permanent link">&para;</a></h3>
 <p>Query the <code>performance_schema.setup_metrics</code> table for the complete metric catalog:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">METER</span><span class="p">,</span><span class="w"> </span><span class="n">METRIC_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">NUM_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">UNIT</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">METER</span><span class="p">,</span><span class="w"> </span><span class="n">METRIC_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">NUM_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">UNIT</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_metrics</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">METER</span><span class="p">,</span><span class="w"> </span><span class="n">NAME</span><span class="p">;</span>
 </code></pre></div>
@@ -11265,7 +11265,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Session attributes come from <code>performance_schema.session_connect_attrs</code>. Each connect attribute becomes a string attribute named <code>mysql.session_attr.</code> plus the attribute name. The <code>mysql</code> client commonly records <code>program_name</code>, <code>_client_name</code>, <code>_client_version</code>, <code>_os</code>, <code>_platform</code>, and <code>_pid</code>. The set depends on the client.</p>
 <p><code>mysql.processlist_id</code> and <code>mysql.thread_id</code> are integers. <code>mysql.user</code>, <code>mysql.host</code>, <code>mysql.group</code>, and the <code>mysql.session_attr.*</code> values are strings.</p>
 <p>The following record is an illustration of a <code>session</code> span. The identifiers and account values are examples:</p>
-<div class="highlight"><pre><span></span><code>name: session
+<div class="language-text highlight"><pre><span></span><code>name: session
 kind: Internal
 trace_id: 7c2e19aa04b64d0f9a11c0e5d8b34210
 span_id: 51ac08e4b77d19c2
@@ -11522,7 +11522,7 @@ mysql.session_attr._os: Linux
 <p>The server provides separate OpenTelemetry loggers for the error log, slow query log, and general query log.</p>
 <h3 id="view-available-loggers">View available loggers<a data-markdown-ignore class="headerlink" href="#view-available-loggers" title="Permanent link">&para;</a></h3>
 <p>Query the <code>performance_schema.setup_loggers</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">NAME</span><span class="p">;</span>
 </code></pre></div>
@@ -11641,7 +11641,7 @@ mysql.session_attr._os: Linux
 <h2 id="resource-attributes">Resource attributes<a data-markdown-ignore class="headerlink" href="#resource-attributes" title="Permanent link">&para;</a></h2>
 <p>Resource attributes identify the server that produced telemetry. Set custom attributes with <code>telemetry.otel_resource_attributes</code>.</p>
 <p>Use the OpenTelemetry resource attribute format:</p>
-<div class="highlight"><pre><span></span><code>service.name=payments-mysql,deployment.environment.name=production,service.instance.id=mysql-01
+<div class="language-text highlight"><pre><span></span><code>service.name=payments-mysql,deployment.environment.name=production,service.instance.id=mysql-01
 </code></pre></div>
 <p>Recommended attributes include:</p>
 <table>

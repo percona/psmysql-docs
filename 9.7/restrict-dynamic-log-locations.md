@@ -61,13 +61,13 @@ Run the following commands as root:
 
 1. Create the direcory to store the log files.
 
-   ```
+   ```shell
    mkdir /var/lib/mysqld-logs
    ```
 
 1. Enable the following options and set them up with the created directory in /etc/my.cnf configuration file.
 
-   ```
+   ```text
    [mysqld]
    secure_log_path=/var/lib/mysqld-logs
    general-log=ON
@@ -80,25 +80,25 @@ Run the following commands as root:
 
 1. Change the owner and group of the `/var/lib/mysqld-logs` directory and all its subdirectories and files to `mysql`.
 
-   ```
+   ```shell
    chown -R mysql:mysql /var/lib/mysqld-logs
    ```
 
 1. Restart the MySQL server.
 
-   ```
+   ```shell
    systemctl restart mysql
    ```
 
 1. Check that the slow query log and the general log are enabled for the MySQL server.
 
-   ```
+   ```shell
    mysql -e "select @@slow_query_log, @@general_log, @@secure_log_path"
    ```
 
    Expected output
 
-   ```
+   ```text
    +------------------+---------------+-----------------------+
    | @@slow_query_log | @@general_log | @@secure_log_path     |
    +------------------+---------------+-----------------------+
@@ -108,14 +108,14 @@ Run the following commands as root:
 
 1. Check that the slow query log and the general log are stored in the `/var/lib/mysqld-logs` directory. As root (or a user with read access to the directory), run:
 
-   ```
+   ```shell
    cd /var/lib/mysqld-logs/
    ls -lrth
    ```
 
    Expected output
 
-   ```
+   ```text
    -rw-r-----. 1 mysql mysqld-logs 240 Aug 18 11:56 localhost-slow.log
    -rw-r-----. 1 mysql mysqld-logs 565 Aug 18 11:56 localhost.log
    ```

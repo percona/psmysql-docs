@@ -11,7 +11,7 @@
 
 ## group_replication_auto_evict_timeout
 
-The variable is in [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+The variable is in [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 | Option        | Description                           |
 | ------------- | ------------------------------------- |
@@ -25,7 +25,7 @@ The variable is in [tech preview](https://docs.percona.com/percona-server/9.7/gl
 
 The value can be changed while Group Replication is running. The change takes effect immediately. Every node in the group can have a different timeout value, but, to avoid unexpected exits, we recommend that all nodes have the same value.
 
-The variable specifies a period of time in seconds before a node is automatically evicted if the node exceeds the [flow control threshold](https://docs.percona.com/percona-server/9.7/group-replication-flow-control.html). The default value is 0, which disables the eviction. To set the timeout, change the value with a number higher than zero.
+The variable specifies a period of time in seconds before a node is automatically evicted if the node exceeds the [flow control threshold](https://docs.percona.com/percona-server/9.7/group-replication-flow-control.md). The default value is 0, which disables the eviction. To set the timeout, change the value with a number higher than zero.
 
 In single-primary mode, the primary server ignores the timeout.
 
@@ -68,8 +68,8 @@ The minimum value is 0. The maximum value is 1000000.
 | Default value | Quota                                |
 | Valid values  | DISABLED QUOTA MAJORITY              |
 
-The “MAJORITY” value is in [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+The “MAJORITY” value is in [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview) mode. Before using the variable in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 The variable specifies the mode use for flow control.
 
-Percona Server for MySQL adds the “MAJORITY” value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/9.7/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In “MAJORITY” mode, [flow control](https://docs.percona.com/percona-server/9.7/group-replication-flow-control.html) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed.
+Percona Server for MySQL adds the “MAJORITY” value to the [group_replication_flow_control_mode](https://dev.mysql.com/doc/refman/9.7/en/group-replication-options.html#sysvar_group_replication_flow_control_mode) variable. In “MAJORITY” mode, [flow control](https://docs.percona.com/percona-server/9.7/group-replication-flow-control.md) is activated only if the majority, more than half the number of members, exceed the flow control threshold. The other values are not changed.

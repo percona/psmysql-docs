@@ -2,7 +2,7 @@
 
 # Install Percona Server for MySQL using downloaded RPM packages
 
-Download the packages from [Percona Product Downloads](https://www.percona.com/downloads) . If needed, [Instructions for the Percona Product Download](https://docs.percona.com/percona-server/9.7/download-instructions.html) are available.
+Download the packages from [Percona Product Downloads](https://www.percona.com/downloads) . If needed, [Instructions for the Percona Product Download](https://docs.percona.com/percona-server/9.7/download-instructions.md) are available.
 
 The RPM builds for *RHEL* 8 and *RHEL* 9 contain ARM packages with the aarch64.rpm extension. This means that Percona Server for MySQL is available for users on ARM-based systems.
 
@@ -10,21 +10,21 @@ The following example downloads *Percona Server for MySQL* 9.7.2-3 release `x86_
 
 1. Use `wget` to download the tar file:
 
-   The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](https://docs.percona.com/percona-server/9.7/download-instructions.html).
+   The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](https://docs.percona.com/percona-server/9.7/download-instructions.md).
 
-   ```
+   ```shell
    wget https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/redhat/9/x86_64/Percona-Server-9.7.2-3-<revision identifier>-el9-x86_64-bundle.tar
    ```
 
 1. Unpack the bundle to get the packages:
 
-   ```
+   ```shell
    tar xvf Percona-Server-9.7.2-3-<revision identifier>-el9-x86_64-bundle.tar
    ```
 
 1. To view a list of packages, run the following command:
 
-   ```
+   ```shell
    ls *.rpm
    ```
 
@@ -32,7 +32,7 @@ The following example downloads *Percona Server for MySQL* 9.7.2-3 release `x86_
 
    Expected output
 
-   ```
+   ```text
    percona-icu-data-files-9.7.2-3.1.el9.x86_64.rpm
    percona-mysql-router-9.7.2-3.1.el9.x86_64.rpm
    percona-mysql-router-debuginfo-9.7.2-3.1.el9.x86_64.rpm
@@ -58,19 +58,19 @@ The following example downloads *Percona Server for MySQL* 9.7.2-3 release `x86_
 
 1. Install `jemalloc` with the following command, if needed. See [When to install jemalloc](#when-to-install-jemalloc) for guidance:
 
-   ```
+   ```shell
    wget https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
    ```
 
 1. An EL8-based *RHEL* distribution or derivatives package installation requires the mysql module to be disabled before installing the packages:
 
-   ```
+   ```shell
    sudo yum module disable mysql
    ```
 
 1. Install the server, the client, and the required libraries with `dnf localinstall`. Run this command as root or use the sudo command:
 
-   ```
+   ```shell
    sudo dnf localinstall ./percona-server-server-[0-9]*.rpm ./percona-server-client-[0-9]*.rpm ./percona-server-client-plugins-[0-9]*.rpm ./percona-server-shared-[0-9]*.rpm ./percona-icu-data-files-[0-9]*.rpm
    ```
 
@@ -91,7 +91,7 @@ The following example downloads *Percona Server for MySQL* 9.7.2-3 release `x86_
 - You have high-concurrency workloads with many threads
 - You experience memory fragmentation issues that impact performance
 - You run multi-threaded applications that perform frequent memory allocation and deallocation
-- You want to use [memory profiling features](https://docs.percona.com/percona-server/9.7/jemalloc-profiling.html) to investigate memory-related issues.
+- You want to use [memory profiling features](https://docs.percona.com/percona-server/9.7/jemalloc-profiling.md) to investigate memory-related issues.
 - You observe performance degradation related to memory allocation in your current setup
 
 ### Do not install jemalloc when:

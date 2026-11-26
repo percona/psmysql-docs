@@ -2,20 +2,20 @@
 
 # Get started with Data Masking
 
-This quickstart gets the data masking component installed and lets you try the component with a test database. You need access to a Percona Server for MySQL 9.7 server. Follow the steps to install, set permissions, create sample data, and run masking examples. For production use and limitations, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.html).
+This quickstart gets the data masking component installed and lets you try the component with a test database. You need access to a Percona Server for MySQL 9.7 server. Follow the steps to install, set permissions, create sample data, and run masking examples. For production use and limitations, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.md).
 
 ## Prerequisites
 
 - Percona Server for MySQL (latest recommended).
-- The `component_masking_functions` library in the server plugin directory. Run `SHOW VARIABLES LIKE 'plugin_dir';` and confirm the library exists in that directory. If the library is missing, see [Install the data masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.html).
+- The `component_masking_functions` library in the server plugin directory. Run `SHOW VARIABLES LIKE 'plugin_dir';` and confirm the library exists in that directory. If the library is missing, see [Install the data masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.md).
 
 ## Install the component and set permissions
 
-Do these once, in order. Full details: [Install the data masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.html).
+Do these once, in order. Full details: [Install the data masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.md).
 
 1. Create the dictionary table (required before step 2):
 
-   ```
+   ```sql
    CREATE TABLE IF NOT EXISTS
    mysql.masking_dictionaries(
        Dictionary VARCHAR(256) NOT NULL,
@@ -26,43 +26,43 @@ Do these once, in order. Full details: [Install the data masking component](http
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.01 sec)
    ```
 
 1. Install the component:
 
-   ```
+   ```sql
    INSTALL COMPONENT 'file://component_masking_functions';
    ```
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
    ```
 
 1. Grant `mysql.session` access to the dictionary table (required for `gen_dictionary` and `gen_blocklist`):
 
-   ```
+   ```sql
    GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.masking_dictionaries TO 'mysql.session'@'localhost';
    ```
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
    ```
 
 1. Grant dictionary management to your user (required for the [dictionary-based masking](#optional-dictionary-based-masking) section below; skip if you will not try that section). Replace `<user>` and `<host>` with the MySQL user you connect as (for example, `root` and `localhost`):
 
-   ```
+   ```sql
    GRANT MASKING_DICTIONARIES_ADMIN ON *.* TO '<user>'@'<host>';
    ```
 
    Expected output
 
-   ```
+   ```text
    Query OK, 0 rows affected (0.00 sec)
    ```
 
@@ -72,7 +72,7 @@ Do these once, in order. Full details: [Install the data masking component](http
 
 Run the following script to create the database and both tables with sample rows. The script drops the database if the database already exists so you can run the script again without creating duplicate rows. The column types and values are chosen so you can try masking functions in the next sections.
 
-```
+```sql
 DROP DATABASE IF EXISTS masking_demo;
 CREATE DATABASE masking_demo;
 USE masking_demo;
@@ -111,7 +111,7 @@ VALUES
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 1 row affected (0.00 sec)
 Database changed
@@ -123,13 +123,13 @@ Query OK, 3 rows affected (0.00 sec)
 
 ## View raw data
 
-```
+```sql
 SELECT id, name, ssn, card_no, email, phone FROM contacts;
 ```
 
 Expected output
 
-```
+```text
 +----+--------------+-------------+------------------+-------------------------+----------------+
 | id | name         | ssn         | card_no          | email                   | phone          |
 +----+--------------+-------------+------------------+-------------------------+----------------+
@@ -142,13 +142,13 @@ Expected output
 
 ## Mask sensitive columns in queries
 
-The examples below use masking functions in `SELECT`; the table data is unchanged. Expected outputs in this guide are illustrative; results from random or dictionary-based functions vary on each run and may not match the examples. To enforce masking for other users, use a view (see [Expose masked data via a view](#expose-masked-data-via-a-view)) and restrict access to the base table. For limitations and security, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.html#limitations-and-security-considerations).
+The examples below use masking functions in `SELECT`; the table data is unchanged. Expected outputs in this guide are illustrative; results from random or dictionary-based functions vary on each run and may not match the examples. To enforce masking for other users, use a view (see [Expose masked data via a view](#expose-masked-data-via-a-view)) and restrict access to the base table. For limitations and security, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.md#limitations-and-security-considerations).
 
 ### Payment card and SSN
 
-[`mask_pan`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_panstr-mask_char) leaves the last four digits visible; [`mask_ssn`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_ssnstr-mask_char) does the same for SSN.
+[`mask_pan`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_panstr-mask_char) leaves the last four digits visible; [`mask_ssn`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_ssnstr-mask_char) does the same for SSN.
 
-```
+```sql
 SELECT
     name,
     mask_pan(card_no)   AS card_masked,
@@ -158,7 +158,7 @@ FROM contacts;
 
 Expected output
 
-```
+```text
 +--------------+------------------+-------------+
 | name         | card_masked      | ssn_masked  |
 +--------------+------------------+-------------+
@@ -171,9 +171,9 @@ Expected output
 
 ### Inner and outer parts of a string
 
-[`mask_inner`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_innerstr-margin1-margin2-mask_char) keeps the first and last character(s); [`mask_outer`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_outerstr-margin1-margin2-mask_char) masks the left and right ends. The third and fourth arguments are the number of characters to keep unmasked on the left and right.
+[`mask_inner`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_innerstr-margin1-margin2-mask_char) keeps the first and last character(s); [`mask_outer`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_outerstr-margin1-margin2-mask_char) masks the left and right ends. The third and fourth arguments are the number of characters to keep unmasked on the left and right.
 
-```
+```sql
 SELECT
     name,
     mask_inner(name, 1, 1)     AS name_inner_masked,
@@ -183,7 +183,7 @@ FROM contacts;
 
 Expected output
 
-```
+```text
 +--------------+------------------+------------------+
 | name         | name_inner_masked| phone_outer_masked|
 +--------------+------------------+------------------+
@@ -196,9 +196,9 @@ Expected output
 
 ### Generated values (for testing)
 
-[`gen_rnd_email()`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_rnd_emailname_size-surname_size-domain) and [`gen_rnd_ssn()`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_rnd_ssn) return new values each time. They are useful for generating test data, not for masking existing values in place.
+[`gen_rnd_email()`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_rnd_emailname_size-surname_size-domain) and [`gen_rnd_ssn()`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_rnd_ssn) return new values each time. They are useful for generating test data, not for masking existing values in place.
 
-```
+```sql
 SELECT
     id,
     gen_rnd_email(5, 8, 'test.example') AS generated_email,
@@ -208,7 +208,7 @@ FROM contacts;
 
 Expected output
 
-```
+```text
 +----+---------------------------+-------------+
 | id | generated_email           | generated_ssn|
 +----+---------------------------+-------------+
@@ -219,19 +219,19 @@ Expected output
 3 rows in set (0.00 sec)
 ```
 
-Output will vary on each run and may not match the expected results above. For constraints and caveats, see [Data masking component functions and variables](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html).
+Output will vary on each run and may not match the expected results above. For constraints and caveats, see [Data masking component functions and variables](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md).
 
 ### International data masking functions
 
-The component includes functions for region-specific identifiers: Canadian Social Insurance Number (SIN) ([`mask_canada_sin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_canada_sinstr-mask_char)), United Kingdom National Insurance Number (NIN) ([`mask_uk_nin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_uk_ninstr-mask_char)), and International Bank Account Number (IBAN) ([`mask_iban`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_ibanstr-mask_char)). The script above already created the `contacts_intl` table. View the raw data, then apply the region-specific masking functions:
+The component includes functions for region-specific identifiers: Canadian Social Insurance Number (SIN) ([`mask_canada_sin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_canada_sinstr-mask_char)), United Kingdom National Insurance Number (NIN) ([`mask_uk_nin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_uk_ninstr-mask_char)), and International Bank Account Number (IBAN) ([`mask_iban`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_ibanstr-mask_char)). The script above already created the `contacts_intl` table. View the raw data, then apply the region-specific masking functions:
 
-```
+```sql
 SELECT name, country, canada_sin, uk_nin, iban FROM contacts_intl;
 ```
 
 Expected output
 
-```
+```text
 +----------------+---------+-------------+----------------+------------------------------+
 | name           | country | canada_sin  | uk_nin     | iban                         |
 +----------------+---------+-------------+----------------+------------------------------+
@@ -242,7 +242,7 @@ Expected output
 3 rows in set (0.00 sec)
 ```
 
-```
+```sql
 SELECT
     name,
     country,
@@ -254,7 +254,7 @@ FROM contacts_intl;
 
 Expected output
 
-```
+```text
 +----------------+---------+------------------+---------------+----------------------------+
 | name           | country | canada_sin_masked| uk_nin_masked | iban_masked                |
 +----------------+---------+------------------+---------------+----------------------------+
@@ -265,13 +265,13 @@ Expected output
 3 rows in set (0.00 sec)
 ```
 
-Each function returns NULL when the input is NULL. For more options (for example, custom mask characters) and the corresponding generators ([`gen_rnd_canada_sin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_rnd_canada_sin), [`gen_rnd_uk_nin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_rnd_uk_nin), [`gen_rnd_iban`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_rnd_ibancountry-size)), see [Data masking component functions and variables](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html).
+Each function returns NULL when the input is NULL. For more options (for example, custom mask characters) and the corresponding generators ([`gen_rnd_canada_sin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_rnd_canada_sin), [`gen_rnd_uk_nin`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_rnd_uk_nin), [`gen_rnd_iban`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_rnd_ibancountry-size)), see [Data masking component functions and variables](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md).
 
 ### Expose masked data via a view
 
 To ensure that only masked data is visible, define a view that applies the masking functions and grant `SELECT` on the view (not on the base table) to users who should see masked data. Example:
 
-```
+```sql
 DROP VIEW IF EXISTS contacts_masked;
 CREATE VIEW contacts_masked AS
 SELECT
@@ -289,7 +289,7 @@ SELECT id, name, card_no, ssn, email, phone FROM contacts_masked;
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.00 sec)
 
@@ -303,19 +303,19 @@ Query OK, 0 rows affected (0.00 sec)
 3 rows in set (0.00 sec)
 ```
 
-The view uses [`mask_outer(..., 2, 4)`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#mask_outerstr-margin1-margin2-mask_char) for email and phone. Grant `SELECT` on the view (not the base table) to users who should see masked data only. For access control and limitations, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.html#limitations-and-security-considerations).
+The view uses [`mask_outer(..., 2, 4)`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#mask_outerstr-margin1-margin2-mask_char) for email and phone. Grant `SELECT` on the view (not the base table) to users who should see masked data only. For access control and limitations, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.md#limitations-and-security-considerations).
 
 ## Optional: dictionary-based masking
 
-Functions such as [`gen_dictionary`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_dictionarydictionary_name) and [`gen_blocklist`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_blockliststr-from_dictionary_name-to_dictionary_name) use the `mysql.masking_dictionaries` table.
+Functions such as [`gen_dictionary`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_dictionarydictionary_name) and [`gen_blocklist`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_blockliststr-from_dictionary_name-to_dictionary_name) use the `mysql.masking_dictionaries` table.
 
-You need the [step 4 grant (MASKING_DICTIONARIES_ADMIN)](#install-the-component-and-set-permissions) and the step 3 grant to `mysql.session` described in the [install guide](https://docs.percona.com/percona-server/9.7/install-data-masking-component.html).
+You need the [step 4 grant (MASKING_DICTIONARIES_ADMIN)](#install-the-component-and-set-permissions) and the step 3 grant to `mysql.session` described in the [install guide](https://docs.percona.com/percona-server/9.7/install-data-masking-component.md).
 
-Add a small dictionary with [`masking_dictionary_term_add`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#masking_dictionary_term_adddictionary_name-term_name), then try [`gen_dictionary`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#gen_dictionarydictionary_name).
+Add a small dictionary with [`masking_dictionary_term_add`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#masking_dictionary_term_adddictionary_name-term_name), then try [`gen_dictionary`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#gen_dictionarydictionary_name).
 
 The role column is chosen at random from the dictionary; your output will vary and may not match the expected results.
 
-```
+```sql
 SELECT masking_dictionary_term_add('roles', 'Engineer');
 SELECT masking_dictionary_term_add('roles', 'Analyst');
 SELECT masking_dictionary_term_add('roles', 'Manager');
@@ -325,7 +325,7 @@ SELECT id, name, gen_dictionary('roles') AS role FROM contacts;
 
 Expected output (role column varies; your output may not match)
 
-```
+```text
 +-----------------------------------------------+
 | masking_dictionary_term_add('roles', 'Engineer')|
 +-----------------------------------------------+
@@ -357,24 +357,24 @@ Expected output (role column varies; your output may not match)
 3 rows in set (0.00 sec)
 ```
 
-To remove the dictionary when finished: `SELECT masking_dictionary_remove('roles');` ([`masking_dictionary_remove`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html#masking_dictionary_removedictionary_name)). For large dictionaries or production use, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.html) and [function list](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html).
+To remove the dictionary when finished: `SELECT masking_dictionary_remove('roles');` ([`masking_dictionary_remove`](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md#masking_dictionary_removedictionary_name)). For large dictionaries or production use, see the [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.md) and [function list](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md).
 
 ## Clean up (optional)
 
 To remove the test database and all objects in the database (tables, the `contacts_masked` view, and data):
 
-```
+```sql
 DROP DATABASE IF EXISTS masking_demo;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 ## Additional resources
 
-- [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.html)
-- [Install the data masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.html)
-- [Data masking component functions and variables](https://docs.percona.com/percona-server/9.7/data-masking-function-list.html)
+- [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.md)
+- [Install the data masking component](https://docs.percona.com/percona-server/9.7/install-data-masking-component.md)
+- [Data masking component functions and variables](https://docs.percona.com/percona-server/9.7/data-masking-function-list.md)

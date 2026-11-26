@@ -2,7 +2,7 @@
 
 # Percona Server for MySQL 9.7 - Documentation
 
-This documentation is for the latest release: Percona Server for MySQL 9.7.2-3 ([Release Notes](https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-3.html)).
+This documentation is for the latest release: Percona Server for MySQL 9.7.2-3 ([Release Notes](https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-3.md)).
 
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, and increased visibility and instrumentation.
 
@@ -28,9 +28,9 @@ Start here to choose your installation path.
 1. Are you deploying on Kubernetes (a platform for running containerized applications)?
 
    - Yes → Use [Percona Operator for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) (for Percona Server for MySQL) or [Percona Operator for MySQL based on Percona XtraDB Cluster (PXC)](https://docs.percona.com/percona-operator-for-mysql/pxc/) (for a clustered, high-availability setup). Operators automate deployment, scaling, backups, and failover on Kubernetes.
-   - No → Not sure? [Learn more about the differences](https://docs.percona.com/percona-server/9.7/ps-or-pdps.html) to compare options.
+   - No → Not sure? [Learn more about the differences](https://docs.percona.com/percona-server/9.7/ps-or-pdps.md) to compare options.
 
-[Learn more about the differences →](https://docs.percona.com/percona-server/9.7/ps-or-pdps.html)
+[Learn more about the differences →](https://docs.percona.com/percona-server/9.7/ps-or-pdps.md)
 
 ## For Monitoring and Management
 
@@ -38,34 +38,34 @@ Percona Monitoring and Management (PMM) monitors and provides actionable perform
 
 [Get started with PMM](https://docs.percona.com/percona-monitoring-and-management/3/quickstart/quickstart.html) .
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Quickstart guide
 
 Get started quickly with our Quickstart guide.
 
-[Quickstart guide](https://docs.percona.com/percona-server/9.7/quickstart-overview.html)
+[Quickstart guide](https://docs.percona.com/percona-server/9.7/quickstart-overview.md)
 
 ### Installation guides
 
 Find the best installation solution with our step-by-step installation instructions.
 
-[Installation instructions](https://docs.percona.com/percona-server/9.7/installation.html)
+[Installation instructions](https://docs.percona.com/percona-server/9.7/installation.md)
 
 ### Upgrade instructions
 
 Upgrade your Percona Server for MySQL installation with our comprehensive upgrade guides.
 
-[Upgrade instructions](https://docs.percona.com/percona-server/9.7/upgrade.html)
+[Upgrade instructions](https://docs.percona.com/percona-server/9.7/upgrade.md)
 
 ### Planning for MySQL 9.7 LTS?
 
 Plan your migration to Percona Server for MySQL 9.7 LTS from APT, DNF, or YUM packages.
 
-See the [MySQL 9.7 technical migration overview](https://docs.percona.com/percona-server/9.7/whats-new-mysql-9.html) for breaking changes, compatibility, removed items, defaults, and tuning.
+See the [MySQL 9.7 technical migration overview](https://docs.percona.com/percona-server/9.7/whats-new-mysql-9.md) for breaking changes, compatibility, removed items, defaults, and tuning.
 
 ## Audit Log Filter component
 
 Learn about the Audit Log Filter component that allows you to monitor, log, and block a connection or query actively executed on the selected server.
 
-[Audit Log Filter](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
+[Audit Log Filter](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)

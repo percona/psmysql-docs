@@ -16,12 +16,12 @@ Rotation leaves multiple files on disk. Protect every generation.
 
 Audit log writes pass through the OS page cache by default. On busy servers with high audit throughput, recently written events can persist in kernel buffer memory until the page cache flushes them to disk. Other processes on the same host with read access to `/proc/<pid>/pagemap` or `/dev/mem` may observe those buffers.
 
-Enable [`audit_log_filter.direct_io`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterdirect_io) to open the audit log file with `O_DIRECT` and bypass the OS page cache. The component falls back to buffered I/O with a warning when the file system does not support `O_DIRECT` or when a direct write fails at runtime. The variable is a tech preview and requires a server restart to change.
+Enable [`audit_log_filter.direct_io`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filterdirect_io) to open the audit log file with `O_DIRECT` and bypass the OS page cache. The component falls back to buffered I/O with a warning when the file system does not support `O_DIRECT` or when a direct write fails at runtime. The variable is a tech preview and requires a server restart to change.
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
-- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.html)
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) — `audit_log_filter.file` and `audit_log_filter.handler`
-- [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.md)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md) — `audit_log_filter.file` and `audit_log_filter.handler`
+- [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.md)

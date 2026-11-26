@@ -2,7 +2,7 @@
 
 # Troubleshoot SQL code
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Troubleshooting SQL Code
 
@@ -22,13 +22,13 @@ Troubleshooting SQL Code example:
 
 Suppose you have the following SQL query that is not returning the expected results:
 
-```
+```text
 SELECT * FORM users WHERE age = 30;
 ```
 
 After reviewing the error message returned by MySQL, you notice a typo in the query. The keyword “FORM” should be “FROM”. After correcting the typo, the query becomes:
 
-```
+```text
 SELECT * FROM users WHERE age = 30;
 ```
 
@@ -36,12 +36,12 @@ Now, the query should execute successfully and return the desired results.
 
 ## Advanced SQL features
 
-- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.html)
-- [Functions](https://docs.percona.com/percona-server/9.7/functions.html)
-- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.html)
-- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.html)
-- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.html)
-- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.html)
+- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.md)
+- [Functions](https://docs.percona.com/percona-server/9.7/functions.md)
+- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.md)
+- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.md)
+- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.md)
+- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.md)

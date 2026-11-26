@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona Server for MySQL 9.7, a drop-in replacement for MySQL Community with added performance, scalability and backup features, with installation, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/audit-log-filter-naming.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/audit-log-filter-naming.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/audit-log-filter-naming.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10759,19 +10759,19 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Examples:</p>
-<div class="highlight"><pre><span></span><code>20230417T082215-1
+<div class="language-text highlight"><pre><span></span><code>20230417T082215-1
 20230301T061400-1
 20230301T061400-2
 </code></pre></div>
 <p>Example encrypted file names:</p>
-<div class="highlight"><pre><span></span><code>audit_filter.log.20230417T082215-1.enc
+<div class="language-text highlight"><pre><span></span><code>audit_filter.log.20230417T082215-1.enc
 audit_filter.log.20230301T061400-1.enc
 audit_filter.log.20230301T061400-2.enc
 </code></pre></div>
 <p>The password with the highest sequence for a given timestamp is the current password.</p>
 <h2 id="rotation-sequence-suffix">Rotation sequence suffix<a data-markdown-ignore class="headerlink" href="#rotation-sequence-suffix" title="Permanent link">&para;</a></h2>
 <p>Multiple rotations in the same second append <code>-N</code> so the server never overwrites a prior file:</p>
-<div class="highlight"><pre><span></span><code>audit_filter.20250401T120000.log      -- first rotation at 12:00:00
+<div class="language-text highlight"><pre><span></span><code>audit_filter.20250401T120000.log      -- first rotation at 12:00:00
 audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 </code></pre></div>
 <p>Update parsers to accept the optional <code>-N</code> suffix.</p>

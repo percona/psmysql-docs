@@ -12,7 +12,7 @@ Percona Server for MySQL 9.7 follows MySQL 9.x authentication rules.
 - The `default_authentication_plugin` system variable is not used in MySQL 9.x.
 - Password-based authentication for new accounts uses `caching_sha2_password` by default.
 
-Upgrading from 8.4 LTS: On 8.4 LTS, `mysql_native_password` was disabled by default but could still be enabled for compatibility. Before cutover to 9.7, inventory accounts and clients that rely on native password authentication, migrate them to `caching_sha2_password` (or another supported plugin), and verify connector support. See [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html) and [Use an APT repository to install Percona Server for MySQL](https://docs.percona.com/percona-server/9.7/apt-repo.html) (configure authentication during package install).
+Upgrading from 8.4 LTS: On 8.4 LTS, `mysql_native_password` was disabled by default but could still be enabled for compatibility. Before cutover to 9.7, inventory accounts and clients that rely on native password authentication, migrate them to `caching_sha2_password` (or another supported plugin), and verify connector support. See [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md) and [Use an APT repository to install Percona Server for MySQL](https://docs.percona.com/percona-server/9.7/apt-repo.md) (configure authentication during package install).
 
 ## Common Authentication Methods
 

@@ -2,7 +2,7 @@
 
 # Use the keyring file component
 
-The `component_keyring_file` component stores encryption keys in a local file on the server filesystem. Percona Server for MySQL uses this component for [data at rest encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html), including InnoDB tablespace encryption and encrypted redo and undo logs. Other server features that need a keyring, such as the audit log filter component, can also use it.
+The `component_keyring_file` component stores encryption keys in a local file on the server filesystem. Percona Server for MySQL uses this component for [data at rest encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.md), including InnoDB tablespace encryption and encrypted redo and undo logs. Other server features that need a keyring, such as the audit log filter component, can also use it.
 
 In Percona Server for MySQL 9.7, the supported keyring model is component-based. The legacy `keyring_file` plugin is not available.
 
@@ -12,9 +12,9 @@ Percona Server for MySQL 9.7 does not support the `keyring_file` plugin. Use `co
 
 Enable only one keyring at a time. Do not load legacy keyring plugins (such as `keyring_file` or `keyring_vault`) together with a keyring component.
 
-If you already have data encrypted with a legacy keyring plugin, plan a migration before switching to the component keyring. Keys and encrypted data from the old plugin are not readable by the new component without migration. See [Upgrade components](https://docs.percona.com/percona-server/9.7/upgrade-components.html) and [Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.html).
+If you already have data encrypted with a legacy keyring plugin, plan a migration before switching to the component keyring. Keys and encrypted data from the old plugin are not readable by the new component without migration. See [Upgrade components](https://docs.percona.com/percona-server/9.7/upgrade-components.md) and [Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.md).
 
-For a step-by-step setup walkthrough, see [Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.html).
+For a step-by-step setup walkthrough, see [Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.md).
 
 A keyring component loads at server startup from a manifest file. The component reads a JSON configuration file during initialization. Do not load a keyring component with `INSTALL COMPONENT`. InnoDB needs the keyring before the `mysql.component` table is available.
 
@@ -50,7 +50,7 @@ Replace `<component_name>` in the following examples with one of the components 
 
 The following example shows a global manifest that loads a component directly:
 
-```
+```json
 {
   "components": "file://<component_name>"
 }
@@ -58,7 +58,7 @@ The following example shows a global manifest that loads a component directly:
 
 The following example shows a global manifest that delegates to the local manifest:
 
-```
+```json
 {
   "read_local_manifest": true
 }
@@ -66,7 +66,7 @@ The following example shows a global manifest that delegates to the local manife
 
 The following example shows a local manifest:
 
-```
+```json
 {
   "components": "file://<component_name>"
 }
@@ -96,10 +96,10 @@ A `mysqld` startup proceeds in the following order:
 
 The keyring must load between steps 1 and 3. The following table explains why each alternative mechanism fails to load the keyring within this window:
 
-| Mechanism                                                                                 | Reason for failure                                                                                                                                                                                                                                                                                                                                                                                |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`INSTALL COMPONENT`](https://docs.percona.com/percona-server/9.7/install-component.html) | The statement runs as SQL and cannot execute until step 4. The registration record lives in `mysql.component`, an `InnoDB` table that the server reads only after `InnoDB` initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL. |
-| `--early-plugin-load`                                                                     | The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.                                                                                                                                                                                                                               |
+| Mechanism                                                                               | Reason for failure                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`INSTALL COMPONENT`](https://docs.percona.com/percona-server/9.7/install-component.md) | The statement runs as SQL and cannot execute until step 4. The registration record lives in `mysql.component`, an `InnoDB` table that the server reads only after `InnoDB` initializes. The system tablespace cannot decrypt without the keyring, which creates a circular dependency. Crash recovery also runs before the SQL layer, so the encrypted redo log must remain readable without SQL. |
+| `--early-plugin-load`                                                                   | The flag applies to legacy keyring plugins, not components. Plugins and components load through separate subsystems. The flag cannot locate component entry points.                                                                                                                                                                                                                               |
 
 A component registered through `INSTALL COMPONENT` on a running server does not persist across restarts. On the next restart, `InnoDB` cannot unwrap tablespace keys because no manifest file exists on disk. A missing or malformed `mysqld.my` therefore prevents startup for any instance with encrypted tablespaces.
 
@@ -119,7 +119,7 @@ To install a keyring component:
 
 Connect to the server and run the following query:
 
-```
+```sql
 SELECT * FROM performance_schema.keyring_component_status;
 ```
 
@@ -129,11 +129,11 @@ The query returns one row per status field. The `Component_status` field reports
 
 ### Rotate the master key
 
-The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence. Scheduled rotation limits the volume of data wrapped by any single master key. See [Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html) for the role of the master key.
+The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence. Scheduled rotation limits the volume of data wrapped by any single master key. See [Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.md) for the role of the master key.
 
 Run the following statement to rotate the master key:
 
-```
+```sql
 ALTER INSTANCE ROTATE INNODB MASTER KEY;
 ```
 
@@ -143,7 +143,7 @@ The rotation operation is fast. The server does not re-encrypt the tablespace da
 
 Earlier master keys must remain in the keyring. Deleting an earlier master key prevents the server from reading data that was wrapped with that key.
 
-For required privileges and the full rotation procedure, see [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.html).
+For required privileges and the full rotation procedure, see [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.md).
 
 ### Monitor the keyring
 
@@ -192,7 +192,7 @@ The server reads a global manifest from the directory that contains the `mysqld`
 
 The following example is a global manifest file that does not use local manifests:
 
-```
+```json
 {
   "read_local_manifest": false,
   "components": "file://component_keyring_file"
@@ -201,7 +201,7 @@ The following example is a global manifest file that does not use local manifest
 
 The following is an example of a global manifest file that points to a local manifest file:
 
-```
+```json
 {
   "read_local_manifest": true
 }
@@ -209,7 +209,7 @@ The following is an example of a global manifest file that points to a local man
 
 The following is an example of a local manifest file:
 
-```
+```json
 {
   "components": "file://component_keyring_file"
 }
@@ -225,7 +225,7 @@ The component reads settings from a JSON configuration file named `component_key
 
 By default, the global configuration file is in the plugin directory. Confirm the path with:
 
-```
+```sql
 SELECT @@plugin_dir;
 ```
 
@@ -250,7 +250,7 @@ The `component_keyring_file.cnf` file supports the following options:
 
 Example of a configuration file in JSON format
 
-```
+```json
 {
   "path": "/var/lib/mysql-keyring/component_keyring_file",
   "read_only": false
@@ -261,13 +261,13 @@ Protect the keyring data file
 
 The file at `path` holds the keys that decrypt your data. Restrict filesystem access to the keyring directory and include the keyring file in your backup and restore procedures.
 
-If the keyring file is lost, corrupted, or replaced, encrypted tablespaces, redo logs, and undo logs that depend on those keys are **unrecoverable**. Do not delete or manually edit the keyring file to rotate keys. Use [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.html) instead.
+If the keyring file is lost, corrupted, or replaced, encrypted tablespaces, redo logs, and undo logs that depend on those keys are **unrecoverable**. Do not delete or manually edit the keyring file to rotate keys. Use [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.md) instead.
 
 ## Verify the component is loaded
 
 After a restart, confirm that the keyring is active:
 
-```
+```sql
 SELECT * FROM performance_schema.keyring_component_status;
 ```
 
@@ -282,7 +282,7 @@ When the component loaded successfully, the result includes:
 
 Example:
 
-```
+```text
 +---------------------+-----------------------------------------------+
 | STATUS_KEY          | STATUS_VALUE                                  |
 +---------------------+-----------------------------------------------+
@@ -293,7 +293,7 @@ Example:
 +---------------------+-----------------------------------------------+
 ```
 
-An `Active` status means the keyring is ready. It does not mean your data is encrypted yet. Enable encryption separately for tables, tablespaces, and logs. See [Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html).
+An `Active` status means the keyring is ready. It does not mean your data is encrypted yet. Enable encryption separately for tables, tablespaces, and logs. See [Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.md).
 
 If the server starts but the component is missing or inactive, check the error log (`SELECT @@log_error;`) for JSON syntax errors in the manifest or configuration file, missing component libraries in `@@plugin_dir`, or permission problems on the manifest, configuration, or keyring paths.
 
@@ -301,19 +301,19 @@ If the server starts but the component is missing or inactive, check the error l
 
 With `component_keyring_file` active, you can enable transparent data encryption (TDE) for:
 
-- Individual tables and schema defaults — see [Encrypt file-per-table tablespace](https://docs.percona.com/percona-server/9.7/encrypt-file-per-table-tablespace.html) and [Encrypt schema or general tablespace](https://docs.percona.com/percona-server/9.7/encrypt-tablespaces.html)
-- The system tablespace — see [Encrypt system tablespace](https://docs.percona.com/percona-server/9.7/encrypt-system-tablespace.html)
-- Redo and undo logs — see [Log encryption](https://docs.percona.com/percona-server/9.7/encrypt-logs.html)
-- Binary and relay logs — see [Encrypt binary log files and relay log files](https://docs.percona.com/percona-server/9.7/encrypt-binary-relay-log-files.html)
+- Individual tables and schema defaults — see [Encrypt file-per-table tablespace](https://docs.percona.com/percona-server/9.7/encrypt-file-per-table-tablespace.md) and [Encrypt schema or general tablespace](https://docs.percona.com/percona-server/9.7/encrypt-tablespaces.md)
+- The system tablespace — see [Encrypt system tablespace](https://docs.percona.com/percona-server/9.7/encrypt-system-tablespace.md)
+- Redo and undo logs — see [Log encryption](https://docs.percona.com/percona-server/9.7/encrypt-logs.md)
+- Binary and relay logs — see [Encrypt binary log files and relay log files](https://docs.percona.com/percona-server/9.7/encrypt-binary-relay-log-files.md)
 
-To confirm encryption settings after you enable them, see [Verify encryption](https://docs.percona.com/percona-server/9.7/verify-encryption.html).
+To confirm encryption settings after you enable them, see [Verify encryption](https://docs.percona.com/percona-server/9.7/verify-encryption.md).
 
 ## Operational notes
 
 - **Backups** — back up the keyring file together with encrypted data. Restoring encrypted tablespaces or logs without the matching keyring file fails.
 - **Cloning and migration** — when you move an instance to new hardware or copy a datadir, copy the keyring file to the new host before starting the server with encrypted data.
 - **Percona XtraDB Cluster (PXC)** — the keyring file is not replicated. Copy the keyring file from the bootstrap node to other nodes before they start with encrypted data.
-- **Master key rotation** — use `ALTER INSTANCE ROTATE INNODB MASTER KEY` to rotate the InnoDB master key. See [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.html).
+- **Master key rotation** — use `ALTER INSTANCE ROTATE INNODB MASTER KEY` to rotate the InnoDB master key. See [Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.md).
 - **Permissions** — the MySQL server user needs read access to the manifest and configuration files and read/write access to the keyring directory. A typical layout is `root:root` with mode `644` on the manifest, `640` on the configuration file, and `750` on the keyring directory owned by the MySQL user.
 
 ## Uninstall the component
@@ -328,12 +328,12 @@ Do not delete the keyring data file if any data on the instance was encrypted wi
 
 See also
 
-[Keyring components overview](https://docs.percona.com/percona-server/9.7/keyring-components-plugins-overview.html)
+[Keyring components overview](https://docs.percona.com/percona-server/9.7/keyring-components-plugins-overview.md)
 
-[Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.html)
+[Get Started with component keyring](https://docs.percona.com/percona-server/9.7/quickstart-component-keyring.md)
 
-[Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.html)
+[Data at Rest Encryption](https://docs.percona.com/percona-server/9.7/data-at-rest-encryption.md)
 
-[Upgrade components](https://docs.percona.com/percona-server/9.7/upgrade-components.html)
+[Upgrade components](https://docs.percona.com/percona-server/9.7/upgrade-components.md)
 
-[Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.html)
+[Rotate the master encryption key](https://docs.percona.com/percona-server/9.7/rotate-master-key.md)

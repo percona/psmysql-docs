@@ -2,7 +2,7 @@
 
 # Data masking component functions and variables
 
-The feature is in [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview). This page is a catalog of individual functions and variables. For the security model, use cases, and when to apply masking (including limitations and failure modes), see [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.html) and the [Limitations and security considerations](https://docs.percona.com/percona-server/9.7/data-masking-overview.html#limitations-and-security-considerations) section. Performance characteristics (latency, complexity, scalability) are not documented; for large result sets or SLA-critical workloads, benchmark and evaluate per-row overhead. The component does not provide a function to test whether a value is already masked; auditing that masking has been applied to required rows must be done by application logic, known patterns, or other tooling.
+The feature is in [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview). This page is a catalog of individual functions and variables. For the security model, use cases, and when to apply masking (including limitations and failure modes), see [Data masking overview](https://docs.percona.com/percona-server/9.7/data-masking-overview.md) and the [Limitations and security considerations](https://docs.percona.com/percona-server/9.7/data-masking-overview.md#limitations-and-security-considerations) section. Performance characteristics (latency, complexity, scalability) are not documented; for large result sets or SLA-critical workloads, benchmark and evaluate per-row overhead. The component does not provide a function to test whether a value is already masked; auditing that masking has been applied to required rows must be done by application logic, known patterns, or other tooling.
 
 To find a function by what the function does, use the “Find by task” table or the full list below. Each function name links to that function’s definition later on this page.
 
@@ -57,13 +57,13 @@ The dictionary-related functions do not run internal queries as the root user wi
 
 However, for dictionary operations to work, you need to grant the mysql.session user `SELECT`, `INSERT`, `UPDATE`, and `DELETE` privileges on the `masking_dictionaries` table. Granting `UPDATE` and `DELETE` allows the server to modify or remove dictionary data. Compromise of the server or abuse of that user could allow dictionary tampering or deletion, causing dictionary-based functions to fail or return unexpected values; protect the server and the `mysql` schema accordingly.
 
-```
+```sql
 GRANT SELECT, INSERT, UPDATE, DELETE ON mysql.masking_dictionaries TO 'mysql.session'@'localhost';
 ```
 
 If you change the value of the `masking_functions.masking_database` system variable to something other than `mysql`, make sure to update the `GRANT` query to match the new value.
 
-```
+```sql
 GRANT SELECT, INSERT, UPDATE, DELETE ON <masking_functions.masking_database>.masking_dictionaries TO 'mysql.session'@'localhost';
 ```
 
@@ -99,13 +99,13 @@ If `str` is in `from_dictionary_name`, a randomly selected term from `to_diction
 
 ### Example
 
-```
+```sql
 SELECT gen_blocklist('apple', 'fruit', 'nut');
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------------------+
 | gen_blocklist('apple', 'fruit', 'nut')  |
 +-----------------------------------------+
@@ -131,13 +131,13 @@ A random term from the dictionary listed in `dictionary_name` in the `utf8mb4` c
 
 ### Example
 
-```
+```sql
 SELECT gen_dictionary('trees');
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------------------+
 | gen_dictionary('trees')                          |
 +--------------------------------------------------+
@@ -164,13 +164,13 @@ An integer, selected at random, from an inclusive range defined by the `lower` p
 
 ### Example
 
-```
+```sql
 SELECT gen_range(10, 100);
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | gen_range(10,100)                    |
 +--------------------------------------+
@@ -196,13 +196,13 @@ Returns a Canada SIN formatted in three groups of three digits (for example, 123
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_canada_sin();
 ```
 
 Expected output
 
-```
+```text
 +-------------------------+
 | gen_rnd_canada_sin()    |
 +-------------------------+
@@ -228,13 +228,13 @@ A generated string in the same character set as `domain`. If the `domain` value 
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_email(name_size=4, surname_size=5, domain='example.test');
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------------+
 | gen_rnd_email(4, 5, 'example.test')   |
 +----------------------------------------+
@@ -269,13 +269,13 @@ The character set is the same as the `country` parameter or if that parameter is
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_iban();
 ```
 
 Expected output
 
-```
+```text
 +-------------------+
 | gen_rnd_iban()    |
 +-------------------+
@@ -308,13 +308,13 @@ A random PAN string in `utf8mb4` character set.
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_pan();
 ```
 
 Expected output
 
-```
+```text
 +-------------------+
 | gen_rnd_pan()     |
 +-------------------+
@@ -336,13 +336,13 @@ An SSN string in nine-digit format “AAA-GG-SSSS” in the `utf8mb4` character 
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_ssn();
 ```
 
 Expected output
 
-```
+```text
 +----------------+
 | gen_rnd_ssn()  |
 +----------------+
@@ -368,13 +368,13 @@ A NIN string in the `utf8mb4` character set. The string is nine (9) characters i
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_uk_nin();
 ```
 
 Expected output
 
-```
+```text
 +----------------------+
 | gen_rnd_uk_nin()     |
 +----------------------+
@@ -396,13 +396,13 @@ Returns a United States phone number in the `utf8mb4` character set.
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_us_phone();
 ```
 
 Expected output
 
-```
+```text
 +--------------------+
 | gen_rnd_us_phone() |
 +--------------------+
@@ -424,13 +424,13 @@ Returns a UUID as a string in the `utf8mb4` character set.
 
 ### Example
 
-```
+```sql
 SELECT gen_rnd_uuid();
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------+
 | gen_rnd_uuid()                     |
 +------------------------------------+
@@ -463,13 +463,13 @@ Returns a NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_canada_sin('555-555-555');
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------+
 | mask_canada_sin('555-555-555') |
 +--------------------------------+
@@ -505,13 +505,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_iban('DE27 1002 02003 77495 4156');
 ```
 
 Expected output
 
-```
+```text
 +---------------------------------------------+
 | mask_iban('DE27 1002 02003 77495 4156')     |
 +---------------------------------------------+
@@ -548,13 +548,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_inner('123456789', 1, 2);
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------------+
 | mask_inner('123456789', 1, 2)     |
 +-----------------------------------+
@@ -591,13 +591,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_outer('123456789', 2, 2);
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------+
 | mask_outer('123456789', 2, 2)     |
 +------------------------------------+
@@ -630,13 +630,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_pan (gen_rnd_pan());
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------+
 | mask_pan(gen_rnd_pan())            |
 +------------------------------------+
@@ -671,13 +671,13 @@ Returns NULL if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_pan_relaxed(gen_rnd_pan());
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------------+
 | mask_pan_relaxed(gen_rnd_pan())          |
 +------------------------------------------+
@@ -713,13 +713,13 @@ Returns a NULL value if you invoke this function with NULL as the primary argume
 
 ### Example
 
-```
+```sql
 SELECT mask_ssn('555-55-5555', 'X');
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------+
 | mask_ssn('555-55-5555','X') |
 +-----------------------------+
@@ -752,13 +752,13 @@ Returns a NULL value if you invoke this function with NULL as the primary argume
 
 ### Example
 
-```
+```sql
 SELECT mask_uk_nin ('CT 26 46 83 D');
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------+
 | mask_uk_nin('CT 26 46 83 D')       |
 +------------------------------------+
@@ -791,13 +791,13 @@ Returns `NULL` if you invoke this function with NULL as the primary argument.
 
 ### Example
 
-```
+```sql
 SELECT mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002');
 ```
 
 Expected output
 
-```
+```text
 +-------------------------------------------------------+
 | mask_uuid('9a3b642c-06c6-11ee-be56-0242ac120002')     |
 +-------------------------------------------------------+
@@ -819,13 +819,13 @@ Returns an integer value of `1` (one) when successful.
 
 ### Example
 
-```
+```sql
 SELECT masking_dictionaries_flush();
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+
 | masking_dictionaries_flush() |
 +------------------------------+
@@ -851,13 +851,13 @@ Returns an integer value of `1` (one) if the operation is successful. Returns th
 
 ### Example
 
-```
+```sql
 SELECT masking_dictionary_remove('trees');
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------------+
 | masking_dictionary_remove('trees')       |
 +------------------------------------------+
@@ -888,7 +888,7 @@ The operation uses `INSERT IGNORE` and can have the following outcomes:
 
 The following command returns the table information:
 
-```
+```sql
 DESCRIBE mysql.masking_dictionaries;
 ```
 
@@ -896,7 +896,7 @@ The result returns the table structure.
 
 Expected output
 
-```
+```text
 +------------+--------------+------+-----+---------+-------+
 | Field      | Type         | Null | Key | Default | Extra |
 +------------+--------------+------+-----+---------+-------+
@@ -910,13 +910,13 @@ Modify the table with an `ALTER TABLE` statement, if needed.
 
 ### Example
 
-```
+```sql
 SELECT masking_dictionary_term_add('trees','pine');
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------------------------+
 | masking_dictionary_term_add('trees', 'pine')  |
 +-----------------------------------------------+
@@ -948,13 +948,13 @@ Returns `NULL` if the operation fails. An operation can fail if the following oc
 
 ### Example
 
-```
+```sql
 SELECT masking_dictionary_term_remove('trees','pine');
 ```
 
 Expected output
 
-```
+```text
 +-------------------------------------------------------+
 | masking_dictionary_term_remove('trees', 'pine')       |
 +-------------------------------------------------------+

@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/show-engines.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/show-engines.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/show-engines.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10562,11 +10562,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="show-storage-engines">Show storage engines<a data-markdown-ignore class="headerlink" href="#show-storage-engines" title="Permanent link">&para;</a></h1>
 <p>This feature changes the comment field displayed when the <code>SHOW STORAGE ENGINES</code> command is executed and <em>XtraDB</em> is the storage engine.</p>
 <p>Before the Change:</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="k">storage</span><span class="w"> </span><span class="n">engines</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="k">storage</span><span class="w"> </span><span class="n">engines</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+---------+----------------------------------------------------------------+--------------+------+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------+---------+----------------------------------------------------------------+--------------+------+------------+
 | Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
 | InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
@@ -10575,11 +10575,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>After the Change:</p>
-<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="k">storage</span><span class="w"> </span><span class="n">engines</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="k">storage</span><span class="w"> </span><span class="n">engines</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
 | Engine     | Support | Comment                                                                    | Transactions |   XA | Savepoints |
 +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
 | InnoDB     | YES     | Percona-XtraDB, Supports transactions, row-level locking, and foreign keys |          YES | YES  | YES        |

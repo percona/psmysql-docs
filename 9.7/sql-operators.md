@@ -34,49 +34,49 @@ Example of Using SQL Operators:
 
 - **Arithmetic Operator Example**:
 
-```
+```sql
 SELECT 10 * 5; -- Multiplication
 ```
 
 - **Comparison Operator Example**:
 
-```
+```sql
 SELECT * FROM products WHERE price > 100; -- Select products with price greater than 100
 ```
 
 - **Logical Operator Example**:
 
-```
+```sql
 SELECT * FROM customers WHERE age >= 18 AND age <= 30; -- Select customers aged between 18 and 30
 ```
 
 - **Concatenation Operator Example**:
 
-```
+```sql
 SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees; -- Concatenate first name and last name
 ```
 
 - **Bitwise Operator Example**:
 
-```
+```sql
 SELECT id, name FROM permissions WHERE permission_flags & 4 = 4; -- Select permissions with specific flag
 ```
 
 - **Assignment Operator Example**:
 
-```
+```sql
 SET @total_sales := 500; -- Assigning a value to a variable
 ```
 
 - **In Operator Example**:
 
-```
+```sql
 SELECT * FROM products WHERE category_id IN (1, 2, 3); -- Select products in specified categories
 ```
 
 - **Like Operator Example**:
 
-```
+```sql
 SELECT * FROM customers WHERE city LIKE 'Ber%'; -- Select customers in cities starting with Ber
 ```
 
@@ -84,9 +84,9 @@ These examples illustrate how SQL operators are used in Percona Server for MySQL
 
 Fundamental SQL links:
 
-- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.html)
-- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.html)
-- [SELECT](https://docs.percona.com/percona-server/9.7/select.html)
-- [INSERT](https://docs.percona.com/percona-server/9.7/insert.html)
-- [DELETE](https://docs.percona.com/percona-server/9.7/delete.html)
-- [UPDATE](https://docs.percona.com/percona-server/9.7/update.html)
+- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.md)
+- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.md)
+- [SELECT](https://docs.percona.com/percona-server/9.7/select.md)
+- [INSERT](https://docs.percona.com/percona-server/9.7/insert.md)
+- [DELETE](https://docs.percona.com/percona-server/9.7/delete.md)
+- [UPDATE](https://docs.percona.com/percona-server/9.7/update.md)

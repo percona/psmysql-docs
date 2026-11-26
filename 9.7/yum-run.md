@@ -12,30 +12,30 @@ The RHEL distributions and derivatives come with [systemd](https:/freedesktop.or
 
 1. Percona Server for MySQL is not started automatically on the RHEL distributions and derivatives after installation. Start the server with the following command:
 
-   ```
+   ```shell
    sudo service mysql start
    ```
 
 1. Review the service status with the following command:
 
-   ```
+   ```shell
    sudo service mysql status
    ```
 
 1. Stop the service with the following command:
 
-   ```
+   ```shell
    sudo service mysql stop
    ```
 
 1. Restart the service with the following command:
 
-   ```
+   ```shell
    sudo service mysql restart
    ```
 
 ## SELinux and security considerations
 
-For information on working with SELinux, see [Working with SELinux](https://docs.percona.com/percona-server/9.7/selinux.html).
+For information on working with SELinux, see [Working with SELinux](https://docs.percona.com/percona-server/9.7/selinux.md).
 
 The RHEL 8 distributions and derivatives have added [system-wide cryptographic policies component](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/using-the-system-wide-cryptographic-policies_security-hardening). This component allows the configuration of cryptographic subsystems.

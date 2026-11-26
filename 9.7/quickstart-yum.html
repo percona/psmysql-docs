@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/quickstart-yum.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/quickstart-yum.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/quickstart-yum.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10776,53 +10776,53 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Install <code>percona-release</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 </code></pre></div>
 </li>
 <li>
 <p>Set up the repository for Percona Server for MySQL 9.7:</p>
 <p>On RHEL 8 and derivatives (Oracle Linux 8, Rocky Linux 8, AlmaLinux 8), you must disable the distribution&rsquo;s MySQL module first. Otherwise, the module hides the Percona packages and the installation fails with <code>All matches were filtered out by modular filtering</code>. On RHEL 9 this step is not needed. On RHEL 10 skip this step: RHEL 10 has no MySQL module, and the command fails.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql<span class="w"> </span>-y
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql<span class="w"> </span>-y
 </code></pre></div>
 <p>Then enable only the Percona Server for MySQL 9.7 release repository. This command disables any other Percona repositories:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
 </code></pre></div>
 </li>
 <li>
 <p>Check that the repository is enabled. The output must list the <code>ps-97-lts-release-&lt;arch&gt;</code> repository:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>repolist<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ps-97-lts
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>repolist<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ps-97-lts
 </code></pre></div>
 </li>
 <li>
 <p>Install Percona Server for MySQL:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
 <li>
 <p>Start the MySQL service:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Retrieve the temporary password:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/log/mysqld.log
 </code></pre></div>
 </li>
 <li>
 <p>Log in to the server using the temporary password:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 Enter<span class="w"> </span>password:
 </code></pre></div>
 </li>
 <li>
 <p>Change the temporary password:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'[your password]'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'[your password]'</span><span class="p">;</span>
 <span class="n">exit</span>
 </code></pre></div>
 </li>
 <li>
 <p>Log in again with the new password to verify:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 Enter<span class="w"> </span>password:
 </code></pre></div>
 </li>
@@ -10849,7 +10849,7 @@ Enter<span class="w"> </span>password:
 <p>Reload the privilege table</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysql_secure_installation
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysql_secure_installation
 </code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a data-markdown-ignore class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <ul>
@@ -10858,17 +10858,17 @@ Enter<span class="w"> </span>password:
 <ul>
 <li>
 <p>Check that the MySQL service is running:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>If the service is not active, start it:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Try connecting with the password you set during installation:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 Enter<span class="w"> </span>password:
 </code></pre></div>
 </li>
@@ -10877,7 +10877,7 @@ Enter<span class="w"> </span>password:
 <li>
 <p><strong>Permission errors</strong></p>
 <p>If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:</p>
-<div class="highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'username'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'username'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 <span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 </code></pre></div>
 <p>Replace <code>username</code> with your MySQL user name.</p>
@@ -10885,7 +10885,7 @@ Enter<span class="w"> </span>password:
 <li>
 <p><strong>Package installation issues</strong></p>
 <p>Check the system log for errors during installation:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>mysqld<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>mysqld<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
 </code></pre></div>
 <p>For specific error messages, see the <a href="index.html">Percona Server for MySQL documentation</a> or the <a href="https://forums.percona.com/">Percona community forum</a>.</p>
 </li>

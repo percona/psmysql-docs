@@ -11,7 +11,7 @@ The NEW XML formatter emits:
 - Rich startup records (`<NAME>Audit</NAME>`) that carry `<VERSION>`, `<STARTUP_OPTIONS>`, `<OS_VERSION>`, and `<MYSQL_VERSION>`.
 - Message events with `<MAP>`, `<ELEMENT>`, `<KEY>`, and `<VALUE>`. Records also carry `<USER>`, `<OS_LOGIN>`, `<HOST>`, `<IP>`, `<STATUS>`, and `<STATUS_CODE>`.
 - Consistent `<COMMAND_CLASS>` spellings (for example, `create_table` and `set_option`).
-- Event selection controlled by [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterevent_mode). `REDUCED` (default) keeps core classes. `FULL` adds lifecycle-heavy record types. See the variable page for the full lists.
+- Event selection controlled by [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filterevent_mode). `REDUCED` (default) keeps core classes. `FULL` adds lifecycle-heavy record types. See the variable page for the full lists.
 
 Code reference: `components/audit_log_filter/log_record_formatter/new.cc` and `base.cc`.
 
@@ -27,7 +27,7 @@ Timestamps use the server local zone in `YYYY-MM-DDTHH:MM:SS` form without a `UT
 
 With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the primary record per action. The following sample mixes record types; actual fields depend on filters and configuration.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <AUDIT>
  <AUDIT_RECORD>
@@ -177,7 +177,7 @@ With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the pr
 
 With `audit_log_filter.event_mode=FULL`, the formatter adds lifecycle records that wrap each action. The following fragment supplements the REDUCED example.
 
-```
+```xml
  <!-- Pre-authentication (before credentials are verified) -->
  <AUDIT_RECORD>
   <TIMESTAMP>2026-04-03T13:19:21</TIMESTAMP>
@@ -375,7 +375,7 @@ The following elements appear on every `<AUDIT_RECORD>` in the NEW XML format:
 | Element       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<NAME>`      | Event subclass string. REDUCED mode: `Audit`, `Connect`, `Query`, `Ping`, `TableRead`, `TableInsert`, `TableUpdate`, `TableDelete`, `Message`, `Quit`, `NoAudit`. FULL mode adds: `Pre Authenticate`, `Command Start`, `Command End`, `Preparse`, `Postparse`, `Query Start`, `Query Status End`, `Query Nested Start`, `Query Nested Status End`, `Execute`, `Variable Get`, `Variable Set`, `Auth Credential Change`, `Auth Authid Rename`, `Auth Authid Drop`, `Auth Flush`. |
-| `<RECORD_ID>` | Sequence number and timestamp. See [`audit_log_filter` file handling](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.html). The format is `SEQ_TIMESTAMP`, where the timestamp part matches the formatter’s timestamp string.                                                                                                                                                                                                                       |
+| `<RECORD_ID>` | Sequence number and timestamp. See [`audit_log_filter` file handling](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.md). The format is `SEQ_TIMESTAMP`, where the timestamp part matches the formatter’s timestamp string.                                                                                                                                                                                                                         |
 | `<TIMESTAMP>` | Local date and time for the event.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ## Optional elements (by record category)
@@ -409,8 +409,8 @@ The component XML-escapes characters such as `<`, `>`, `&`, and `"` in element t
 
 ## Additional reading
 
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-formats.html)
-- [Audit Log Filter format - JSON and JSONL](https://docs.percona.com/percona-server/9.7/audit-log-filter-json.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) — `audit_log_filter.event_mode` and `audit_log_filter.format`
-- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-formats.md)
+- [Audit Log Filter format - JSON and JSONL](https://docs.percona.com/percona-server/9.7/audit-log-filter-json.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md) — `audit_log_filter.event_mode` and `audit_log_filter.format`
+- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/9.7/reading-audit-log-filter-files.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)

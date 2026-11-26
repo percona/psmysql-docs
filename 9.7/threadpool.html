@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/threadpool.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/threadpool.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/threadpool.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10751,7 +10751,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>MySQL executes statements using one thread per client connection. When the number of connections increases past a specific point, performance degrades.
 This feature introduces a dynamic thread pool, which enables the server to maintain top performance even with a large number of client connections. The server decreases the number of threads using the thread pool and reduces the context switching and hot lock contentions. The thread pool is most effective with <code>OLTP</code> workloads (relatively short CPU-bound queries).</p>
 <p>Set the thread pool variable <a href="#thread_handling">thread_handling</a> to <code>pool-of-threads</code> by adding the following line to <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code>thread_handling=pool-of-threads
+<div class="language-text highlight"><pre><span></span><code>thread_handling=pool-of-threads
 </code></pre></div>
 <p>Although the default values for the thread pool should provide good performance, additional tuning should be performed with the dynamic system variables. The goal is to minimize the number of open transactions on the server. Short-running transactions commit faster and deallocate server resources and locks.</p>
 <p>Due to the following differences, this implementation is not compatible with upstream:</p>
@@ -11107,7 +11107,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This status variable reports aggregated wait-time statistics, in microseconds, for requests waiting in the high-priority queue. The value is a formatted string, for example:</p>
-<div class="highlight"><pre><span></span><code>avg: 0.000, min: 0.000, max: 0.000, dev: 0.000, cnt: 0
+<div class="language-text highlight"><pre><span></span><code>avg: 0.000, min: 0.000, max: 0.000, dev: 0.000, cnt: 0
 </code></pre></div>
 <p>Each sample is a single wait-time measurement, in microseconds, taken when a request is dequeued by a worker thread. Every dequeued request contributes exactly one sample. The <code>cnt</code> field shows the number of samples collected since server start; <code>avg</code>, <code>min</code>, <code>max</code>, and <code>dev</code> (standard deviation) are computed across all samples. Requests that the listener thread picks up immediately, without waiting, are included as zero-valued samples.</p>
 <h3 id="threadpool_average_queue_wait_us"><code>Threadpool_average_queue_wait_us</code><a data-markdown-ignore class="headerlink" href="#threadpool_average_queue_wait_us" title="Permanent link">&para;</a></h3>
@@ -11130,7 +11130,7 @@ This feature introduces a dynamic thread pool, which enables the server to maint
 </tbody>
 </table>
 <p>This status variable reports aggregated wait-time statistics, in microseconds, for requests waiting in the normal-priority queue. The value is a formatted string, for example:</p>
-<div class="highlight"><pre><span></span><code>avg: 590.000, min: 470.000, max: 736.000, dev: 110.266, cnt: 5
+<div class="language-text highlight"><pre><span></span><code>avg: 590.000, min: 470.000, max: 736.000, dev: 110.266, cnt: 5
 </code></pre></div>
 <p>Each sample is a single wait-time measurement, in microseconds, taken when a request is dequeued by a worker thread. Every dequeued request contributes exactly one sample. The <code>cnt</code> field shows the number of samples collected since server start; <code>avg</code>, <code>min</code>, <code>max</code>, and <code>dev</code> (standard deviation) are computed across all samples. Requests that the listener thread picks up immediately, without waiting, are included as zero-valued samples.</p>
 <h3 id="threadpool_idle_threads"><code>Threadpool_idle_threads</code><a data-markdown-ignore class="headerlink" href="#threadpool_idle_threads" title="Permanent link">&para;</a></h3>

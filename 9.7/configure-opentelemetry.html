@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10771,12 +10771,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <h2 id="before-you-begin">Before you begin<a data-markdown-ignore class="headerlink" href="#before-you-begin" title="Permanent link">&para;</a></h2>
 <p>Confirm that the OpenTelemetry component is installed:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>Confirm that the server supports each signal you plan to export:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'Telemetry%_supported'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'Telemetry%_supported'</span><span class="p">;</span>
 </code></pre></div>
 <p>The relevant status variables are:</p>
 <table>
@@ -10810,7 +10810,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Metrics telemetry periodically exports measurements from the server meters to an OTLP-compatible endpoint.</p>
 <h3 id="set-the-metrics-endpoint-and-enable-metrics">Set the metrics endpoint and enable metrics<a data-markdown-ignore class="headerlink" href="#set-the-metrics-endpoint-and-enable-metrics" title="Permanent link">&para;</a></h3>
 <p>Persist the endpoint and enable metrics at the next server start:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_endpoint</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/metrics'</span><span class="p">;</span>
 
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">metrics_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
@@ -10841,23 +10841,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>To select an encoding, persist the setting and restart the server:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_protocol</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_protocol</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http/protobuf'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="configure-meters">Configure meters<a data-markdown-ignore class="headerlink" href="#configure-meters" title="Permanent link">&para;</a></h3>
 <p>The <code>performance_schema.setup_meters</code> table controls each meter. You can change the <code>FREQUENCY</code> and <code>ENABLED</code> columns at runtime.</p>
 <p>The following statement disables the MyISAM meter:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">ENABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'NO'</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'mysql.myisam'</span><span class="p">;</span>
 </code></pre></div>
 <p>The following statement assigns a 60-second frequency to the <code>mysql.inno</code> meter:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_meters</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">FREQUENCY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'mysql.inno'</span><span class="p">;</span>
 </code></pre></div>
 <p>Use the <code>performance-schema-meter</code> option to configure a meter at server startup. You can specify the option more than once.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">performance-schema-meter</span><span class="o">=</span><span class="s">'mysql.inno=frequency:60,enabled:ON'</span>
 <span class="na">performance-schema-meter</span><span class="o">=</span><span class="s">'mysql.myisam=frequency:60,enabled:OFF'</span>
 </code></pre></div>
@@ -10893,7 +10893,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>Reader one is required. Readers two and three are optional. A value of <code>0</code> disables an optional reader. The defaults are 10 seconds, 60 seconds, and <code>0</code>. When reader three is disabled, a meter whose <code>FREQUENCY</code> is above reader two is collected by reader two.</p>
 <p>For example, configure the readers with intervals of 10, 60, and 300 seconds:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">metrics_reader_frequency_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">metrics_reader_frequency_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">metrics_reader_frequency_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">metrics_reader_frequency_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">300</span><span class="p">;</span>
 </code></pre></div>
@@ -10927,7 +10927,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The reader interval controls the collection schedule. A meter can have a smaller <code>FREQUENCY</code> value than its reader interval.</p>
 <p>All metric reader variables are startup-only. Persist changes and restart the server.</p>
 <p>Set the metrics export timeout and compression separately:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_metrics_compression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'gzip'</span><span class="p">;</span>
 </code></pre></div>
 <p>The timeout uses milliseconds. Compression accepts <code>none</code> or <code>gzip</code>.</p>
@@ -10936,21 +10936,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A supported client or connector can propagate trace context for distributed traces.</p>
 <h3 id="set-the-traces-endpoint-and-enable-traces">Set the traces endpoint and enable traces<a data-markdown-ignore class="headerlink" href="#set-the-traces-endpoint-and-enable-traces" title="Permanent link">&para;</a></h3>
 <p>Persist the exporter endpoint and trace setting:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_endpoint</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/traces'</span><span class="p">;</span>
 
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Restart Percona Server for MySQL to apply the endpoint.</p>
 <p><code>telemetry.trace_enabled</code> is dynamic. After the restart, enable or disable trace collection at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">trace_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Use <code>SET PERSIST</code> instead when the runtime change must survive a restart.</p>
 <h3 id="control-sql-query-text">Control SQL query text<a data-markdown-ignore class="headerlink" href="#control-sql-query-text" title="Permanent link">&para;</a></h3>
 <p>Statement spans include the original SQL text by default. SQL text may contain sensitive values, such as passwords or personal information.</p>
 <p>To omit SQL text from exported spans:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">query_text_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 </code></pre></div>
 <p><code>telemetry.query_text_enabled</code> is dynamic, so the change takes effect immediately and survives subsequent restarts.</p>
 <div class="admonition warning">
@@ -10960,7 +10960,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <h3 id="select-the-traces-protocol">Select the traces protocol<a data-markdown-ignore class="headerlink" href="#select-the-traces-protocol" title="Permanent link">&para;</a></h3>
 <p>The traces exporter supports <code>http/protobuf</code> and <code>http/json</code>. Persist a protocol change and restart the server:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_protocol</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_protocol</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http/protobuf'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="configure-trace-batching">Configure trace batching<a data-markdown-ignore class="headerlink" href="#configure-trace-batching" title="Permanent link">&para;</a></h3>
@@ -11002,7 +11002,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>These variables are startup-only. Persist changes and restart the server:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_bsp_schedule_delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_bsp_schedule_delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_bsp_max_queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2048</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_bsp_max_export_batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
@@ -11058,31 +11058,31 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h3 id="set-the-logs-endpoint-and-enable-logs">Set the logs endpoint and enable logs<a data-markdown-ignore class="headerlink" href="#set-the-logs-endpoint-and-enable-logs" title="Permanent link">&para;</a></h3>
 <p>Persist the exporter endpoint and log setting:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_endpoint</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_endpoint</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http://otel-collector.example.com:4318/v1/logs'</span><span class="p">;</span>
 
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">log_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Restart Percona Server for MySQL to apply the endpoint.</p>
 <p><code>telemetry.log_enabled</code> is dynamic. After the restart, enable or disable log export at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">log_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">log_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OFF</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">log_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>Use <code>SET PERSIST</code> instead when the runtime change must survive a restart.</p>
 <h3 id="configure-logger-levels">Configure logger levels<a data-markdown-ignore class="headerlink" href="#configure-logger-levels" title="Permanent link">&para;</a></h3>
 <p>Inspect the available logger instruments and their current levels:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="k">LEVEL</span><span class="p">,</span><span class="w"> </span><span class="n">DESCRIPTION</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span><span class="p">;</span>
 </code></pre></div>
 <p>Logger levels control which records qualify for export.</p>
 <p>The <code>LEVEL</code> column stores lowercase values: <code>none</code>, <code>error</code>, <code>warn</code>, <code>info</code>, and <code>debug</code>. Each level accepts records at the same or a greater severity.</p>
 <p>For example, set all configured loggers to <code>warn</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_loggers</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">LEVEL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'warn'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="select-the-logs-protocol">Select the logs protocol<a data-markdown-ignore class="headerlink" href="#select-the-logs-protocol" title="Permanent link">&para;</a></h3>
 <p>The logs exporter supports <code>http/protobuf</code> and <code>http/json</code>. Persist a protocol change and restart the server:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_protocol</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_protocol</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'http/protobuf'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="configure-log-batching">Configure log batching<a data-markdown-ignore class="headerlink" href="#configure-log-batching" title="Permanent link">&para;</a></h3>
@@ -11124,7 +11124,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>These variables are startup-only. Persist changes and restart the server:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_blrp_schedule_delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_blrp_schedule_delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_blrp_max_queue_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2048</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_blrp_max_export_batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_logs_timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
@@ -11168,7 +11168,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ul>
 <p>Configure TLS on the collector OTLP HTTP receiver. The following example enables TLS on port <code>4318</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">otlp</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">protocols</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">http</span><span class="p">:</span>
@@ -11181,28 +11181,28 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Keep authentication tokens out of commands, shell history, and broadly readable configuration.</p>
 <p>Use the corresponding <code>*_secret_headers</code> variable when a secret provider is available. The value identifies a secret that contains the HTTP headers.</p>
 <p>Configure the provider and secret name as startup-only variables:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">secret_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'&lt;SECRET_PROVIDER&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">secret_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'&lt;SECRET_PROVIDER&gt;'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_secret_headers</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'&lt;SECRET_NAME&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <p>The secret format depends on the provider implementation. Install the provider component before you restart the server.</p>
 <p>Use <code>telemetry.resource_provider</code> to add resource data from a provider component:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">resource_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'&lt;RESOURCE_PROVIDER&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">resource_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'&lt;RESOURCE_PROVIDER&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <p>The provider name and resource data depend on the provider implementation.</p>
 <p>On Linux, each signal can use a network namespace. Set the corresponding <code>*_network_namespace</code> variable:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_network_namespace</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">telemetry</span><span class="p">.</span><span class="n">otel_exporter_otlp_traces_network_namespace</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'&lt;NETWORK_NAMESPACE&gt;'</span><span class="p">;</span>
 </code></pre></div>
 <p>Replace <code>traces</code> with <code>metrics</code> or <code>logs</code> for another signal. Restart the server after you change a provider, secret header, or network namespace.</p>
 <p>Network namespace export requires the <code>CAP_SYS_ADMIN</code> capability on the <code>mysqld</code> binary. Grant the capability, then confirm it:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>setcap<span class="w"> </span>cap_sys_admin+ep<span class="w"> </span>&lt;MYSQLD_PATH&gt;
+<div class="language-bash highlight"><pre><span></span><code>sudo<span class="w"> </span>setcap<span class="w"> </span>cap_sys_admin+ep<span class="w"> </span>&lt;MYSQLD_PATH&gt;
 getcap<span class="w"> </span>&lt;MYSQLD_PATH&gt;
 </code></pre></div>
 <p>Replace <code>&lt;MYSQLD_PATH&gt;</code> with the path to the <code>mysqld</code> binary. Repeat <code>setcap</code> after you replace the binary, including after a package upgrade.</p>
 <h2 id="verify-the-configuration">Verify the configuration<a data-markdown-ignore class="headerlink" href="#verify-the-configuration" title="Permanent link">&para;</a></h2>
 <p>After restarting the server, inspect the active settings:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.%enabled'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.%enabled'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_endpoint'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.otel_exporter_otlp_%_protocol'</span><span class="p">;</span>
 <span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'telemetry.live_sessions'</span><span class="p">;</span>

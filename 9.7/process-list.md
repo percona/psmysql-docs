@@ -27,15 +27,15 @@ This table implements modifications to the standard MySQL `INFORMATION_SCHEMA` t
 
 ## Example output
 
-Table [PROCESSLIST](https://docs.percona.com/percona-server/9.7/process-list.html):
+Table [PROCESSLIST](https://docs.percona.com/percona-server/9.7/process-list.md):
 
-```
+```sql
 SELECT * FROM INFORMATION_SCHEMA.PROCESSLIST;
 ```
 
 Expected output
 
-```
+```text
 +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+
 | ID | USER | HOST      | DB                 | COMMAND | TIME | STATE     | INFO                      | TIME_MS | ROWS_SENT | ROWS_EXAMINED |
 +----+------+-----------+--------------------+---------+------+-----------+---------------------------+---------+-----------+---------------+

@@ -4,7 +4,7 @@
 
 Audit log filters are JSON documents you pass to `audit_log_filter_set_filter()`.
 
-Every filter nests rules under a root `filter` object. For authoritative class, event, and field names that validation accepts, see [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html).
+Every filter nests rules under a root `filter` object. For authoritative class, event, and field names that validation accepts, see [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md).
 
 | Benefit                 | Description                                                                       |
 | ----------------------- | --------------------------------------------------------------------------------- |
@@ -27,7 +27,7 @@ Each class rule can carry a `log` condition and an optional `event` list. Each e
 
 The following tree summarizes where each key legally nests:
 
-```
+```text
 filter                                   # root object
 ├── log                                  # optional boolean; global default
 ├── id                                   # optional; referenced by activate / ref
@@ -55,7 +55,7 @@ Keep the preceding tree in mind while reading the rest of the page. Every exampl
 
 A minimal skeleton:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -76,7 +76,7 @@ Replace `class_type` with a real class name (`connection`, `general`, `table_acc
 
 The following filter logs only `connection` events whose `user.str` is `admin` or `developer` **and** whose `host.str` is `192.168.0.1`:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -99,15 +99,15 @@ Unpacking the shape:
 - `"class"` holds an array of class rules.
 - `"name": "connection"` selects the `connection` class.
 - `"log"` under the class block is a condition. The class logs only the events that satisfy the condition.
-- The condition is an `and` over two `field` comparisons. `user.str` and `host.str` are fields that every `connection` event carries. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html). The `value` for `user.str` is an array. The comparison is true when the field matches any value in the array.
+- The condition is an `and` over two `field` comparisons. `user.str` and `host.str` are fields that every `connection` event carries. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md). The `value` for `user.str` is an array. The comparison is true when the field matches any value in the array.
 
-Rule-level conditions like the preceding example narrow *which events are logged*. Those conditions do not determine *which filter a session uses*. Session-to-filter binding is separate. Use [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) to create the binding, which is stored in `mysql.audit_log_user`. A session reaches the JSON only after the server has chosen the filter for the session.
+Rule-level conditions like the preceding example narrow *which events are logged*. Those conditions do not determine *which filter a session uses*. Session-to-filter binding is separate. Use [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md) to create the binding, which is stored in `mysql.audit_log_user`. A session reaches the JSON only after the server has chosen the filter for the session.
 
 ### Log all events
 
 Toggle global logging with the top-level `log` flag:
 
-```
+```json
 {
   "filter": { "log": true }
 }
@@ -117,7 +117,7 @@ Toggle global logging with the top-level `log` flag:
 
 An empty filter object also logs everything:
 
-```
+```json
 {
   "filter": { }
 }
@@ -137,7 +137,7 @@ Behavior summary:
 
 To limit logging to one class, set `class.name`, for example `connection`:
 
-```
+```json
 {
   "filter": {
     "class": { "name": "connection" }
@@ -149,7 +149,7 @@ To limit logging to one class, set `class.name`, for example `connection`:
 
 The next example turns default logging off, then turns connection logging back on inside the class block:
 
-```
+```json
 {
   "filter": {
     "log": false,
@@ -169,7 +169,7 @@ Log several classes as separate objects in an array, or as one array of names. T
 
 Use a list when you plan to add per-class keys such as `user` or `event` later.
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -185,7 +185,7 @@ Use a list when you plan to add per-class keys such as `user` or `event` later.
 
 Combine class names in one array when the rules stay uniform:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -199,7 +199,7 @@ Prefer the compact form only when no per-class overrides are needed.
 
 #### List of event and subclass options
 
-Typical class and subclass pairs for authoring appear in the following table. Selection depends on [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterevent_mode). Validate exact spellings in [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html).
+Typical class and subclass pairs for authoring appear in the following table. Selection depends on [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filterevent_mode). Validate exact spellings in [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md).
 
 | Class name        | Event subclass                                                                | Details                                                   |
 | ----------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------- |
@@ -247,7 +247,7 @@ Tighter filters mean less noise and less I/O. Always stage-test rules before pro
 
 Administrators often watch destructive `table_access` work. The following skeleton logs `update` and `delete` only:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -276,7 +276,7 @@ The rule matches `update` and `delete` `table_access` events. The nested `log` c
 - `"name": "table_access"` — limits the rule to table-access events. Subclasses: `read`, `insert`, `update`, and `delete`.
 - `"event"` — selects the `update` and `delete` subclasses. Other subclasses skip the rule.
 - `"log"` — a per-event condition. `true` logs every match. A `field`, `and`, `or`, or `not` structure logs only matches that satisfy the condition.
-- `"field"` — compares an event field against a value. `table_database.str` and `table_name.str` are fields that every `table_access` event carries. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html) for the full list.
+- `"field"` — compares an event field against a value. `table_database.str` and `table_name.str` are fields that every `table_access` event carries. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md) for the full list.
 
 To widen or narrow the rule, change the field values, add `or` branches for multiple tables, or drop one `field` check to scope by database only or by table name only.
 
@@ -284,7 +284,7 @@ To widen or narrow the rule, change the field values, add `or` branches for mult
 
 To log `update` and `delete` against a single table — or a short list of tables inside one database — combine `table_database.str` with an `or` over `table_name.str` values:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -314,7 +314,7 @@ To log `update` and `delete` against a single table — or a short list of table
 
 To scope to one database only, omit the inner `or` and keep the `table_database.str` check.
 
-`table_access` events do not carry a user field. Filter by account at assignment time with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html).
+`table_access` events do not carry a user field. Filter by account at assignment time with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md).
 
 ### Exclusive filters
 
@@ -325,7 +325,7 @@ Exclusive (or negated) rules drop noisy work. Two idioms apply:
 
 #### Suppress one class while logging everything else
 
-```
+```json
 {
   "filter": {
     "log": true,
@@ -340,7 +340,7 @@ The filter logs every event *except* `general` class events. `log: true` at the 
 
 Wrap a condition in `not` inside a `log` item to drop the events that match the condition. Because inversion tests a field on the current event, use a field the class carries (for example, `table_database.str` on `table_access`, `user.str` on `connection`, or `general_user.str` on `general`). The following example suppresses `table_access` events against the internal `mysql` schema:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -357,13 +357,13 @@ Wrap a condition in `not` inside a `log` item to drop the events that match the 
 }
 ```
 
-The filter logs `table_access` events except those that touch the `mysql` system schema. For user-based suppression, apply the `not` against a field that exists on the class you are filtering: `user.str` on `connection`, or `general_user.str` on `general`. Alternatively, scope the filter to specific accounts at assignment time with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html).
+The filter logs `table_access` events except those that touch the `mysql` system schema. For user-based suppression, apply the `not` against a field that exists on the class you are filtering: `user.str` on `connection`, or `general_user.str` on `general`. Alternatively, scope the filter to specific accounts at assignment time with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md).
 
 #### Exclusive filter example
 
 This filter logs everything except `general` events, and within `connection` events drops `connect`/`disconnect` subclasses (keeping only `change_user`):
 
-```
+```json
 {
   "filter": {
     "log": true,
@@ -385,7 +385,7 @@ This filter logs everything except `general` events, and within `connection` eve
 - The `connection` block’s `event` list silences the two noisy subclasses but leaves `change_user` on.
 - The second class entry turns off the entire `general` class.
 
-Field-type rules — JSON numbers against strings, `connection_type` symbolic constants such as `"::tcp/ip"`, and the types accepted for each field — appear under [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition) and in [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html#connection).
+Field-type rules — JSON numbers against strings, `connection_type` symbolic constants such as `"::tcp/ip"`, and the types accepted for each field — appear under [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and in [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md#connection).
 
 ## Event classes, log output, and SQL commands
 
@@ -396,12 +396,12 @@ Filter JSON uses lowercase class and event names (`query` / `start`). Log output
 
 The SQL statement type appears separately as `COMMAND_CLASS` in XML or as `sql_command` inside event-specific objects in JSON. Filter on statement type with `general_sql_command.str` (REDUCED `general`/`status` records and FULL-mode `general` events) or `sql_command_id` (`query` class in FULL mode). The authoritative list of valid `sql_command` strings is the `com_status_vars` array in `sql/mysqld.cc` in the Percona Server source tree.
 
-[`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filterevent_mode) controls how many classes are emitted:
+[`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filterevent_mode) controls how many classes are emitted:
 
 - `REDUCED` (default) — `connection`, `general`/`status`, `table_access`, and `message` only. DDL, DCL, TCL, and most administrative statements appear as a single `general`/`status` record (XML `<NAME>Query</NAME>`) or as `table_access` when the server reports table touches.
 - `FULL` — adds `command`, `parse`, `query`, `stored_program`, `global_variable`, and `authentication`. A single client statement can produce a sequence of ten or more records.
 
-Lifecycle records (`audit` / `server_startup` / `server_shutdown`) may appear in the log at startup or shutdown but are not valid filter-definition targets. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html).
+Lifecycle records (`audit` / `server_startup` / `server_shutdown`) may appear in the log at startup or shutdown but are not valid filter-definition targets. See [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md).
 
 ### SQL command values by category
 
@@ -746,7 +746,7 @@ Component shutdown writes an `audit` / `shutdown` record (XML `<NAME>NoAudit</NA
 
 To log only DDL against a schema, combine class rules with `general_sql_command.str` conditions:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -770,7 +770,7 @@ To log only DDL against a schema, combine class rules with `general_sql_command.
 
 In FULL mode, add parallel rules under the `query` class using `sql_command_id` if you need the bracketing `query` / `start` and `query` / `status_end` records instead of (or in addition to) the `general` / `status` summary.
 
-For format-specific field layouts, see [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/9.7/audit-log-filter-new.html) and [Audit Log Filter format - JSON and JSONL](https://docs.percona.com/percona-server/9.7/audit-log-filter-json.html).
+For format-specific field layouts, see [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/9.7/audit-log-filter-new.md) and [Audit Log Filter format - JSON and JSONL](https://docs.percona.com/percona-server/9.7/audit-log-filter-json.md).
 
 ## Advanced filter constructs
 
@@ -782,13 +782,13 @@ The preceding sections cover logging on or off at class and event granularity. T
 - Field-value **replacement** (redaction).
 - **Dynamic** filter swapping.
 
-Validate exact field names and types against [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html) before deploying any of these features to production.
+Validate exact field names and types against [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md) before deploying any of these features to production.
 
 ### Test event field values
 
 Inside an `event` block, a `log` item can carry a `field` comparison. The rule logs the event only when the field equals the given value.
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -806,7 +806,7 @@ Inside an `event` block, a `log` item can carry a `field` comparison. The rule l
 
 The preceding example logs `general`/`status` events only when `general_command.str` equals `Query`, which drops `Execute`, `Quit`, and `Change user`. String fields take string values. Integer fields such as `status` on `connection` or `general_error_code` on `general` take JSON numbers.
 
-Fields available on each class are listed in [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html). Examples:
+Fields available on each class are listed in [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md). Examples:
 
 - `connection`: `status`, `user.str`, `host.str`, `ip.str`, `database.str`, `connection_type`
 - `general`: `general_error_code`, `general_user.str`, `general_command.str`, `general_query.str`, `general_sql_command.str`, `general_host.str`, `general_ip.str`
@@ -816,7 +816,7 @@ Fields available on each class are listed in [Audit Log Filter definition fields
 
 `and`, `or`, and `not` let you build compound conditions. They take an array (for `and` / `or`) or a single sub-condition (for `not`) and can be nested arbitrarily.
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -851,13 +851,13 @@ Use `not` to invert any sub-expression. For example, `{ "not": { "field": { "nam
 
 ### Block execution with `abort`
 
-An `event` block can carry an `abort` item. The `abort` item prevents matching statements from executing, either instead of logging or in addition to logging. Blocking is a policy-enforcement capability, not observability, so blocking has a dedicated page: [Block statements with an audit log filter](https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.html).
+An `event` block can carry an `abort` item. The `abort` item prevents matching statements from executing, either instead of logging or in addition to logging. Blocking is a policy-enforcement capability, not observability, so blocking has a dedicated page: [Block statements with an audit log filter](https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.md).
 
 ### Reference predefined variables
 
 A `log` or `abort` condition can test a predefined variable with a `variable` item. The condition is true when the variable equals the given value.
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -888,7 +888,7 @@ Symbolic constants such as `"::none"` and `"::all"` are case-sensitive strings. 
 
 Use a `function` item to call a built-in function inside a `log` or `abort` condition. The `name` key holds the function name without parentheses. The `args` key holds an array of arguments. Omit `args` when the function takes none.
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -923,13 +923,13 @@ Available functions:
 
 ### Replace event field values (redaction)
 
-A `print` / `replace` item inside a class or event block rewrites statement text (`general_query.str` and `query.str`) as a `query_digest` before the event is logged. The rewrite keeps literal values out of the audit stream. The capability is compliance- and PII-focused. See the dedicated page: [Redact audit log fields](https://docs.percona.com/percona-server/9.7/redact-audit-log-fields.html).
+A `print` / `replace` item inside a class or event block rewrites statement text (`general_query.str` and `query.str`) as a `query_digest` before the event is logged. The rewrite keeps literal values out of the audit stream. The capability is compliance- and PII-focused. See the dedicated page: [Redact audit log fields](https://docs.percona.com/percona-server/9.7/redact-audit-log-fields.md).
 
 ### Replace a filter dynamically
 
 A filter can swap itself for a different rule set mid-session. Nest a `filter` block inside an event and give the outer filter an `id`. Use `activate` to trigger the swap. Use `ref` to point back at the original filter.
 
-```
+```json
 {
   "filter": {
     "id": "main",
@@ -971,7 +971,7 @@ Net effect: you log one `general`/`status` entry per statement that touched `tem
 
 1. Start wide, then narrow. Begin with a noisy catch-all in staging, then peel away classes you do not need.
 1. Test combinations. Overlapping rules and assignments surprise operators. Validate on a clone.
-1. Plan retention. Pair filters with rotation, pruning, and disk budgets. See [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.html).
+1. Plan retention. Pair filters with rotation, pruning, and disk budgets. See [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/9.7/manage-audit-log-filter.md).
 1. Watch overhead. Granular auditing costs CPU and I/O. Ramp detail gradually and watch latency plus `audit_log_filter_*` status counters.
 
 ## Implement the filter
@@ -982,7 +982,7 @@ Typical workflow:
 
 Call `audit_log_filter_set_filter(filter_name, json_definition)`:
 
-```
+```sql
 SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
 ```
 
@@ -990,7 +990,7 @@ SELECT audit_log_filter_set_filter('log_all', '{ "filter": { "log": true } }');
 
 Bind accounts (or the default `%` row) with `audit_log_filter_set_user('user@host', 'filter_name')`:
 
-```
+```sql
 SELECT audit_log_filter_set_user('%', 'log_all');
 ```
 
@@ -998,7 +998,7 @@ SELECT audit_log_filter_set_user('%', 'log_all');
 
 Create and assign a finance-focused filter. The filter logs DML on two tables in `financial_db` and every connection event. Account scoping applies at assignment time, because `table_access` events do not carry a user field.
 
-```
+```sql
 -- Create the filter
 SELECT audit_log_filter_set_filter('financial_tracking', '{
   "filter": {
@@ -1034,11 +1034,11 @@ SELECT audit_log_filter_set_filter('financial_tracking', '{
 }');
 ```
 
-Field-value typing appears under [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition). Examples include JSON numbers for integer fields such as `status`, strings for `*.str` fields, and `"::tcp/ip"`-style symbolic constants for `connection_type`.
+Field-value typing appears under [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition). Examples include JSON numbers for integer fields such as `status`, strings for `*.str` fields, and `"::tcp/ip"`-style symbolic constants for `connection_type`.
 
 Assign the filter to only the accounts that should be audited instead of to `%`:
 
-```
+```sql
 -- Assign to specific accounts; other users keep their existing filter (or none).
 SELECT audit_log_filter_set_user('admin@%',        'financial_tracking');
 SELECT audit_log_filter_set_user('finance_team@%', 'financial_tracking');
@@ -1052,7 +1052,7 @@ The filter records:
 
 Inspect metadata directly:
 
-```
+```sql
 -- Check created filters
 SELECT * FROM mysql.audit_log_filter;
 
@@ -1064,11 +1064,11 @@ Tail the audit file (default under the data directory) to confirm events stream 
 
 ## Additional reading
 
-- [Block statements with an audit log filter](https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.html)
-- [Redact audit log fields](https://docs.percona.com/percona-server/9.7/redact-audit-log-fields.html)
-- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html)
-- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
-- [Audit Log Filter quickstart](https://docs.percona.com/percona-server/9.7/audit-log-filter-quickstart.html)
-- [Audit Log Filter restrictions](https://docs.percona.com/percona-server/9.7/audit-log-filter-restrictions.html)
+- [Block statements with an audit log filter](https://docs.percona.com/percona-server/9.7/block-statements-with-audit-filter.md)
+- [Redact audit log fields](https://docs.percona.com/percona-server/9.7/redact-audit-log-fields.md)
+- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md)
+- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/9.7/filter-audit-log-filter-files.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)
+- [Audit Log Filter quickstart](https://docs.percona.com/percona-server/9.7/audit-log-filter-quickstart.md)
+- [Audit Log Filter restrictions](https://docs.percona.com/percona-server/9.7/audit-log-filter-restrictions.md)

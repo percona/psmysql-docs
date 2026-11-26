@@ -2,7 +2,7 @@
 
 # OpenTelemetry variable reference
 
-Percona Server for MySQL 9.7 provides OpenTelemetry system and status variables. Use these variables for exporter configuration, security, and tuning. For configuration procedures, see [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html).
+Percona Server for MySQL 9.7 provides OpenTelemetry system and status variables. Use these variables for exporter configuration, security, and tuning. For configuration procedures, see [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md).
 
 The exporter uses OpenTelemetry Protocol (OTLP).
 
@@ -113,7 +113,7 @@ Each signal type uses a separate batch processor. Trace spans use the Batch Span
 | `telemetry.metrics_reader_frequency_2` | `60` seconds | Startup       | Collects meters above the reader one threshold and at or below 60 seconds. A value of `0` disables this reader.   |
 | `telemetry.metrics_reader_frequency_3` | `0`          | Startup       | Collects meters above the reader two threshold when this reader is enabled. The default `0` disables this reader. |
 
-The configured value sets both the meter threshold and the collection interval. With the defaults, reader one collects every 10 seconds and reader two every 60 seconds. Reader three is disabled. A meter whose `FREQUENCY` is above every enabled reader is collected by the highest enabled reader. See [Configure metric reader frequencies](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html#configure-metric-reader-frequencies) for an example.
+The configured value sets both the meter threshold and the collection interval. With the defaults, reader one collects every 10 seconds and reader two every 60 seconds. Reader three is disabled. A meter whose `FREQUENCY` is above every enabled reader is collected by the highest enabled reader. See [Configure metric reader frequencies](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md#configure-metric-reader-frequencies) for an example.
 
 ## Status variables
 
@@ -129,10 +129,10 @@ Status variables report the state of the telemetry component. You cannot set sta
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)

@@ -129,7 +129,7 @@ to speed up data loading dramatically.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/myrocks-data-loading.md"></head>
   
   
     
@@ -139,7 +139,7 @@ to speed up data loading dramatically.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/myrocks-data-loading.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/myrocks-data-loading.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10721,7 +10721,7 @@ key only (no secondary keys), with all secondary indexes added after loading
 data.</p>
 <p>When loading data into MyRocks tables, there are two recommended session
 variables:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 <p>When converting from large MyISAM/InnoDB tables, either by using the <code>ALTER</code>
@@ -10729,7 +10729,7 @@ or <code>INSERT INTO SELECT</code> statements it’s recommended that you
 create MyRocks tables as below (in case the table is sufficiently big it will
 cause the server to consume all the memory and then be terminated by the OOM
 killer):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">large_myisam_table</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">RocksDB</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
@@ -10775,7 +10775,7 @@ restored. However, writing to the primary key no longer goes directly to SST
 files, and are written to temporary files for sorted first, so there is extra
 cost to this method.</p>
 <p>To allow for loading unsorted data:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">sql_log_bin</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load_allow_unsorted</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="n">rocksdb_bulk_load</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 <span class="p">...</span>

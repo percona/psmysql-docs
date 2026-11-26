@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/upgrade-procedures.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/upgrade-procedures.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/upgrade-procedures.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10834,23 +10834,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The 9.7 server upgrades the data dictionary before it rejects unknown options. An option that 9.7 does not support aborts the first start with <code>[ERROR] [MY-000067] [Server] unknown variable '&lt;option&gt;'</code> after the data directory has already been upgraded. The previous version can no longer start on that data directory. Only a restore from backup returns you to the previous version.</p>
 </div>
 <p>Validate the configuration file with the 9.7 <code>mysqld</code> binary before the first start of 9.7. The check reads the configuration, reports unknown options, and exits without starting the server or modifying the data directory. A valid configuration returns exit status <code>0</code>:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 <p>On Debian and Ubuntu, installing the 9.7 packages starts the server immediately. Run the check before the production upgrade on a staging host that runs 9.7, with a copy of the production configuration file. To check a specific file, add <code>--defaults-file=&lt;path&gt;</code> as the first option.</p>
 </li>
 <li>
 <p>Run <code>XA RECOVER</code> against the source server. Commit or rollback any uncommitted XA transactions before continuing.</p>
-<div class="highlight"><pre><span></span><code><span class="n">XA</span><span class="w"> </span><span class="n">RECOVER</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">XA</span><span class="w"> </span><span class="n">RECOVER</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>If <code>innodb_fast_shutdown</code> is set to <code>2</code> (cold shutdown), reset to <code>1</code> or <code>0</code> before stopping. A fast or slow shutdown leaves InnoDB undo logs and data files in a state that is safe across releases.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_fast_shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_fast_shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Stop the server with the appropriate command for your system.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 </ol>
@@ -10875,7 +10875,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Stop the server with the appropriate command for your system.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
@@ -10883,7 +10883,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Install Percona Server for MySQL. The <code>percona-release enable-only</code> command disables the repository of the previous version and enables the 9.7 repository. Before you run <code>apt install</code>, check that <code>apt-cache policy percona-server-server</code> shows a 9.7 candidate version.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl
 curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
@@ -10895,7 +10895,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <li>
 <p>Install the storage engine packages.</p>
 <p>If you used the MyRocks storage engine in the previous version, install the <code>percona-server-rocksdb</code> package.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
 </li>
 <li>
@@ -10903,7 +10903,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Restart the service.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 </ol>
@@ -10917,47 +10917,47 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Stop the server with the appropriate command for your system.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Check your installed Percona packages. Percona Server for MySQL 8.x and later packages use lowercase names (<code>percona-server-*</code>). Do not remove these packages; the following steps upgrade them in place.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>percona-server
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>percona-server
 </code></pre></div>
 </li>
 <li>
 <p>Check for <code>mysql</code>-prefixed packages from another vendor.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span>
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span>
 </code></pre></div>
 </li>
 <li>
 <p>If the previous step lists packages, remove them without dependencies. The command does not prompt for confirmation. If the list is empty, skip this step.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-r<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-r<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
 </code></pre></div>
 </li>
 <li>
 <p>Install the <code>percona-server-server</code> package. The <code>percona-release enable-only</code> command disables the repository of the previous version and enables the 9.7 repository. Before you run <code>yum install</code>, check that <code>sudo dnf repolist | grep ps-97-lts</code> lists the <code>ps-97-lts-release-&lt;arch&gt;</code> repository.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
 sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>Installing <code>percona-server-server</code> upgrades only the server package. Upgrade the remaining Percona packages so that the client, shared libraries, and ICU data files match the server. This command also installs new dependencies, such as <code>percona-server-client-plugins</code>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span><span class="s1">'percona-*'</span>
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>upgrade<span class="w"> </span><span class="s1">'percona-*'</span>
 </code></pre></div>
 <p>Confirm that every <code>percona-server-*</code> package shows the new version.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>percona-server
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>percona-server
 </code></pre></div>
 </li>
 <li>
 <p>Install the storage engine packages.</p>
 <p>If you used the MyRocks storage engine in the previous version, install the <code>percona-server-rocksdb</code> package.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-rocksdb
 </code></pre></div>
 </li>
 <li>
 <p>Modify your configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7. If you used plugins replaced by components in 9.7, plan the transition. See <a href="upgrade-components.html">Upgrade from plugins to components</a> for details.</p>
 <p>Before the first start, validate the configuration with the 9.7 binary. The command must not report errors. See <a href="#prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 </li>
 <li>
@@ -10965,7 +10965,7 @@ sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p>Restart the server.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 </ol>
@@ -10981,7 +10981,7 @@ sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> <
 <ol>
 <li>
 <p>Remove the installed packages with their dependencies.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>percona-server<span class="w"> </span>percona-client
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>percona-server<span class="w"> </span>percona-client
 </code></pre></div>
 </li>
 <li>
@@ -11004,19 +11004,19 @@ sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> <
 </li>
 </ul>
 <p>The following example downloads Percona Server for MySQL 9.7.2-3 packages for Debian 11.0.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-9.7.2-3/binary/debian/bullseye/x86_64/Percona-Server-9.7.2-3-r582ebeef-bullseye-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-innovative-release/Percona-Server-9.7.2-3/binary/debian/bullseye/x86_64/Percona-Server-9.7.2-3-r582ebeef-bullseye-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages.</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-3-r582ebeef-bullseye-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-3-r582ebeef-bullseye-x86_64-bundle.tar
 </code></pre></div>
 <p>After unpacking, you should see the following packages.</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>*.deb
+<div class="language-shell highlight"><pre><span></span><code>ls<span class="w"> </span>*.deb
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>libperconaserverclient21-dev_9.7.2-3.bullseye_amd64.deb
+<div class="language-text no-copy highlight"><pre><span></span><code>libperconaserverclient21-dev_9.7.2-3.bullseye_amd64.deb
 percona-server-dbg_9.7.2-3.bullseye_amd64.deb
 libperconaserverclient21_9.7.2-3.bullseye_amd64.deb
 percona-server-rocksdb_9.7.2-3.bullseye_amd64.deb
@@ -11031,7 +11031,7 @@ percona-server-test_9.7.2-3.bullseye_amd64.deb
 </li>
 <li>
 <p>Install Percona Server for MySQL.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>*.deb
 </code></pre></div>
 <p>The command installs all packages from the bundle. You can also install only the packages required to run Percona Server for MySQL.</p>
 <ul>
@@ -11072,7 +11072,7 @@ percona-server-test_9.7.2-3.bullseye_amd64.deb
 </li>
 <li>
 <p>Restart the service.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
 </code></pre></div>
 </li>
 </ol>
@@ -11082,11 +11082,11 @@ percona-server-test_9.7.2-3.bullseye_amd64.deb
 <ol>
 <li>
 <p>Check the installed packages.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>percona-server
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>percona-server
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>percona-server-shared-9.7.2-3.el9.x86_64
+<div class="language-text no-copy highlight"><pre><span></span><code>percona-server-shared-9.7.2-3.el9.x86_64
 percona-server-shared-compat-9.7.2-3.el9.x86_64
 percona-server-client-9.7.2-3.el9.x86_64
 percona-server-server-9.7.2-3.el9.x86_64
@@ -11096,36 +11096,36 @@ percona-server-server-9.7.2-3.el9.x86_64
 </li>
 <li>
 <p>Remove the packages without dependencies.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>percona-server<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>percona-server<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
 </code></pre></div>
 <p>Use <code>--nodeps</code> because the Percona Server packages share dependencies. Without <code>--nodeps</code>, removing one package removes related packages.</p>
 <p>Run the following command to remove <code>mysql</code>-prefixed packages.</p>
-<div class="highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
+<div class="language-shell highlight"><pre><span></span><code>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">'^mysql-'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>rpm<span class="w"> </span>-e<span class="w"> </span>--nodeps
 </code></pre></div>
 </li>
 <li>
 <p>Download the packages for your architecture from the <a href="https://www.percona.com/downloads">download page <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. The bundle includes all packages and is the recommended option. The following example downloads Percona Server for MySQL 9.7.2-3 packages for Red Hat Enterprise Linux (RHEL) 9.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/redhat/9/x86_64/Percona-Server-9.7.2-3-r9927a2fb-el9-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/redhat/9/x86_64/Percona-Server-9.7.2-3-r9927a2fb-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages.</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-3-r9927a2fb-el9-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-3-r9927a2fb-el9-x86_64-bundle.tar
 </code></pre></div>
 <p>After unpacking, you should see the available packages.</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>*.rpm
+<div class="language-shell highlight"><pre><span></span><code>ls<span class="w"> </span>*.rpm
 </code></pre></div>
 </li>
 <li>
 <p>Install Percona Server for MySQL.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>percona-server-server-9.7.2-3.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>percona-server-server-9.7.2-3.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
 percona-server-client-9.7.2-3.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
 percona-server-shared-9.7.2-3.el9.x86_64.rpm<span class="w"> </span><span class="se">\</span>
 percona-server-shared-compat-9.7.2-3.el9.x86_64.rpm
 </code></pre></div>
 <p>The command installs only the packages required to run Percona Server for MySQL 9.7.2-3.</p>
 <p>Run the following command to install all packages, including debugging and testing packages.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ivh<span class="w"> </span>*.rpm
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -11136,7 +11136,7 @@ percona-server-shared-compat-9.7.2-3.el9.x86_64.rpm
 <p>Modify your configuration file, <code>my.cnf</code>, as needed. For example, remove deprecated variables and update settings for 9.7. If you used plugins replaced by components in 9.7, plan the transition. See <a href="upgrade-components.html">Upgrade from plugins to components</a> for details.</p>
 <p>RHEL and its derivatives copy the previous configuration file to <code>/etc/my.cnf.rpmsave</code>. The package install also adds the default <code>my.cnf</code>. After the upgrade or install completes, restore your configuration from the saved copy. Remove any unsupported system variables before restoring.</p>
 <p>Before the first start, validate the configuration with the 9.7 binary. The command must not report errors. See <a href="#prepare-for-the-upgrade">Prepare for the upgrade</a>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 </li>
 <li>
@@ -11144,7 +11144,7 @@ percona-server-shared-compat-9.7.2-3.el9.x86_64.rpm
 </li>
 <li>
 <p>Restart the server.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>service<span class="w"> </span>mysql<span class="w"> </span>restart
 </code></pre></div>
 </li>
 </ol>
@@ -11158,7 +11158,7 @@ percona-server-shared-compat-9.7.2-3.el9.x86_64.rpm
 <ol>
 <li>
 <p>Export the source database. Include <code>--routines</code>, <code>--events</code>, and <code>--all-databases</code> so that stored programs and the <code>mysql</code> system database appear in the dump.</p>
-<div class="highlight"><pre><span></span><code>mysqldump<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>mysqldump<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--add-drop-table<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--routines<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--events<span class="w"> </span><span class="se">\</span>
@@ -11168,7 +11168,7 @@ percona-server-shared-compat-9.7.2-3.el9.x86_64.rpm
 </li>
 <li>
 <p>Stop the source server.</p>
-<div class="highlight"><pre><span></span><code>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>shutdown
+<div class="language-shell highlight"><pre><span></span><code>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>shutdown
 </code></pre></div>
 </li>
 <li>
@@ -11176,28 +11176,28 @@ percona-server-shared-compat-9.7.2-3.el9.x86_64.rpm
 </li>
 <li>
 <p>Initialize a fresh data directory for 9.7.</p>
-<div class="highlight"><pre><span></span><code>mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql-9.7
+<div class="language-shell highlight"><pre><span></span><code>mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql-9.7
 </code></pre></div>
 <p>Capture the temporary <code>root</code> password from standard error or the error log.</p>
 </li>
 <li>
 <p>Start the 9.7 server with the fresh data directory.</p>
-<div class="highlight"><pre><span></span><code>mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql-9.7<span class="w"> </span><span class="p">&amp;</span>
+<div class="language-shell highlight"><pre><span></span><code>mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql-9.7<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Connect with the temporary password and reset the <code>root</code> account.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">USER</span><span class="p">()</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;NEW_ROOT_PASSWORD&gt;'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="k">USER</span><span class="p">()</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'&lt;NEW_ROOT_PASSWORD&gt;'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Load the dump file into the 9.7 server.</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>--force<span class="w"> </span>&lt;<span class="w"> </span>data-for-upgrade.sql
+<div class="language-shell highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>--force<span class="w"> </span>&lt;<span class="w"> </span>data-for-upgrade.sql
 </code></pre></div>
 </li>
 <li>
 <p>Restart with <code>--upgrade=FORCE</code> to finish data dictionary tasks.</p>
-<div class="highlight"><pre><span></span><code>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>shutdown
+<div class="language-shell highlight"><pre><span></span><code>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>shutdown
 mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql-9.7<span class="w"> </span>--upgrade<span class="o">=</span>FORCE<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 </li>
@@ -11209,7 +11209,7 @@ mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span clas
 <h2 id="validate-after-upgrading">Validate after upgrading<a data-markdown-ignore class="headerlink" href="#validate-after-upgrading" title="Permanent link">&para;</a></h2>
 <p>After completing the upgrade, follow the post-upgrade validation steps in the <a href="upgrade-checklist-9.7.html#post-upgrade-validation">upgrade checklist</a>.</p>
 <p>The upgrade does not refresh time zone tables. Reload the tables with <code>mysql_tzinfo_to_sql</code> if your applications depend on time zone names.</p>
-<div class="highlight"><pre><span></span><code>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
 </code></pre></div>
 <h2 id="troubleshoot-upgrade-failures">Troubleshoot upgrade failures<a data-markdown-ignore class="headerlink" href="#troubleshoot-upgrade-failures" title="Permanent link">&para;</a></h2>
 <p>The following table maps common upgrade failure modes to the corrective action.</p>

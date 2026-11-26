@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/distance-function.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/distance-function.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/distance-function.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10744,7 +10744,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A distance metric defines how the function calculates this value. Different metrics compare properties such as vector values, direction, or magnitude. In general, a smaller distance indicates greater similarity.</p>
 <p><code>VECTOR_DISTANCE()</code> is a synonym for <code>DISTANCE()</code> and provides compatibility with MySQL 9.x syntax. Both functions accept the same arguments and return the same result.</p>
 <h2 id="syntax">Syntax<a data-markdown-ignore class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
 
 <span class="n">VECTOR_DISTANCE</span><span class="p">(</span><span class="n">vector_a</span><span class="p">,</span><span class="w"> </span><span class="n">vector_b</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="p">)</span>
 </code></pre></div>
@@ -10798,7 +10798,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>EUCLIDEAN_SQUARED</code> and <code>MANHATTAN</code> are Percona Server extensions. The <a href="https://dev.mysql.com/doc/refman/9.7/en/vector-functions.html#function_distance">MySQL 9.7 vector functions <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> documentation lists <code>COSINE</code>, <code>DOT</code>, and <code>EUCLIDEAN</code> as the supported <code>DISTANCE()</code> metrics.</p>
 </div>
 <p>The <code>COSINE</code> and <code>DOT</code> metrics transform their underlying similarity values into distance values so that a lower value consistently represents a closer match across all supported metrics. As a result, you can sort distance values in ascending order regardless of the selected metric:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="n">DISTANCE</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span><span class="w"> </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span><span class="w"> </span><span class="s1">'COSINE'</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">distance</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="k">ASC</span>
@@ -10814,7 +10814,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="calculate-the-distance-between-two-vectors">Calculate the distance between two vectors<a data-markdown-ignore class="headerlink" href="#calculate-the-distance-between-two-vectors" title="Permanent link">&para;</a></h3>
 <p><code>TO_VECTOR()</code> converts the string representation of a vector to a <code>VECTOR</code> value.</p>
 <p>The following example calculates the Euclidean distance between two vectors:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[1, 2, 3]'</span><span class="p">),</span>
 <span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[4, 5, 6]'</span><span class="p">),</span>
 <span class="w">    </span><span class="s1">'EUCLIDEAN'</span>
@@ -10823,7 +10823,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The result is a <code>DOUBLE</code> value:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="highlight"><pre><span></span><code>+-------------------+
+<div class="language-text highlight"><pre><span></span><code>+-------------------+
 | distance          |
 +-------------------+
 | 5.196152422706632 |
@@ -10833,7 +10833,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="use-another-distance-metric">Use another distance metric<a data-markdown-ignore class="headerlink" href="#use-another-distance-metric" title="Permanent link">&para;</a></h3>
 <p>Specify a different metric in the third argument to change how <code>DISTANCE()</code> compares the vectors.</p>
 <p>The following example calculates the cosine distance:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[1, 2, 3]'</span><span class="p">),</span>
 <span class="w">    </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[4, 5, 6]'</span><span class="p">),</span>
 <span class="w">    </span><span class="s1">'COSINE'</span>
@@ -10843,7 +10843,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Assume that the <code>documents</code> table contains an <code>embedding</code> column defined as <code>VECTOR(3)</code>.</p>
 <p>Use <code>DISTANCE()</code> in an <code>ORDER BY</code> clause to rank stored vectors by their distance from a query vector. Sorting by distance in ascending order places the closest vectors first.</p>
 <p>The following query uses cosine distance to return the five closest vectors:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
 <span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
@@ -10854,7 +10854,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">LIMIT</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 <p><code>VECTOR_DISTANCE()</code> produces the same result:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="n">VECTOR_DISTANCE</span><span class="p">(</span>
 <span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
 <span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
@@ -10867,7 +10867,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="calculate-similarity-values">Calculate similarity values<a data-markdown-ignore class="headerlink" href="#calculate-similarity-values" title="Permanent link">&para;</a></h3>
 <p><code>DISTANCE()</code> returns distance-oriented values so that lower values consistently represent closer vectors. You can convert the result back to the underlying similarity value for the <code>COSINE</code> and <code>DOT</code> metrics.</p>
 <p>For <code>COSINE</code>, subtract the distance from <code>1</code> to calculate cosine similarity:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
 <span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>
@@ -10876,7 +10876,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">FROM</span><span class="w"> </span><span class="n">documents</span><span class="p">;</span>
 </code></pre></div>
 <p>For <code>DOT</code>, multiply the returned distance by <code>-1</code> to calculate the inner product:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
 <span class="w">       </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">DISTANCE</span><span class="p">(</span>
 <span class="w">           </span><span class="n">embedding</span><span class="p">,</span>
 <span class="w">           </span><span class="n">TO_VECTOR</span><span class="p">(</span><span class="s1">'[0.1, 0.2, 0.3]'</span><span class="p">),</span>

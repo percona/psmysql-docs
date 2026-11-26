@@ -52,7 +52,7 @@ The rename landed in Percona Toolkit 3.5.0. Aliases with the original names rema
 
 To configure delayed replication, run the following statement against the replica.
 
-```
+```sql
 CHANGE REPLICATION SOURCE TO SOURCE_DELAY = <SECONDS>;
 ```
 
@@ -80,10 +80,10 @@ Apply the following changes when upgrading to 9.7.
 
 The following Percona Server for MySQL pages cover upgrade-related topics.
 
-- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html)
-- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.html)
-- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html)
-- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html)
+- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md)
+- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.md)
+- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md)
+- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md)

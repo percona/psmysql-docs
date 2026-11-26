@@ -129,7 +129,7 @@ may verify if the tablespace is encrypted or not.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/verify-encryption.md"></head>
   
   
     
@@ -139,7 +139,7 @@ may verify if the tablespace is encrypted or not.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/verify-encryption.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/verify-encryption.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10569,12 +10569,12 @@ the table is encrypted. When the general tablespace contains no tables, you
 may verify if the tablespace is encrypted or not.</p>
 <p>For single tablespaces, verify the ENCRYPTION option using
 INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">FROM</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">FROM</span>
 <span class="w">       </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ENCRYPTION%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------+-------------------+------------------------------+
 | TABLE_SCHEMA         | TABLE_NAME        | CREATE_OPTIONS               |
 +----------------------+-------------------+------------------------------+
 |sample                | t1                | ENCRYPTION="Y"               |
@@ -10584,7 +10584,7 @@ INFORMATION_SCHEMA.TABLES and the CREATE OPTIONS settings.</p>
 <p>A <code>flag</code> field in the <code>INFORMATION_SCHEMA.INNODB_TABLESPACES</code> has bit number
 13 set if the tablespace is encrypted. This bit can be checked with the <code>flag &amp;
 8192</code> expression in the following way:</p>
-<div class="highlight"><pre><span></span><code>SELECT space, name, flag, (flag &amp; 8192) != 0 AS encrypted FROM
+<div class="language-text highlight"><pre><span></span><code>SELECT space, name, flag, (flag &amp; 8192) != 0 AS encrypted FROM
 INFORMATION_SCHEMA.INNODB_TABLESPACES WHERE name in ('foo', 'test/t2', 'bar',
 'noencrypt');
 </code></pre></div>
@@ -10595,11 +10595,11 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 <p class="admonition-title">Note</p>
 <p><strong>This table is in tech preview and may change in future releases.</strong></p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">INNODB_TABLESPACES_ENCRYPTION</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="w">   </span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">INNODB_TABLESPACES_ENCRYPTION</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------+--------------------+-----+----+--------+------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----------------------------+--------------------+-----+----+--------+------+
 | Field                       | Type               | Null| Key| Default| Extra|
 +-----------------------------+--------------------+-----+----+--------+------+
 | SPACE                       | int(11) unsigned   | NO  |    |        |      |
@@ -10617,12 +10617,12 @@ INFORMATION_SCHEMA.INNODB_TABLESPACES_ENCRYPTION table. You must have the
 </details>
 <p>To identify encryption-enabled schemas, query the
 INFORMATION_SCHEMA.SCHEMATA table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SCHEMA_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="k">FROM</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SCHEMA_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="w"> </span><span class="k">FROM</span>
 <span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">SCHEMATA</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">DEFAULT_ENCRYPTION</span><span class="o">=</span><span class="s1">'YES'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------------------------+---------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------------------------+---------------------------------+
 | SCHEMA_NAME                  | DEFAULT_ENCRYPTION              |
 +------------------------------+---------------------------------+
 | samples                      | YES                             |

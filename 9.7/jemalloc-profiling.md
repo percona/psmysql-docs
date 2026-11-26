@@ -19,7 +19,7 @@ Using `LD_PRELOAD`. Build the library, configure the malloc configuration with t
 
 The following is an example of the required commands:
 
-```
+```text
 ./configure --enable-stats --enable-prof && make && make install
 export MALLOC_CONF=prof:true
 export LD_PRELOAD=/usr/lib/libjemalloc.so
@@ -29,13 +29,13 @@ export LD_PRELOAD=/usr/lib/libjemalloc.so
 
 To detect if jemalloc is set, run the following command:
 
-```
+```sql
 SELECT @@jemalloc_detected;
 ```
 
 To enable jemalloc profiling in a MySQL client, run the following command:
 
-```
+```sql
 set global jemalloc_profiling=on;
 ```
 
@@ -43,17 +43,17 @@ The `malloc_stats_totals` table provides statistics, in bytes, of the memory usa
 
 The following example commands display this result:
 
-```
+```sql
 use performance_schema;
 ```
 
-```
+```sql
 SELECT * FROM malloc_stats_totals;
 ```
 
 Expected output
 
-```
+```text
 +------------+------------+------------+------------+-------------+------------+
 | ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
 +------------+------------+------------+------------+-------------+------------+
@@ -66,17 +66,17 @@ The [malloc_stats](#malloc_stats) table provides cumulative totals, in bytes, of
 
 The following example commands display this result:
 
-```
+```sql
 use performance_schema;
 ```
 
-```
+```sql
 SELECT * FROM malloc_stats ORDER BY TYPE DESC LIMIT 3;
 ```
 
 Expected output
 
-```
+```text
 +--------+-------------+-------------+-------------+-------------+
 | TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
 +--------+-------------+-------------+-------------+-------------+
@@ -95,7 +95,7 @@ The process is global; therefore, only a single concurrent run is available. Eac
 
 Use the following command to create a profile dump file:
 
-```
+```sql
 flush memory profile;
 ```
 
@@ -105,19 +105,19 @@ You can analyze the dump files with `jeprof` program, which must be installed on
 
 To verify the dump, run the following command:
 
-```
+```shell
 ls /tmp/jeprof_mysqld*
 ```
 
 Expected output
 
-```
+```text
 /tmp/jeprof_mysqld.1.0.170013202213
 ```
 
 Then analyze the profile:
 
-```
+```shell
 jeprof --show_bytes /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213
 ```
 
@@ -131,7 +131,7 @@ Important considerations
 
 Run the following command:
 
-```
+```shell
 jeprof --dot /usr/sbin/mysqld /tmp/jeprof_mysqld.1.0.170013202213 > /tmp/jeprof1.dot
 dot -Tpng /tmp/jeprof1.dot > /tmp/jeprof1.png
 ```
@@ -204,6 +204,6 @@ Description: Enables jemalloc profiling. The variable requires [jemalloc_detecte
 
 To disable jemalloc profiling, in a MySQL client, run the following command:
 
-```
+```sql
 set global jemalloc_profiling=off;
 ```

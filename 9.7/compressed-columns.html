@@ -132,7 +132,7 @@ library.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/compressed-columns.md"></head>
   
   
     
@@ -142,7 +142,7 @@ library.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/compressed-columns.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/compressed-columns.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10799,7 +10799,7 @@ applied to an unsupported column type or storage engine, an error is returned.</
 </ul>
 <p>Unlike Oracle MySQL, compression is applicable to generated stored columns. Use
 this syntax extension as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span>
 <span class="w">       </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">       </span><span class="n">a</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
 <span class="w">       </span><span class="n">b</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="p">,</span>
@@ -10833,30 +10833,30 @@ values &gt;= <code>3</code>, they are forbidden.</p>
 <h3 id="example">Example<a data-markdown-ignore class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <p>In order to use the compression dictionary, you need to create it. This
 can be done by running:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dictionary_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'one'</span><span class="w"> </span><span class="s1">'two'</span><span class="w"> </span><span class="s1">'three'</span><span class="w"> </span><span class="s1">'four'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">dictionary_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'one'</span><span class="w"> </span><span class="s1">'two'</span><span class="w"> </span><span class="s1">'three'</span><span class="w"> </span><span class="s1">'four'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">COMPRESSION_DICTIONARY</span><span class="w"> </span><span class="n">numbers</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">dictionary_data</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">COMPRESSION_DICTIONARY</span><span class="w"> </span><span class="n">numbers</span><span class="w"> </span><span class="p">(</span><span class="o">@</span><span class="n">dictionary_data</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>To create a table that has both compression and compressed dictionary support
 you should run:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span>
 <span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="nb">BLOB</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="p">,</span>
 <span class="w">        </span><span class="n">b</span><span class="w"> </span><span class="nb">BLOB</span><span class="w"> </span><span class="n">COLUMN_FORMAT</span><span class="w"> </span><span class="n">COMPRESSED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">COMPRESSION_DICTIONARY</span><span class="w"> </span><span class="n">numbers</span>
 <span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span>
 </code></pre></div>
 <p>The following example shows how to insert a sample of JSON data into the table:</p>
-<div class="highlight"><pre><span></span><code><span class="err">SET</span><span class="w"> </span><span class="err">@jso</span><span class="kc">n</span><span class="err">_value</span><span class="w"> </span><span class="err">=</span>
+<div class="language-json highlight"><pre><span></span><code><span class="err">SET</span><span class="w"> </span><span class="err">@jso</span><span class="kc">n</span><span class="err">_value</span><span class="w"> </span><span class="err">=</span>
 <span class="err">'</span><span class="p">[</span><span class="err">\</span><span class="kc">n</span><span class="err">'</span>
 <span class="err">'</span><span class="w"> </span><span class="p">{</span><span class="err">\</span><span class="kc">n</span><span class="err">'</span>
 <span class="err">'</span><span class="w"> </span><span class="s2">"one"</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="err">\</span><span class="kc">n</span><span class="err">'</span>
@@ -10885,7 +10885,7 @@ you should run:</p>
 <span class="err">'</span><span class="p">]</span><span class="err">\</span><span class="kc">n</span><span class="err">'</span>
 <span class="err">;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">json_value</span><span class="p">);</span>
 <span class="n">Query</span><span class="w"> </span><span class="n">OK</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">row</span><span class="w"> </span><span class="n">affected</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="information_schema-tables">INFORMATION_SCHEMA Tables<a data-markdown-ignore class="headerlink" href="#information_schema-tables" title="Permanent link">&para;</a></h2>
@@ -10974,7 +10974,7 @@ dictionary.</p>
 <p>Moreover, the following dictionary creation fragments will be added before
 <code>CREATE TABLE</code> statements which are going to use these dictionaries for the
 first time.</p>
-<div class="highlight"><pre><span></span><code>/*!50633 DROP COMPRESSION_DICTIONARY IF EXISTS &lt;dictionary&gt;; */
+<div class="language-text highlight"><pre><span></span><code>/*!50633 DROP COMPRESSION_DICTIONARY IF EXISTS &lt;dictionary&gt;; */
 /*!50633 CREATE COMPRESSION_DICTIONARY &lt;dictionary&gt;(...); */
 </code></pre></div>
 <p>Two new options add-drop-compression-dictionary and
@@ -10988,7 +10988,7 @@ compression dictionaries will be created in each output file using the
 following fragment (regardless of the values of
 add-drop-compression-dictionary and
 skip-add-drop-compression-dictionary options).</p>
-<div class="highlight"><pre><span></span><code>/*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS &lt;dictionary&gt;(...); */
+<div class="language-text highlight"><pre><span></span><code>/*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS &lt;dictionary&gt;(...); */
 </code></pre></div>
 <h2 id="system-variables">System variables<a data-markdown-ignore class="headerlink" href="#system-variables" title="Permanent link">&para;</a></h2>
 <h3 id="innodb_compressed_columns_zip_level"><code>innodb_compressed_columns_zip_level</code><a data-markdown-ignore class="headerlink" href="#innodb_compressed_columns_zip_level" title="Permanent link">&para;</a></h3>

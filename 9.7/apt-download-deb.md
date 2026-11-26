@@ -2,27 +2,27 @@
 
 # Install Percona Server for MySQL 9.7 using downloaded DEB packages
 
-Download the packages from [Percona Product Downloads](https://www.percona.com/downloads) . If needed, [Instructions for the Percona Product Download](https://docs.percona.com/percona-server/9.7/download-instructions.html) are available.
+Download the packages from [Percona Product Downloads](https://www.percona.com/downloads) . If needed, [Instructions for the Percona Product Download](https://docs.percona.com/percona-server/9.7/download-instructions.md) are available.
 
 The following example downloads *Percona Server for MySQL* 9.7.2-3 release `x86_64` packages for Debian 13 (`trixie`). For other distributions, replace `trixie` with the codename of your distribution, for example, `bookworm` or `noble`.
 
 1. Use `wget` to download the tar file:
 
-   The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](https://docs.percona.com/percona-server/9.7/download-instructions.html).
+   The download filename includes a `<revision-identifier>` value. This value is *build-specific* and must be obtained from the [Percona Product Downloads](https://www.percona.com/downloads) page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required `<revision identifier>` under the **Download all packages** button. For more details, see the [Instructions for Percona Product Downloads](https://docs.percona.com/percona-server/9.7/download-instructions.md).
 
-   ```
+   ```shell
    wget https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/debian/trixie/x86_64/Percona-Server-9.7.2-3-<revision-identifier>-trixie-x86_64-bundle.tar
    ```
 
 1. Unpack the download to get the packages:
 
-   ```
+   ```shell
    tar xvf Percona-Server-9.7.2-3-<revision-identifier>-trixie-x86_64-bundle.tar
    ```
 
    Expected output
 
-   ```
+   ```text
    libperconaserverclient24-dbgsym_9.7.2-3-1.trixie_amd64.deb
    libperconaserverclient24-dev-dbgsym_9.7.2-3-1.trixie_amd64.deb
    libperconaserverclient24-dev_9.7.2-3-1.trixie_amd64.deb
@@ -53,13 +53,13 @@ The following example downloads *Percona Server for MySQL* 9.7.2-3 release `x86_
 
 1. Download the `percona-telemetry-agent` package into the same directory. The `percona-server-server` package depends on `percona-telemetry-agent`, which is not included in the bundle and is not available in the distribution repositories. Find the package for your distribution in the [Percona telemetry repository](https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/) . For example, for Debian 13:
 
-   ```
+   ```shell
    wget https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.trixie_amd64.deb
    ```
 
 1. Install the packages with `apt`. Run this command as root or use the sudo command:
 
-   ```
+   ```shell
    sudo apt install ./*.deb
    ```
 

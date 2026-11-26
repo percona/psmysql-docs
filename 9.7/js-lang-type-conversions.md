@@ -2,7 +2,7 @@
 
 # js_lang type conversions
 
-This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 SQL and JS use different data types, so the js_lang component converts values when passing SQL parameters to JS and back. This document describes how these conversions work.
 
@@ -52,6 +52,6 @@ The system always maps JS null and undefined values to SQL NULL, regardless of t
 
 ## Further reading
 
-- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.html)
-- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.html)
-- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.html)
+- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.md)
+- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.md)
+- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.md)

@@ -4,13 +4,13 @@
 
 The Audit Log Filter does more than observe events. An `abort` item inside an `event` block **prevents matching statements from executing**. Blocked statements are still logged, and the client sees:
 
-```
+```text
 ERROR 1045 (28000): Statement was aborted by an audit log filter
 ```
 
 Use blocking to enforce policy at the SQL layer. For example, stop writes against a sensitive table from any application path, independently of `GRANT`.
 
-For background on filter authoring, see [Write audit_log_filter definitions](https://docs.percona.com/percona-server/9.7/write-filter-definitions.html). This page assumes you have a working filter JSON and want to add blocking.
+For background on filter authoring, see [Write audit_log_filter definitions](https://docs.percona.com/percona-server/9.7/write-filter-definitions.md). This page assumes you have a working filter JSON and want to add blocking.
 
 Warning
 
@@ -23,24 +23,24 @@ You can lock yourself out. If an `abort` rule matches a statement your own accou
 - A Boolean. `true` aborts every event the `event` block matches. `false` is a no-op.
 - A condition built from `field`, `and`, `or`, `not`, `variable`, or `function` items, using the same grammar as a `log` condition. The event is aborted when the condition evaluates to true.
 
-```
+```json
 "event": {
   "name": [ "qualifying subclass names" ],
   "abort": condition
 }
 ```
 
-For the field grammar used in conditions, see [Test event field values](https://docs.percona.com/percona-server/9.7/write-filter-definitions.html#test-event-field-values) and [Combine conditions with logical operators](https://docs.percona.com/percona-server/9.7/write-filter-definitions.html#combine-conditions-with-logical-operators) on the authoring page.
+For the field grammar used in conditions, see [Test event field values](https://docs.percona.com/percona-server/9.7/write-filter-definitions.md#test-event-field-values) and [Combine conditions with logical operators](https://docs.percona.com/percona-server/9.7/write-filter-definitions.md#combine-conditions-with-logical-operators) on the authoring page.
 
 ## Not every event is abortable
 
-Only events marked **Yes** in the [Abortability](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html#abortability) table can be blocked. For example, `table_access` and `message` subclasses can be aborted, but `connection` and `general` subclasses cannot. When a filter tries to abort a non-abortable event, the server writes a warning to the error log and lets the statement through.
+Only events marked **Yes** in the [Abortability](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md#abortability) table can be blocked. For example, `table_access` and `message` subclasses can be aborted, but `connection` and `general` subclasses cannot. When a filter tries to abort a non-abortable event, the server writes a warning to the error log and lets the statement through.
 
 ## Example 1: Block all DML on any table
 
 The following filter blocks `insert`, `update`, and `delete` statements against every table:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -54,13 +54,13 @@ The following filter blocks `insert`, `update`, and `delete` statements against 
 }
 ```
 
-Use this kind of rule on a standby or read-only replica to enforce immutability at the SQL surface. Then assign the filter with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html).
+Use this kind of rule on a standby or read-only replica to enforce immutability at the SQL surface. Then assign the filter with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md).
 
 ## Example 2: Block DML on a specific table
 
 Restrict the block to a single table by comparing `table_database.str` and `table_name.str`:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -85,7 +85,7 @@ Every attempt to write to `finances.bank_account` fails with the audit abort err
 
 Use `or` to enumerate several target tables inside the same `and`:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -114,7 +114,7 @@ Use `or` to enumerate several target tables inside the same `and`:
 
 Blocking and logging are independent. The same event can carry both a `log` and an `abort` item. For example, log every blocked attempt and also log failed `SELECT`s on the same object. Keep the two concerns as separate event blocks when the conditions differ:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -143,14 +143,14 @@ Blocking and logging are independent. The same event can carry both a `log` and 
 When an `abort` rule prevents administrators from running essential statements:
 
 1. Connect with an account that holds `AUDIT_ABORT_EXEMPT`, typically a `SYSTEM_USER` account.
-1. Replace the filter with a safer definition using [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html).
-1. Reassign accounts with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html) when needed.
+1. Replace the filter with a safer definition using [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md).
+1. Reassign accounts with [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md) when needed.
 
 Test `abort` rules on a clone before applying them to production.
 
 ## See also
 
-- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/9.7/write-filter-definitions.html) — base grammar and `log` conditions.
-- [Redact audit log fields](https://docs.percona.com/percona-server/9.7/redact-audit-log-fields.html) — hide statement text with `print` and `replace`.
-- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.html#abortability) — which events can be aborted.
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.html).
+- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/9.7/write-filter-definitions.md) — base grammar and `log` conditions.
+- [Redact audit log fields](https://docs.percona.com/percona-server/9.7/redact-audit-log-fields.md) — hide statement text with `print` and `replace`.
+- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/9.7/audit-log-filter-definition-fields.md#abortability) — which events can be aborted.
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/9.7/audit-log-filter-variables.md).

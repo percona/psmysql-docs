@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona Server for MySQL 9.7, a drop-in replacement for MySQL Community with added performance, scalability and backup features, with installation, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/additional-selinux-tools.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/additional-selinux-tools.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/additional-selinux-tools.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10675,34 +10675,34 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h1 id="additional-selinux-tools-and-management">Additional SELinux tools and management<a data-markdown-ignore class="headerlink" href="#additional-selinux-tools-and-management" title="Permanent link">&para;</a></h1>
 <h2 id="installing-selinux-management-tools">Installing SELinux management tools<a data-markdown-ignore class="headerlink" href="#installing-selinux-management-tools" title="Permanent link">&para;</a></h2>
 <p>To install SELinux management tools on Red Hat Enterprise Linux 8 or later, run the following command as root:</p>
-<div class="highlight"><pre><span></span><code>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python-utils
+<div class="language-shell highlight"><pre><span></span><code>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>policycoreutils-python-utils
 </code></pre></div>
 <p>Ensure you have root privileges to execute these commands.</p>
 <h2 id="switching-selinux-mode">Switching SELinux mode<a data-markdown-ignore class="headerlink" href="#switching-selinux-mode" title="Permanent link">&para;</a></h2>
 <p>SELinux can operate in three modes: Disabled, Permissive, and Enforcing. </p>
 <p>To switch SELinux mode until the next reboot, use either of the following commands as root:</p>
-<p><div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span>Enforcing
+<p><div class="language-shell highlight"><pre><span></span><code>setenforce<span class="w"> </span>Enforcing
 </code></pre></div>
 or
-<div class="highlight"><pre><span></span><code>setenforce<span class="w"> </span><span class="m">1</span>
+<div class="language-shell highlight"><pre><span></span><code>setenforce<span class="w"> </span><span class="m">1</span>
 </code></pre></div></p>
 <p>To view the current SELinux mode, use either of the following commands:</p>
-<p><div class="highlight"><pre><span></span><code>getenforce
+<p><div class="language-shell highlight"><pre><span></span><code>getenforce
 </code></pre></div>
 or
-<div class="highlight"><pre><span></span><code>sestatus<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>mode
+<div class="language-shell highlight"><pre><span></span><code>sestatus<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>mode
 </code></pre></div></p>
 <h2 id="managing-selinux-policies">Managing SELinux policies<a data-markdown-ignore class="headerlink" href="#managing-selinux-policies" title="Permanent link">&para;</a></h2>
 <h3 id="using-the-semanage-command">Using the semanage command<a data-markdown-ignore class="headerlink" href="#using-the-semanage-command" title="Permanent link">&para;</a></h3>
 <p>To add a service to the permissive domain, execute the following as root:</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>&lt;service_name&gt;
+<div class="language-shell highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-a<span class="w"> </span>&lt;service_name&gt;
 </code></pre></div>
 <p>To delete a service from the permissive domain, run:</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>&lt;service_name&gt;
+<div class="language-shell highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-d<span class="w"> </span>&lt;service_name&gt;
 </code></pre></div>
 <h3 id="list-the-current-permissive-domains">List the current Permissive domains<a data-markdown-ignore class="headerlink" href="#list-the-current-permissive-domains" title="Permanent link">&para;</a></h3>
 <p>To list the current permissive domains, use the following command:</p>
-<div class="highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-l
+<div class="language-shell highlight"><pre><span></span><code>semanage<span class="w"> </span>permissive<span class="w"> </span>-l
 </code></pre></div>
 
 

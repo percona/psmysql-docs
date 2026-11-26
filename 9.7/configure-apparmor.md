@@ -12,13 +12,13 @@ You should [switch the profile] to `Complain` mode before editing the file. Edit
 
 You can change the data directory to a non-default location, like /var/lib/mysqlcustom. You should enable audit mode to capture all actions and edit the profile to allow access to the custom location.
 
-```
+```shell
 cat /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 
 Expected output
 
-```
+```text
 The Percona Server 9.7 configuration file.
 
 For explanations see
@@ -33,13 +33,13 @@ log-error    = /var/log/mysql/error.log
 
 Enable audit mode for mysqld. In this mode, the security policy is enforced and all access is logged.
 
-```
+```shell
 aa-audit mysqld
 ```
 
 Restart Percona Server for MySQL.
 
-```
+```shell
 sudo systemctl mysql restart
 ```
 
@@ -52,7 +52,7 @@ For example, the following log entries show `DENIED`:
 
 Expected output
 
-```
+```text
 ...
 Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps audit[16013]: AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/var/lib/mysqlcustom/binlog.index" pid=16013 comm="mysqld" requested_mask="c" denied_mask="c" fsuid=111 ouid=111
 Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(1607343428.022:36): apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/var/lib/mysqlcustom/mysqld_tmp_file_case_insensitive_test.lower-test" pid=16013 comm="mysqld" requested_mask="c" denied_mask="c" fsuid=111 ouid=111
@@ -61,7 +61,7 @@ Dec 07 12:17:08 ubuntu-s-4vcpu-8gb-nyc1-01-aa-ps kernel: audit: type=1400 audit(
 
 Open `/etc/apparmor.d/local/usr.sbin.mysqld` in a text editor and edit the following entries in the `Allow data dir access` section.
 
-```
+```text
 Allow data dir access
 /var/lib/mysqlcustom/ r,
 /var/lib/mysqlcustom/** rwk,
@@ -75,13 +75,13 @@ Edit the local version of the file instead of the main profile. Separating the c
 
 Reload the profile:
 
-```
+```shell
 apparmor_parser -r -T /etc/apparmor.d/usr.sbin.mysqld
 ```
 
 Restart mysql:
 
-```
+```shell
 systemctl restart mysql
 ```
 
@@ -89,13 +89,13 @@ systemctl restart mysql
 
 To move your logs to a custom location, you must edit the my.cnf configuration file and then edit the local profile to allow access:
 
-```
+```shell
 cat /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
 
 Expected output
 
-```
+```text
 The Percona Server 9.7 configuration file.
 
 For explanations see
@@ -110,13 +110,13 @@ log-error    = /*custom-log-dir*/mysql/error.log
 
 Verify the custom directory exists.
 
-```
+```shell
 ls -la /custom-log-dir/
 ```
 
 Expected output
 
-```
+```text
 total 12
 drwxrwxrwx  3 root root 4096 Dec  7 13:09 .
 drwxr-xr-x 24 root root 4096 Dec  7 13:07 ..
@@ -125,24 +125,24 @@ drwxrwxrwx  2 root root 4096 Dec  7 13:09 mysql
 
 Restart Percona Server.
 
-```
+```shell
 service mysql start
 ```
 
 Expected output
 
-```
+```text
 Job for mysql.service failed because the control process exited with error code.
 See "systemctl status mysql.service" and "journalctl -xe" for details.
 ```
 
-```
+```shell
 journalctl -xe
 ```
 
 Expected output
 
-```
+```text
 ...
 AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/custom-log-dir/mysql/error.log"
 ...
@@ -150,13 +150,13 @@ AVC apparmor="DENIED" operation="mknod" profile="/usr/sbin/mysqld" name="/custom
 
 The access has been denied by AppArmor. Edit the local profile in the `Allow log file access` section to allow access to the custom log location.
 
-```
+```shell
 cat /etc/apparmor.d/local/usr.sbin.mysqld
 ```
 
 Expected output
 
-```
+```text
  Site-specific additions and overrides for usr.sbin.mysqld..
  For more details, please see /etc/apparmor.d/local/README.
 
@@ -167,13 +167,13 @@ Expected output
 
 Reload the profile:
 
-```
+```shell
 apparmor_parser -r -T /etc/apparmor.d/usr.sbin.mysqld
 ```
 
 Restart Percona Server:
 
-```
+```shell
 systemctl restart mysql
 ```
 
@@ -181,13 +181,13 @@ systemctl restart mysql
 
 By default, secure_file_priv points to the following location:
 
-```
+```sql
 mysqlshow variables like 'secure_file_priv';
 ```
 
 Expected output
 
-```
+```text
 +------------------+-----------------------+
 | Variable_name    | Value                 |
 +------------------+-----------------------+
@@ -197,7 +197,7 @@ Expected output
 
 To allow access to another location, in a text editor, open the local profile. Review the settings in the `Allow data dir access` section:
 
-```
+```text
 Allow data dir access
 /var/lib/mysql/ r,
 /var/lib/mysql/** rwk,
@@ -205,13 +205,13 @@ Allow data dir access
 
 Edit the local profile in a text editor to allow access to the custom location.
 
-```
+```shell
 cat /etc/apparmor.d/local/usr.sbin.mysqld
 ```
 
 Expected output
 
-```
+```text
 Site-specific additions and overrides for usr.sbin.mysqld..
 For more details, please see /etc/apparmor.d/local/README.
 
@@ -222,20 +222,20 @@ Allow data dir access
 
 Reload the profile:
 
-```
+```shell
 apparmor_parser -r -T /etc/apparmor.d/usr.sbin.mysqld
 ```
 
 Restart Percona Server for MySQL:
 
-```
+```shell
 systemctl restart mysql
 ```
 
 ## AppArmor links:
 
-[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.html)\
-[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.html)\
-[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.html)\
-[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.html)\
-[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.html)
+[AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.md)\
+[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.md)\
+[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md)\
+[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.md)\
+[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.md)

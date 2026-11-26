@@ -10,8 +10,8 @@ AppArmor enhances system security by enforcing strict access controls and protec
 
 ## AppArmor links:
 
-[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.html)\
-[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.html)\
-[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.html)\
-[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.html)\
-[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.html)
+[AppArmor Profiles](https://docs.percona.com/percona-server/9.7/apparmor-profiles.md)\
+[Manage AppArmor Profiles](https://docs.percona.com/percona-server/9.7/manage-apparmor-profiles.md)\
+[Disable AppArmor](https://docs.percona.com/percona-server/9.7/disable-apparmor.md)\
+[Configure AppArmor](https://docs.percona.com/percona-server/9.7/configure-apparmor.md)\
+[Troubleshoot AppArmor](https://docs.percona.com/percona-server/9.7/troubleshoot-apparmor.md)

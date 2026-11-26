@@ -8,13 +8,13 @@ The OpenTelemetry component (`component_telemetry`) is a community MySQL 9.7 fea
 
 The OpenTelemetry component is a dynamically loadable module. Percona Server for MySQL does not load this component by default. To stream metrics, traces, and logs to your configured endpoints, install the component first.
 
-The `mysql` client uses a separate `telemetry_client` plugin. See [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html).
+The `mysql` client uses a separate `telemetry_client` plugin. See [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md).
 
 ## Install the component
 
 To install the component, connect to the server with a user account that has the `INSERT` privilege on the `mysql.component` system table. Run the following statement:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_telemetry';
 ```
 
@@ -24,7 +24,7 @@ This statement registers the component in the `mysql.component` system table. Pe
 
 To confirm that the component is loaded, query the `mysql.component` system table:
 
-```
+```sql
 SELECT component_urn
 FROM mysql.component
 WHERE component_urn = 'file://component_telemetry';
@@ -42,7 +42,7 @@ Uninstalling the component unloads it without a restart. Collection stops during
 
 To uninstall the component, run the following statement:
 
-```
+```sql
 UNINSTALL COMPONENT 'file://component_telemetry';
 ```
 
@@ -50,10 +50,10 @@ This statement unloads the component from memory and also removes the component 
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)

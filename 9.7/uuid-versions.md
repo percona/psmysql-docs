@@ -39,13 +39,13 @@ UUID version 7 (UUIDv7) creates time-ordered identifiers by encoding a Unix time
 
 ## Install the UUID_VX component
 
-```
+```sql
 INSTALL COMPONENT 'file://component_uuid_vx_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.03 sec)
 ```
 
@@ -77,13 +77,13 @@ The following functions are compatible with all UUID versions:
 
 ### Examples of functions for all UUID versions
 
-```
+```sql
 SELECT is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------------------------+
 | is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777') |
 +----------------------------------------------------+
@@ -91,13 +91,13 @@ Expected output
 +----------------------------------------------------+
 ```
 
-```
+```sql
 SELECT uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 Expected output
 
-```
+```text
 +---------------------------------------------------------+
 | uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777') |
 +---------------------------------------------------------+
@@ -105,13 +105,13 @@ Expected output
 +---------------------------------------------------------+
 ```
 
-```
+```sql
  SELECT uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 Expected output
 
-```
+```text
 +---------------------------------------------------------+
 | uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777') |
 +---------------------------------------------------------+
@@ -138,13 +138,13 @@ The `UUID_v3()` function and `UUID_v5()` function do not validate the string arg
 
 UUID version 1:
 
-```
+```sql
 SELECT uuid_v1();
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v1()                            |
 +--------------------------------------+
@@ -154,13 +154,13 @@ Expected output
 
 UUID version 3 takes one argument and uses the default UUID namespace as “URL”.
 
-```
+```sql
 SELECT uuid_v3('http://example.com');
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v3('http://example.com')        |
 +--------------------------------------+
@@ -170,13 +170,13 @@ Expected output
 
 UUID version 3 takes one argument and the explicit UUID namespace is “URL”.
 
-```
+```sql
 SELECT uuid_v3('http://example.com', 1);
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v3('http://example.com')        |
 +--------------------------------------+
@@ -186,13 +186,13 @@ Expected output
 
 UUID version 3 takes one argument, with the explicit UUID namespace set to “DNS”.
 
-```
+```sql
 SELECT uuid_v3('example.com',0);
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v3('example.com',0)             |
 +--------------------------------------+
@@ -202,13 +202,13 @@ Expected output
 
 UUID version 4:
 
-```
+```sql
 SELECT uuid_v4();
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v4()                            |
 +--------------------------------------+
@@ -218,13 +218,13 @@ Expected output
 
 UUID version 5:
 
-```
+```sql
 SELECT uuid_v5("http://example.com");
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v5("http://example.com")        |
 +--------------------------------------+
@@ -234,13 +234,13 @@ Expected output
 
 UUID version 6:
 
-```
+```sql
 SELECT uuid_v6();
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v6()                            |
 +--------------------------------------+
@@ -250,13 +250,13 @@ Expected output
 
 UUID version 7 generation:
 
-```
+```sql
 SELECT uuid_v7();
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v7()                            |
 +--------------------------------------+
@@ -267,13 +267,13 @@ Expected output
 
 UUID version 7 with timestamp offset in 84000 seconds in the future
 
-```
+```sql
 SELECT uuid_v7(84000000);
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------+
 | uuid_v7(84000000)                    |
 +--------------------------------------+
@@ -293,13 +293,13 @@ The following functions are used only with time-based UUIDs, specifically versio
 
 ### Timestamp-based function examples
 
-```
+```sql
 SELECT uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 Expected output
 
-```
+```text
 +--------------------------------------------------------------+
 | uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777') |
 +--------------------------------------------------------------+
@@ -308,13 +308,13 @@ Expected output
 1 row in set (0.00 sec)
 ```
 
-```
+```sql
 SELECT uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------------------------------------------+
 | uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777') |
 +-----------------------------------------------------------------+
@@ -322,13 +322,13 @@ Expected output
 +-----------------------------------------------------------------+
 ```
 
-```
+```sql
 SELECT uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777');
 ```
 
 Expected output
 
-```
+```text
 +-------------------------------------------------------------+
 | uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777') |
 +-------------------------------------------------------------+
@@ -338,12 +338,12 @@ Expected output
 
 ## Uninstall the UUID_VX component
 
-```
+```sql
 UNINSTALL COMPONENT 'file://component_uuid_vx_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.03 sec)
 ```

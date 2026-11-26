@@ -10,7 +10,7 @@ This feature obtains logical backups with correct positions without running a `F
 
 The Percona Server for MySQL implementation extends the `START TRANSACTION WITH CONSISTENT SNAPSHOT` syntax with the optional `FROM SESSION` clause:
 
-```
+```text
 START TRANSACTION WITH CONSISTENT SNAPSHOT FROM SESSION <session_id>;
 ```
 
@@ -22,7 +22,7 @@ For XtraDB, a transaction with a cloned snapshot will only see data visible or c
 
 ## mysqldump
 
-`mysqldump` has been updated to use new status variables automatically when they are supported by the server and both –single-transaction and –source-data are specified on the command line. Along with the `mysqldump` improvements introduced in [Backup Locks](https://docs.percona.com/percona-server/9.7/backup-locks.html#backup-locks) there is now a way to generate `mysqldump` backups that are guaranteed to be consistent without using `FLUSH TABLES WITH READ LOCK` even if `--source-data` is requested.
+`mysqldump` has been updated to use new status variables automatically when they are supported by the server and both –single-transaction and –source-data are specified on the command line. Along with the `mysqldump` improvements introduced in [Backup Locks](https://docs.percona.com/percona-server/9.7/backup-locks.md#backup-locks) there is now a way to generate `mysqldump` backups that are guaranteed to be consistent without using `FLUSH TABLES WITH READ LOCK` even if `--source-data` is requested.
 
 ## System variables
 

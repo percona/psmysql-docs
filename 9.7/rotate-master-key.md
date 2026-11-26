@@ -14,7 +14,7 @@ InnoDB reads the encryption data from the tablespace header, if certain tablespa
 
 Rotate the master encryption key with following statement:
 
-```
+```sql
 ALTER INSTANCE ROTATE INNODB MASTER KEY;
 ```
 

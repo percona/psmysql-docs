@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10815,11 +10815,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h2 id="step-1-create-the-compose-project">Step 1: Create the Compose project<a data-markdown-ignore class="headerlink" href="#step-1-create-the-compose-project" title="Permanent link">&para;</a></h2>
 <p>Create a directory named <code>otel-quickstart</code> and open that directory:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>otel-quickstart
+<div class="language-bash highlight"><pre><span></span><code>mkdir<span class="w"> </span>otel-quickstart
 <span class="nb">cd</span><span class="w"> </span>otel-quickstart
 </code></pre></div>
 <p>Create a file named <code>docker-compose.yml</code> with the following content:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">psmysql</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-server:9.7.2-3</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
@@ -10843,7 +10843,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The Compose project network lets <code>psmysql</code> resolve the collector as <code>otel-collector</code>. The containers do not use <code>localhost</code> to reach each other.</p>
 <p>The file does not publish port <code>3306</code> or port <code>4318</code> on the host. The test uses <code>docker compose exec</code> and <code>docker compose logs</code>.</p>
 <p>Create a file named <code>otel-collector-config.yaml</code> with the following content:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">receivers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">otlp</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">protocols</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">http</span><span class="p">:</span>
@@ -10861,18 +10861,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h2 id="step-2-start-the-stack">Step 2: Start the stack<a data-markdown-ignore class="headerlink" href="#step-2-start-the-stack" title="Permanent link">&para;</a></h2>
 <p>Start both services:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <p>Wait until Percona Server for MySQL is ready. Check the server logs:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>psmysql
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>psmysql
 </code></pre></div>
 <p>Continue when the log contains <code>ready for connections</code>.</p>
 <h2 id="step-3-install-the-component">Step 3: Install the component<a data-markdown-ignore class="headerlink" href="#step-3-install-the-component" title="Permanent link">&para;</a></h2>
 <p>Connect to Percona Server for MySQL in the <code>psmysql</code> service. The example password is <code>secret</code>.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret
 </code></pre></div>
 <p>Run the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_telemetry'</span><span class="p">;</span>
 </code></pre></div>
 <p>The <code>INSTALL COMPONENT</code> statement stores the component in the <code>mysql.component</code> table. The next server start loads the component from that table.</p>
 <p>Exit the client.</p>
@@ -10881,33 +10881,33 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="admonition warning">
 <p class="admonition-title">Verify this path</p>
 </div>
-<div class="highlight"><pre><span></span><code>The copy command places the file in `/etc/my.cnf.d/`. Confirm the configuration directory for your image in [Docker environment variables](docker-config.md). If the image uses a different directory, adjust the path.
+<div class="language-text highlight"><pre><span></span><code>The copy command places the file in `/etc/my.cnf.d/`. Confirm the configuration directory for your image in [Docker environment variables](docker-config.md). If the image uses a different directory, adjust the path.
 </code></pre></div>
 <p>Create a file named <code>otel-quickstart.cnf</code> with the following content:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">telemetry.metrics_enabled</span><span class="o">=</span><span class="s">ON</span>
 <span class="na">telemetry.otel_exporter_otlp_metrics_endpoint</span><span class="o">=</span><span class="s">http://otel-collector:4318/v1/metrics</span>
 </code></pre></div>
 <p>Copy the file into the <code>psmysql</code> service. Then restart that service:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>cp<span class="w"> </span>otel-quickstart.cnf<span class="w"> </span>psmysql:/etc/my.cnf.d/otel-quickstart.cnf
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>cp<span class="w"> </span>otel-quickstart.cnf<span class="w"> </span>psmysql:/etc/my.cnf.d/otel-quickstart.cnf
 docker<span class="w"> </span>compose<span class="w"> </span>restart<span class="w"> </span>psmysql
 </code></pre></div>
 <p>Wait for <code>ready for connections</code> in the <code>psmysql</code> logs before you continue.</p>
 <p>Do not add these telemetry settings before you install the component. The server treats the names as unknown variables when <code>component_telemetry</code> is not installed.</p>
 <h2 id="step-5-generate-sample-activity">Step 5: Generate sample activity<a data-markdown-ignore class="headerlink" href="#step-5-generate-sample-activity" title="Permanent link">&para;</a></h2>
 <p>Connect and run a sample query to generate metric data:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT 1;"</span>
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret<span class="w"> </span>-e<span class="w"> </span><span class="s2">"SELECT 1;"</span>
 </code></pre></div>
 <p>Wait 10 seconds. The default export interval for metrics is 10 seconds.</p>
 <h2 id="step-6-confirm-that-the-collector-receives-data">Step 6: Confirm that the collector receives data<a data-markdown-ignore class="headerlink" href="#step-6-confirm-that-the-collector-receives-data" title="Permanent link">&para;</a></h2>
 <p>Check the collector logs:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>otel-collector
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>logs<span class="w"> </span>otel-collector
 </code></pre></div>
 <p>Confirm that the output contains metric names with the <code>mysql</code> prefix.</p>
 <div class="admonition note">
 <p class="admonition-title">What this procedure validates</p>
 </div>
-<div class="highlight"><pre><span></span><code>The procedure confirms that the OTLP/HTTP metrics pipeline works between Percona Server for MySQL and a collector. The connection is unauthenticated and unencrypted on the Compose project network.
+<div class="language-text highlight"><pre><span></span><code>The procedure confirms that the OTLP/HTTP metrics pipeline works between Percona Server for MySQL and a collector. The connection is unauthenticated and unencrypted on the Compose project network.
 
 The procedure does not confirm the following items:
 
@@ -10925,16 +10925,16 @@ For a production configuration with TLS and authentication, see [Configure OpenT
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 </div>
-<div class="highlight"><pre><span></span><code>Completing the procedure confirms connectivity only. Before you enable OpenTelemetry in production, see [Configure OpenTelemetry](configure-opentelemetry.md) to configure TLS and authentication.
+<div class="language-text highlight"><pre><span></span><code>Completing the procedure confirms connectivity only. Before you enable OpenTelemetry in production, see [Configure OpenTelemetry](configure-opentelemetry.md) to configure TLS and authentication.
 </code></pre></div>
 <p>Uninstall the component. This statement does not require a restart:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret<span class="w"> </span>-e<span class="w"> </span><span class="s2">"UNINSTALL COMPONENT 'file://component_telemetry';"</span>
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-psecret<span class="w"> </span>-e<span class="w"> </span><span class="s2">"UNINSTALL COMPONENT 'file://component_telemetry';"</span>
 </code></pre></div>
 <p>Stop the services and remove the containers, the project network, and the named volume:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>-v
+<div class="language-bash highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>down<span class="w"> </span>-v
 </code></pre></div>
 <p>Remove the project directory if you no longer need the files:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>..
+<div class="language-bash highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>..
 rm<span class="w"> </span>-rf<span class="w"> </span>otel-quickstart
 </code></pre></div>
 <h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>

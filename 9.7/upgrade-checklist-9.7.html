@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10742,7 +10742,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Identify partitioned tables on engines without native partitioning. Convert each table to InnoDB, or remove partitioning, before upgrading.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span>
 <span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span>
 <span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'innodb'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ndbcluster'</span><span class="p">)</span>
 <span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="n">CREATE_OPTIONS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%partitioned%'</span><span class="p">;</span>
@@ -10881,7 +10881,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Before the first start of 9.7, validate the configuration with the 9.7 <code>mysqld</code> binary. The check reports unknown options and exits without starting the server or modifying the data directory. A valid configuration returns exit status <code>0</code>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 </li>
 <li class="task-list-item">
@@ -11005,7 +11005,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ul class="task-list">
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Reload time zone tables with <code>mysql_tzinfo_to_sql</code>.</p>
-<div class="highlight"><pre><span></span><code>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li class="task-list-item">

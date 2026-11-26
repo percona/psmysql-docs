@@ -40,7 +40,7 @@ To create a database on a server, a user must have the `CREATE` privilege. This 
 
 You use the `CREATE DATABASE` command to create a new database in the server. This command tells the server to create a new database with the specified name. For example, to create a database named `my_database`, you execute the following command:
 
-```
+```sql
 CREATE DATABASE my_database;
 ```
 
@@ -50,7 +50,7 @@ This command creates a new, empty database called `my_database`. You can then st
 
 After creating a database, you need to select it to start working with it. Use the `USE` command to specify which database you want to use for your SQL statements. For example, to select the `my_database` database, you execute the following command:
 
-```
+```sql
 USE my_database;
 ```
 
@@ -58,7 +58,7 @@ This command tells the server to use `my_database` for all subsequent SQL comman
 
 ## Database management
 
-- [Modify Tables](https://docs.percona.com/percona-server/9.7/modify-tables.html)
-- [Isolation Levels](https://docs.percona.com/percona-server/9.7/isolation-levels.html)
-- [Transaction Management](https://docs.percona.com/percona-server/9.7/transaction-mgmt.html)
-- [Views](https://docs.percona.com/percona-server/9.7/views.html)
+- [Modify Tables](https://docs.percona.com/percona-server/9.7/modify-tables.md)
+- [Isolation Levels](https://docs.percona.com/percona-server/9.7/isolation-levels.md)
+- [Transaction Management](https://docs.percona.com/percona-server/9.7/transaction-mgmt.md)
+- [Views](https://docs.percona.com/percona-server/9.7/views.md)

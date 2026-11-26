@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/yum-download-rpm.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/yum-download-rpm.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/yum-download-rpm.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10636,22 +10636,22 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>Use <code>wget</code> to download the tar file:</p>
 <p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="download-instructions.html">Instructions for Percona Product Downloads</a>.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/redhat/9/x86_64/Percona-Server-9.7.2-3-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/redhat/9/x86_64/Percona-Server-9.7.2-3-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the bundle to get the packages: </p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-3-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-9.7.2-3-&lt;revision<span class="w"> </span>identifier&gt;-el9-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>To view a list of packages, run the following command:</p>
-<p><div class="highlight"><pre><span></span><code>ls<span class="w"> </span>*.rpm
+<p><div class="language-shell highlight"><pre><span></span><code>ls<span class="w"> </span>*.rpm
 </code></pre></div>
 The output should look like the following:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>percona-icu-data-files-9.7.2-3.1.el9.x86_64.rpm
+<div class="language-text no-copy highlight"><pre><span></span><code>percona-icu-data-files-9.7.2-3.1.el9.x86_64.rpm
 percona-mysql-router-9.7.2-3.1.el9.x86_64.rpm
 percona-mysql-router-debuginfo-9.7.2-3.1.el9.x86_64.rpm
 percona-server-client-9.7.2-3.1.el9.x86_64.rpm
@@ -10677,17 +10677,17 @@ percona-server-test-debuginfo-9.7.2-3.1.el9.x86_64.rpm
 </li>
 <li>
 <p>Install <code>jemalloc</code> with the following command, if needed. See <a href="#when-to-install-jemalloc">When to install jemalloc</a> for guidance:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/yum/release/8/RPMS/x86_64/jemalloc-3.6.0-1.el8.x86_64.rpm
 </code></pre></div>
 </li>
 <li>
 <p>An EL8-based <em>RHEL</em> distribution or derivatives package installation requires the mysql module to be disabled before installing the packages:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Install the server, the client, and the required libraries with <code>dnf localinstall</code>. Run this command as root or use the sudo command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>./percona-server-server-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-plugins-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-shared-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-icu-data-files-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>./percona-server-server-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-client-plugins-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-server-shared-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm<span class="w"> </span>./percona-icu-data-files-<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>*.rpm
 </code></pre></div>
 <p><code>dnf</code> installs the local packages and resolves the remaining dependencies, such as <code>libaio</code> and <code>libatomic</code>, from the configured repositories. Do not use <code>rpm -ivh *.rpm</code>: <code>rpm</code> does not resolve dependencies and fails with <code>Failed dependencies</code>.</p>
 <div class="admonition note">

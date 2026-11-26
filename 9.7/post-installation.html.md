@@ -1,0 +1,270 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# Post-installation
+
+Depending on the type of installation, you may need to do the following tasks:
+
+## Installed using binary files or compiling from source
+
+| Task                                                                  |
+| --------------------------------------------------------------------- |
+| [Initialize the data dictionary](#initialize-the-data-directory)      |
+| [Test the server](#test-the-server)                                   |
+| [Set service to start at boot time](#set-service-to-run-at-boot-time) |
+
+### Initialize the data directory
+
+If you install the server using either the source distribution or generic binary distribution files, the data directory is not initialized, and you must run the initialization process after installation.
+
+Run mysqld with the [–initialize](https://dev.mysql.com/doc/refman/9.7/en/server-options.html#option_mysqld_initialize) option or the [initialize-](https://dev.mysql.com/doc/refman/9.7/en/server-options.html#option_mysqld_initialize-insecure) option.
+
+Executing `mysqld` with either option does the following:
+
+- Verifies the existence of the data directory
+- Initializes the system tablespace and related structures
+- Creates system tables including grant tables, time zone tables, and server-side help tables
+- Creates `root@localhost`
+
+The tarball does not create the `mysql` user. Run the following steps as a user with `sudo` privileges.
+
+1. Create the `mysql` group and the `mysql` user. The `mysql` user is a system account without login access.
+
+   ```shell
+   sudo groupadd mysql
+   sudo useradd -r -g mysql -s /bin/false mysql
+   ```
+
+1. Navigate to the MySQL directory. The example uses the default location.
+
+   ```shell
+   cd /usr/local/mysql
+   ```
+
+1. Create a directory for the MySQL files. The [secure_file_priv](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
+
+   ```shell
+   sudo mkdir mydata
+   sudo chown mysql:mysql mydata
+   sudo chmod 750 mydata
+   ```
+
+   The `mysql` user account should have the `drwxr-x---` permissions. Four sections define the permissions; file or directory, User, Group, and Others.
+
+   The first character designates if the permissions are for a file or directory. The first character is `d` for a directory.
+
+   The rest of the sections are specified in three-character sets.
+
+   | Permission | User | Group | Other |
+   | ---------- | ---- | ----- | ----- |
+   | Read       | Yes  | Yes   | No    |
+   | Write      | Yes  | No    | No    |
+   | Execute    | Yes  | Yes   | No    |
+
+1. Run the command to initialize the data directory. The `--user=mysql` option runs the server as the `mysql` user. The server refuses to run as the operating system `root` user without this option.
+
+   ```shell
+   sudo bin/mysqld --initialize --user=mysql
+   ```
+
+   The `--initialize` option generates a random temporary password for `root@localhost`. The option writes the password to the error log.
+
+1. Start the server as the `mysql` user.
+
+   ```shell
+   sudo bin/mysqld_safe --user=mysql &
+   ```
+
+### Test the server
+
+After you have initialized the data directory, and the server is started, you can run tests on the server.
+
+This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by [Setting the Environment Variables](https://dev.mysql.com/doc/refman/9.7/en/setting-environment-variables.html) .
+
+You can use the [mysqladmin](https://dev.mysql.com/doc/refman/9.7/en/mysqladmin.html) client to access the server.
+
+If you have issues connecting to the server, use the `root` user and the root account password.
+
+```shell
+sudo mysqladmin -u root -p version
+```
+
+Expected output
+
+```text
+Enter password:
+mysql Ver 9.7.2-3 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
+...
+Server version      9.7.2-3
+Protocol version    10
+Connection          Localhost via UNIX socket
+UNIX socket         /var/run/mysqld/mysqld.sock
+Uptime:             4 hours 58 min 10 section
+
+Threads:    2 Questions:    16 Slow queries: 0 Opens: 139 Flush tables: 3
+Open tables: 59  Queries per second avg: 0.0000
+```
+
+Use [mysqlshow](https://dev.mysql.com/doc/refman/9.7/en/mysqlshow.html) to display database and table information.
+
+```shell
+sudo mysqlshow -u root -p
+```
+
+Expected output
+
+```text
+Enter password:
+
++---------------------+
+|      Databases      |
++=====================+
+| information_schema  |
++---------------------+
+| mysql               |
++---------------------+
+| performance_schema  |
++---------------------+
+| sys                 |
++---------------------+
+```
+
+### Set service to run at boot time
+
+After a generic binary installation, manually configure systemd support.
+
+The following commands start, check the status, and stop the server:
+
+```shell
+sudo systemctl start mysql
+sudo systemctl status mysql
+sudo systemctl stop mysql
+```
+
+Run the following command to start the service at boot time:
+
+```shell
+sudo systemctl enable mysqld
+```
+
+Run the following command to prevent a service from starting at boot time:
+
+```shell
+sudo systemctl disable mysqld
+```
+
+## All installations
+
+| Task                                                            |
+| --------------------------------------------------------------- |
+| [Update the root password](#update-the-root-password)           |
+| [Secure the server](#secure-the-server)                         |
+| [Populate the time zone tables](#populate-the-time-zone-tables) |
+
+### Update the root password
+
+During installation on Debian/Ubuntu, you are prompted to set a root password. On Red Hat Enterprise Linux and derivatives, you must set or update the root password after installation.
+
+1. Restart the server with the `--skip-grant-tables` option enabled to allow access without a password. This option is insecure. The server also enables `skip_networking` automatically, which disables remote connections.
+
+   ```shell
+   sudo systemctl stop mysql
+   sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
+   sudo systemctl start mysql
+   mysql
+   ```
+
+1. Reload the grant tables, then update the root password using the `caching_sha2_password` authentication plugin:
+
+   Important
+
+   The `mysql_native_password` plugin has been removed in MySQL 9.x. You must use the `caching_sha2_password` authentication plugin.
+
+   Note
+
+   With `--skip-grant-tables`, the server does not load the grant tables, and `ALTER USER` fails with `ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement`. Run `FLUSH PRIVILEGES` first to load the grant tables.
+
+   ```sql
+   FLUSH PRIVILEGES;
+   ALTER USER 'root'@'localhost'
+   IDENTIFIED WITH caching_sha2_password
+   BY 'rootPassword_12';
+   ```
+
+   If the command returns `Query OK`, run `EXIT;`
+
+   ```sql
+   EXIT;
+   ```
+
+   If the command fails with the `ERROR 1524 (HY000): Plugin 'mysql_native_password' is not loaded` error, the account is configured to use a removed `mysql_native_password` plugin (for example, after an upgrade from an older version).
+
+   Check the current authentication plugin:
+
+   ```sql
+   SELECT User, Host, plugin FROM mysql.user WHERE User = 'root';
+   ```
+
+   If the plugin is `mysql_native_password`, rerun the `ALTER USER` command to switch to the `caching_sha2_password` authentication plugin.
+
+   ```sql
+   ALTER USER 'root'@'localhost'
+   IDENTIFIED WITH caching_sha2_password
+   BY 'rootPassword_12';
+   ```
+
+   If MySQL returns the `ERROR 1819 (HY000): Your password does not satisfy the current policy` error, check the password policy requirements with:
+
+   ```sql
+   SHOW VARIABLES LIKE 'validate_password%';
+   ```
+
+   Then choose a password that satisfies the policy.
+
+1. Stop the server, remove the `--skip-grant-tables` option, and restart the server:
+
+   ```shell
+   sudo systemctl stop mysql
+   sudo systemctl unset-environment MYSQLD_OPTS
+   sudo systemctl start mysql
+   mysql -u root -p
+   ```
+
+### Secure the server
+
+The [mysql_secure_installation](https://dev.mysql.com/doc/refman/9.7/en/mysql-secure-installation.html) script improves the security of the instance.
+
+The script does the following:
+
+- Changes the `root` password
+- Disallows remote login for `root` accounts
+- Removes anonymous users
+- Removes the `test` database
+- Reloads the privilege tables
+
+The following statement runs the script:
+
+```shell
+mysql_secure_installation
+```
+
+## Populate the time zone tables
+
+The time zone system tables are the following:
+
+- `time_zone`
+- `time_zone_leap_second`
+- `time_zone_name`
+- `time_zone_transition`
+- `time_zone_transition_type`
+
+If you install the server using either the source distribution or the generic binary distribution files, the installation creates the time zone tables, but the tables are not populated.
+
+The [mysql_tzinfo_to_sql](https://dev.mysql.com/doc/refman/9.7/en/mysql-tzinfo-to-sql.html) program populates the tables from the `zoneinfo` directory data available in Linux.
+
+A common method to populate the tables is to add the zoneinfo directory path to `mysql_tzinfo_to_sql` and then send the output into the [mysql system schema](https://dev.mysql.com/doc/refman/9.7/en/system-schema.html) .
+
+The example assumes you are running the command with the `root` account. The account must have the privileges for modifying the `mysql` system schema.
+
+```shell
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p -D mysql
+```

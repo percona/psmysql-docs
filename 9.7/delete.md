@@ -25,7 +25,7 @@ The statement has the following options:
 
 The syntax of the DELETE statement is as follows:
 
-```
+```text
 DELETE FROM table_name
 [WHERE condition];
 ```
@@ -34,16 +34,16 @@ DELETE FROM table_name
 
 This example deletes all rows from the `orders` table where the `order_date` is before January 1, 2023.
 
-```
+```sql
 DELETE FROM orders
 WHERE order_date < '2023-01-01';
 ```
 
 Fundamental SQL links:
 
-- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.html)
-- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.html)
-- [SELECT](https://docs.percona.com/percona-server/9.7/select.html)
-- [INSERT](https://docs.percona.com/percona-server/9.7/insert.html)
-- [UPDATE](https://docs.percona.com/percona-server/9.7/update.html)
-- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.html)
+- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.md)
+- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.md)
+- [SELECT](https://docs.percona.com/percona-server/9.7/select.md)
+- [INSERT](https://docs.percona.com/percona-server/9.7/insert.md)
+- [UPDATE](https://docs.percona.com/percona-server/9.7/update.md)
+- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.md)

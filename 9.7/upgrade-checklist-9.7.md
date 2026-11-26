@@ -20,7 +20,7 @@ Take the following actions:
 
 - Read [What Is New in MySQL 9.7](https://dev.mysql.com/doc/refman/9.7/en/mysql-nutshell.html) . Identify deprecations and removals that affect your workload.
 - Read the [MySQL 9.7 Release Notes](https://dev.mysql.com/doc/relnotes/mysql/9.7/en/) for fixes and behavior changes.
-- Read the [Percona Server for MySQL 9.7 Release notes](https://docs.percona.com/percona-server/9.7/release-notes/release-notes-index.html) .
+- Read the [Percona Server for MySQL 9.7 Release notes](https://docs.percona.com/percona-server/9.7/release-notes/release-notes-index.md) .
 - Read [Server and Status Variables and Options Added, Deprecated, or Removed in MySQL 9.7](https://dev.mysql.com/doc/refman/9.7/en/added-deprecated-removed.html) .
 
 ### Verify your backup
@@ -32,7 +32,7 @@ Take the following actions:
 - Take a hot backup with Percona XtraBackup. Include the `mysql` system database, the data dictionary, and system tables.
 - Verify the backup by restoring into a clean test environment. Validate startup and table access.
 - Document restore steps and timings. Confirm the runbook with approvers.
-- See [Backup and restore overview](https://docs.percona.com/percona-server/9.7/backup-restore-overview.html).
+- See [Backup and restore overview](https://docs.percona.com/percona-server/9.7/backup-restore-overview.md).
 
 ### Check upgrade compatibility
 
@@ -60,7 +60,7 @@ Take the following actions:
 
 - Identify partitioned tables on engines without native partitioning. Convert each table to InnoDB, or remove partitioning, before upgrading.
 
-  ```
+  ```sql
   SELECT TABLE_SCHEMA, TABLE_NAME
     FROM INFORMATION_SCHEMA.TABLES
     WHERE ENGINE NOT IN ('innodb', 'ndbcluster')
@@ -108,7 +108,7 @@ Take the following actions:
 - Verify that drivers and clients support `caching_sha2_password` and Transport Layer Security (TLS) as configured.
 - Plan account migration to `caching_sha2_password`.
 - Migrate every `mysql_native_password` account before you upgrade. 9.7 provides no server-side option to re-enable the removed plugin.
-- See [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.html).
+- See [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.md).
 
 ### Migrate from the `audit_log` plugin
 
@@ -117,7 +117,7 @@ Impact: The `audit_log` plugin is removed in 9.7. The plugin library `audit_log.
 Take the following actions:
 
 - Check whether the plugin is active on the 8.4 server: `SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = 'audit_log';`.
-- Migrate to `component_audit_log_filter` on 8.4 before upgrading. See [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.html).
+- Migrate to `component_audit_log_filter` on 8.4 before upgrading. See [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.md).
 - Run `UNINSTALL PLUGIN audit_log;` on 8.4.
 - Remove `plugin-load-add=audit_log.so` and the plugin’s `audit_log_*` options, such as `audit_log_format` and `audit_log_policy`, from `my.cnf`. Keep the component’s `audit_log_filter.*` variables.
 
@@ -131,7 +131,7 @@ Take the following actions:
 - Validate Orchestrator and other high-availability (HA) tooling versions for 9.7 syntax.
 - Update Percona Toolkit calls. Replace `pt-slave-find` with `pt-replica-find`. Replace `pt-slave-restart` with `pt-replica-restart`. Remove `pt-slave-delay` usage.
 - For replication topologies, plan a rolling upgrade. Apply a single-server method to each server in turn.
-- See [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html).
+- See [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md).
 
 ### Replace removed features and variables
 
@@ -155,7 +155,7 @@ Take the following actions:
 
 - Before the first start of 9.7, validate the configuration with the 9.7 `mysqld` binary. The check reports unknown options and exits without starting the server or modifying the data directory. A valid configuration returns exit status `0`.
 
-  ```
+  ```shell
   sudo mysqld --validate-config --user=mysql
   ```
 
@@ -186,7 +186,7 @@ Impact: An in-place upgrade requires a 9.7-supported operating system. Mismatche
 Take the following actions:
 
 - Confirm that the host distribution version is supported for 9.7.
-- If the host needs an operating system upgrade, plan a side-by-side migration with cutover. See [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html).
+- If the host needs an operating system upgrade, plan a side-by-side migration with cutover. See [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md).
 
 ### Compare behavior and run tests
 
@@ -258,7 +258,7 @@ Take the following actions:
 
 - Reload time zone tables with `mysql_tzinfo_to_sql`.
 
-  ```
+  ```shell
   mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
   ```
 
@@ -305,10 +305,10 @@ Take the following actions:
 
 The following Percona Server for MySQL pages cover upgrade-related topics:
 
-- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html)
-- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.html)
-- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html)
-- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html)
+- [Downgrade options](https://docs.percona.com/percona-server/9.7/downgrade.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md)
+- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.md)
+- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md)
+- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md)

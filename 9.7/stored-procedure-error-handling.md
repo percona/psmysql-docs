@@ -24,7 +24,7 @@ Error handling in stored procedures allows developers to gracefully handle excep
 
 To add error handling to a stored procedure, developers can use constructs like `DECLARE`, `SIGNAL`, `RESIGNAL`, and `HANDLER` to declare variables, raise errors, and handle exceptions. Here’s an example of error handling in a stored procedure:
 
-```
+```sql
 DELIMITER //
 CREATE PROCEDURE my_procedure()
     BEGIN
@@ -42,7 +42,7 @@ DELIMITER ;
 
 In this example, the `DECLARE` statement declares an exit handler for SQL exceptions. Inside the handler block, the procedure rolls back any changes made and returns a custom error message with the SQL state.
 
-```
+```sql
 CALL my_procedure();
 ```
 
@@ -50,12 +50,12 @@ This command executes the stored procedure and triggers the error handling logic
 
 ## Advanced SQL features
 
-- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.html)
-- [Functions](https://docs.percona.com/percona-server/9.7/functions.html)
-- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.html)
-- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.html)
-- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.html)
-- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.html)
+- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.md)
+- [Functions](https://docs.percona.com/percona-server/9.7/functions.md)
+- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.md)
+- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.md)
+- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.md)
+- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.md)

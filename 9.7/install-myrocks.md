@@ -21,13 +21,13 @@ It is recommended to install Percona software from official repositories:
 
    **Debian or Ubuntu**
 
-   ```
+   ```shell
    $ sudo apt install percona-server-rocksdb
    ```
 
    **RHEL or derivatives**
 
-   ```
+   ```shell
    $ sudo dnf install percona-server-rocksdb
    ```
 
@@ -35,12 +35,12 @@ After installation, you should see the following output:
 
 Expected output
 
-```
+```text
 * This release of |Percona Server| is distributed with RocksDB storage engine.
 * Run the following script to enable the RocksDB storage engine in Percona Server:
 ```
 
-```
+```shell
 $ ps-admin --enable-rocksdb -u <mysql_admin_user> -p[mysql_admin_pass] [-S <socket>] [-h <host> -P <port>]
 ```
 
@@ -48,13 +48,13 @@ $ ps-admin --enable-rocksdb -u <mysql_admin_user> -p[mysql_admin_pass] [-S <sock
 
 Run the `ps-admin` script as system root user or with **sudo** and provide the MySQL root user credentials to properly enable the RocksDB (MyRocks) storage engine:
 
-```
+```shell
 $ sudo ps-admin --enable-rocksdb -u root -pPassw0rd
 ```
 
 Expected output
 
-```
+```text
 Checking if RocksDB plugin is available for installation ...
 INFO: ha_rocksdb.so library for RocksDB found at /usr/lib64/mysql/plugin/ha_rocksdb.so.
 
@@ -67,17 +67,17 @@ INFO: Successfully installed RocksDB engine plugin.
 
 Note
 
-When you use the `ps-admin` script to enable Percona MyRocks, the script locates `ha_rocksdb.so` and installs the RocksDB engine plugin and the related MyRocks information schema plugins. For command options and troubleshooting, see [The ps-admin script](https://docs.percona.com/percona-server/9.7/ps-admin.html).
+When you use the `ps-admin` script to enable Percona MyRocks, the script locates `ha_rocksdb.so` and installs the RocksDB engine plugin and the related MyRocks information schema plugins. For command options and troubleshooting, see [The ps-admin script](https://docs.percona.com/percona-server/9.7/ps-admin.md).
 
 If the script returns no errors, Percona MyRocks should be successfully enabled on the server. You can verify it as follows:
 
-```
+```sql
 SHOW ENGINES;
 ```
 
 Expected output
 
-```
+```text
 +---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
 | Engine  | Support | Comment                                                                    | Transactions | XA   | Savepoints |
 +---------+---------+----------------------------------------------------------------------------+--------------+------+------------+
@@ -98,7 +98,7 @@ You can install MyRocks manually with a series of [INSTALL PLUGIN](https://dev.m
 
 The following statements install MyRocks:
 
-```
+```sql
 INSTALL PLUGIN ROCKSDB SONAME 'ha_rocksdb.so';
 INSTALL PLUGIN ROCKSDB_CFSTATS SONAME 'ha_rocksdb.so';
 INSTALL PLUGIN ROCKSDB_DBSTATS SONAME 'ha_rocksdb.so';
@@ -120,19 +120,19 @@ INSTALL PLUGIN ROCKSDB_DEADLOCK SONAME 'ha_rocksdb.so';
 
 It will not be possible to access tables created using the RocksDB engine with another storage engine after you remove Percona MyRocks. If you need this data, alter the tables to another storage engine. For example, to alter the `City` table to InnoDB, run the following:
 
-```
+```sql
 ALTER TABLE City ENGINE=InnoDB;
 ```
 
 To disable and uninstall the RocksDB engine plugins, use the `ps-admin` script as follows:
 
-```
+```shell
 $ sudo ps-admin --disable-rocksdb -u root -pPassw0rd
 ```
 
 Expected output
 
-```
+```text
 Checking RocksDB engine plugin status...
 INFO: RocksDB engine plugin is installed.
 
@@ -142,7 +142,7 @@ INFO: Successfully uninstalled RocksDB engine plugin.
 
 After the engine plugins have been uninstalled, remove the Percona MyRocks package:
 
-````
+````text
 === "Debian or Ubuntu"
 
     ```shell
@@ -156,7 +156,7 @@ After the engine plugins have been uninstalled, remove the Percona MyRocks packa
     ```
 ````
 
-Finally, remove all the [MyRocks Server Variables](https://docs.percona.com/percona-server/9.7/myrocks-server-variables.html#myrocks-server-variables) from the configuration file (`my.cnf`) and restart *Percona Server for MySQL*.
+Finally, remove all the [MyRocks Server Variables](https://docs.percona.com/percona-server/9.7/myrocks-server-variables.md#myrocks-server-variables) from the configuration file (`my.cnf`) and restart *Percona Server for MySQL*.
 
 ### Uninstall MyRocks plugins
 
@@ -164,7 +164,7 @@ You can [uninstall the plugins](https://dev.mysql.com/doc/refman/9.7/en/uninstal
 
 The following statements remove the MyRocks plugins:
 
-```
+```sql
 UNINSTALL PLUGIN ROCKSDB;
 UNINSTALL PLUGIN ROCKSDB_CFSTATS;
 UNINSTALL PLUGIN ROCKSDB_DBSTATS;

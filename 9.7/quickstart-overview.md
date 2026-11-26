@@ -4,7 +4,7 @@
 
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database and provides enterprise-grade features in security, availability, data management, visibility, instrumentation, and performance.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Quickstart path
 
@@ -17,14 +17,14 @@ Follow this path to install Percona Server for MySQL, work with a database, and 
 
 ## Install method
 
-[Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.html)
+[Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/9.7/quickstart-docker.md)
 
-[Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.html)
+[Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.md)
 
-[Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/9.7/quickstart-yum.html)
+[Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/9.7/quickstart-yum.md)
 
 ## Additional resources
 
-- [Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.html)
-- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.html)
-- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.html)
+- [Work with a database](https://docs.percona.com/percona-server/9.7/quickstart-database-script.md)
+- [Clean up your installation](https://docs.percona.com/percona-server/9.7/quickstart-cleanup.md)
+- [Next steps](https://docs.percona.com/percona-server/9.7/quickstart-next-steps.md)

@@ -1,0 +1,43 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# Percona MyRocks introduction
+
+[MyRocks](https://myrocks.io) is a storage engine for [MySQL](https://www.mysql.com) based on [RocksDB](https://rocksdb.org/) , an embeddable, persistent key-value store. *Percona MyRocks* is an implementation for [Percona Server for MySQL](https://www.percona.com/software/percona-server) .
+
+The RocksDB store is based on the log-structured merge-tree (or LSM tree). It is optimized for fast storage and combines outstanding space and write efficiency with acceptable read performance. As a result, MyRocks has the following advantages compared to other storage engines, if your workload uses fast storage, such as SSD:
+
+- Requires less storage space
+- Provides more storage endurance
+- Ensures better IO capacity
+
+Important
+
+The latest MyRocks storage engine is based on recent RocksDB source code, with minor modifications applied by Percona.
+
+To check the RocksDB version currently used by MyRocks, run the following command:
+
+```bash
+$ head storage/rocksdb/rocksdb/HISTORY.md
+```
+
+Expected output
+
+```text
+...
+## 8.5.1 (08/31/2023)
+...
+```
+
+[Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/9.7/install-myrocks.md)
+
+[MyRocks Limitations](https://docs.percona.com/percona-server/9.7/myrocks-limitations.md)
+
+[Differences between Percona MyRocks and Facebook MyRocks](https://docs.percona.com/percona-server/9.7/myrocks-differences.md)
+
+[*MyRocks* Column Families](https://docs.percona.com/percona-server/9.7/myrocks-column-families.md)
+
+[MyRocks Server Variables](https://docs.percona.com/percona-server/9.7/myrocks-server-variables.md)
+
+[MyRocks Information Schema Tables](https://docs.percona.com/percona-server/9.7/myrocks-information-schema-tables.md)
+
+[Performance Schema MyRocks changes](https://docs.percona.com/percona-server/9.7/performance-schema-myrocks-changes.md)

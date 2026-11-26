@@ -12,7 +12,7 @@ A distance metric defines how the function calculates this value. Different metr
 
 ## Syntax
 
-```
+```sql
 DISTANCE(vector_a, vector_b, metric)
 
 VECTOR_DISTANCE(vector_a, vector_b, metric)
@@ -49,7 +49,7 @@ Percona Server extensions
 
 The `COSINE` and `DOT` metrics transform their underlying similarity values into distance values so that a lower value consistently represents a closer match across all supported metrics. As a result, you can sort distance values in ascending order regardless of the selected metric:
 
-```
+```sql
 SELECT id,
        DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.3]'), 'COSINE') AS distance
 FROM products
@@ -77,7 +77,7 @@ The result is nullable regardless of whether the input columns allow `NULL`. Whe
 
 The following example calculates the Euclidean distance between two vectors:
 
-```
+```sql
 SELECT DISTANCE(
     TO_VECTOR('[1, 2, 3]'),
     TO_VECTOR('[4, 5, 6]'),
@@ -89,7 +89,7 @@ The result is a `DOUBLE` value:
 
 Expected output
 
-```
+```text
 +-------------------+
 | distance          |
 +-------------------+
@@ -103,7 +103,7 @@ Specify a different metric in the third argument to change how `DISTANCE()` comp
 
 The following example calculates the cosine distance:
 
-```
+```sql
 SELECT DISTANCE(
     TO_VECTOR('[1, 2, 3]'),
     TO_VECTOR('[4, 5, 6]'),
@@ -119,7 +119,7 @@ Use `DISTANCE()` in an `ORDER BY` clause to rank stored vectors by their distanc
 
 The following query uses cosine distance to return the five closest vectors:
 
-```
+```sql
 SELECT id,
        DISTANCE(
            embedding,
@@ -133,7 +133,7 @@ LIMIT 5;
 
 `VECTOR_DISTANCE()` produces the same result:
 
-```
+```sql
 SELECT id,
        VECTOR_DISTANCE(
            embedding,
@@ -151,7 +151,7 @@ LIMIT 5;
 
 For `COSINE`, subtract the distance from `1` to calculate cosine similarity:
 
-```
+```sql
 SELECT id,
        1 - DISTANCE(
            embedding,
@@ -163,7 +163,7 @@ FROM documents;
 
 For `DOT`, multiply the returned distance by `-1` to calculate the inner product:
 
-```
+```sql
 SELECT id,
        -1 * DISTANCE(
            embedding,
@@ -175,5 +175,5 @@ FROM documents;
 
 ## See also
 
-- [Get started with DISTANCE()](https://docs.percona.com/percona-server/9.7/quickstart-distance.html)
-- [The VECTOR Type](https://docs.percona.com/percona-server/9.7/vector.html)
+- [Get started with DISTANCE()](https://docs.percona.com/percona-server/9.7/quickstart-distance.md)
+- [The VECTOR Type](https://docs.percona.com/percona-server/9.7/vector.md)

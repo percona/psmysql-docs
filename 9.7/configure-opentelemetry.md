@@ -4,7 +4,7 @@
 
 Percona Server for MySQL 9.7 exports metrics, traces, and logs to an OpenTelemetry-compatible backend. The server uses OpenTelemetry Protocol (OTLP) over HTTP.
 
-Install and verify the OpenTelemetry component before configuration. See [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html).
+Install and verify the OpenTelemetry component before configuration. See [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md).
 
 Note
 
@@ -18,7 +18,7 @@ Replace the example address with the address of your collector or compatible bac
 
 Confirm that the OpenTelemetry component is installed:
 
-```
+```sql
 SELECT component_urn
 FROM mysql.component
 WHERE component_urn = 'file://component_telemetry';
@@ -26,7 +26,7 @@ WHERE component_urn = 'file://component_telemetry';
 
 Confirm that the server supports each signal you plan to export:
 
-```
+```sql
 SHOW GLOBAL STATUS LIKE 'Telemetry%_supported';
 ```
 
@@ -40,7 +40,7 @@ The relevant status variables are:
 
 OpenTelemetry configuration variables have global scope. The `telemetry.trace_enabled`, `telemetry.log_enabled`, `telemetry.query_text_enabled`, and `telemetry.otel_log_level` variables are dynamic.
 
-All other telemetry variables are startup-only, including exporter endpoints, protocols, certificate settings, batch settings, metrics settings, and resource attributes. For the change method of each variable, see [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html).
+All other telemetry variables are startup-only, including exporter endpoints, protocols, certificate settings, batch settings, metrics settings, and resource attributes. For the change method of each variable, see [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md).
 
 Configure startup-only variables with `SET PERSIST_ONLY`. Then, restart the server.
 
@@ -56,7 +56,7 @@ Metrics telemetry periodically exports measurements from the server meters to an
 
 Persist the endpoint and enable metrics at the next server start:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_metrics_endpoint =
   'http://otel-collector.example.com:4318/v1/metrics';
 
@@ -80,7 +80,7 @@ The metrics exporter supports the following OTLP/HTTP encodings:
 
 To select an encoding, persist the setting and restart the server:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_metrics_protocol =
   'http/protobuf';
 ```
@@ -91,7 +91,7 @@ The `performance_schema.setup_meters` table controls each meter. You can change 
 
 The following statement disables the MyISAM meter:
 
-```
+```sql
 UPDATE performance_schema.setup_meters
 SET ENABLED = 'NO'
 WHERE NAME = 'mysql.myisam';
@@ -99,7 +99,7 @@ WHERE NAME = 'mysql.myisam';
 
 The following statement assigns a 60-second frequency to the `mysql.inno` meter:
 
-```
+```sql
 UPDATE performance_schema.setup_meters
 SET FREQUENCY = 60
 WHERE NAME = 'mysql.inno';
@@ -107,7 +107,7 @@ WHERE NAME = 'mysql.inno';
 
 Use the `performance-schema-meter` option to configure a meter at server startup. You can specify the option more than once.
 
-```
+```ini
 [mysqld]
 performance-schema-meter='mysql.inno=frequency:60,enabled:ON'
 performance-schema-meter='mysql.myisam=frequency:60,enabled:OFF'
@@ -131,7 +131,7 @@ Reader one is required. Readers two and three are optional. A value of `0` disab
 
 For example, configure the readers with intervals of 10, 60, and 300 seconds:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.metrics_reader_frequency_1 = 10;
 SET PERSIST_ONLY telemetry.metrics_reader_frequency_2 = 60;
 SET PERSIST_ONLY telemetry.metrics_reader_frequency_3 = 300;
@@ -151,7 +151,7 @@ All metric reader variables are startup-only. Persist changes and restart the se
 
 Set the metrics export timeout and compression separately:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_metrics_timeout = 10000;
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_metrics_compression = 'gzip';
 ```
@@ -168,7 +168,7 @@ A supported client or connector can propagate trace context for distributed trac
 
 Persist the exporter endpoint and trace setting:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_endpoint =
   'http://otel-collector.example.com:4318/v1/traces';
 
@@ -179,7 +179,7 @@ Restart Percona Server for MySQL to apply the endpoint.
 
 `telemetry.trace_enabled` is dynamic. After the restart, enable or disable trace collection at runtime:
 
-```
+```sql
 SET GLOBAL telemetry.trace_enabled = OFF;
 SET GLOBAL telemetry.trace_enabled = ON;
 ```
@@ -192,7 +192,7 @@ Statement spans include the original SQL text by default. SQL text may contain s
 
 To omit SQL text from exported spans:
 
-```
+```sql
 SET PERSIST telemetry.query_text_enabled = OFF;
 ```
 
@@ -208,7 +208,7 @@ Review the exported attributes before you enable traces in production. Also revi
 
 The traces exporter supports `http/protobuf` and `http/json`. Persist a protocol change and restart the server:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_protocol =
   'http/protobuf';
 ```
@@ -227,7 +227,7 @@ The component uses a Batch Span Processor (BSP) to buffer and export spans.
 
 These variables are startup-only. Persist changes and restart the server:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_bsp_schedule_delay = 5000;
 SET PERSIST_ONLY telemetry.otel_bsp_max_queue_size = 2048;
 SET PERSIST_ONLY telemetry.otel_bsp_max_export_batch_size = 512;
@@ -237,7 +237,7 @@ SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_compression = 'gzip';
 
 ### Understand the emitted spans
 
-The component emits the following span types. For the span record, parent trace context, and session-attribute names, see [Trace format](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html#trace-format).
+The component emits the following span types. For the span record, parent trace context, and session-attribute names, see [Trace format](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md#trace-format).
 
 | Span name | Span type      | Description                                                 | Example attributes                                                                                                          |
 | --------- | -------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -251,7 +251,7 @@ Statement spans can also include error details, affected-row counts, and resourc
 
 ## Configure logs
 
-Log telemetry exports instrumented server log records in OTLP format. `component_telemetry` is the exporter included with Percona Server for MySQL. See [Telemetry logging interface](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html#telemetry-logging-interface).
+Log telemetry exports instrumented server log records in OTLP format. `component_telemetry` is the exporter included with Percona Server for MySQL. See [Telemetry logging interface](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md#telemetry-logging-interface).
 
 Percona Server for MySQL provides logger instruments for the following logs:
 
@@ -263,7 +263,7 @@ Percona Server for MySQL provides logger instruments for the following logs:
 
 Persist the exporter endpoint and log setting:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_logs_endpoint =
   'http://otel-collector.example.com:4318/v1/logs';
 
@@ -274,7 +274,7 @@ Restart Percona Server for MySQL to apply the endpoint.
 
 `telemetry.log_enabled` is dynamic. After the restart, enable or disable log export at runtime:
 
-```
+```sql
 SET GLOBAL telemetry.log_enabled = OFF;
 SET GLOBAL telemetry.log_enabled = ON;
 ```
@@ -285,7 +285,7 @@ Use `SET PERSIST` instead when the runtime change must survive a restart.
 
 Inspect the available logger instruments and their current levels:
 
-```
+```sql
 SELECT NAME, LEVEL, DESCRIPTION
 FROM performance_schema.setup_loggers;
 ```
@@ -296,7 +296,7 @@ The `LEVEL` column stores lowercase values: `none`, `error`, `warn`, `info`, and
 
 For example, set all configured loggers to `warn`:
 
-```
+```sql
 UPDATE performance_schema.setup_loggers
 SET LEVEL = 'warn';
 ```
@@ -305,7 +305,7 @@ SET LEVEL = 'warn';
 
 The logs exporter supports `http/protobuf` and `http/json`. Persist a protocol change and restart the server:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_logs_protocol =
   'http/protobuf';
 ```
@@ -324,7 +324,7 @@ The component uses a Batch Log Record Processor (BLRP) to buffer and export log 
 
 These variables are startup-only. Persist changes and restart the server:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_blrp_schedule_delay = 5000;
 SET PERSIST_ONLY telemetry.otel_blrp_max_queue_size = 2048;
 SET PERSIST_ONLY telemetry.otel_blrp_max_export_batch_size = 512;
@@ -357,7 +357,7 @@ Use the variable prefix for the required signal:
 
 Configure TLS on the collector OTLP HTTP receiver. The following example enables TLS on port `4318`:
 
-```
+```yaml
 receivers:
   otlp:
     protocols:
@@ -376,7 +376,7 @@ Use the corresponding `*_secret_headers` variable when a secret provider is avai
 
 Configure the provider and secret name as startup-only variables:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.secret_provider = '<SECRET_PROVIDER>';
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_secret_headers =
   '<SECRET_NAME>';
@@ -386,7 +386,7 @@ The secret format depends on the provider implementation. Install the provider c
 
 Use `telemetry.resource_provider` to add resource data from a provider component:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.resource_provider = '<RESOURCE_PROVIDER>';
 ```
 
@@ -394,7 +394,7 @@ The provider name and resource data depend on the provider implementation.
 
 On Linux, each signal can use a network namespace. Set the corresponding `*_network_namespace` variable:
 
-```
+```sql
 SET PERSIST_ONLY telemetry.otel_exporter_otlp_traces_network_namespace =
   '<NETWORK_NAMESPACE>';
 ```
@@ -403,7 +403,7 @@ Replace `traces` with `metrics` or `logs` for another signal. Restart the server
 
 Network namespace export requires the `CAP_SYS_ADMIN` capability on the `mysqld` binary. Grant the capability, then confirm it:
 
-```
+```bash
 sudo setcap cap_sys_admin+ep <MYSQLD_PATH>
 getcap <MYSQLD_PATH>
 ```
@@ -414,7 +414,7 @@ Replace `<MYSQLD_PATH>` with the path to the `mysqld` binary. Repeat `setcap` af
 
 After restarting the server, inspect the active settings:
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'telemetry.%enabled';
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_%_endpoint';
 SHOW GLOBAL VARIABLES LIKE 'telemetry.otel_exporter_otlp_%_protocol';
@@ -429,19 +429,19 @@ Confirm that the collector receives data at each configured endpoint:
 
 Check the collector logs when the collector does not receive an enabled signal.
 
-`telemetry.otel_log_level` filters OpenTelemetry diagnostic messages in the server error log. The default displayed value is `info`. With the default [`log_error_verbosity`](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_log_error_verbosity) of `2`, that level records errors and warnings. Notes and debug detail require `log_error_verbosity` of `3`. See [Diagnostic messages](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html#diagnostic-messages).
+`telemetry.otel_log_level` filters OpenTelemetry diagnostic messages in the server error log. The default displayed value is `info`. With the default [`log_error_verbosity`](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_log_error_verbosity) of `2`, that level records errors and warnings. Notes and debug detail require `log_error_verbosity` of `3`. See [Diagnostic messages](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md#diagnostic-messages).
 
 `telemetry.otel_log_level` is dynamic. Use `debug` only while troubleshooting. The `debug` level can produce substantial output.
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)
 - [OpenTelemetry Protocol specification](https://opentelemetry.io/docs/specs/otlp/)
 - [OpenTelemetry Collector documentation](https://opentelemetry.io/docs/collector/)
 - [OpenTelemetry Collector TLS configuration](https://github.com/open-telemetry/opentelemetry-collector/blob/main/config/configtls/README.md)

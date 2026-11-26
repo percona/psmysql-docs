@@ -4,25 +4,25 @@
 
 A binary tarball contains a group of files, including the source code, bundled together into one file using the `tar` command and compressed using `gzip`.
 
-See the list of the [binary tarball available based on the Percona Server for MySQL version](https://docs.percona.com/percona-server/9.7/binary-tarball-names.html) to select the right tarball for your environment.
+See the list of the [binary tarball available based on the Percona Server for MySQL version](https://docs.percona.com/percona-server/9.7/binary-tarball-names.md) to select the right tarball for your environment.
 
 You can download the binary tarballs from the `Linux - Generic` [section](https://www.percona.com/downloads/Percona-Server-9.7/LATEST/binary/tarball/) on the download page.
 
 Fetch and extract the correct binary tarball. For example for Ubuntu 22.04:
 
-```
+```shell
 wget https://downloads.percona.com/downloads/Percona-Server-9.7/Percona-Server-9.7.2-3/binary/tarball/Percona-Server-9.7.2-3-Linux.x86_64.glibc2.35.tar.gz
 ```
 
 Extract the tarball into the `/usr/local` directory:
 
-```
+```shell
 sudo tar -xzf Percona-Server-9.7.2-3-Linux.x86_64.glibc2.35.tar.gz -C /usr/local
 ```
 
 Create a symbolic link so that the default location `/usr/local/mysql` points to the extracted directory:
 
-```
+```shell
 sudo ln -s /usr/local/Percona-Server-9.7.2-3-Linux.x86_64.glibc2.35 /usr/local/mysql
 ```
 
@@ -36,4 +36,4 @@ The tarball does not create the `mysql` user, initialize the data directory, or 
 
 The server refuses to run as the operating system `root` user unless you pass the `--user=mysql` option.
 
-For step-by-step instructions, see [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.html).
+For step-by-step instructions, see [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.md).

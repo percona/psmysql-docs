@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/migration-from-ps-ce.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/migration-from-ps-ce.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/migration-from-ps-ce.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10960,13 +10960,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The role of the LSN (log sequence number): The LSN is a 64-bit integer that acts as a unique identifier for every change made to the database. The LSN is central to how the InnoDB storage engine orders and recovers work.</p>
 <p>In standard MySQL, the LSN tracks normal data modifications (inserts, updates, deletes). In Percona Server, Percona adds extra information to these log records to support features such as fast checkpointing, parallel doublewrite buffers, and improved changed page tracking (used for faster incremental backups).</p>
 <p>The &ldquo;unknown record&rdquo; error: Percona Server writes these specialized record types into the redo log (<code>ib_logfile0</code>, <code>ib_logfile1</code>). If you shut down Percona and then start the MySQL Community Edition binary against the same data directory, MySQL CE attempts crash recovery by reading the redo log. When the MySQL CE parser hits a Percona-specific log record, the parser has no definition for that record type. The MySQL service then fails to start with an error similar to:</p>
-<div class="highlight"><pre><span></span><code>[ERROR] [MY-011899] [InnoDB] Unknown redo log record type 123
+<div class="language-text highlight"><pre><span></span><code>[ERROR] [MY-011899] [InnoDB] Unknown redo log record type 123
 </code></pre></div>
 <p class="power-number">To avoid LSN incompatibility, ensure the redo log is empty before switching binaries. That is done with a clean shutdown. Follow these steps:</p>
 <ol>
 <li>
 <p>Set the global fast shutdown option to 0 (slow/full shutdown) so that InnoDB flushes all dirty pages and clears the redo log completely:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_fast_shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_fast_shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <p>With the default value 1, the server skips a full purge and insert buffer merge and can leave data in the redo log. With value 0, the server flushes all dirty pages and clears the redo log completely.</p>
 </li>
@@ -11036,7 +11036,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>To see which Percona-exclusive features are currently active in your environment, run the following SQL commands. These queries target the specific incompatible components and metadata that would block a migration to MySQL Community Edition (CE).</p>
 <h3 id="identify-active-exclusive-plugins">Identify Active Exclusive Plugins<a data-markdown-ignore class="headerlink" href="#identify-active-exclusive-plugins" title="Permanent link">&para;</a></h3>
 <p>The following query identifies active plugins only (not components). It returns Percona-exclusive plugins such as the Audit Log plugin, PAM/LDAP authentication, and MyRocks.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="s1">'audit_log'</span><span class="p">,</span><span class="w"> </span>
@@ -11050,7 +11050,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h3 id="identify-active-exclusive-components">Identify Active Exclusive Components<a data-markdown-ignore class="headerlink" href="#identify-active-exclusive-components" title="Permanent link">&para;</a></h3>
 <p>Percona-exclusive components (such as the Audit Log Filter, Data Masking, and keyring components) are registered in <code>mysql.component</code>. The following query lists installed components whose URN matches known Percona-only components.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%audit_log_filter%'</span><span class="w"> </span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking_functions%'</span><span class="w"> </span>
@@ -11060,26 +11060,26 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h3 id="check-for-myrocks-storage-engine-usage">Check for MyRocks Storage Engine Usage<a data-markdown-ignore class="headerlink" href="#check-for-myrocks-storage-engine-usage" title="Permanent link">&para;</a></h3>
 <p>MyRocks is a high-risk one-way door, so you must check whether any user tables use the engine. Those tables must be converted to InnoDB before a logical dump.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'RocksDB'</span><span class="w"> </span>
 <span class="k">AND</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'information_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sys'</span><span class="p">,</span><span class="w"> </span><span class="s1">'performance_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'mysql'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="identify-percona-specific-authentication">Identify Percona-Specific Authentication<a data-markdown-ignore class="headerlink" href="#identify-percona-specific-authentication" title="Permanent link">&para;</a></h3>
 <p>MySQL CE will not recognize users that use Percona&rsquo;s PAM or LDAP plugins. You must find these users and change their authentication method to <code>caching_sha2_password</code> before migrating. MySQL 9.x removes the server-side <code>mysql_native_password</code> plugin; MySQL 8.4 disables it by default.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%pam%'</span><span class="w"> </span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ldap%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="verify-thread-pool-status">Verify Thread Pool Status<a data-markdown-ignore class="headerlink" href="#verify-thread-pool-status" title="Permanent link">&para;</a></h3>
 <p>The thread pool code exists in Percona Server but is only a problem when actively configured. The following command shows whether the server is using Percona&rsquo;s scalable thread pool instead of the standard MySQL connection model.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'thread_handling'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'thread_handling'</span><span class="p">;</span>
 <span class="c1">-- If the result is 'pool-of-threads', the Percona Thread Pool is active.</span>
 </code></pre></div>
 <h3 id="check-for-data-masking-components">Check for Data Masking Components<a data-markdown-ignore class="headerlink" href="#check-for-data-masking-components" title="Permanent link">&para;</a></h3>
 <p>If you need to confirm Data Masking separately from the general components query above, run:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="pre-migration-sanitization-summary">Pre-Migration Sanitization Summary<a data-markdown-ignore class="headerlink" href="#pre-migration-sanitization-summary" title="Permanent link">&para;</a></h3>
 <p>After you have identified these features, the reversion path typically involves the following actions:</p>

@@ -74,7 +74,7 @@ For example, if you set the value to 100, then one percent of `sessions/queries`
 
 Expected output
 
-```
+```text
 Log_slow_rate_type: query  Log_slow_rate_limit: 10
 ```
 
@@ -100,7 +100,7 @@ Percona Server for MySQL implemented improvements for logging of stored procedur
 
 Example of the improved stored procedure slow query log entry:
 
-```
+```sql
 mysqlDELIMITER //
 mysqlCREATE PROCEDURE improved_sp_log()
        BEGIN
@@ -115,7 +115,7 @@ When we check the slow query log after running the stored procedure, with `log_s
 
 Expected output
 
-```
+```text
 # Time: 150109 11:38:55
 # User@Host: root[root] @ localhost []
 # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
@@ -141,7 +141,7 @@ If we run the same stored procedure with the `log_slow_sp_statements` is set to 
 
 Expected output
 
-```
+```text
 # Time: 150109 11:51:42
 # User@Host: root[root] @ localhost []
 # Thread_id: 40  Schema: world  Last_errno: 0  Killed: 0
@@ -220,7 +220,7 @@ The feature adds more information to the slow log output.
 
 Expected output
 
-```
+```text
 # Time: 130601  8:01:06.058915
 # User@Host: root[root] @ localhost []  Id:    42
 # Schema: imdb  Last_errno: 0  Killed: 0
@@ -236,7 +236,7 @@ Another example (log_slow_verbosity `=profiling`):
 
 Expected output
 
-```
+```text
 # Time: 130601  8:03:20.700441
 # User@Host: root[root] @ localhost []  Id:    43
 # Schema: imdb  Last_errno: 0  Killed: 0
@@ -278,7 +278,7 @@ Each entry also contains a schema name, so you can trace all the queries whose d
 
 Expected output
 
-```
+```text
 # Id: 43  Schema: imdb
 ```
 
@@ -290,7 +290,7 @@ The feature also adds information about how many rows were examined for `SELECT`
 
 Expected output
 
-```
+```text
 # Query_time: 0.962742  Lock_time: 0.000202  Rows_sent: 4  Rows_examined: 1543719  Rows_affected: 0
 ```
 
@@ -305,7 +305,7 @@ The feature provides information about the amount of bytes sent for the result o
 
 Expected output
 
-```
+```text
 # Bytes_sent: 8053  Tmp_tables: 1  Tmp_disk_tables: 0  Tmp_table_sizes: 950528
 ```
 
@@ -322,7 +322,7 @@ Each query can be executed in various ways. For example, it may use indexes or d
 
 Expected output
 
-```
+```text
 # Full_scan: Yes  Full_join: No  Tmp_table: No  Tmp_table_on_disk: No
 # Filesort: No  Filesort_on_disk: No  Merge_passes: 0
 ```
@@ -335,7 +335,7 @@ The final part of the output is the *InnoDB* usage statistics. *MySQL* currently
 
 Expected output
 
-```
+```text
 #   InnoDB_IO_r_ops: 6415  InnoDB_IO_r_bytes: 105103360  InnoDB_IO_r_wait: 0.001279
 #   InnoDB_rec_lock_wait: 0.000000  InnoDB_queue_wait: 0.000000
 #   InnoDB_pages_distinct: 6430
@@ -384,20 +384,20 @@ Set `log_output` in the configuration file, at server startup, or at runtime.
 
 Configuration file:
 
-```
+```ini
 [mysqld]
 log_output = FILE
 ```
 
 Runtime:
 
-```
+```sql
 SET GLOBAL log_output = 'FILE';
 ```
 
 Check the current value:
 
-```
+```sql
 SELECT @@log_output;
 ```
 

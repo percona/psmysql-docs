@@ -2,7 +2,7 @@
 
 # Troubleshoot js_lang procedures and functions
 
-This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 The component includes a set of User-Defined Functions (UDFs) that retrieve and clear information about the last JS error that occurred in the current connection for the current user. This information updates each time a JS error occurs for the current connection and user. Successful execution of JS code does not change this state.
 
@@ -21,9 +21,9 @@ You can terminate the execution of a JS routine in the following ways:
 
 ## Further reading
 
-- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.html)
-- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.html)
-- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.html)
-- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.html)
-- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.html)
-- [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.html)
+- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.md)
+- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.md)
+- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.md)
+- [js_lang stored function or procedure](https://docs.percona.com/percona-server/9.7/js-lang-procedures.md)
+- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.md)
+- [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.md)

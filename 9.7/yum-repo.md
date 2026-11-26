@@ -8,14 +8,14 @@ This guide documents the standard operating system (OS) installation on Red Hat 
 
 Containerized deployments use separate guides:
 
-- For Docker containers, see [Running Percona Server for MySQL in a Docker Container](https://docs.percona.com/percona-server/9.7/docker.html).
+- For Docker containers, see [Running Percona Server for MySQL in a Docker Container](https://docs.percona.com/percona-server/9.7/docker.md).
 - For Kubernetes deployments, see [Percona Operator for MySQL based on Percona Server for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) or [Percona Operator for MySQL based on Percona XtraDB Cluster](https://docs.percona.com/percona-operator-for-mysql/pxc/).
 
 The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
-We gather [Telemetry data](https://docs.percona.com/percona-server/9.7/telemetry.html) in the Percona packages and Docker images.
+We gather [Telemetry data](https://docs.percona.com/percona-server/9.7/telemetry.md) in the Percona packages and Docker images.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Prerequisites
 
@@ -57,13 +57,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. On RHEL 8 and RHEL 9 and their derivatives, check the MySQL module on your system. On RHEL 10, skip this step and step 2.
 
-   ```
+   ```shell
    sudo dnf module list mysql
    ```
 
    Expected output on Rocky Linux 8
 
-   ```
+   ```text
    Name  Stream  Profiles           Summary
    mysql 8.0 [d] client, server [d] MySQL Module
    mysql 8.4     client, server [d] MySQL Module
@@ -73,7 +73,7 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
    Expected output on Rocky Linux 9
 
-   ```
+   ```text
    Name       Stream      Profiles                            Summary
    mysql      8.4         api, client, filter, server [d]     MySQL Module
 
@@ -84,13 +84,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. On RHEL 8 and derivatives, disable the MySQL module. This step is required on RHEL 8 even if step 1 shows only the `[d]` marker. On RHEL 9 the step is not needed. On RHEL 10 skip the step because the command fails.
 
-   ```
+   ```shell
    sudo dnf -y module disable mysql
    ```
 
    Expected output on Rocky Linux 8
 
-   ```
+   ```text
    Dependencies resolved.
    ================================================================================
     Package           Architecture     Version             Repository         Size
@@ -108,13 +108,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. Install the Percona repository package:
 
-   ```
+   ```shell
    sudo dnf install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
    ```
 
    Expected output
 
-   ```
+   ```text
    Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
    percona-release-latest.noarch.rpm           69 kB/s |  28 kB     00:00    
    Dependencies resolved.
@@ -142,13 +142,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. Enable the Percona Server for MySQL repository:
 
-   ```
+   ```shell
    sudo percona-release enable-only ps-97-lts release
    ```
 
    Expected output
 
-   ```
+   ```text
    * Disabling all Percona Repositories
    * Enabling the Percona Server for MySQL - PS 9.7- repository
    <*> All done!
@@ -162,13 +162,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. Install the server package:
 
-   ```
+   ```shell
    sudo dnf install percona-server-server
    ```
 
    Expected output
 
-   ```
+   ```text
    Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00
    Percona Server for MySQL - PS 9.7- release 1.5 MB/s | 2.4 MB     00:01
    Percona Telemetry release/aarch64 YUM repo 6.8 kB/s | 2.7 kB     00:00
@@ -195,9 +195,9 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
-[Post-installation configuration](https://docs.percona.com/percona-server/9.7/post-installation.html)
+[Post-installation configuration](https://docs.percona.com/percona-server/9.7/post-installation.md)
 
-Percona Server for MySQL 9.7.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/9.7/install-myrocks.html).
+Percona Server for MySQL 9.7.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/9.7/install-myrocks.md).
 
 ## Unattended installations
 
@@ -205,13 +205,13 @@ The `-y` flag automatically confirms all actions without asking for user input. 
 
 The `-y` flag applies to `percona-release setup`. With `percona-release` 1.0-34, `percona-release setup ps-97-lts` disables all Percona repositories but does not enable the Percona Server for MySQL 9.7 repository. For unattended installations, enable the repository with `enable-only` instead:
 
-```
+```shell
 percona-release enable-only ps-97-lts release
 ```
 
 ## Next steps
 
-After installation completes, see [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.html) for steps to configure and secure your Percona Server for MySQL installation.
+After installation completes, see [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.md) for steps to configure and secure your Percona Server for MySQL installation.
 
 ## Additional information
 
@@ -241,13 +241,13 @@ User-defined functions (UDFs) extend MySQL with custom functions. Percona Server
 
 To install the functions after the server installation, run the following command:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
@@ -255,7 +255,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 The functions become available for use in SQL queries. For example: `SELECT fnv_64('test_string');`
 
-For detailed information, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/9.7/udf-percona-toolkit.html).
+For detailed information, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/9.7/udf-percona-toolkit.md).
 
 ## Install the Percona testing repository (advanced users only)
 
@@ -269,13 +269,13 @@ Percona offers pre-release builds from the testing repository for advanced users
 
 To enable the testing repository, run the following command:
 
-```
+```shell
 sudo percona-release enable ps-97-lts testing
 ```
 
 Expected output
 
-```
+```text
 * Enabling Percona Server for MySQL 9.7 testing repository
 * Running dnf update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
@@ -291,14 +291,14 @@ The testing repository has the following limitations:
 
 To disable the testing repository and return to stable releases, run the following commands:
 
-```
+```shell
 sudo percona-release disable testing
 sudo dnf update
 ```
 
 Expected output
 
-```
+```text
 * Disabling Percona testing repository
 * Running dnf update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.

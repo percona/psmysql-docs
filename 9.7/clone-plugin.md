@@ -17,13 +17,13 @@ When replicating a large number of transactions, the Clone plugin may be a more 
 
 The Clone plugin must be installed on both the donor and the joiner servers at either server startup or at runtime. To install the plugin at runtime, run the following command:
 
-```
+```sql
 INSTALL PLUGIN clone SONAME 'mysql_clone.so';
 ```
 
 Review the INFORMATION_SCHEMA.PLUGINS table or run the `SHOW PLUGINS` command to verify the installation. The following is an example of querying the PLUGINS table.
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME='clone';
 ```
 
@@ -33,7 +33,7 @@ The result lists the Clone plugin and the status.
 
 The SQL statement used to clone data depends on if the operation is local or remote. The following code is an example of cloning data from a remote server:
 
-```
+```sql
 CLONE INSTANCE FROM `root@remote.server:13336` IDENTIFIED BY `user`;
 ```
 

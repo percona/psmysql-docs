@@ -30,7 +30,7 @@ The frequency assigns the meter to a metric reader. The assigned reader controls
 
 Query the `performance_schema.setup_meters` table:
 
-```
+```sql
 SELECT NAME, FREQUENCY, ENABLED, DESCRIPTION
 FROM performance_schema.setup_meters
 ORDER BY NAME;
@@ -75,7 +75,7 @@ You can change the `FREQUENCY` and `ENABLED` columns at runtime.
 
 The following statement disables a meter:
 
-```
+```sql
 UPDATE performance_schema.setup_meters
 SET ENABLED = 'NO'
 WHERE NAME = 'mysql.myisam';
@@ -83,7 +83,7 @@ WHERE NAME = 'mysql.myisam';
 
 The following statement changes a meter frequency:
 
-```
+```sql
 UPDATE performance_schema.setup_meters
 SET FREQUENCY = 60
 WHERE NAME = 'mysql.inno';
@@ -91,20 +91,20 @@ WHERE NAME = 'mysql.inno';
 
 Use the `performance-schema-meter` option to apply meter settings at server startup:
 
-```
+```ini
 [mysqld]
 performance-schema-meter='mysql.inno=frequency:60,enabled:ON'
 ```
 
 The `performance_schema_max_meter_classes` variable limits the number of meter instruments. Configure this startup-only variable before a component registers more meters than the current limit.
 
-See [Configure metric reader frequencies](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html#configure-metric-reader-frequencies) for the frequency assignment rules.
+See [Configure metric reader frequencies](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md#configure-metric-reader-frequencies) for the frequency assignment rules.
 
 ### View available metrics
 
 Query the `performance_schema.setup_metrics` table for the complete metric catalog:
 
-```
+```sql
 SELECT NAME, METER, METRIC_TYPE, NUM_TYPE, UNIT, DESCRIPTION
 FROM performance_schema.setup_metrics
 ORDER BY METER, NAME;
@@ -234,7 +234,7 @@ Session attributes come from `performance_schema.session_connect_attrs`. Each co
 
 The following record is an illustration of a `session` span. The identifiers and account values are examples:
 
-```
+```text
 name: session
 kind: Internal
 trace_id: 7c2e19aa04b64d0f9a11c0e5d8b34210
@@ -355,7 +355,7 @@ The server provides separate OpenTelemetry loggers for the error log, slow query
 
 Query the `performance_schema.setup_loggers` table:
 
-```
+```sql
 SELECT NAME, LEVEL, DESCRIPTION
 FROM performance_schema.setup_loggers
 ORDER BY NAME;
@@ -419,7 +419,7 @@ Resource attributes identify the server that produced telemetry. Set custom attr
 
 Use the OpenTelemetry resource attribute format:
 
-```
+```text
 service.name=payments-mysql,deployment.environment.name=production,service.instance.id=mysql-01
 ```
 
@@ -468,10 +468,10 @@ Apply these controls before production use:
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)

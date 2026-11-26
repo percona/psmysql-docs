@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/apt-repo.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/apt-repo.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/apt-repo.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10764,7 +10764,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>Run the following commands as a <code>root</code> user or with sudo:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl
 curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
@@ -10807,22 +10807,22 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <ol>
 <li>
 <p>The following <code>apt update</code> command updates the package lists for upgrades and package installations. <code>sudo</code> runs the command with superuser privileges. <code>apt update</code> resynchronizes the package index files from the sources configured in <code>/etc/apt/sources.list</code> and <code>/etc/apt/sources.list.d/</code>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </code></pre></div>
 </li>
 <li>
 <p>The <code>sudo apt install -y curl</code> command installs the <code>curl</code> package. <code>curl</code> is a command-line tool used to transfer data over networks and is required to download the Percona repository package.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl
 </code></pre></div>
 </li>
 <li>
 <p>The following <code>curl -O</code> command downloads the <code>percona-release_latest.generic_all.deb</code> file from the Percona APT repository. The <code>-O</code> option saves the file with the same name as in the URL.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+<div class="language-shell highlight"><pre><span></span><code>curl<span class="w"> </span>-O<span class="w"> </span>https://repo.percona.com/apt/percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
 <p>The <code>sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb</code> command installs <code>gnupg2</code> (for package signature verification), <code>lsb-release</code> (for distribution information), and the downloaded Percona release package. Together, <code>gnupg2</code>, <code>lsb-release</code>, and the Percona release <code>.deb</code> configure the Percona APT repository on your system.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>gnupg2<span class="w"> </span>lsb-release<span class="w"> </span>./percona-release_latest.generic_all.deb
 </code></pre></div>
 </li>
 <li>
@@ -10831,12 +10831,12 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <p class="admonition-title">Note</p>
 <p>Do not use <code>percona-release setup ps-97-lts</code> for 9.7. With <code>percona-release</code> 1.0-34, <code>setup ps-97-lts</code> disables all Percona repositories but does not enable the 9.7 repository, and still exits successfully.</p>
 </div>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release<span class="w"> </span>--scheme<span class="w"> </span>https
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release<span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
 </li>
 <li>
 <p>Run <code>apt update</code> so APT loads package indexes for the Percona APT repository, including <code>percona-server-server</code> and related packages. Check that <code>apt-cache policy percona-server-server</code> shows a 9.7 candidate version.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
 apt-cache<span class="w"> </span>policy<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
@@ -10845,7 +10845,7 @@ apt-cache<span class="w"> </span>policy<span class="w"> </span>percona-server-se
 </li>
 <li>
 <p>The <code>sudo apt install -y percona-server-server</code> command installs the <code>percona-server-server</code> package. During installation, the package manager may prompt for configuration values such as the <code>root</code> password. Some builds use debconf or post-install configuration only. For password prompts and automation, see <a href="#non-interactive-installs-and-debconf">Non-interactive installs and debconf</a>. For account authentication defaults and removed plugins, see <a href="#configure-authentication">Configure authentication</a>.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
 </ol>
@@ -10885,7 +10885,7 @@ apt-cache<span class="w"> </span>policy<span class="w"> </span>percona-server-se
 </li>
 <li>
 <p>On the lab host, or on a CI image built the same way, install the package version you plan to use in production, then capture the output:</p>
-<div class="highlight"><pre><span></span><code>lsb_release<span class="w"> </span>-a
+<div class="language-shell highlight"><pre><span></span><code>lsb_release<span class="w"> </span>-a
 dpkg-query<span class="w"> </span>-W<span class="w"> </span>percona-server-server
 sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-server<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>debconf-percona-server-server.txt
 </code></pre></div>
@@ -10899,21 +10899,21 @@ sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-s
 <ol>
 <li>
 <p>Discover the questions your package version uses. On a lab host, install once interactively or inspect templates, then run:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>The package also ships template definitions at paths such as <code>/var/lib/dpkg/info/percona-server-server.templates</code>.</p>
 <p>Verify the templates for each target. Preseed names and choices can differ by distribution, point release, and <code>percona-server-server</code> package version. Re-run <code>debconf-show</code> after upgrades or after a base-image change. For production automation, keep a checklist that maps distribution and package version to the saved <code>debconf-show</code> output. The checklist keeps scripts aligned with the package prompts.</p>
 </li>
 <li>
 <p>Preseed answers with <code>debconf-set-selections</code> before <code>apt install</code>. The templates shipped with many Percona Server for MySQL 9.7 packages use the <code>percona-server-server/root-pass</code> and <code>percona-server-server/re-root-pass</code> names for password prompts. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"percona-server-server percona-server-server/root-pass password &lt;strong-password&gt;"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
+<div class="language-shell highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"percona-server-server percona-server-server/root-pass password &lt;strong-password&gt;"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"percona-server-server percona-server-server/re-root-pass password &lt;strong-password&gt;"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>debconf-set-selections
 </code></pre></div>
 <p>Other prompts, such as <code>percona-server-server/lowercase-table-names</code> or <code>percona-server-server/remove-data-dir</code>, appear only in some upgrade or edge-case paths. Use the <code>debconf-show</code> output to add matching lines. Do not commit real passwords to version control or broad shell history.</p>
 </li>
 <li>
 <p>Optional: set <code>DEBIAN_FRONTEND=noninteractive</code> for the <code>percona-server-server</code> install so debconf does not open a UI. Combine non-interactive installs with preseeding. Without defaults for required questions, the Debian package <code>configure</code> step can fail or leave the server in an unexpected state.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 </li>
 </ol>
@@ -10938,7 +10938,7 @@ sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-s
 <p>Use the same <code>apt</code> and <code>percona-release</code> sequence shown in <a href="#install-percona-server-for-mysql-using-apt">Install Percona Server for MySQL using APT</a>. Add <code>-y</code> to each <code>sudo apt install</code> line that needs non-interactive APT confirmations. Use non-interactive options for <code>percona-release</code> as shown in the following snippet.</p>
 <p>The <code>-y</code> flag automatically confirms all actions without asking for user input. This makes running commands smoother, especially in situations where you can&rsquo;t or don&rsquo;t want to interact, like during unattended installations or automated scripts. However, keep in mind that using the <code>-y</code> flag skips confirmation prompts, which means you won&rsquo;t have a chance to review any changes before they&rsquo;re made. So, it&rsquo;s best to use this flag only when you&rsquo;re sure about the command you&rsquo;re executing.</p>
 <p>The <code>-y</code> flag applies to <code>percona-release setup</code>. With <code>percona-release</code> 1.0-34, <code>percona-release setup ps-97-lts</code> disables all Percona repositories but does not enable the Percona Server for MySQL 9.7 repository. For unattended installations, enable the repository with <code>enable-only</code> instead:</p>
-<div class="highlight"><pre><span></span><code>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
+<div class="language-shell highlight"><pre><span></span><code>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-97-lts<span class="w"> </span>release
 </code></pre></div>
 <h2 id="install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (optional)<a data-markdown-ignore class="headerlink" href="#install-percona-toolkit-udfs-optional" title="Permanent link">&para;</a></h2>
 <p>User-defined functions (UDFs) extend MySQL with custom functions. Percona Server for MySQL includes UDFs from <a href="https://docs.percona.com/percona-toolkit/">Percona Toolkit <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> for data integrity checks and performance monitoring. These UDFs provide faster checksum calculations:</p>
@@ -10965,18 +10965,18 @@ sudo<span class="w"> </span>debconf-show<span class="w"> </span>percona-server-s
 </tbody>
 </table>
 <p>To install the Percona Toolkit UDFs after the Percona Server packages are installed:</p>
-<div class="highlight" data-prompt="mysql>"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
+<div class="language-sql highlight" data-prompt="mysql>"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p>You can now use the UDFs in your SQL queries. For example: <code>SELECT fnv_64('test_string');</code></p>
 <p>For detailed information about the UDFs, see <a href="udf-percona-toolkit.html">Percona Toolkit UDF functions</a>.</p>
 <h2 id="install-the-percona-testing-repository-using-apt">Install the Percona testing repository using APT<a data-markdown-ignore class="headerlink" href="#install-the-percona-testing-repository-using-apt" title="Permanent link">&para;</a></h2>
 <p>Percona offers pre-release builds from the testing repository. As a superuser, run <code>percona-release</code> with the <code>testing</code> argument to enable the testing repository:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-97-lts<span class="w"> </span>testing<span class="w"> </span>--scheme<span class="w"> </span>https
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-97-lts<span class="w"> </span>testing<span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
 <p>Do not run testing repository builds in production. The build may not contain all the features available in the final release and may change without notice.</p>
 

@@ -4,7 +4,7 @@
 
 Use the following procedure to test OpenTelemetry (OTel) on a single Docker host. Docker Compose starts Percona Server for MySQL and a local collector on one network. The collector uses a debug exporter. The debug exporter prints received data to the terminal.
 
-The quickstart procedure is a connectivity test. For production installation and configuration, see [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html) and [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html).
+The quickstart procedure is a connectivity test. For production installation and configuration, see [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md) and [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md).
 
 ## Prerequisites
 
@@ -16,14 +16,14 @@ The quickstart procedure is a connectivity test. For production installation and
 
 Create a directory named `otel-quickstart` and open that directory:
 
-```
+```bash
 mkdir otel-quickstart
 cd otel-quickstart
 ```
 
 Create a file named `docker-compose.yml` with the following content:
 
-```
+```yaml
 services:
   psmysql:
     image: percona/percona-server:9.7.2-3
@@ -53,7 +53,7 @@ The file does not publish port `3306` or port `4318` on the host. The test uses 
 
 Create a file named `otel-collector-config.yaml` with the following content:
 
-```
+```yaml
 receivers:
   otlp:
     protocols:
@@ -75,13 +75,13 @@ service:
 
 Start both services:
 
-```
+```bash
 docker compose up -d
 ```
 
 Wait until Percona Server for MySQL is ready. Check the server logs:
 
-```
+```bash
 docker compose logs psmysql
 ```
 
@@ -91,13 +91,13 @@ Continue when the log contains `ready for connections`.
 
 Connect to Percona Server for MySQL in the `psmysql` service. The example password is `secret`.
 
-```
+```bash
 docker compose exec psmysql mysql -uroot -psecret
 ```
 
 Run the following statement:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_telemetry';
 ```
 
@@ -111,13 +111,13 @@ The procedure enables metrics only. `telemetry.metrics_enabled` and `telemetry.o
 
 Verify this path
 
-```
+```text
 The copy command places the file in `/etc/my.cnf.d/`. Confirm the configuration directory for your image in [Docker environment variables](docker-config.md). If the image uses a different directory, adjust the path.
 ```
 
 Create a file named `otel-quickstart.cnf` with the following content:
 
-```
+```ini
 [mysqld]
 telemetry.metrics_enabled=ON
 telemetry.otel_exporter_otlp_metrics_endpoint=http://otel-collector:4318/v1/metrics
@@ -125,7 +125,7 @@ telemetry.otel_exporter_otlp_metrics_endpoint=http://otel-collector:4318/v1/metr
 
 Copy the file into the `psmysql` service. Then restart that service:
 
-```
+```bash
 docker compose cp otel-quickstart.cnf psmysql:/etc/my.cnf.d/otel-quickstart.cnf
 docker compose restart psmysql
 ```
@@ -138,7 +138,7 @@ Do not add these telemetry settings before you install the component. The server
 
 Connect and run a sample query to generate metric data:
 
-```
+```bash
 docker compose exec psmysql mysql -uroot -psecret -e "SELECT 1;"
 ```
 
@@ -148,7 +148,7 @@ Wait 10 seconds. The default export interval for metrics is 10 seconds.
 
 Check the collector logs:
 
-```
+```bash
 docker compose logs otel-collector
 ```
 
@@ -156,7 +156,7 @@ Confirm that the output contains metric names with the `mysql` prefix.
 
 What this procedure validates
 
-```
+```text
 The procedure confirms that the OTLP/HTTP metrics pipeline works between Percona Server for MySQL and a collector. The connection is unauthenticated and unencrypted on the Compose project network.
 
 The procedure does not confirm the following items:
@@ -176,36 +176,36 @@ For a production configuration with TLS and authentication, see [Configure OpenT
 
 Note
 
-```
+```text
 Completing the procedure confirms connectivity only. Before you enable OpenTelemetry in production, see [Configure OpenTelemetry](configure-opentelemetry.md) to configure TLS and authentication.
 ```
 
 Uninstall the component. This statement does not require a restart:
 
-```
+```bash
 docker compose exec psmysql mysql -uroot -psecret -e "UNINSTALL COMPONENT 'file://component_telemetry';"
 ```
 
 Stop the services and remove the containers, the project network, and the named volume:
 
-```
+```bash
 docker compose down -v
 ```
 
 Remove the project directory if you no longer need the files:
 
-```
+```bash
 cd ..
 rm -rf otel-quickstart
 ```
 
 ## Related reading
 
-- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
-- [Use Docker Compose and named volumes](https://docs.percona.com/percona-server/9.7/docker-compose.html)
+- [OpenTelemetry component overview](https://docs.percona.com/percona-server/9.7/opentelemetry-overview.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)
+- [Use Docker Compose and named volumes](https://docs.percona.com/percona-server/9.7/docker-compose.md)

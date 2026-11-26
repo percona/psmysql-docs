@@ -83,7 +83,7 @@ Use either of the following methods to load the plugin at server start.
 
 Add the following statements to your `my.cnf` file to load simple LDAP authentication:
 
-```
+```text
 [mysqld]
 plugin-load-add=authentication_ldap_simple.so
 authentication_ldap_simple_server_host=127.0.0.1
@@ -96,7 +96,7 @@ Restart the server for the changes to take effect.
 
 Add the following statements to your `my.cnf` file to load the SASL-based LDAP authentication:
 
-```
+```text
 [mysqld]
 plugin-load-add=authentication_ldap_sasl.so
 authentication_ldap_sasl_server_host=127.0.0.1
@@ -109,26 +109,26 @@ Install the plugin with the following statements.
 
 **Load the simple LDAP authentication plugin**
 
-```
+```sql
 INSTALL PLUGIN authentication_ldap_simple SONAME 'authentication_ldap_simple.so';
 ```
 
 To set and persist values at runtime, use the following statements:
 
-```
+```sql
 SET PERSIST authentication_ldap_simple_server_host='127.0.0.1';
 SET PERSIST authentication_ldap_simple_bind_base_dn='dc=percona, dc=com';
 ```
 
 **Load the SASL-based LDAP authentication plugin**
 
-```
+```sql
 INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so';
 ```
 
 To set and persist values at runtime, use the following statements:
 
-```
+```sql
 SET PERSIST authentication_ldap_sasl_server_host='127.0.0.1';
 SET PERSIST authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com';
 ```
@@ -141,7 +141,7 @@ There are several methods to add or modify a user.
 
 In the `CREATE USER` statement or the `ALTER USER` statement, for simple LDAP authentication, you can specify the `authentication_ldap_simple` plugin in the `IDENTIFIED WITH` clause:
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
 ```
 
@@ -151,21 +151,21 @@ Using the `IDENTIFIED WITH` clause, the database server assigns the specified pl
 
 If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
 ```
 
-Unless the [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
+Unless the [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
 
-- [authentication_ldap_simple_bind_base_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_bind_base_dn)
-- [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_bind_root_dn)
-- [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd)
-- [authentication_ldap_simple_user_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_user_search_attr)
-- [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_group_search_attr)
+- [authentication_ldap_simple_bind_base_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_bind_base_dn)
+- [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_bind_root_dn)
+- [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd)
+- [authentication_ldap_simple_user_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_user_search_attr)
+- [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_group_search_attr)
 
 Creating the user with `IDENTIFIED BY authentication_ldap_simple` uses the variables.
 
-Creating the user with the [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_group_role_mapping) variable also adds the [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd) variables.
+Creating the user with the [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) variable also adds the [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd) variables.
 
 ## Create a user using SASL-based LDAP authentication
 
@@ -175,7 +175,7 @@ There are several methods to add or modify a user.
 
 For SASL-based LDAP authentication, in the `CREATE USER` statement or the `ALTER USER` statement, you can specify the `authentication_ldap_sasl` plugin:
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 ```
 
@@ -183,21 +183,21 @@ CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 
 If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
 ```
 
-Unless the [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
+Unless the [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) variable is used, creating a user with an authentication string does not use the following system variables:
 
-- [authentication_ldap_sasl_bind_base_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_bind_base_dn)
-- [authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_bind_root_dn)
-- [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_bind_root_pwd)
-- [authentication_ldap_sasl_user_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_user_search_attr)
-- [authentication_ldap_sasl_group_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_group_search_attr)
+- [authentication_ldap_sasl_bind_base_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_bind_base_dn)
+- [authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_bind_root_dn)
+- [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_bind_root_pwd)
+- [authentication_ldap_sasl_user_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_user_search_attr)
+- [authentication_ldap_sasl_group_search_attr](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_group_search_attr)
 
 Creating the user with `IDENTIFIED BY authentication_ldap_sasl` uses the variables.
 
-Creating the user with the [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping) variable also adds the[authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_bind_root_dn) and [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.html#authentication_ldap_sasl_bind_root_pwd) variables.
+Creating the user with the [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) variable also adds the[authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_bind_root_dn) and [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/9.7/ldap-system-variables.md#authentication_ldap_sasl_bind_root_pwd) variables.
 
 ## Examples
 
@@ -205,7 +205,7 @@ The following sections are examples of using simple LDAP authentication and SASL
 
 For the purposes of this example, we use the following LDAP user:
 
-```
+```text
 uid=ldapuser,ou=testusers,dc=percona,dc=com
 ```
 
@@ -215,13 +215,13 @@ The following example configures an LDAP user and connects to the database serve
 
 Create a database server account for `ldapuser` with the following statement:
 
-```
+```sql
 CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
 ```
 
 The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.
 
-```
+```sql
 mysql --user=ldapuser --password --enable-cleartext-plugin
 ```
 
@@ -236,7 +236,7 @@ The following example configures an LDAP user and connect to the database server
 
 Create a database server account for `ldapuser` with the following statement:
 
-```
+```sql
 CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
 ```
 
@@ -244,7 +244,7 @@ The authentication string does not include the LDAP password. This password must
 
 Clients connect ot the database server by providing the database server user name and LDAP password:
 
-```
+```sql
 mysql --user=ldapuser --password
 ```
 
@@ -258,7 +258,7 @@ If you installed either plugin at [server startup](#load-the-plugins-at-server-s
 
 If you installed the plugins at [runtime](#load-the-plugins-at-runtime), run the following statements:
 
-```
+```sql
 UNINSTALL PLUGIN authentication_ldap_simple;
 ```
 
@@ -268,7 +268,7 @@ If you used `SET_PERSIST`, use `RESET PERSIST` to remove the settings.
 
 If you installed the plugins at [runtime](#load-the-plugins-at-runtime), run the following statements:
 
-```
+```sql
 UNINSTALL PLUGIN authentication_ldap_sasl;
 ```
 

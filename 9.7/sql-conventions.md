@@ -10,7 +10,7 @@ Naming conventions refer to the rules and guidelines for naming database objects
 
 - **Use descriptive names**: Choose names that clearly describe the purpose or content of the database object.
 
-```
+```sql
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
@@ -20,7 +20,7 @@ CREATE TABLE users (
 
 - **Avoid abbreviations**: Prefer full and meaningful words over abbreviations to enhance readability and understanding.
 
-```
+```sql
 ALTER TABLE customers
 ADD COLUMN date_of_birth DATE;
 ```
@@ -31,7 +31,7 @@ Indentation and formatting conventions improve the readability and maintainabili
 
 - **Indent SQL statements**: Indent SQL statements consistently to show the logical structure of queries and commands.
 
-```
+```sql
 SELECT
     user_id,
     username,
@@ -44,7 +44,7 @@ WHERE
 
 - **Use consistent casing**: Use consistent casing for keywords, identifiers, and SQL functions to improve code consistency.
 
-```
+```sql
 SELECT
     first_name,
     last_name,
@@ -59,14 +59,14 @@ Comments are annotations added to SQL code to explain its purpose, logic, or any
 
 - **Document intent**: Use comments to document the intent or purpose of SQL statements and code blocks.
 
-```
+```sql
 -- Retrieve all active users
 SELECT * FROM users WHERE status = 'active';
 ```
 
 - **Avoid redundant comments**: Avoid adding comments that merely repeat the code without adding meaningful information.
 
-```
+```sql
 -- This query retrieves all users
 SELECT * FROM users;
 ```
@@ -75,12 +75,12 @@ These SQL style conventions help maintain consistency, readability, and clarity 
 
 ## Advanced SQL features
 
-- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.html)
-- [Functions](https://docs.percona.com/percona-server/9.7/functions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.html)
-- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.html)
-- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.html)
-- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.html)
-- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.html)
+- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.md)
+- [Functions](https://docs.percona.com/percona-server/9.7/functions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.md)
+- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.md)
+- [Stored Procedure Variables](https://docs.percona.com/percona-server/9.7/stored-procedure-variables.md)
+- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.md)
+- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.md)

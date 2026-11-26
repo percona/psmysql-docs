@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona Server for MySQL 9.7, a drop-in replacement for MySQL Community with added performance, scalability and backup features, with installation, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/audit-log-filter-compression-encryption.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10744,18 +10744,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>On startup with encryption enabled, the component generates a password and stores the password when none exists. Call <code>audit_log_encryption_password_get()</code> to inspect the password.</p>
 <h2 id="manually-uncompress-and-decrypt-audit-log-filter-files">Manually uncompress and decrypt audit log filter files<a data-markdown-ignore class="headerlink" href="#manually-uncompress-and-decrypt-audit-log-filter-files" title="Permanent link">&para;</a></h2>
 <p>Decrypt with OpenSSL. For example:</p>
-<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span>-pass<span class="w"> </span>pass:password
+<div class="language-bash highlight"><pre><span></span><code>openssl<span class="w"> </span>enc<span class="w"> </span>-d<span class="w"> </span>-aes-256-cbc<span class="w"> </span>-pass<span class="w"> </span>pass:password
 <span class="w">    </span>-iter<span class="w"> </span>iterations<span class="w"> </span>-md<span class="w"> </span>sha256
 <span class="w">    </span>-in<span class="w"> </span>audit.timestamp.log.pwd_id.enc
 <span class="w">    </span>-out<span class="w"> </span>audit.timestamp.log
 </code></pre></div>
 <p>You need the password and iteration count from <code>audit_log_encryption_password_get()</code>.</p>
 <p>The function returns JSON. For example, for file <code>audit.20190415T151322.log.20190414T223342-2.enc</code> with keyring ID <code>audit-log-20190414T223342-2</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_get</span><span class="p">(</span><span class="s1">'audit-log-20190414T223342-2'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_encryption_password_get</span><span class="p">(</span><span class="s1">'audit-log-20190414T223342-2'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>{"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
+<div class="language-text no-copy highlight"><pre><span></span><code>{"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
 </code></pre></div>
 </details>
 <h2 id="additional-reading">Additional reading<a data-markdown-ignore class="headerlink" href="#additional-reading" title="Permanent link">&para;</a></h2>

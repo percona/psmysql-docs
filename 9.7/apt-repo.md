@@ -8,9 +8,9 @@ The [Percona Software and Platform Lifecycle](https://www.percona.com/services/p
 
 The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
-We gather [Telemetry data](https://docs.percona.com/percona-server/9.7/telemetry.html) in the Percona packages and Docker images.
+We gather [Telemetry data](https://docs.percona.com/percona-server/9.7/telemetry.md) in the Percona packages and Docker images.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 ## Install Percona Server for MySQL using APT
 
@@ -24,7 +24,7 @@ To install Percona Server on Debian or Ubuntu, follow these steps:
 
 Run the following commands as a `root` user or with sudo:
 
-```
+```shell
 sudo apt update
 sudo apt install -y curl
 curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
@@ -34,7 +34,7 @@ sudo apt update
 sudo apt install -y percona-server-server
 ```
 
-The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.html). The quickstart covers installation steps one through six and includes `--scheme https` on `percona-release enable-only`. The repository identifier for 9.7 is `ps-97-lts`.
+The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](https://docs.percona.com/percona-server/9.7/quickstart-apt.md). The quickstart covers installation steps one through six and includes `--scheme https` on `percona-release enable-only`. The repository identifier for 9.7 is `ps-97-lts`.
 
 For another Percona Server for MySQL series, use the name shown by `sudo percona-release list`, or consult the [MySQL software repositories](https://docs.percona.com/percona-software-repositories/mysql.html) reference. Published names can change as Percona adds new series.
 
@@ -61,25 +61,25 @@ The following sections provide detailed explanations for each step:
 
 1. The following `apt update` command updates the package lists for upgrades and package installations. `sudo` runs the command with superuser privileges. `apt update` resynchronizes the package index files from the sources configured in `/etc/apt/sources.list` and `/etc/apt/sources.list.d/`.
 
-   ```
+   ```shell
    sudo apt update
    ```
 
 1. The `sudo apt install -y curl` command installs the `curl` package. `curl` is a command-line tool used to transfer data over networks and is required to download the Percona repository package.
 
-   ```
+   ```shell
    sudo apt install -y curl
    ```
 
 1. The following `curl -O` command downloads the `percona-release_latest.generic_all.deb` file from the Percona APT repository. The `-O` option saves the file with the same name as in the URL.
 
-   ```
+   ```shell
    curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
    ```
 
 1. The `sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb` command installs `gnupg2` (for package signature verification), `lsb-release` (for distribution information), and the downloaded Percona release package. Together, `gnupg2`, `lsb-release`, and the Percona release `.deb` configure the Percona APT repository on your system.
 
-   ```
+   ```shell
    sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
    ```
 
@@ -89,13 +89,13 @@ The following sections provide detailed explanations for each step:
 
    Do not use `percona-release setup ps-97-lts` for 9.7. With `percona-release` 1.0-34, `setup ps-97-lts` disables all Percona repositories but does not enable the 9.7 repository, and still exits successfully.
 
-   ```
+   ```shell
    sudo percona-release enable-only ps-97-lts release --scheme https
    ```
 
 1. Run `apt update` so APT loads package indexes for the Percona APT repository, including `percona-server-server` and related packages. Check that `apt-cache policy percona-server-server` shows a 9.7 candidate version.
 
-   ```
+   ```shell
    sudo apt update
    apt-cache policy percona-server-server
    ```
@@ -104,7 +104,7 @@ The following sections provide detailed explanations for each step:
 
 1. The `sudo apt install -y percona-server-server` command installs the `percona-server-server` package. During installation, the package manager may prompt for configuration values such as the `root` password. Some builds use debconf or post-install configuration only. For password prompts and automation, see [Non-interactive installs and debconf](#non-interactive-installs-and-debconf). For account authentication defaults and removed plugins, see [Configure authentication](#configure-authentication).
 
-   ```
+   ```shell
    sudo apt install -y percona-server-server
    ```
 
@@ -116,17 +116,17 @@ Important change in 9.7
 
 Percona Server for MySQL 9.7 inherits MySQL 9.x behavior. The `mysql_native_password` plugin is removed. The `default_authentication_plugin` system variable is no longer used. Default authentication uses `caching_sha2_password`.
 
-When migrating from a server that used native password authentication, update accounts and clients before deploying 9.7. See [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.html) and [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html).
+When migrating from a server that used native password authentication, update accounts and clients before deploying 9.7. See [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.md) and [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md).
 
 For new installations on 9.7, the server uses the `caching_sha2_password` plugin for password-based authentication. Ensure your client libraries and connectors support the `caching_sha2_password` plugin and TLS when required. The default `caching_sha2_password` configuration requires no additional server settings.
 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
-Percona Server for MySQL 9.7.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/9.7/install-myrocks.html).
+Percona Server for MySQL 9.7.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/9.7/install-myrocks.md).
 
 ## Next steps
 
-After installation completes, see [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.html) for steps to configure and secure your Percona Server for MySQL installation.
+After installation completes, see [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.md) for steps to configure and secure your Percona Server for MySQL installation.
 
 ## Non-interactive installs and debconf
 
@@ -148,7 +148,7 @@ Solution: Treat every preseed example in this section as illustrative until you 
 
 1. On the lab host, or on a CI image built the same way, install the package version you plan to use in production, then capture the output:
 
-   ```
+   ```shell
    lsb_release -a
    dpkg-query -W percona-server-server
    sudo debconf-show percona-server-server | tee debconf-percona-server-server.txt
@@ -162,7 +162,7 @@ To automate those prompts:
 
 1. Discover the questions your package version uses. On a lab host, install once interactively or inspect templates, then run:
 
-   ```
+   ```shell
    sudo debconf-show percona-server-server
    ```
 
@@ -172,7 +172,7 @@ To automate those prompts:
 
 1. Preseed answers with `debconf-set-selections` before `apt install`. The templates shipped with many Percona Server for MySQL 9.7 packages use the `percona-server-server/root-pass` and `percona-server-server/re-root-pass` names for password prompts. For example:
 
-   ```
+   ```shell
    echo "percona-server-server percona-server-server/root-pass password <strong-password>" | sudo debconf-set-selections
    echo "percona-server-server percona-server-server/re-root-pass password <strong-password>" | sudo debconf-set-selections
    ```
@@ -181,7 +181,7 @@ To automate those prompts:
 
 1. Optional: set `DEBIAN_FRONTEND=noninteractive` for the `percona-server-server` install so debconf does not open a UI. Combine non-interactive installs with preseeding. Without defaults for required questions, the Debian package `configure` step can fail or leave the server in an unexpected state.
 
-   ```
+   ```shell
    sudo DEBIAN_FRONTEND=noninteractive apt install -y percona-server-server
    ```
 
@@ -191,9 +191,9 @@ When a distribution or package adds a debconf choice related to authentication, 
 
 ### See also
 
-- [Telemetry](https://docs.percona.com/percona-server/9.7/telemetry.html) — disable collection for package installs with `PERCONA_TELEMETRY_DISABLE=1` on the same `apt` command line
-- [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.html) — `caching_sha2_password` and related settings
-- [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.html) — secure and configure the server after packages install
+- [Telemetry](https://docs.percona.com/percona-server/9.7/telemetry.md) — disable collection for package installs with `PERCONA_TELEMETRY_DISABLE=1` on the same `apt` command line
+- [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.md) — `caching_sha2_password` and related settings
+- [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.md) — secure and configure the server after packages install
 - [Debian Wiki — debconf](https://wiki.debian.org/debconf) — how debconf and preseeding work on Debian-derived systems
 
 ## Unattended installations
@@ -204,7 +204,7 @@ The `-y` flag automatically confirms all actions without asking for user input. 
 
 The `-y` flag applies to `percona-release setup`. With `percona-release` 1.0-34, `percona-release setup ps-97-lts` disables all Percona repositories but does not enable the Percona Server for MySQL 9.7 repository. For unattended installations, enable the repository with `enable-only` instead:
 
-```
+```shell
 percona-release enable-only ps-97-lts release
 ```
 
@@ -220,25 +220,25 @@ User-defined functions (UDFs) extend MySQL with custom functions. Percona Server
 
 To install the Percona Toolkit UDFs after the Percona Server packages are installed:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 You can now use the UDFs in your SQL queries. For example: `SELECT fnv_64('test_string');`
 
-For detailed information about the UDFs, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/9.7/udf-percona-toolkit.html).
+For detailed information about the UDFs, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/9.7/udf-percona-toolkit.md).
 
 ## Install the Percona testing repository using APT
 
 Percona offers pre-release builds from the testing repository. As a superuser, run `percona-release` with the `testing` argument to enable the testing repository:
 
-```
+```shell
 sudo percona-release enable ps-97-lts testing --scheme https
 ```
 

@@ -8,10 +8,10 @@ Percona Server for MySQL 9.7 includes native OpenTelemetry (OTel) support. OTel 
 
 Before you configure your environment, distinguish between two features in Percona Server:
 
-| Feature                                                                                                         | Purpose                                                                                                                                                                                                                        |
-| --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| OpenTelemetry (`component_telemetry`)                                                                           | Sends performance metrics, traces, and logs to a collector you configure. This component uses OpenTelemetry Protocol (OTLP). Compatible collectors include Grafana Tempo, Grafana Mimir, Datadog, and OpenTelemetry Collector. |
-| [Percona telemetry (`component_percona_telemetry`)](https://docs.percona.com/percona-server/9.7/telemetry.html) | Collects anonymous deployment and usage statistics. Percona uses this data to prioritize bug fixes and feature development. Participation is optional.                                                                         |
+| Feature                                                                                                       | Purpose                                                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| OpenTelemetry (`component_telemetry`)                                                                         | Sends performance metrics, traces, and logs to a collector you configure. This component uses OpenTelemetry Protocol (OTLP). Compatible collectors include Grafana Tempo, Grafana Mimir, Datadog, and OpenTelemetry Collector. |
+| [Percona telemetry (`component_percona_telemetry`)](https://docs.percona.com/percona-server/9.7/telemetry.md) | Collects anonymous deployment and usage statistics. Percona uses this data to prioritize bug fixes and feature development. Participation is optional.                                                                         |
 
 ## Feature benefits
 
@@ -28,13 +28,13 @@ For the OpenTelemetry definitions, see [Push metric exporter](https://openteleme
 
 `component_telemetry` covers the following areas:
 
-- Metrics: Counters and gauges track query execution (`Com_*` counters), thread activity, memory usage, and storage engine statistics. These metrics follow the OpenTelemetry data model. For the model, see the [OpenTelemetry observability primer](https://opentelemetry.io/docs/concepts/observability-primer/) and the [OpenTelemetry metrics data model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/). For the metrics that Percona Server for MySQL exports, see [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html).
-- Traces: Spans follow the query execution lifecycle. A trace groups related spans together. The component exports `control`, `session`, and `stmt` spans. See [Trace format](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html#trace-format).
-- Logs: Error log, slow query log, and general query log records stream as OTLP log records. Centralized log aggregation engines can collect these records. `component_telemetry` is the exporter included with the server. See [Telemetry logging interface](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html#telemetry-logging-interface).
+- Metrics: Counters and gauges track query execution (`Com_*` counters), thread activity, memory usage, and storage engine statistics. These metrics follow the OpenTelemetry data model. For the model, see the [OpenTelemetry observability primer](https://opentelemetry.io/docs/concepts/observability-primer/) and the [OpenTelemetry metrics data model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/). For the metrics that Percona Server for MySQL exports, see [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md).
+- Traces: Spans follow the query execution lifecycle. A trace groups related spans together. The component exports `control`, `session`, and `stmt` spans. See [Trace format](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md#trace-format).
+- Logs: Error log, slow query log, and general query log records stream as OTLP log records. Centralized log aggregation engines can collect these records. `component_telemetry` is the exporter included with the server. See [Telemetry logging interface](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md#telemetry-logging-interface).
 
 Native OpenTelemetry support unifies observability across the application stack and the database stack. Teams do not need custom sidecar agents. TLS and token-based authentication secure telemetry data in transit.
 
-The `mysql` command-line client can export traces with the `telemetry_client` plugin. That plugin is separate from `component_telemetry`. See [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html).
+The `mysql` command-line client can export traces with the `telemetry_client` plugin. That plugin is separate from `component_telemetry`. See [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md).
 
 ## Limitations and known constraints
 
@@ -50,13 +50,13 @@ The OpenTelemetry component (`component_telemetry`) in Percona Server for MySQL 
 
 ## Related reading
 
-- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.html)
-- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.html)
-- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.html)
-- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.html)
-- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.html)
-- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.html)
-- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.html)
+- [Quickstart: test OpenTelemetry locally](https://docs.percona.com/percona-server/9.7/quickstart-opentelemetry.md)
+- [Install and manage the OpenTelemetry component](https://docs.percona.com/percona-server/9.7/opentelemetry-lifecycle.md)
+- [Configure OpenTelemetry](https://docs.percona.com/percona-server/9.7/configure-opentelemetry.md)
+- [OpenTelemetry client plugin](https://docs.percona.com/percona-server/9.7/opentelemetry-client.md)
+- [OpenTelemetry variable reference](https://docs.percona.com/percona-server/9.7/opentelemetry-variables.md)
+- [OpenTelemetry data reference](https://docs.percona.com/percona-server/9.7/opentelemetry-data-reference.md)
+- [Troubleshoot OpenTelemetry](https://docs.percona.com/percona-server/9.7/troubleshoot-opentelemetry.md)
 - [OpenTelemetry observability primer](https://opentelemetry.io/docs/concepts/observability-primer/)
 - [OpenTelemetry metrics data model](https://opentelemetry.io/docs/specs/otel/metrics/data-model/)
 - [OpenTelemetry push metric exporter](https://opentelemetry.io/docs/specs/otel/metrics/sdk/#push-metric-exporter)

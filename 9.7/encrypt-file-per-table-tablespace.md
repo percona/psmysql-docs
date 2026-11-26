@@ -4,13 +4,13 @@
 
 The file_per_table tablespace inherits the default schema encryption setting. Use the `ENCRYPTION` clause in the in `CREATE TABLE` statement to explicitly set the encryption.
 
-```
+```sql
 CREATE TABLE ... ENCRYPTION='Y';
 ```
 
 To change the encryption setting for an existing file_per_table tablespace, add the `ENCRYPTION` clause. The `ALTER TABLE` statement without the `ENCRYPTION` clause does not change the encryption state.
 
-```
+```sql
 ALTER TABLE ... ENCRYPTION='Y';
 ```
 

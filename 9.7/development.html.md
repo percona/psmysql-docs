@@ -1,0 +1,32 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/9.7/llms.txt).
+
+# Development of Percona Server for MySQL
+
+Percona Server for MySQL is an open source project to produce a distribution of the *MySQL* Server with improved performance, scalability and diagnostics.
+
+## Submit changes
+
+We keep the trunk in a constant state of stability to allow for a release at any time and to minimize wasted time by developers due to broken code.
+
+### Overview
+
+At Percona we use [Git](https://git-scm.com) for source control, [GitHub](https://github.com/percona) for code hosting, and [Jira](https://perconadev.atlassian.net/) for release management.
+
+We change our software to implement new features and/or to fix bugs. Refactoring could be classed either as a new feature or a bug depending on the scope of work.
+
+### Making a change to a project
+
+In this case, we are going to use `percona-xtrabackup` as an example. The workflow is similar for *Percona Server for MySQL*, but the patch will need to be modified in all release branches of *Percona Server for MySQL*.
+
+- `git branch https://github.com/percona/percona-xtrabackup/featureX` (where ‘featureX’ is a sensible name for the task at hand)
+- (developer makes changes in featureX, testing locally)
+- The Developer pushes to `https://github.com/percona/username/percona-xtrabackup/featureX`
+- The developer can submit a pull request to <https://github.com/percona/percona-xtrabackup>,
+- Code undergoes a review
+- Once code is accepted, it can be merged
+
+If the change also applies to a stable release (e.g. 2.4) then changes should be made on a branch of 2.4 and merged to a branch of the trunk. In this case, there should be two branches run through the param build and two merge proposals (one for the stable release and one with the changes merged to the trunk). This prevents somebody else from having to guess how to merge your changes.
+
+### Percona Server for MySQL
+
+The same process for *Percona Server for MySQL*, but we have several different branches (and merge requests).

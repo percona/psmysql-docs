@@ -15,9 +15,9 @@ SQL provides a standardized way to interact with a database. It uses simple comm
 
 Fundamental SQL links:
 
-- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.html)
-- [SELECT](https://docs.percona.com/percona-server/9.7/select.html)
-- [INSERT](https://docs.percona.com/percona-server/9.7/insert.html)
-- [DELETE](https://docs.percona.com/percona-server/9.7/delete.html)
-- [UPDATE](https://docs.percona.com/percona-server/9.7/update.html)
-- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.html)
+- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.md)
+- [SELECT](https://docs.percona.com/percona-server/9.7/select.md)
+- [INSERT](https://docs.percona.com/percona-server/9.7/insert.md)
+- [DELETE](https://docs.percona.com/percona-server/9.7/delete.md)
+- [UPDATE](https://docs.percona.com/percona-server/9.7/update.md)
+- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.md)

@@ -126,7 +126,7 @@ structure. MyRocks incorporates table IDs and index IDs into the keys.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/myrocks-column-families.md"></head>
   
   
     
@@ -136,7 +136,7 @@ structure. MyRocks incorporates table IDs and index IDs into the keys.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/myrocks-column-families.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/myrocks-column-families.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10581,7 +10581,7 @@ explicitly specified.</p>
 create an index in its own column family using the <code>COMMENT</code> clause.</p>
 <p>The following example demonstrates how to place the <code>PRIMARY KEY</code> into the
 cf1 column family and the index <code>kb</code> — into the cf2 column family.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
 <span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">'cfname=cf1'</span><span class="p">,</span>
 <span class="k">KEY</span><span class="w"> </span><span class="n">kb</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">'cfname=cf2'</span><span class="p">)</span>
 <span class="n">ENGINE</span><span class="o">=</span><span class="n">ROCKSDB</span><span class="p">;</span>
@@ -10596,7 +10596,7 @@ column family.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code>cfname</code> attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.</p>
-<div class="highlight"><pre><span></span><code>COMMENT 'cfname=Foo; Creating the Foo family name'
+<div class="language-text highlight"><pre><span></span><code>COMMENT 'cfname=Foo; Creating the Foo family name'
 </code></pre></div>
 </div>
 <div class="admonition admonition">

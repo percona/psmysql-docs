@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/post-installation.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/post-installation.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/post-installation.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10713,18 +10713,18 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Create the <code>mysql</code> group and the <code>mysql</code> user. The <code>mysql</code> user is a system account without login access.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
 sudo<span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-g<span class="w"> </span>mysql<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Navigate to the MySQL directory. The example uses the default location.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local/mysql
+<div class="language-shell highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local/mysql
 </code></pre></div>
 </li>
 <li>
 <p>Create a directory for the MySQL files. The <a href="https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_secure_file_priv">secure_file_priv <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> uses the directory path as a value.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>mydata
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>mydata
 sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>mydata
 sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>mydata
 </code></pre></div>
@@ -10765,13 +10765,13 @@ Four sections define the permissions; file or directory, User, Group, and Others
 </li>
 <li>
 <p>Run the command to initialize the data directory. The <code>--user=mysql</code> option runs the server as the <code>mysql</code> user. The server refuses to run as the operating system <code>root</code> user without this option.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 <p>The <code>--initialize</code> option generates a random temporary password for <code>root@localhost</code>. The option writes the password to the error log.</p>
 </li>
 <li>
 <p>Start the server as the <code>mysql</code> user.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>bin/mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span><span class="p">&amp;</span>
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>bin/mysqld_safe<span class="w"> </span>--user<span class="o">=</span>mysql<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 </li>
 </ol>
@@ -10780,11 +10780,11 @@ Four sections define the permissions; file or directory, User, Group, and Others
 <p>This section assumes you have used the default installation settings. If you have modified the installation, navigate to the installation location. You can also add the location by <a href="https://dev.mysql.com/doc/refman/9.7/en/setting-environment-variables.html">Setting the Environment Variables <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>You can use the <a href="https://dev.mysql.com/doc/refman/9.7/en/mysqladmin.html">mysqladmin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> client to access the server.</p>
 <p>If you have issues connecting to the server, use the <code>root</code> user and the root account password.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>version
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>version
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enter password:
+<div class="language-text no-copy highlight"><pre><span></span><code>Enter password:
 mysql Ver 9.7.2-3 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
 ...
 Server version      9.7.2-3
@@ -10798,11 +10798,11 @@ Open tables: 59  Queries per second avg: 0.0000
 </code></pre></div>
 </details>
 <p>Use <a href="https://dev.mysql.com/doc/refman/9.7/en/mysqlshow.html">mysqlshow <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> to display database and table information.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqlshow<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enter password:
+<div class="language-text no-copy highlight"><pre><span></span><code>Enter password:
 
 +---------------------+
 |      Databases      |
@@ -10820,15 +10820,15 @@ Open tables: 59  Queries per second avg: 0.0000
 <h3 id="set-service-to-run-at-boot-time">Set service to run at boot time<a data-markdown-ignore class="headerlink" href="#set-service-to-run-at-boot-time" title="Permanent link">&para;</a></h3>
 <p>After a generic binary installation, manually configure systemd support.</p>
 <p>The following commands start, check the status, and stop the server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 <p>Run the following command to start the service at boot time:</p>
-<p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
+<p><div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mysqld
 </code></pre></div>
 Run the following command to prevent a service from starting at boot time:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>mysqld
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>mysqld
 </code></pre></div>
 <h2 id="all-installations">All installations<a data-markdown-ignore class="headerlink" href="#all-installations" title="Permanent link">&para;</a></h2>
 <table>
@@ -10854,7 +10854,7 @@ Run the following command to prevent a service from starting at boot time:</p>
 <ol>
 <li>
 <p>Restart the server with the <code>--skip-grant-tables</code> option enabled to allow access without a password. This option is insecure. The server also enables <code>skip_networking</code> automatically, which disables remote connections.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>set-environment<span class="w"> </span><span class="nv">MYSQLD_OPTS</span><span class="o">=</span><span class="s2">"--skip-grant-tables"</span>
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 mysql
@@ -10870,31 +10870,31 @@ mysql
 <p class="admonition-title">Note</p>
 <p>With <code>--skip-grant-tables</code>, the server does not load the grant tables, and <code>ALTER USER</code> fails with <code>ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement</code>. Run <code>FLUSH PRIVILEGES</code> first to load the grant tables.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 <span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
 <span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span>
 <span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the command returns <code>Query OK</code>, run <code>EXIT;</code></p>
-<div class="highlight"><pre><span></span><code><span class="n">EXIT</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">EXIT</span><span class="p">;</span>
 </code></pre></div>
 <p>If the command fails with the <code>ERROR 1524 (HY000): Plugin 'mysql_native_password' is not loaded</code> error, the account is configured to use a removed <code>mysql_native_password</code> plugin (for example, after an upgrade from an older version).</p>
 <p>Check the current authentication plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">User</span><span class="p">,</span><span class="w"> </span><span class="k">Host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'root'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">User</span><span class="p">,</span><span class="w"> </span><span class="k">Host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'root'</span><span class="p">;</span>
 </code></pre></div>
 <p>If the plugin is <code>mysql_native_password</code>, rerun the <code>ALTER USER</code> command to switch to the <code>caching_sha2_password</code> authentication plugin.</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'root'</span><span class="o">@</span><span class="s1">'localhost'</span>
 <span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">caching_sha2_password</span>
 <span class="k">BY</span><span class="w"> </span><span class="s1">'rootPassword_12'</span><span class="p">;</span>
 </code></pre></div>
 <p>If MySQL returns the <code>ERROR 1819 (HY000): Your password does not satisfy the current policy</code> error, check the password policy requirements with:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'validate_password%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'validate_password%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Then choose a password that satisfies the policy.</p>
 </li>
 <li>
 <p>Stop the server, remove the <code>--skip-grant-tables</code> option, and restart the server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 sudo<span class="w"> </span>systemctl<span class="w"> </span>unset-environment<span class="w"> </span>MYSQLD_OPTS
 sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
@@ -10923,7 +10923,7 @@ script improves the security of the instance.</p>
 </li>
 </ul>
 <p>The following statement runs the script:</p>
-<div class="highlight"><pre><span></span><code>mysql_secure_installation
+<div class="language-shell highlight"><pre><span></span><code>mysql_secure_installation
 </code></pre></div>
 <h2 id="populate-the-time-zone-tables">Populate the time zone tables<a data-markdown-ignore class="headerlink" href="#populate-the-time-zone-tables" title="Permanent link">&para;</a></h2>
 <p>The time zone system tables are the following:</p>
@@ -10955,7 +10955,7 @@ the <a href="https://dev.mysql.com/doc/refman/9.7/en/system-schema.html">mysql s
 <p>The example assumes you are running the command with the <code>root</code> account.
 The account must have the privileges for modifying the <code>mysql</code>
 system schema.</p>
-<div class="highlight"><pre><span></span><code>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-D<span class="w"> </span>mysql
 </code></pre></div>
 
 

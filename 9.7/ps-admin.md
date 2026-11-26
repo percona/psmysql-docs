@@ -25,7 +25,7 @@ Install the `percona-server-rocksdb` package before you enable MyRocks.
 
 The following syntax is the general form of the command:
 
-```
+```shell
 sudo ps-admin <ACTION> -u <MYSQL_ADMIN_USER> -p[<MYSQL_ADMIN_PASSWORD>] \
     [-S <SOCKET>] [-h <HOST> -P <PORT>]
 ```
@@ -38,7 +38,7 @@ Use only `--enable-rocksdb` or only `--disable-rocksdb` for MyRocks. Apply the s
 
 Print the option list with the following command:
 
-```
+```shell
 ps-admin --help
 ```
 
@@ -72,11 +72,11 @@ The following table lists options that enable or disable plugins and MyRocks:
 
 ## Enable MyRocks
 
-Install the MyRocks package first. For package steps, see [Percona MyRocks installation guide](https://docs.percona.com/percona-server/9.7/install-myrocks.html).
+Install the MyRocks package first. For package steps, see [Percona MyRocks installation guide](https://docs.percona.com/percona-server/9.7/install-myrocks.md).
 
 Enable MyRocks with the following command:
 
-```
+```shell
 sudo ps-admin --enable-rocksdb -u root -p
 ```
 
@@ -90,7 +90,7 @@ The script then installs the MyRocks plugins from `ha_rocksdb.so` on the running
 
 Verify the engine with the following statement:
 
-```
+```sql
 SHOW ENGINES;
 ```
 
@@ -98,35 +98,35 @@ The `ROCKSDB` row must show `YES` in the `Support` column.
 
 InnoDB remains the default storage engine after the enable command. To create tables on MyRocks, set `default-storage-engine=rocksdb` in the `[mysqld]` section of `my.cnf`, or add `ENGINE=RocksDB` to each `CREATE TABLE` statement.
 
-For more detail, see [Percona MyRocks installation guide](https://docs.percona.com/percona-server/9.7/install-myrocks.html).
+For more detail, see [Percona MyRocks installation guide](https://docs.percona.com/percona-server/9.7/install-myrocks.md).
 
 ## Enable the PAM authentication plugin
 
 Enable the full PAM plugin with the following command:
 
-```
+```shell
 sudo ps-admin --enable-pam -u root -p
 ```
 
 The script runs the following statement:
 
-```
+```sql
 INSTALL PLUGIN auth_pam SONAME 'auth_pam.so';
 ```
 
 Enable the Oracle-compatible PAM plugin with the following command:
 
-```
+```shell
 sudo ps-admin --enable-pam-compat -u root -p
 ```
 
 The script runs the following statement:
 
-```
+```sql
 INSTALL PLUGIN auth_pam_compat SONAME 'auth_pam_compat.so';
 ```
 
-Configure the PAM stack after the plugin is active. For PAM files, user accounts, and client requirements, see [PAM authentication plugin](https://docs.percona.com/percona-server/9.7/pam-plugin.html).
+Configure the PAM stack after the plugin is active. For PAM files, user accounts, and client requirements, see [PAM authentication plugin](https://docs.percona.com/percona-server/9.7/pam-plugin.md).
 
 ## Enable the MySQL X plugin
 
@@ -134,13 +134,13 @@ The MySQL X plugin provides X Protocol support. The plugin is enabled by default
 
 Enable the MySQL X plugin with the following command:
 
-```
+```shell
 sudo ps-admin --enable-mysqlx -u root -p
 ```
 
 The script runs the following statement:
 
-```
+```sql
 INSTALL PLUGIN mysqlx SONAME 'mysqlx.so';
 ```
 
@@ -150,7 +150,7 @@ For X Protocol and plugin options, see the [X Plugin](https://dev.mysql.com/doc/
 
 Disable MyRocks with the following command:
 
-```
+```shell
 sudo ps-admin --disable-rocksdb -u root -p
 ```
 
@@ -160,15 +160,15 @@ Disable other plugins with the matching `--disable-*` option.
 
 The following examples disable each supported plugin:
 
-```
+```shell
 sudo ps-admin --disable-pam -u root -p
 ```
 
-```
+```shell
 sudo ps-admin --disable-pam-compat -u root -p
 ```
 
-```
+```shell
 sudo ps-admin --disable-mysqlx -u root -p
 ```
 
@@ -178,7 +178,7 @@ The script checks `INFORMATION_SCHEMA.PLUGINS` before each change.
 
 Confirm the result with the following statement:
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS, PLUGIN_TYPE
 FROM INFORMATION_SCHEMA.PLUGINS
 WHERE PLUGIN_NAME IN (
@@ -197,13 +197,13 @@ An empty result after a disable operation means the plugin is not loaded.
 
 Prompt for the password on a local socket:
 
-```
+```shell
 sudo ps-admin --enable-pam -u root -p -S /var/run/mysqld/mysqld.sock
 ```
 
 Connect over TCP:
 
-```
+```shell
 sudo ps-admin --enable-rocksdb -u root -pPassw0rd -h 127.0.0.1 -P 3306
 ```
 
@@ -224,7 +224,7 @@ The Audit Log plugin (`audit_log`) is removed in Percona Server for MySQL 9.7. T
 
 The script still parses `--enable-audit` (`-a`) and `--disable-audit` (`-w`). Those flags do not install the plugin. `--enable-audit` runs `INSTALL PLUGIN audit_log SONAME 'audit_log.so';`, which fails because the library is not present.
 
-Use the [Audit Log Filter component](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html) instead. See [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.html) and [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.html).
+Use the [Audit Log Filter component](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md) instead. See [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.md) and [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.md).
 
 ## Removed TokuDB options
 
@@ -244,12 +244,12 @@ If you pass any of these flags, the script prints an error and exits. The script
 
 The following topics describe the features that `ps-admin` enables or disables:
 
-- [Percona MyRocks installation guide](https://docs.percona.com/percona-server/9.7/install-myrocks.html)
-- [Show storage engines](https://docs.percona.com/percona-server/9.7/show-engines.html)
-- [PAM authentication plugin](https://docs.percona.com/percona-server/9.7/pam-plugin.html)
-- [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.html)
-- [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.html)
-- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.html)
-- [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.html)
+- [Percona MyRocks installation guide](https://docs.percona.com/percona-server/9.7/install-myrocks.md)
+- [Show storage engines](https://docs.percona.com/percona-server/9.7/show-engines.md)
+- [PAM authentication plugin](https://docs.percona.com/percona-server/9.7/pam-plugin.md)
+- [Authentication methods](https://docs.percona.com/percona-server/9.7/authentication-methods.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/9.7/audit-log-filter-overview.md)
+- [Install the audit log filter](https://docs.percona.com/percona-server/9.7/install-audit-log-filter.md)
+- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/9.7/migrate-to-audit-log-filter-component.md)
+- [Post-installation](https://docs.percona.com/percona-server/9.7/post-installation.md)
 - [X Plugin](https://dev.mysql.com/doc/refman/9.7/en/x-plugin.html) — MySQL documentation for X Protocol. Percona Server for MySQL has no dedicated X Plugin page.

@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/using-amz-kms.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/using-amz-kms.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/using-amz-kms.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10880,17 +10880,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="manifest-examples">Manifest examples<a data-markdown-ignore class="headerlink" href="#manifest-examples" title="Permanent link">&para;</a></h3>
 <p>Replace <code>&lt;component_name&gt;</code> in the following examples with one of the components in <a href="#available-keyring-components">Available keyring components</a>.</p>
 <p>The following example shows a global manifest that loads a component directly:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The following example shows a global manifest that delegates to the local manifest:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"read_local_manifest"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The following example shows a local manifest:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"components"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file://&lt;component_name&gt;"</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -10982,14 +10982,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ol>
 <h2 id="verify-the-installation">Verify the installation<a data-markdown-ignore class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h2>
 <p>Connect to the server and run the following query:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
 </code></pre></div>
 <p>The query returns one row per status field. The <code>Component_status</code> field reports <code>Active</code> when the component loaded. The <code>Component_status</code> field reports <code>Disabled</code> when the component failed to load. Inspect the server error log to identify the cause of any failure.</p>
 <h2 id="operate-the-keyring">Operate the keyring<a data-markdown-ignore class="headerlink" href="#operate-the-keyring" title="Permanent link">&para;</a></h2>
 <h3 id="rotate-the-master-key">Rotate the master key<a data-markdown-ignore class="headerlink" href="#rotate-the-master-key" title="Permanent link">&para;</a></h3>
 <p>The InnoDB master key wraps the tablespace keys that protect data on disk. Rotate the master key on a scheduled cadence. Scheduled rotation limits the volume of data wrapped by any single master key. See <a href="data-at-rest-encryption.html">Data at Rest Encryption</a> for the role of the master key.</p>
 <p>Run the following statement to rotate the master key:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
 </code></pre></div>
 <p>The statement generates a master key and stores the key in the keyring. The server then wraps subsequent tablespace keys with the stored key.</p>
 <p>The rotation operation is fast. The server does not re-encrypt the tablespace data.</p>
@@ -11108,7 +11108,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </div>
 <h4 id="example-configuration">Example configuration<a data-markdown-ignore class="headerlink" href="#example-configuration" title="Permanent link">&para;</a></h4>
 <p>The following example shows a <code>component_keyring_kms.cnf</code> file in JSON format with placeholder values. Replace each placeholder with the value for the target AWS KMS deployment.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"read_local_config"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/local/mysql/keyring-mysql/aws-keyring-data"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;AWS_REGION&gt;"</span><span class="p">,</span>

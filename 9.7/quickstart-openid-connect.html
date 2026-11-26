@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/quickstart-openid-connect.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/quickstart-openid-connect.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/quickstart-openid-connect.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10903,21 +10903,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <h2 id="install-the-oidc-plugin">Install the OIDC plugin<a data-markdown-ignore class="headerlink" href="#install-the-oidc-plugin" title="Permanent link">&para;</a></h2>
 <p>Load the plugin during the current server session:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p>Confirm that the plugin loaded:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------+---------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------+---------------+
 | PLUGIN_NAME         | PLUGIN_STATUS |
 +---------------------+---------------+
 | auth_openid_connect | ACTIVE        |
@@ -10928,7 +10928,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>To load the plugin at server start, see <a href="openid-connect-authentication.html#install-the-plugin">Install the plugin</a>.</p>
 <h2 id="configure-trust-for-keycloak">Configure trust for Keycloak<a data-markdown-ignore class="headerlink" href="#configure-trust-for-keycloak" title="Permanent link">&para;</a></h2>
 <p>Set the <code>auth_openid_connect_configuration</code> system variable to a JSON document for the Keycloak realm. The plugin fetches signing keys from the realm JWKS endpoint:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'JSON://{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'JSON://{</span>
 <span class="s1">  "my-keycloak": {</span>
 <span class="s1">    "issuer-name": "https://keycloak.example.com/realms/master",</span>
 <span class="s1">    "jwks-url": "https://keycloak.example.com/realms/master/protocol/openid-connect/certs",</span>
@@ -10942,7 +10942,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p><code>SET GLOBAL</code> lasts only until the next restart. To persist the configuration, run the same statement with <code>SET PERSIST_ONLY</code>. See <a href="openid-connect-authentication.html#persist-the-configuration">Persist the configuration</a>.</p>
@@ -10960,41 +10960,41 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 </ol>
 <p>Create a small database that the OIDC user reads through the role:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">;</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">.</span><span class="n">invoices</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">.</span><span class="n">invoices</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">99</span><span class="p">.</span><span class="mi">95</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">145</span><span class="p">.</span><span class="mi">00</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.00 sec)
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 2 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Create the MySQL role and grant access to the table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
 <span class="k">GRANT</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Create the OIDC-authenticated user. Replace the <code>user</code> value with the <code>sub</code> claim that Keycloak issues for the account:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'alice'</span><span class="o">@</span><span class="s1">'%'</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'alice'</span><span class="o">@</span><span class="s1">'%'</span>
 <span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
 <span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "user": "4c28d537-a635-4b6d-957f-58e3c8860bcc"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p>The OIDC user does not need an explicit <code>GRANT</code> for <code>oidc_demo</code>. When the token includes the <code>/accounting</code> group, the user inherits access from the <code>accounting</code> role.</p>
 <h2 id="obtain-an-id-token-from-keycloak">Obtain an ID token from Keycloak<a data-markdown-ignore class="headerlink" href="#obtain-an-id-token-from-keycloak" title="Permanent link">&para;</a></h2>
 <p>Run the following command on the workstation. The command writes the ID token to <code>/run/user/1000/id_token.jwt</code>. Replace <code>&lt;password&gt;</code> with the password for <code>alice</code>:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>https://keycloak.example.com/realms/master/protocol/openid-connect/token<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">'grant_type=password'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">'client_id=mysql-oidc'</span><span class="w"> </span><span class="se">\</span>
@@ -11013,7 +11013,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 </div>
 <h2 id="connect-with-the-oidc-token">Connect with the OIDC token<a data-markdown-ignore class="headerlink" href="#connect-with-the-oidc-token" title="Permanent link">&para;</a></h2>
 <p>Connect as <code>alice</code> and pass the token file:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--host<span class="o">=</span>mysql.example.com<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--host<span class="o">=</span>mysql.example.com<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--ssl-mode<span class="o">=</span>REQUIRED<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--user<span class="o">=</span>alice<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--authentication-openid-connect-client-id-token-file<span class="o">=</span>/run/user/1000/id_token.jwt
@@ -11021,11 +11021,11 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <p>Successful authentication opens the MySQL prompt. The plugin rejects the connection when the token is missing, expired, or sent over an unsecured transport.</p>
 <h2 id="verify-the-role-mapping">Verify the role mapping<a data-markdown-ignore class="headerlink" href="#verify-the-role-mapping" title="Permanent link">&para;</a></h2>
 <p>Confirm the connected identity:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">CURRENT_USER</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">CURRENT_USER</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------+
 | CURRENT_USER() |
 +----------------+
 | alice@%        |
@@ -11034,12 +11034,12 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 </code></pre></div>
 </details>
 <p>Activate the role and read from the table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">.</span><span class="n">invoices</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 
 +------+--------+
 | id   | amount |
@@ -11053,13 +11053,13 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <p>The token contains <code>/accounting</code> in the <code>groups</code> claim, so <code>SET ROLE accounting</code> succeeds. A user without the group sees <code>ERROR 3530 (HY000)</code>.</p>
 <h2 id="clean-up">Clean up<a data-markdown-ignore class="headerlink" href="#clean-up" title="Permanent link">&para;</a></h2>
 <p>Remove the demo objects when you finish:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'alice'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'alice'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 <span class="k">DROP</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">accounting</span><span class="p">;</span>
 <span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">oidc_demo</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 1 row affected (0.01 sec)
 </code></pre></div>

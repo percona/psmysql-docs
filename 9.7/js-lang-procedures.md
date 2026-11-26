@@ -2,11 +2,11 @@
 
 # js_lang stored function or procedure
 
-This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.html#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+This feature is a [tech preview](https://docs.percona.com/percona-server/9.7/glossary.md#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 Once the component’s installed, you can write stored functions and procedures in JavaScript. The syntax looks like this:
 
-```
+```text
 CREATE
     [DEFINER = user]
     FUNCTION [IF NOT EXISTS] sp_name ([func_parameter[,...]])
@@ -24,7 +24,7 @@ routine_body:
 
 Use the `LANGUAGE JS` clause when creating a routine.
 
-```
+```sql
 CREATE FUNCTION f1(n INT) RETURNS INT LANGUAGE JS AS $$
     return n*42;
 $$
@@ -38,9 +38,9 @@ You can modify or delete stored programs in JS by using the standard `ALTER PROC
 
 ## Further reading
 
-- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.html)
-- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.html)
-- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.html)
-- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.html)
-- [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.html)
-- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.html)
+- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/9.7/js-lang-overview.md)
+- [Install js_lang component](https://docs.percona.com/percona-server/9.7/install-js-lang.md)
+- [Uninstall the js_lang component](https://docs.percona.com/percona-server/9.7/uninstall-js-lang.md)
+- [js_lang privileges](https://docs.percona.com/percona-server/9.7/js-lang-privileges.md)
+- [js_lang component system variables](https://docs.percona.com/percona-server/9.7/js-lang-variables.md)
+- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/9.7/js-lang-troubleshoot.md)

@@ -75,7 +75,7 @@ If set to a non-zero value, the server kills any idle transaction after it stays
 
 The `SET GLOBAL kill_idle_transaction = 300;` command configures the server to automatically end any idle transaction that has lasted for 300 seconds (5 minutes). This command immediately takes effect for the current and new server sessions. An idle transaction holds resources, potentially preventing other operations from proceeding. This setting helps to release these resources if a transaction is unintentionally left open.
 
-```
+```sql
 SET GLOBAL kill_idle_transaction = 300;
 ```
 
@@ -83,7 +83,7 @@ The [mysqld] section in the my.cnf configuration file allows you to set server-w
 
 You must restart the server for changes in the my.cnf file to take effect. This configuration prevents long-held idle transactions from consuming resources over extended periods.
 
-```
+```ini
 [mysqld]
 kill_idle_transaction = 300
 ```
@@ -96,6 +96,6 @@ If the kill_idle_transaction setting is active and idle transactions have been
 
 The command produces no output if the server has not terminated any idle transactions since the last log rotation or server start. Regularly checking this log helps you verify that the idle transaction option is working as expected and provides insights into transaction management within your server.
 
-```
+```shell
 $ grep "Killed idle transaction" /var/log/mysql/error.log
 ```

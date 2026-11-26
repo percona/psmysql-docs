@@ -24,7 +24,7 @@ A default value of 0 disables this feature. In this case, the server does not en
 
 Set the `binlog_space_limit` to 50 GB in the `my.cnf` file:
 
-```
+```text
 [mysqld]
 ...
 binlog_space_limit = 50G

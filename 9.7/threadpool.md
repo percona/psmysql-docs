@@ -30,7 +30,7 @@ MySQL executes statements using one thread per client connection. When the numbe
 
 Set the thread pool variable [thread_handling](#thread_handling) to `pool-of-threads` by adding the following line to `my.cnf`:
 
-```
+```text
 thread_handling=pool-of-threads
 ```
 
@@ -196,7 +196,7 @@ Defines the number of milliseconds before a running thread is considered stalled
 
 This status variable reports aggregated wait-time statistics, in microseconds, for requests waiting in the high-priority queue. The value is a formatted string, for example:
 
-```
+```text
 avg: 0.000, min: 0.000, max: 0.000, dev: 0.000, cnt: 0
 ```
 
@@ -211,7 +211,7 @@ Each sample is a single wait-time measurement, in microseconds, taken when a req
 
 This status variable reports aggregated wait-time statistics, in microseconds, for requests waiting in the normal-priority queue. The value is a formatted string, for example:
 
-```
+```text
 avg: 590.000, min: 470.000, max: 736.000, dev: 110.266, cnt: 5
 ```
 

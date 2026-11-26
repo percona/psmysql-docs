@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/uuid-versions.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/uuid-versions.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/uuid-versions.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10817,11 +10817,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>For better performance and efficiency in a distributed database, consider using  UUIDv7, which incorporates timestamps for some order levels.</p>
 <p>UUID version 7 (UUIDv7) creates time-ordered identifiers by encoding a Unix timestamp with millisecond precision in the first 48 bits. It uses 6 bits to specify the UUID version and variant, while the remaining 74 bits are random. This time-ordering results in nearly sequential values, which helps improve index performance and locality in distributed systems.</p>
 <h2 id="install-the-uuid_vx-component">Install the UUID_VX component<a data-markdown-ignore class="headerlink" href="#install-the-uuid_vx-component" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_uuid_vx_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_uuid_vx_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.03 sec) 
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.03 sec) 
 </code></pre></div>
 </details>
 <h3 id="character-sets-available">Character sets available<a data-markdown-ignore class="headerlink" href="#character-sets-available" title="Permanent link">&para;</a></h3>
@@ -10907,33 +10907,33 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h3 id="examples-of-functions-for-all-uuid-versions">Examples of functions for all UUID versions<a data-markdown-ignore class="headerlink" href="#examples-of-functions-for-all-uuid-versions" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">is_uuid_vx</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">is_uuid_vx</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------------------------------------+
 | is_uuid_vx('01900bf6-0eb0-715a-80f4-636367e07777') |
 +----------------------------------------------------+
 |                                                  1 |
 +----------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_version</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_version</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------------------------------------------+
 | uuid_vx_version('01900bf6-0eb0-715a-80f4-636367e07777') |
 +---------------------------------------------------------+
 |                                                       7 |
 +---------------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_variant</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_variant</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------------------------------------------+
 | uuid_vx_variant('01900bf6-0eb0-715a-80f4-636367e07777') |
 +---------------------------------------------------------+
 |                                                       1 |
@@ -10986,11 +10986,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>UUID_v3()</code> function and <code>UUID_v5()</code> function do not validate the string argument, such as whether the URL is formatted correctly or the DNS name is correct. These functions generate a string hash and then add that hash to a UUID with the defined namespace. The user specifies the string.</p>
 <h3 id="uuid-generator-examples">UUID generator examples<a data-markdown-ignore class="headerlink" href="#uuid-generator-examples" title="Permanent link">&para;</a></h3>
 <p>UUID version 1:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v1</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v1</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v1()                            |
 +--------------------------------------+
 | 14c22f93-2962-11ef-9078-c3abf1c446bb |
@@ -10998,11 +10998,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 3 takes one argument and uses the default UUID namespace as “URL”.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v3</span><span class="p">(</span><span class="s1">'http://example.com'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v3</span><span class="p">(</span><span class="s1">'http://example.com'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v3('http://example.com')        |
 +--------------------------------------+
 | d632b50c-7913-3137-ae9a-2d93f56e70d5 |
@@ -11010,11 +11010,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 3 takes one argument and the explicit UUID namespace is “URL”.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v3</span><span class="p">(</span><span class="s1">'http://example.com'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v3</span><span class="p">(</span><span class="s1">'http://example.com'</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v3('http://example.com')        |
 +--------------------------------------+
 | d632b50c-7913-3137-ae9a-2d93f56e70d5 |
@@ -11022,11 +11022,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 3 takes one argument, with the explicit UUID namespace set to “DNS”.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v3</span><span class="p">(</span><span class="s1">'example.com'</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v3</span><span class="p">(</span><span class="s1">'example.com'</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v3('example.com',0)             |
 +--------------------------------------+
 | 9073926b-929f-31c2-abc9-fad77ae3e8eb |
@@ -11034,11 +11034,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 4:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v4</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v4</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v4()                            |
 +--------------------------------------+
 | a408e4ad-9b98-4edb-a105-40f22648a928 |
@@ -11046,11 +11046,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 5:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v5</span><span class="p">(</span><span class="ss">"http://example.com"</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v5</span><span class="p">(</span><span class="ss">"http://example.com"</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v5("http://example.com")        |
 +--------------------------------------+
 | 8c9ddcb0-8084-5a7f-a988-1095ab18b5df |
@@ -11058,11 +11058,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 6:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v6</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v6</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v6()                            |
 +--------------------------------------+
 | 1ef29686-2168-64a7-b9a2-adb13f80f118 |
@@ -11070,11 +11070,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 7 generation:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v7</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v7</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v7()                            |
 +--------------------------------------+
 | 019010f6-0426-70f0-80b0-b63decd3d7d1 |
@@ -11083,11 +11083,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>UUID version 7 with timestamp offset in 84000 seconds in the future</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v7</span><span class="p">(</span><span class="mi">84000000</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_v7</span><span class="p">(</span><span class="mi">84000000</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------+
 | uuid_v7(84000000)                    |
 +--------------------------------------+
 | 019015f8-c7c4-70b4-8043-fe241c2be36c |
@@ -11123,11 +11123,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <h3 id="timestamp-based-function-examples">Timestamp-based function examples<a data-markdown-ignore class="headerlink" href="#timestamp-based-function-examples" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_to_timestamp</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_to_timestamp</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------------------------------------------------+
 | uuid_vx_to_timestamp('01900bf6-0eb0-715a-80f4-636367e07777') |
 +--------------------------------------------------------------+
 | 2024-06-12 10:19:53.392                                      |
@@ -11135,22 +11135,22 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_to_timestamp_tz</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_to_timestamp_tz</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----------------------------------------------------------------+
 | uuid_vx_to_timestamp_tz('01900bf6-0eb0-715a-80f4-636367e07777') |
 +-----------------------------------------------------------------+
 | Wed Jun 12 10:19:53 2024 GMT                                    |
 +-----------------------------------------------------------------+
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_to_unixtime</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">uuid_vx_to_unixtime</span><span class="p">(</span><span class="s1">'01900bf6-0eb0-715a-80f4-636367e07777'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-------------------------------------------------------------+
 | uuid_vx_to_unixtime('01900bf6-0eb0-715a-80f4-636367e07777') |
 +-------------------------------------------------------------+
 |                                               1718187593392 |
@@ -11158,11 +11158,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <h2 id="uninstall-the-uuid_vx-component">Uninstall the UUID_VX component<a data-markdown-ignore class="headerlink" href="#uninstall-the-uuid_vx-component" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_uuid_vx_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_uuid_vx_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.03 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.03 sec)
 </code></pre></div>
 </details>
 

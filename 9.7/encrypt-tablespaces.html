@@ -128,7 +128,7 @@ decrypted, remains the same.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/encrypt-tablespaces.md"></head>
   
   
     
@@ -138,7 +138,7 @@ decrypted, remains the same.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/encrypt-tablespaces.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/encrypt-tablespaces.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10732,7 +10732,7 @@ tables.</p>
 ENCRYPTION clause in the CREATE SCHEMA or CREATE TABLESPACE statement.</p>
 <p>You can set the <code>default_table_encryption</code> variable in an individual
 connection.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">default_table_encryption</span><span class="o">=</span><span class="k">ON</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">default_table_encryption</span><span class="o">=</span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <h2 id="default_table_encryption"><code>default_table_encryption</code><a data-markdown-ignore class="headerlink" href="#default_table_encryption" title="Permanent link">&para;</a></h2>
 <table>
@@ -10830,7 +10830,7 @@ file merges used in queries and backend processes.</p>
 <h2 id="use-encryption">Use ENCRYPTION<a data-markdown-ignore class="headerlink" href="#use-encryption" title="Permanent link">&para;</a></h2>
 <p>If you do not set the default encryption setting, you can create general
 tablespaces with the <code>ENCRYPTION</code> setting.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">tablespace_name</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'Y'</span><span class="p">;</span>
 </code></pre></div>
 <p>All tables contained in the tablespace are either encrypted or not encrypted.
 You cannot encrypt only some of the tables in a general tablespace. This
@@ -10839,11 +10839,11 @@ accept the <code>ENCRYPTION='Y/N'</code> option.</p>
 <p>The option is a tablespace attribute and is not allowed with the <code>CREATE TABLE</code> or <code>SHOW CREATE TABLE</code> statement except with file-per-table tablespaces.</p>
 <p>In an encrypted general tablespace, an attempt to create an unencrypted table
 generates the following error:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">)</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'N'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">)</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="n">ENCRYPTION</span><span class="o">=</span><span class="s1">'N'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
+<div class="language-text no-copy highlight"><pre><span></span><code>ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
 </code></pre></div>
 </details>
 <p>The server diagnoses an attempt to create or move tables, including partitioned ones, to a

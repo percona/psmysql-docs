@@ -129,7 +129,7 @@ individuals, groups, and organizations.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/ldap-authentication.md"></head>
   
   
     
@@ -139,7 +139,7 @@ individuals, groups, and organizations.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/ldap-authentication.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/ldap-authentication.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10903,7 +10903,7 @@ individuals, groups, and organizations.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Add the following statements to your <code>my.cnf</code> file to load simple LDAP authentication:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 plugin-load-add=authentication_ldap_simple.so
 authentication_ldap_simple_server_host=127.0.0.1
 authentication_ldap_simple_bind_base_dn='dc=percona, dc=com'
@@ -10912,7 +10912,7 @@ authentication_ldap_simple_bind_base_dn='dc=percona, dc=com'
 </div>
 <div class="tabbed-block">
 <p>Add the following statements to your <code>my.cnf</code> file to load the SASL-based LDAP authentication:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 plugin-load-add=authentication_ldap_sasl.so
 authentication_ldap_sasl_server_host=127.0.0.1
 authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
@@ -10925,18 +10925,18 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_3_1">Load the simple LDAP authentication plugin</label><label for="__tabbed_3_2">Load the SASL-based LDAP authentication plugin</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'authentication_ldap_simple.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'authentication_ldap_simple.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_server_host</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_simple_bind_base_dn</span><span class="o">=</span><span class="s1">'dc=percona, dc=com'</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'authentication_ldap_sasl.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'authentication_ldap_sasl.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>To set and persist values at runtime, use the following statements:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_server_host</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_server_host</span><span class="o">=</span><span class="s1">'127.0.0.1'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">PERSIST</span><span class="w"> </span><span class="n">authentication_ldap_sasl_bind_base_dn</span><span class="o">=</span><span class="s1">'dc=percona, dc=com'</span><span class="p">;</span>
 </code></pre></div>
 </div>
@@ -10948,13 +10948,13 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, for simple LDAP authentication, you can specify the <code>authentication_ldap_simple</code> plugin in the <code>IDENTIFIED WITH</code> clause:</p>
-<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
+<div class="language-text highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
 </code></pre></div>
 <p>Using the <code>IDENTIFIED WITH</code> clause, the database server assigns the specified plugin.</p>
 </div>
 <div class="tabbed-block">
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
-<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
+<div class="language-text highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
 </code></pre></div>
 <p>Unless the <a href="ldap-system-variables.html#authentication_ldap_simple_group_role_mapping">authentication_ldap_simple_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
@@ -10985,12 +10985,12 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For SASL-based LDAP authentication, in the <code>CREATE USER</code> statement or the <code>ALTER USER</code> statement, you can specify the <code>authentication_ldap_sasl</code> plugin:</p>
-<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
+<div class="language-text highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>If you provide the optional authentication string clause, ‘cn,ou,dc,dc’ in the example, the string is stored along with the password.</p>
-<div class="highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
+<div class="language-text highlight"><pre><span></span><code>CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
 </code></pre></div>
 <p>Unless the <a href="ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping">authentication_ldap_sasl_group_role_mapping</a> variable is used, creating a user with an authentication string does not use the following system variables:</p>
 <ul>
@@ -11018,17 +11018,17 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 <h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>The following sections are examples of using simple LDAP authentication and SASL-based LDAP authentication.</p>
 <p>For the purposes of this example, we use the following LDAP user:</p>
-<div class="highlight"><pre><span></span><code>uid=ldapuser,ou=testusers,dc=percona,dc=com
+<div class="language-text highlight"><pre><span></span><code>uid=ldapuser,ou=testusers,dc=percona,dc=com
 </code></pre></div>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_6_1">Simple LDAP authentication</label><label for="__tabbed_6_2">SASL-based LDAP authentication</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connects to the database server.</p>
 <p>Create a database server account for <code>ldapuser</code> with the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'ldapuser'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'uid=ldapuser,ou=testusers,dc=percona,dc=com'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'ldapuser'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">'uid=ldapuser,ou=testusers,dc=percona,dc=com'</span><span class="p">;</span>
 </code></pre></div>
 <p>The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password --enable-cleartext-plugin</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password --enable-cleartext-plugin</span>
 </code></pre></div>
 <p>The user enters the <code>ldapuser</code> password. The client sends the password as cleartext, which is necessary when using a server-side LDAP library without SASL. The following actions may minimize the risk:</p>
 <ul>
@@ -11039,11 +11039,11 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 <div class="tabbed-block">
 <p>The following example configures an LDAP user and connect to the database server.</p>
 <p>Create a database server account for <code>ldapuser</code> with the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'ldapuser'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">'uid=ldapuser,ou=testusers,dc=percona,dc=com'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'ldapuser'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">'uid=ldapuser,ou=testusers,dc=percona,dc=com'</span><span class="p">;</span>
 </code></pre></div>
 <p>The authentication string does not include the LDAP password. This password must be provided by the client user when they connect.</p>
 <p>Clients connect ot the database server by providing the database server user name and LDAP password:</p>
-<div class="highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">mysql</span><span class="w"> </span><span class="c1">--user=ldapuser --password</span>
 </code></pre></div>
 <p>The authentication is similar to the authentication method used by simple LDAP authentication, except that the client and the database server SASL LDAP plugins use SASL messages. These messages are secure within the LDAP protocol.</p>
 </div>
@@ -11055,13 +11055,13 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_simple</span><span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>
 <div class="tabbed-block">
 <p>If you installed the plugins at <a href="#load-the-plugins-at-runtime">runtime</a>, run the following statements:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">authentication_ldap_sasl</span><span class="p">;</span>
 </code></pre></div>
 <p>If you used <code>SET_PERSIST</code>, use <code>RESET PERSIST</code> to remove the settings.</p>
 </div>

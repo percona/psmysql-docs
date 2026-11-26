@@ -13,7 +13,7 @@ The following table is a breakdown of the syntax:
 | **FROM**             | Use the FROM keyword to specify the table from which you want to retrieve data.                                                                                                                                                     |
 | **WHERE (optional)** | If you want to filter the results based on specific conditions, you can use the WHERE clause. This clause allows you to specify conditions using comparison operators like =, >, \<, etc., and logical operators like AND, OR, NOT. |
 
-```
+```text
 SELECT column1, column2
 FROM table_name
 WHERE condition;
@@ -25,9 +25,9 @@ WHERE condition;
 
 Fundamental SQL links:
 
-- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.html)
-- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.html)
-- [INSERT](https://docs.percona.com/percona-server/9.7/insert.html)
-- [DELETE](https://docs.percona.com/percona-server/9.7/delete.html)
-- [UPDATE](https://docs.percona.com/percona-server/9.7/update.html)
-- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.html)
+- [Common SQL](https://docs.percona.com/percona-server/9.7/common-sql.md)
+- [SQL Basics](https://docs.percona.com/percona-server/9.7/sql-basics.md)
+- [INSERT](https://docs.percona.com/percona-server/9.7/insert.md)
+- [DELETE](https://docs.percona.com/percona-server/9.7/delete.md)
+- [UPDATE](https://docs.percona.com/percona-server/9.7/update.md)
+- [SQL Operators](https://docs.percona.com/percona-server/9.7/sql-operators.md)

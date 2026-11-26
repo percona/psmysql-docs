@@ -10,7 +10,7 @@ To add a variable in MySQL, you use the `DECLARE` keyword within the context of 
 | data_type     | This specifies the data type of the variable, such as `INT`, `VARCHAR`, `DECIMAL`, `DATE`, etc.                                                          |
 | default_value | This is an optional parameter that specifies the default value for the variable. If not provided, the variable will be initialized to `NULL` by default. |
 
-```
+```sql
 DECLARE variable_name data_type [DEFAULT default_value];
 ```
 
@@ -18,7 +18,7 @@ DECLARE variable_name data_type [DEFAULT default_value];
 - Variables in MySQL are scoped to the block in which they are declared. This means they can only be used within the block of code (for example, stored procedure, function) in which they are declared.
 - Variables can be used to store and manipulate values within the context of the stored program. They are commonly used for temporary storage of intermediate results, loop counters, or parameters passed to the program.
 
-```
+```sql
 DECLARE total_sales DECIMAL(10, 2) DEFAULT 0.0;
 ```
 
@@ -32,12 +32,12 @@ This statement has the following settings:
 
 ## Advanced SQL features
 
-- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.html)
-- [Functions](https://docs.percona.com/percona-server/9.7/functions.html)
-- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.html)
-- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.html)
-- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.html)
-- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.html)
+- [Data Types Basic](https://docs.percona.com/percona-server/9.7/data-types-basic.md)
+- [Functions](https://docs.percona.com/percona-server/9.7/functions.md)
+- [SQL Conventions](https://docs.percona.com/percona-server/9.7/sql-conventions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/9.7/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/9.7/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/9.7/stored-procedures.md)
+- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/9.7/stored-procedure-error-handling.md)
+- [Triggers](https://docs.percona.com/percona-server/9.7/triggers.md)
+- [Troubleshooting SQL](https://docs.percona.com/percona-server/9.7/troubleshooting-sql.md)

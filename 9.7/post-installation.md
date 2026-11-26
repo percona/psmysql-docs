@@ -29,20 +29,20 @@ The tarball does not create the `mysql` user. Run the following steps as a user 
 
 1. Create the `mysql` group and the `mysql` user. The `mysql` user is a system account without login access.
 
-   ```
+   ```shell
    sudo groupadd mysql
    sudo useradd -r -g mysql -s /bin/false mysql
    ```
 
 1. Navigate to the MySQL directory. The example uses the default location.
 
-   ```
+   ```shell
    cd /usr/local/mysql
    ```
 
 1. Create a directory for the MySQL files. The [secure_file_priv](https://dev.mysql.com/doc/refman/9.7/en/server-system-variables.html#sysvar_secure_file_priv) uses the directory path as a value.
 
-   ```
+   ```shell
    sudo mkdir mydata
    sudo chown mysql:mysql mydata
    sudo chmod 750 mydata
@@ -62,7 +62,7 @@ The tarball does not create the `mysql` user. Run the following steps as a user 
 
 1. Run the command to initialize the data directory. The `--user=mysql` option runs the server as the `mysql` user. The server refuses to run as the operating system `root` user without this option.
 
-   ```
+   ```shell
    sudo bin/mysqld --initialize --user=mysql
    ```
 
@@ -70,7 +70,7 @@ The tarball does not create the `mysql` user. Run the following steps as a user 
 
 1. Start the server as the `mysql` user.
 
-   ```
+   ```shell
    sudo bin/mysqld_safe --user=mysql &
    ```
 
@@ -84,13 +84,13 @@ You can use the [mysqladmin](https://dev.mysql.com/doc/refman/9.7/en/mysqladmin.
 
 If you have issues connecting to the server, use the `root` user and the root account password.
 
-```
+```shell
 sudo mysqladmin -u root -p version
 ```
 
 Expected output
 
-```
+```text
 Enter password:
 mysql Ver 9.7.2-3 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
 ...
@@ -106,13 +106,13 @@ Open tables: 59  Queries per second avg: 0.0000
 
 Use [mysqlshow](https://dev.mysql.com/doc/refman/9.7/en/mysqlshow.html) to display database and table information.
 
-```
+```shell
 sudo mysqlshow -u root -p
 ```
 
 Expected output
 
-```
+```text
 Enter password:
 
 +---------------------+
@@ -134,7 +134,7 @@ After a generic binary installation, manually configure systemd support.
 
 The following commands start, check the status, and stop the server:
 
-```
+```shell
 sudo systemctl start mysql
 sudo systemctl status mysql
 sudo systemctl stop mysql
@@ -142,13 +142,13 @@ sudo systemctl stop mysql
 
 Run the following command to start the service at boot time:
 
-```
+```shell
 sudo systemctl enable mysqld
 ```
 
 Run the following command to prevent a service from starting at boot time:
 
-```
+```shell
 sudo systemctl disable mysqld
 ```
 
@@ -166,7 +166,7 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
 1. Restart the server with the `--skip-grant-tables` option enabled to allow access without a password. This option is insecure. The server also enables `skip_networking` automatically, which disables remote connections.
 
-   ```
+   ```shell
    sudo systemctl stop mysql
    sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
    sudo systemctl start mysql
@@ -183,7 +183,7 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
    With `--skip-grant-tables`, the server does not load the grant tables, and `ALTER USER` fails with `ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement`. Run `FLUSH PRIVILEGES` first to load the grant tables.
 
-   ```
+   ```sql
    FLUSH PRIVILEGES;
    ALTER USER 'root'@'localhost'
    IDENTIFIED WITH caching_sha2_password
@@ -192,7 +192,7 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
    If the command returns `Query OK`, run `EXIT;`
 
-   ```
+   ```sql
    EXIT;
    ```
 
@@ -200,13 +200,13 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
    Check the current authentication plugin:
 
-   ```
+   ```sql
    SELECT User, Host, plugin FROM mysql.user WHERE User = 'root';
    ```
 
    If the plugin is `mysql_native_password`, rerun the `ALTER USER` command to switch to the `caching_sha2_password` authentication plugin.
 
-   ```
+   ```sql
    ALTER USER 'root'@'localhost'
    IDENTIFIED WITH caching_sha2_password
    BY 'rootPassword_12';
@@ -214,7 +214,7 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
    If MySQL returns the `ERROR 1819 (HY000): Your password does not satisfy the current policy` error, check the password policy requirements with:
 
-   ```
+   ```sql
    SHOW VARIABLES LIKE 'validate_password%';
    ```
 
@@ -222,7 +222,7 @@ During installation on Debian/Ubuntu, you are prompted to set a root password. O
 
 1. Stop the server, remove the `--skip-grant-tables` option, and restart the server:
 
-   ```
+   ```shell
    sudo systemctl stop mysql
    sudo systemctl unset-environment MYSQLD_OPTS
    sudo systemctl start mysql
@@ -243,7 +243,7 @@ The script does the following:
 
 The following statement runs the script:
 
-```
+```shell
 mysql_secure_installation
 ```
 
@@ -265,6 +265,6 @@ A common method to populate the tables is to add the zoneinfo directory path to 
 
 The example assumes you are running the command with the `root` account. The account must have the privileges for modifying the `mysql` system schema.
 
-```
+```shell
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p -D mysql
 ```

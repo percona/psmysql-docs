@@ -4,7 +4,7 @@
 
 Percona publishes a mixture of Profile-Guided Optimization (PGO) and non-PGO builds. With PGO, the compiler uses profiling data from representative workloads to guide optimization, which can improve throughput and reduce latency for typical database workloads compared with non-PGO builds.
 
-To install Percona Server for MySQL, see [Install Percona Server for MySQL from repositories](https://docs.percona.com/percona-server/9.7/installation.html).
+To install Percona Server for MySQL, see [Install Percona Server for MySQL from repositories](https://docs.percona.com/percona-server/9.7/installation.md).
 
 ## Benefits of PGO builds
 
@@ -33,4 +33,4 @@ See the [Percona downloads](https://www.percona.com/downloads/) page and the [Pe
 
 ## Build from source
 
-To control whether PGO is used, compile Percona Server for MySQL yourself. See [Compile Percona Server for MySQL from Source](https://docs.percona.com/percona-server/9.7/compile-percona-server.html).
+To control whether PGO is used, compile Percona Server for MySQL yourself. See [Compile Percona Server for MySQL from Source](https://docs.percona.com/percona-server/9.7/compile-percona-server.md).

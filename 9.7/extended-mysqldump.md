@@ -6,13 +6,13 @@
 
 When used together with the `–single-transaction` option, the lock-for-backup option makes `mysqldump` issue `LOCK TABLES FOR BACKUP` before starting the dump operation to prevent unsafe statements that would normally result in an inconsistent backup.
 
-More information can be found in [Backup Locks](https://docs.percona.com/percona-server/9.7/backup-locks.html).
+More information can be found in [Backup Locks](https://docs.percona.com/percona-server/9.7/backup-locks.md).
 
 ## Compressed columns support
 
 **mysqldump** supports the Compressed columns with dictionaries feature.
 
-More information can be found in [Compressed columns with dictionaries](https://docs.percona.com/percona-server/9.7/compressed-columns.html).
+More information can be found in [Compressed columns with dictionaries](https://docs.percona.com/percona-server/9.7/compressed-columns.md).
 
 ## Taking backup by descending primary key order
 

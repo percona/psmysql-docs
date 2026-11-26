@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/telemetry.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/telemetry.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/telemetry.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10746,7 +10746,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Installation-time telemetry runs once. The process collects host and version metadata during package installation or container startup. The process does not run again after installation completes.</p>
 <h3 id="installation-time-telemetry-file-example">Installation-time telemetry file example<a data-markdown-ignore class="headerlink" href="#installation-time-telemetry-file-example" title="Permanent link">&para;</a></h3>
 <p>The following JSON shows a typical installation-time payload:</p>
-<div class="highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"c416c3ee-48cd-471c-9733-37c2886f8231"</span><span class="p">,</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">[{</span><span class="nt">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"c416c3ee-48cd-471c-9733-37c2886f8231"</span><span class="p">,</span>
 <span class="nt">"product_family"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT_FAMILY_PS"</span><span class="p">,</span>
 <span class="nt">"instanceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"6aef422e-56a7-4530-af9d-94cc02198343"</span><span class="p">,</span>
 <span class="nt">"createTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-03-26T15:43:18Z"</span><span class="p">,</span>
@@ -10762,15 +10762,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div data-markdown-ignore class="tabbed-labels"><label for="__tabbed_1_1">Debian-derived distribution</label><label for="__tabbed_1_2">Red Hat-derived distribution</label><label for="__tabbed_1_3">Docker</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>--name<span class="o">=</span>percona-server<span class="w"> </span>percona/percona-server:9.7
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>test1234#<span class="w"> </span>-e<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>--name<span class="o">=</span>percona-server<span class="w"> </span>percona/percona-server:9.7
 </code></pre></div>
 </div>
 </div>
@@ -10872,7 +10872,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>After a successful upload, the agent stores a copy under <code>${telemetry root}/history/</code>.</p>
 <h3 id="metrics-file-format">Metrics file format<a data-markdown-ignore class="headerlink" href="#metrics-file-format" title="Permanent link">&para;</a></h3>
 <p>Metrics files use JSON. Percona may extend the schema in future releases. Production files can list many <code>active_plugins</code> entries. The following example shows the core fields:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"db_instance_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e83c568c-e140-11ee-8320-7e207666b18a"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"pillar_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9.7.2-3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"active_plugins"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -10921,12 +10921,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p><code>https://check.percona.com/v1/telemetry/GenericReport</code></p>
 <p>Firewall teams must allow outbound HTTPS on port 443 to <code>check.percona.com</code>. Override the endpoint with <code>PERCONA_TELEMETRY_URL</code> or the <code>--telemetry.url</code> argument for <code>percona-telemetry-agent</code>.</p>
 <p>To send traffic through a corporate proxy, add environment variables in a systemd drop-in for <code>percona-telemetry-agent.service</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">"HTTPS_PROXY=http://PROXY_HOST:PROXY_PORT"</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">"NO_PROXY=localhost,127.0.0.1"</span>
 </code></pre></div>
 <p>Apply the drop-in and restart the agent:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>percona-telemetry-agent
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>edit<span class="w"> </span>percona-telemetry-agent
 sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
 sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>percona-telemetry-agent
 </code></pre></div>
@@ -10982,7 +10982,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 </tbody>
 </table>
 <h4 id="telemetry-agent-payload-example">Telemetry agent payload example<a data-markdown-ignore class="headerlink" href="#telemetry-agent-payload-example" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"reports"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B5BDC47B-B717-4EF5-AEDF-41A17C9C18BB"</span><span class="p">,</span>
@@ -11085,7 +11085,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class=
 <h3 id="disable-the-telemetry-agent">Disable the telemetry agent<a data-markdown-ignore class="headerlink" href="#disable-the-telemetry-agent" title="Permanent link">&para;</a></h3>
 <p>Stopping the agent blocks uploads. The DB component continues to write metrics files until you uninstall the component.</p>
 <p>Run both commands for a permanent disable:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>percona-telemetry-agent
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>percona-telemetry-agent
 sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>percona-telemetry-agent
 </code></pre></div>
 <p><code>systemctl stop</code> ends the running agent process. <code>systemctl disable</code> prevents the agent from starting at boot.</p>
@@ -11104,21 +11104,21 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class=
 <h3 id="verify-continuous-telemetry-is-disabled">Verify continuous telemetry is disabled<a data-markdown-ignore class="headerlink" href="#verify-continuous-telemetry-is-disabled" title="Permanent link">&para;</a></h3>
 <p>Run these checks from the MySQL client and on the host.</p>
 <p>Confirm the telemetry component is absent:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%telemetry%'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output when telemetry is disabled</summary>
-<div class="no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
 </code></pre></div>
 </details>
 <p>Confirm the disable option is set:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'percona_telemetry_disable'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'percona_telemetry_disable'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output when telemetry is disabled</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------------+-------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------------+-------+
 | Variable_name             | Value |
 +---------------------------+-------+
 | percona_telemetry_disable | ON    |
@@ -11127,16 +11127,16 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class=
 </code></pre></div>
 </details>
 <p>Confirm the agent is inactive on the host:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>percona-telemetry-agent
+<div class="language-shell highlight"><pre><span></span><code>systemctl<span class="w"> </span>is-enabled<span class="w"> </span>percona-telemetry-agent
 systemctl<span class="w"> </span>is-active<span class="w"> </span>percona-telemetry-agent
 </code></pre></div>
 <p>After a permanent disable, <code>is-enabled</code> returns <code>disabled</code> and <code>is-active</code> returns <code>inactive</code>.</p>
 <h3 id="disable-the-db-component">Disable the DB component<a data-markdown-ignore class="headerlink" href="#disable-the-db-component" title="Permanent link">&para;</a></h3>
 <p>The DB telemetry component can write metrics files for seven days while the agent is stopped. Uninstall the component after you set <code>percona_telemetry_disable=1</code> and restart the server. See the ordered steps in Disable continuous telemetry.</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="ss">"file://component_percona_telemetry"</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="ss">"file://component_percona_telemetry"</span><span class="p">;</span>
 </code></pre></div>
 <p>Add <code>percona_telemetry_disable=1</code> to <code>my.cnf</code> when the line is missing, then restart:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">percona_telemetry_disable</span><span class="o">=</span><span class="s">1</span>
 </code></pre></div>
 <h2 id="related-reading">Related reading<a data-markdown-ignore class="headerlink" href="#related-reading" title="Permanent link">&para;</a></h2>

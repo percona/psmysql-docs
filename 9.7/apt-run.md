@@ -28,4 +28,4 @@ Debian 9.0 (stretch) and Ubuntu 18.04 LTS (bionic) come with [systemd](http://fr
 
 ## Working with AppArmor
 
-For information on AppArmor, see [Working with AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.html).
+For information on AppArmor, see [Working with AppArmor](https://docs.percona.com/percona-server/9.7/apparmor.md).

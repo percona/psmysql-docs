@@ -4,7 +4,7 @@
 
 This document indexes the release notes for every version of Percona Server for MySQL 9.7. For information about changes in a different major version of Percona Server for MySQL, see the release notes for that version.
 
-For additional Percona Server for MySQL 9.7 documentation, see the [Percona Server for MySQL 9.7 documentation home](https://docs.percona.com/percona-server/9.7/index.html), which covers installation, upgrade, configuration, and feature reference for the 9.7 series.
+For additional Percona Server for MySQL 9.7 documentation, see the [Percona Server for MySQL 9.7 documentation home](https://docs.percona.com/percona-server/9.7/index.md), which covers installation, upgrade, configuration, and feature reference for the 9.7 series.
 
 Percona Server for MySQL platform support evolves over time. Refer to the [Percona Release Lifecycle Overview - MySQL](https://www.percona.com/release-lifecycle-overview/#mysql) page for the current list of supported platforms and operating systems.
 
@@ -14,6 +14,6 @@ For help with using Percona Server for MySQL, visit the [Percona Community Forum
 
 ## Releases
 
-- [Percona Server for MySQL 9.7.2-3 (2026-11-12)](https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-3.html)
-- [Percona Server for MySQL 9.7.2-2 (2026-09-28)](https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-2.html)
-- [Percona Server for MySQL 9.7.1-1 (2026-08-05)](https://docs.percona.com/percona-server/9.7/release-notes/9.7.1-1.html)
+- [Percona Server for MySQL 9.7.2-3 (2026-11-12)](https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-3.md)
+- [Percona Server for MySQL 9.7.2-2 (2026-09-28)](https://docs.percona.com/percona-server/9.7/release-notes/9.7.2-2.md)
+- [Percona Server for MySQL 9.7.1-1 (2026-08-05)](https://docs.percona.com/percona-server/9.7/release-notes/9.7.1-1.md)

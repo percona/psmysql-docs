@@ -4,7 +4,7 @@
 
 **Topic type**: Concept
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/9.7/get-help.md) for ways that we can work with you.
 
 [Need help planning a downgrade? Percona Support can assist](https://www.percona.com/services/expert-support/) .
 
@@ -42,7 +42,7 @@ The following methods support the paths in [Identify a supported downgrade path]
 - MySQL Clone: clone data between servers within the same LTS series.
 - Replication: configure replication from 9.7 to the older version, validate the replica, and cut traffic over.
 
-For cutover and validation guidance during a downgrade, see [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html).
+For cutover and validation guidance during a downgrade, see [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md).
 
 ## Assess downgrade risks
 
@@ -63,10 +63,10 @@ The following table lists the risks of downgrading.
 
 The following Percona Server for MySQL pages cover related topics:
 
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.html)
-- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.html)
-- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.html)
-- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.html)
-- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.html)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/9.7/mysql-upgrade-paths.md)
+- [Percona Toolkit updates for 9.7](https://docs.percona.com/percona-server/9.7/percona-toolkit-9.7-updates.md)
+- [Upgrade checklist for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-checklist-9.7.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/9.7/upgrade-components.md)
+- [Upgrade overview](https://docs.percona.com/percona-server/9.7/upgrade.md)
+- [Upgrade procedures for 9.7](https://docs.percona.com/percona-server/9.7/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/9.7/upgrade-strategies.md)

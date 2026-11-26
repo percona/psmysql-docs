@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Documentation">
+        <meta name="description" content="Percona Server for MySQL 9.7, a drop-in replacement for MySQL Community with added performance, scalability and backup features, with installation, upgrade, security and operations guides">
       
       
         <meta name="author" content="Percona LLC">
@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/9.7/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/9.7/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/9.7/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md" tabindex="-1">https://docs.percona.com/percona-server/9.7/openid-connect-authentication.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -11177,17 +11177,17 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Run this statement to load the plugin during a session:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 </div>
 <div class="tabbed-block">
 <p>Add the following lines to the <code>[mysqld]</code> section of <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 plugin-load-add=auth_openid_connect.so
 </code></pre></div>
 <p>Restart the server for the change to take effect.</p>
@@ -11196,13 +11196,13 @@ plugin-load-add=auth_openid_connect.so
 </div>
 <h3 id="verify-the-installation">Verify the installation<a data-markdown-ignore class="headerlink" href="#verify-the-installation" title="Permanent link">&para;</a></h3>
 <p>Run the <a href="https://dev.mysql.com/doc/refman/9.7/en/show-plugins.html"><code>SHOW PLUGINS</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> statement. You can also query <code>INFORMATION_SCHEMA.PLUGINS</code>. Confirm that the plugin loaded successfully:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------+---------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------+---------------+
 | PLUGIN_NAME         | PLUGIN_STATUS |
 +---------------------+---------------+
 | auth_openid_connect | ACTIVE        |
@@ -11213,20 +11213,20 @@ plugin-load-add=auth_openid_connect.so
 <p>When <code>PLUGIN_STATUS</code> is not <code>ACTIVE</code>, or when the query returns no rows, the plugin failed to load. Check the server error log for the cause.</p>
 <h3 id="register-the-update_jwks-udf">Register the update_jwks() UDF<a data-markdown-ignore class="headerlink" href="#register-the-update_jwks-udf" title="Permanent link">&para;</a></h3>
 <p>The plugin library also provides the <code>update_jwks()</code> user-defined function (UDF). Register the function once after the plugin loads. The UDF refreshes cached JWKS public keys at runtime. See <a href="#refresh-jwks-keys">Refresh JWKS keys</a> for details.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">update_jwks</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INTEGER</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">update_jwks</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INTEGER</span>
 <span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_openid_connect.so'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p>Confirm the function is registered:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'update_jwks'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">func</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'update_jwks'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------+-----+------------------------+----------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-------------+-----+------------------------+----------+
 | name        | ret | dl                     | type     |
 +-------------+-----+------------------------+----------+
 | update_jwks |   2 | auth_openid_connect.so | function |
@@ -11380,7 +11380,7 @@ plugin-load-add=auth_openid_connect.so
 <h4 id="example-configuration">Example configuration<a data-markdown-ignore class="headerlink" href="#example-configuration" title="Permanent link">&para;</a></h4>
 <p>The following JSON document configures two trusted IDPs. The first IDP resolves keys at runtime through a <code>jwks-url</code>. The second IDP uses static <code>keys</code> to verify token signatures.</p>
 <p>The <code>n</code> value is truncated. Replace <code>ptR4...QEASRw</code> with the full base64url-encoded RSA modulus from the IDP signing key.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"my-keycloak"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"issuer-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://keycloak.example.com/realms/master"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"jwks-url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://keycloak.example.com/realms/master/protocol/openid-connect/certs"</span><span class="p">,</span>
@@ -11419,7 +11419,7 @@ plugin-load-add=auth_openid_connect.so
 <h4 id="configure-in-mycnf">Configure in my.cnf<a data-markdown-ignore class="headerlink" href="#configure-in-mycnf" title="Permanent link">&para;</a></h4>
 <p>Most deployments set the variable in <code>my.cnf</code>. The configuration then applies on every server start.</p>
 <p>Save the example as <code>/etc/mysql/oidc/idps.json</code>. Add the variable to the <code>[mysqld]</code> section with the plugin load directive:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 plugin-load-add=auth_openid_connect.so
 auth_openid_connect_configuration='FILE:///etc/mysql/oidc/idps.json'
 </code></pre></div>
@@ -11429,22 +11429,22 @@ auth_openid_connect_configuration='FILE:///etc/mysql/oidc/idps.json'
 <p>Restart the server for the change to take effect.</p>
 <h4 id="configure-from-a-file">Configure from a file<a data-markdown-ignore class="headerlink" href="#configure-from-a-file" title="Permanent link">&para;</a></h4>
 <p>To set the variable in a running server, use <code>SET GLOBAL</code> with the <code>FILE://</code> prefix:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'FILE:///etc/mysql/oidc/idps.json'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <h4 id="configure-inline">Configure inline<a data-markdown-ignore class="headerlink" href="#configure-inline" title="Permanent link">&para;</a></h4>
 <p>To set the variable in a running server without an external file, use <code>SET GLOBAL</code> with the <code>JSON://</code> prefix:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'JSON://{"my-keycloak":{"issuer-name":"https://keycloak.example.com/realms/master","jwks-url":"https://keycloak.example.com/realms/master/protocol/openid-connect/certs","audiences":["mysql-oidc"]}}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <h3 id="persist-the-configuration">Persist the configuration<a data-markdown-ignore class="headerlink" href="#persist-the-configuration" title="Permanent link">&para;</a></h3>
@@ -11454,23 +11454,23 @@ auth_openid_connect_configuration='FILE:///etc/mysql/oidc/idps.json'
 </div>
 <p>Skip this step when you already set the variable in <a href="#configure-in-mycnf">my.cnf</a>. The <code>my.cnf</code> value loads on every server start. You do not need <code>SET PERSIST_ONLY</code>.</p>
 <p>Otherwise, persist the configuration with the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="n">PERSIST_ONLY</span><span class="w"> </span><span class="n">auth_openid_connect_configuration</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="s1">'FILE:///etc/mysql/oidc/idps.json'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <h2 id="create-an-individual-user-account">Create an individual user account<a data-markdown-ignore class="headerlink" href="#create-an-individual-user-account" title="Permanent link">&para;</a></h2>
 <p>In direct authentication, one MySQL account maps to one user identity in the IDP. Encode the mapping as a JSON object in the <code>IDENTIFIED ... AS</code> clause:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'mysql_oidc_user'</span><span class="o">@</span><span class="s1">'%'</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'mysql_oidc_user'</span><span class="o">@</span><span class="s1">'%'</span>
 <span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
 <span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "user": "4c28d537-a635-4b6d-957f-58e3c8860bcc"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p>The clause requires two fields:</p>
@@ -11495,7 +11495,7 @@ auth_openid_connect_configuration='FILE:///etc/mysql/oidc/idps.json'
 <p>The password grant (<code>grant_type=password</code>) is deprecated in OAuth 2.1. Use this flow only for local automation, scripts, and internal testing.</p>
 <p>For production CLI clients, use the <a href="https://datatracker.ietf.org/doc/html/rfc8628">Device Authorization Grant <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> or authorization code with PKCE. These flows do not send user credentials to the client.</p>
 </div>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>https://keycloak.example.com/realms/master/protocol/openid-connect/token<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">'grant_type=password'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">'client_id=mysql-oidc'</span><span class="w"> </span><span class="se">\</span>
@@ -11512,7 +11512,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <p>For Keycloak, the ID token <code>aud</code> claim equals the <code>client_id</code>. Set <code>audiences</code> in the plugin configuration to match.</p>
 <p>The Keycloak token request uses <code>client_id=mysql-oidc</code>. Set <code>"audiences": ["mysql-oidc"]</code> in the configuration.</p>
 <p>Public clients send only the <code>client_id</code>. Confidential clients also require <code>client_secret</code>:</p>
-<div class="highlight"><pre><span></span><code>-d<span class="w"> </span><span class="s1">'client_secret=&lt;CLIENT_SECRET&gt;'</span>
+<div class="language-bash highlight"><pre><span></span><code>-d<span class="w"> </span><span class="s1">'client_secret=&lt;CLIENT_SECRET&gt;'</span>
 </code></pre></div>
 <p>Retrieve the secret from the Keycloak admin console under Clients &gt; mysql-oidc &gt; Credentials.</p>
 </div>
@@ -11529,13 +11529,13 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <h2 id="connect-with-a-client">Connect with a client<a data-markdown-ignore class="headerlink" href="#connect-with-a-client" title="Permanent link">&para;</a></h2>
 <p>The client locates the Identity token file through the <code>--authentication-openid-connect-client-id-token-file</code> option. The client must supply the token through this option only. The client does not read an environment variable.</p>
 <p>Pass the option on the command line:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>--host<span class="o">=</span>mysql.example.com<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>--host<span class="o">=</span>mysql.example.com<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--ssl-mode<span class="o">=</span>REQUIRED<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--user<span class="o">=</span>mysql_oidc_user<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--authentication-openid-connect-client-id-token-file<span class="o">=</span>/run/user/1000/id_token.jwt
 </code></pre></div>
 <p>For persistent client configuration, set the option in the <code>[client]</code> section of <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[client]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[client]</span>
 <span class="na">authentication-openid-connect-client-id-token-file</span><span class="o">=</span><span class="s">/run/user/1000/id_token.jwt</span>
 </code></pre></div>
 <p>The MySQL client reads <code>[client]</code> at startup. A command-line value overrides the <code>my.cnf</code> value.</p>
@@ -11557,7 +11557,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 <h2 id="map-groups-to-mysql-roles">Map groups to MySQL roles<a data-markdown-ignore class="headerlink" href="#map-groups-to-mysql-roles" title="Permanent link">&para;</a></h2>
 <p>When both <code>group-claim</code> and <code>group-role</code> are configured for an IDP, the plugin reads the named claim at connection time. The plugin associates each matching MySQL role with the connection. Activate the role with <a href="https://dev.mysql.com/doc/refman/9.7/en/set-role.html"><code>SET ROLE</code> <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>.</p>
 <p>The following configuration fragment maps two groups to two roles:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"group-claim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"groups"</span><span class="p">,</span>
+<div class="language-json highlight"><pre><span></span><code><span class="nt">"group-claim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"groups"</span><span class="p">,</span>
 <span class="nt">"group-role"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"acc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accounting"</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"eng"</span><span class="p">:</span><span class="w"> </span><span class="s2">"engineering"</span><span class="w"> </span><span class="p">}</span>
@@ -11670,7 +11670,7 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 </li>
 </ol>
 <h4 id="step-1-create-handshake-accounts">Step 1. Create handshake accounts<a data-markdown-ignore class="headerlink" href="#step-1-create-handshake-accounts" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'accounting'</span><span class="o">@</span><span class="s1">'%'</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'accounting'</span><span class="o">@</span><span class="s1">'%'</span>
 <span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
 <span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak", "group": "/accounting"}'</span><span class="p">;</span>
 
@@ -11680,12 +11680,12 @@ chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>/
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <h4 id="step-2-and-3-create-target-accounts-and-grant-proxy">Step 2 and 3. Create target accounts and grant PROXY<a data-markdown-ignore class="headerlink" href="#step-2-and-3-create-target-accounts-and-grant-proxy" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
 <span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">'accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="p">;</span>
 
 <span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
@@ -11693,7 +11693,7 @@ Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
@@ -11703,15 +11703,15 @@ Query OK, 0 rows affected (0.00 sec)
 <p>Grant privileges on the target accounts with <code>GRANT</code>. Use the same process as for any other MySQL account.</p>
 <h4 id="connect-and-verify">Connect and verify<a data-markdown-ignore class="headerlink" href="#connect-and-verify" title="Permanent link">&para;</a></h4>
 <p>The token must include the chosen group in the <code>groups</code> claim. Select the group through the handshake account name:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>marketing<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>marketing<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--authentication-openid-connect-client-id-token-file<span class="o">=</span>id_token.jwt
 </code></pre></div>
 <p>Verify the proxied session:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">USER</span><span class="p">(),</span><span class="w"> </span><span class="k">CURRENT_USER</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">USER</span><span class="p">(),</span><span class="w"> </span><span class="k">CURRENT_USER</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------+----------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------+----------------+
 | USER()              | CURRENT_USER() |
 +---------------------+----------------+
 | marketing@localhost | /marketing@%   |
@@ -11752,17 +11752,17 @@ Query OK, 0 rows affected (0.00 sec)
 </li>
 </ol>
 <h4 id="step-1-create-the-anonymous-handshake-account">Step 1. Create the anonymous handshake account<a data-markdown-ignore class="headerlink" href="#step-1-create-the-anonymous-handshake-account" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">''</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">''</span>
 <span class="w">  </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'auth_openid_connect'</span>
 <span class="w">  </span><span class="k">AS</span><span class="w"> </span><span class="s1">'{"identity_provider": "my-keycloak"}'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <h4 id="step-2-and-3-create-target-accounts-and-grant-proxy_1">Step 2 and 3. Create target accounts and grant PROXY<a data-markdown-ignore class="headerlink" href="#step-2-and-3-create-target-accounts-and-grant-proxy_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
 <span class="k">GRANT</span><span class="w"> </span><span class="n">PROXY</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="s1">'/accounting'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">''</span><span class="o">@</span><span class="s1">''</span><span class="p">;</span>
 
 <span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">'/marketing'</span><span class="o">@</span><span class="s1">'%'</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="s1">'mysql_no_login'</span><span class="p">;</span>
@@ -11770,7 +11770,7 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
@@ -11780,15 +11780,15 @@ Query OK, 0 rows affected (0.00 sec)
 <p>Grant privileges on the target accounts with <code>GRANT</code>. Use the same process as for any other MySQL account.</p>
 <h4 id="connect-and-verify_1">Connect and verify<a data-markdown-ignore class="headerlink" href="#connect-and-verify_1" title="Permanent link">&para;</a></h4>
 <p>Connect with any handshake username. The first group in the token selects the proxied target:</p>
-<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>anyname<span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>anyname<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--authentication-openid-connect-client-id-token-file<span class="o">=</span>id_token.jwt
 </code></pre></div>
 <p>Verify the proxied session:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">USER</span><span class="p">(),</span><span class="w"> </span><span class="k">CURRENT_USER</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">USER</span><span class="p">(),</span><span class="w"> </span><span class="k">CURRENT_USER</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-------------------+----------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-------------------+----------------+
 | USER()            | CURRENT_USER() |
 +-------------------+----------------+
 | anyname@localhost | /marketing@%   |
@@ -11815,11 +11815,11 @@ Query OK, 0 rows affected (0.00 sec)
 </ul>
 <p>Schedule the UDF when your IDP rotates keys on a fixed schedule. See <a href="#schedule-periodic-refresh">Schedule periodic refresh</a> for an event-based example.</p>
 <p>Call the UDF without arguments to refresh keys for every configured IDP that has a <code>jwks-url</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------+
 | update_jwks() |
 +---------------+
 |             1 |
@@ -11828,11 +11828,11 @@ Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Call the UDF with one string argument to refresh a single IDP:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">(</span><span class="s1">'my-keycloak'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">(</span><span class="s1">'my-keycloak'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+-----------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+-----------------------------+
 | update_jwks('my-keycloak')  |
 +-----------------------------+
 |                           1 |
@@ -11866,21 +11866,21 @@ Query OK, 0 rows affected (0.00 sec)
 <h3 id="schedule-periodic-refresh">Schedule periodic refresh<a data-markdown-ignore class="headerlink" href="#schedule-periodic-refresh" title="Permanent link">&para;</a></h3>
 <p>Schedule the UDF to match the key rotation policy of the IDP. A MySQL event runs inside the server and needs no external tools. You can also use external tools such as <code>cron</code> or a Kubernetes CronJob.</p>
 <p>The following event refreshes keys for every configured IDP once per hour:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="n">update_oidc_keys</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="n">update_oidc_keys</span>
 <span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">SCHEDULE</span><span class="w"> </span><span class="k">EVERY</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">HOUR</span>
 <span class="w">  </span><span class="k">DO</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">();</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>The event scheduler must run for the event to fire. Check and enable the scheduler at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'event_scheduler'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'event_scheduler'</span><span class="p">;</span>
 <span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">event_scheduler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">ON</span><span class="p">;</span>
 </code></pre></div>
 <p>To enable the scheduler on every server start, set the variable in <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code>[mysqld]
+<div class="language-text highlight"><pre><span></span><code>[mysqld]
 event_scheduler=ON
 </code></pre></div>
 <p>The account that runs <code>CREATE EVENT</code> requires the <code>EVENT</code> privilege on the schema that holds the event.</p>
@@ -11900,12 +11900,12 @@ event_scheduler=ON
 </li>
 </ul>
 <p>The variables must reach mysqld, not the interactive shell that the DBA uses. On systemd systems, set the variables in the service unit:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Service]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">"https_proxy=http://proxy.example.com:8080"</span>
 <span class="na">Environment</span><span class="o">=</span><span class="s">"no_proxy=keycloak.internal,.example.lan,127.0.0.1"</span>
 </code></pre></div>
 <p>After editing the unit, reload systemd and restart mysqld:</p>
-<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>daemon-reload
+<div class="language-bash highlight"><pre><span></span><code>systemctl<span class="w"> </span>daemon-reload
 systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 </code></pre></div>
 <div class="admonition warning">
@@ -11919,27 +11919,27 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mysql
 <p>Drop every UDF that depends on the plugin before you uninstall the plugin. When <code>UNINSTALL PLUGIN</code> runs while a UDF still references the library, a stale function definition remains. Drop scheduled events that call the UDF as well.</p>
 </div>
 <p>If you scheduled a refresh event, drop it first:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">update_oidc_keys</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="n">EVENT</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">update_oidc_keys</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Drop the UDF:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">update_jwks</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>Uninstall the plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_openid_connect</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <h2 id="system-variable-reference">System variable reference<a data-markdown-ignore class="headerlink" href="#system-variable-reference" title="Permanent link">&para;</a></h2>
