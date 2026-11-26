@@ -1,0 +1,671 @@
+/*
+ * Algolia search, styled like the search on www.percona.com.
+ * Same as on the docs home page (docs-home repository).
+ * The markup is created by js/init-algolia.js.
+ *
+ * Sections:
+ *   1. Design tokens
+ *   2. Header: search icon and search field
+ *   3. Results popup
+ *   4. Result cards (popup and results page)
+ *   5. Full results page (search-results.md)
+ *   6. Smaller screens
+ */
+
+/* ==========================================================================
+   1. Design tokens
+   ========================================================================== */
+
+.topbar-search,
+.search-page {
+  /* Percona Server for MySQL orange, a shade darker than the header
+     (#e65a15 in css/mysql.css) so white text on it is easy to read */
+  --search-accent: #c2410c;
+  --search-accent-hover: #9a3412;
+  --search-on-accent: #fff;
+  --search-ink: #00162b;
+  --search-text: #3c4858;
+  --search-muted: #8a8aa3;
+  --search-border: #d9d9e3;
+  --search-line: #f0f0f5;
+  --search-surface: #fff;
+  --search-surface-muted: #fafafc;
+  --search-panel-border: #e6e6ef;
+  --search-focus-ring: rgba(194, 65, 12, 0.15);
+  --search-mark: rgba(194, 65, 12, 0.16);
+  --search-mark-on-accent: rgba(255, 255, 255, 0.28);
+  --search-header-ink: #fff;
+  --search-header-ink-hover: #ffd9c4;
+  --search-close-muted: #9a9ab0;
+  --search-z-input: 1000;
+  --search-z-popup: 999;
+}
+
+/* Search and the "Ask Percona AI" button (js/kapa.js) side by side */
+#docsearch {
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   2. Header: search icon and search field
+   ========================================================================== */
+
+.topbar-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-search.expanded {
+  z-index: var(--search-z-input);
+}
+
+.topbar-search .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.search-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  border: none;
+  background: none;
+  color: inherit; /* white on the docs header */
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.search-icon-btn:hover {
+  color: var(--search-header-ink-hover);
+}
+
+.search-icon-btn:focus-visible,
+.search-collapse-btn:focus-visible {
+  outline: 2px solid var(--search-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.topbar-search.expanded .search-icon-btn {
+  display: none;
+}
+
+/* The field is collapsed to zero width until the icon is clicked */
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: width 0.25s, opacity 0.2s;
+}
+
+.topbar-search.expanded .search-input-wrap {
+  width: 260px;
+  opacity: 1;
+  overflow: visible;
+}
+
+.search-input-wrap form {
+  flex: 1;
+  position: relative;
+  margin: 0;
+}
+
+/* Search field: used in the header and on the results page */
+:is(.topbar-search, .search-page) .ais-SearchBox-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 14px;
+  border: 1px solid var(--search-border);
+  border-radius: 22px;
+  outline: none;
+  background: var(--search-surface);
+  color: var(--search-ink);
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+:is(.topbar-search, .search-page) .ais-SearchBox-input:focus {
+  border-color: var(--search-accent);
+  box-shadow: 0 0 0 3px var(--search-focus-ring);
+}
+
+:is(.topbar-search, .search-page) .ais-SearchBox-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-collapse-btn {
+  margin-left: 4px;
+  padding: 4px 6px;
+  border: none;
+  background: none;
+  color: var(--search-header-ink);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.search-collapse-btn:hover {
+  color: var(--search-header-ink-hover);
+}
+
+/* ==========================================================================
+   3. Results popup
+   ========================================================================== */
+
+.search-popup {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 680px;
+  max-width: calc(100vw - 40px);
+  max-height: 70vh;
+  box-sizing: border-box;
+  padding: 4px 0 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--search-surface);
+  border: 1px solid var(--search-panel-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 22, 43, 0.18);
+  color: var(--search-ink);
+  text-align: left;
+  z-index: var(--search-z-popup);
+}
+
+.search-popup.open {
+  display: flex;
+}
+
+/* Only the results area scrolls; the footer stays in view */
+.search-popup .results {
+  display: none;
+}
+
+.search-popup .results.active {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px 20px;
+}
+
+.search-popup .results.no-results .hits::after,
+.search-page .search-page-results.no-results::after {
+  content: "No results in this section.";
+  display: block;
+  padding: 24px 0;
+  text-align: center;
+  color: var(--search-muted);
+  font-size: 14px;
+}
+
+.search-popup .popup-footer {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--search-line);
+  background: var(--search-surface-muted);
+}
+
+.search-popup .popup-summary {
+  color: var(--search-muted);
+  font-size: 13px;
+}
+
+.search-popup .see-all-link {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 18px;
+  background: var(--search-accent);
+  color: var(--search-on-accent);
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.search-popup .see-all-link:hover {
+  background: var(--search-accent-hover);
+  color: var(--search-on-accent);
+}
+
+.search-popup .see-all-link:focus-visible {
+  outline: 2px solid var(--search-ink);
+  outline-offset: 2px;
+}
+
+.search-popup .see-all-link[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   4. Result cards (popup and results page)
+   ========================================================================== */
+
+/* The results page is inside Material's .md-typeset, so its list and link
+   styles are reset with the extra .md-typeset in the selector. */
+.search-popup .ais-Hits-list,
+.md-typeset .search-page .ais-Hits-list {
+  margin: 0;
+  padding: 0;
+  list-style: none !important;
+}
+
+.search-popup .ais-Hits-item,
+.md-typeset .search-page .ais-Hits-item {
+  margin: 0;
+  padding: 0;
+}
+
+:is(.search-popup, .search-page) .hit-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 -12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--search-line);
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+:is(.search-popup, .search-page) .ais-Hits-item:last-child .hit-link {
+  border-bottom: none;
+}
+
+/* A page that exists in several versions: the divider moves below the
+   version links */
+:is(.search-popup, .search-page) .ais-Hits-item:has(.hit-versions) .hit-link {
+  border-bottom: none;
+}
+
+:is(.search-popup, .search-page) .ais-Hits-item:has(.hit-versions):not(:last-child) {
+  border-bottom: 1px solid var(--search-line);
+}
+
+/* Version links under a result: "Versions: 9.7 8.4 8.0".
+   The left padding lines them up with the title next to the image. */
+:is(.search-popup, .search-page) .hit-versions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: -4px;
+  padding: 0 0 10px 84px;
+  color: var(--search-muted);
+  font-size: 12px;
+}
+
+.search-page .hit-versions {
+  padding-left: 96px;
+}
+
+.search-popup .ais-Hits-item:not(:has(.c_img)) .hit-versions {
+  padding-left: 0;
+}
+
+.search-page .ais-Hits-item:not(:has(.c_img)) .hit-versions {
+  padding-left: 12px;
+}
+
+.search-popup .hit-versions a,
+.md-typeset .search-page .hit-versions a {
+  padding: 1px 8px;
+  border: 1px solid var(--search-border);
+  border-radius: 10px;
+  color: var(--search-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.search-popup .hit-versions a:hover,
+.md-typeset .search-page .hit-versions a:hover {
+  border-color: var(--search-accent);
+  color: var(--search-accent);
+}
+
+.search-popup .hit-versions a.latest,
+.md-typeset .search-page .hit-versions a.latest {
+  background: var(--search-accent);
+  border-color: var(--search-accent);
+  color: var(--search-on-accent);
+}
+
+/* Highlighted result: arrow keys in the popup, keyboard focus on both */
+.search-popup .hit-link.is-active,
+:is(.search-popup, .search-page) .hit-link:focus-visible {
+  background: var(--search-accent);
+  border-bottom-color: var(--search-accent);
+}
+
+:is(.search-popup, .search-page) .hit-link:focus-visible {
+  outline: 2px solid var(--search-ink);
+  outline-offset: -2px;
+}
+
+.search-popup .hit-link.is-active :is(.row1, .c_desc),
+:is(.search-popup, .search-page) .hit-link:focus-visible :is(.row1, .c_desc) {
+  color: var(--search-on-accent);
+}
+
+.search-popup .hit-link.is-active mark,
+:is(.search-popup, .search-page) .hit-link:focus-visible mark {
+  background: var(--search-mark-on-accent);
+  color: var(--search-on-accent);
+}
+
+/* Card content: image, title and two-line description */
+:is(.search-popup, .search-page) .c_img {
+  flex-shrink: 0;
+}
+
+:is(.search-popup, .search-page) .c_img img {
+  display: block;
+  width: 72px;
+  border-radius: 6px;
+}
+
+:is(.search-popup, .search-page) .c_body {
+  flex: 1;
+  min-width: 0;
+}
+
+:is(.search-popup, .search-page) .row1 {
+  margin-bottom: 3px;
+  color: var(--search-ink);
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.35;
+}
+
+:is(.search-popup, .search-page) .c_desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: var(--search-text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+:is(.search-popup, .search-page) .c_desc:empty {
+  display: none;
+}
+
+:is(.search-popup, .search-page) mark {
+  background: var(--search-mark);
+  color: inherit;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   5. Full results page (search-results.md)
+   ========================================================================== */
+
+.search-page {
+  color: var(--search-ink);
+}
+
+.search-page .search-page-form {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.search-page .search-page-form .ais-SearchBox-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-page .search-page-submit {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 22px;
+  background: var(--search-accent);
+  color: var(--search-on-accent);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.search-page .search-page-submit:hover {
+  background: var(--search-accent-hover);
+}
+
+.md-typeset .search-page .search-page-summary {
+  margin: 12px 0 4px;
+  color: var(--search-muted);
+  font-size: 13px;
+}
+
+.search-page .search-page-results .hit-link {
+  margin: 0;
+}
+
+.md-typeset .search-page a.hit-link,
+.md-typeset .search-page a.hit-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-page .hit-link:hover .row1 {
+  color: var(--search-accent);
+}
+
+.search-page .search-page-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.md-typeset .search-page .search-page-pagination .page {
+  padding: 6px 14px;
+  border: 1px solid var(--search-border);
+  border-radius: 18px;
+  color: var(--search-ink);
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.md-typeset .search-page .search-page-pagination a.page:hover {
+  border-color: var(--search-accent);
+  color: var(--search-accent);
+}
+
+.md-typeset .search-page .search-page-pagination .page.current {
+  background: var(--search-accent);
+  border-color: var(--search-accent);
+  color: var(--search-on-accent);
+}
+
+/* Dark color scheme: the results page follows the site theme
+   (the popup stays light, like on www.percona.com) */
+[data-md-color-scheme="percona-dark"] .search-page {
+  --search-ink: #e8e8f0;
+  --search-text: #c4c4d4;
+  --search-line: #3a3a4a;
+  --search-border: #4a4a5c;
+}
+
+[data-md-color-scheme="percona-dark"] .search-page .ais-SearchBox-input {
+  background: transparent;
+}
+
+/* ==========================================================================
+   6. Smaller screens
+   ========================================================================== */
+
+/* Below 1560px the field and popup open as floating panels under the header.
+   --search-drop-top and --search-popup-top are set by init-algolia.js. */
+@media (max-width: 1559px) {
+  .search-input-wrap {
+    transition: none;
+  }
+
+  .topbar-search.expanded .search-input-wrap {
+    position: fixed;
+    top: var(--search-drop-top);
+    right: 16px;
+    left: auto;
+    width: min(560px, calc(100vw - 32px));
+    box-sizing: border-box;
+    padding: 10px 14px;
+    background: var(--search-surface);
+    border: 1px solid var(--search-panel-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 22, 43, 0.16);
+    z-index: var(--search-z-input);
+  }
+
+  .topbar-search.expanded .search-icon-btn {
+    display: inline-flex;
+  }
+
+  .topbar-search.expanded .search-collapse-btn {
+    color: var(--search-close-muted);
+  }
+
+  .topbar-search.expanded .search-collapse-btn:hover {
+    color: var(--search-accent);
+  }
+
+  .search-popup {
+    position: fixed;
+    top: var(--search-popup-top);
+    right: 16px;
+    left: auto;
+    width: min(680px, calc(100vw - 32px));
+    max-width: none;
+    /* Ends above the on-screen keyboard on phones (see init-algolia.js).
+       With very little room (a phone in landscape with the keyboard open)
+       the footer with "See all" still fits; the list shows again once the
+       keyboard closes. */
+    max-height: max(
+      64px,
+      calc(var(--search-visible-bottom, 100vh) - var(--search-popup-top) - 16px)
+    );
+  }
+}
+
+/* Phones */
+@media (max-width: 768px) {
+  .topbar-search.expanded .search-input-wrap {
+    right: 8px;
+    left: 8px;
+    width: auto;
+    padding: 8px 10px;
+  }
+
+  :is(.topbar-search, .search-page) .ais-SearchBox-input {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .search-popup {
+    right: 8px;
+    left: 8px;
+    width: auto;
+  }
+
+  .search-popup .results.active {
+    padding: 4px 14px;
+  }
+
+  :is(.search-popup, .search-page) .hit-link {
+    gap: 8px;
+    margin: 0 -10px;
+    padding: 8px 10px;
+  }
+
+  :is(.search-popup, .search-page) .row1 {
+    font-size: 14px;
+  }
+
+  :is(.search-popup, .search-page) .c_img img {
+    width: 56px;
+  }
+
+  .search-popup .hit-versions {
+    padding-left: 64px;
+  }
+
+  .search-page .hit-versions {
+    padding-left: 74px;
+  }
+
+  .search-popup .popup-footer {
+    padding: 10px 14px;
+  }
+
+  .search-popup .popup-summary {
+    font-size: 12px;
+  }
+
+  .search-popup .see-all-link {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+}
+
+/* Touch screens: larger tap targets (Apple and Google recommend 44-48px) */
+@media (pointer: coarse) {
+  /* iPhone and iPad Safari zoom the page in when a field's text is under 16px */
+  :is(.topbar-search, .search-page) .ais-SearchBox-input {
+    font-size: 16px;
+  }
+
+  .search-icon-btn {
+    padding: 12px;
+  }
+
+  .search-collapse-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    margin-left: 0;
+    padding: 0;
+  }
+
+  :is(.search-popup, .search-page) .hit-versions {
+    gap: 8px;
+  }
+
+  .search-popup .hit-versions a,
+  .md-typeset .search-page .hit-versions a {
+    padding: 5px 12px;
+    border-radius: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-input-wrap {
+    transition: none;
+  }
+}
