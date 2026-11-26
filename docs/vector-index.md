@@ -16,6 +16,16 @@ An HNSW index organizes vectors into a layered graph in which each vector links 
 
 HNSW performs an *approximate nearest neighbor* (ANN) search. The index returns vectors that are very close to the query vector, but the results can occasionally differ from an exact search that compares every row. *Recall* measures the share of true nearest neighbors that the index finds. You control the balance between recall and speed with the [index options](#index-options) and the [`innodb_hnsw_ef_search`](#innodb_hnsw_ef_search) variable.
 
+A search follows the links between vectors, so the index can reach a vector only through the links that point to the vector. Some data sets produce a poorly connected graph:
+
+* Some vectors collect many links, while other vectors lose all incoming links (hubness).
+
+* Outlier vectors far from the rest of the data can end up with no incoming links.
+
+* A tight cluster with more vectors than the `M` and `ef_construction` values can lose its links to the rest of the graph. A search that starts in such a cluster does not continue into other clusters.
+
+The index never returns a vector that the search cannot reach. Do not rely on a vector index when a query must return every matching row. Use an exact search for such queries. See [Queries that do not use the vector index](#queries-that-do-not-use-the-vector-index).
+
 The server keeps the graph in memory and stores a copy in InnoDB. After a restart, the server loads the graph gradually. Each query loads only the parts of the graph that the search needs. The [`innodb_hnsw_max_memory`](#innodb_hnsw_max_memory) variable limits the total memory that all graphs use.
 
 !!! note
@@ -51,10 +61,10 @@ You can add a vector index when you create a table, add the index to an existing
 VECTOR {KEY | INDEX} index_name (column_name) TYPE hnsw [(option = value [, option = value] ...)]
 
 -- As a separate statement
-CREATE VECTOR INDEX index_name ON table_name (column_name) TYPE hnsw [(option = value [, ...])]
+CREATE VECTOR INDEX index_name ON table_name (column_name) TYPE hnsw [(option = value [, option = value] ...)]
 
 -- In ALTER TABLE
-ALTER TABLE table_name ADD VECTOR {KEY | INDEX} index_name (column_name) TYPE hnsw [(option = value [, ...])]
+ALTER TABLE table_name ADD VECTOR {KEY | INDEX} index_name (column_name) TYPE hnsw [(option = value [, option = value] ...)]
 ```
 
 `USING hnsw` works as a synonym for `TYPE hnsw`. `SHOW CREATE TABLE` displays the `USING` form.
@@ -120,7 +130,7 @@ CREATE VECTOR INDEX idx_embedding ON documents (embedding) TYPE hnsw (M = 16, me
 ALTER TABLE documents ADD VECTOR INDEX idx_embedding (embedding) TYPE hnsw (M = 16, metric = cosine);
 ```
 
-The first vector index on a table rebuilds the table and then builds the graph from the existing rows. The build reads the table with several threads. The [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads) variable sets the number of threads. Plan the operation for a maintenance window on a large table. For the supported algorithms and lock levels, see [Change or drop a vector index](#change-or-drop-a-vector-index).
+Adding a vector index rebuilds the table and then builds the graph from the existing rows. The build reads the table with several threads. The [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads) variable sets the number of threads. Plan the operation for a maintenance window on a large table. For the supported algorithms and lock levels, see [Change or drop a vector index](#change-or-drop-a-vector-index).
 
 ### Load large data sets
 
@@ -141,9 +151,9 @@ ALTER TABLE documents ADD VECTOR INDEX idx_embedding (embedding) TYPE hnsw (M = 
 
 An index build over existing rows is much faster than adding the same rows one at a time:
 
-* The build compares vectors in several threads at once, so the build uses all available CPU cores. The [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads) variable controls the number of threads.
+* The build compares vectors in several threads at once, so the build can use more CPU cores. The [`innodb_parallel_read_threads` :octicons-link-external-16:](https://dev.mysql.com/doc/refman/9.7/en/innodb-parameters.html#sysvar_innodb_parallel_read_threads) variable controls the number of threads.
 
-* The build writes the finished index to disk in one pass. Each row-by-row insert also updates many existing entries in the index, which causes many small writes.
+* The build writes the finished index to disk in one pass. On the other hand, each row-by-row insert needs to update many existing entries in the index, which causes many small writes.
 
 After the build, the server does not keep the new graph in memory, so the build does not increase the `Innodb_hnsw_memory_used` value. The first queries load the graph gradually, so these queries run slower than later ones. Before you measure performance or open the table to production traffic, run a representative set of queries to warm up the index.
 
@@ -182,13 +192,13 @@ A `cosine` index does not accept a zero vector, such as `[0, 0, 0]`, because cos
 
 The optimizer uses a vector index for a query that has all of the following properties:
 
-* The query reads from one table. A query with a join does not use the vector index.
+* The table with the vector index is the first table that the query reads. A join can read other tables after that table. Views, derived tables, and subqueries that meet these conditions can also use the vector index.
 
-* The query has one `ORDER BY` expression: a `DISTANCE()` or `VECTOR_DISTANCE()` call on the indexed column and a constant query vector. The arguments can appear in either order.
+* The query has one `ORDER BY` expression: a `DISTANCE()` or `VECTOR_DISTANCE()` call on the indexed column and a constant query vector. The arguments can appear in either order. The expression refers only to the table with the vector index.
 
 * The `ORDER BY` uses ascending order.
 
-* The query has a `LIMIT` clause.
+* The query has a `LIMIT` clause, and the `LIMIT` value is smaller than the number of rows in the table. The optimizer takes the number of rows from the table statistics. After you load data, run `ANALYZE TABLE` to update the statistics.
 
 * The `DISTANCE()` metric matches the index `metric`. See [Choose a metric](#choose-a-metric).
 
@@ -261,8 +271,8 @@ If few rows match the filter, the server reads many rows before the query has en
 ```sql
 CREATE INDEX idx_category ON documents (category);
 
-SELECT id, title
-FROM documents IGNORE INDEX FOR ORDER BY (idx_embedding)
+SELECT /*+ NO_ORDER_INDEX(documents idx_embedding) */ id, title
+FROM documents
 WHERE category = 'docs'
 ORDER BY DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.35]'), 'EUCLIDEAN')
 LIMIT 3;
@@ -303,33 +313,35 @@ The optimizer uses the vector index only for `ORDER BY DISTANCE(...) LIMIT n` qu
 
 | Query | Reason |
 | --- | --- |
-| `ORDER BY DISTANCE(...)` without `LIMIT` | The query asks for every row in exact order. |
+| `ORDER BY DISTANCE(...)` without `LIMIT`, or with a `LIMIT` that covers the whole table | The query asks for every row in exact order. |
 | `ORDER BY DISTANCE(...) DESC LIMIT n` | An HNSW index finds the nearest vectors, not the farthest. |
-| `WHERE DISTANCE(...) < 0.5` | A range condition must return every qualifying row. An approximate search can miss some of them. |
+| `WHERE DISTANCE(...) < 0.5` without `ORDER BY DISTANCE(...) LIMIT n` | A range condition must return every qualifying row. An approximate search can miss some of them. |
 | A `DISTANCE()` metric that differs from the index `metric` | The graph orders vectors by a different distance. |
 | A query vector that is not constant, for example another column | The search needs a fixed starting point. |
 | A `NULL` query vector | `NULL` defines no order. |
 | A query with `GROUP BY`, `DISTINCT`, a window function, or `MATCH()` | The query needs every row, or the full-text search must read the table. |
-| A query with a join | The vector index serves single-table queries only. |
+| A join in which the table with the vector index is not the first table that the query reads | The vector index can order only the rows of the first table. |
 
-To compare the approximate result with the exact result, force a full scan with `IGNORE INDEX` or `IGNORE INDEX FOR ORDER BY`:
+A query that combines a condition such as `WHERE DISTANCE(...) < 0.5` with `ORDER BY DISTANCE(...) LIMIT n` uses the vector index. The server applies the condition as a filter after the vector search. See [Combine vector search with filters](#combine-vector-search-with-filters).
+
+To compare the approximate result with the exact result, turn off the vector index with the `NO_INDEX` or `NO_ORDER_INDEX` optimizer hint. The older `IGNORE INDEX` and `IGNORE INDEX FOR ORDER BY` syntax works as well:
 
 ```sql
-SELECT id, title
-FROM documents IGNORE INDEX (idx_embedding)
+SELECT /*+ NO_INDEX(documents idx_embedding) */ id, title
+FROM documents
 ORDER BY DISTANCE(embedding, TO_VECTOR('[0.1, 0.2, 0.35]'), 'EUCLIDEAN')
 LIMIT 3;
 ```
 
 !!! note
 
-    The vector index has no cost model. The optimizer chooses the index whenever the query matches the rules above, even on a small table or with a `LIMIT` value close to the number of rows. The server does not warn when an approximate result differs from the exact result.
+    The vector index has no cost model. The optimizer chooses the index whenever the query matches the rules above, even on a small table or when a regular index would be faster. The server does not warn when an approximate result differs from the exact result.
 
 ## Tune search recall
 
 The [`innodb_hnsw_ef_search`](#innodb_hnsw_ef_search) variable sets the minimum number of candidates that a search keeps while the search moves through the graph. The server uses the larger of `innodb_hnsw_ef_search` and the `LIMIT` value.
 
-A larger value improves recall and makes queries slower. A smaller value makes queries faster and can reduce recall. The variable has session scope, so you can choose a different value for each workload:
+A larger value improves recall but makes queries slower. A smaller value makes queries faster and can reduce recall. The variable has session scope, so you can choose a different value for each workload:
 
 ```sql
 -- Interactive search: favor speed
@@ -341,7 +353,7 @@ SET SESSION innodb_hnsw_ef_search = 400;
 
 To measure recall for your data, run a sample of queries twice: once with the index and once with `IGNORE INDEX`. Then compare the returned rows.
 
-## Manage memory
+## Memory management
 
 The [`innodb_hnsw_max_memory`](#innodb_hnsw_max_memory) variable sets the upper limit, in bytes, for the memory that all vector index graphs on the server use together. The default value is 1 GiB.
 
@@ -446,6 +458,8 @@ Correct or delete the returned rows, and then add the index.
 ## Indexes on very regular data
 
 On very regular data, a vector index can silently miss some rows. Very regular data means vectors that lie close to a straight line, such as counters, sequences, calibration data, or grid-like data. The issue does not affect embeddings from real models, such as text or image embeddings.
+
+Very regular data is one case of a general HNSW problem: in some data sets, the graph becomes poorly connected, and the search cannot reach some vectors. For other cases, see [How a vector index works](#how-a-vector-index-works).
 
 The issue appears when several threads add vectors to the same graph at once:
 
@@ -563,16 +577,16 @@ To avoid these effects, use one of the following approaches:
 
 | Operation | Supported options |
 | --- | --- |
-| Add the first vector index to a table | `ALGORITHM=INPLACE` or `ALGORITHM=COPY`. Requires `LOCK=SHARED` or stricter. The server rebuilds the table. |
+| Add a vector index to a table | `ALGORITHM=INPLACE` or `ALGORITHM=COPY`. Requires `LOCK=SHARED` or stricter. The server rebuilds the table to add a hidden column. |
 | Replace a vector index, for example `DROP INDEX` and `ADD VECTOR INDEX` with new options in one statement | `ALGORITHM=INPLACE` or `ALGORITHM=COPY`. Requires `LOCK=SHARED` or stricter. The server does not rebuild the table. |
 | Drop the only vector index | Supports `LOCK=NONE`. The server rebuilds the table. |
 | Any other `ALTER TABLE` on a table with a vector index | Requires `LOCK=SHARED` or stricter. `ALGORITHM=INSTANT` is not available. |
 
 During an operation with `LOCK=SHARED`, other sessions can read the table but cannot write to the table.
 
-On a table that also has a `FULLTEXT` index, InnoDB cannot rebuild the table in place. Adding the first vector index or dropping the last one then requires `ALGORITHM=COPY`, and `OPTIMIZE TABLE` runs as a copy as well.
+On a table that also has a `FULLTEXT` index, InnoDB cannot rebuild the table in place. Adding or dropping a vector index then requires `ALGORITHM=COPY`, and `OPTIMIZE TABLE` runs as a copy as well.
 
-`ALGORITHM=INPLACE` builds a vector index faster and produces a smaller index than `ALGORITHM=COPY`. Use `ALGORITHM=COPY` only when the server requires that algorithm.
+`ALGORITHM=INPLACE` builds the index in memory and writes the index to disk in one pass. `ALGORITHM=COPY` inserts the rows one at a time, and each insert updates existing entries in the index, which causes many more disk writes. Use `ALGORITHM=COPY` only when the server requires that algorithm.
 
 ### Change index options
 
@@ -595,7 +609,7 @@ DROP INDEX idx_embedding ON documents;
 
 ## Storage
 
-Each vector index uses one hidden InnoDB table that stores the graph. The name of the table follows the pattern `percona_vec_hnsw_<table_id>_<index_id>`. The table does not appear in `SHOW TABLES` or `INFORMATION_SCHEMA.TABLES`, but appears in `INFORMATION_SCHEMA.INNODB_TABLES`. InnoDB writes the table to the redo and undo logs like any other table, so crash recovery restores the index without extra steps.
+Each vector index uses one hidden InnoDB table that stores the graph. The name of the table follows the pattern `percona_vec_hnsw_<table_id>_<index_id>`. Percona can change this name in a future release without notice. The table does not appear in `SHOW TABLES` or `INFORMATION_SCHEMA.TABLES`, but appears in `INFORMATION_SCHEMA.INNODB_TABLES`. InnoDB writes the table to the redo and undo logs like any other table, so crash recovery restores the index without extra steps.
 
 A table with a vector index also has a hidden column. The column does not appear in `SELECT *` or `SHOW COLUMNS` output, and applications do not need to change.
 
@@ -613,46 +627,13 @@ To back up a server that has vector indexes, use Percona XtraBackup 9.7.2-3 or l
 
 `ALTER TABLE ... DISCARD TABLESPACE` and `ALTER TABLE ... IMPORT TABLESPACE` do not support tables with a vector index. `FLUSH TABLES ... FOR EXPORT` returns a warning for such tables, and you cannot import the exported files. To move a table with a vector index, use a logical dump or a physical backup of the whole server.
 
-## Downgrade
-
-Percona Server for MySQL versions without vector index support cannot read a vector index. If you start an earlier 9.7 release on a data directory that contains a vector index, the server crashes when a statement uses the table. The same crash happens on a clone recipient that runs an earlier release. A logical dump that contains vector index definitions fails to load on an earlier release with a syntax error.
-
-To downgrade in place to a release without vector index support:
-
-1. On the current server, drop every vector index:
-
-    ```sql
-    ALTER TABLE documents DROP INDEX idx_embedding;
-    ```
-
-    To list every vector index on the server, run:
-
-    ```sql
-    SELECT DISTINCT TABLE_SCHEMA, TABLE_NAME, INDEX_NAME
-    FROM INFORMATION_SCHEMA.STATISTICS
-    WHERE INDEX_TYPE = 'VECTOR';
-    ```
-
-2. Shut down the server with a slow shutdown, so that InnoDB writes all changes to the data files:
-
-    ```sql
-    SET GLOBAL innodb_fast_shutdown = 0;
-    SHUTDOWN;
-    ```
-
-3. Start the earlier release on the same data directory.
-
-Before you take a logical dump for an earlier release, drop the vector indexes the same way, or remove the `VECTOR KEY` clauses from the dump file.
-
-If you already started an earlier release on a data directory with a vector index and that server no longer starts, start the newer release on the same data directory again. The newer release rolls back the incomplete statement. Then follow the steps above: drop every vector index, shut down with `innodb_fast_shutdown = 0`, and start the earlier release.
-
 ## Limitations
 
 * Each table supports one vector index.
 
 * The table must have a single-column `BIGINT UNSIGNED` primary key.
 
-* The index supports only the `euclidean` and `cosine` metrics. The `DOT`, `EUCLIDEAN_SQUARED`, and `MANHATTAN` index metrics are not available. A `euclidean` index serves `EUCLIDEAN_SQUARED` queries.
+* The index supports only the `euclidean` and `cosine` metrics. The `DOT`, `EUCLIDEAN_SQUARED`, and `MANHATTAN` metrics are not available for indexing. A `euclidean` index serves `EUCLIDEAN_SQUARED` queries.
 
 * The server does not support vector indexes on:
 
@@ -669,7 +650,7 @@ If you already started an earlier release on a data directory with a vector inde
 
 * `DISCARD TABLESPACE` and `IMPORT TABLESPACE` are not available while the table has a vector index.
 
-* An in-place downgrade to a release without vector index support requires that you drop all vector indexes first. See [Downgrade](#downgrade).
+* Percona Server for MySQL releases earlier than 9.7.4-4 cannot read a vector index. A downgrade, clone, or logical dump to an earlier release fails or crashes the server. Before you downgrade, drop every vector index. See [Downgrade a server with vector indexes](downgrade.md#downgrade-a-server-with-vector-indexes).
 
 * `LOAD DATA` with `ALGORITHM = BULK` is not available for tables with a vector index.
 
@@ -683,11 +664,11 @@ If you already started an earlier release on a data directory with a vector inde
 
 * A `VECTOR(N)` column without a vector index accepts vectors with fewer than `N` dimensions. Such rows prevent you from adding a vector index until you correct them. See [Vector dimensions](#vector-dimensions).
 
-* Only single-table queries use the vector index.
+* In a join, only the first table that the query reads can use its vector index. See [Search with a vector index](#search-with-a-vector-index).
 
 * On very regular data, such as vectors that lie close to a straight line, a parallel index build or concurrent inserts can leave some rows unreachable. See [Indexes on very regular data](#indexes-on-very-regular-data).
 
-* The hypergraph optimizer does not use vector indexes. When you enable the hypergraph optimizer, vector queries run as a full table scan with a sort and return exact results.
+* The hypergraph optimizer does not use vector indexes. When you enable the hypergraph optimizer, vector queries sort the rows by exact distance and return exact results. The optimizer can still use other indexes on the table, for example for a `WHERE` condition.
 
 * The same approximate query can return different results on a source and a replica.
 
@@ -718,7 +699,7 @@ Sets the minimum number of candidates that a vector index search keeps. The serv
 | Range: | `0` to `18446744073709551615` |
 | Unit: | Bytes |
 
-Sets the upper limit for the memory that all vector index graphs on the server use together. A statement that needs more memory after the server reaches the limit fails with an error. The value `0` removes the limit. See [Manage memory](#manage-memory).
+Sets the upper limit for the memory that all vector index graphs on the server use together. A statement that needs more memory after the server reaches the limit fails with an error. The value `0` removes the limit. See [Memory management](#memory-management).
 
 ## Status variables
 
@@ -753,3 +734,4 @@ Shows the memory, in bytes, that all vector index graphs on the server currently
 * [The VECTOR Type](vector.md)
 * [DISTANCE() Function](distance-function.md)
 * [Get started with DISTANCE()](quickstart-distance.md)
+* [Downgrade Percona Server for MySQL](downgrade.md)
