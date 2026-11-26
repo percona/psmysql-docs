@@ -49,7 +49,7 @@ column family.
 !!! admonition "See also"
 
     Using `COMMENT` to Specify Column Family Names with Multiple Table Partitions
-    https://github.com/facebook/mysql-5.6/wiki/Column-Families-on-Partitioned-Tables.
+    https://github.com/meta/mysql-5.6/wiki/Column-Families-on-Partitioned-Tables.
 
 ### Controlling the number of column families to reduce memory consumption
 

@@ -51,7 +51,7 @@ compared to the standard *MySQL* database server:
 | [Per-User Performance Counters](user-stats.md#information_schemauser_statistics) | Yes | No |
 | [Per-Client Performance Counters](user-stats.md#information_schemaclient_statistics) | Yes | No |
 | [Per-Thread Performance Counters](user-stats.md#information_schemathread_statistics) | Yes | No |
-| [Global Query Response Time Statistics](index-info-schema-tables.md#information_schemaquery_response_time) | Yes | No |
+| [Global Query Response Time Statistics](index-info-schema-tables.md) | Yes | No |
 | [Enhanced SHOW INNODB ENGINE STATUS](innodb-show-status.md) | Yes | No |
 | [Undo Segment Information](innodb-show-status.md) | Yes | No |
 | [Temporary Tables Information](misc-info-schema-tables.md#information_schematemporary_tables) | Yes | No |
