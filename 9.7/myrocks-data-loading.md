@@ -72,5 +72,5 @@ If you are loading large data without enabling [rocksdb_bulk_load](https://docs.
 
 ## Other reading
 
-- [Data Loading](https://github.com/facebook/mysql-5.6/wiki/Data-Loading) - this document has been used as a source for writing this documentation
-- [ALTER TABLE … ENGINE=ROCKSDB uses too much memory](https://github.com/facebook/mysql-5.6/issues/692)
+- [Data Loading](https://github.com/meta/mysql-5.6/wiki/Data-Loading) - this document has been used as a source for writing this documentation
+- [ALTER TABLE … ENGINE=ROCKSDB uses too much memory](https://github.com/meta/mysql-5.6/issues/692)
