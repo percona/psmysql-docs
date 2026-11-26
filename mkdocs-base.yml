@@ -44,9 +44,6 @@ theme:
 # Theme features
 
   features:
-    - search.highlight
-    - search.share
-    - search.suggest
     - navigation.top
     - navigation.tracking 
 #    - navigation.instant
@@ -70,6 +67,7 @@ extra_css:
   - css/mysql.css
   - css/rating.css
   - css/kapa.css
+  - css/algolia.css
 
 extra_javascript:
   - js/version-select.js
@@ -77,6 +75,7 @@ extra_javascript:
   - js/consent.js
   - js/rating.js
   - js/kapa.js
+  - js/init-algolia.js
 
 markdown_extensions:
   attr_list: {}
@@ -116,9 +115,9 @@ markdown_extensions:
       custom_icons:
         - _resource/.icons
 
+# Site search is Algolia (js/init-algolia.js), so the built-in search
+# plugin is not used
 plugins:
-  search: 
-    separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   open-in-new-tab: {}
   git-revision-date-localized:
     enable_creation_date: true
@@ -180,6 +179,10 @@ extra:
   analytics:
     provider: google
     property: G-J4J70BNH0G
+
+# Pages that exist but aren't listed in the navigation
+not_in_nav: |
+  /search-results.md
 
 nav:
   - Home: index.md
