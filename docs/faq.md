@@ -1,5 +1,9 @@
 # Frequently asked questions
 
+## Q: What does this manual cover?
+
+A: This manual covers what Percona Server adds to or changes in MySQL 8.4. For everything else, see the [MySQL 8.4 Reference Manual :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/).
+
 ## Q: Will *Percona Server for MySQL* with *XtraDB* invalidate our *MySQL* support?
 
 A: We don’t know the details of your support contract. You should check with

@@ -6,7 +6,7 @@ Logs are plaintext by default and may hold credentials, SQL text, and other sens
 
 The default file under the data directory is `audit_filter.log`. Override location with `audit_log_filter.file` at startup.
 
-Starting in Percona Server for MySQL 8.4.9-9, if the parent directory is missing the component errors and the server starts without Audit Log Filter active.
+Starting in Percona Server for MySQL 8.4.10-10, if the parent directory is missing the component errors and the server starts without Audit Log Filter active.
 
 Rotation leaves multiple files on disk—protect every generation.
 

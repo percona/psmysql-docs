@@ -2,7 +2,11 @@
 
 !!! note ""
 
-    This documentation is for the latest release: Percona Server for MySQL {{release}} ([Release Notes](release-notes/{{release}}.md)).
+    This documentation is for Percona Server for MySQL 8.4 LTS, release {{release}} ([Release Notes](release-notes/{{release}}.md)).
+
+!!! note "Scope of this manual"
+
+    This manual covers what Percona Server adds to or changes in MySQL 8.4. For everything else, see the [MySQL 8.4 Reference Manual :octicons-link-external-16:](https://dev.mysql.com/doc/refman/8.4/en/).
 
 Percona Server for MySQL is a freely available, fully compatible, enhanced, and open source drop-in replacement for any MySQL database. It provides superior and optimized performance, greater scalability and availability, enhanced backups, and increased visibility and instrumentation.
 

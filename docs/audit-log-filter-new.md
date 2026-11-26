@@ -1,6 +1,6 @@
 # Audit Log Filter format - XML (new style)
 
-Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:
+Percona Server for MySQL 8.4.10-10 tightens the NEW XML formatter:
 
 * 1-based `<RECORD_ID>` values (not 0-based)
 
@@ -16,9 +16,9 @@ Percona Server for MySQL 8.4.9-9 tightens the NEW XML formatter:
 
 * Consistent `<COMMAND_CLASS>` spellings (for example `create_table`, `set_option`)
 
-* [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) decides which events appear: `REDUCED` (default) keeps core classes; `FULL` adds lifecycle-heavy record types (see that page for lists and pre-8.4.9-9 behavior).
+* [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) decides which events appear: `REDUCED` (default) keeps core classes; `FULL` adds lifecycle-heavy record types (see that page for lists and pre-8.4.10-10 behavior).
 
-On builds before 8.4.9-9, spot-check your own logs—output may differ. Code reference: `components/audit_log_filter/log_record_formatter/new.cc`, `base.cc`.
+On builds before 8.4.10-10, spot-check your own logs—output may differ. Code reference: `components/audit_log_filter/log_record_formatter/new.cc`, `base.cc`.
 
 With `audit_log_filter.format=NEW`, the component writes UTF-8 XML.
 
@@ -43,7 +43,7 @@ With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the pr
   <VERSION>1</VERSION>
   <STARTUP_OPTIONS>/usr/sbin/mysqld --defaults-file=/etc/my.cnf --basedir=/usr --port=3306 --socket=/var/run/mysqld/mysqld.sock --datadir=/var/lib/mysql</STARTUP_OPTIONS>
   <OS_VERSION>x86_64-Linux</OS_VERSION>
-  <MYSQL_VERSION>8.4.9-9</MYSQL_VERSION>
+  <MYSQL_VERSION>8.4.10-10</MYSQL_VERSION>
  </AUDIT_RECORD>
  <AUDIT_RECORD>
   <TIMESTAMP>2026-03-27T20:00:59</TIMESTAMP>
@@ -144,7 +144,7 @@ With `audit_log_filter.event_mode=REDUCED` (default), the formatter emits the pr
    </ATTRIBUTE>
    <ATTRIBUTE>
     <NAME>_client_version</NAME>
-    <VALUE>8.4.9-9</VALUE>
+    <VALUE>8.4.10-10</VALUE>
    </ATTRIBUTE>
    <ATTRIBUTE>
     <NAME>program_name</NAME>
@@ -393,7 +393,7 @@ The following elements appear on every `<AUDIT_RECORD>` in the NEW XML format:
 ## Optional elements (by record category)
 
 Many elements appear only for specific event classes. The following table lists
-elements that the NEW XML formatter (Percona Server for MySQL 8.4.9-9 onward) uses for at least one
+elements that the NEW XML formatter (Percona Server for MySQL 8.4.10-10 onward) uses for at least one
 event type. The table does not promise that every field appears in every record.
 
 | Element | Description |

@@ -272,7 +272,7 @@ The SQL statement type appears separately as `COMMAND_CLASS` in XML or as `sql_c
 
 [`audit_log_filter.event_mode`](audit-log-filter-variables.md#audit_log_filterevent_mode) controls how many classes are emitted:
 
-* `REDUCED` (default from 8.4.9-9) — `connection`, `general`/`status`, `table_access`, and `message` only. DDL, DCL, TCL, and most administrative statements appear as a single `general`/`status` record (XML `<NAME>Query</NAME>`) or as `table_access` when the server reports table touches.
+* `REDUCED` (default from 8.4.10-10) — `connection`, `general`/`status`, `table_access`, and `message` only. DDL, DCL, TCL, and most administrative statements appear as a single `general`/`status` record (XML `<NAME>Query</NAME>`) or as `table_access` when the server reports table touches.
 * `FULL` — adds `command`, `parse`, `query`, `stored_program`, `global_variable`, and `authentication`. A single client statement can produce a sequence of ten or more records.
 
 Lifecycle records (`audit` / `server_startup` / `server_shutdown`) may appear in the log at startup or shutdown but are not valid filter-definition targets. See [Audit Log Filter definition fields](audit-log-filter-definition-fields.md).
@@ -964,7 +964,7 @@ Available functions:
 
     * One string argument: the function returns `true` when the supplied digest equals the current event's digest. Use this shape inside a `log`, `abort`, or `print` condition. Wrap the call in `not` to invert the match. Use this form to act on specific statement patterns. For example, block any statement whose digest matches `SELECT ?`.
 
-    Starting in Percona Server for MySQL 8.4.9-9, `query_digest` accepts a string shorthand for its single argument: `"args": "SELECT ?"`. The shorthand is equivalent to the verbose form `"args": [{ "string": { "string": "SELECT ?" } }]`. Earlier releases require the verbose form. The shorthand is specific to `query_digest` — `string_find` requires the verbose form for both arguments.
+    Starting in Percona Server for MySQL 8.4.10-10, `query_digest` accepts a string shorthand for its single argument: `"args": "SELECT ?"`. The shorthand is equivalent to the verbose form `"args": [{ "string": { "string": "SELECT ?" } }]`. Earlier releases require the verbose form. The shorthand is specific to `query_digest` — `string_find` requires the verbose form for both arguments.
 
 A condition that calls a function evaluates to `true` when the function returns a truthy value. Truthy values include non-empty strings and Boolean `true`. Combine function calls with `and`, `or`, and `not` to build richer rules. For example, log only when `string_find` matches and the user is not on an allow list.
 

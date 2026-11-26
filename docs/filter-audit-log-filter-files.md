@@ -49,7 +49,7 @@ Enable the `component_audit_log_filter` component and ensure audit tables exist 
 
 ## Filter definition validation
 
-*Introduced in Percona Server for MySQL 8.4.9-9.*
+*Introduced in Percona Server for MySQL 8.4.10-10.*
 
 The server validates filter definitions at parse time and rejects invalid input with a clear error:
 
@@ -67,9 +67,9 @@ The server validates filter definitions at parse time and rejects invalid input 
 
 An empty filter object `{}` is equivalent to `{"filter": {"log": true}}` and logs every event. To log nothing, use `{"filter": {"log": false}}`.
 
-#### Behavior before 8.4.9-9
+#### Behavior before 8.4.10-10
 
-Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter `{"filter": {"classes": [...]}}` (note `classes` instead of `class`) was parsed as `{"filter": {}}`, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to `events` instead of `event`, `names` instead of `name`, and `logs` instead of `log`. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
+Before 8.4.10-10, the parser silently ignored unknown keys. Misspelling a structural key caused the parser to skip that entire subtree and fall back to the default. For example, the filter `{"filter": {"classes": [...]}}` (note `classes` instead of `class`) was parsed as `{"filter": {}}`, which logs every event. No error was returned, and the filter appeared to succeed. The same applied to `events` instead of `event`, `names` instead of `name`, and `logs` instead of `log`. Upgrade to 8.4.10-10 or later to catch these mistakes at parse time.
 
 Parse-phase subclass names must use `preparse` and `postparse`.
 
