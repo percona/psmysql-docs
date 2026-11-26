@@ -6,7 +6,7 @@ For critical production systems, consider engaging [Percona Support](https://www
 
 ## Downgrade options
 
-Review the [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html) to ensure that your downgrade path is supported.
+Review the [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md) to ensure that your downgrade path is supported.
 
 ## In-place upgrade
 
@@ -39,7 +39,7 @@ The new environment strategy has the following pros and cons:
 
 Choose the approach that matches your downtime budget, risk tolerance, and rollback needs. Always rehearse in a non-production environment first.
 
-> **Note**: For a complete overview of supported upgrade paths and methods, see [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html).
+> **Note**: For a complete overview of supported upgrade paths and methods, see [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md).
 
 ### In-place upgrade (stop/replace/start)
 
@@ -51,7 +51,7 @@ Use when: the environment is simple, downtime is acceptable, and you have strong
 
 Prerequisites:
 
-- Complete [Upgrade checklist](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html) pre-upgrade checks
+- Complete [Upgrade checklist](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md) pre-upgrade checks
 - Set `innodb_fast_shutdown=0` for a clean shutdown
 - Verified backup and restore
 
@@ -91,13 +91,13 @@ Rollback: if issues arise before fail-forward, redirect traffic back to 8.0 and 
 
 ## Further reading
 
-- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html)
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html)
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)

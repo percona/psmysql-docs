@@ -4,7 +4,7 @@
 
 Use the Percona repositories to install using APT.
 
-Quickstart path: Step 1 — Install. Next: [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html) (step 2).
+Quickstart path: Step 1 — Install. Next: [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md) (step 2).
 
 The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
@@ -19,39 +19,39 @@ Do the following steps to install the server:
 
 1. Update the package index:
 
-   ```
+   ```shell
    sudo apt update
    ```
 
 1. Install curl:
 
-   ```
+   ```shell
    sudo apt install -y curl
    ```
 
 1. Download and install the `percona-release` repository package:
 
-   ```
+   ```shell
    curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
    sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
    ```
 
 1. Set up the Percona Server for MySQL 8.4 repository:
 
-   ```
+   ```shell
    sudo percona-release setup ps-84-lts --scheme https
    ```
 
 1. Enable the Percona Server for MySQL release repository:
 
-   ```
+   ```shell
    sudo percona-release enable ps-84-lts release --scheme https
    sudo apt update
    ```
 
 1. Install Percona Server for MySQL:
 
-   ```
+   ```shell
    sudo apt install -y percona-server-server
    ```
 
@@ -72,29 +72,29 @@ Do the following steps to install the server:
    - Remove the test database
    - Reload the privilege table
 
-   ```
+   ```shell
    sudo mysql_secure_installation
    ```
 
 1. Check the service status and restart if needed:
 
-   ```
+   ```shell
    sudo systemctl status mysql
    sudo systemctl restart mysql
    ```
 
 1. Log in to the server using the password you set during installation:
 
-   ```
+   ```shell
    mysql -uroot -p
    Enter password:
    ```
 
 ## Work with a database
 
-The steps below walk you through creating a database and running basic queries. You can also open the [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html) script in its own page.
+The steps below walk you through creating a database and running basic queries. You can also open the [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md) script in its own page.
 
-[Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html)
+[Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md)
 
 ## Troubleshooting
 
@@ -102,19 +102,19 @@ The steps below walk you through creating a database and running basic queries. 
 
   - Check that the MySQL service is running:
 
-    ```
+    ```shell
     sudo systemctl status mysql
     ```
 
   - If the service is not active, start it:
 
-    ```
+    ```shell
     sudo systemctl start mysql
     ```
 
   - Try connecting with the password you set during installation:
 
-    ```
+    ```shell
     mysql -uroot -p
     Enter password:
     ```
@@ -123,7 +123,7 @@ The steps below walk you through creating a database and running basic queries. 
 
   If MySQL reports that a user lacks permission to perform an action, grant the needed privilege. For example, to allow a user to create databases from the MySQL shell:
 
-  ```
+  ```sql
   GRANT CREATE ON *.* TO 'username'@'localhost';
   FLUSH PRIVILEGES;
   ```
@@ -134,11 +134,11 @@ The steps below walk you through creating a database and running basic queries. 
 
   Check the system log for errors during installation:
 
-  ```
+  ```shell
   sudo journalctl -u mysql -n 50
   ```
 
-  For specific error messages, see the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/8.4/index.html) or the [Percona community forum](https://forums.percona.com/).
+  For specific error messages, see the [Percona Server for MySQL documentation](https://docs.percona.com/percona-server/8.4/index.md) or the [Percona community forum](https://forums.percona.com/).
 
 ## Security best practices
 
@@ -151,8 +151,8 @@ The steps below walk you through creating a database and running basic queries. 
 
 ## Additional resources
 
-- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.html)
-- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.html)
-- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.html)
-- [Clean up your installation](https://docs.percona.com/percona-server/8.4/quickstart-cleanup.html)
-- [Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.html)
+- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.md)
+- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.md)
+- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.md)
+- [Clean up your installation](https://docs.percona.com/percona-server/8.4/quickstart-cleanup.md)
+- [Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.md)

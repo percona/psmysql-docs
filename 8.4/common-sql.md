@@ -14,34 +14,30 @@ Common DML commands include:
 
 Be careful when using wildcards. They return every column, which can slow down queries, use more memory and network resources, and put extra load on both the server and the client.
 
-````
+````text
 ```sql
 SELECT * FROM customers;
 ````
 
-```
+````
 
 - [**INSERT**]: This command adds new records to a table.
 
-```
+  ```sql
+  INSERT INTO customers (name, city) VALUES ('John Doe', 'Berlin');
+````
 
-INSERT INTO customers (name, city) VALUES ('John Doe', 'Berlin');
+- \[**UPDATE**\]: This command modifies existing records in a table.
 
-```
-- [**UPDATE**]: This command modifies existing records in a table.
+  ```sql
+  UPDATE customers SET city = 'Madrid' WHERE id = 1;
+  ```
 
-```
+- \[**DELETE**\]: This command removes records from a table.
 
-UPDATE customers SET city = 'Madrid' WHERE id = 1;
-
-```
-- [**DELETE**]: This command removes records from a table.
-
-```
-
-DELETE FROM customers WHERE id = 1;
-
-```
+  ```sql
+  DELETE FROM customers WHERE id = 1;
+  ```
 
 ## Data Definition Language (DDL)
 
@@ -51,25 +47,21 @@ Common DDL commands include:
 
 - **CREATE**: This command creates new database objects like tables, indexes, and views.
 
-```
+  ```sql
+  CREATE TABLE employees (id INT, name VARCHAR(50));
+  ```
 
-CREATE TABLE employees (id INT, name VARCHAR(50));
-
-```
 - **ALTER**: This command modifies the structure of existing database objects.
 
-```
+  ```sql
+  ALTER TABLE employees ADD COLUMN city VARCHAR(50);
+  ```
 
-ALTER TABLE employees ADD COLUMN city VARCHAR(50);
-
-```
 - **DROP**: This command removes database objects from the database.
 
-```
-
-DROP TABLE employees;
-
-```
+  ```sql
+  DROP TABLE employees;
+  ```
 
 ## Data Control Language (DCL)
 
@@ -79,18 +71,15 @@ Common DCL commands include:
 
 - **GRANT**: This command grants specific privileges to database users.
 
-```
+  ```sql
+  GRANT SELECT, INSERT ON employees TO 'user1'@'localhost';
+  ```
 
-GRANT SELECT, INSERT ON employees TO 'user1'@'localhost';
-
-```
 - **REVOKE**: This command revokes privileges from database users.
 
-```
-
-REVOKE INSERT ON employees FROM 'user2'@'localhost';
-
-```
+  ```sql
+  REVOKE INSERT ON employees FROM 'user2'@'localhost';
+  ```
 
 ## Transaction Control Language (TCL)
 
@@ -100,25 +89,21 @@ Common TCL commands include:
 
 - **COMMIT**: This command saves changes made during the current transaction to the database.
 
-```
+  ```sql
+  COMMIT;
+  ```
 
-COMMIT;
-
-```
 - **ROLLBACK**: This command undoes changes made during the current transaction and restores the database to its previous state.
 
-```
-
-ROLLBACK;
-
-````
+  ```sql
+  ROLLBACK;
+  ```
 
 Fundamental SQL links:
 
-- [SQL Basics](https://docs.percona.com/percona-server/8.4/sql-basics.html)
-- [SELECT](https://docs.percona.com/percona-server/8.4/select.html)
-- [INSERT](https://docs.percona.com/percona-server/8.4/insert.html)
-- [DELETE](https://docs.percona.com/percona-server/8.4/delete.html)
-- [UPDATE](https://docs.percona.com/percona-server/8.4/update.html)
-- [SQL Operators](https://docs.percona.com/percona-server/8.4/sql-operators.html)```
-````
+- [SQL Basics](https://docs.percona.com/percona-server/8.4/sql-basics.md)
+- [SELECT](https://docs.percona.com/percona-server/8.4/select.md)
+- [INSERT](https://docs.percona.com/percona-server/8.4/insert.md)
+- [DELETE](https://docs.percona.com/percona-server/8.4/delete.md)
+- [UPDATE](https://docs.percona.com/percona-server/8.4/update.md)
+- [SQL Operators](https://docs.percona.com/percona-server/8.4/sql-operators.md)

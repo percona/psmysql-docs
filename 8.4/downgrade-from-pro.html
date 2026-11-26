@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/downgrade-from-pro.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/downgrade-from-pro.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/downgrade-from-pro.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10506,23 +10506,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Set up the Percona Server for MySQL 8.4 repository</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps84
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps84
 </code></pre></div>
 </li>
 <li>
 <p>Stop the <code>mysql</code> server.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Install the server package</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>Install other required packages. <a href="apt-files.html">Check files in the DEB package built for Percona Server for MySQL 8.4</a>.</p>
 </li>
 <li>
 <p>Start the <code>mysql</code> server</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 </ol>
@@ -10530,7 +10530,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p class="admonition-title">Note</p>
 <p>On Debian 12, if you want to remove the Percona Server for MySQL after the downgrade, you must stop the 
 server manually. This behavior will be fixed in future releases.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </div>
 </div>
@@ -10538,23 +10538,23 @@ server manually. This behavior will be fixed in future releases.</p>
 <ol>
 <li>
 <p>Set up the Percona Server for MySQL 8.4 repository</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps84
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>ps84
 </code></pre></div>
 </li>
 <li>
 <p>Stop the <code>mysql</code> server.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Install the server package</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>--allowerasing<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>--allowerasing<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>Install other required packages. <a href="yum-files.html">Check files in the RPM package built for Percona Server for MySQL 8.4</a>.</p>
 </li>
 <li>
 <p>Start the <code>mysql</code> server</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 </ol>

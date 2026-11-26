@@ -4,11 +4,11 @@
 
 Percona Server for MySQL has an official Docker image hosted on [Docker Hub](https://hub.docker.com/r/percona/percona-server/) . Download a specific version by adding the [Docker tag filter for the 8.4 versions](https://registry.hub.docker.com/r/percona/percona-server/tags?page=1&name=8.4) .
 
-We gather [Telemetry data](https://docs.percona.com/percona-server/8.4/telemetry.html) in the Percona packages and Docker images.
+We gather [Telemetry data](https://docs.percona.com/percona-server/8.4/telemetry.md) in the Percona packages and Docker images.
 
 Make sure that you are using the latest version of Docker. The `APT` version or the `YUM` version may be outdated and cause errors.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.md) for ways that we can work with you.
 
 ## Starting a detached container
 
@@ -16,7 +16,7 @@ Start a container with the `--detached` or `-d` option, which runs the container
 
 The following example starts a container named `ps` with the latest version of Percona Server for MySQL 8.4. This action also creates the `root` user and uses `root` as the password. Please note that `root` is not a secure password.
 
-```
+```shell
 docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
@@ -25,7 +25,7 @@ docker run -d \
 
 Expected output
 
-```
+```text
 Unable to find image 'percona/percona-server:8.4' locally
 8.4: Pulling from percona/percona-server
 ```
@@ -34,13 +34,13 @@ By default, Docker pulls the image from Docker Hub if it is not available locall
 
 To view the container’s logs, use the following command:
 
-```
+```shell
 docker logs ps --follow
 ```
 
 Expected output
 
-```
+```text
 Initializing database
 2022-09-07T15:20:03.158128Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11-12) initializing of server in progress as process 15
 2022-09-07T15:20:03.167764Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
@@ -57,7 +57,7 @@ You can access the server when you see the `ready for connections` information i
 
 You can pass options with the `docker run` command. For example, the following command uses UTF-8 as the default setting for character set and collation for all databases:
 
-```
+```shell
 docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
@@ -72,7 +72,7 @@ The `docker exec` command lets you have a shell inside the container. This comma
 
 An example of accessing the detached container:
 
-```
+```shell
 docker exec -it ps /bin/bash
 ```
 
@@ -82,13 +82,13 @@ If you need to troubleshoot, the error log is found in `/var/log/` or `/var/log/
 
 You can view the error log with the following command:
 
-```
+```shell
 [mysql@ps] more /var/log/mysql/error.log
 ```
 
 Expected output
 
-```
+```text
 ...
 2017-08-29T04:20:22.190474Z 0 [Warning] 'NO_ZERO_DATE', 'NO_ZERO_IN_DATE' and 'ERROR_FOR_DIVISION_BY_ZERO' sql modes should be used with strict mode. They will be merged with strict mode in a future release.
 2017-08-29T04:20:22.190520Z 0 [Warning] 'NO_AUTO_CREATE_USER' sql mode was not set.
@@ -101,13 +101,13 @@ You can access the database either with `Docker exec` or using the `mysql` comma
 
 An example of using `Docker exec` to access the database:
 
-```
+```shell
 docker exec -ti ps mysql -uroot -proot
 ```
 
 Expected output
 
-```
+```text
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 9
@@ -118,13 +118,13 @@ Exiting Percona Server also exits the container.
 
 You can also run the MySQL command-line client within the container’s shell to access the database:
 
-```
+```shell
 [mysql@ps] mysql -uroot -proot
 ```
 
 Expected output
 
-```
+```text
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 8
@@ -144,7 +144,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 The image exposes the standard MySQL port 3306, so container linking makes the Percona Server instance available from other containers. To link a container running your application (in this case, from an image named `app/image`) with the Percona Server container, run it with the following command:
 
-```
+```shell
 docker run -d \
   --name app \
   --link ps \
@@ -162,7 +162,7 @@ There are two ways to store data used by applications that run in Docker contain
 
 For example, if you create a data directory on a suitable volume on your host system named `/local/datadir`, you run the container with the following command:
 
-```
+```shell
 docker run -d \
   --name ps \
   -e MYSQL_ROOT_PASSWORD=root \
@@ -178,7 +178,7 @@ Note
 
 If you have SELinux enabled, assign the relevant policy type to the new data directory so that the container will be allowed to access it:
 
-```
+```shell
 chcon -Rt svirt_sandbox_file_t /local/datadir
 ```
 
@@ -188,7 +188,7 @@ Docker allows mapping ports on the container to ports on the host system using t
 
 To map the standard MySQL port 3306 to port 6603 on the host:
 
-```
+```shell
 docker run -d \
  --name ps \
  -e MYSQL_ROOT_PASSWORD=root \
@@ -206,13 +206,13 @@ If you have a non-shell process running, interrupt the process with `CTRL-C` bef
 
 The [docker stop](https://docs.docker.com/engine/reference/commandline/stop/) container command sends a TERM signal, then waits 10 seconds and sends a KILL signal. The following example stops the `ps` container:
 
-```
+```shell
 docker stop ps
 ```
 
 The default length of time before stopping a container is 10 seconds. A very large instance cannot dump the data from memory to disk within that time. With this type of instance, add the `--time` or the `-t` option to docker stop:
 
-```
+```shell
 docker stop ps -t 600
 ```
 
@@ -220,7 +220,7 @@ docker stop ps -t 600
 
 To remove a stopped container, use the `docker rm` command.
 
-```
+```shell
 docker rm ps
 ```
 

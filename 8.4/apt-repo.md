@@ -8,9 +8,9 @@ Specific information on the supported platforms, products, and versions—includ
 
 The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
-We gather [Telemetry data](https://docs.percona.com/percona-server/8.4/telemetry.html) in the Percona packages and Docker images.
+We gather [Telemetry data](https://docs.percona.com/percona-server/8.4/telemetry.md) in the Percona packages and Docker images.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.md) for ways that we can work with you.
 
 ## Install Percona Server for MySQL using APT
 
@@ -18,7 +18,7 @@ If you are new to installing Percona Server on Debian or Ubuntu, copy the first 
 
 Run the following commands as a `root` user or with sudo:
 
-```
+```shell
 sudo apt update
 sudo apt install -y curl
 curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
@@ -29,7 +29,7 @@ sudo apt update
 sudo apt install -y percona-server-server
 ```
 
-The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.html) (installation steps 1–6 there).
+The command sequence matches [Install Percona Server for MySQL and create a database on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.md) (installation steps 1–6 there).
 
 `percona-release` flag: `--scheme`
 
@@ -45,37 +45,37 @@ The following sections provide detailed explanations for each step:
 
 1. The `apt update` command shown below updates the package lists for upgrades and new package installations. `sudo` runs the command with superuser privileges; `apt update` resynchronizes the package index files from the sources configured in `/etc/apt/sources.list` and `/etc/apt/sources.list.d/`.
 
-   ```
+   ```shell
    sudo apt update
    ```
 
 1. The `sudo apt install -y curl` command installs the `curl` package. `curl` is a command-line tool used to transfer data over networks and is required to download the Percona repository package.
 
-   ```
+   ```shell
    sudo apt install -y curl
    ```
 
 1. The `curl -O` command shown below downloads the `percona-release_latest.generic_all.deb` file from the Percona APT repository. The `-O` option saves the file with the same name as in the URL.
 
-   ```
+   ```shell
    curl -O https://repo.percona.com/apt/percona-release_latest.generic_all.deb
    ```
 
 1. The `sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb` command installs `gnupg2` (for package signature verification), `lsb-release` (for distribution information), and the downloaded Percona release package. Together, `gnupg2`, `lsb-release`, and the Percona release `.deb` configure the Percona APT repository on your system.
 
-   ```
+   ```shell
    sudo apt install -y gnupg2 lsb-release ./percona-release_latest.generic_all.deb
    ```
 
 1. The `percona-release setup ps-84-lts --scheme https` command disables all current Percona repository locations on the system, then enables the release repositories that match Percona Server for MySQL 8.4 for your distribution over HTTPS (see the [Percona Software Repositories](https://docs.percona.com/percona-software-repositories/percona-release.html) documentation). Omit `--scheme https` only if you intentionally want HTTP repository URLs (the tool default).
 
-   ```
+   ```shell
    sudo percona-release setup ps-84-lts --scheme https
    ```
 
 1. The `percona-release enable ps-84-lts release --scheme https` command turns on the Percona Server for MySQL release repository location with HTTPS URLs. Run `apt update` afterward so APT loads package indexes for that repository (including `percona-server-server` and related packages).
 
-   ```
+   ```shell
    sudo percona-release enable ps-84-lts release --scheme https
    sudo apt update
    ```
@@ -84,7 +84,7 @@ The following sections provide detailed explanations for each step:
 
 1. The `sudo apt install -y percona-server-server` command installs the `percona-server-server` package. During installation, the package manager may prompt you to select the default authentication plugin (some builds use only debconf or post-install configuration); follow the [Configure authentication](#configure-authentication) section when a prompt or post-install step applies.
 
-   ```
+   ```shell
    sudo apt install -y percona-server-server
    ```
 
@@ -112,28 +112,28 @@ If you choose Option 2, you must manually enable the plugin after installation, 
 
 1. Add the following to the `[mysqld]` section:
 
-   ```
+   ```ini
    [mysqld]
    mysql_native_password=ON
    ```
 
 1. Restart the service:
 
-   ```
+   ```bash
    sudo systemctl restart mysql
    ```
 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
-Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/8.4/install-myrocks.html).
+Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/8.4/install-myrocks.md).
 
 ## Next Steps
 
 After successful installation:
 
-- [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.html) — Configure and secure your Percona Server for MySQL installation.
-- [First five minutes after installation](https://docs.percona.com/percona-server/8.4/first-five-minutes.html) — Security and stability steps to take right after install (secure the server, create an admin user, enable logging, verify backup path).
-- [Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.html) — Ideas for what to do next (backup, monitoring, data types, and related Percona products).
+- [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.md) — Configure and secure your Percona Server for MySQL installation.
+- [First five minutes after installation](https://docs.percona.com/percona-server/8.4/first-five-minutes.md) — Security and stability steps to take right after install (secure the server, create an admin user, enable logging, verify backup path).
+- [Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.md) — Ideas for what to do next (backup, monitoring, data types, and related Percona products).
 
 ## Non-interactive installs and debconf
 
@@ -143,7 +143,7 @@ To automate those prompts:
 
 1. Discover the questions your package version uses. On a lab host, install once interactively or inspect templates, then run:
 
-   ```
+   ```shell
    sudo debconf-show percona-server-server
    ```
 
@@ -153,7 +153,7 @@ To automate those prompts:
 
 1. Preseed answers with `debconf-set-selections` before `apt install`. For the templates shipped with many Percona Server for MySQL 8.4 packages, password prompts use the `percona-server-server/root-pass` and `percona-server-server/re-root-pass` names—for example:
 
-   ```
+   ```shell
    echo "percona-server-server percona-server-server/root-pass password choose-a-strong-secret" | sudo debconf-set-selections
    echo "percona-server-server percona-server-server/re-root-pass password choose-a-strong-secret" | sudo debconf-set-selections
    ```
@@ -162,7 +162,7 @@ To automate those prompts:
 
 1. Optional: set `DEBIAN_FRONTEND=noninteractive` for the install so debconf does not try to open a UI. Noninteractive installs are usually combined with preseeding; without defaults for required questions, the configure step can still fail or leave the server in an unexpected state.
 
-   ```
+   ```shell
    sudo DEBIAN_FRONTEND=noninteractive apt install -y percona-server-server
    ```
 
@@ -170,9 +170,9 @@ Default authentication plugin: if your distribution or package adds a debconf ch
 
 See also
 
-- [Telemetry](https://docs.percona.com/percona-server/8.4/telemetry.html) — disable collection for package installs with `PERCONA_TELEMETRY_DISABLE=1` on the same `apt` command line.
-- [Authentication methods](https://docs.percona.com/percona-server/8.4/authentication-methods.html) — options for `mysql_native_password`, `caching_sha2_password`, and related settings.
-- [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.html) — secure and configure the server after packages are installed.
+- [Telemetry](https://docs.percona.com/percona-server/8.4/telemetry.md) — disable collection for package installs with `PERCONA_TELEMETRY_DISABLE=1` on the same `apt` command line.
+- [Authentication methods](https://docs.percona.com/percona-server/8.4/authentication-methods.md) — options for `mysql_native_password`, `caching_sha2_password`, and related settings.
+- [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.md) — secure and configure the server after packages are installed.
 - [Debian Wiki — debconf](https://wiki.debian.org/debconf) — how debconf and preseeding work on Debian-derived systems.
 
 ## Unattended installations
@@ -183,7 +183,7 @@ The `-y` flag (on `apt` and `apt-get`, `--assumeyes` on `dnf`) tells the package
 
 **`percona-release`** — The `setup` command documents **`-y`** for non-interactive repository configuration, for example:
 
-```
+```bash
 sudo percona-release setup -y {{pkg}} --scheme https
 ```
 
@@ -191,15 +191,15 @@ If you use `enable` or `enable-only` instead, see `sudo percona-release --help` 
 
 **Debian and Ubuntu (`apt`)** — Add `-y` to each `sudo apt install` (or `sudo apt-get install`) you run, for example `sudo apt install -y curl` and `sudo apt install -y percona-server-server`.
 
-To **disable telemetry** during an unattended server install, set `PERCONA_TELEMETRY_DISABLE=1` on the same line (see [Telemetry](https://docs.percona.com/percona-server/8.4/telemetry.html) for details):
+To **disable telemetry** during an unattended server install, set `PERCONA_TELEMETRY_DISABLE=1` on the same line (see [Telemetry](https://docs.percona.com/percona-server/8.4/telemetry.md) for details):
 
-```
+```bash
 sudo PERCONA_TELEMETRY_DISABLE=1 apt install -y percona-server-server
 ```
 
 **RPM-based systems (`dnf` / `yum`)** — Add `-y` (or `yes`) to install commands as supported by your tool. Example with telemetry disabled:
 
-```
+```bash
 sudo PERCONA_TELEMETRY_DISABLE=1 dnf install -y percona-server-server
 ```
 
@@ -211,7 +211,7 @@ Percona Server for MySQL includes user-defined functions (UDFs) from [Percona To
 
 These UDFs provide faster checksum calculations. Install the component if you use tools that need the component (for example, `pt-table-checksum`) or need fast fingerprinting to compare tables or distribute rows across servers.
 
-Use these functions for high-speed checksumming and sharding. [Learn more about UDF Use Cases →](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html)
+Use these functions for high-speed checksumming and sharding. [Learn more about UDF Use Cases →](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md)
 
 - `fnv_64`: Fast hash function
 - `fnv1a_64`: Alternative fast hash function
@@ -221,25 +221,25 @@ User-Defined Functions (UDFs) are custom functions you can add to MySQL to exten
 
 To install the Percona Toolkit UDFs after installation:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 You can now use the UDFs in your SQL queries. For example: `SELECT fnv_64('test_string');`
 
-For detailed information about the UDFs, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html).
+For detailed information about the UDFs, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md).
 
 ## Install the Percona testing repository using APT
 
 Percona offers pre-release builds from the testing repository. As a superuser, run `percona-release` with the `testing` argument to enable the testing repository:
 
-```
+```shell
 sudo percona-release enable ps-84-lts testing --scheme https
 ```
 

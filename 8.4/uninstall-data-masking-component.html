@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/uninstall-data-masking-component.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/uninstall-data-masking-component.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/uninstall-data-masking-component.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10624,7 +10624,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Privileges: The install procedure grants <code>MASKING_DICTIONARIES_ADMIN</code> to users and may grant privileges to <code>mysql.session</code> on <code>mysql.masking_dictionaries</code>. Uninstalling does not revoke these. For a clean state, revoke them before or after uninstall. To revoke from <code>mysql.session</code>, the table must still exist, so do that before dropping the table. Example (adjust for your database if you changed <code>masking_database</code>):</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">REVOKE</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">REVOKE</span><span class="w"> </span><span class="n">MASKING_DICTIONARIES_ADMIN</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">REVOKE</span><span class="w"> </span><span class="k">SELECT</span><span class="p">,</span><span class="w"> </span><span class="k">INSERT</span><span class="p">,</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">,</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="s1">'mysql.session'</span><span class="o">@</span><span class="s1">'localhost'</span><span class="p">;</span>
 </code></pre></div>
 <ul>
@@ -10640,14 +10640,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Uninstall the component and loadable functions.</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_masking_functions'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_masking_functions'</span><span class="p">;</span>
 </code></pre></div>
 <p>After this step, any view, stored procedure, or trigger that references masking functions is invalid and will cause errors when used.</p>
 </li>
 <li>
 <p>Optionally drop the <code>masking_dictionaries</code> table.</p>
 <p>Dropping this table permanently removes all dictionary data and cannot be undone. Skip this step if you plan to reinstall or upgrade and want to keep the table and data. If you might need the dictionary data later, back up the table or export the data before dropping.</p>
-<div class="highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">masking_dictionaries</span><span class="p">;</span>
 </code></pre></div>
 <p>If you granted privileges to <code>mysql.session</code> on this table and did not revoke them in &ldquo;Before you uninstall,&rdquo; the grant entries may remain in the system until you revoke them; revoking requires the table to exist, so revoke before dropping the table if you want a full cleanup.</p>
 </li>

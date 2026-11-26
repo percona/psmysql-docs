@@ -4,7 +4,7 @@
 
 This guide walks you through the most important security and stability steps to take right after installing Percona Server for MySQL. Completing these steps helps protect your server and makes troubleshooting easier.
 
-Quickstart path: After [Install (Ubuntu)](https://docs.percona.com/percona-server/8.4/quickstart-apt.html), [Install (Oracle Linux)](https://docs.percona.com/percona-server/8.4/quickstart-yum.html), or [Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.html). Next: [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html).
+Quickstart path: After [Install (Ubuntu)](https://docs.percona.com/percona-server/8.4/quickstart-apt.md), [Install (Oracle Linux)](https://docs.percona.com/percona-server/8.4/quickstart-yum.md), or [Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.md). Next: [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md).
 
 | Step                                                                        | What you do                                                                                                |
 | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -14,14 +14,14 @@ Quickstart path: After [Install (Ubuntu)](https://docs.percona.com/percona-serve
 | [Enable diagnostic logging](#enable-diagnostic-logging)                     | Turn on error and slow-query logging so you can diagnose issues later.                                     |
 | [Verify the backup path](#verify-the-backup-path)                           | Ensure the directory where backups will go exists and is writable.                                         |
 
-When you are done, use [Sanity check: First five minutes](https://docs.percona.com/percona-server/8.4/sanity-check.html) to verify that these steps were applied correctly.
+When you are done, use [Sanity check: First five minutes](https://docs.percona.com/percona-server/8.4/sanity-check.md) to verify that these steps were applied correctly.
 
 ## Secure the installation
 
 Before doing anything else, complete the standard post-installation security steps. These ensure the server is not left with default passwords, anonymous users (accounts with no username that can connect without proper credentials), or remote root login.
 
 1. Set or update the `root` password\
-   The *root* account is the default MySQL administrative user. If you did not set its password during install (for example, on some RPM-based systems), set one now. See [Post-installation — Update the root password](https://docs.percona.com/percona-server/8.4/post-installation.html#update-the-root-password).
+   The *root* account is the default MySQL administrative user. If you did not set its password during install (for example, on some RPM-based systems), set one now. See [Post-installation — Update the root password](https://docs.percona.com/percona-server/8.4/post-installation.md#update-the-root-password).
 
 1. Run `mysql_secure_installation` to:
 
@@ -33,9 +33,9 @@ Before doing anything else, complete the standard post-installation security ste
 
 1. Optional: populate time zone tables
 
-If you installed from source or generic binaries, [populate the time zone tables](https://docs.percona.com/percona-server/8.4/post-installation.html#populate-the-time-zone-tables) (the system data that makes time zone–aware date and time functions work correctly).
+If you installed from source or generic binaries, [populate the time zone tables](https://docs.percona.com/percona-server/8.4/post-installation.md#populate-the-time-zone-tables) (the system data that makes time zone–aware date and time functions work correctly).
 
-For more information, see [Post-installation — Secure the server](https://docs.percona.com/percona-server/8.4/post-installation.html#secure-the-server).
+For more information, see [Post-installation — Secure the server](https://docs.percona.com/percona-server/8.4/post-installation.md#secure-the-server).
 
 ## Create a least-privilege admin user
 
@@ -43,19 +43,19 @@ Use a dedicated admin account for day-to-day administration instead of `root`. G
 
 1. Connect as `root` (or another user that can create users and grant privileges):
 
-   ```
+   ```shell
    mysql -u root -p
    ```
 
 1. Create an admin user. Use a strong password and a specific *host* (the machine or network location the user can connect from; for example, `localhost` means the same machine only) instead of `%` (which means any host):
 
-   ```
+   ```sql
    CREATE USER 'admin'@'localhost' IDENTIFIED BY 'YourStrongPassword_12';
    ```
 
 1. Grant only the privileges the admin needs. *Grant* means to assign a permission to a user. The following is a common set for an admin who manages users, replication, and backups but does not need full `SUPER` (a powerful built-in privilege) or global privileges on all databases (`*.*`):
 
-   ```
+   ```sql
    GRANT CREATE USER, RELOAD, PROCESS, REPLICATION CLIENT, REPLICATION SLAVE, BACKUP_ADMIN,
          SHOW DATABASES, SELECT ON *.* TO 'admin'@'localhost';
    FLUSH PRIVILEGES;
@@ -65,7 +65,7 @@ Use a dedicated admin account for day-to-day administration instead of `root`. G
 
 1. Test the new user:
 
-   ```
+   ```shell
    mysql -u admin -p -e "SHOW DATABASES;"
    ```
 
@@ -73,7 +73,7 @@ Use a dedicated admin account for day-to-day administration instead of `root`. G
 
 Adjust privileges to your needs
 
-Add or remove privileges based on what this admin will do. For example, add `SHOW VIEW`, `CREATE ROUTINE`, or `EVENT` if they manage views (saved queries presented as virtual tables), routines (stored procedures and functions), or scheduled events. Avoid granting `SUPER`, `ALL`, or `*.*` unless necessary. You can review effective privileges with [SHOW EFFECTIVE GRANTS](https://docs.percona.com/percona-server/8.4/extended-show-grants.html).
+Add or remove privileges based on what this admin will do. For example, add `SHOW VIEW`, `CREATE ROUTINE`, or `EVENT` if they manage views (saved queries presented as virtual tables), routines (stored procedures and functions), or scheduled events. Avoid granting `SUPER`, `ALL`, or `*.*` unless necessary. You can review effective privileges with [SHOW EFFECTIVE GRANTS](https://docs.percona.com/percona-server/8.4/extended-show-grants.md).
 
 ## Configure an OOM-killer guardrail
 
@@ -83,27 +83,27 @@ Using *systemd* (the Linux system and service manager that starts and manages th
 
 1. Create or edit an override file for the MySQL service:
 
-```
+```shell
 sudo systemctl edit mysql
 ```
 
 1. Add the following:
 
-```
+```ini
 [Service]
 OOMScoreAdjust=-500
 ```
 
 1. Save and close the editor. Reload systemd and restart the MySQL service:
 
-```
+```shell
 sudo systemctl daemon-reload
 sudo systemctl restart mysql
 ```
 
 1. Confirm the setting:
 
-```
+```shell
 systemctl show mysql -p OOMScoreAdjust
 ```
 
@@ -122,14 +122,14 @@ Enabling the *error log* (a file where the server records errors, warnings, and 
 1. Ensure the error log is set\
    The server usually writes an error log by default. Confirm or set an explicit path so you know where to look:
 
-```
+```ini
 [mysqld]
 log_error=/var/log/mysql/error.log
 ```
 
 On some systems the directory is `/var/lib/mysql` (the default *data directory*, where the server stores database files) or similar. Create the log directory if needed and set ownership to the MySQL system user (the operating-system user that runs the MySQL process; often named `mysql`):
 
-```
+```shell
 sudo mkdir -p /var/log/mysql
 sudo chown mysql:mysql /var/log/mysql
 ```
@@ -137,7 +137,7 @@ sudo chown mysql:mysql /var/log/mysql
 1. Enable the slow query log\
    The slow query log helps you find queries that need optimization:
 
-```
+```ini
 slow_query_log = 1
 long_query_time = 2
 slow_query_log_file = /var/log/mysql/slow.log
@@ -146,7 +146,7 @@ slow_query_log_file = /var/log/mysql/slow.log
 Adjust `long_query_time` (the time in seconds above which a query is considered “slow” and written to the log) to what you consider slow. Restart the server after changing the config.
 
 1. Optional: restrict log locations\
-   For tighter control over where logs are written, see [Restrict dynamic log file locations](https://docs.percona.com/percona-server/8.4/restrict-dynamic-log-locations.html).
+   For tighter control over where logs are written, see [Restrict dynamic log file locations](https://docs.percona.com/percona-server/8.4/restrict-dynamic-log-locations.md).
 
 ## Verify the backup path
 
@@ -157,7 +157,7 @@ Your backup strategy (for example, [Percona XtraBackup](https://docs.percona.com
 1. Create the directory and set permissions\
    The MySQL process (or the operating-system user that runs the backup tool) must be able to write there:
 
-```
+```shell
 sudo mkdir -p /var/backups/mysql
 sudo chown mysql:mysql /var/backups/mysql
 sudo chmod 750 /var/backups/mysql
@@ -166,19 +166,19 @@ sudo chmod 750 /var/backups/mysql
 1. Check that the backup directory is writable\
    As the MySQL user (or the backup user), test write access:
 
-```
+```shell
 sudo -u mysql touch /var/backups/mysql/.write_test && sudo -u mysql rm /var/backups/mysql/.write_test && echo "OK: backup path is writable"
 ```
 
 1. Document the path\
    Use this path in your backup scripts, cron jobs, or documentation so that restores use the same location.
 
-For backup strategy and tools, see [Backup and restore overview](https://docs.percona.com/percona-server/8.4/backup-restore-overview.html). For [Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/8.4/index.html) , see the [Quickstart for 8.4](https://docs.percona.com/percona-xtrabackup/8.4/quickstart-overview.html) .
+For backup strategy and tools, see [Backup and restore overview](https://docs.percona.com/percona-server/8.4/backup-restore-overview.md). For [Percona XtraBackup](https://docs.percona.com/percona-xtrabackup/8.4/index.html) , see the [Quickstart for 8.4](https://docs.percona.com/percona-xtrabackup/8.4/quickstart-overview.html) .
 
 ## Next steps
 
-- [Quickstart — Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html) — Create tables and run queries (next step in the Quickstart path).
-- Run [Sanity check: First five minutes](https://docs.percona.com/percona-server/8.4/sanity-check.html) to confirm all steps were applied correctly.
+- [Quickstart — Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md) — Create tables and run queries (next step in the Quickstart path).
+- Run [Sanity check: First five minutes](https://docs.percona.com/percona-server/8.4/sanity-check.md) to confirm all steps were applied correctly.
 - Use your new admin user for daily work and keep `root` for emergencies.
 - Plan and test backups to the verified backup path.
-- [Quickstart — Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.html) — See the full Quickstart path.
+- [Quickstart — Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.md) — See the full Quickstart path.

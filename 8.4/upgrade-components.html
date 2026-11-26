@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/upgrade-components.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/upgrade-components.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/upgrade-components.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10702,7 +10702,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <h3 id="migrate-from-the-keyring_file-plugin-to-component_keyring_file">Migrate from the keyring_file plugin to component_keyring_file<a data-markdown-ignore class="headerlink" href="#migrate-from-the-keyring_file-plugin-to-component_keyring_file" title="Permanent link">&para;</a></h3>
 <p>8.4 does not include the <code>keyring_file</code> plugin. If you upgrade an 8.0 server that uses <code>early-plugin-load=keyring_file.so</code> and has encrypted tables, the first 8.4 start fails with errors like the following. The package installation then fails as well:</p>
-<div class="no-copy highlight"><pre><span></span><code>[ERROR] [MY-010901] [Server] Can't open shared library '/usr/lib/mysql/plugin/keyring_file.so' ...
+<div class="language-text no-copy highlight"><pre><span></span><code>[ERROR] [MY-010901] [Server] Can't open shared library '/usr/lib/mysql/plugin/keyring_file.so' ...
 [ERROR] [MY-012657] [InnoDB] Encryption can't find master key, please check the keyring is loaded.
 [ERROR] [MY-011071] [Server] DD init failed: mode=DD_RESTART_OR_UPGRADE ...
 </code></pre></div>
@@ -10711,25 +10711,25 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Stop the 8.0 server:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>mysql
 </code></pre></div>
 </li>
 <li>
 <p>Create the component configuration file. The <code>path</code> value is the new keyring file that the migration creates:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'{ "path": "/var/lib/mysql-keyring/component_keyring_file", "read_only": false }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/usr/lib/mysql/plugin/component_keyring_file.cnf
+<div class="language-shell highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'{ "path": "/var/lib/mysql-keyring/component_keyring_file", "read_only": false }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/usr/lib/mysql/plugin/component_keyring_file.cnf
 </code></pre></div>
 <p>Do not create the manifest file (<code>mysqld.my</code>) yet. If the manifest already loads the component, the migration fails with <code>Can not perform keyring migration : Failed to initialize destination keyring</code>.</p>
 </li>
 <li>
 <p>Migrate the keys from the plugin keyring file (by default, <code>/var/lib/mysql-keyring/keyring</code>) to the component:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>--no-defaults<span class="w"> </span>--keyring-migration-to-component<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>--no-defaults<span class="w"> </span>--keyring-migration-to-component<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--keyring-migration-source<span class="o">=</span>keyring_file.so<span class="w"> </span>--keyring_file_data<span class="o">=</span>/var/lib/mysql-keyring/keyring<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--keyring-migration-destination<span class="o">=</span>component_keyring_file.so
 </code></pre></div>
 </li>
 <li>
 <p>After the migration succeeds, create the global manifest file in the directory of the server binary so that the server loads the component:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'{ "components": "file://component_keyring_file" }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/usr/sbin/mysqld.my
+<div class="language-shell highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">'{ "components": "file://component_keyring_file" }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/usr/sbin/mysqld.my
 </code></pre></div>
 </li>
 <li>
@@ -10737,9 +10737,9 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Start the 8.0 server and confirm that the component is active and that the encrypted tables are readable:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>mysql
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">keyring_component_status</span><span class="p">;</span>
 </code></pre></div>
 </li>
 </ol>

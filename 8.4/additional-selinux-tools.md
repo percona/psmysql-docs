@@ -6,7 +6,7 @@
 
 To install SELinux management tools on Red Hat Enterprise Linux 8 or later, run the following command as root:
 
-```
+```shell
 yum -y install policycoreutils-python-utils
 ```
 
@@ -18,25 +18,25 @@ SELinux can operate in three modes: Disabled, Permissive, and Enforcing.
 
 To switch SELinux mode until the next reboot, use either of the following commands as root:
 
-```
+```shell
 setenforce Enforcing
 ```
 
 or
 
-```
+```shell
 setenforce 1
 ```
 
 To view the current SELinux mode, use either of the following commands:
 
-```
+```shell
 getenforce
 ```
 
 or
 
-```
+```shell
 sestatus | grep -i mode
 ```
 
@@ -46,13 +46,13 @@ sestatus | grep -i mode
 
 To add a service to the permissive domain, execute the following as root:
 
-```
+```shell
 semanage permissive -a <service_name>
 ```
 
 To delete a service from the permissive domain, run:
 
-```
+```shell
 semanage permissive -d <service_name>
 ```
 
@@ -60,6 +60,6 @@ semanage permissive -d <service_name>
 
 To list the current permissive domains, use the following command:
 
-```
+```shell
 semanage permissive -l
 ```

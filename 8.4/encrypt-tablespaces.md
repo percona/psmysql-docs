@@ -14,7 +14,7 @@ The encryption of a schema or a general tablespace is determined by the `default
 
 You can set the `default_table_encryption` variable in an individual connection.
 
-```
+```sql
 SET default_table_encryption=ON;
 ```
 
@@ -57,7 +57,7 @@ This variable simultaneously turns on the encryption of files used by InnoDB for
 
 If you do not set the default encryption setting, you can create general tablespaces with the `ENCRYPTION` setting.
 
-```
+```sql
 CREATE TABLESPACE tablespace_name ENCRYPTION='Y';
 ```
 
@@ -67,13 +67,13 @@ The option is a tablespace attribute and is not allowed with the `CREATE TABLE` 
 
 In an encrypted general tablespace, an attempt to create an unencrypted table generates the following error:
 
-```
+```sql
 CREATE TABLE t3 (a INT, b TEXT) TABLESPACE foo ENCRYPTION='N';
 ```
 
 Expected output
 
-```
+```text
 ERROR 1478 (HY0000): InnoDB: Tablespace 'foo' can contain only ENCRYPTED tables.
 ```
 

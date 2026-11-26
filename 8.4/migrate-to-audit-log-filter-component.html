@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10820,7 +10820,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>Inventory the current configuration. On the 8.0 server, or on a plugin-enabled 8.4 server, capture the legacy settings:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'audit_log_%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'audit_log_%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Save the output. You will translate each non-default value into either a component variable, a filter JSON rule, or an <code>audit_log_filter_set_user()</code> call.</p>
 <ol>
@@ -10961,33 +10961,33 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>Install any of these with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a> and assign them with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'%'</span><span class="p">,</span><span class="w">        </span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="translating-includeexclude-lists">Translating include/exclude lists<a data-markdown-ignore class="headerlink" href="#translating-includeexclude-lists" title="Permanent link">&para;</a></h2>
 <p>The plugin filtered globally. The component filters per account (via <code>audit_log_user</code>) and per event (via <code>log</code> conditions that compare event fields). Most migrations combine both.</p>
 <h3 id="accounts">Accounts<a data-markdown-ignore class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app@%,admin@localhost'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app@%,admin@localhost'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — assign a logging filter to the two accounts and leave the default <code>%</code> with no filter (or an empty filter):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": { "log": true } }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'app@%'</span><span class="p">,</span><span class="w">          </span><span class="s1">'log_all'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'admin@localhost'</span><span class="p">,</span><span class="s1">'log_all'</span><span class="p">);</span>
 </code></pre></div>
 <p>Plugin exclude list, inverted:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'monitor@%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_exclude_accounts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'monitor@%'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — keep the default <code>%</code> assigned to a logging filter and assign <code>monitor@%</code> to an empty filter (or leave it unassigned if <code>%</code> has no filter):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'no_log'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": {} }'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'no_log'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{ "filter": {} }'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'monitor@%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'no_log'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="commands">Commands<a data-markdown-ignore class="headerlink" href="#commands" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'select,insert,update,delete'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_commands</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'select,insert,update,delete'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — narrow the <code>general</code> class with a <code>log</code> condition that tests <code>general_sql_command.str</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_dml'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_dml'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": {</span>
 <span class="s1">      "name": "general",</span>
@@ -11004,10 +11004,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>For exclusion, wrap the condition in <code>not</code>.</p>
 <h3 id="databases">Databases<a data-markdown-ignore class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
 <p>Plugin:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app,reports'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">audit_log_include_databases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'app,reports'</span><span class="p">;</span>
 </code></pre></div>
 <p>Component — narrow <code>table_access</code> by <code>table_database.str</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_app_reports'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_app_reports'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": {</span>
 <span class="s1">      "name": "table_access",</span>
@@ -11024,7 +11024,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>For a complete grammar reference (field names, logical operators, variables, functions), see <a href="write-filter-definitions.html">Write filter definitions</a> and <a href="audit-log-filter-definition-fields.html">Definition fields reference</a>.</p>
 <h2 id="worked-example">Worked example<a data-markdown-ignore class="headerlink" href="#worked-example" title="Permanent link">&para;</a></h2>
 <p>Starting plugin configuration in <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">plugin-load-add</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s">audit_log.so</span>
 <span class="na">audit_log_format</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span>
 <span class="na">audit_log_policy</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s">ALL</span>
@@ -11034,14 +11034,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="na">audit_log_rotations</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s">10</span>
 </code></pre></div>
 <p>After upgrading to 8.4 and running <code>audit_log_filter_linux_install.sql</code>, replace it with:</p>
-<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[mysqld]</span>
 <span class="na">audit_log_filter.format</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span>
 <span class="na">audit_log_filter.rotate_on_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">104857600</span>
 <span class="na">audit_log_filter.max_size</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s">1048576000</span>
 </code></pre></div>
 <p>The plugin&rsquo;s <code>audit_log_rotations = 10</code> with <code>audit_log_rotate_on_size = 104857600</code> (100 MiB) maps to a 1 GiB total-size cap (<code>10 × 104857600</code>). Age-based retention with <a href="audit-log-filter-variables.html#audit_log_filterprune_seconds"><code>audit_log_filter.prune_seconds</code></a> is an alternative; do not set both <code>max_size</code> and <code>prune_seconds</code> — the component accepts only one at a time.</p>
 <p>Then define the filter and assign accounts:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all_except_set_option'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'log_all_except_set_option'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": [</span>
 <span class="s1">      { "name": "connection" },</span>
@@ -11066,23 +11066,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Confirm the component is live:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_audit_log_filter'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_audit_log_filter'</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Log in as a subject account, run a representative statement, and read the new log:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{}'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_read</span><span class="p">(</span><span class="s1">'{}'</span><span class="p">);</span>
 </code></pre></div>
 <p>See <a href="reading-audit-log-filter-files.html">Read log files</a>.</p>
 </li>
 <li>
 <p>Uninstall the legacy plugin and clear its settings from <code>my.cnf</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="p">;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Rotate once so new writes go to a fresh file under the component&rsquo;s naming scheme:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_rotate</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_rotate</span><span class="p">();</span>
 </code></pre></div>
 </li>
 <li>

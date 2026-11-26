@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/migration-from-ps-ce.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/migration-from-ps-ce.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/migration-from-ps-ce.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10875,7 +10875,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h3 id="percona-toolkit-udfs">Percona Toolkit UDFs<a data-markdown-ignore class="headerlink" href="#percona-toolkit-udfs" title="Permanent link">&para;</a></h3>
 <p>Percona Server can install optional <a href="udf-percona-toolkit.html">Percona Toolkit UDFs</a> (<code>fnv_64</code>, <code>fnv1a_64</code>, and <code>murmur_hash</code>) through the <code>component_percona_udf</code> component. MySQL CE does not include these functions. MySQL CE fails when parsing or executing a view, trigger, stored procedure, event, or generated column that references them. A logical restore also fails when dump metadata still references these functions.</p>
 <p>Before migration, locate registered functions and dependent SQL objects on Percona Server. Then remove or rewrite those objects:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%percona_udf%'</span><span class="p">;</span>
 
@@ -10897,7 +10897,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">VIEW_DEFINITION</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%murmur_hash%'</span><span class="p">;</span>
 </code></pre></div>
 <p>On Percona Server, uninstall the component (or drop legacy functions when present). Change each dependent object to use CE-supported expressions:</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <p>When functions were registered through the older <code>mysql.func</code> mechanism, drop them explicitly after uninstalling the component. Rewrite or drop routines and views that still reference the function names. Then run a logical dump.</p>
 <h2 id="best-practices-migrating-to-mysql-ce">Best practices: migrating to MySQL CE<a data-markdown-ignore class="headerlink" href="#best-practices-migrating-to-mysql-ce" title="Permanent link">&para;</a></h2>
@@ -10945,13 +10945,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The log sequence number (LSN) is a 64-bit integer. InnoDB uses the LSN as a unique identifier for every database change. The LSN orders and recovers InnoDB work.</p>
 <p>Standard MySQL LSN records track inserts, updates, and deletes. Percona Server adds extra information to log records. The extra data supports fast checkpointing, parallel doublewrite buffers, and changed page tracking for incremental backups.</p>
 <p>Percona Server writes specialized record types into the redo log (<code>ib_logfile0</code>, <code>ib_logfile1</code>). When you shut down Percona Server and start MySQL CE against the same data directory, MySQL CE runs crash recovery on the redo log. The MySQL CE parser encounters Percona-specific log records without a matching definition. The MySQL service fails to start with an error similar to the following:</p>
-<div class="highlight"><pre><span></span><code>[ERROR] [MY-011899] [InnoDB] Unknown redo log record type 123
+<div class="language-text highlight"><pre><span></span><code>[ERROR] [MY-011899] [InnoDB] Unknown redo log record type 123
 </code></pre></div>
 <p class="power-number">Empty the redo log before you switch binaries. Use a clean shutdown. Follow these steps:</p>
 <ol>
 <li>
 <p>Set the global fast shutdown option to 0 (slow/full shutdown) so that InnoDB flushes all dirty pages and clears the redo log completely:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_fast_shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">innodb_fast_shutdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <p>With the default value 1, the server skips a full purge and insert buffer merge and can leave data in the redo log. With value 0, the server flushes all dirty pages and clears the redo log completely.</p>
 </li>
@@ -11066,7 +11066,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Run the following SQL commands to find Percona-exclusive features in your environment. These queries target incompatible components and metadata that block migration to MySQL CE.</p>
 <h3 id="identify-active-exclusive-plugins">Identify active exclusive plugins<a data-markdown-ignore class="headerlink" href="#identify-active-exclusive-plugins" title="Permanent link">&para;</a></h3>
 <p>The following query identifies active plugins only (not components). The query returns Percona-exclusive plugins such as the Audit Log plugin, PAM/LDAP authentication, and MyRocks.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_VERSION</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="s1">'audit_log'</span><span class="p">,</span><span class="w"> </span>
@@ -11080,7 +11080,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h3 id="identify-active-exclusive-components">Identify active exclusive components<a data-markdown-ignore class="headerlink" href="#identify-active-exclusive-components" title="Permanent link">&para;</a></h3>
 <p>Percona-exclusive components (such as the Audit Log Filter, Data Masking, and keyring components) register in <code>mysql.component</code>. The following query lists installed components whose URN matches known Percona-only components.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%audit_log_filter%'</span><span class="w"> </span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking_functions%'</span><span class="w"> </span>
@@ -11090,27 +11090,27 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <h3 id="check-for-myrocks-storage-engine-usage">Check for MyRocks storage engine usage<a data-markdown-ignore class="headerlink" href="#check-for-myrocks-storage-engine-usage" title="Permanent link">&para;</a></h3>
 <p>MyRocks is a high-risk one-way door. Check whether any user tables use the engine. Convert those tables to InnoDB before a logical dump.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">TABLE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">TABLES</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">ENGINE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'RocksDB'</span><span class="w"> </span>
 <span class="k">AND</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'information_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sys'</span><span class="p">,</span><span class="w"> </span><span class="s1">'performance_schema'</span><span class="p">,</span><span class="w"> </span><span class="s1">'mysql'</span><span class="p">);</span>
 </code></pre></div>
 <h3 id="identify-percona-specific-authentication">Identify Percona-specific authentication<a data-markdown-ignore class="headerlink" href="#identify-percona-specific-authentication" title="Permanent link">&para;</a></h3>
 <p>MySQL CE does not recognize users that use Percona PAM or LDAP plugins. Find those users and change authentication to <code>caching_sha2_password</code> or <code>mysql_native_password</code> before migrating.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%pam%'</span><span class="w"> </span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%ldap%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="verify-thread-pool-status">Verify thread pool status<a data-markdown-ignore class="headerlink" href="#verify-thread-pool-status" title="Permanent link">&para;</a></h3>
 <p>The thread pool code exists in Percona Server. The thread pool affects migration only when actively configured. The following command shows whether the server uses Percona scalable thread pool handling instead of the standard MySQL connection model.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'thread_handling'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'thread_handling'</span><span class="p">;</span>
 <span class="c1">-- When the result is 'pool-of-threads', the Percona Thread Pool is active.</span>
 </code></pre></div>
 <h3 id="identify-percona-toolkit-udfs">Identify Percona Toolkit UDFs<a data-markdown-ignore class="headerlink" href="#identify-percona-toolkit-udfs" title="Permanent link">&para;</a></h3>
 <p>Percona Toolkit UDFs (<code>fnv_64</code>, <code>fnv1a_64</code>, <code>murmur_hash</code>) support fast checksumming and hashing. Teams often use them in views, stored procedures, triggers, or generated columns for sharding or indexing. MySQL CE does not ship these compiled symbols.</p>
 <p>Audit the UDF registry and component installation on Percona Server before export:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">component_id</span><span class="p">,</span><span class="w"> </span><span class="n">component_urn</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%percona_udf%'</span><span class="p">;</span>
 
@@ -11124,7 +11124,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>A logical restore into MySQL CE fails when the dump contains views, triggers, stored procedures, or generated columns that reference Percona Toolkit UDFs. Uninstall <code>component_percona_udf</code>, drop legacy <code>mysql.func</code> registrations, and refactor dependent routines on Percona Server before the export phase.</p>
 </div>
 <p>Search for SQL objects that reference these functions:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">ROUTINE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">ROUTINE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ROUTINE_TYPE</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">ROUTINE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">ROUTINE_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">ROUTINE_TYPE</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">ROUTINES</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">ROUTINE_DEFINITION</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%fnv_%'</span>
 <span class="w">   </span><span class="k">OR</span><span class="w"> </span><span class="n">ROUTINE_DEFINITION</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%murmur_hash%'</span><span class="p">;</span>
@@ -11137,7 +11137,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Before migration, run <code>UNINSTALL COMPONENT 'file://component_percona_udf';</code> on Percona Server. Drop legacy <code>mysql.func</code> entries when present. Rewrite dependent objects. See <a href="udf-percona-toolkit.html">Percona Toolkit UDFs</a>.</p>
 <h3 id="check-for-data-masking-components">Check for Data Masking components<a data-markdown-ignore class="headerlink" href="#check-for-data-masking-components" title="Permanent link">&para;</a></h3>
 <p>To confirm Data Masking separately from the general components query in the preceding section, run:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking%'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">'%masking%'</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="pre-migration-sanitization-summary">Pre-migration sanitization summary<a data-markdown-ignore class="headerlink" href="#pre-migration-sanitization-summary" title="Permanent link">&para;</a></h3>
 <p>After you identify these features, apply the following actions:</p>

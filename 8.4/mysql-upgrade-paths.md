@@ -30,13 +30,13 @@ MySQL supports different upgrade paths depending on the source and target versio
 
 ## Further reading
 
-- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html)
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html)
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)

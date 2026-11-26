@@ -4,13 +4,13 @@
 
 Deprecation notice
 
-The OLD XML format (`audit_log_filter.format=OLD`) is deprecated and may be removed in a later version. Use [XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.html), [JSON, or JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.html) instead.
+The OLD XML format (`audit_log_filter.format=OLD`) is deprecated and may be removed in a later version. Use [XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.md), [JSON, or JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md) instead.
 
 OLD XML wraps records in `<AUDIT>` … `</AUDIT>`. Each event is one `<AUDIT_RECORD>` (attribute-style XML).
 
 Attribute order varies. Every record includes the attributes listed under [Required attributes](#required-attributes). Other attributes are optional by event type.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <AUDIT>
   <AUDIT_RECORD
@@ -104,8 +104,8 @@ Attribute order varies. Every record includes the attributes listed under [Requi
 
 ## Additional reading
 
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html)
-- [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.html)
-- [Audit Log Filter format - JSON and JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md)
+- [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.md)
+- [Audit Log Filter format - JSON and JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)

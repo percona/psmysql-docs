@@ -10,13 +10,13 @@ SELinux context is like a label that tells the system how to handle files, proce
 
 To view the SELinux context for a process using the `ps` command, you can add the `-Z` option to display the context information. Here’s how you can do it:
 
-```
+```shell
 ps -eZ | grep <process_name>
 ```
 
 Replace `<process_name>` with the process name you want to check. For example, if you want to see the SELinux context for the MySQL process, you would use:
 
-```
+```shell
 ps -eZ | grep mysqld
 ```
 
@@ -24,7 +24,7 @@ The output displays the SELinux context for the specified process and typically 
 
 Expected output
 
-```
+```text
 system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
 ```
 
@@ -39,13 +39,13 @@ This information helps you understand how SELinux enforces security policies for
 
 SELinux types or domains categorize different resources on the system, such as files, directories, and processes. Each type or domain has specific permissions and restrictions associated with it, determining how resources interact with each other. To list SELinux types or domains associated with files, you can use the `ls` command with the `-Z` option. For example:
 
-```
+```shell
 ls -laZ /var/lib/mysql
 ```
 
 Expected output
 
-```
+```text
 drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring

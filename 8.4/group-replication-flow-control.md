@@ -40,4 +40,4 @@ The following system variables control flow control behavior for Group Replicati
 - [group_replication_flow_control_certifier_threshold](https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_certifier_threshold)
 - [group_replication_flow_control_applier_threshold](https://dev.mysql.com/doc/refman/8.4/en/group-replication-options.html#sysvar_group_replication_flow_control_applier_threshold)
 
-Enable or disable flow control with `group_replication_flow_control_mode`. You can apply thresholds on the certifier queue, the applier queue, or both. Percona Server for MySQL also adds a `MAJORITY` mode. For details, see [Group replication system variables](https://docs.percona.com/percona-server/8.4/group-replication-system-variables.html).
+Enable or disable flow control with `group_replication_flow_control_mode`. You can apply thresholds on the certifier queue, the applier queue, or both. Percona Server for MySQL also adds a `MAJORITY` mode. For details, see [Group replication system variables](https://docs.percona.com/percona-server/8.4/group-replication-system-variables.md).

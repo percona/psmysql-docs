@@ -17,7 +17,7 @@ The system variable [procfs_files_spec](#procfs_files_spec) provides access to t
 
 We recommend installing the plugin as part of the package. If needed, you can install this plugin manually. Copy the `procfs.so` file to the mysql plugin installation directory and execute the following command:
 
-```
+```sql
 INSTALL PLUGIN procfs SONAME 'procfs.so';
 ```
 
@@ -27,7 +27,7 @@ Only users with the `ACCESS_PROCFS` dynamic privilege can access the `INFORMATIO
 
 After the plugin installation, grant a user access to the INFORMATION_SCHEMA.PROCFS view by executing the following command:
 
-```
+```sql
 GRANT ACCESS_PROCFS ON *.* TO 'user'@'host';
 ```
 
@@ -35,7 +35,7 @@ Important
 
 An SELinux policy or an AppArmor profile may prevent access to file locations needed by the ProcFS plugin, such as the ‘/proc/sys/fs/file-nr’ directory or any sub-directories or files under ‘/proc/irq/’. Either edit the policy or profile to ensure that the plugin has the necessary access. If the policy and profile do not allow access, the plugin may may have unexpected behavior.
 
-For more information, see [Working with SELinux](https://docs.percona.com/percona-server/8.4/selinux.html) and [Working with AppArmor](https://docs.percona.com/percona-server/8.4/apparmor.html).
+For more information, see [Working with SELinux](https://docs.percona.com/percona-server/8.4/selinux.md) and [Working with AppArmor](https://docs.percona.com/percona-server/8.4/apparmor.md).
 
 ## Using the ProcFS plugin
 
@@ -45,7 +45,7 @@ All files that match the [procfs_files_spec](#procfs_files_spec) are opened, rea
 
 The following example returns the `proc/version`:
 
-```
+```sql
 SELECT * FROM INFORMATION_SCHEMA.PROCFS WHERE FILE = '/proc/version';
 ```
 
@@ -55,7 +55,7 @@ SELECT * FROM INFORMATION_SCHEMA.PROCFS WHERE FILE = '/proc/version';
 
 The schema definition of the INFORMATION_SCHEMA.PROCFS view is:
 
-```
+```sql
 CREATE TEMPORARY TABLE `PROCFS` (
 `FILE` varchar(1024) NOT NULL DEFAULT '',
 `CONTENTS` longtext NOT NULL
@@ -98,6 +98,6 @@ The following limitations are:
 
 The following statement removes the procfs plugin.
 
-```
+```sql
 UNINSTALL PLUGIN procfs;
 ```

@@ -19,13 +19,13 @@ To further secure your instance, use the `MYSQL_ONETIME_PASSWORD` variable.
 
 These variables are visible to anyone able to run `Docker inspect`.
 
-```
+```shell
 docker inspect ps
 ```
 
 Expected output
 
-```
+```text
 ...
  "Env": [
                 "MYSQL_ROOT_PASSWORD=root",

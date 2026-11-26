@@ -15,7 +15,7 @@ Here’s why:
 
 Run these example statements in the MySQL client:
 
-```
+```sql
 UPDATE table1 LIMIT 10 SET col1 = 'value';
 DELETE FROM table1 LIMIT 5;
 INSERT INTO table2 SELECT * FROM table1 LIMIT 3;
@@ -28,7 +28,7 @@ To make these statements safe for statement-based replication, you should do one
 
 Run these example statements in the MySQL client:
 
-```
+```sql
 UPDATE table1 SET col1 = 'value' ORDER BY id LIMIT 10;
 DELETE FROM table1 ORDER BY id LIMIT 5;
 INSERT INTO table2 SELECT * FROM table1 ORDER BY id LIMIT 3;
@@ -110,7 +110,7 @@ When enabled, all single-table `DROP TABLE` DDL statements are logged in the bin
 
 You can enable `binlog_ddl_skip_rewrite` at runtime:
 
-```
+```sql
 -- Check current setting
 SHOW VARIABLES LIKE 'binlog_ddl_skip_rewrite';
 
@@ -123,7 +123,7 @@ SET GLOBAL binlog_ddl_skip_rewrite = OFF;
 
 to enable the variable permanently, add the following line to the `my.cnf` configuration file:
 
-```
+```ini
 [mysqld]
 binlog_ddl_skip_rewrite = ON
 ```
@@ -138,7 +138,7 @@ Multi-table `DROP TABLE` DDL statements are not supported and return an error.
 
 The following code demonstrates how to enable `binlog_ddl_skip_rewrite` and shows the feature’s effect on a `DROP TABLE` statement. Run these commands in the MySQL client:
 
-```
+```sql
 SET binlog_ddl_skip_rewrite = ON;
 /*comment at start*/DROP TABLE t /*comment at end*/;
 ```
@@ -166,7 +166,7 @@ Before using the `binlog_utils_udf` component, ensure the following requirements
 
 Install the component on each server where you plan to use these functions:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_binlog_utils_udf';
 ```
 
@@ -174,13 +174,13 @@ INSTALL COMPONENT 'file://component_binlog_utils_udf';
 
 Run this command in the MySQL client:
 
-```
+```sql
 SELECT * FROM mysql.component WHERE component_urn = 'file://component_binlog_utils_udf';
 ```
 
 Alternatively, run this command to view all installed components:
 
-```
+```sql
 SELECT * FROM mysql.component;
 ```
 
@@ -214,7 +214,7 @@ While CAST() is required for proper function execution, you can configure your M
 
 You can set the appropriate client character set and collation to simplify UDF usage:
 
-```
+```bash
 -- Set client character set
 SET character_set_client = 'utf8mb4';
 
@@ -224,7 +224,7 @@ SET collation_connection = 'utf8mb4_general_ci';
 
 Alternatively, you can configure these settings in your MySQL client configuration file (e.g., `~/.my.cnf` or `/etc/mysql/my.cnf`):
 
-```
+```ini
 [client]
 default-character-set=utf8mb4
 default-collation=utf8mb4_general_ci
@@ -244,7 +244,7 @@ The following examples demonstrate how to use each function. Replace the sample 
 
 Use `get_binlog_by_gtid()` to locate which binary log file contains a specific transaction:
 
-```
+```sql
 SELECT CAST(get_binlog_by_gtid('550e8400-e29b-41d4-a716-446655440000:123') AS CHAR) AS binlog;
 ```
 
@@ -254,7 +254,7 @@ Use case: When you know a specific GTID and need to find which binary log file c
 
 Use `get_last_gtid_from_binlog()` to find the final transaction in a specific binary log file:
 
-```
+```sql
 SELECT CAST(get_last_gtid_from_binlog('binlog.000001') AS CHAR) AS last_gtid;
 ```
 
@@ -264,7 +264,7 @@ Use case: Determine the last transaction processed in a binary log file before r
 
 Use `get_gtid_set_by_binlog()` to retrieve all GTIDs contained in a specific binary log file:
 
-```
+```sql
 SELECT CAST(get_gtid_set_by_binlog('binlog.000001') AS CHAR) AS gtid_set;
 ```
 
@@ -274,7 +274,7 @@ Use case: Get a complete list of all transactions in a binary log file for analy
 
 Use `get_binlog_by_gtid_set()` to find the first binary log file that contains any GTID from a specified set:
 
-```
+```sql
 SELECT CAST(get_binlog_by_gtid_set('550e8400-e29b-41d4-a716-446655440000:7,550e8400-e29b-41d4-a716-446655440000:8') AS CHAR) AS binlog;
 ```
 
@@ -290,13 +290,13 @@ Find when the first event was written to a binary log file:
 
 **Raw Timestamp (Microseconds)**
 
-```
+```sql
 SELECT CAST(get_first_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) AS raw_ts;
 ```
 
 **Human-Readable Format**
 
-```
+```sql
 SELECT FROM_UNIXTIME(
     CAST(get_first_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) DIV 1000000
 ) AS first_event_ts;
@@ -310,13 +310,13 @@ Find when the last event was written to a binary log file:
 
 **Raw Timestamp (Microseconds)**
 
-```
+```sql
 SELECT CAST(get_last_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) AS raw_ts;
 ```
 
 **Human-Readable Format**
 
-```
+```sql
 SELECT FROM_UNIXTIME(
     CAST(get_last_record_timestamp_by_binlog('binlog.000001') AS UNSIGNED) DIV 1000000
 ) AS last_event_ts;
@@ -344,7 +344,7 @@ Performance issues: These functions read binary log files directly from disk. Fo
 
 Check which binary log files are available:
 
-```
+```sql
 SHOW BINARY LOGS;
 ```
 
@@ -352,7 +352,7 @@ SHOW BINARY LOGS;
 
 Verify GTID is enabled:
 
-```
+```sql
 SHOW VARIABLES LIKE 'gtid_mode';
 ```
 
@@ -360,13 +360,13 @@ SHOW VARIABLES LIKE 'gtid_mode';
 
 Remove the component and all associated functions:
 
-```
+```sql
 UNINSTALL COMPONENT 'file://component_binlog_utils_udf';
 ```
 
 Verify removal. Run this command in the MySQL client:
 
-```
+```sql
 SELECT * FROM mysql.component WHERE component_urn = 'file://component_binlog_utils_udf';
 ```
 

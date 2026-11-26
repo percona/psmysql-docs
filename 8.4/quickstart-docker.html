@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/quickstart-docker.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/quickstart-docker.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/quickstart-docker.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10722,7 +10722,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Create a directory and add a <code>docker-compose.yml</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<div class="language-yaml highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">mysql</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percona/percona-server:8.4.12</span>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">psmysql</span>
@@ -10740,11 +10740,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </li>
 <li>
 <p>Start the container:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>[+] Running 2/2
+<div class="language-text no-copy highlight"><pre><span></span><code>[+] Running 2/2
  ✔ Network quickstart_default  Created
  ✔ Container psmysql           Started
 </code></pre></div>
@@ -10789,7 +10789,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>You must set at least one environment variable (for example <code>MYSQL_ROOT_PASSWORD</code>) or the instance refuses to initialize. For more on tags and images, see <a href="https://hub.docker.com/r/percona/percona-server">percona/percona-server on the Docker Hub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a>. For ARM64, use the <code>8.4.12-arm64</code> tag instead of <code>8.4.12</code>.</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>--name<span class="w"> </span>psmysql<span class="w"> </span><span class="se">\</span>
 --platform<span class="w"> </span>linux/amd64<span class="w"> </span><span class="se">\</span>
 -e<span class="w"> </span><span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>secret<span class="w"> </span><span class="se">\</span>
 -v<span class="w"> </span>myvol:/var/lib/mysql<span class="w"> </span><span class="se">\</span>
@@ -10797,7 +10797,7 @@ percona/percona-server:8.4.12
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Unable to find image 'percona/percona-server:8.4.12' locally
+<div class="language-text no-copy highlight"><pre><span></span><code>Unable to find image 'percona/percona-server:8.4.12' locally
 Pulling from percona/percona-server
 b902d6b6048a: Pull complete
 ...
@@ -10843,15 +10843,15 @@ b902d6b6048a: Pull complete
 </table>
 <p>You must enter the password when the server prompts you.</p>
 <p>Run the following to connect:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>psmysql<span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p
 </code></pre></div>
 <p>You are prompted to enter the password, which is <code>secret</code>. If you have changed the password, use your password. You will not see any characters as you type.</p>
-<div class="no-copy highlight"><pre><span></span><code>Enter password:
+<div class="language-text no-copy highlight"><pre><span></span><code>Enter password:
 </code></pre></div>
 <p>You should see the following result.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
+<div class="language-text no-copy highlight"><pre><span></span><code>Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
 Server version: 8.4.12 Percona Server (GPL), Release 1, Revision 238b3c02
 

@@ -25,7 +25,7 @@ Creating a `docker-compose.yml` file offers numerous advantages for managing con
 
 Docker automatically manages volumes, so you don’t create folders manually.
 
-```
+```text
 percona-compose/
 ├── .env
 └── docker-compose.yml
@@ -46,7 +46,7 @@ Using an `.env` file for MySQL Docker containers has several advantages:
 
 By leveraging an `.env` file, you streamline both security and ease of use for MySQL container deployments. This approach ensures better organization and adaptability for various environments.
 
-```
+```text
 MYSQL_ROOT_PASSWORD=supersecurepassword
 MYSQL_DATABASE=mydb
 MYSQL_USER=myuser
@@ -57,7 +57,7 @@ MYSQL_PASSWORD=myuserpassword
 
 By using a `docker-compose.yml` file, you streamline container orchestration, ensure consistency, and simplify collaboration across teams.
 
-```
+```text
 services:
   mysql:
     image: percona/percona-server:8.4
@@ -87,7 +87,7 @@ The command has the following options:
 - `up`: Starts the containers specified in the docker-compose.yml file.
 - `-d`: Runs the containers in detached mode, meaning they operate in the background.
 
-```
+```shell
 docker-compose up -d
 ```
 
@@ -109,7 +109,7 @@ After the container is up, you can connect to the running server instance using 
 
 Run the following command to open a MySQL shell in the container:
 
-```
+```shell
 docker exec -it percona-server mysql -u root -p
 ```
 
@@ -117,7 +117,7 @@ You must enter the root password.
 
 Expected output
 
-```
+```text
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 9
@@ -135,13 +135,13 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 Run a simple query:
 
-```
+```sql
 SHOW DATABASES;
 ```
 
 Expected output
 
-```
+```text
 +--------------------+
 | Database           |
 +--------------------+
@@ -158,7 +158,7 @@ Expected output
 
 The following query creates a `test_db` database and `test_table`:
 
-```
+```sql
 CREATE DATABASE test_db;
 USE test_db;
 CREATE TABLE test_table (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100));
@@ -168,7 +168,7 @@ SELECT * FROM test_table;
 
 Expected output
 
-```
+```text
 Query OK, 1 row affected (0.02 sec)
 
 Database changed
@@ -192,7 +192,7 @@ When you run XtraBackup inside a container, either in the same network or anothe
 
 An example of using Docker to backup the server:
 
-```
+```shell
 docker run --rm \
   --volumes-from percona-server \
   -v percona_backups:/backup \
@@ -214,12 +214,12 @@ docker run --rm \
 
 You can stop the stack but retain volumes:
 
-```
+```shell
 docker-compose down
 ```
 
 You can also remove all resources, including volumes:
 
-```
+```shell
 docker-compose down -v
 ```

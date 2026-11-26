@@ -2,7 +2,7 @@
 
 # Maintain the Vault connection
 
-Installation of the [keyring vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html) is the first step. The most common production failure of `keyring_vault` is a lost connection to Vault, not a misconfigured component. Two conditions cause the loss:
+Installation of the [keyring vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.md) is the first step. The most common production failure of `keyring_vault` is a lost connection to Vault, not a misconfigured component. Two conditions cause the loss:
 
 - The token used by the component expires.
 - The Vault server seals.
@@ -30,7 +30,7 @@ A [periodic token](https://developer.hashicorp.com/vault/docs/concepts/tokens#pe
 
 Create a Vault role that issues periodic tokens, then mint the token referenced by `component_keyring_vault.cnf`:
 
-```
+```bash
 vault write auth/token/roles/percona-keyring \
     allowed_policies="percona-keyring-policy" \
     period="24h" \
@@ -57,7 +57,7 @@ Configure alerts on renewal failure. Without alerts, a failed renewer behaves th
 - Treat the `token` value as a secret equal in sensitivity to the Vault unseal keys. Restrict file permissions on `component_keyring_vault.cnf` to the `mysql` user.
 - Monitor the token TTL with `vault token lookup`. Alert when the remaining TTL drops below a safe threshold.
 - Rotate the token only during a maintenance window. Update the configuration file, then restart `mysqld`. The component reads the file only at startup.
-- Assign one token to one server. The one-token-per-server rule complements the `secret_mount_point` warning in [Configure the keyring vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html#configure-the-keyring-vault-component).
+- Assign one token to one server. The one-token-per-server rule complements the `secret_mount_point` warning in [Configure the keyring vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.md#configure-the-keyring-vault-component).
 
 ## Handle a sealed Vault
 
@@ -89,10 +89,10 @@ Percona Server behavior during a sealed Vault depends on timing:
 
 Percona Server documentation:
 
-- [Data at Rest Encryption](https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.html) describes how Percona Server uses the keyring to protect tablespace data.
-- [Keyring components overview](https://docs.percona.com/percona-server/8.4/keyring-components-plugins-overview.html) compares the available keyring components.
-- [Rotate the master encryption key](https://docs.percona.com/percona-server/8.4/rotate-master-key.html) covers the full rotation procedure and required privileges.
-- [Use the keyring vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html) describes installation and configuration of the `keyring_vault` component.
+- [Data at Rest Encryption](https://docs.percona.com/percona-server/8.4/data-at-rest-encryption.md) describes how Percona Server uses the keyring to protect tablespace data.
+- [Keyring components overview](https://docs.percona.com/percona-server/8.4/keyring-components-plugins-overview.md) compares the available keyring components.
+- [Rotate the master encryption key](https://docs.percona.com/percona-server/8.4/rotate-master-key.md) covers the full rotation procedure and required privileges.
+- [Use the keyring vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.md) describes installation and configuration of the `keyring_vault` component.
 
 HashiCorp documentation:
 

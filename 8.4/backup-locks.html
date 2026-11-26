@@ -129,7 +129,7 @@ logical backups.">
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/backup-locks.md"></head>
   
   
     
@@ -139,7 +139,7 @@ logical backups.">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/backup-locks.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/backup-locks.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10761,7 +10761,7 @@ logical backups.</p>
 </ul>
 <p>Please note that FLUSH TABLES WITH READ LOCK applies to all databases unless you specify tables individually. Also, this statement causes an implicit commit.</p>
 <p>The following command connects to the server and executes the <code>FLUSH TABLES WITH READ LOCK</code> statement. After running this command, no write operations can be performed until the lock is released.</p>
-<div class="highlight"><pre><span></span><code>mysql --user="user" --password="password" --host="host" --execute="FLUSH TABLES WITH READ LOCK"
+<div class="language-text highlight"><pre><span></span><code>mysql --user="user" --password="password" --host="host" --execute="FLUSH TABLES WITH READ LOCK"
 </code></pre></div>
 <h2 id="lock-tables-for-backup">LOCK TABLES FOR BACKUP<a data-markdown-ignore class="headerlink" href="#lock-tables-for-backup" title="Permanent link">&para;</a></h2>
 <p><code>LOCK TABLES FOR BACKUP</code> uses a new MDL lock type to block updates to
@@ -10786,13 +10786,13 @@ MyRocks tables to complete, for example.</p>
 <code>LOCK TABLES FOR BACKUP</code> lock, the statement fails with the following error:</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
+<div class="language-text no-copy highlight"><pre><span></span><code>ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
 
 UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
 </code></pre></div>
 </details>
 <p>The intended use case for Percona XtraBackup is:</p>
-<div class="no-copy highlight"><pre><span></span><code>LOCK TABLES FOR BACKUP
+<div class="language-text no-copy highlight"><pre><span></span><code>LOCK TABLES FOR BACKUP
 ... copy .frm, MyISAM, CSV, etc. ...
 UNLOCK TABLES
 ... get binlog coordinates ...

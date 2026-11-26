@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/apt-download-deb.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/apt-download-deb.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/apt-download-deb.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10507,16 +10507,16 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li>
 <p>Use <code>wget</code> to download the tar file:</p>
 <p>The download filename includes a <code>&lt;revision-identifier&gt;</code> value. This value is <em>build-specific</em> and must be obtained from the <a href="https://www.percona.com/downloads">Percona Product Downloads <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> page for the exact release you are installing. Select the product, version, and operating system, and find the link with the required <code>&lt;revision identifier&gt;</code> under the <strong>Download all packages</strong> button. For more details, see the <a href="download-instructions.html">Instructions for Percona Product Downloads</a>.</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/debian/jammy/x86_64/Percona-Server-8.4.11-12-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/debian/jammy/x86_64/Percona-Server-8.4.11-12-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
 </code></pre></div>
 </li>
 <li>
 <p>Unpack the download to get the packages:</p>
-<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.11-12-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
+<div class="language-shell highlight"><pre><span></span><code>tar<span class="w"> </span>xvf<span class="w"> </span>Percona-Server-8.4.11-12-&lt;revision-identifier&gt;-jammy-x86_64-bundle.tar
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>libperconaserverclient21_8.4.11-12-1.buster_amd64.deb
+<div class="language-text no-copy highlight"><pre><span></span><code>libperconaserverclient21_8.4.11-12-1.buster_amd64.deb
 libperconaserverclient21-dev_8.4.11-12-1.buster_amd64.deb
 percona-mysql-router_8.4.11-12-1.buster_amd64.deb
 percona-server-client_8.4.11-12-1.buster_amd64.deb
@@ -10531,13 +10531,13 @@ percona-server-test_8.4.11-12-1.buster_amd64.deb
 </li>
 <li>
 <p>Download the <code>percona-telemetry-agent</code> package for your distribution into the same directory. The <code>percona-server-server</code> package depends on it, but the bundle does not include it, and the distribution repositories do not provide it. For example, for Ubuntu 22.04:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.jammy_amd64.deb
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://repo.percona.com/telemetry/apt/pool/main/p/percona-telemetry-agent/percona-telemetry-agent_1.0.17-1.jammy_amd64.deb
 </code></pre></div>
 <p>For other distributions, replace <code>jammy</code> with your distribution codename, for example, <code>noble</code> or <code>bookworm</code>.</p>
 </li>
 <li>
 <p>Install the packages with <code>apt</code>. Run this command as root or use the sudo command:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./*.deb
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./*.deb
 </code></pre></div>
 <p>Unlike <code>dpkg -i</code>, <code>apt</code> also installs the required packages from your distribution repositories, for example, <code>libaio1</code> (<code>libaio1t64</code> on Ubuntu 24.04 and later), <code>libatomic1</code>, <code>libmecab2</code>, <code>libnuma1</code>, and <code>zlib1g-dev</code>.</p>
 </li>

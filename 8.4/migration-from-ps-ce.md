@@ -10,61 +10,63 @@ The remaining Percona-only features do not store or alter any data. The Percona 
 
 The following diagram summarizes migration paths. The paths cover a Percona-exclusive feature check, logical dump and restore (recommended), in-place binary swap with cleanup, and the main steps in each path.
 
+*Image: Percona Server for MySQL to MySQL Community Edition migration process*
+
 ## Exclusive features
 
 When you plan a migration to MySQL CE, identify features that are exclusive to Percona. The following CE-incompatible features are inactive by default. You must install or configure MyRocks, the Percona Audit Log plugin, the Audit Log Filter component, Data Masking, and PAM/LDAP authentication explicitly. The thread pool is built in but inactive until you set `thread_handling=pool-of-threads` in the configuration. The following table summarizes the main exclusive features.
 
-| Feature                                                                                                                                                          | Notes                                                                                                                                     |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [MyRocks Storage Engine](https://docs.percona.com/percona-server/8.4/myrocks-index.html)                                                                         | Not in MySQL CE; requires explicit installation. Migration: see [Performance and engine](#performance-and-engine-features).               |
-| [Percona Audit Log Plugin](https://docs.percona.com/percona-server/8.4/audit-log-plugin.html)                                                                    | Not in MySQL CE. Migration: see [Security and auditing](#security-and-auditing).                                                          |
-| [Audit Log Filter](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)                                                                   | Not in MySQL CE. Migration: see [Security and auditing](#security-and-auditing).                                                          |
-| [PAM](https://docs.percona.com/percona-server/8.4/pam-plugin.html) / [LDAP](https://docs.percona.com/percona-server/8.4/ldap-authentication.html) Authentication | Not in MySQL CE; require manual configuration. Migration: see [Security and auditing](#security-and-auditing).                            |
-| [Data Masking](https://docs.percona.com/percona-server/8.4/data-masking-overview.html)                                                                           | Not in MySQL CE; must be manually installed. Migration: see [Security and auditing](#security-and-auditing).                              |
-| [Thread Pool](https://docs.percona.com/percona-server/8.4/threadpool.html)                                                                                       | Built in but inactive until `thread_handling=pool-of-threads`. Migration: see [Performance and engine](#performance-and-engine-features). |
+| Feature                                                                                                                                                      | Notes                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [MyRocks Storage Engine](https://docs.percona.com/percona-server/8.4/myrocks-index.md)                                                                       | Not in MySQL CE; requires explicit installation. Migration: see [Performance and engine](#performance-and-engine-features).               |
+| [Percona Audit Log Plugin](https://docs.percona.com/percona-server/8.4/audit-log-plugin.md)                                                                  | Not in MySQL CE. Migration: see [Security and auditing](#security-and-auditing).                                                          |
+| [Audit Log Filter](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)                                                                 | Not in MySQL CE. Migration: see [Security and auditing](#security-and-auditing).                                                          |
+| [PAM](https://docs.percona.com/percona-server/8.4/pam-plugin.md) / [LDAP](https://docs.percona.com/percona-server/8.4/ldap-authentication.md) Authentication | Not in MySQL CE; require manual configuration. Migration: see [Security and auditing](#security-and-auditing).                            |
+| [Data Masking](https://docs.percona.com/percona-server/8.4/data-masking-overview.md)                                                                         | Not in MySQL CE; must be manually installed. Migration: see [Security and auditing](#security-and-auditing).                              |
+| [Thread Pool](https://docs.percona.com/percona-server/8.4/threadpool.md)                                                                                     | Built in but inactive until `thread_handling=pool-of-threads`. Migration: see [Performance and engine](#performance-and-engine-features). |
 
 ## Performance and engine features
 
 Percona Server includes optimizations that MySQL Community cannot parse or execute. The following table describes migration actions for engine-related exclusive features. See [Exclusive features](#exclusive-features) for the full list.
 
-| Feature                                                                                                                | Migration action                                                                                                                                                                                                                   |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| XtraDB Enhancements                                                                                                    | Remove Percona-only `innodb_` variables from `my.cnf` (such as `innodb_empty_free_list_algorithm`, `innodb_track_changed_pages`, `innodb_corrupt_table_action`, `innodb_cleaner_lsn_age_factor`). Basic InnoDB data is compatible. |
-| [Thread Pool](https://docs.percona.com/percona-server/8.4/threadpool.html)                                             | Disable the thread pool and use the default one-thread-per-connection model.                                                                                                                                                       |
-| [MyRocks Storage Engine](https://docs.percona.com/percona-server/8.4/myrocks-index.html)                               | Migrate tables to InnoDB before dump (or edit dump to change `ENGINE=MyRocks` to `ENGINE=InnoDB`).                                                                                                                                 |
-| [Compressed columns and compression dictionaries](https://docs.percona.com/percona-server/8.4/compressed-columns.html) | Decompress or alter columns before dump; no CE equivalent. See the linked doc. Migration to CE is not possible until columns are changed when tables use compressed columns.                                                       |
+| Feature                                                                                                              | Migration action                                                                                                                                                                                                                   |
+| -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| XtraDB Enhancements                                                                                                  | Remove Percona-only `innodb_` variables from `my.cnf` (such as `innodb_empty_free_list_algorithm`, `innodb_track_changed_pages`, `innodb_corrupt_table_action`, `innodb_cleaner_lsn_age_factor`). Basic InnoDB data is compatible. |
+| [Thread Pool](https://docs.percona.com/percona-server/8.4/threadpool.md)                                             | Disable the thread pool and use the default one-thread-per-connection model.                                                                                                                                                       |
+| [MyRocks Storage Engine](https://docs.percona.com/percona-server/8.4/myrocks-index.md)                               | Migrate tables to InnoDB before dump (or edit dump to change `ENGINE=MyRocks` to `ENGINE=InnoDB`).                                                                                                                                 |
+| [Compressed columns and compression dictionaries](https://docs.percona.com/percona-server/8.4/compressed-columns.md) | Decompress or alter columns before dump; no CE equivalent. See the linked doc. Migration to CE is not possible until columns are changed when tables use compressed columns.                                                       |
 
-Use the [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.html) to list Percona-specific `innodb_` variables. Remove from `my.cnf` any variable that does not exist in MySQL Community Edition 8.4.
+Use the [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.md) to list Percona-specific `innodb_` variables. Remove from `my.cnf` any variable that does not exist in MySQL Community Edition 8.4.
 
-Compressed columns and compression dictionaries block many migrations. You cannot migrate to MySQL CE while user tables use compressed columns. Remove or alter those columns (such as decompress the columns) before a logical dump and restore. The compressed-columns feature also creates additional tables in the system tablespace. Query the `INFORMATION_SCHEMA` views `COMPRESSION_DICTIONARY` and `COMPRESSION_DICTIONARY_TABLES` to detect compression dictionaries. See [Compressed columns with dictionaries](https://docs.percona.com/percona-server/8.4/compressed-columns.html) for view structure. Those system tables may cause problems when moving to MySQL CE even when you do not use compressed columns in user tables.
+Compressed columns and compression dictionaries block many migrations. You cannot migrate to MySQL CE while user tables use compressed columns. Remove or alter those columns (such as decompress the columns) before a logical dump and restore. The compressed-columns feature also creates additional tables in the system tablespace. Query the `INFORMATION_SCHEMA` views `COMPRESSION_DICTIONARY` and `COMPRESSION_DICTIONARY_TABLES` to detect compression dictionaries. See [Compressed columns with dictionaries](https://docs.percona.com/percona-server/8.4/compressed-columns.md) for view structure. Those system tables may cause problems when moving to MySQL CE even when you do not use compressed columns in user tables.
 
 ## Security and auditing
 
 The following table lists migration actions for security and auditing features that are exclusive to Percona. None of these features change stored data, so turning them off does not lose or alter anything. See [Exclusive features](#exclusive-features) for the full list.
 
-| Feature                                                                                                                                                          | Migration action                                                                      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [Audit Log Plugin](https://docs.percona.com/percona-server/8.4/audit-log-plugin.html)                                                                            | Disable auditing or use a community-supported alternative.                            |
-| [Audit Log Filter](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)                                                                   | Uninstall the component and remove the component configuration.                       |
-| [PAM](https://docs.percona.com/percona-server/8.4/pam-plugin.html) / [LDAP](https://docs.percona.com/percona-server/8.4/ldap-authentication.html) Authentication | Migrate users to `caching_sha2_password` or `mysql_native_password` before switching. |
-| [Data Masking](https://docs.percona.com/percona-server/8.4/data-masking-overview.html)                                                                           | Uninstall the Data Masking components.                                                |
+| Feature                                                                                                                                                      | Migration action                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| [Audit Log Plugin](https://docs.percona.com/percona-server/8.4/audit-log-plugin.md)                                                                          | Disable auditing or use a community-supported alternative.                            |
+| [Audit Log Filter](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)                                                                 | Uninstall the component and remove the component configuration.                       |
+| [PAM](https://docs.percona.com/percona-server/8.4/pam-plugin.md) / [LDAP](https://docs.percona.com/percona-server/8.4/ldap-authentication.md) Authentication | Migrate users to `caching_sha2_password` or `mysql_native_password` before switching. |
+| [Data Masking](https://docs.percona.com/percona-server/8.4/data-masking-overview.md)                                                                         | Uninstall the Data Masking components.                                                |
 
 ## Operational and monitoring features
 
 The following table summarizes operational and monitoring features that affect migration to MySQL CE.
 
-| Feature                                                                                      | Notes                                                                                                                                                                                      |
-| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Extended Slow Query Log                                                                      | Percona’s slow query log includes extra fields (such as `Rows_examined` and `Thread_id`). MySQL CE fails to start when Percona-only log configuration variables remain in the config file. |
-| Utility Components                                                                           | Uninstall features such as the UUID_VX component or keyring plugins that are exclusive to Percona.                                                                                         |
-| [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html) | Not in MySQL CE. Uninstall the component and rewrite any views, triggers, stored procedures, or generated columns that call these functions before migration.                              |
+| Feature                                                                                    | Notes                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Extended Slow Query Log                                                                    | Percona’s slow query log includes extra fields (such as `Rows_examined` and `Thread_id`). MySQL CE fails to start when Percona-only log configuration variables remain in the config file. |
+| Utility Components                                                                         | Uninstall features such as the UUID_VX component or keyring plugins that are exclusive to Percona.                                                                                         |
+| [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md) | Not in MySQL CE. Uninstall the component and rewrite any views, triggers, stored procedures, or generated columns that call these functions before migration.                              |
 
-Use the [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.html) to find Percona-only slow-query and log variables. Remove from `my.cnf` any of these variables when present: `log_slow_filter`, `log_slow_rate_limit`, `log_slow_rate_type`, `log_slow_sp_statements`, `log_slow_verbosity`, `slow_query_log_always_write_time`, and `slow_query_log_use_global_control`.
+Use the [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.md) to find Percona-only slow-query and log variables. Remove from `my.cnf` any of these variables when present: `log_slow_filter`, `log_slow_rate_limit`, `log_slow_rate_type`, `log_slow_sp_statements`, `log_slow_verbosity`, `slow_query_log_always_write_time`, and `slow_query_log_use_global_control`.
 
 Remove or replace Percona-exclusive keyring components and variables before migration. MySQL CE does not support the following components. Uninstall them and remove their configuration:
 
-- `component_keyring_vault` (HashiCorp Vault), `component_keyring_kmip` (KMIP), and `component_keyring_kms` (AWS KMS). See the [Keyring components overview](https://docs.percona.com/percona-server/8.4/keyring-components-plugins-overview.html) for details.
-- `keyring_vault_config` and `keyring_vault_timeout`. Remove these variables from `my.cnf`. The [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.html) lists all Percona-only variables.
+- `component_keyring_vault` (HashiCorp Vault), `component_keyring_kmip` (KMIP), and `component_keyring_kms` (AWS KMS). See the [Keyring components overview](https://docs.percona.com/percona-server/8.4/keyring-components-plugins-overview.md) for details.
+- `keyring_vault_config` and `keyring_vault_timeout`. Remove these variables from `my.cnf`. The [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.md) lists all Percona-only variables.
 
 MySQL CE supports file-based keyring components (such as `component_keyring_file` and `component_keyring_encrypted_file`). Plan to use one of these keyring options, or another option documented for MySQL CE, when you need encryption after migration.
 
@@ -79,11 +81,11 @@ MySQL CE may not read pages when you used Percona enhanced encryption, specializ
 
 ### Percona Toolkit UDFs
 
-Percona Server can install optional [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html) (`fnv_64`, `fnv1a_64`, and `murmur_hash`) through the `component_percona_udf` component. MySQL CE does not include these functions. MySQL CE fails when parsing or executing a view, trigger, stored procedure, event, or generated column that references them. A logical restore also fails when dump metadata still references these functions.
+Percona Server can install optional [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md) (`fnv_64`, `fnv1a_64`, and `murmur_hash`) through the `component_percona_udf` component. MySQL CE does not include these functions. MySQL CE fails when parsing or executing a view, trigger, stored procedure, event, or generated column that references them. A logical restore also fails when dump metadata still references these functions.
 
 Before migration, locate registered functions and dependent SQL objects on Percona Server. Then remove or rewrite those objects:
 
-```
+```sql
 SELECT component_id, component_urn
 FROM mysql.component
 WHERE component_urn LIKE '%percona_udf%';
@@ -108,7 +110,7 @@ WHERE VIEW_DEFINITION LIKE '%fnv_%'
 
 On Percona Server, uninstall the component (or drop legacy functions when present). Change each dependent object to use CE-supported expressions:
 
-```
+```sql
 UNINSTALL COMPONENT 'file://component_percona_udf';
 ```
 
@@ -138,7 +140,7 @@ Dump and restore alone often fail when Percona-specific features left traces in 
 - Configuration sanitization: remove all Percona-only variables from `my.cnf` (such as `audit_log_*`, `thread_pool_*`, or extended slow_query_log variables). MySQL CE exits at startup when the configuration file contains a Percona-specific variable.
 - On-disk format (enhanced encryption, specialized page compression, or `fast_checksum`): do not copy data files or switch binaries in place when InnoDB page layout changed. Run a logical dump from Percona Server while the server runs and the feature remains enabled. Restore the dump into a fresh MySQL CE instance. Omit Percona-only on-disk format options from the CE configuration.
 - System table cleanup: Percona sometimes adds columns to system tables for internal tracking. A logical dump of user databases is usually safe. Dumping and restoring the `mysql` system schema can cause severe schema mismatches.
-- System schemas (`performance_schema`, `sys`): Percona 8.4 adds telemetry and diagnostic tables that MySQL CE does not recognize. Reusing or restoring those schemas leaves orphaned metadata. Orphaned objects can collide with tables or columns during a future MySQL CE minor-version upgrade. Prefer a logical dump and restore of user data only. Let the MySQL CE instance create `performance_schema` and `sys` at startup. See [Telemetry on Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/telemetry.html) and [Additional PERFORMANCE_SCHEMA tables](https://docs.percona.com/percona-server/8.4/additional-performance-schema-tables.html).
+- System schemas (`performance_schema`, `sys`): Percona 8.4 adds telemetry and diagnostic tables that MySQL CE does not recognize. Reusing or restoring those schemas leaves orphaned metadata. Orphaned objects can collide with tables or columns during a future MySQL CE minor-version upgrade. Prefer a logical dump and restore of user data only. Let the MySQL CE instance create `performance_schema` and `sys` at startup. See [Telemetry on Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/telemetry.md) and [Additional PERFORMANCE_SCHEMA tables](https://docs.percona.com/percona-server/8.4/additional-performance-schema-tables.md).
 
 ### Perform a clean shutdown before an in-place binary swap
 
@@ -148,7 +150,7 @@ Standard MySQL LSN records track inserts, updates, and deletes. Percona Server a
 
 Percona Server writes specialized record types into the redo log (`ib_logfile0`, `ib_logfile1`). When you shut down Percona Server and start MySQL CE against the same data directory, MySQL CE runs crash recovery on the redo log. The MySQL CE parser encounters Percona-specific log records without a matching definition. The MySQL service fails to start with an error similar to the following:
 
-```
+```text
 [ERROR] [MY-011899] [InnoDB] Unknown redo log record type 123
 ```
 
@@ -156,7 +158,7 @@ Empty the redo log before you switch binaries. Use a clean shutdown. Follow thes
 
 1. Set the global fast shutdown option to 0 (slow/full shutdown) so that InnoDB flushes all dirty pages and clears the redo log completely:
 
-   ```
+   ```sql
    SET GLOBAL innodb_fast_shutdown = 0;
    ```
 
@@ -192,9 +194,9 @@ Many production migrations use replication instead of full downtime. Operations 
 
 A MySQL CE 8.4 instance can replicate as a downstream replica from a Percona Server 8.4 source when the replica uses only CE-supported features. Confirm the following before cutover:
 
-- Row-Based Replication (RBR) is recommended on the source and replica. Set `binlog_format=ROW`. The known statement-based incompatibility with MySQL CE is Percona’s `SET STATEMENT <variable>=<value> FOR <statement>` syntax. RBR logs row changes instead of that statement, so the replica does not have to parse it. Statement-based or mixed replication can work when the binary log does not contain `SET STATEMENT`. Use the upstream-compatible `SET_VAR` optimizer hint instead; see [Extended SET VAR optimizer hint](https://docs.percona.com/percona-server/8.4/extended-set-var.html).
+- Row-Based Replication (RBR) is recommended on the source and replica. Set `binlog_format=ROW`. The known statement-based incompatibility with MySQL CE is Percona’s `SET STATEMENT <variable>=<value> FOR <statement>` syntax. RBR logs row changes instead of that statement, so the replica does not have to parse it. Statement-based or mixed replication can work when the binary log does not contain `SET STATEMENT`. Use the upstream-compatible `SET_VAR` optimizer hint instead; see [Extended SET VAR optimizer hint](https://docs.percona.com/percona-server/8.4/extended-set-var.md).
 - MyRocks does not have to be absent from the source. The binary log is engine-independent, so row events from MyRocks tables apply on the replica as ordinary row changes. Create the matching tables on the MySQL CE replica as InnoDB (for example, restore a dump after changing `ENGINE=MyRocks` to `ENGINE=InnoDB`). DDL that specifies `ENGINE=ROCKSDB` fails on CE because the engine is not present. Convert MyRocks tables to InnoDB on the source only when you also plan to run MySQL CE on that instance after cutover.
-- Percona Toolkit UDFs (`fnv_64`, `fnv1a_64`, `murmur_hash`) do not have to be removed from the source. MySQL CE does not ship `component_percona_udf`, so a replica that executes those function names must define matching UDFs locally. Create them on the replica with `CREATE FUNCTION ... SONAME` (using the Toolkit UDF libraries). Alternatively, rewrite or drop dependent routines on the source so the replica never calls the functions. See [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html).
+- Percona Toolkit UDFs (`fnv_64`, `fnv1a_64`, `murmur_hash`) do not have to be removed from the source. MySQL CE does not ship `component_percona_udf`, so a replica that executes those function names must define matching UDFs locally. Create them on the replica with `CREATE FUNCTION ... SONAME` (using the Toolkit UDF libraries). Alternatively, rewrite or drop dependent routines on the source so the replica never calls the functions. See [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md).
 - The replica `my.cnf` must not contain Percona-only system variables. Unknown variables prevent MySQL CE from starting.
 - Match Global Transaction Identifier (GTID) mode and `enforce_gtid_consistency` when you use GTIDs. Confirm version-specific replication features on both source and replica.
 - Percona-only plugins and components must not load on the replica. Uninstall Audit Log Filter, Data Masking, Percona keyring components, and similar features on the replica before you start MySQL CE.
@@ -229,7 +231,7 @@ Run the following SQL commands to find Percona-exclusive features in your enviro
 
 The following query identifies active plugins only (not components). The query returns Percona-exclusive plugins such as the Audit Log plugin, PAM/LDAP authentication, and MyRocks.
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_VERSION, PLUGIN_STATUS 
 FROM INFORMATION_SCHEMA.PLUGINS 
 WHERE PLUGIN_NAME IN (
@@ -247,7 +249,7 @@ WHERE PLUGIN_NAME IN (
 
 Percona-exclusive components (such as the Audit Log Filter, Data Masking, and keyring components) register in `mysql.component`. The following query lists installed components whose URN matches known Percona-only components.
 
-```
+```sql
 SELECT component_id, component_urn 
 FROM mysql.component 
 WHERE component_urn LIKE '%audit_log_filter%' 
@@ -261,7 +263,7 @@ WHERE component_urn LIKE '%audit_log_filter%'
 
 MyRocks is a high-risk one-way door. Check whether any user tables use the engine. Convert those tables to InnoDB before a logical dump.
 
-```
+```sql
 SELECT TABLE_SCHEMA, TABLE_NAME, ENGINE 
 FROM INFORMATION_SCHEMA.TABLES 
 WHERE ENGINE = 'RocksDB' 
@@ -272,7 +274,7 @@ AND TABLE_SCHEMA NOT IN ('information_schema', 'sys', 'performance_schema', 'mys
 
 MySQL CE does not recognize users that use Percona PAM or LDAP plugins. Find those users and change authentication to `caching_sha2_password` or `mysql_native_password` before migrating.
 
-```
+```sql
 SELECT user, host, plugin 
 FROM mysql.user 
 WHERE plugin LIKE '%pam%' 
@@ -283,7 +285,7 @@ WHERE plugin LIKE '%pam%'
 
 The thread pool code exists in Percona Server. The thread pool affects migration only when actively configured. The following command shows whether the server uses Percona scalable thread pool handling instead of the standard MySQL connection model.
 
-```
+```sql
 SHOW VARIABLES LIKE 'thread_handling';
 -- When the result is 'pool-of-threads', the Percona Thread Pool is active.
 ```
@@ -294,7 +296,7 @@ Percona Toolkit UDFs (`fnv_64`, `fnv1a_64`, `murmur_hash`) support fast checksum
 
 Audit the UDF registry and component installation on Percona Server before export:
 
-```
+```sql
 SELECT component_id, component_urn
 FROM mysql.component
 WHERE component_urn LIKE '%percona_udf%';
@@ -311,7 +313,7 @@ A logical restore into MySQL CE fails when the dump contains views, triggers, st
 
 Search for SQL objects that reference these functions:
 
-```
+```sql
 SELECT ROUTINE_SCHEMA, ROUTINE_NAME, ROUTINE_TYPE
 FROM information_schema.ROUTINES
 WHERE ROUTINE_DEFINITION LIKE '%fnv_%'
@@ -323,13 +325,13 @@ WHERE VIEW_DEFINITION LIKE '%fnv_%'
    OR VIEW_DEFINITION LIKE '%murmur_hash%';
 ```
 
-Before migration, run `UNINSTALL COMPONENT 'file://component_percona_udf';` on Percona Server. Drop legacy `mysql.func` entries when present. Rewrite dependent objects. See [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html).
+Before migration, run `UNINSTALL COMPONENT 'file://component_percona_udf';` on Percona Server. Drop legacy `mysql.func` entries when present. Rewrite dependent objects. See [Percona Toolkit UDFs](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md).
 
 ### Check for Data Masking components
 
 To confirm Data Masking separately from the general components query in the preceding section, run:
 
-```
+```sql
 SELECT * FROM mysql.component WHERE component_urn LIKE '%masking%';
 ```
 
@@ -343,7 +345,7 @@ After you identify these features, apply the following actions:
 - For active components: run `UNINSTALL COMPONENT '<COMPONENT_URN>';` for each Percona-only component (such as `'file://component_audit_log_filter'`, `'file://component_masking_functions'`, or keyring components). Remove the component from the server manifest or configuration so the component does not load on the next startup.
 - For Percona Toolkit UDFs: run `UNINSTALL COMPONENT 'file://component_percona_udf';`, drop legacy entries in `mysql.func`, and rewrite or drop views, triggers, stored procedures, and generated columns that reference `fnv_64`, `fnv1a_64`, or `murmur_hash`.
 
-Search `my.cnf` for variable names in the [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.html). Remove any variable that MySQL CE does not support. MySQL CE exits at startup when a Percona-only variable remains in the configuration file.
+Search `my.cnf` for variable names in the [Percona Server system variables reference](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.md). Remove any variable that MySQL CE does not support. MySQL CE exits at startup when a Percona-only variable remains in the configuration file.
 
 ## Pre-migration checklist
 

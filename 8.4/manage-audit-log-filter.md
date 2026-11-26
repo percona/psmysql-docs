@@ -10,7 +10,7 @@ With automatic rotation enabled, prune old files by age, total size, or both.
 
 ## Manual log rotation
 
-[`audit_log_filter.rotate_on_size`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterrotate_on_size) defaults to 1 GB. Set it to `0` to disable automatic rotation; you must rotate by hand.
+[`audit_log_filter.rotate_on_size`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterrotate_on_size) defaults to 1 GB. Set it to `0` to disable automatic rotation; you must rotate by hand.
 
 Run `SELECT audit_log_rotate();` to rotate immediately. Requires `AUDIT_ADMIN`.
 
@@ -18,13 +18,13 @@ Starting in Percona Server for MySQL 8.4.9-9, rotation finishes immediately in `
 
 Pruning runs when `audit_log_filter.max_size` or `audit_log_filter.prune_seconds` is greater than zero. The server prunes immediately when you set either variable, and again on rotation (automatic when `rotate_on_size` > 0, or manual via `audit_log_rotate()`). There is no background timer — with automatic rotation disabled, schedule manual rotations or rely on the prune that runs when you set the variable.
 
-After rotation, delete archived files you no longer need yourself. [`audit_log_read()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_read) can read renamed files only if their names still match the active naming pattern.
+After rotation, delete archived files you no longer need yourself. [`audit_log_read()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_read) can read renamed files only if their names still match the active naming pattern.
 
 ## Additional reading
 
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html) — rotation, size, and pruning options
-- [Audit Log Filter naming conventions](https://docs.percona.com/percona-server/8.4/audit-log-filter-naming.html)
-- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/8.4/reading-audit-log-filter-files.html)
-- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html)
-- [Audit Log Filter security](https://docs.percona.com/percona-server/8.4/audit-log-filter-security.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md) — rotation, size, and pruning options
+- [Audit Log Filter naming conventions](https://docs.percona.com/percona-server/8.4/audit-log-filter-naming.md)
+- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/8.4/reading-audit-log-filter-files.md)
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md)
+- [Audit Log Filter security](https://docs.percona.com/percona-server/8.4/audit-log-filter-security.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)

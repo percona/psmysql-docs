@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/jemalloc-profiling.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/jemalloc-profiling.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/jemalloc-profiling.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10746,7 +10746,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <p>Using <code>LD_PRELOAD</code>. Build the library, configure the malloc configuration with the <code>prof:true</code> string, and then use <code>LD_PRELOAD</code> to preload the <code>libjemalloc.so</code> library. Percona Server for MySQL detects jemalloc with profiling enabled automatically when properly configured.</p>
 <p>The following is an example of the required commands:</p>
-<div class="no-copy highlight"><pre><span></span><code>./configure --enable-stats --enable-prof &amp;&amp; make &amp;&amp; make install
+<div class="language-text no-copy highlight"><pre><span></span><code>./configure --enable-stats --enable-prof &amp;&amp; make &amp;&amp; make install
 export MALLOC_CONF=prof:true
 export LD_PRELOAD=/usr/lib/libjemalloc.so
 </code></pre></div>
@@ -10755,20 +10755,20 @@ export LD_PRELOAD=/usr/lib/libjemalloc.so
 Ensure the ``libjemalloc.so`` exists in the LD path. -->
 <h2 id="use-percona-server-for-mysql-with-jemalloc-with-profiling-enabled">Use Percona Server for MySQL with jemalloc with profiling enabled<a data-markdown-ignore class="headerlink" href="#use-percona-server-for-mysql-with-jemalloc-with-profiling-enabled" title="Permanent link">&para;</a></h2>
 <p>To detect if jemalloc is set, run the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">jemalloc_detected</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">jemalloc_detected</span><span class="p">;</span>
 </code></pre></div>
 <p>To enable jemalloc profiling in a MySQL client, run the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">on</span><span class="p">;</span>
 </code></pre></div>
 <p>The <code>malloc_stats_totals</code> table provides statistics, in bytes, of the memory usage.</p>
 <p>The following example commands display this result:</p>
-<div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">malloc_stats_totals</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">malloc_stats_totals</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+------------+------------+------------+-------------+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------+------------+------------+------------+-------------+------------+
 | ALLOCATED  | ACTIVE     | MAPPED     | RESIDENT   | RETAINED    | METADATA   |
 +------------+------------+------------+------------+-------------+------------+
 | 390977528  | 391012352  | 405291008  | 520167424  | 436813824   | 9933744    |
@@ -10778,13 +10778,13 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 </details>
 <p>The <a href="#malloc_stats">malloc_stats</a> table provides cumulative totals, in bytes, of several statistics per allocation size type (small, large, and huge).</p>
 <p>The following example commands display this result:</p>
-<div class="highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">malloc_stats</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">TYPE</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">malloc_stats</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">TYPE</span><span class="w"> </span><span class="k">DESC</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------+-------------+-------------+-------------+-------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------+-------------+-------------+-------------+-------------+
 | TYPE   | ALLOCATED   | NMALLOC     | NDALLOC     | NRESQUESTS  |
 +--------+-------------+-------------+-------------+-------------+
 | small  | 23578872    | 586156      | 0           | 2649417     |
@@ -10798,20 +10798,20 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 <p>The profiling samples the <code>malloc()</code> calls and stores the sampled stack traces in a separate location in memory. These samples can be dumped into the filesystem. A dump returns a detailed view of the state of the memory.</p>
 <p>The process is global; therefore, only a single concurrent run is available. Each dump creates a new file with a unique timestamp, and previous dumps are retained unless manually deleted.</p>
 <p>Use the following command to create a profile dump file:</p>
-<div class="highlight"><pre><span></span><code><span class="n">flush</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="n">profile</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">flush</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="n">profile</span><span class="p">;</span>
 </code></pre></div>
 <p>The generated memory profile dumps are written to the /tmp directory.</p>
 <p>You can analyze the dump files with <code>jeprof</code> program, which must be installed on the host system and available in the system PATH. This program is a C program that post-processes the dump files in their raw format. While jeprof can work with dumps from different jemalloc versions, compatibility issues may occur with significantly different versions.</p>
 <p>To verify the dump, run the following command:</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>/tmp/jeprof_mysqld*
+<div class="language-shell highlight"><pre><span></span><code>ls<span class="w"> </span>/tmp/jeprof_mysqld*
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>/tmp/jeprof_mysqld.1.0.170013202213
+<div class="language-text no-copy highlight"><pre><span></span><code>/tmp/jeprof_mysqld.1.0.170013202213
 </code></pre></div>
 </details>
 <p>Then analyze the profile:</p>
-<div class="highlight"><pre><span></span><code>jeprof<span class="w"> </span>--show_bytes<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213
+<div class="language-shell highlight"><pre><span></span><code>jeprof<span class="w"> </span>--show_bytes<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213
 </code></pre></div>
 <p>You can also access the memory profile to plot a graph of the memory use. This ability requires that <code>jeprof</code> and <code>dot</code> are available in the system PATH. For the graph to display useful information, the binary file must contain debug symbol information.</p>
 <div class="admonition warning">
@@ -10829,7 +10829,7 @@ Ensure the ``libjemalloc.so`` exists in the LD path. -->
 </ul>
 </div>
 <p>Run the following command:</p>
-<div class="highlight"><pre><span></span><code>jeprof<span class="w"> </span>--dot<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213<span class="w"> </span>&gt;<span class="w"> </span>/tmp/jeprof1.dot
+<div class="language-shell highlight"><pre><span></span><code>jeprof<span class="w"> </span>--dot<span class="w"> </span>/usr/sbin/mysqld<span class="w"> </span>/tmp/jeprof_mysqld.1.0.170013202213<span class="w"> </span>&gt;<span class="w"> </span>/tmp/jeprof1.dot
 dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span class="w"> </span>&gt;<span class="w"> </span>/tmp/jeprof1.png
 </code></pre></div>
 <div class="admonition note">
@@ -10958,7 +10958,7 @@ dot<span class="w"> </span>-Tpng<span class="w"> </span>/tmp/jeprof1.dot<span cl
 </ul>
 <h2 id="disable-profiling">Disable profiling<a data-markdown-ignore class="headerlink" href="#disable-profiling" title="Permanent link">&para;</a></h2>
 <p>To disable jemalloc profiling, in a MySQL client, run the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">jemalloc_profiling</span><span class="o">=</span><span class="k">off</span><span class="p">;</span>
 </code></pre></div>
 
 

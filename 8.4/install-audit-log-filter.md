@@ -26,13 +26,13 @@ By default, the script runs against the `mysql` database. Use either approach:
 
 - Option 1: Run the script from the command line with the `-D mysql` option:
 
-  ```
+  ```shell
   mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.sql
   ```
 
 - Option 2: Connect to `mysql` database and run the script interactively:
 
-  ```
+  ```sql
   use mysql;
   source /path/to/mysql/share/audit_log_filter_linux_install.sql;
   ```
@@ -43,7 +43,7 @@ By default, the script runs against the `mysql` database. Use either approach:
 
 Confirm the audit tables exist:
 
-```
+```sql
 show tables in mysql like 'aud%';
 ```
 
@@ -51,7 +51,7 @@ A clean install lists two rows for `audit_log_filter` and `audit_log_user`. Othe
 
 Expected output on a clean install
 
-```
+```text
 +------------------------+
 | Tables_in_mysql (aud%) |
 +------------------------+
@@ -64,7 +64,7 @@ Expected output on a clean install
 
 `INSTALL COMPONENT` loads the binary only—it does not create tables, so filter UDFs fail until you run the install script.
 
-```
+```mysql
 INSTALL COMPONENT 'file://component_audit_log_filter';
 ```
 
@@ -74,7 +74,7 @@ The URN must include the `component_` prefix. `file://audit_log_filter` fails to
 
 Confirm the component row exists:
 
-```
+```sql
 select * from mysql.component;
 ```
 
@@ -82,7 +82,7 @@ Look for a row whose `component_urn` is `file://component_audit_log_filter`. Oth
 
 Example output
 
-```
+```text
 +--------------+--------------------+------------------------------------+
 | component_id | component_group_id | component_urn                      |
 +--------------+--------------------+------------------------------------+
@@ -95,13 +95,13 @@ Example output
 
 Exercise a filter UDF to confirm the audit tables exist. The call fails when the component loads without them:
 
-```
+```sql
 SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
 ```
 
 Expected output when tables are missing
 
-```
+```text
 +---------------------------------------------------------------------+
 | audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
 +---------------------------------------------------------------------+
@@ -118,13 +118,13 @@ This error indicates that the component is loaded without the tables. Run `audit
 
 If the component is installed but tables are missing, run the install script against `mysql`:
 
-```
+```shell
 mysql -u root -p -D mysql < /path/to/mysql/share/audit_log_filter_linux_install.sql
 ```
 
 Or interactively:
 
-```
+```sql
 use mysql;
 source /path/to/mysql/share/audit_log_filter_linux_install.sql;
 ```
@@ -137,7 +137,7 @@ The following check applies to both install paths. Run it after the install scri
 
 Define a catch-all filter and bind it to the default account pattern. Both calls are required. `audit_log_filter_set_filter()` stores the filter definition in `mysql.audit_log_filter`. `audit_log_filter_set_user()` assigns it to a login pattern in `mysql.audit_log_user`. A filter that is defined but unassigned never reaches a session.
 
-```
+```sql
 SELECT audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}');
 SELECT audit_log_filter_set_user('%', 'log_all');
 SELECT audit_log_filter_flush();
@@ -145,7 +145,7 @@ SELECT audit_log_filter_flush();
 
 Expected output
 
-```
+```text
 +---------------------------------------------------------------------+
 | audit_log_filter_set_filter('log_all', '{"filter": {"log": true}}') |
 +---------------------------------------------------------------------+
@@ -163,19 +163,19 @@ Expected output
 +--------------------------+
 ```
 
-The `%` account pattern is the default-row fallback the component uses when no more specific row in `mysql.audit_log_user` matches the session account. For per-account assignment, replace `%` with a `user_name@host_name` pattern. For details, see [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name) and [Which audit_log_user row applies](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html#which-audit_log_user-row-applies).
+The `%` account pattern is the default-row fallback the component uses when no more specific row in `mysql.audit_log_user` matches the session account. For per-account assignment, replace `%` with a `user_name@host_name` pattern. For details, see [`audit_log_filter_set_user()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_useruser_name-filter_name) and [Which audit_log_user row applies](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#which-audit_log_user-row-applies).
 
 ## Additional information
 
-If you are replacing an existing audit plugin (the legacy `audit_log` plugin or the transitional `audit_log_filter` plugin) with the component, see [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.html) for the variable mapping, policy translation, and a worked example. The general plugin-to-component framing is in [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html).
+If you are replacing an existing audit plugin (the legacy `audit_log` plugin or the transitional `audit_log_filter` plugin) with the component, see [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md) for the variable mapping, policy translation, and a worked example. The general plugin-to-component framing is in [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md).
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
-- [Audit Log Filter quickstart](https://docs.percona.com/percona-server/8.4/audit-log-filter-quickstart.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html)
-- [Uninstall Audit Log Filter](https://docs.percona.com/percona-server/8.4/uninstall-audit-log-filter.html)
-- [Upgrade components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/upgrade.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)
+- [Audit Log Filter quickstart](https://docs.percona.com/percona-server/8.4/audit-log-filter-quickstart.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md)
+- [Uninstall Audit Log Filter](https://docs.percona.com/percona-server/8.4/uninstall-audit-log-filter.md)
+- [Upgrade components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/upgrade.md)
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.md) for ways that we can work with you.

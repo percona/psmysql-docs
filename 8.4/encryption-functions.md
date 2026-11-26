@@ -67,7 +67,7 @@ The `INSERT` privilege on the `mysql.component` system table is required to run 
 
 The following is an example of the installation command:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_encryption_udf';
 ```
 
@@ -406,7 +406,7 @@ Code examples for the following operations:
 - Encrypt data
 - Decrypt data
 
-```
+```sql
 -- Set Global variable
 SET GLOBAL encryption_udf.dh_bits_threshold = 4096;
 
@@ -414,7 +414,7 @@ SET GLOBAL encryption_udf.dh_bits_threshold = 4096;
 SET GLOBAL encryption_udf.rsa_bits_threshold = 4096;
 ```
 
-```
+```sql
 -- Create private key
 SET @private_key = create_asymmetric_priv_key('RSA', 3072);
 
@@ -435,7 +435,7 @@ Code examples for the following operations:
 - Generate a digest signature
 - Verify the signature against the digest
 
-```
+```sql
 -- Generate a digest string
 SET @digest = create_digest('SHA256', 'This is the text for digest');
 
@@ -454,7 +454,7 @@ Code examples for the following operations:
 - Generate a symmetric key using the public_1 and the private_2
 - Generate a symmetric key using the public_2 and the private_1
 
-```
+```sql
  -- Generate a DH parameter
 SET @dh_parameter = create_dh_parameters(3072);
 
@@ -479,7 +479,7 @@ Code examples for the following operations:
 - Create a private key using a `SELECT` statement
 - Create a private key using an `INSERT` statement
 
-```
+```sql
 SET @private_key1 = create_asymmetric_priv_key('RSA', 3072);
 SELECT create_asymmetric_priv_key('RSA', 3072) INTO @private_key2;
 INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
@@ -489,6 +489,6 @@ INSERT INTO key_table VALUES(create_asymmetric_priv_key('RSA', 3072));
 
 You can deactivate and uninstall the component using the [Uninstall Component statement](https://dev.mysql.com/doc/refman/8.4/en/uninstall-component.html).
 
-```
+```sql
 UNINSTALL COMPONENT 'file://component_encryption_udf';
 ```

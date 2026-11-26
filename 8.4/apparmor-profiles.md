@@ -29,8 +29,8 @@ Understanding these modes helps MySQL developers ensure that their applications 
 
 ## AppArmor links:
 
-[AppArmor](https://docs.percona.com/percona-server/8.4/apparmor.html)\
-[Manage AppArmor Profiles](https://docs.percona.com/percona-server/8.4/manage-apparmor-profiles.html)\
-[Disable AppArmor](https://docs.percona.com/percona-server/8.4/disable-apparmor.html)\
-[Configure AppArmor](https://docs.percona.com/percona-server/8.4/configure-apparmor.html)\
-[Troubleshoot AppArmor](https://docs.percona.com/percona-server/8.4/troubleshoot-apparmor.html)
+[AppArmor](https://docs.percona.com/percona-server/8.4/apparmor.md)\
+[Manage AppArmor Profiles](https://docs.percona.com/percona-server/8.4/manage-apparmor-profiles.md)\
+[Disable AppArmor](https://docs.percona.com/percona-server/8.4/disable-apparmor.md)\
+[Configure AppArmor](https://docs.percona.com/percona-server/8.4/configure-apparmor.md)\
+[Troubleshoot AppArmor](https://docs.percona.com/percona-server/8.4/troubleshoot-apparmor.md)

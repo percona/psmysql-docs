@@ -1,0 +1,20 @@
+> For the complete documentation index, see [llms.txt](https://docs.percona.com/percona-server/8.4/llms.txt).
+
+# INSTALL COMPONENT
+
+The `INSTALL COMPONENT` does the following:
+
+- Installs the component
+- Activates the component
+
+If an error, such as a misspelled component name, occurs, the statement fails and nothing happens.
+
+You can install multiple components at the same time.
+
+## Example
+
+The following is an example of the `INSTALL COMPONENT` statement.
+
+```sql
+INSTALL COMPONENT 'file://componentA';
+```

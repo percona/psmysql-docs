@@ -24,14 +24,14 @@ A view is a virtual table generated from a SQL query. It allows users to simplif
 
 ## Create view
 
-```
+```sql
 CREATE VIEW customer_orders AS
     SELECT customers.name, orders.order_id, orders.total_amount
     FROM customers
     JOIN orders ON customers.customer_id = orders.customer_id;
 ```
 
-```
+```sql
 CREATE VIEW recent_orders AS
    SELECT *
     FROM orders
@@ -40,17 +40,17 @@ CREATE VIEW recent_orders AS
 
 ## Drop view
 
-```
+```sql
 DROP VIEW IF EXISTS customer_orders;
 ```
 
-```
+```sql
 DROP VIEW IF EXISTS recent_orders;
 ```
 
 ## Database management
 
-- [Database](https://docs.percona.com/percona-server/8.4/database.html)
-- [Modify Tables](https://docs.percona.com/percona-server/8.4/modify-tables.html)
-- [Isolation Levels](https://docs.percona.com/percona-server/8.4/isolation-levels.html)
-- [Transaction Management](https://docs.percona.com/percona-server/8.4/transaction-mgmt.html)
+- [Database](https://docs.percona.com/percona-server/8.4/database.md)
+- [Modify Tables](https://docs.percona.com/percona-server/8.4/modify-tables.md)
+- [Isolation Levels](https://docs.percona.com/percona-server/8.4/isolation-levels.md)
+- [Transaction Management](https://docs.percona.com/percona-server/8.4/transaction-mgmt.md)

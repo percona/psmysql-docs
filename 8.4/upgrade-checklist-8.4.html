@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10650,13 +10650,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Before the first start of 8.4, remove the options that no longer exist from the configuration file, for example, <code>default_authentication_plugin</code>, <code>expire_logs_days</code>, <code>transaction_write_set_extraction</code>, <code>binlog_transaction_dependency_tracking</code>, <code>master_info_repository</code>, and <code>log_bin_use_v1_row_events</code>. See <a href="8.4-compatibility-and-removed-items.html">Compatibility and removed items in 8.4</a>.</li>
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Validate the configuration with the 8.4 <code>mysqld</code> binary before the first start. The command checks the options without touching the data directory. It prints <code>unknown variable</code> and exits with a non-zero code if an option is not supported:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mysqld<span class="w"> </span>--validate-config<span class="w"> </span>--user<span class="o">=</span>mysql
 </code></pre></div>
 <p>The RPM packages do not start the server, so you can run the command after you install the 8.4 packages and before you start the server. The DEB packages start the server during <code>apt install</code>, so validate the configuration on a staging host with 8.4 installed first.</p>
 </li>
 <li class="task-list-item">
 <p><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> If you run the MySQL Shell upgrade checker, pass your configuration file with <code>--config-path</code>. Without this option, the checker does not check the configuration file:</p>
-<div class="highlight"><pre><span></span><code>mysqlsh<span class="w"> </span>--<span class="w"> </span>util<span class="w"> </span>check-for-server-upgrade<span class="w"> </span>root@localhost:3306<span class="w"> </span>--target-version<span class="o">=</span><span class="m">8</span>.4.12<span class="w"> </span>--config-path<span class="o">=</span>/etc/my.cnf
+<div class="language-shell highlight"><pre><span></span><code>mysqlsh<span class="w"> </span>--<span class="w"> </span>util<span class="w"> </span>check-for-server-upgrade<span class="w"> </span>root@localhost:3306<span class="w"> </span>--target-version<span class="o">=</span><span class="m">8</span>.4.12<span class="w"> </span>--config-path<span class="o">=</span>/etc/my.cnf
 </code></pre></div>
 <p>On Debian and Ubuntu, the server configuration is in <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>.</p>
 </li>

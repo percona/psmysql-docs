@@ -14,7 +14,7 @@ Now, define the structure of your table by specifying its columns along with the
 
 Here’s the syntax for creating a table:
 
-```
+```text
 CREATE TABLE table_name (
     column1_name data_type constraints,
     column2_name data_type constraints,
@@ -28,7 +28,7 @@ Replace `table_name` with the desired name for your table. For each column, prov
 
 Execute the `CREATE TABLE` command to create the table in the database. For example, to create a table named `employees` with columns for `id`, `name`, and `salary`, you would run the following SQL command:
 
-```
+```sql
 CREATE TABLE employees (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
@@ -42,15 +42,15 @@ This command creates a table named `employees` with three columns: `id`, `name`,
 
 After executing the `CREATE TABLE` command, verify that the table has been successfully created. You can use various SQL commands such as `SHOW TABLES` or `DESCRIBE table_name` to check the existence and structure of the newly created table.
 
-```
+```sql
 SHOW TABLES;
 DESCRIBE employees;
 ```
 
 ## Database management
 
-- [Database](https://docs.percona.com/percona-server/8.4/database.html)
-- [Tables](https://docs.percona.com/percona-server/8.4/table.html)
-- [Isolation Levels](https://docs.percona.com/percona-server/8.4/isolation-levels.html)
-- [Transaction Management](https://docs.percona.com/percona-server/8.4/transaction-mgmt.html)
-- [Views](https://docs.percona.com/percona-server/8.4/views.html)
+- [Database](https://docs.percona.com/percona-server/8.4/database.md)
+- [Tables](https://docs.percona.com/percona-server/8.4/table.md)
+- [Isolation Levels](https://docs.percona.com/percona-server/8.4/isolation-levels.md)
+- [Transaction Management](https://docs.percona.com/percona-server/8.4/transaction-mgmt.md)
+- [Views](https://docs.percona.com/percona-server/8.4/views.md)

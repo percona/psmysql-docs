@@ -10,7 +10,7 @@ An audit log path has:
 - Base file name
 - Optional suffix from compression or encryption
 
-[Compression](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html) or [encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html) append suffixes:
+[Compression](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md) or [encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md) append suffixes:
 
 - Compression adds `.gz`
 - Encryption adds `.pwd_id.enc`
@@ -37,7 +37,7 @@ Each `pwd_id` contains:
 
 Examples:
 
-```
+```text
 20230417T082215-1
 20230301T061400-1
 20230301T061400-2
@@ -45,7 +45,7 @@ Examples:
 
 Example encrypted file names:
 
-```
+```text
 audit_filter.log.20230417T082215-1.enc
 audit_filter.log.20230301T061400-1.enc
 audit_filter.log.20230301T061400-2.enc
@@ -57,7 +57,7 @@ The password with the highest sequence for a given timestamp is current.
 
 Starting in Percona Server for MySQL 8.4.9-9, multiple rotations in the same second append `-N` so the server never overwrites a prior file:
 
-```
+```text
 audit_filter.20250401T120000.log      -- first rotation at 12:00:00
 audit_filter.20250401T120000-1.log    -- second rotation at 12:00:00
 ```
@@ -72,8 +72,8 @@ At shutdown, the component renames the active log file.
 
 ## Additional reading
 
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html) — `audit_log_filter.file`
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html)
-- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/8.4/reading-audit-log-filter-files.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md) — `audit_log_filter.file`
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md)
+- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/8.4/reading-audit-log-filter-files.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)

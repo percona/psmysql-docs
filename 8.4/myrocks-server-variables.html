@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -13556,7 +13556,7 @@ provides centralized control over compaction style, memory, and I/O
 (input/output) parallelism.</p>
 <p>The default varies by MyRocks version but balances LZ4 compression with
 moderate buffer sizes, such as 64 MB memtables. The default value is:</p>
-<div class="highlight"><pre><span></span><code>block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
+<div class="language-text highlight"><pre><span></span><code>block_based_table_factory={cache_index_and_filter_blocks=1;filter_policy=bloomfilter:10:false;whole_key_filtering=1};level_compaction_dynamic_level_bytes=true;optimize_filters_for_hits=true;compaction_pri=kMinOverlappingRatio;compression=kLZ4Compression;bottommost_compression=kLZ4Compression;
 </code></pre></div>
 <h4 id="what-each-component-of-the-default-value-does">What each component of the default value does<a data-markdown-ignore class="headerlink" href="#what-each-component-of-the-default-value-does" title="Permanent link">&para;</a></h4>
 <p>The default value combines four groups of settings:</p>
@@ -13668,7 +13668,7 @@ Allowed range is from <code>0</code> to <code>18446744073709551615</code>.</p>
 </table>
 <p>Deletes the column family by name. The default value is “” , an empty string.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span><code>SET @@global.ROCKSDB_DELETE_CF = 'cf_primary_key';
+<div class="language-text highlight"><pre><span></span><code>SET @@global.ROCKSDB_DELETE_CF = 'cf_primary_key';
 </code></pre></div>
 <h3 id="rocksdb_delete_obsolete_files_period_micros"><code>rocksdb_delete_obsolete_files_period_micros</code><a data-markdown-ignore class="headerlink" href="#rocksdb_delete_obsolete_files_period_micros" title="Permanent link">&para;</a></h3>
 <table>

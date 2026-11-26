@@ -2,7 +2,7 @@
 
 # Get help from Percona
 
-Our [documentation](https://docs.percona.com/percona-server/8.4/index.html) is packed with information, but it can’t cover everything you need to know about Percona Server for MySQL. It also won’t cover every scenario you might come across. New to Percona? Start with [choosing your path](https://docs.percona.com/percona-server/8.4/ps-or-pdps.html). Don’t be afraid to try things out and ask questions when you get stuck.
+Our [documentation](https://docs.percona.com/percona-server/8.4/index.md) is packed with information, but it can’t cover everything you need to know about Percona Server for MySQL. It also won’t cover every scenario you might come across. New to Percona? Start with [choosing your path](https://docs.percona.com/percona-server/8.4/ps-or-pdps.md). Don’t be afraid to try things out and ask questions when you get stuck.
 
 ## Percona’s Community Forum
 
@@ -29,9 +29,9 @@ We’re here to help you every step of the way. Whether you need a quick fix or 
 
 ## What to do next
 
-- [Documentation home](https://docs.percona.com/percona-server/8.4/index.html) — start here or return to the main guide
-- [Choose your path](https://docs.percona.com/percona-server/8.4/ps-or-pdps.html) — Percona Server for MySQL, Percona Distribution for MySQL, or Percona Operators
-- [Quickstart guide](https://docs.percona.com/percona-server/8.4/quickstart-overview.html) — get up and running quickly
-- [Install Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/installation.html) — step-by-step installation
-- [Upgrade](https://docs.percona.com/percona-server/8.4/upgrade.html) — upgrade an existing installation
-- [Troubleshooting overview](https://docs.percona.com/percona-server/8.4/troubleshoot-overview.html) — diagnose and fix common issues
+- [Documentation home](https://docs.percona.com/percona-server/8.4/index.md) — start here or return to the main guide
+- [Choose your path](https://docs.percona.com/percona-server/8.4/ps-or-pdps.md) — Percona Server for MySQL, Percona Distribution for MySQL, or Percona Operators
+- [Quickstart guide](https://docs.percona.com/percona-server/8.4/quickstart-overview.md) — get up and running quickly
+- [Install Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/installation.md) — step-by-step installation
+- [Upgrade](https://docs.percona.com/percona-server/8.4/upgrade.md) — upgrade an existing installation
+- [Troubleshooting overview](https://docs.percona.com/percona-server/8.4/troubleshoot-overview.md) — diagnose and fix common issues

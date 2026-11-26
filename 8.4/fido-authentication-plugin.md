@@ -28,7 +28,7 @@ At server startup, use the [`--plugin_load_add`](https://dev.mysql.com/doc/refma
 
 **Edit my.cnf and restart the server**
 
-```
+```text
 [mysqld]
 ...
 plugin-load-add=authentication_fido.so
@@ -37,7 +37,7 @@ plugin-load-add=authentication_fido.so
 
 **Load the plugin at runtime**
 
-```
+```sql
 INSTALL PLUGIN authentication_fido SONAME `authentication_fido.so`;
 ```
 
@@ -79,7 +79,7 @@ You must include the `INITIAL AUTHENTICATION IDENTIFIED BY` clause in the `CREAT
 
 The `CREATE USER` syntax is the following:
 
-```
+```sql
 CREATE USER <username>@<hostname> IDENTIFIED WITH authentication_fido INITIAL AUTHENTICATION IDENTIFIED BY '<password>';
 ```
 
@@ -96,6 +96,6 @@ If the FIDO device is replaced or lost, the following actions occur:
 
 Unregister a device with the following statement:
 
-```
+```sql
 ALTER USER `username`@`hostname` {2|3} FACTOR UNREGISTER;
 ```

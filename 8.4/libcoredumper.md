@@ -34,13 +34,13 @@ Restart the server.
 
 MySQL writes to the log when generating a core file and delegates the core dump operation to the Linux kernel.
 
-```
+```text
 Writing a core file
 ```
 
 MySQL using the `libcoredumper` to generate the file creates the following message in the log:
 
-```
+```text
 Writing a core file using lib coredumper
 ```
 
@@ -48,7 +48,7 @@ Every core file adds a crash timestamp instead of a PID for the following reason
 
 - Correlates the core file with the crash. MySQL prints a UTC timestamp on the crash log.
 
-```
+```text
 10:02:09 UTC - mysqld got signal 11;
 ```
 

@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/utility-user.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/utility-user.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/utility-user.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10639,13 +10639,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If host name wildcards are used and a more specific user specification is identified on start up, the server reports a warning and continues.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="highlight"><pre><span></span><code>utility_user=frank@% and [frank@localhost](mailto:frank@localhost) exists within the mysql.user table.
+<div class="language-text highlight"><pre><span></span><code>utility_user=frank@% and [frank@localhost](mailto:frank@localhost) exists within the mysql.user table.
 </code></pre></div>
 </details>
 <p>If a client attempts to create a MySQL user that matches this user specification exactly or if host name wildcards are used for the utility user and the user being created has the same name and a more specific host, the creation attempt fails with an error.</p>
 <details class="example">
 <summary>Error message</summary>
-<div class="no-copy highlight"><pre><span></span><code>utility_user=frank@% and CREATE USER [‘frank@localhost](mailto:'frank@localhost)’;
+<div class="language-text no-copy highlight"><pre><span></span><code>utility_user=frank@% and CREATE USER [‘frank@localhost](mailto:'frank@localhost)’;
 </code></pre></div>
 </details>
 <p>As a result of these requirements, it is strongly recommended that a very unique user name and reasonably specific host be used. </p>
@@ -10689,7 +10689,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Option <a href="#utility_user_password">utility_user_password</a> specifies the password for the utility user and must be specified or the server exits with an error.</p>
 <details class="example">
 <summary>Utility user password</summary>
-<div class="no-copy highlight"><pre><span></span><code>utility_user_password=Passw0rD
+<div class="language-text no-copy highlight"><pre><span></span><code>utility_user_password=Passw0rD
 </code></pre></div>
 </details>
 <h3 id="utility_user_schema_access"><code>utility_user_schema_access</code><a data-markdown-ignore class="headerlink" href="#utility_user_schema_access" title="Permanent link">&para;</a></h3>
@@ -10731,7 +10731,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Option <a href="#utility_user_schema_access">utility_user_schema_access</a> specifies the name(s) of the schema(s) that the utility user will have access to read write and modify. If a particular schema named here does not exist on start up it will be ignored. If a schema by the name of any of those listed in this option is created after the server is started, the utility user will have full access to it.</p>
 <details class="example">
 <summary>Utility user schema access</summary>
-<div class="no-copy highlight"><pre><span></span><code>utility_user_schema_access=schema1,schema2,schema3
+<div class="language-text no-copy highlight"><pre><span></span><code>utility_user_schema_access=schema1,schema2,schema3
 </code></pre></div>
 </details>
 <h3 id="utility_user_privileges"><code>utility_user_privileges</code><a data-markdown-ignore class="headerlink" href="#utility_user_privileges" title="Permanent link">&para;</a></h3>
@@ -10773,7 +10773,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Option <a href="#utility_user_privileges">utility-user-privileges</a> allows a comma-separated list of extra access privileges to grant to the utility user.</p>
 <details class="example">
 <summary>Utility user privileges</summary>
-<div class="no-copy highlight"><pre><span></span><code>utility-user-privileges =”CREATE,DROP,LOCK TABLES”;
+<div class="language-text no-copy highlight"><pre><span></span><code>utility-user-privileges =”CREATE,DROP,LOCK TABLES”;
 </code></pre></div>
 </details>
 <h3 id="utility_user_dynamic_privileges"><code>utility_user_dynamic_privileges</code><a data-markdown-ignore class="headerlink" href="#utility_user_dynamic_privileges" title="Permanent link">&para;</a></h3>
@@ -10899,7 +10899,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Option <a href="#utility_user_dynamic_privileges">utility_user_dynamic_privileges</a> allows a comma-separated list of extra-access dynamic privileges to grant to the utility user.</p>
 <details class="example">
 <summary>Utility user dynamic privileges</summary>
-<div class="no-copy highlight"><pre><span></span><code>utility_user_dynamic_privileges =”SYSTEM_USER,AUDIT_ADMIN”;
+<div class="language-text no-copy highlight"><pre><span></span><code>utility_user_dynamic_privileges =”SYSTEM_USER,AUDIT_ADMIN”;
 </code></pre></div>
 </details>
 

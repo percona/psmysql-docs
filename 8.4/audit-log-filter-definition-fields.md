@@ -2,11 +2,11 @@
 
 # Audit Log Filter definition fields
 
-Canonical class, event, and field names for [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition) validation—aligned with Percona Server source [filter_definition_fields.md](https://github.com/percona/percona-server/blob/8.4/components/audit_log_filter/filter_definition_fields.md).
+Canonical class, event, and field names for [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) validation—aligned with Percona Server source [filter_definition_fields.md](https://github.com/percona/percona-server/blob/8.4/components/audit_log_filter/filter_definition_fields.md).
 
-For SQL command values (`create_db`, `select`, `grant`, and so on), typical event sequences for DDL/DCL/TCL operations, and the mapping between filter names and log output, see [Event classes, log output, and SQL commands](https://docs.percona.com/percona-server/8.4/write-filter-definitions.html#event-classes-log-output-and-sql-commands).
+For SQL command values (`create_db`, `select`, `grant`, and so on), typical event sequences for DDL/DCL/TCL operations, and the mapping between filter names and log output, see [Event classes, log output, and SQL commands](https://docs.percona.com/percona-server/8.4/write-filter-definitions.md#event-classes-log-output-and-sql-commands).
 
-[`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterevent_mode) decides which sections apply. The following notes contrast `REDUCED` and `FULL`.
+[`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) decides which sections apply. The following notes contrast `REDUCED` and `FULL`.
 
 ## Notes
 
@@ -18,7 +18,7 @@ For SQL command values (`create_db`, `select`, `grant`, and so on), typical even
 
 - Only documented class names pass validation.
 
-- When [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterevent_mode) is `REDUCED` (the default from 8.4.9-9 onward), only these events are tracked and accepted by filter-definition validation:
+- When [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) is `REDUCED` (the default from 8.4.9-9 onward), only these events are tracked and accepted by filter-definition validation:
 
   - `general`: `status`
   - `connection`: `connect`, `disconnect`, `change_user`
@@ -199,10 +199,10 @@ Supported events: `preparse`, `postparse`
 
 ## Additional reading
 
-- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.html)
-- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html)
-- [Audit Log Filter restrictions](https://docs.percona.com/percona-server/8.4/audit-log-filter-restrictions.html)
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html)
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
-- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.html)
+- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.md)
+- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md)
+- [Audit Log Filter restrictions](https://docs.percona.com/percona-server/8.4/audit-log-filter-restrictions.md)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)
+- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.md)

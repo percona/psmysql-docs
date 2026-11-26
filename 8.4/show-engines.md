@@ -6,13 +6,13 @@ This feature changes the comment field displayed when the `SHOW STORAGE ENGINES`
 
 Before the Change:
 
-```
+```sql
 show storage engines;
 ```
 
 Expected output
 
-```
+```text
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
 | Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
@@ -23,13 +23,13 @@ Expected output
 
 After the Change:
 
-```
+```sql
 show storage engines;
 ```
 
 Expected output
 
-```
+```text
 +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+
 | Engine     | Support | Comment                                                                    | Transactions |   XA | Savepoints |
 +------------+---------+----------------------------------------------------------------------------+--------------+------+------------+

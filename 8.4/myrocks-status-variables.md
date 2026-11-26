@@ -6,7 +6,7 @@ MyRocks status variables provide details about the inner workings of the storage
 
 You can view these variables and their values by running:
 
-```
+```bash
 SHOW STATUS LIKE 'rocksdb%';
 ```
 

@@ -30,7 +30,7 @@ It is currently impossible to use indexes on `BLOB` columns due to some limitati
 
 Expected output
 
-```
+```text
 BLOB column '<name>' can't be used in key specification with the used table type.
 ```
 
@@ -72,13 +72,13 @@ The implicit request by the user is taken when there is at least one `BLOB` or `
 
 For example, this will yield the use of the dynamic format:
 
-```
+```sql
 CREATE TABLE t1 (f1 VARCHAR(32), f2 TEXT, PRIMARY KEY (f1)) ENGINE=HEAP;
 ```
 
 While this will not:
 
-```
+```sql
 CREATE TABLE t1 (f1 VARCHAR(16), f2 VARCHAR(16), PRIMARY KEY (f1)) ENGINE=HEAP;
 ```
 
@@ -102,17 +102,17 @@ the engine will revert to the fixed format as it is more space efficient in such
 
 ## Examples
 
-```
+```sql
 CREATE TABLE t1 (f1 VARCHAR(32), f2 VARCHAR(32), f3 VARCHAR(32), f4 VARCHAR(32), PRIMARY KEY (f1)) KEY_BLOCK_SIZE=124 ENGINE=HEAP;
 ```
 
-```
+```sql
 SHOW TABLE STATUS LIKE 't1';
 ```
 
 Expected output
 
-```
+```text
 Name  Engine  Version    Rows Avg_row_length  Data_length     Max_data_length Index_length    Data_free       Auto_increment  Create_time     Update_time     Check_time      Collation       Checksum        Create_options  Comment
 t1    MEMORY  10         X    0       X       0       0       NULL    NULL    NULL    NULL    latin1_swedish_ci       NULL    KEY_BLOCK_SIZE=124
 ```

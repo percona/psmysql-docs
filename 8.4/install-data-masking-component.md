@@ -8,7 +8,7 @@
 
 - The `component_masking_functions` library must be present in the server plugin directory. The `plugin_dir` system variable defines that directory; the server resolves `file://component_masking_functions` in `INSTALL COMPONENT` relative to `plugin_dir`. To verify the library is available, check that the file exists in the directory reported by:
 
-  ```
+  ```sql
   SHOW VARIABLES LIKE 'plugin_dir';
   ```
 
@@ -29,7 +29,7 @@ Follow the steps in order. The table must exist and match the required schema be
 
    Ensure the statement completes and is committed before you run step 2. The schema below is required; do not alter column names or types unless a future Percona Server release documents a different schema. You are responsible for creating and maintaining this table; if the component’s expected schema changes in an upgrade, release or upgrade documentation will describe any required `ALTER TABLE` or migration that you must apply.
 
-   ```
+   ```sql
    CREATE TABLE IF NOT EXISTS
    mysql.masking_dictionaries(
        Dictionary VARCHAR(256) NOT NULL,
@@ -40,13 +40,13 @@ Follow the steps in order. The table must exist and match the required schema be
 
 1. Install the component and loadable functions.
 
-   ```
+   ```sql
    INSTALL COMPONENT 'file://component_masking_functions';
    ```
 
    If the command fails, check the server error log and confirm the library is present in `plugin_dir` (see [Prerequisites](#prerequisites)). The component is registered in `mysql.component` and is loaded again on server restart. On replicas or in high-availability setups, the instance may be in `read_only` or `super_read_only` mode; component loading in those states follows server behavior. If the component does not load on a replica (for example, because the library is missing or configuration differs), masking is not available on that instance until the cause is resolved.
 
-   On Percona Server for MySQL 8.4.4-1 and later, dictionary-based functions (`gen_dictionary`, `gen_blocklist`) use the built-in `mysql.session` user for internal queries. Grant `mysql.session` the required privileges on the `masking_dictionaries` table as described in [Permissions](https://docs.percona.com/percona-server/8.4/data-masking-function-list.html#permissions) in the data masking function list. Granting these privileges allows the server to read and modify the dictionary table for masking; the table may contain lookup data. Rely on your normal access controls and hardening for the `mysql` schema and dictionary contents.
+   On Percona Server for MySQL 8.4.4-1 and later, dictionary-based functions (`gen_dictionary`, `gen_blocklist`) use the built-in `mysql.session` user for internal queries. Grant `mysql.session` the required privileges on the `masking_dictionaries` table as described in [Permissions](https://docs.percona.com/percona-server/8.4/data-masking-function-list.md#permissions) in the data masking function list. Granting these privileges allows the server to read and modify the dictionary table for masking; the table may contain lookup data. Rely on your normal access controls and hardening for the `mysql` schema and dictionary contents.
 
 1. Grant `MASKING_DICTIONARIES_ADMIN` to users who will manage dictionaries.
 
@@ -58,14 +58,14 @@ Follow the steps in order. The table must exist and match the required schema be
    - `masking_dictionary_term_remove`
    - `masking_dictionary_remove`
 
-   ```
+   ```sql
    GRANT MASKING_DICTIONARIES_ADMIN ON *.* TO <user>;
    ```
 
 ## Useful links
 
-[Uninstall the data masking component](https://docs.percona.com/percona-server/8.4/uninstall-data-masking-component.html)
+[Uninstall the data masking component](https://docs.percona.com/percona-server/8.4/uninstall-data-masking-component.md)
 
-[Data masking component functions](https://docs.percona.com/percona-server/8.4/data-masking-function-list.html)
+[Data masking component functions](https://docs.percona.com/percona-server/8.4/data-masking-function-list.md)
 
-[Data masking quickstart](https://docs.percona.com/percona-server/8.4/quickstart-data-masking.html) — create a test database and try masking functions.
+[Data masking quickstart](https://docs.percona.com/percona-server/8.4/quickstart-data-masking.md) — create a test database and try masking functions.

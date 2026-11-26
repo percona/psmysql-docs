@@ -131,7 +131,7 @@ Example of listing SELinux types associated with MySQL directories and files">
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/selinux-contexts.md"></head>
   
   
     
@@ -141,7 +141,7 @@ Example of listing SELinux types associated with MySQL directories and files">
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/selinux-contexts.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/selinux-contexts.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10582,15 +10582,15 @@ Example of listing SELinux types associated with MySQL directories and files</p>
 <p>SELinux context is like a label that tells the system how to handle files, processes, and other resources. For example, it determines which processes can access certain files and what actions they can perform on them. Understanding SELinux context helps you know how your applications interact with the system and ensures that they have the necessary permissions to function correctly. It&rsquo;s like giving each item on your computer a tag that says what it is and what it&rsquo;s allowed to do. So when your application tries to access a file, SELinux checks its context to see if it&rsquo;s allowed. If the context matches what&rsquo;s expected, the action is allowed; if not, it&rsquo;s denied. So knowing the SELinux context is essential for managing security and troubleshooting issues on your system.</p>
 <h3 id="viewing-selinux-context-for-a-process-using-ps-command">Viewing SELinux context for a process using ps command<a data-markdown-ignore class="headerlink" href="#viewing-selinux-context-for-a-process-using-ps-command" title="Permanent link">&para;</a></h3>
 <p>To view the SELinux context for a process using the <code>ps</code> command, you can add the <code>-Z</code> option to display the context information. Here&rsquo;s how you can do it:</p>
-<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;process_name&gt;
+<div class="language-shell highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;process_name&gt;
 </code></pre></div>
 <p>Replace <code>&lt;process_name&gt;</code> with the process name you want to check. For example, if you want to see the SELinux context for the MySQL process, you would use:</p>
-<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld
+<div class="language-shell highlight"><pre><span></span><code>ps<span class="w"> </span>-eZ<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mysqld
 </code></pre></div>
 <p>The output displays the SELinux context for the specified process and typically consists of four parts: user, role, type (or domain), and sensitivity level.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
+<div class="language-text no-copy highlight"><pre><span></span><code>system_u:system_r:mysqld_t:s0    3356 ?        00:00:01 mysqld
 </code></pre></div>
 </details>
 <ul>
@@ -10602,11 +10602,11 @@ Example of listing SELinux types associated with MySQL directories and files</p>
 <p>This information helps you understand how SELinux enforces security policies for the specified process.</p>
 <h2 id="list-selinux-types-or-domains">List SELinux Types or Domains<a data-markdown-ignore class="headerlink" href="#list-selinux-types-or-domains" title="Permanent link">&para;</a></h2>
 <p>SELinux types or domains categorize different resources on the system, such as files, directories, and processes. Each type or domain has specific permissions and restrictions associated with it, determining how resources interact with each other. To list SELinux types or domains associated with files, you can use the <code>ls</code> command with the <code>-Z</code> option. For example:</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/mysql
+<div class="language-shell highlight"><pre><span></span><code>ls<span class="w"> </span>-laZ<span class="w"> </span>/var/lib/mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
+<div class="language-text no-copy highlight"><pre><span></span><code>drwxr-x--x. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-files
 drwxr-x---. mysql   mysql   system_u:object_r:mysqld_db_t:s0 mysql-keyring
 </code></pre></div>

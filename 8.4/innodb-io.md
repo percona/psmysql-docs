@@ -33,7 +33,7 @@ On an ext4 filesystem, set `innodb_log_write_ahead_size` to match the filesystem
 
 The following information has been added to `SHOW ENGINE INNODB STATUS` to confirm the checkpointing activity:
 
-```
+```text
 The current checkpoint age target
 The current age of the oldest page modification which has not been flushed to disk yet.
 The current age of the last checkpoint

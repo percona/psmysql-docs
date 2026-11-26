@@ -8,14 +8,14 @@ This guide describes **standard OS installation** on RPM-based operating systems
 
 **For containerized deployments:**
 
-- For Docker containers, see [Running Percona Server for MySQL in a Docker Container](https://docs.percona.com/percona-server/8.4/docker.html).
+- For Docker containers, see [Running Percona Server for MySQL in a Docker Container](https://docs.percona.com/percona-server/8.4/docker.md).
 - For Kubernetes deployments, refer to the documentation for [Percona Operator based on Percona Server for MySQL](https://docs.percona.com/percona-operator-for-mysql/ps/) or [Percona Operator based on Percona XtraDB Cluster](https://docs.percona.com/percona-operator-for-mysql/pxc/).
 
 The `percona-release` tool is a command-line utility that simplifies the management and installation of Percona software packages, providing access to the latest versions and ensuring consistency across environments. For more information, refer to the [Percona Software Repositories Documentation](https://docs.percona.com/percona-software-repositories/index.html).
 
-We gather [Telemetry data](https://docs.percona.com/percona-server/8.4/telemetry.html) in the Percona packages and Docker images.
+We gather [Telemetry data](https://docs.percona.com/percona-server/8.4/telemetry.md) in the Percona packages and Docker images.
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.md) for ways that we can work with you.
 
 ## Prerequisites
 
@@ -49,13 +49,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. (EL8 only) Check the MySQL module on your system:
 
-   ```
+   ```shell
    sudo dnf module list mysql
    ```
 
    Expected output on Rocky Linux 8
 
-   ```
+   ```text
    mysql 8.0 [d] client, server [d] MySQL Module
    mysql 8.4     client, server [d] MySQL Module
 
@@ -66,13 +66,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. (EL8 only) Disable the MySQL module:
 
-   ```
+   ```shell
    sudo dnf -y module disable mysql
    ```
 
    Expected output
 
-   ```
+   ```text
    Dependencies resolved.
    ================================================================================
     Package           Architecture     Version             Repository         Size
@@ -90,13 +90,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. Install the Percona repository package:
 
-   ```
+   ```shell
    sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
    ```
 
    Expected output
 
-   ```
+   ```text
    Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
    percona-release-latest.noarch.rpm           69 kB/s |  28 kB     00:00    
    Dependencies resolved.
@@ -124,13 +124,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. Enable the Percona Server for MySQL repository:
 
-   ```
+   ```shell
    sudo percona-release enable-only ps-84-lts release
    ```
 
    Expected output
 
-   ```
+   ```text
    * Disabling all Percona Repositories
    * Enabling the Percona Server for MySQL - PS 8.4- repository
    <*> All done!
@@ -144,13 +144,13 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 1. Install the server package:
 
-   ```
+   ```shell
    sudo yum install percona-server-server
    ```
 
    Expected output
 
-   ```
+   ```text
    Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00    
    Percona Server for MySQL - PS 8.4- release 1.5 MB/s | 2.4 MB     00:01    
    Percona Telemetry release/aarch64 YUM repo 6.8 kB/s | 2.7 kB     00:00    
@@ -177,9 +177,9 @@ All commands in this guide use `sudo` for privilege elevation. Follow these step
 
 See [Configuring Percona repositories with `percona-release`](https://docs.percona.com/percona-software-repositories/percona-release.html) for more information.
 
-[Post-installation configuration](https://docs.percona.com/percona-server/8.4/post-installation.html)
+[Post-installation configuration](https://docs.percona.com/percona-server/8.4/post-installation.md)
 
-Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/8.4/install-myrocks.html).
+Percona Server for MySQL 8.4.x comes with the MyRocks storage engine. This storage engine is installed as a plugin. For information on installing and configuring MyRocks, refer to the [Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/8.4/install-myrocks.md).
 
 ## Unattended installations
 
@@ -187,7 +187,7 @@ The `-y` flag (on `apt` and `apt-get`, `--assumeyes` on `dnf`) tells the package
 
 **`percona-release`** — The `setup` command documents **`-y`** for non-interactive repository configuration, for example:
 
-```
+```bash
 sudo percona-release setup -y {{pkg}} --scheme https
 ```
 
@@ -195,15 +195,15 @@ If you use `enable` or `enable-only` instead, see `sudo percona-release --help` 
 
 **Debian and Ubuntu (`apt`)** — Add `-y` to each `sudo apt install` (or `sudo apt-get install`) you run, for example `sudo apt install -y curl` and `sudo apt install -y percona-server-server`.
 
-To **disable telemetry** during an unattended server install, set `PERCONA_TELEMETRY_DISABLE=1` on the same line (see [Telemetry](https://docs.percona.com/percona-server/8.4/telemetry.html) for details):
+To **disable telemetry** during an unattended server install, set `PERCONA_TELEMETRY_DISABLE=1` on the same line (see [Telemetry](https://docs.percona.com/percona-server/8.4/telemetry.md) for details):
 
-```
+```bash
 sudo PERCONA_TELEMETRY_DISABLE=1 apt install -y percona-server-server
 ```
 
 **RPM-based systems (`dnf` / `yum`)** — Add `-y` (or `yes`) to install commands as supported by your tool. Example with telemetry disabled:
 
-```
+```bash
 sudo PERCONA_TELEMETRY_DISABLE=1 dnf install -y percona-server-server
 ```
 
@@ -211,7 +211,7 @@ Use `yum` instead of `dnf` where that is the supported tool on your OS.
 
 ## Next steps
 
-After a successful installation, refer to the [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.html) documentation for detailed steps to configure and secure your Percona Server for MySQL installation.
+After a successful installation, refer to the [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.md) documentation for detailed steps to configure and secure your Percona Server for MySQL installation.
 
 ## Additional information
 
@@ -239,13 +239,13 @@ User-defined functions (UDFs) are custom functions you can add to MySQL to exten
 
 To install these functions after installation:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
@@ -253,7 +253,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 You can now use these functions in your SQL queries. For example: `SELECT fnv_64('test_string');`
 
-For detailed information about these functions, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.html).
+For detailed information about these functions, see [Percona Toolkit UDF functions](https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md).
 
 ## Install the Percona testing repository (advanced users only)
 
@@ -267,13 +267,13 @@ Percona offers pre-release builds from the testing repository for advanced users
 
 To enable the testing repository:
 
-```
+```shell
 sudo percona-release enable ps-84-lts testing
 ```
 
 Expected output
 
-```
+```text
 * Enabling Percona Server for MySQL 8.4 LTS testing repository
 * Running yum update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
@@ -289,14 +289,14 @@ Please be aware of the following limitations when using the testing repository:
 
 To disable the testing repository and return to stable releases:
 
-```
+```shell
 sudo percona-release disable testing
 sudo yum update
 ```
 
 Expected output
 
-```
+```text
 * Disabling Percona testing repository
 * Running yum update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.

@@ -14,15 +14,15 @@ Depending on the type of installation, you may need to do the following tasks:
 
 ### Initialize the data directory
 
-The [binary tarball install](https://docs.percona.com/percona-server/8.4/binary-tarball-install.html) creates `/var/lib/mysql`, initializes it, and reads the temporary `root` password from the error log:
+The [binary tarball install](https://docs.percona.com/percona-server/8.4/binary-tarball-install.md) creates `/var/lib/mysql`, initializes it, and reads the temporary `root` password from the error log:
 
-```
+```shell
 sudo grep 'temporary password' /var/lib/mysql/error.log
 ```
 
 Expected output
 
-```
+```text
 2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: <temporary password>
 ```
 
@@ -34,13 +34,13 @@ After you have initialized the data directory and started the server, you can ru
 
 Use the [mysqladmin](https://dev.mysql.com/doc/refman/8.4/en/mysqladmin.html) client from the tarball. Enter the temporary `root` password when prompted.
 
-```
+```shell
 /usr/local/mysql/bin/mysqladmin -u root -p -S /var/run/mysqld/mysqld.sock version
 ```
 
 Expected output
 
-```
+```text
 Enter password:
 mysql Ver 8.4.11-12 for debian-linux-gnu on x86_64 (Percona Server (GPL), Release '10', Revision 'f446c04')
 ...
@@ -56,13 +56,13 @@ Open tables: 59  Queries per second avg: 0.0000
 
 Use [mysqlshow](https://dev.mysql.com/doc/refman/8.4/en/mysqlshow.html) to display database and table information.
 
-```
+```shell
 /usr/local/mysql/bin/mysqlshow -u root -p -S /var/run/mysqld/mysqld.sock
 ```
 
 Expected output
 
-```
+```text
 Enter password:
 
 +---------------------+
@@ -80,11 +80,11 @@ Enter password:
 
 ### Set service to run at boot time
 
-The [binary tarball install](https://docs.percona.com/percona-server/8.4/binary-tarball-install.html#install-on-ubuntu-2604) creates `/etc/systemd/system/mysqld.service` and starts the server.
+The [binary tarball install](https://docs.percona.com/percona-server/8.4/binary-tarball-install.md#install-on-ubuntu-2604) creates `/etc/systemd/system/mysqld.service` and starts the server.
 
 The following commands start, check the status, and stop the server:
 
-```
+```shell
 sudo systemctl start mysqld
 sudo systemctl status mysqld
 sudo systemctl stop mysqld
@@ -92,13 +92,13 @@ sudo systemctl stop mysqld
 
 Run the following command to start the service at boot time:
 
-```
+```shell
 sudo systemctl enable mysqld
 ```
 
 Run the following command to prevent a service from starting at boot time:
 
-```
+```shell
 sudo systemctl disable mysqld
 ```
 
@@ -116,7 +116,7 @@ During an installation on Debian/Ubuntu, you are prompted to enter a root passwo
 
 Restart the server with the `--skip-grant-tables` option to allow access without a password. This option is insecure. This option also disables remote connections.
 
-```
+```shell
 sudo systemctl stop mysql
 sudo systemctl set-environment MYSQLD_OPTS="--skip-grant-tables"
 sudo systemctl start mysql
@@ -125,7 +125,7 @@ mysql
 
 Reload the grant tables to be able to run the `ALTER USER` statement. Enter a password that satisfies the current policy.
 
-```
+```sql
 FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootPassword_12';
 exit
@@ -133,7 +133,7 @@ exit
 
 If the command fails, with `ERROR 1524 (HY000): Plugin [plugin name] is not loaded.`, then check if the plugin is available.
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
        FROM INFORMATION_SCHEMA.PLUGINS
        WHERE PLUGIN_NAME LIKE 'validate%';
@@ -141,13 +141,13 @@ SELECT PLUGIN_NAME, PLUGIN_STATUS
 
 If the result is empty or shows `DISABLED`, the plugin is not available. Switch the MySQL user to use the default authentication plugin, `caching_sha2_password` or `mysql_native_password` for your installation.
 
-```
+```sql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'rootPassword_12';
 ```
 
 If, when adding the password, MySQL returns `ERROR 1819 (HY000) Your password does not satisfy the current policy`, run the following command to see policy requirement.
 
-```
+```sql
 SHOW VARIABLES LIKE 'validate_password%';
 ```
 
@@ -155,7 +155,7 @@ Redo your password to satisfy the requirements.
 
 Stop the server, remove the `--skip-grant-tables` option, start the server, and log into the server with the updated password.
 
-```
+```shell
 sudo systemctl stop mysql
 sudo systemctl unset-environment MYSQLD_OPTS 
 sudo systemctl start mysql
@@ -176,7 +176,7 @@ The script does the following:
 
 The following statement runs the script:
 
-```
+```shell
 mysql_secure_installation
 ```
 
@@ -198,6 +198,6 @@ A common method to populate the tables is to add the zoneinfo directory path to 
 
 The example assumes you are running the command with the `root` account. The account must have the privileges for modifying the `mysql` system schema.
 
-```
+```shell
 mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p -D mysql
 ```

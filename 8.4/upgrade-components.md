@@ -55,7 +55,7 @@ The timing of the transition depends on the specific plugin:
 
 8.4 does not include the `keyring_file` plugin. If you upgrade an 8.0 server that uses `early-plugin-load=keyring_file.so` and has encrypted tables, the first 8.4 start fails with errors like the following. The package installation then fails as well:
 
-```
+```text
 [ERROR] [MY-010901] [Server] Can't open shared library '/usr/lib/mysql/plugin/keyring_file.so' ...
 [ERROR] [MY-012657] [InnoDB] Encryption can't find master key, please check the keyring is loaded.
 [ERROR] [MY-011071] [Server] DD init failed: mode=DD_RESTART_OR_UPGRADE ...
@@ -67,13 +67,13 @@ The following procedure was tested with Percona Server for MySQL 8.0.46-37 on Ub
 
 1. Stop the 8.0 server:
 
-   ```
+   ```shell
    sudo systemctl stop mysql
    ```
 
 1. Create the component configuration file. The `path` value is the new keyring file that the migration creates:
 
-   ```
+   ```shell
    echo '{ "path": "/var/lib/mysql-keyring/component_keyring_file", "read_only": false }' | sudo tee /usr/lib/mysql/plugin/component_keyring_file.cnf
    ```
 
@@ -81,7 +81,7 @@ The following procedure was tested with Percona Server for MySQL 8.0.46-37 on Ub
 
 1. Migrate the keys from the plugin keyring file (by default, `/var/lib/mysql-keyring/keyring`) to the component:
 
-   ```
+   ```shell
    sudo -u mysql /usr/sbin/mysqld --no-defaults --keyring-migration-to-component \
       --keyring-migration-source=keyring_file.so --keyring_file_data=/var/lib/mysql-keyring/keyring \
       --keyring-migration-destination=component_keyring_file.so
@@ -89,7 +89,7 @@ The following procedure was tested with Percona Server for MySQL 8.0.46-37 on Ub
 
 1. After the migration succeeds, create the global manifest file in the directory of the server binary so that the server loads the component:
 
-   ```
+   ```shell
    echo '{ "components": "file://component_keyring_file" }' | sudo tee /usr/sbin/mysqld.my
    ```
 
@@ -97,11 +97,11 @@ The following procedure was tested with Percona Server for MySQL 8.0.46-37 on Ub
 
 1. Start the 8.0 server and confirm that the component is active and that the encrypted tables are readable:
 
-   ```
+   ```shell
    sudo systemctl start mysql
    ```
 
-   ```
+   ```sql
    SELECT * FROM performance_schema.keyring_component_status;
    ```
 
@@ -109,23 +109,23 @@ After the migration, upgrade to 8.4. The manifest and the component configuratio
 
 ## Further reading
 
-- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html)
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html)
-- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html)
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md)
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)
 
 ### Component-specific documentation
 
-- [Install a component](https://docs.percona.com/percona-server/8.4/install-component.html)
-- [Uninstall a component](https://docs.percona.com/percona-server/8.4/uninstall-component.html)
-- [Use Keyring Vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.html)
-- [Install Data Masking component](https://docs.percona.com/percona-server/8.4/install-data-masking-component.html)
-- [Audit Log Filter component overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
-- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.html)
-- [Manage Audit Log Filter](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)
+- [Install a component](https://docs.percona.com/percona-server/8.4/install-component.md)
+- [Uninstall a component](https://docs.percona.com/percona-server/8.4/uninstall-component.md)
+- [Use Keyring Vault component](https://docs.percona.com/percona-server/8.4/use-keyring-vault-component.md)
+- [Install Data Masking component](https://docs.percona.com/percona-server/8.4/install-data-masking-component.md)
+- [Audit Log Filter component overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)
+- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md)
+- [Manage Audit Log Filter](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.md)

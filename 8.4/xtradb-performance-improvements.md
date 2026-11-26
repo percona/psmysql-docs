@@ -53,7 +53,7 @@ The `legacy` value uses the upstream MySQL formula. Flushing starts earlier for 
 
 Monitor checkpoint age with these status variables:
 
-- [`Innodb_checkpoint_age`](https://docs.percona.com/percona-server/8.4/innodb-show-status.html#innodb_checkpoint_age)
+- [`Innodb_checkpoint_age`](https://docs.percona.com/percona-server/8.4/innodb-show-status.md#innodb_checkpoint_age)
 - `Innodb_checkpoint_max_age`
 
 You can also use the InnoDB Checkpoint Age graph in Percona Monitoring and Management (PMM). Keep checkpoint age high without flush storms or write pauses near the maximum checkpoint age.
@@ -90,13 +90,13 @@ See the following posts for more detail on variable interaction:
 
 Change the value at runtime:
 
-```
+```sql
 SET GLOBAL innodb_cleaner_lsn_age_factor = 'legacy';
 ```
 
 Add a persistent setting in the option file:
 
-```
+```ini
 [mysqld]
 innodb_cleaner_lsn_age_factor = high_checkpoint
 ```
@@ -140,7 +140,7 @@ When `innodb_lru_threads` is OFF, page cleaners flush pages by LRU.
 
 Add a persistent setting in the option file:
 
-```
+```ini
 [mysqld]
 innodb_lru_threads=ON
 ```

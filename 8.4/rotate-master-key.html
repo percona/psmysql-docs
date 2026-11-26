@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/rotate-master-key.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/rotate-master-key.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/rotate-master-key.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10509,7 +10509,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The <code>ENCRYPTION_KEY_ADMIN</code> privilege is required to rotate the master encryption key.</p>
 <p>InnoDB reads the encryption data from the tablespace header, if certain tablespace keys have been encrypted with the prior master key, InnoDB retrieves the master key from the keyring to decrypt the tablespace key. InnoDB re-encrypts the tablespace key with the new Master key.</p>
 <p>Rotate the master encryption key with following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">INSTANCE</span><span class="w"> </span><span class="n">ROTATE</span><span class="w"> </span><span class="n">INNODB</span><span class="w"> </span><span class="n">MASTER</span><span class="w"> </span><span class="k">KEY</span><span class="p">;</span>
 </code></pre></div>
 <p>The rotation operation must complete before any tablespace encryption operation
 can begin.</p>

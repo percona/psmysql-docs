@@ -25,7 +25,7 @@ Installation-time telemetry runs once. The process collects host and version met
 
 The following JSON shows a typical installation-time payload:
 
-```
+```json
 [{"id" : "c416c3ee-48cd-471c-9733-37c2886f8231",
 "product_family" : "PRODUCT_FAMILY_PS",
 "instanceId" : "6aef422e-56a7-4530-af9d-94cc02198343",
@@ -43,25 +43,27 @@ Installation-time telemetry is enabled by default. Set the environment variable 
 
 **Debian-derived distribution**
 
-```
+```shell
 sudo PERCONA_TELEMETRY_DISABLE=1 apt install percona-server-server
 ```
 
 **Red Hat-derived distribution**
 
-```
+```shell
 sudo PERCONA_TELEMETRY_DISABLE=1 dnf install percona-server-server
 ```
 
 **Docker**
 
-```
+```shell
 docker run -d -e MYSQL_ROOT_PASSWORD=test1234# -e PERCONA_TELEMETRY_DISABLE=1 --name=percona-server percona/percona-server:8.4
 ```
 
 ## Continuous telemetry
 
 Continuous telemetry combines a Percona telemetry DB component with the `percona-telemetry-agent` service. The component writes metrics files on disk. The agent uploads the files to the Percona telemetry service. The agent waits 24 hours after startup before the first upload attempt.
+
+*Image: Continuous telemetry: database component, metrics file, host agent, and Percona Platform*
 
 ### Elements of the continuous telemetry system
 
@@ -111,7 +113,7 @@ After a successful upload, the agent stores a copy under `${telemetry root}/hist
 
 Metrics files use JSON. Percona may extend the schema in future releases. Production files can list many `active_plugins` entries. The following example shows the core fields:
 
-```
+```json
 {
   "db_instance_id": "e83c568c-e140-11ee-8320-7e207666b18a",
   "pillar_version": "8.4.11-12",
@@ -159,7 +161,7 @@ Firewall teams must allow outbound HTTPS on port 443 to `check.percona.com`. Ove
 
 To send traffic through a corporate proxy, add environment variables in a systemd drop-in for `percona-telemetry-agent.service`:
 
-```
+```ini
 [Service]
 Environment="HTTPS_PROXY=http://PROXY_HOST:PROXY_PORT"
 Environment="NO_PROXY=localhost,127.0.0.1"
@@ -167,7 +169,7 @@ Environment="NO_PROXY=localhost,127.0.0.1"
 
 Apply the drop-in and restart the agent:
 
-```
+```shell
 sudo systemctl edit percona-telemetry-agent
 sudo systemctl daemon-reload
 sudo systemctl restart percona-telemetry-agent
@@ -200,7 +202,7 @@ The agent reads these environment variables at startup. Restart the service afte
 
 #### Telemetry agent payload example
 
-```
+```json
 {
   "reports": [
     {
@@ -268,7 +270,7 @@ Stopping the agent blocks uploads. The DB component continues to write metrics f
 
 Run both commands for a permanent disable:
 
-```
+```shell
 sudo systemctl stop percona-telemetry-agent
 sudo systemctl disable percona-telemetry-agent
 ```
@@ -292,7 +294,7 @@ Run these checks from the MySQL client and on the host.
 
 Confirm the telemetry component is absent:
 
-```
+```sql
 SELECT component_urn
 FROM mysql.component
 WHERE component_urn LIKE '%telemetry%';
@@ -300,19 +302,19 @@ WHERE component_urn LIKE '%telemetry%';
 
 Expected output when telemetry is disabled
 
-```
+```text
 Empty set (0.00 sec)
 ```
 
 Confirm the disable option is set:
 
-```
+```sql
 SHOW GLOBAL VARIABLES LIKE 'percona_telemetry_disable';
 ```
 
 Expected output when telemetry is disabled
 
-```
+```text
 +---------------------------+-------+
 | Variable_name             | Value |
 +---------------------------+-------+
@@ -323,7 +325,7 @@ Expected output when telemetry is disabled
 
 Confirm the agent is inactive on the host:
 
-```
+```shell
 systemctl is-enabled percona-telemetry-agent
 systemctl is-active percona-telemetry-agent
 ```
@@ -334,19 +336,19 @@ After a permanent disable, `is-enabled` returns `disabled` and `is-active` retur
 
 The DB telemetry component can write metrics files for seven days while the agent is stopped. Uninstall the component after you set `percona_telemetry_disable=1` and restart the server. See the ordered steps in Disable continuous telemetry.
 
-```
+```sql
 UNINSTALL COMPONENT "file://component_percona_telemetry";
 ```
 
 Add `percona_telemetry_disable=1` to `my.cnf` when the line is missing, then restart:
 
-```
+```ini
 [mysqld]
 percona_telemetry_disable=1
 ```
 
 ## Related reading
 
-- [Install Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/installation.html)
-- [Running Percona Server for MySQL in a Docker container](https://docs.percona.com/percona-server/8.4/docker.html)
-- [UNINSTALL COMPONENT](https://docs.percona.com/percona-server/8.4/uninstall-component.html)
+- [Install Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/installation.md)
+- [Running Percona Server for MySQL in a Docker container](https://docs.percona.com/percona-server/8.4/docker.md)
+- [UNINSTALL COMPONENT](https://docs.percona.com/percona-server/8.4/uninstall-component.md)

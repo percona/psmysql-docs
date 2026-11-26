@@ -17,7 +17,7 @@ Complete these checks before starting the upgrade process.
 - Inventory accounts and applications that still use `mysql_native_password`.
 - Verify drivers/clients support `caching_sha2_password` and TLS as configured.
 - Plan account migration to `caching_sha2_password`. If temporary compatibility is needed, `--mysql-native-password=ON` can be used, but plan migration as this plugin will be removed in future versions.
-- See: [authentication methods](https://docs.percona.com/percona-server/8.4/authentication-methods.html)
+- See: [authentication methods](https://docs.percona.com/percona-server/8.4/authentication-methods.md)
 
 ### Replication and operational scripts
 
@@ -28,7 +28,7 @@ Complete these checks before starting the upgrade process.
 - Search and update scripts: `START REPLICA`, `SHOW REPLICA STATUS`, `CHANGE REPLICATION SOURCE TO`.
 - Validate Orchestrator/HA tooling versions for 8.4 syntax.
 - Update Percona Toolkit calls: replace `pt-slave-find` with `pt-replica-find`, and `pt-slave-restart` with `pt-replica-restart`; remove `pt-slave-delay` usage.
-- See: [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- See: [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)
 
 ### Removed features and variables
 
@@ -40,7 +40,7 @@ Complete these checks before starting the upgrade process.
 - Migrate from `expire_logs_days` to `binlog_expire_logs_seconds`.
 - Replace `WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS()` with `WAIT_FOR_EXECUTED_GTID_SET()`.
 - Remove dependencies on built-in memcached variables/APIs.
-- See: [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
+- See: [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
 
 ### Configuration file
 
@@ -48,11 +48,11 @@ Complete these checks before starting the upgrade process.
 
 **Action**:
 
-- Before the first start of 8.4, remove the options that no longer exist from the configuration file, for example, `default_authentication_plugin`, `expire_logs_days`, `transaction_write_set_extraction`, `binlog_transaction_dependency_tracking`, `master_info_repository`, and `log_bin_use_v1_row_events`. See [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html).
+- Before the first start of 8.4, remove the options that no longer exist from the configuration file, for example, `default_authentication_plugin`, `expire_logs_days`, `transaction_write_set_extraction`, `binlog_transaction_dependency_tracking`, `master_info_repository`, and `log_bin_use_v1_row_events`. See [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md).
 
 - Validate the configuration with the 8.4 `mysqld` binary before the first start. The command checks the options without touching the data directory. It prints `unknown variable` and exits with a non-zero code if an option is not supported:
 
-  ```
+  ```shell
   sudo mysqld --validate-config --user=mysql
   ```
 
@@ -60,7 +60,7 @@ Complete these checks before starting the upgrade process.
 
 - If you run the MySQL Shell upgrade checker, pass your configuration file with `--config-path`. Without this option, the checker does not check the configuration file:
 
-  ```
+  ```shell
   mysqlsh -- util check-for-server-upgrade root@localhost:3306 --target-version=8.4.12 --config-path=/etc/my.cnf
   ```
 
@@ -90,8 +90,8 @@ Complete these checks before starting the upgrade process.
 **Action**:
 
 - Compare your overrides to 8.4 defaults; remove obsolete settings and re-evaluate IO/log parameters.
-- If `innodb_numa_interleave=OFF`, set `innodb_buffer_pool_populate=OFF` in 8.4.11 to keep 8.4.10 pre-faulting behavior. See [NUMA interleave and buffer pool populate](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html#numa-interleave-and-buffer-pool-populate).
-- See: [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
+- If `innodb_numa_interleave=OFF`, set `innodb_buffer_pool_populate=OFF` in 8.4.11 to keep 8.4.10 pre-faulting behavior. See [NUMA interleave and buffer pool populate](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md#numa-interleave-and-buffer-pool-populate).
+- See: [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
 
 ### Spatial indexes
 
@@ -102,7 +102,7 @@ Complete these checks before starting the upgrade process.
 - If upgrading to 8.4.0-8.4.3, drop spatial indexes before upgrade (document which ones for post-upgrade re-creation) as a precautionary measure.
 - If upgrading to 8.4.4 or later, this issue is fixed; spatial indexes can remain in place.
 - Plan to re-create any spatial indexes dropped pre-upgrade after upgrade completion.
-- See: [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html#spatial-indexes) for detailed information and workarounds.
+- See: [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md#spatial-indexes) for detailed information and workarounds.
 
 ### Backup and recovery rehearsal
 
@@ -110,7 +110,7 @@ Complete these checks before starting the upgrade process.
 
 - Take a hot backup with Percona XtraBackup; document restore steps and timings.
 - Restore into a clean 8.4 environment; validate startup and metadata upgrade.
-- See: [Backup and restore overview](https://docs.percona.com/percona-server/8.4/backup-restore-overview.html)
+- See: [Backup and restore overview](https://docs.percona.com/percona-server/8.4/backup-restore-overview.md)
 
 ### Behavior comparison and testing
 
@@ -126,9 +126,9 @@ Complete these checks before starting the upgrade process.
 **Action**:
 
 - If a component exists in 8.0 (for example, data masking), transition in 8.0 before upgrading.
-- If the 8.0 server uses the `keyring_file` plugin, migrate the keys to `component_keyring_file` in 8.0 before upgrading. 8.4 does not include the plugin. With encrypted tables, the first 8.4 start aborts with `Encryption can't find master key` after the upgrade has started. See [Migrate from the keyring_file plugin to component_keyring_file](https://docs.percona.com/percona-server/8.4/upgrade-components.html#migrate-from-the-keyring_file-plugin-to-component_keyring_file).
+- If the 8.0 server uses the `keyring_file` plugin, migrate the keys to `component_keyring_file` in 8.0 before upgrading. 8.4 does not include the plugin. With encrypted tables, the first 8.4 start aborts with `Encryption can't find master key` after the upgrade has started. See [Migrate from the keyring_file plugin to component_keyring_file](https://docs.percona.com/percona-server/8.4/upgrade-components.md#migrate-from-the-keyring_file-plugin-to-component_keyring_file).
 - Plan configuration changes from plugin variables/`--early-plugin-load` to component manifests/config files.
-- See: [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
+- See: [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
 
 ### Rollback feasibility
 
@@ -160,7 +160,7 @@ Run these checks immediately after upgrading from 8.0 to 8.4 and before widening
 
 - Re-run baseline queries and workload tests; compare latency and throughput.
 - Review changes in 8.4 defaults that can affect performance (optimizer/costing, redo/undo, IO settings) and tune as needed.
-- See: [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
+- See: [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
 
 ### Logs and observability
 
@@ -174,13 +174,13 @@ Run these checks immediately after upgrading from 8.0 to 8.4 and before widening
 
 ## Further reading
 
-- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html)
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)

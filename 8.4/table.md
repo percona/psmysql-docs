@@ -38,7 +38,7 @@ To create a table in a database, you need appropriate permissions granted to you
 
 To create a table, use the `CREATE TABLE` command. Follow it with the table name and define the columns and their data types. For example, to create a table named `customers` with columns for `id`, `name`, and `city`, use this command:
 
-```
+```mysql
 CREATE TABLE customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
@@ -48,8 +48,8 @@ CREATE TABLE customers (
 
 ## Database management
 
-- [Database](https://docs.percona.com/percona-server/8.4/database.html)
-- [Create table](https://docs.percona.com/percona-server/8.4/create-table.html)
-- [Isolation Levels](https://docs.percona.com/percona-server/8.4/isolation-levels.html)
-- [Transaction Management](https://docs.percona.com/percona-server/8.4/transaction-mgmt.html)
-- [Views](https://docs.percona.com/percona-server/8.4/views.html)
+- [Database](https://docs.percona.com/percona-server/8.4/database.md)
+- [Create table](https://docs.percona.com/percona-server/8.4/create-table.md)
+- [Isolation Levels](https://docs.percona.com/percona-server/8.4/isolation-levels.md)
+- [Transaction Management](https://docs.percona.com/percona-server/8.4/transaction-mgmt.md)
+- [Views](https://docs.percona.com/percona-server/8.4/views.md)

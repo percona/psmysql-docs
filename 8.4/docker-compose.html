@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/docker-compose.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/docker-compose.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/docker-compose.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10779,7 +10779,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </table>
 <h2 id="directory-structure">Directory structure<a data-markdown-ignore class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
 <p>Docker automatically manages volumes, so you don&rsquo;t create folders manually.</p>
-<div class="highlight"><pre><span></span><code>percona-compose/
+<div class="language-text highlight"><pre><span></span><code>percona-compose/
 ├── .env
 └── docker-compose.yml
 </code></pre></div>
@@ -10820,14 +10820,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>By leveraging an <code>.env</code> file, you streamline both security and ease of use for MySQL container deployments. This approach ensures better organization and adaptability for various environments.</p>
-<div class="highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=supersecurepassword
+<div class="language-text highlight"><pre><span></span><code>MYSQL_ROOT_PASSWORD=supersecurepassword
 MYSQL_DATABASE=mydb
 MYSQL_USER=myuser
 MYSQL_PASSWORD=myuserpassword
 </code></pre></div>
 <h3 id="create-docker-composeyml">Create docker-compose.yml<a data-markdown-ignore class="headerlink" href="#create-docker-composeyml" title="Permanent link">&para;</a></h3>
 <p>By using a <code>docker-compose.yml</code> file, you streamline container orchestration, ensure consistency, and simplify collaboration across teams.</p>
-<div class="highlight"><pre><span></span><code>services:
+<div class="language-text highlight"><pre><span></span><code>services:
   mysql:
     image: percona/percona-server:8.4
     container_name: percona-server
@@ -10858,7 +10858,7 @@ volumes:
 <p><code>-d</code>: Runs the containers in detached mode, meaning they operate in the background.</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+<div class="language-shell highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
@@ -10889,12 +10889,12 @@ volumes:
 <h2 id="connect-to-the-server-and-run-a-simple-query">Connect to the server and run a simple query<a data-markdown-ignore class="headerlink" href="#connect-to-the-server-and-run-a-simple-query" title="Permanent link">&para;</a></h2>
 <p>After the container is up, you can connect to the running server instance using the mysql client included in the container.</p>
 <p>Run the following command to open a MySQL shell in the container:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>percona-server<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>percona-server<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>You must enter the root password.</p>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Enter password: 
+<div class="language-text no-copy highlight"><pre><span></span><code>Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 9
 Server version: 8.4.4-4 Percona Server (GPL), Release 32, Revision b8e378ec
@@ -10910,11 +10910,11 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 </details>
 <p>Run a simple query:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------------+
 | Database           |
 +--------------------+
 | information_schema |
@@ -10928,7 +10928,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </details>
 <h2 id="create-a-test-database-and-table">Create a test database and table<a data-markdown-ignore class="headerlink" href="#create-a-test-database-and-table" title="Permanent link">&para;</a></h2>
 <p>The following query creates a <code>test_db</code> database and <code>test_table</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span>
 <span class="n">USE</span><span class="w"> </span><span class="n">test_db</span><span class="p">;</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">));</span>
 <span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'Sample Data'</span><span class="p">);</span>
@@ -10936,7 +10936,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.02 sec)
 
 Database changed
 Query OK, 0 rows affected (0.01 sec)
@@ -10955,7 +10955,7 @@ Query OK, 1 row affected (0.01 sec)
 <h2 id="use-the-backup-volume-with-xtrabackup">Use the backup volume with XtraBackup<a data-markdown-ignore class="headerlink" href="#use-the-backup-volume-with-xtrabackup" title="Permanent link">&para;</a></h2>
 <p>When you run XtraBackup inside a container, either in the same network or another container, you can target <code>/backups</code> to store backup files.</p>
 <p>An example of using Docker to backup the server:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--volumes-from<span class="w"> </span>percona-server<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-v<span class="w"> </span>percona_backups:/backup<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>percona/percona-xtrabackup:8.0<span class="w"> </span><span class="se">\</span>
@@ -10979,10 +10979,10 @@ Query OK, 1 row affected (0.01 sec)
 </ul>
 <h2 id="shut-down-and-clean-up">Shut down and clean up<a data-markdown-ignore class="headerlink" href="#shut-down-and-clean-up" title="Permanent link">&para;</a></h2>
 <p>You can stop the stack but retain volumes:</p>
-<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>down
+<div class="language-shell highlight"><pre><span></span><code>docker-compose<span class="w"> </span>down
 </code></pre></div>
 <p>You can also remove all resources, including volumes:</p>
-<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
+<div class="language-shell highlight"><pre><span></span><code>docker-compose<span class="w"> </span>down<span class="w"> </span>-v
 </code></pre></div>
 
 

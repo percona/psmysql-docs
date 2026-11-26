@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/yum-repo.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/yum-repo.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/yum-repo.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10764,11 +10764,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>(EL8 only) Check the MySQL module on your system:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output on Rocky Linux 8</summary>
-<div class="no-copy highlight"><pre><span></span><code>mysql 8.0 [d] client, server [d] MySQL Module
+<div class="language-text no-copy highlight"><pre><span></span><code>mysql 8.0 [d] client, server [d] MySQL Module
 mysql 8.4     client, server [d] MySQL Module
 
 Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
@@ -10778,11 +10778,11 @@ Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
 </li>
 <li>
 <p>(EL8 only) Disable the MySQL module:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Dependencies resolved.
+<div class="language-text no-copy highlight"><pre><span></span><code>Dependencies resolved.
 ================================================================================
  Package           Architecture     Version             Repository         Size
 ================================================================================
@@ -10799,11 +10799,11 @@ Complete!
 </li>
 <li>
 <p>Install the Percona repository package:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>https://repo.percona.com/yum/percona-release-latest.noarch.rpm
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
+<div class="language-text no-copy highlight"><pre><span></span><code>Last metadata expiration check: 1:04:21 ago on Fri Aug 29 14:37:35 2025.
 percona-release-latest.noarch.rpm           69 kB/s |  28 kB     00:00    
 Dependencies resolved.
 ===========================================================================
@@ -10837,11 +10837,11 @@ Complete!
 </li>
 <li>
 <p>Enable the Percona Server for MySQL repository:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>enable-only<span class="w"> </span>ps-84-lts<span class="w"> </span>release
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Disabling all Percona Repositories
+<div class="language-text no-copy highlight"><pre><span></span><code>* Disabling all Percona Repositories
 * Enabling the Percona Server for MySQL - PS 8.4- repository
 &lt;*&gt; All done!
 </code></pre></div>
@@ -10861,11 +10861,11 @@ Complete!
 </li>
 <li>
 <p>Install the server package:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>percona-server-server
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00    
+<div class="language-text no-copy highlight"><pre><span></span><code>Percona Release release/noarch YUM reposit 6.0 kB/s | 2.5 kB     00:00    
 Percona Server for MySQL - PS 8.4- release 1.5 MB/s | 2.4 MB     00:01    
 Percona Telemetry release/aarch64 YUM repo 6.8 kB/s | 2.7 kB     00:00    
 Dependencies resolved.
@@ -10905,15 +10905,15 @@ Complete!
 <h2 id="unattended-installations">Unattended installations<a data-markdown-ignore class="headerlink" href="#unattended-installations" title="Permanent link">&para;</a></h2>
 <p>The <code>-y</code> flag (on <code>apt</code> and <code>apt-get</code>, <code>--assumeyes</code> on <code>dnf</code>) tells the package manager to assume affirmative answers so installs do not block on prompts. That suits scripts and unattended installs, but you do not get a last chance to review dependency changes—use it only when you accept that tradeoff.</p>
 <p><strong><code>percona-release</code></strong> — The <code>setup</code> command documents <strong><code>-y</code></strong> for non-interactive repository configuration, for example:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span><span class="o">{{</span>pkg<span class="o">}}</span><span class="w"> </span>--scheme<span class="w"> </span>https
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>setup<span class="w"> </span>-y<span class="w"> </span><span class="o">{{</span>pkg<span class="o">}}</span><span class="w"> </span>--scheme<span class="w"> </span>https
 </code></pre></div>
 <p>If you use <code>enable</code> or <code>enable-only</code> instead, see <code>sudo percona-release --help</code> and the <a href="https://docs.percona.com/percona-software-repositories/percona-release.html">Percona Software Repositories documentation</a> for flags your version supports.</p>
 <p><strong>Debian and Ubuntu (<code>apt</code>)</strong> — Add <code>-y</code> to each <code>sudo apt install</code> (or <code>sudo apt-get install</code>) you run, for example <code>sudo apt install -y curl</code> and <code>sudo apt install -y percona-server-server</code>.</p>
 <p>To <strong>disable telemetry</strong> during an unattended server install, set <code>PERCONA_TELEMETRY_DISABLE=1</code> on the same line (see <a href="telemetry.html">Telemetry</a> for details):</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p><strong>RPM-based systems (<code>dnf</code> / <code>yum</code>)</strong> — Add <code>-y</code> (or <code>yes</code>) to install commands as supported by your tool. Example with telemetry disabled:</p>
-<div class="highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
+<div class="language-bash highlight" data-prompt="$"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">PERCONA_TELEMETRY_DISABLE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>percona-server-server
 </code></pre></div>
 <p>Use <code>yum</code> instead of <code>dnf</code> where that is the supported tool on your OS.</p>
 <h2 id="next-steps">Next steps<a data-markdown-ignore class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
@@ -10940,11 +10940,11 @@ Complete!
 </ul>
 <p>User-defined functions (UDFs) are custom functions you can add to MySQL to extend its capabilities. These particular UDFs are useful for data integrity checks and performance monitoring.</p>
 <p>To install these functions after installation:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <h3 id="udfs-installed">UDFs installed<a data-markdown-ignore class="headerlink" href="#udfs-installed" title="Permanent link">&para;</a></h3>
@@ -10965,11 +10965,11 @@ Complete!
 </li>
 </ul>
 <p>To enable the testing repository:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>testing
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ps-84-lts<span class="w"> </span>testing
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Enabling Percona Server for MySQL 8.4 LTS testing repository
+<div class="language-text no-copy highlight"><pre><span></span><code>* Enabling Percona Server for MySQL 8.4 LTS testing repository
 * Running yum update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
 All packages are up to date.
@@ -10991,12 +10991,12 @@ All packages are up to date.
 </li>
 </ul>
 <p>To disable the testing repository and return to stable releases:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>disable<span class="w"> </span>testing
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>percona-release<span class="w"> </span>disable<span class="w"> </span>testing
 sudo<span class="w"> </span>yum<span class="w"> </span>update
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>* Disabling Percona testing repository
+<div class="language-text no-copy highlight"><pre><span></span><code>* Disabling Percona testing repository
 * Running yum update...
 Last metadata expiration check: 0:01:23 ago on Mon Jan 15 10:30:00 2024.
 All packages are up to date.

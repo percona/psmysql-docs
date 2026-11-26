@@ -26,7 +26,7 @@ Syntax of an UPDATE Statement:
 | `SET column_name1 = value1, column_name2 = value2, ...` | This clause defines which columns you want to update and their corresponding new values. You can update multiple columns by separating them with commas.  |
 | `WHERE condition` (optional)                            | This clause specifies a condition that filters which rows in the table will be affected by the update. If omitted, all rows in the table will be updated. |
 
-```
+```text
 UPDATE table_name
 SET column1 = value1, column2 = value2, ...
 [WHERE condition];
@@ -37,7 +37,7 @@ In this example, the statement does the following:
 - Modifies the `salary` column for employees in the ‘Sales’ department.
 - Increases the salary of each employee by 10% (`salary * 1.1`).
 
-```
+```sql
 UPDATE employees
 SET salary = salary * 1.1
 WHERE department = 'Sales';
@@ -45,9 +45,9 @@ WHERE department = 'Sales';
 
 Fundamental SQL links:
 
-- [Common SQL](https://docs.percona.com/percona-server/8.4/common-sql.html)
-- [SQL Basics](https://docs.percona.com/percona-server/8.4/sql-basics.html)
-- [SELECT](https://docs.percona.com/percona-server/8.4/select.html)
-- [INSERT](https://docs.percona.com/percona-server/8.4/insert.html)
-- [DELETE](https://docs.percona.com/percona-server/8.4/delete.html)
-- [SQL Operators](https://docs.percona.com/percona-server/8.4/sql-operators.html)
+- [Common SQL](https://docs.percona.com/percona-server/8.4/common-sql.md)
+- [SQL Basics](https://docs.percona.com/percona-server/8.4/sql-basics.md)
+- [SELECT](https://docs.percona.com/percona-server/8.4/select.md)
+- [INSERT](https://docs.percona.com/percona-server/8.4/insert.md)
+- [DELETE](https://docs.percona.com/percona-server/8.4/delete.md)
+- [SQL Operators](https://docs.percona.com/percona-server/8.4/sql-operators.md)

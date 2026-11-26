@@ -7,8 +7,8 @@
 ### Event coverage
 
 - The component logs SQL statements only—not NoSQL APIs such as the Memcached interface.
-- Event coverage follows [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterevent_mode). In `REDUCED` mode, stored programs log the outer `CALL`, not each statement inside the body. The component never logs file contents referenced by statements such as `LOAD DATA`.
-- Set `audit_log_filter.event_mode` in `my.cnf` and restart the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently, in either direction between `REDUCED` and `FULL`. Audit output during the switch cannot be reconciled after the fact. If a restart is not possible, follow the `SET GLOBAL` change with [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filter_flush) inside a maintenance window to narrow the window. For details, see [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterevent_mode).
+- Event coverage follows [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode). In `REDUCED` mode, stored programs log the outer `CALL`, not each statement inside the body. The component never logs file contents referenced by statements such as `LOAD DATA`.
+- Set `audit_log_filter.event_mode` in `my.cnf` and restart the server. Changing the value on a running server creates a window where in-flight events are evaluated inconsistently, in either direction between `REDUCED` and `FULL`. Audit output during the switch cannot be reconciled after the fact. If a restart is not possible, follow the `SET GLOBAL` change with [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush) inside a maintenance window to narrow the window. For details, see [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode).
 
 ### Cluster and replication
 
@@ -24,12 +24,12 @@
 
 ### Filter validation
 
-- Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.html).
+- Starting in Percona Server for MySQL 8.4.9-9, numeric fields in rules may use integer or string forms, and `connection_type` accepts symbolic constants—see [`audit_log_filter_set_filter()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_set_filterfilter_name-definition) and [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md).
 - Before 8.4.9-9, the parser silently ignored unknown JSON keys. Misspelling a structural key (for example `classes` instead of `class`, `events` instead of `event`, `names` instead of `name`, `logs` instead of `log`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes at parse time.
 
 ## Synchronizing audit log filters between a source and a replica
 
-Replicate the filter tables and run `audit_log_filter_flush()` on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filter_flush).
+Replicate the filter tables and run `audit_log_filter_flush()` on the replica so replicated rows take effect in the component. Post-flush session behavior is documented under [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush).
 
 ### Procedure: scheduled event to flush filters on the replica
 
@@ -39,7 +39,7 @@ Replicate the filter tables and run `audit_log_filter_flush()` on the replica so
 
 1. On the replica, create a one-minute event:
 
-   ```
+   ```sql
    USE mysql;
    CREATE EVENT auditflush
        ON SCHEDULE EVERY 1 MINUTE
@@ -48,7 +48,7 @@ Replicate the filter tables and run `audit_log_filter_flush()` on the replica so
          SELECT audit_log_filter_flush();
    ```
 
-   The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.9-9+), see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filter_flush).
+   The event applies replicated filter changes shortly after replication commits them. For session details after flush (8.4.9-9+), see [`audit_log_filter_flush()`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filter_flush).
 
 1. On the source, define a filter, assign it to users (UDFs or direct table edits), and call `audit_log_filter_flush()` on the source when needed.
 
@@ -64,9 +64,9 @@ Direct `INSERT`/`UPDATE`/`DELETE` on the source without `audit_log_filter_flush(
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
-- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html) — `audit_log_filter_flush()`
-- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.html)
-- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Binlogging and replication improvements](https://docs.percona.com/percona-server/8.4/binlogging-replication-improvements.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)
+- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md) — `audit_log_filter_flush()`
+- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.md)
+- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Binlogging and replication improvements](https://docs.percona.com/percona-server/8.4/binlogging-replication-improvements.md)

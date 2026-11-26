@@ -4,7 +4,7 @@
 
 ## Online DDL limitations
 
-MyRocks has limited support for [Online DDL operations](https://dev.mysql.com/doc/refman/8.4/en/innodb-online-ddl.html) due to the lack of [atomic DDL](https://docs.percona.com/percona-server/8.4/glossary.html#atomic-ddl-data-definition-language). As a result the schema changes are more restricted compared to InnoDB.
+MyRocks has limited support for [Online DDL operations](https://dev.mysql.com/doc/refman/8.4/en/innodb-online-ddl.html) due to the lack of [atomic DDL](https://docs.percona.com/percona-server/8.4/glossary.md#atomic-ddl-data-definition-language). As a result the schema changes are more restricted compared to InnoDB.
 
 ### Traditional MyRocks DDL behavior
 
@@ -14,13 +14,13 @@ MyRocks has limited support for [Online DDL operations](https://dev.mysql.com/do
 | Column changes   | `ADD COLUMN`, `DROP COLUMN`, `MODIFY COLUMN`    | `COPY` (full table rebuild) |
 | Metadata changes | `RENAME TABLE`, some `RENAME COLUMN` operations | May be `INSTANT`            |
 
-**Note:** MyRocks does not support [atomic DDL](https://docs.percona.com/percona-server/8.4/glossary.html#atomic-ddl-data-definition-language). Even metadata-only operations may require a full table rebuild, depending on the nature of the change.
+**Note:** MyRocks does not support [atomic DDL](https://docs.percona.com/percona-server/8.4/glossary.md#atomic-ddl-data-definition-language). Even metadata-only operations may require a full table rebuild, depending on the nature of the change.
 
 ### Partition management support
 
 MyRocks supports `INPLACE` partition management for certain operations:
 
-```
+```sql
 ALTER TABLE t1 DROP PARTITION p1, ALGORITHM=INPLACE;
 ALTER TABLE t1 ADD PARTITION (PARTITION p2 VALUES LESS THAN (MAXVALUE)), ALGORITHM=INPLACE;
 ```
@@ -33,12 +33,12 @@ These operations does not require a full table rebuild. However, operations that
 
 MyRocks provides limited Instant DDL support that is disabled by default, and you can activate the specific instant operations you need by setting the appropriate configuration variables.
 
-| Configuration variable                                                                                                                                                                        | Enables Instant DDL for         |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| [`rocksdb_enable_instant_ddl_for_append_column=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.html#rocksdb_enable_instant_ddl_for_append_column)                   | `ALTER TABLE ... ADD COLUMN`    |
-| [`rocksdb_enable_instant_ddl_for_column_default_changes=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.html#rocksdb_enable_instant_ddl_for_column_default_changes) | `ALTER/MODIFY COLUMN … DEFAULT` |
-| [`rocksdb_enable_instant_ddl_for_drop_index_changes=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.html#rocksdb_enable_instant_ddl_for_drop_index_changes)         | `ALTER TABLE ... DROP INDEX`    |
-| [`rocksdb_enable_instant_ddl_for_table_comment_changes=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.html#rocksdb_enable_instant_ddl_for_table_comment_changes)   | `ALTER TABLE ... COMMENT`       |
+| Configuration variable                                                                                                                                                                      | Enables Instant DDL for         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| [`rocksdb_enable_instant_ddl_for_append_column=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_append_column)                   | `ALTER TABLE ... ADD COLUMN`    |
+| [`rocksdb_enable_instant_ddl_for_column_default_changes=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_column_default_changes) | `ALTER/MODIFY COLUMN … DEFAULT` |
+| [`rocksdb_enable_instant_ddl_for_drop_index_changes=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_drop_index_changes)         | `ALTER TABLE ... DROP INDEX`    |
+| [`rocksdb_enable_instant_ddl_for_table_comment_changes=ON`](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md#rocksdb_enable_instant_ddl_for_table_comment_changes)   | `ALTER TABLE ... COMMENT`       |
 
 **Note:** Instant DDL in MyRocks is applied only when **both** of the following conditions are met:
 
@@ -47,7 +47,7 @@ MyRocks provides limited Instant DDL support that is disabled by default, and 
 
 For example:
 
-```
+```sql
 SET GLOBAL rocksdb_enable_instant_ddl_for_table_comment_changes = ON;
 ALTER TABLE my_table COMMENT = 'New comment', ALGORITHM=INSTANT;
 ```
@@ -71,11 +71,11 @@ If either condition is missing:
 
 You should also consider the following:
 
-- All collations are supported on `CHAR` and `VARCHAR` indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including `latin1`). You can optionally use it by setting [rocksdb_strict_collation_exceptions](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.html#rocksdb_strict_collation_exceptions) to `t1` (table names with regex format), but non-binary covering indexes other than `latin1` (excluding `german1`) still require a primary key lookup to return the `CHAR` or `VARCHAR` column.
+- All collations are supported on `CHAR` and `VARCHAR` indexed columns. By default, MyRocks prevents creating indexes with non-binary collations (including `latin1`). You can optionally use it by setting [rocksdb_strict_collation_exceptions](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md#rocksdb_strict_collation_exceptions) to `t1` (table names with regex format), but non-binary covering indexes other than `latin1` (excluding `german1`) still require a primary key lookup to return the `CHAR` or `VARCHAR` column.
 - Either `ORDER BY DESC` or `ORDER BY ASC` is slow. This is because of “Prefix Key Encoding” feature in RocksDB. See <https://www.slideshare.net/matsunobu/myrocks-deep-dive/58> for details. By default, ascending scan is faster and descending scan is slower. If the “reverse column family” is configured, then descending scan will be faster and ascending scan will be slower. Note that InnoDB also imposes a cost when the index is scanned in the opposite order.
-- When converting from large MyISAM/InnoDB tables, either by using the `ALTER` or `INSERT INTO SELECT` statements it’s recommended that you check the [Data loading](https://docs.percona.com/percona-server/8.4/myrocks-data-loading.html#loading-data) documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):
+- When converting from large MyISAM/InnoDB tables, either by using the `ALTER` or `INSERT INTO SELECT` statements it’s recommended that you check the [Data loading](https://docs.percona.com/percona-server/8.4/myrocks-data-loading.md#loading-data) documentation and create MyRocks tables as below (in case the table is sufficiently big it will cause the server to consume all the memory and then be terminated by the OOM killer):
 
-```
+```sql
  SET session sql_log_bin=0;
  SET session rocksdb_bulk_load=1;
  ALTER TABLE large_myisam_table ENGINE=RocksDB;
@@ -84,7 +84,7 @@ You should also consider the following:
 
 Expected output
 
-```
+```text
 .. warning::
 
    If you are loading large data without enabling :ref:`rocksdb_bulk_load`
@@ -123,4 +123,4 @@ MyRocks does not support the following:
 
   Note
 
-  With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](https://docs.percona.com/percona-server/8.4/myrocks-data-loading.html)
+  With MyRocks and with large tables, it is recommended to set the session variable `rocksdb_bulk_load=1` during the load to prevent running out of memory. This recommendation is because of the MyRocks large transaction limitation. For more information, see [MyRocks Data Loading](https://docs.percona.com/percona-server/8.4/myrocks-data-loading.md)

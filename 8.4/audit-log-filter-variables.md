@@ -36,13 +36,13 @@ JSON with `password` and `iterations` for the requested keyring entry.
 
 #### Example
 
-```
+```sql
 SELECT audit_log_encryption_password_get();
 ```
 
 Expected output
 
-```
+```text
 +---------------------------------------------+
 | audit_log_encryption_password_get()         |
 +---------------------------------------------+
@@ -52,7 +52,7 @@ Expected output
 
 ### audit_log_encryption_password_set(new_password)
 
-Sets a new audit encryption password in the keyring (and may rotate the log file when encryption is active—see [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html)).
+Sets a new audit encryption password in the keyring (and may rotate the log file when encryption is active—see [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md)).
 
 #### Parameters
 
@@ -64,13 +64,13 @@ Sets a new audit encryption password in the keyring (and may rotate the log file
 
 #### Example
 
-```
+```sql
 SELECT audit_log_encryption_password_set('passw0rd');
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------------------------------+
 | audit_log_encryption_password_set('passw0rd')       |
 +-----------------------------------------------------+
@@ -100,13 +100,13 @@ This function returns either an `OK` for success or an error message for failure
 
 #### Example
 
-```
+```sql
 SELECT audit_log_filter_flush();
 ```
 
 Expected output
 
-```
+```text
 +--------------------------+
 | audit_log_filter_flush() |
 +--------------------------+
@@ -141,13 +141,13 @@ JSON array text, JSON `NULL` when no more events are available, the literal stri
 
 Continue from the bookmark returned by `audit_log_read_bookmark()`:
 
-```
+```sql
 SELECT audit_log_read(audit_log_read_bookmark());
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------------------------------------------------+
 | audit_log_read(audit_log_read_bookmark())                                   |
 +------------------------------------------------------------------------------+
@@ -157,31 +157,31 @@ Expected output
 
 Start a new read sequence at an explicit timestamp:
 
-```
+```sql
 SELECT audit_log_read('{"start": {"timestamp": "2026-05-20 12:28:10"}}');
 ```
 
 Start a new read sequence at the beginning of a date. The component assumes a `00:00:00` time part when the timestamp omits one:
 
-```
+```sql
 SELECT audit_log_read('{"start": {"timestamp": "2026-05-20"}}');
 ```
 
 Cap the number of events returned in one call by combining `start` with `max_array_length`:
 
-```
+```sql
 SELECT audit_log_read('{"start": {"timestamp": "2026-05-20 12:28:10"}, "max_array_length": 3}');
 ```
 
 Address a single specific event by passing a bookmark literal with `timestamp` and `id` and no `start` envelope:
 
-```
+```sql
 SELECT audit_log_read('{"timestamp": "2026-05-20 12:28:10", "id": 1561422}');
 ```
 
 Close the active read sequence so that the next call can open a new one at a different position:
 
-```
+```sql
 SELECT audit_log_read('null');
 ```
 
@@ -191,7 +191,7 @@ Returns a JSON bookmark for the latest event (JSON / JSONL only—other formats 
 
 Pass the bookmark into [`audit_log_read()`](#audit_log_read) to begin there.
 
-```
+```sql
 SELECT audit_log_read(audit_log_read_bookmark());
 ```
 
@@ -205,13 +205,13 @@ This function returns a `JSON` string containing a bookmark for success or `NULL
 
 #### Example
 
-```
+```sql
 SELECT audit_log_read_bookmark();
 ```
 
 Expected output
 
-```
+```text
 +----------------------------------------------------+
 | audit_log_read_bookmark()                          |
 +----------------------------------------------------+
@@ -243,13 +243,13 @@ If the filter name does not exist, no error is generated.
 
 #### Example
 
-```
+```sql
 SELECT audit_log_filter_remove_filter('filter-name');
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------------------+
 | audit_log_filter_remove_filter('filter-name')  |
 +------------------------------------------------+
@@ -279,13 +279,13 @@ If the user_name has no filter assigned, no error is generated.
 
 #### Example
 
-```
+```sql
 SELECT audit_log_filter_remove_user('user-name@localhost');
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------------------------+
 | audit_log_filter_remove_user('user-name@localhost')  |
 +------------------------------------------------------+
@@ -311,7 +311,7 @@ This function returns the renamed file name.
 
 #### Example
 
-```
+```sql
 SELECT audit_log_rotate();
 ```
 
@@ -321,11 +321,11 @@ Writes JSON for `filter_name` to `mysql.audit_log_filter` (create or update). Ea
 
 From Percona Server for MySQL 8.4.9-9, validation runs at parse time—bad fields, unknown classes/subclasses, empty arrays, stray JSON keys, or broken `print` rules abort the call with a detailed error, for example:
 
-```
+```text
 ERROR: Incorrect rule definition: Unknown field name "WRONG.str" for class "general"
 ```
 
-Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example `classes` instead of `class`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see [Filter definition validation](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html#filter-definition-validation).
+Before 8.4.9-9, the parser silently ignored unknown keys. Misspelling a structural key (for example `classes` instead of `class`) caused the subtree to be skipped, and the filter fell back to default behavior (log everything) with no error. Upgrade to 8.4.9-9 or later to catch these mistakes. For details, see [Filter definition validation](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#filter-definition-validation).
 
 In REDUCED event mode, a filter definition that references disabled event classes or subclasses fails the same way (error returned, filter not stored).
 
@@ -348,14 +348,14 @@ This function returns either an `OK` for success or an error message for failure
 
 #### Example
 
-```
+```sql
 SET @filter = '{ "filter": { "log": true } }';
 SELECT audit_log_filter_set_filter('filter-name', @filter);
 ```
 
 Expected output
 
-```
+```text
 +-------------------------------------------------------------+
 | audit_log_filter_set_filter('filter-name', @filter)  |
 +-------------------------------------------------------------+
@@ -369,7 +369,7 @@ Binds `filter_name` to a login pattern in `mysql.audit_log_user`.
 
 From Percona Server for MySQL 8.4.4, host wildcards (`%`, `_`) work in the host portion (`'usr1@%'`, `'usr2%172.16.10.%'`, `'usr3@%.mycorp.com'`, …).
 
-This UDF controls which named filter loads for a session. JSON `user` / `host` keys inside the filter still narrow events after load—they are not a second assignment row. See [Assignment vs rules inside the JSON](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html#assignment-vs-rules-inside-the-json).
+This UDF controls which named filter loads for a session. JSON `user` / `host` keys inside the filter still narrow events after load—they are not a second assignment row. See [Assignment vs rules inside the JSON](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md#assignment-vs-rules-inside-the-json).
 
 Avoid overlapping patterns unless you accept ambiguous matches—prefer literals or one pattern plus `%`.
 
@@ -392,13 +392,13 @@ This function returns either an `OK` for success or an error message for failure
 
 #### Example
 
-```
+```sql
 SELECT audit_log_filter_set_user('user-name@localhost', 'filter-name');
 ```
 
 Expected output
 
-```
+```text
 +-------------------------------------------------------------------+
 | audit_log_filter_set_user('user-name@localhost', 'filter-name')  |
 +-------------------------------------------------------------------+
@@ -466,7 +466,7 @@ The component allocates one buffer for its lifetime.
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.buffer-size=2097152
 ```
@@ -488,7 +488,7 @@ Read-only compression mode: `NONE` (default) or `GZIP`. Requires restart.
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.compression=GZIP
 ```
@@ -509,7 +509,7 @@ Read-only database hosting `audit_log_filter` / `audit_log_user`. Must be non-`N
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.database=mysql
 ```
@@ -526,7 +526,7 @@ audit-log-filter.database=mysql
 
 *Introduced in Percona Server for MySQL 8.4.9-9.*
 
-This variable is [tech preview](https://docs.percona.com/percona-server/8.4/glossary.html#tech-preview) and may be removed in a future release.
+This variable is [tech preview](https://docs.percona.com/percona-server/8.4/glossary.md#tech-preview) and may be removed in a future release.
 
 This read-only variable opens the audit log file with `O_DIRECT` on Linux, bypassing the OS page cache. This variable requires a server restart to change.
 
@@ -542,7 +542,7 @@ Whether `O_DIRECT` works depends on the file system that backs the audit log pat
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.direct-io=ON
 ```
@@ -565,13 +565,13 @@ Runtime changes need `SYSTEM_VARIABLES_ADMIN` and `AUDIT_ADMIN`.
 
 Runtime:
 
-```
+```sql
 SET GLOBAL audit_log_filter.disable = ON;
 ```
 
 Persist across restarts (`my.cnf`):
 
-```
+```ini
 [mysqld]
 audit-log-filter.disable=ON
 ```
@@ -596,7 +596,7 @@ This read-only variable defines the encryption type for the audit log filter fil
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.encryption=AES
 ```
@@ -662,14 +662,14 @@ If a restart is not possible, narrow the window by following the `SET GLOBAL` ch
 
 Set in `my.cnf` and restart the server. This is the recommended form:
 
-```
+```ini
 [mysqld]
 audit-log-filter.event-mode=FULL
 ```
 
 The runtime form is shown for reference only. See the [runtime mode switch](#runtime-mode-switch) caveats before using it:
 
-```
+```sql
 SET GLOBAL audit_log_filter.event_mode = 'FULL';
 SELECT @@GLOBAL.audit_log_filter.event_mode;
 ```
@@ -695,20 +695,20 @@ The filename can be either of the following:
 
 If you use a full path name, ensure the directory exists and is accessible only to users who need to view the log and the server. If the parent directory does not exist, the component reports an error and the server starts without the audit log filter component active.
 
-For more information, see [Naming conventions](https://docs.percona.com/percona-server/8.4/audit-log-filter-naming.html)
+For more information, see [Naming conventions](https://docs.percona.com/percona-server/8.4/audit-log-filter-naming.md)
 
 #### Example
 
 Relative to the data directory (`my.cnf`, restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.file=audit_filter.log
 ```
 
 Absolute path:
 
-```
+```ini
 [mysqld]
 audit-log-filter.file=/var/log/mysql/audit_filter.log
 ```
@@ -728,16 +728,16 @@ This read-only variable defines the audit log filter file format. This variable 
 
 The available values are the following:
 
-- [OLD (old-style XML)](https://docs.percona.com/percona-server/8.4/audit-log-filter-old.html)
-- [NEW (new-style XML)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.html)
-- [JSON](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.html)
-- [JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.html)
+- [OLD (old-style XML)](https://docs.percona.com/percona-server/8.4/audit-log-filter-old.md)
+- [NEW (new-style XML)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.md)
+- [JSON](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)
+- [JSONL](https://docs.percona.com/percona-server/8.4/audit-log-filter-json.md)
 
 #### Example
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.format=JSON
 ```
@@ -762,13 +762,13 @@ This option does nothing when used with other format types.
 
 Runtime (JSON-format or JSONL-format only; causes rotation when toggled):
 
-```
+```sql
 SET GLOBAL audit_log_filter.format_unix_timestamp = ON;
 ```
 
 Persist across restarts (`my.cnf`):
 
-```
+```ini
 [mysqld]
 audit-log-filter.format-unix-timestamp=ON
 ```
@@ -792,7 +792,7 @@ This read-only variable defines where the component writes the audit log filter 
 
 Write to a file under the data directory (`my.cnf`, restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.handler=FILE
 audit-log-filter.file=audit_filter.log
@@ -800,7 +800,7 @@ audit-log-filter.file=audit_filter.log
 
 Write to syslog (use with [`audit_log_filter.syslog_tag`](#audit_log_filtersyslog_tag) and related options):
 
-```
+```ini
 [mysqld]
 audit-log-filter.handler=SYSLOG
 audit-log-filter.syslog-tag=myapp-audit
@@ -824,7 +824,7 @@ Defines the mean value of iterations used by the password-based derivation routi
 
 Runtime:
 
-```
+```sql
 SET GLOBAL audit_log_filter.key_derivation_iterations_count_mean = 120000;
 ```
 
@@ -860,7 +860,7 @@ Pruning requirements: Configure [`audit_log_filter.max_size`](#audit_log_filterm
 
 Combined size cap for pruning (example: 10 GiB), with rotation and age pruning configured elsewhere:
 
-```
+```sql
 SET GLOBAL audit_log_filter.max_size = 10737418240;
 ```
 
@@ -891,7 +891,7 @@ Call [audit_log_encryption_password_set(new_password)](#audit_log_encryption_pas
 
 Retain archived encryption passwords for 30 days:
 
-```
+```sql
 SET GLOBAL audit_log_filter.password_history_keep_days = 30;
 ```
 
@@ -920,7 +920,7 @@ To enable log pruning, set [`audit_log_filter.max_size`](#audit_log_filtermax_si
 
 Prune files older than seven days (604800 seconds), with rotation enabled:
 
-```
+```sql
 SET GLOBAL audit_log_filter.prune_seconds = 604800;
 ```
 
@@ -945,7 +945,7 @@ The size of the buffer for reading from the audit log filter file. `audit_log_re
 
 Runtime:
 
-```
+```sql
 SET GLOBAL audit_log_filter.read_buffer_size = 65536;
 ```
 
@@ -967,7 +967,7 @@ If you set the value to less than 4096, the component does not automatically rot
 
 Rotate when the file reaches 512 MiB:
 
-```
+```sql
 SET GLOBAL audit_log_filter.rotate_on_size = 536870912;
 ```
 
@@ -992,6 +992,8 @@ This read-only variable defines the Audit Log filter component’s logging metho
 
 The following diagram summarizes buffering, dropping behavior, and durability characteristics for each strategy value.
 
+*Image: Audit Log Filter logging strategies*
+
 #### Performance trade-offs
 
 Switch from the default `ASYNCHRONOUS` to `SYNCHRONOUS` only when durability is more important than throughput and latency—for example strict compliance or forensic environments where every audit event must be on durable storage before the client sees the audited statement complete.
@@ -1010,7 +1012,7 @@ Compressed file writers also issue `Z_SYNC_FLUSH` before each `fsync()` so that 
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.strategy=SYNCHRONOUS
 ```
@@ -1031,7 +1033,7 @@ This read-only variable specifies the syslog tag value. This variable requires a
 
 `my.cnf` (restart required; use with `audit-log-filter.handler=SYSLOG`):
 
-```
+```ini
 [mysqld]
 audit-log-filter.syslog-tag=myapp-audit
 ```
@@ -1058,7 +1060,7 @@ The component validates the value against a fixed enum. The following names are 
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.syslog-facility=LOG_USER
 ```
@@ -1083,7 +1085,7 @@ The component validates the value against a fixed enum. The following names are 
 
 `my.cnf` (restart required):
 
-```
+```ini
 [mysqld]
 audit-log-filter.syslog-priority=LOG_INFO
 ```
@@ -1106,7 +1108,7 @@ Counters and gauges for audit filter activity. These are not configuration: you 
 
 To read the current value in SQL as a single row:
 
-```
+```sql
 SELECT variable_value
 FROM performance_schema.global_status
 WHERE variable_name = 'audit_log_filter_events_written';
@@ -1114,11 +1116,11 @@ WHERE variable_name = 'audit_log_filter_events_written';
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
-- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.html)
-- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.html)
-- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.html)
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html)
-- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html)
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)
-- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)
+- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.md)
+- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md)
+- [Filter the Audit Log Filter logs](https://docs.percona.com/percona-server/8.4/filter-audit-log-filter-files.md)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md)
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.md)
+- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.md)

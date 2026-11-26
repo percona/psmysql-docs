@@ -4,18 +4,18 @@
 
 Audit events that carry SQL statement text can leak sensitive values into the audit log. Examples include credentials, personal data, and secret literals. The Audit Log Filter can rewrite that text as a statement digest before the event is written. The log then records the statement shape without capturing the literal values.
 
-This page covers the `print` / `replace` mechanism. For base filter authoring, see [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.html).
+This page covers the `print` / `replace` mechanism. For base filter authoring, see [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.md).
 
 ## What can be replaced
 
 Four class and field pairs support replacement. They use two distinct field names (`general_query.str` and `query.str`), and only the `query_digest` function may supply the replacement value:
 
-| Event class    | Replaceable field   | Notes                                                                                                                                                     |
-| -------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `general`      | `general_query.str` |                                                                                                                                                           |
-| `table_access` | `query.str`         |                                                                                                                                                           |
-| `query`        | `query.str`         | Requires [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterevent_mode) = `FULL` |
-| `parse`        | `query.str`         | Requires [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterevent_mode) = `FULL` |
+| Event class    | Replaceable field   | Notes                                                                                                                                                   |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `general`      | `general_query.str` |                                                                                                                                                         |
+| `table_access` | `query.str`         |                                                                                                                                                         |
+| `query`        | `query.str`         | Requires [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) = `FULL` |
+| `parse`        | `query.str`         | Requires [`audit_log_filter.event_mode`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterevent_mode) = `FULL` |
 
 Replacement happens during filtering. The choice of literal text or digest applies regardless of which log format the writer produces later, including XML, JSON, and JSONL.
 
@@ -23,7 +23,7 @@ Replacement happens during filtering. The choice of literal text or digest appli
 
 A `print` item goes inside a class or event block:
 
-```
+```json
 "print": {
   "field": {
     "name": "field_name",
@@ -45,7 +45,7 @@ The conditional form lets you mix redacted and literal statements in the same fi
 
 Replace statement text in every `general` event with its digest:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -68,7 +68,7 @@ Replace statement text in every `general` event with its digest:
 
 `general` and `table_access` both carry statement text. Combine them into one filter:
 
-```
+```json
 {
   "filter": {
     "class": [
@@ -103,7 +103,7 @@ The resulting audit stream contains only digests — no literal SQL text — whi
 
 Scope replacement to a subset of events by nesting `print` inside an `event` block. This filter redacts `query.str` on `insert` and `update` `table_access` events but leaves `read` and `delete` alone:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -127,7 +127,7 @@ Scope replacement to a subset of events by nesting `print` inside an `event` blo
 
 `query_digest` with an argument is a Boolean comparator — useful in a `log` condition to decide *whether* to log an event based on its digest. Combined with field checks, you can log (and redact) only specific statement types. This filter fires on `general`/`status` events for account-management DDL and replaces the literal statement with its digest:
 
-```
+```json
 {
   "filter": {
     "class": {
@@ -157,7 +157,7 @@ Scope replacement to a subset of events by nesting `print` inside an `event` blo
 }
 ```
 
-For the full set of `general_sql_command.str` values, see [Test event field values](https://docs.percona.com/percona-server/8.4/write-filter-definitions.html#test-event-field-values).
+For the full set of `general_sql_command.str` values, see [Test event field values](https://docs.percona.com/percona-server/8.4/write-filter-definitions.md#test-event-field-values).
 
 ## Conditional redaction
 
@@ -165,7 +165,7 @@ To keep literal text for *most* statements and redact only specific ones, or to 
 
 Keep the literal text when the digest matches `SELECT ?`; replace otherwise:
 
-```
+```json
 "print": {
   "field": {
     "name": "general_query.str",
@@ -184,7 +184,7 @@ Keep the literal text when the digest matches `SELECT ?`; replace otherwise:
 
 Invert with `not` — redact only the matching statements, keep literal text for everything else:
 
-```
+```json
 "print": {
   "field": {
     "name": "general_query.str",
@@ -205,7 +205,7 @@ Invert with `not` — redact only the matching statements, keep literal text for
 
 ## Additional reading
 
-- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.html) — base grammar and `log` conditions.
-- [Block statements with an audit log filter](https://docs.percona.com/percona-server/8.4/block-statements-with-audit-filter.html) — use `abort` to prevent execution.
-- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.html) — complete field reference per class.
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html).
+- [Write audit_log_filter definitions](https://docs.percona.com/percona-server/8.4/write-filter-definitions.md) — base grammar and `log` conditions.
+- [Block statements with an audit log filter](https://docs.percona.com/percona-server/8.4/block-statements-with-audit-filter.md) — use `abort` to prevent execution.
+- [Audit Log Filter definition fields](https://docs.percona.com/percona-server/8.4/audit-log-filter-definition-fields.md) — complete field reference per class.
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md).

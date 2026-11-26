@@ -68,13 +68,13 @@ This table holds statistics about client connections. The Percona version of the
 
 For example:
 
-```
+```sql
 SELECT * FROM INFORMATION_SCHEMA.CLIENT_STATISTICS\G
 ```
 
 Expected output
 
-```
+```text
 *************************** 1. row ***************************
                 CLIENT: 10.1.12.30
      TOTAL_CONNECTIONS: 20
@@ -116,13 +116,13 @@ This table makes it possible to do many things that were difficult or impossible
 
 Example:
 
-```
+```sql
 SELECT * FROM INFORMATION_SCHEMA.INDEX_STATISTICS WHERE TABLE_NAME='tables_priv';
 ```
 
 Expected output
 
-```
+```text
 +--------------+-----------------------+--------------------+-----------+
 | TABLE_SCHEMA | TABLE_NAME            | INDEX_NAME         | ROWS_READ |
 +--------------+-----------------------+--------------------+-----------+
@@ -148,13 +148,13 @@ This table is similar in function to the `INDEX_STATISTICS` table.
 
 For example:
 
-```
+```sql
 SELECT * FROM INFORMATION_SCHEMA.TABLE_STATISTICS WHERE TABLE_NAME=``tables_priv``;
 ```
 
 Expected output
 
-```
+```text
 +--------------+-------------------------------+-----------+--------------+------------------------+
 | TABLE_SCHEMA | TABLE_NAME                    | ROWS_READ | ROWS_CHANGED | ROWS_CHANGED_X_INDEXES |
 +--------------+-------------------------------+-----------+--------------+------------------------+
@@ -226,13 +226,13 @@ The table gives answers to questions such as which users cause the most load, an
 
 Example:
 
-```
+```sql
 SELECT * FROM INFORMATION_SCHEMA.USER_STATISTICS\G
 ```
 
 Expected output
 
-```
+```text
 *************************** 1. row ***************************
                   USER: root
      TOTAL_CONNECTIONS: 5592

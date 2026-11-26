@@ -41,15 +41,15 @@ Benchmark with your own data and workload when you choose; performance depends o
 
 ## Installation
 
-The UDFs are shipped as a MySQL component (not as separate plugin files). After you install the Percona Server package, load the component. Full repository and package steps are in [Install Percona Toolkit UDFs (Optional)](https://docs.percona.com/percona-server/8.4/apt-repo.html#install-percona-toolkit-udfs-optional). Then run:
+The UDFs are shipped as a MySQL component (not as separate plugin files). After you install the Percona Server package, load the component. Full repository and package steps are in [Install Percona Toolkit UDFs (Optional)](https://docs.percona.com/percona-server/8.4/apt-repo.md#install-percona-toolkit-udfs-optional). Then run:
 
-```
+```sql
 INSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
@@ -57,14 +57,14 @@ Query OK, 0 rows affected (0.01 sec)
 
 Hash a single value (for example, for a lookup key or checksum):
 
-```
+```sql
 SELECT fnv_64('test_string');
 SELECT murmur_hash(12345);
 ```
 
 Expected output
 
-```
+```text
 +----------------------+
 | fnv_64('test_string') |
 +----------------------+
@@ -80,13 +80,13 @@ Expected output
 
 Use in queries—for example, to derive a shard or partition key from `user_id`:
 
-```
+```sql
 SELECT user_id, murmur_hash(user_id) AS shard_key FROM users;
 ```
 
 Expected output
 
-```
+```text
 +---------+-------------------+
 | user_id | shard_key         |
 +---------+-------------------+
@@ -98,14 +98,14 @@ Expected output
 
 Checksum a column to compare two tables (same expression on both sides gives the same result when data matches):
 
-```
+```sql
 SELECT SUM(murmur_hash(col1)) AS checksum FROM replica_db.my_table;
 -- Compare with the same expression on the source table.
 ```
 
 Expected output
 
-```
+```text
 +---------------------+
 | checksum            |
 +---------------------+
@@ -115,13 +115,13 @@ Expected output
 
 Use in `WHERE` or joins when you need a stable numeric fingerprint:
 
-```
+```sql
 SELECT * FROM events WHERE murmur_hash(device_id) MOD 10 = 0;
 ```
 
 Expected output
 
-```
+```text
 +----+-----------+---------------------+
 | id | device_id | created_at          |
 +----+-----------+---------------------+
@@ -136,13 +136,13 @@ Expected output
 
 Check that the component is registered:
 
-```
+```sql
 SELECT * FROM mysql.component WHERE component_urn = 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 +----------------+------------------------------------------+
 | component_id   | component_urn                            |
 +----------------+------------------------------------------+
@@ -152,13 +152,13 @@ Expected output
 
 A single row means the component is installed and will load on restart. You can also confirm the functions exist by invoking one:
 
-```
+```sql
 SELECT fnv_64('check');
 ```
 
 Expected output
 
-```
+```text
 +----------------+
 | fnv_64('check') |
 +----------------+
@@ -172,17 +172,17 @@ If the component is not loaded, you get an error such as “Unknown function ‘
 
 To remove the UDFs, uninstall the component. Any views, stored procedures, or triggers that call these functions will become invalid after uninstall.
 
-```
+```sql
 UNINSTALL COMPONENT 'file://component_percona_udf';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-You need the `DELETE` privilege on the `mysql.component` system table. See [UNINSTALL COMPONENT](https://docs.percona.com/percona-server/8.4/uninstall-component.html) for details.
+You need the `DELETE` privilege on the `mysql.component` system table. See [UNINSTALL COMPONENT](https://docs.percona.com/percona-server/8.4/uninstall-component.md) for details.
 
 ## Troubleshooting
 
@@ -196,9 +196,9 @@ For further help, see [Percona Support](https://www.percona.com/services/support
 
 ## Next steps
 
-- [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.html) — If you installed the server or the UDF component from a package, configure and secure the server next.
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html) — If you use other Percona Toolkit tools (for example, `pt-replica-find`), see version-specific updates and terminology changes.
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html) — If you are migrating from the old UDF plugin to the component, see the upgrade path.
+- [Post-installation](https://docs.percona.com/percona-server/8.4/post-installation.md) — If you installed the server or the UDF component from a package, configure and secure the server next.
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md) — If you use other Percona Toolkit tools (for example, `pt-replica-find`), see version-specific updates and terminology changes.
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md) — If you are migrating from the old UDF plugin to the component, see the upgrade path.
 
 ## Other reading
 

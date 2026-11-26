@@ -10,7 +10,7 @@ Install the libraries on this page before you start the server. Use the row for 
 
 `bin/mysqld` loads bundled libraries from `lib/private`. The glibc 2.35 tarball bundles `libaio` and `libnuma`. It does not bundle OpenSSL.
 
-The [binary tarball file names](https://docs.percona.com/percona-server/8.4/binary-tarball-names.html) page lists the operating system each tarball was built on. That build selects the shared library file names. A tarball built against OpenSSL 1.1 looks for `libssl.so.1.1`. The glibc 2.35 tarball looks for `libssl.so.3`.
+The [binary tarball file names](https://docs.percona.com/percona-server/8.4/binary-tarball-names.md) page lists the operating system each tarball was built on. That build selects the shared library file names. A tarball built against OpenSSL 1.1 looks for `libssl.so.1.1`. The glibc 2.35 tarball looks for `libssl.so.3`.
 
 ### Libraries the server needs to start
 
@@ -26,7 +26,7 @@ RHEL 8 provides `libssl.so.1.1`, not `libssl.so.3`. On RHEL 8, use the glibc 2.2
 
 On Ubuntu 26.04, install the OpenSSL package with this command:
 
-```
+```text
 sudo apt install libssl3t64
 ```
 
@@ -49,13 +49,13 @@ Ubuntu 24.04, Ubuntu 26.04, and RHEL 9 ship `libldap.so.2`. The glibc 2.35 LDAP 
 
 On Ubuntu, install a package from the table with this command. Replace `<package>` with the package name:
 
-```
+```text
 sudo apt install <package>
 ```
 
 On RHEL, use this command:
 
-```
+```text
 sudo dnf install <package>
 ```
 
@@ -73,7 +73,7 @@ Use the glibc 2.35 tarball on Ubuntu 22.04 and later so the server loads `libssl
 
 ## DEB and RPM packages
 
-The `percona-server-server` package links the operating system libraries in the following table. It does not use the libraries bundled in the generic tarball. `apt` and `dnf` install these packages when you install the server. Install them yourself only when you install downloaded packages with `dpkg` or `rpm`. Those tools do not resolve dependencies. See [Downloaded DEB packages](https://docs.percona.com/percona-server/8.4/apt-download-deb.html) and [Downloaded RPM packages](https://docs.percona.com/percona-server/8.4/yum-download-rpm.html).
+The `percona-server-server` package links the operating system libraries in the following table. It does not use the libraries bundled in the generic tarball. `apt` and `dnf` install these packages when you install the server. Install them yourself only when you install downloaded packages with `dpkg` or `rpm`. Those tools do not resolve dependencies. See [Downloaded DEB packages](https://docs.percona.com/percona-server/8.4/apt-download-deb.md) and [Downloaded RPM packages](https://docs.percona.com/percona-server/8.4/yum-download-rpm.md).
 
 | Library          | Ubuntu 22.04    | Ubuntu 24.04 and 26.04 | RHEL 8                  | RHEL 9                  |
 | ---------------- | --------------- | ---------------------- | ----------------------- | ----------------------- |

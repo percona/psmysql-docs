@@ -16,28 +16,28 @@ The latest MyRocks storage engine is based on recent RocksDB source code, with m
 
 To check the RocksDB version currently used by MyRocks, run the following command:
 
-```
+```bash
 $ head storage/rocksdb/rocksdb/HISTORY.md
 ```
 
 Expected output
 
-```
+```text
 ...
 ## 8.5.1 (08/31/2023)
 ...
 ```
 
-[Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/8.4/install-myrocks.html)
+[Percona MyRocks Installation Guide](https://docs.percona.com/percona-server/8.4/install-myrocks.md)
 
-[MyRocks Limitations](https://docs.percona.com/percona-server/8.4/myrocks-limitations.html)
+[MyRocks Limitations](https://docs.percona.com/percona-server/8.4/myrocks-limitations.md)
 
-[Differences between Percona MyRocks and Facebook MyRocks](https://docs.percona.com/percona-server/8.4/myrocks-differences.html)
+[Differences between Percona MyRocks and Facebook MyRocks](https://docs.percona.com/percona-server/8.4/myrocks-differences.md)
 
-[*MyRocks* Column Families](https://docs.percona.com/percona-server/8.4/myrocks-column-families.html)
+[*MyRocks* Column Families](https://docs.percona.com/percona-server/8.4/myrocks-column-families.md)
 
-[MyRocks Server Variables](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.html)
+[MyRocks Server Variables](https://docs.percona.com/percona-server/8.4/myrocks-server-variables.md)
 
-[MyRocks Information Schema Tables](https://docs.percona.com/percona-server/8.4/myrocks-information-schema-tables.html)
+[MyRocks Information Schema Tables](https://docs.percona.com/percona-server/8.4/myrocks-information-schema-tables.md)
 
-[Performance Schema MyRocks changes](https://docs.percona.com/percona-server/8.4/performance-schema-myrocks-changes.html)
+[Performance Schema MyRocks changes](https://docs.percona.com/percona-server/8.4/performance-schema-myrocks-changes.md)

@@ -11,7 +11,7 @@ Percona Server for MySQL supports two LDAP authentication plugins:
 | Simple LDAP authentication                                                | The Percona plugin is a free and Open Source implementation of the MySQL Enterprise Simple LDAP authentication plugin. |
 | Simple Authentication and Security Layer (SASL)-based LDAP authentication | Supports the SCRAM-SHA-1 SASL mechanism only.                                                                          |
 
-For all LDAP plugin system variables, see [LDAP authentication plugin system variables](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html).
+For all LDAP plugin system variables, see [LDAP authentication plugin system variables](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md).
 
 ## Choose an authentication method
 
@@ -78,7 +78,7 @@ Install the plugins at server start or at runtime.
 
 Add these statements to `my.cnf` to load simple LDAP authentication:
 
-```
+```text
 [mysqld]
 plugin-load-add=authentication_ldap_simple.so
 authentication_ldap_simple_server_host=127.0.0.1
@@ -91,7 +91,7 @@ Restart the database server for the changes to take effect.
 
 Add these statements to `my.cnf` to load SASL-based LDAP authentication:
 
-```
+```text
 [mysqld]
 plugin-load-add=authentication_ldap_sasl.so
 authentication_ldap_sasl_server_host=127.0.0.1
@@ -102,26 +102,26 @@ authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com'
 
 **Load the simple LDAP authentication plugin**
 
-```
+```sql
 INSTALL PLUGIN authentication_ldap_simple SONAME 'authentication_ldap_simple.so';
 ```
 
 Set and persist values at runtime:
 
-```
+```sql
 SET PERSIST authentication_ldap_simple_server_host='127.0.0.1';
 SET PERSIST authentication_ldap_simple_bind_base_dn='dc=percona, dc=com';
 ```
 
 **Load the SASL-based LDAP authentication plugin**
 
-```
+```sql
 INSTALL PLUGIN authentication_ldap_sasl SONAME 'authentication_ldap_sasl.so';
 ```
 
 Set and persist values at runtime:
 
-```
+```sql
 SET PERSIST authentication_ldap_sasl_server_host='127.0.0.1';
 SET PERSIST authentication_ldap_sasl_bind_base_dn='dc=percona, dc=com';
 ```
@@ -134,7 +134,7 @@ After you install a plugin, confirm that the database server loaded it and set t
 
 Run this statement:
 
-```
+```sql
 SHOW PLUGINS;
 ```
 
@@ -142,7 +142,7 @@ Or query the `INFORMATION_SCHEMA.PLUGINS` table:
 
 **Simple LDAP authentication**
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
 FROM INFORMATION_SCHEMA.PLUGINS
 WHERE PLUGIN_NAME = 'authentication_ldap_simple';
@@ -150,7 +150,7 @@ WHERE PLUGIN_NAME = 'authentication_ldap_simple';
 
 Expected output
 
-```
+```text
 +----------------------------+----------------+
 | PLUGIN_NAME                | PLUGIN_STATUS  |
 +----------------------------+----------------+
@@ -160,7 +160,7 @@ Expected output
 
 **SASL-based LDAP authentication**
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
 FROM INFORMATION_SCHEMA.PLUGINS
 WHERE PLUGIN_NAME = 'authentication_ldap_sasl';
@@ -168,7 +168,7 @@ WHERE PLUGIN_NAME = 'authentication_ldap_sasl';
 
 Expected output
 
-```
+```text
 +--------------------------+----------------+
 | PLUGIN_NAME              | PLUGIN_STATUS  |
 +--------------------------+----------------+
@@ -188,7 +188,7 @@ Configure the database server to LDAP server connection separately from the clie
 
 This configuration example uses simple LDAP authentication. For SASL-based LDAP authentication, use the matching `authentication_ldap_sasl_*` variables.
 
-```
+```text
 [mysqld]
 authentication_ldap_simple_server_host=ldap.example.com
 authentication_ldap_simple_server_port=636
@@ -202,24 +202,24 @@ authentication_ldap_simple_ca_path=/etc/mysql/ldap-ca.pem
 
 The database server uses these settings as follows:
 
-| Variable                                                                              | Purpose                                                                                                                                                                                          |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `authentication_ldap_simple_server_host`, `authentication_ldap_simple_server_port`    | LDAP server address. Port 636 is typical for LDAPS.                                                                                                                                              |
-| `authentication_ldap_simple_bind_base_dn`                                             | Base distinguished name (DN) for LDAP searches.                                                                                                                                                  |
-| `authentication_ldap_simple_user_search_attr`                                         | LDAP attribute that holds the user name. Use `uid` for OpenLDAP. Use `sAMAccountName` for Active Directory.                                                                                      |
-| `authentication_ldap_simple_bind_root_dn`, `authentication_ldap_simple_bind_root_pwd` | Credentials the plugin uses to search LDAP for users and groups.                                                                                                                                 |
-| `authentication_ldap_simple_ssl`                                                      | Enable LDAPS (`ldaps://`). Use [authentication_ldap_simple_tls](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_tls) for STARTTLS on port 389. |
-| `authentication_ldap_simple_ca_path`                                                  | Certificate authority file for LDAPS or STARTTLS.                                                                                                                                                |
+| Variable                                                                              | Purpose                                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `authentication_ldap_simple_server_host`, `authentication_ldap_simple_server_port`    | LDAP server address. Port 636 is typical for LDAPS.                                                                                                                                            |
+| `authentication_ldap_simple_bind_base_dn`                                             | Base distinguished name (DN) for LDAP searches.                                                                                                                                                |
+| `authentication_ldap_simple_user_search_attr`                                         | LDAP attribute that holds the user name. Use `uid` for OpenLDAP. Use `sAMAccountName` for Active Directory.                                                                                    |
+| `authentication_ldap_simple_bind_root_dn`, `authentication_ldap_simple_bind_root_pwd` | Credentials the plugin uses to search LDAP for users and groups.                                                                                                                               |
+| `authentication_ldap_simple_ssl`                                                      | Enable LDAPS (`ldaps://`). Use [authentication_ldap_simple_tls](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_tls) for STARTTLS on port 389. |
+| `authentication_ldap_simple_ca_path`                                                  | Certificate authority file for LDAPS or STARTTLS.                                                                                                                                              |
 
-For group membership and role mapping, configure [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_search_attr) and [authentication_ldap_simple_group_search_filter](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_search_filter) when the default `cn` attribute or filter does not match your directory layout.
+For group membership and role mapping, configure [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_search_attr) and [authentication_ldap_simple_group_search_filter](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_search_filter) when the default `cn` attribute or filter does not match your directory layout.
 
-To configure a fallback LDAP server, set [authentication_ldap_simple_fallback_server_host](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_fallback_server_host) and [authentication_ldap_simple_fallback_server_port](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_fallback_server_port). The plugin connects to the fallback server when the primary server is unavailable.
+To configure a fallback LDAP server, set [authentication_ldap_simple_fallback_server_host](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_fallback_server_host) and [authentication_ldap_simple_fallback_server_port](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_fallback_server_port). The plugin connects to the fallback server when the primary server is unavailable.
 
 ### Active Directory
 
 For Active Directory, use a configuration like this:
 
-```
+```text
 [mysqld]
 authentication_ldap_simple_server_host=ad.example.com
 authentication_ldap_simple_server_port=636
@@ -230,7 +230,7 @@ authentication_ldap_simple_bind_root_pwd='LDAP_BIND_PASSWORD'
 authentication_ldap_simple_ssl=ON
 ```
 
-Match the LDAP group name in [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_role_mapping) to the group name returned from Active Directory. Adjust [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_search_attr) when your directory stores group names in an attribute other than `cn`.
+Match the LDAP group name in [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) to the group name returned from Active Directory. Adjust [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_search_attr) when your directory stores group names in an attribute other than `cn`.
 
 ## How authentication works
 
@@ -272,11 +272,11 @@ When an LDAP user logs in, the database server checks LDAP group membership.
 
 When the user belongs to a configured group, the database server grants the mapped database roles.
 
-Configure the LDAP group to MySQL role mapping with [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_role_mapping) or [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping).
+Configure the LDAP group to MySQL role mapping with [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) or [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping).
 
 The mapping value is a plain comma-separated string. Use `<ldap_group>=<mysql_role>` pairs:
 
-```
+```text
 <ldap_group>=<mysql_role>,<ldap_group2>=<mysql_role2>,
 ```
 
@@ -284,7 +284,7 @@ The LDAP group name must match the group name from LDAP. By default, the databas
 
 When the user belongs to multiple mapped groups, the database server grants each matching role.
 
-Group membership lookup requires [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd), or the SASL equivalents. See [Map LDAP groups to MySQL roles](#map-ldap-groups-to-mysql-roles).
+Group membership lookup requires [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd), or the SASL equivalents. See [Map LDAP groups to MySQL roles](#map-ldap-groups-to-mysql-roles).
 
 The database server applies external roles as follows:
 
@@ -314,7 +314,7 @@ Use one of these methods to add or modify a user.
 
 Specify the `authentication_ldap_simple` plugin in the `IDENTIFIED WITH` clause of a `CREATE USER` or `ALTER USER` statement:
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_simple;
 ```
 
@@ -324,21 +324,21 @@ The database server assigns the specified plugin to the account.
 
 An optional authentication string stores the LDAP user DN. The string uses the format `cn,ou,dc,dc`:
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_simple BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
 ```
 
-When the account includes an authentication string, the database server skips these system variables unless [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_role_mapping) is set:
+When the account includes an authentication string, the database server skips these system variables unless [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) is set:
 
-- [authentication_ldap_simple_bind_base_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_base_dn)
-- [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_root_dn)
-- [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd)
-- [authentication_ldap_simple_user_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_user_search_attr)
-- [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_search_attr)
+- [authentication_ldap_simple_bind_base_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_base_dn)
+- [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_root_dn)
+- [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd)
+- [authentication_ldap_simple_user_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_user_search_attr)
+- [authentication_ldap_simple_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_search_attr)
 
 When the account has no authentication string, the database server uses these system variables.
 
-When [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_group_role_mapping) is set, the database server also requires [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_bind_root_pwd).
+When [authentication_ldap_simple_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_group_role_mapping) is set, the database server also requires [authentication_ldap_simple_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_root_dn) and [authentication_ldap_simple_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_bind_root_pwd).
 
 ## Create a user using SASL-based LDAP authentication
 
@@ -348,7 +348,7 @@ Use one of these methods to add or modify a user.
 
 Specify the `authentication_ldap_sasl` plugin in the `IDENTIFIED WITH` clause of a `CREATE USER` or `ALTER USER` statement:
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 ```
 
@@ -356,21 +356,21 @@ CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl;
 
 An optional authentication string stores the LDAP user DN. The string uses the format `cn,ou,dc,dc`. You can use `BY` or `AS` for the authentication string:
 
-```
+```text
 CREATE USER ... IDENTIFIED WITH authentication_ldap_sasl BY 'cn=[user name],ou=[organization unit],dc=[domain component],dc=com'
 ```
 
-When the account includes an authentication string, the database server skips these system variables unless [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping) is set:
+When the account includes an authentication string, the database server skips these system variables unless [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) is set:
 
-- [authentication_ldap_sasl_bind_base_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_bind_base_dn)
-- [authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_bind_root_dn)
-- [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_bind_root_pwd)
-- [authentication_ldap_sasl_user_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_user_search_attr)
-- [authentication_ldap_sasl_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_group_search_attr)
+- [authentication_ldap_sasl_bind_base_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_bind_base_dn)
+- [authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_bind_root_dn)
+- [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_bind_root_pwd)
+- [authentication_ldap_sasl_user_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_user_search_attr)
+- [authentication_ldap_sasl_group_search_attr](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_group_search_attr)
 
 When the account has no authentication string, the database server uses these system variables.
 
-When [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_group_role_mapping) is set, the database server also requires [authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_bind_root_dn) and [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_bind_root_pwd).
+When [authentication_ldap_sasl_group_role_mapping](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_group_role_mapping) is set, the database server also requires [authentication_ldap_sasl_bind_root_dn](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_bind_root_dn) and [authentication_ldap_sasl_bind_root_pwd](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_bind_root_pwd).
 
 ## Examples
 
@@ -378,7 +378,7 @@ These examples configure an LDAP user and verify authentication with a client co
 
 The sample LDAP user DN is:
 
-```
+```text
 uid=ldapuser,ou=testusers,dc=percona,dc=com
 ```
 
@@ -386,13 +386,13 @@ uid=ldapuser,ou=testusers,dc=percona,dc=com
 
 Create a database server account for `ldapuser`:
 
-```
+```sql
 CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_simple BY 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
 ```
 
 The authentication string does not include the LDAP password. The client user must provide the LDAP password at connect time.
 
-```
+```sql
 mysql --user=ldapuser --password --enable-cleartext-plugin
 ```
 
@@ -407,13 +407,13 @@ The client sends the password as cleartext. This behavior is required for a serv
 
 Create a database server account for `ldapuser`:
 
-```
+```sql
 CREATE USER 'ldapuser'@'localhost' IDENTIFIED WITH authentication_ldap_sasl AS 'uid=ldapuser,ou=testusers,dc=percona,dc=com';
 ```
 
 The authentication string does not include the LDAP password. The client user must provide the LDAP password at connect time.
 
-```
+```sql
 mysql --user=ldapuser --password
 ```
 
@@ -427,7 +427,7 @@ This example maps two LDAP groups to MySQL roles. The LDAP groups have a `cn` va
 
 Create the MySQL roles and grant privileges:
 
-```
+```sql
 CREATE ROLE 'mysql_admins', 'mysql_readers';
 GRANT SELECT, INSERT, UPDATE, DELETE ON app_db.* TO 'mysql_admins';
 GRANT SELECT ON app_db.* TO 'mysql_readers';
@@ -435,7 +435,7 @@ GRANT SELECT ON app_db.* TO 'mysql_readers';
 
 Set the mapping and LDAP bind credentials at server start in `my.cnf`:
 
-```
+```text
 [mysqld]
 authentication_ldap_simple_group_role_mapping='mysql-admins=mysql_admins,mysql-readers=mysql_readers,'
 authentication_ldap_simple_bind_root_dn='cn=ldapadmin,ou=services,dc=percona,dc=com'
@@ -444,7 +444,7 @@ authentication_ldap_simple_bind_root_pwd='LDAP_BIND_PASSWORD'
 
 Set the values at runtime instead:
 
-```
+```sql
 SET PERSIST authentication_ldap_simple_group_role_mapping = 'mysql-admins=mysql_admins,mysql-readers=mysql_readers,';
 SET PERSIST authentication_ldap_simple_bind_root_dn = 'cn=ldapadmin,ou=services,dc=percona,dc=com';
 SET PERSIST authentication_ldap_simple_bind_root_pwd = 'LDAP_BIND_PASSWORD';
@@ -452,20 +452,20 @@ SET PERSIST authentication_ldap_simple_bind_root_pwd = 'LDAP_BIND_PASSWORD';
 
 Create an LDAP user account:
 
-```
+```sql
 CREATE USER 'ldapuser'@'%' IDENTIFIED WITH authentication_ldap_simple;
 ```
 
 Connect as `ldapuser` with the LDAP password. When `ldapuser` belongs to the `mysql-admins` LDAP group, the database server grants the `mysql_admins` role on connection. Verify the role assignment:
 
-```
+```sql
 SHOW GRANTS;
 SELECT CURRENT_ROLE();
 ```
 
 When the role appears in the output but privileges are missing, activate the role:
 
-```
+```sql
 SET ROLE 'mysql_admins';
 SHOW GRANTS;
 ```
@@ -478,7 +478,7 @@ When LDAP authentication fails, check these items:
 
 - Confirm the plugin status is `ACTIVE`. See [Confirm the plugin is loaded](#confirm-the-plugin-is-loaded).
 - Review the server error log.
-- Increase the logging level with [authentication_ldap_simple_log_status](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_simple_log_status) or [authentication_ldap_sasl_log_status](https://docs.percona.com/percona-server/8.4/ldap-system-variables.html#authentication_ldap_sasl_log_status). Valid values range from 1 to 6. Higher values write more detail to the error log.
+- Increase the logging level with [authentication_ldap_simple_log_status](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_simple_log_status) or [authentication_ldap_sasl_log_status](https://docs.percona.com/percona-server/8.4/ldap-system-variables.md#authentication_ldap_sasl_log_status). Valid values range from 1 to 6. Higher values write more detail to the error log.
 - Confirm the database server can reach the LDAP server on the configured host and port.
 - Confirm `authentication_ldap_*_bind_root_dn` and `authentication_ldap_*_bind_root_pwd` are correct when the plugin searches LDAP for users or groups.
 - Confirm `authentication_ldap_*_user_search_attr` matches your directory. OpenLDAP directories often use `uid`. Active Directory directories often use `sAMAccountName`.
@@ -495,7 +495,7 @@ When you installed either plugin at [server startup](#load-the-plugins-at-server
 
 When you installed the plugin at [runtime](#load-the-plugins-at-runtime), run these statements:
 
-```
+```sql
 UNINSTALL PLUGIN authentication_ldap_simple;
 ```
 
@@ -505,7 +505,7 @@ When you used `SET PERSIST`, run `RESET PERSIST` to remove the settings.
 
 When you installed the plugin at [runtime](#load-the-plugins-at-runtime), run these statements:
 
-```
+```sql
 UNINSTALL PLUGIN authentication_ldap_sasl;
 ```
 

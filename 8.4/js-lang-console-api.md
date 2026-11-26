@@ -2,7 +2,7 @@
 
 # js_lang Console API
 
-This feature is a [tech preview](https://docs.percona.com/percona-server/8.4/glossary.html#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
+This feature is a [tech preview](https://docs.percona.com/percona-server/8.4/glossary.md#tech-preview). Before using this feature in production, we recommend that you test restoring production from physical backups in your environment, and also use the alternative backup method for redundancy.
 
 The js_lang component provides support for the JS Console API as described at [console.spec.whatwg.org](https://console.spec.whatwg.org/) . The Console API provides rudimentary support for debugging including logging, timers, and counters. Users can use methods of the JS console object to write messages to the console log, and then later inspect this log using UDFs.
 
@@ -64,6 +64,6 @@ The following UDFs are available for accessing and managing console logs:
 
 ## Further reading
 
-- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/8.4/js-lang-overview.html)
-- [js_lang stored function or procedure](https://docs.percona.com/percona-server/8.4/js-lang-procedures.html)
-- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/8.4/js-lang-troubleshoot.html)
+- [js_lang stored procedure and function overview](https://docs.percona.com/percona-server/8.4/js-lang-overview.md)
+- [js_lang stored function or procedure](https://docs.percona.com/percona-server/8.4/js-lang-procedures.md)
+- [Troubleshoot js_lang procedures and functions](https://docs.percona.com/percona-server/8.4/js-lang-troubleshoot.md)

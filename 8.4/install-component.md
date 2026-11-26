@@ -15,6 +15,6 @@ You can install multiple components at the same time.
 
 The following is an example of the `INSTALL COMPONENT` statement.
 
-```
+```sql
 INSTALL COMPONENT 'file://componentA';
 ```

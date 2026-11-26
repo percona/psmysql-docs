@@ -15,7 +15,7 @@ Please note that FLUSH TABLES WITH READ LOCK applies to all databases unless you
 
 The following command connects to the server and executes the `FLUSH TABLES WITH READ LOCK` statement. After running this command, no write operations can be performed until the lock is released.
 
-```
+```text
 mysql --user="user" --password="password" --host="host" --execute="FLUSH TABLES WITH READ LOCK"
 ```
 
@@ -31,7 +31,7 @@ If an “unsafe” statement is executed in the same connection that is holding 
 
 Expected output
 
-```
+```text
 ERROR 1880 (HY000): Can't execute the query because you have a conflicting backup lock
 
 UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
@@ -39,7 +39,7 @@ UNLOCK TABLES releases the lock acquired by LOCK TABLES FOR BACKUP.
 
 The intended use case for Percona XtraBackup is:
 
-```
+```text
 LOCK TABLES FOR BACKUP
 ... copy .frm, MyISAM, CSV, etc. ...
 UNLOCK TABLES

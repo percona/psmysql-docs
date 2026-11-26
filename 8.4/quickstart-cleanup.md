@@ -14,7 +14,7 @@ If you installed Percona Server for MySQL using Docker, follow these steps:
 
 1. Exit the MySQL command client shell if you’re still connected:
 
-   ```
+   ```sql
    exit
    ```
 
@@ -22,31 +22,31 @@ If you installed Percona Server for MySQL using Docker, follow these steps:
 
 1. Stop and remove the Docker container:
 
-   ```
+   ```shell
    docker container rm psmysql -f
    ```
 
    Expected output
 
-   ```
+   ```text
    psmysql
    ```
 
 1. Remove the Docker image:
 
-   ```
+   ```shell
    docker image rmi percona/percona-server:8.4.12
    ```
 
    If you are running the ARM64 version of Percona Server, use:
 
-   ```
+   ```shell
    docker image rmi percona/percona-server:8.4.12-arm64
    ```
 
    Expected output
 
-   ```
+   ```text
    Untagged: percona/percona-server:8.4.12
    Untagged: percona/percona-server@sha256:4944f9b365e0dc88f41b3b704ff2a02d1459fd07763d7d1a444b263db8498e1f
    Deleted: sha256:b2588da614b1f382468fc9f44600863e324067a9cae57c204a30a2105d61d9d9
@@ -55,13 +55,13 @@ If you installed Percona Server for MySQL using Docker, follow these steps:
 
 1. Remove the Docker volume (if you created one):
 
-   ```
+   ```shell
    docker volume rm myvol
    ```
 
    Expected output
 
-   ```
+   ```text
    myvol
    ```
 
@@ -71,7 +71,7 @@ If you installed Percona Server for MySQL using APT on Ubuntu or Debian, follow 
 
 1. Stop the Percona Server for MySQL service:
 
-   ```
+   ```shell
    sudo systemctl stop mysql
    ```
 
@@ -81,7 +81,7 @@ If you installed Percona Server for MySQL using APT on Ubuntu or Debian, follow 
 
    This command removes the packages but leaves data files (databases, tables, logs, configuration, etc.) behind:
 
-   ```
+   ```shell
    sudo apt remove percona-server*
    ```
 
@@ -91,7 +91,7 @@ If you installed Percona Server for MySQL using APT on Ubuntu or Debian, follow 
 
    This command removes all packages and permanently deletes all data files (databases, tables, logs, etc.). Ensure you have a backup if you need this data.
 
-   ```
+   ```shell
    sudo apt purge percona-server*
    ```
 
@@ -101,7 +101,7 @@ If you installed Percona Server for MySQL using APT on Ubuntu or Debian, follow 
 
    This step permanently deletes all data files. Ensure you have a backup if you need this data.
 
-   ```
+   ```shell
    sudo rm -rf /var/lib/mysql
    sudo rm -f /etc/mysql/my.cnf
    ```
@@ -112,19 +112,19 @@ If you installed Percona Server for MySQL using YUM or DNF on Oracle Linux or RH
 
 1. Stop the Percona Server for MySQL service:
 
-   ```
+   ```shell
    sudo systemctl stop mysql
    ```
 
 1. Remove the packages:
 
-   ```
+   ```shell
    sudo yum remove percona-server*
    ```
 
    Or if you’re using DNF:
 
-   ```
+   ```shell
    sudo dnf remove percona-server*
    ```
 
@@ -136,19 +136,19 @@ If you installed Percona Server for MySQL using YUM or DNF on Oracle Linux or RH
 
    This step permanently deletes all data files (databases, tables, logs, etc.). Ensure you have a backup if you need this data.
 
-   ```
+   ```shell
    sudo rm -rf /var/lib/mysql
    sudo rm -f /etc/my.cnf
    ```
 
 ## Next steps
 
-[Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.html)
+[Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.md)
 
 ## Additional resources
 
-- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.html)
-- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.html)
-- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.html)
-- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.html)
-- [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html)
+- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.md)
+- [Run Percona Server for MySQL with Docker](https://docs.percona.com/percona-server/8.4/quickstart-docker.md)
+- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.md)
+- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.md)
+- [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md)

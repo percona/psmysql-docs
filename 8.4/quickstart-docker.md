@@ -2,7 +2,7 @@
 
 # Quickstart - Run Percona Server for MySQL container images with Docker
 
-**Quickstart path:** Step 1 — Install. Next: [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html) (step 2).
+**Quickstart path:** Step 1 — Install. Next: [Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md) (step 2).
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ Choose one of the following methods:
 
 1. Create a directory and add a `docker-compose.yml` file:
 
-   ```
+   ```yaml
    services:
      mysql:
        image: percona/percona-server:8.4.12
@@ -40,13 +40,13 @@ Choose one of the following methods:
 
 1. Start the container:
 
-   ```
+   ```shell
    docker compose up -d
    ```
 
    Expected output
 
-   ```
+   ```text
    [+] Running 2/2
     ✔ Network quickstart_default  Created
     ✔ Container psmysql           Started
@@ -67,7 +67,7 @@ If you prefer to run the container manually, use the following. The command has 
 
 You must set at least one environment variable (for example `MYSQL_ROOT_PASSWORD`) or the instance refuses to initialize. For more on tags and images, see [percona/percona-server on the Docker Hub](https://hub.docker.com/r/percona/percona-server) . For ARM64, use the `8.4.12-arm64` tag instead of `8.4.12`.
 
-```
+```shell
 docker run -d -p 3306:3306 --name psmysql \
 --platform linux/amd64 \
 -e MYSQL_ROOT_PASSWORD=secret \
@@ -77,7 +77,7 @@ percona/percona-server:8.4.12
 
 Expected output
 
-```
+```text
 Unable to find image 'percona/percona-server:8.4.12' locally
 Pulling from percona/percona-server
 b902d6b6048a: Pull complete
@@ -105,13 +105,13 @@ You must enter the password when the server prompts you.
 
 Run the following to connect:
 
-```
+```shell
 docker exec -it psmysql mysql -uroot -p
 ```
 
 You are prompted to enter the password, which is `secret`. If you have changed the password, use your password. You will not see any characters as you type.
 
-```
+```text
 Enter password:
 ```
 
@@ -119,7 +119,7 @@ You should see the following result.
 
 Expected output
 
-```
+```text
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
 Server version: 8.4.12 Percona Server (GPL), Release 1, Revision 238b3c02
@@ -152,12 +152,12 @@ Remember, responsible container management and robust security practices are cru
 
 ## Work with a database
 
-[Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.html)
+[Work with a database](https://docs.percona.com/percona-server/8.4/quickstart-database-script.md)
 
 ## Additional resources
 
-- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.html)
-- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.html)
-- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.html)
-- [Clean up your installation](https://docs.percona.com/percona-server/8.4/quickstart-cleanup.html)
-- [Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.html)
+- [Quickstart - Overview](https://docs.percona.com/percona-server/8.4/quickstart-overview.md)
+- [Install Percona Server for MySQL on Ubuntu](https://docs.percona.com/percona-server/8.4/quickstart-apt.md)
+- [Install Percona Server for MySQL on Oracle Linux](https://docs.percona.com/percona-server/8.4/quickstart-yum.md)
+- [Clean up your installation](https://docs.percona.com/percona-server/8.4/quickstart-cleanup.md)
+- [Next steps](https://docs.percona.com/percona-server/8.4/quickstart-next-steps.md)

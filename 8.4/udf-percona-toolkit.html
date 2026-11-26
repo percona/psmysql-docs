@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/udf-percona-toolkit.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10836,21 +10836,21 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Benchmark with your own data and workload when you choose; performance depends on key length, data patterns, and hardware.</p>
 <h2 id="installation">Installation<a data-markdown-ignore class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>The UDFs are shipped as a MySQL component (not as separate plugin files). After you install the Percona Server package, load the component. Full repository and package steps are in <a href="apt-repo.html#install-percona-toolkit-udfs-optional">Install Percona Toolkit UDFs (Optional)</a>. Then run:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <h2 id="examples">Examples<a data-markdown-ignore class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>Hash a single value (for example, for a lookup key or checksum):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'test_string'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'test_string'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="mi">12345</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------------+
 | fnv_64('test_string') |
 +----------------------+
 |   13528473474361592478 |
@@ -10864,11 +10864,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>Use in queries—for example, to derive a shard or partition key from <code>user_id</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">shard_key</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">shard_key</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------+-------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------+-------------------+
 | user_id | shard_key         |
 +---------+-------------------+
 |       1 | 12345678901234567 |
@@ -10878,12 +10878,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>Checksum a column to compare two tables (same expression on both sides gives the same result when data matches):</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">col1</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">replica_db</span><span class="p">.</span><span class="n">my_table</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">col1</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">checksum</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">replica_db</span><span class="p">.</span><span class="n">my_table</span><span class="p">;</span>
 <span class="c1">-- Compare with the same expression on the source table.</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+---------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+---------------------+
 | checksum            |
 +---------------------+
 | 1234567890123456789 |
@@ -10891,11 +10891,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>Use in <code>WHERE</code> or joins when you need a stable numeric fingerprint:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span><span class="w"> </span><span class="k">MOD</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">murmur_hash</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span><span class="w"> </span><span class="k">MOD</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+-----------+---------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----+-----------+---------------------+
 | id | device_id | created_at          |
 +----+-----------+---------------------+
 |  2 | dev_abc   | 2024-01-15 10:30:00 |
@@ -10906,11 +10906,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="maintenance">Maintenance<a data-markdown-ignore class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
 <h3 id="verify-the-component-is-loaded">Verify the component is loaded<a data-markdown-ignore class="headerlink" href="#verify-the-component-is-loaded" title="Permanent link">&para;</a></h3>
 <p>Check that the component is registered:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">component</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">component_urn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------+------------------------------------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------+------------------------------------------+
 | component_id   | component_urn                            |
 +----------------+------------------------------------------+
 |              1 | file://component_percona_udf             |
@@ -10918,11 +10918,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 </details>
 <p>A single row means the component is installed and will load on restart. You can also confirm the functions exist by invoking one:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'check'</span><span class="p">);</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">fnv_64</span><span class="p">(</span><span class="s1">'check'</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------------+
 | fnv_64('check') |
 +----------------+
 | 123456789012345 |
@@ -10932,11 +10932,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>If the component is not loaded, you get an error such as “Unknown function &lsquo;fnv_64&rsquo;”.</p>
 <h3 id="uninstall-the-component">Uninstall the component<a data-markdown-ignore class="headerlink" href="#uninstall-the-component" title="Permanent link">&para;</a></h3>
 <p>To remove the UDFs, uninstall the component. Any views, stored procedures, or triggers that call these functions will become invalid after uninstall.</p>
-<div class="highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">UNINSTALL</span><span class="w"> </span><span class="n">COMPONENT</span><span class="w"> </span><span class="s1">'file://component_percona_udf'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.00 sec)
 </code></pre></div>
 </details>
 <p>You need the <code>DELETE</code> privilege on the <code>mysql.component</code> system table. See <a href="uninstall-component.html">UNINSTALL COMPONENT</a> for details.</p>

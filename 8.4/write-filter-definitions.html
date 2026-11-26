@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/write-filter-definitions.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/write-filter-definitions.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/write-filter-definitions.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10762,7 +10762,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="basic-structure">Basic structure<a data-markdown-ignore class="headerlink" href="#basic-structure" title="Permanent link">&para;</a></h2>
 <p>A filter is a JSON document whose root is a single <code>filter</code> object. <code>filter</code> contains an optional global <code>log</code> flag, an optional <code>id</code> (used for dynamic filter swapping), and one or more <code>class</code> rules. Each class rule can carry its own <code>log</code> condition and an optional <code>event</code> list; each event block can carry <code>log</code>, <code>abort</code>, <code>print</code>, or a nested <code>filter</code>. Conditions inside <code>log</code> / <code>abort</code> / <code>print</code> are built from <code>field</code>, <code>variable</code>, <code>function</code>, and the <code>and</code> / <code>or</code> / <code>not</code> logical operators.</p>
 <p>The tree below summarizes where each key legally nests:</p>
-<div class="highlight"><pre><span></span><code>filter                                   # root object
+<div class="language-text highlight"><pre><span></span><code>filter                                   # root object
 ├── log                                  # optional boolean; global default
 ├── id                                   # optional; referenced by activate / ref
 └── class                                # one object or an array of class rules
@@ -10786,7 +10786,7 @@ condition := {
 </code></pre></div>
 <p>Keep this shape in mind as you read the rest of the page: every subsequent example hangs something off one of these nodes.</p>
 <p>A minimal skeleton:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
@@ -10802,7 +10802,7 @@ condition := {
 <p>Replace <code>class_type</code> with a real class name (<code>connection</code>, <code>general</code>, <code>table_access</code>, <code>message</code>) and <code>event_subclass</code> with one of its subclasses. Add a <code>log</code> condition under the class or the event to narrow which matching events are actually written.</p>
 <h3 id="practical-example">Practical example<a data-markdown-ignore class="headerlink" href="#practical-example" title="Permanent link">&para;</a></h3>
 <p>The following filter logs only <code>connection</code> events whose <code>user.str</code> is <code>admin</code> or <code>developer</code> <strong>and</strong> whose <code>host.str</code> is <code>192.168.0.1</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
@@ -10828,13 +10828,13 @@ condition := {
 <p>Rule-level conditions like this one narrow <em>which events are logged</em> — they do not determine <em>which filter a session uses</em>. Session-to-filter binding is separate, done with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a> and stored in <code>mysql.audit_log_user</code>. A session only reaches this JSON after the server has chosen this filter for it.</p>
 <h3 id="log-all-events">Log all events<a data-markdown-ignore class="headerlink" href="#log-all-events" title="Permanent link">&para;</a></h3>
 <p>Toggle global logging with the top-level <code>log</code> flag:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>"log": true</code> logs everything; <code>"log": false</code> logs nothing.</p>
 <p>An empty filter object also logs everything:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -10883,7 +10883,7 @@ condition := {
 </table>
 <h3 id="log-specific-event-classes">Log specific event classes<a data-markdown-ignore class="headerlink" href="#log-specific-event-classes" title="Permanent link">&para;</a></h3>
 <p>To limit logging to one class, set <code>class.name</code>, for example <code>connection</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connection"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -10891,7 +10891,7 @@ condition := {
 </code></pre></div>
 <p><code>{ "name": "connection" }</code> under <code>filter.class</code> audits connection events (connect, disconnect, change user—subject to <code>event_mode</code> and optional <code>event</code> narrowing).</p>
 <p>The next example turns default logging off, then turns connection logging back on inside the class block:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
@@ -10905,7 +10905,7 @@ condition := {
 <p>Log several classes either as separate objects in an array or as one array of names—equivalent when you do not need per-class options yet.</p>
 <h4 id="per-class-object-list">Per-class object list<a data-markdown-ignore class="headerlink" href="#per-class-object-list" title="Permanent link">&para;</a></h4>
 <p>Use a list of class objects when you will add per-class keys (<code>user</code>, <code>event</code>, …) later.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"connection"</span><span class="w"> </span><span class="p">},</span>
@@ -10917,7 +10917,7 @@ condition := {
 </code></pre></div>
 <h4 id="compact-name-array">Compact name array<a data-markdown-ignore class="headerlink" href="#compact-name-array" title="Permanent link">&para;</a></h4>
 <p>Combine class names in one array when rules stay uniform across the listed classes:</p>
-<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<p><div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"connection"</span><span class="p">,</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span><span class="w"> </span><span class="s2">"table_access"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
@@ -12097,7 +12097,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>Component shutdown writes an <code>audit</code> / <code>shutdown</code> record (XML <code>&lt;NAME&gt;NoAudit&lt;/NAME&gt;</code>). MySQL <code>server_shutdown</code> tracking events are not written.</p>
 <h3 id="filtering-by-statement-type">Filtering by statement type<a data-markdown-ignore class="headerlink" href="#filtering-by-statement-type" title="Permanent link">&para;</a></h3>
 <p>To log only DDL against a schema, combine class rules with <code>general_sql_command.str</code> conditions:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span>
@@ -12140,7 +12140,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>Tighter filters mean less noise and less I/O—always stage-test rules before production.</p>
 <h4 id="inclusive-filter-example">Inclusive filter example<a data-markdown-ignore class="headerlink" href="#inclusive-filter-example" title="Permanent link">&para;</a></h4>
 <p>Administrators often watch destructive <code>table_access</code> work—this skeleton logs <code>update</code> and <code>delete</code> only:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
@@ -12172,7 +12172,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>To widen or narrow the rule, change the field values, add <code>or</code> branches for multiple tables, or drop either <code>field</code> check to scope by database only or by table name only.</p>
 <h4 id="log-only-update-and-delete-on-a-specific-table">Log only UPDATE and DELETE on a specific table<a data-markdown-ignore class="headerlink" href="#log-only-update-and-delete-on-a-specific-table" title="Permanent link">&para;</a></h4>
 <p>To log <code>update</code> and <code>delete</code> against a single table — or a short list of tables inside one database — combine <code>table_database.str</code> with an <code>or</code> over <code>table_name.str</code> values:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
@@ -12206,7 +12206,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <li>Use a <code>"not"</code> logical operator inside a <code>log</code> condition to drop matches that satisfy an expression.</li>
 </ul>
 <h4 id="suppress-one-class-while-logging-everything-else">Suppress one class while logging everything else<a data-markdown-ignore class="headerlink" href="#suppress-one-class-while-logging-everything-else" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span><span class="w"> </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
@@ -12216,7 +12216,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>This logs every event <em>except</em> <code>general</code> class events. <code>log: true</code> at the top enables logging globally, then the class-level <code>log: false</code> carves out one class.</p>
 <h4 id="invert-a-field-match-with-not">Invert a field match with <code>not</code><a data-markdown-ignore class="headerlink" href="#invert-a-field-match-with-not" title="Permanent link">&para;</a></h4>
 <p>Wrap a condition in <code>not</code> inside a <code>log</code> item to drop the events that match it. Because inversion tests a field on the current event, use a field the class actually carries (for example, <code>table_database.str</code> on <code>table_access</code>; <code>user.str</code> on <code>connection</code>; <code>general_user.str</code> on <code>general</code>). The example below suppresses <code>table_access</code> events against the internal <code>mysql</code> schema:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
@@ -12234,7 +12234,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>This logs <code>table_access</code> events except those touching the <code>mysql</code> system schema. For a user-based suppression, apply the <code>not</code> against a field that exists on the class you&rsquo;re filtering — <code>user.str</code> on <code>connection</code>, <code>general_user.str</code> on <code>general</code> — or scope the filter to specific accounts at assignment time with <a href="audit-log-filter-variables.html"><code>audit_log_filter_set_user()</code></a>.</p>
 <h4 id="exclusive-filter-example">Exclusive filter example<a data-markdown-ignore class="headerlink" href="#exclusive-filter-example" title="Permanent link">&para;</a></h4>
 <p>This filter logs everything except <code>general</code> events, and within <code>connection</code> events drops <code>connect</code>/<code>disconnect</code> subclasses (keeping only <code>change_user</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"log"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -12261,7 +12261,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>Validate exact field names and types against <a href="audit-log-filter-definition-fields.html">Audit Log Filter definition fields</a> before deploying any of these to production.</p>
 <h3 id="test-event-field-values">Test event field values<a data-markdown-ignore class="headerlink" href="#test-event-field-values" title="Permanent link">&para;</a></h3>
 <p>Inside an <code>event</code> block, a <code>log</code> item can carry a <code>field</code> comparison. The rule logs the event only when the field equals the given value.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span>
@@ -12290,7 +12290,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </ul>
 <h3 id="combine-conditions-with-logical-operators">Combine conditions with logical operators<a data-markdown-ignore class="headerlink" href="#combine-conditions-with-logical-operators" title="Permanent link">&para;</a></h3>
 <p><code>and</code>, <code>or</code>, and <code>not</code> let you build compound conditions. They take an array (for <code>and</code> / <code>or</code>) or a single sub-condition (for <code>not</code>) and can be nested arbitrarily.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span>
@@ -12322,7 +12322,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>An <code>event</code> block can carry an <code>abort</code> item that prevents matching statements from executing. The same block cannot carry both <code>log</code> and <code>abort</code>; use separate event blocks when you need both behaviors on the same class. Because blocking is a policy-enforcement capability — not observability — it is covered on its own page: <a href="block-statements-with-audit-filter.html">Block statements with an audit log filter</a>.</p>
 <h3 id="reference-predefined-variables">Reference predefined variables<a data-markdown-ignore class="headerlink" href="#reference-predefined-variables" title="Permanent link">&para;</a></h3>
 <p>A <code>log</code> or <code>abort</code> condition can test a predefined variable with a <code>variable</code> item. The condition is true when the variable equals the given value.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span>
@@ -12350,7 +12350,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>Use a <code>function</code> item to call a built-in inside a <code>log</code>, <code>abort</code>, <code>print</code>, or <code>replace</code> condition. The <code>name</code> field holds the function name without parentheses. The <code>args</code> field is an array of arguments. Omit <code>args</code> when the function takes none.</p>
 <p>The Percona Server audit log filter component implements two predefined functions: <code>string_find</code> and <code>query_digest</code>. Other names from the upstream MySQL Enterprise Audit reference, such as <code>find_in_include_list</code>, <code>find_in_exclude_list</code>, and <code>debug_sleep</code>, are not recognized in this component. Calls to those names fail validation.</p>
 <p>The following filter logs <code>general</code>/<code>status</code> events only when the executed statement contains the substring <code>password</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"general"</span><span class="p">,</span>
@@ -12403,7 +12403,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>A <code>print</code> / <code>replace</code> item inside a class or event block rewrites statement text on one of four class/field pairs (<code>general</code>/<code>general_query.str</code>, <code>table_access</code>/<code>query.str</code>, <code>query</code>/<code>query.str</code>, <code>parse</code>/<code>query.str</code>; the last two require <code>FULL</code> mode) as a <code>query_digest</code> before the event is logged, which keeps literal values out of the audit stream. This is a compliance/PII capability covered on its own page: <a href="redact-audit-log-fields.html">Redact audit log fields</a>.</p>
 <h3 id="replace-a-filter-dynamically">Replace a filter dynamically<a data-markdown-ignore class="headerlink" href="#replace-a-filter-dynamically" title="Permanent link">&para;</a></h3>
 <p>A filter can swap itself for a different rule set mid-session. Nest a <code>filter</code> block inside an event and give the outer filter an <code>id</code>; use <code>activate</code> to trigger the swap and <code>ref</code> to point back at the original.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="language-json highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"class"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12448,7 +12448,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 <p>This page authors the JSON. To deploy a finished filter, store it with <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>, bind it to accounts with <a href="audit-log-filter-variables.html#audit_log_filter_set_useruser_name-filter_name"><code>audit_log_filter_set_user()</code></a>, and reload sessions with <a href="audit-log-filter-variables.html#audit_log_filter_flush"><code>audit_log_filter_flush()</code></a>. The <a href="audit-log-filter-quickstart.html">Audit Log Filter quickstart</a> and <a href="install-audit-log-filter.html">Install the audit log filter</a> cover the deploy sequence.</p>
 <p>The following worked example threads JSON authoring, deployment, and verification end-to-end.</p>
 <p>This filter logs DML on two tables in <code>financial_db</code> and all connection events. Account scoping is applied at assignment time, since <code>table_access</code> events do not carry a user field.</p>
-<div class="highlight"><pre><span></span><code><span class="c1">-- Create the filter</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="c1">-- Create the filter</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_filter</span><span class="p">(</span><span class="s1">'financial_tracking'</span><span class="p">,</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">  "filter": {</span>
 <span class="s1">    "class": [</span>
@@ -12484,7 +12484,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </code></pre></div>
 <p>Field-value typing (JSON numbers for integer fields such as <code>status</code>, strings for <code>*.str</code> fields, and <code>"::tcp/ip"</code>-style symbolic constants for <code>connection_type</code>) is covered under <a href="audit-log-filter-variables.html#audit_log_filter_set_filterfilter_name-definition"><code>audit_log_filter_set_filter()</code></a>.</p>
 <p>Assign the filter to just the accounts that should be audited instead of to <code>%</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">-- Assign to specific accounts; other users keep their existing filter (or none).</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="c1">-- Assign to specific accounts; other users keep their existing filter (or none).</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'admin@%'</span><span class="p">,</span><span class="w">        </span><span class="s1">'financial_tracking'</span><span class="p">);</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">audit_log_filter_set_user</span><span class="p">(</span><span class="s1">'finance_team@%'</span><span class="p">,</span><span class="w"> </span><span class="s1">'financial_tracking'</span><span class="p">);</span>
 </code></pre></div>
@@ -12501,7 +12501,7 @@ Prefer this compact form only when no per-class overrides are needed.</p>
 </li>
 </ul>
 <p>Inspect metadata directly:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">-- Check created filters</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="c1">-- Check created filters</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">audit_log_filter</span><span class="p">;</span>
 
 <span class="c1">-- Check user assignments</span>

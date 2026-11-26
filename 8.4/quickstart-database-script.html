@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/quickstart-database-script.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/quickstart-database-script.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/quickstart-database-script.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10807,24 +10807,24 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </details>
 <p>You are welcome to name any items to match your organization&rsquo;s standards or use your table structure and data. If you do, the results are different from the expected results.</p>
 <p>To create a database, use the <code>CREATE DATABASE</code> statement. After the database is created, select the database using the <code>USE</code> statement.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">mydb</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">mydb</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">mydb</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">USE</span><span class="w"> </span><span class="n">mydb</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Database changed
+<div class="language-text no-copy highlight"><pre><span></span><code>Database changed
 </code></pre></div>
 </details>
 <h2 id="create-tables">Create tables<a data-markdown-ignore class="headerlink" href="#create-tables" title="Permanent link">&para;</a></h2>
 <p>Create tables using the <code>CREATE TABLE</code> statement. You can specify data types, constraints, indexes, and other options for each column.</p>
 <p>First, create the <code>departments</code> table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
 <span class="w">    </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
 <span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span>
@@ -10832,11 +10832,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected (0.01 sec)
 </code></pre></div>
 </details>
 <p>Next, create the <code>employees</code> table with a foreign key to the departments table:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span>
 <span class="w">    </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
 <span class="w">    </span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
@@ -10847,12 +10847,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected, 1 warning (0.03 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 0 rows affected, 1 warning (0.03 sec)
 </code></pre></div>
 </details>
 <h2 id="insert-data-into-the-tables">Insert data into the tables<a data-markdown-ignore class="headerlink" href="#insert-data-into-the-tables" title="Permanent link">&para;</a></h2>
 <p>Insert data into the <code>departments</code> table first:</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">)</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">departments</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">)</span>
 <span class="k">VALUES</span>
 <span class="w">    </span><span class="p">(</span><span class="ss">"Engineering"</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span><span class="ss">"Sales"</span><span class="p">),</span>
@@ -10860,13 +10860,13 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 3 rows affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 3 rows affected (0.01 sec)
 Records: 3  Duplicates: 0  Warnings: 0
 </code></pre></div>
 </details>
 <p>Insert data into the <code>employees</code> table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
 <p>Insert data into the table using the <code>INSERT INTO</code> SQL statement. This statement adds multiple records into a table in one statement.</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="p">)</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="p">)</span>
 <span class="k">VALUES</span>
 <span class="w">    </span><span class="p">(</span><span class="ss">"Erasmus Richardson"</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">"England"</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span><span class="ss">"Jenna French"</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="ss">"Canada"</span><span class="p">),</span>
@@ -10881,17 +10881,17 @@ Records: 3  Duplicates: 0  Warnings: 0
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 10 rows affected (0.02 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 10 rows affected (0.02 sec)
 Records: 10  Duplicates: 0  Warnings: 0
 </code></pre></div>
 </details>
 <h2 id="view-all-data">View all data<a data-markdown-ignore class="headerlink" href="#view-all-data" title="Permanent link">&para;</a></h2>
 <p>To view all records in a table, use <code>SELECT *</code> to retrieve all columns:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+---------------------+--------------+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----+---------------------+--------------+------------+
 | id | name                | department_id| country    |
 +----+---------------------+--------------+------------+
 |  1 | Erasmus Richardson |            1 | England    |
@@ -10911,13 +10911,13 @@ Records: 10  Duplicates: 0  Warnings: 0
 <h2 id="join-tables">Join tables<a data-markdown-ignore class="headerlink" href="#join-tables" title="Permanent link">&para;</a></h2>
 <p>JOIN queries combine data from multiple tables based on a related column. Use JOINs to retrieve data from related tables in a single query.</p>
 <p>Join the <code>employees</code> and <code>departments</code> tables to display employee names with their department names:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
 <span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+---------------------+------------+------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----+---------------------+------------+------------+
 | id | name                | department | country    |
 +----+---------------------+------------+------------+
 |  1 | Erasmus Richardson | Engineering| England    |
@@ -10936,14 +10936,14 @@ Records: 10  Duplicates: 0  Warnings: 0
 </details>
 <h2 id="run-a-select-query">Run a SELECT query<a data-markdown-ignore class="headerlink" href="#run-a-select-query" title="Permanent link">&para;</a></h2>
 <p>SELECT queries retrieve data from one or more tables based on specified criteria. They are the most common type of query and can be used for various purposes, such as displaying, filtering, sorting, aggregating, or joining data. SELECT queries do not modify the data in the database but can affect the performance if the query involves large or complex datasets.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
 <span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Poland'</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+-------------------+------------+---------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----+-------------------+------------+---------+
 | id | name              | department | country |
 +----+-------------------+------------+---------+
 |  5 | Michal Brzezinski | Engineering| Poland  |
@@ -10955,19 +10955,19 @@ Records: 10  Duplicates: 0  Warnings: 0
 <h2 id="run-an-update-query">Run an Update query<a data-markdown-ignore class="headerlink" href="#run-an-update-query" title="Permanent link">&para;</a></h2>
 <p>UPDATE queries modify existing data in a table. They are used to change or correct the information stored in the database. UPDATE queries can update one or more columns and rows simultaneously, depending on the specified conditions. They may also fail if they violate any constraints or rules defined on the table.</p>
 <p>Run an UPDATE query to change a record, and then run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the update.</p>
-<div class="highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Zofia Niemec'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">UPDATE</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Zofia Niemec'</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+--------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+--------------+
 | name         |
 +--------------+
 | Zofia Niemec |
@@ -10978,23 +10978,23 @@ Rows matched: 1  Changed: 1  Warnings: 0
 <h2 id="run-an-insert-query">Run an INSERT query<a data-markdown-ignore class="headerlink" href="#run-an-insert-query" title="Permanent link">&para;</a></h2>
 <p>INSERT queries add new data to a table. They are used to populate the database with new information. INSERT queries can insert one or more rows at a time, depending on the syntax. INSERT queries may fail if they violate any constraints or rules defined on the table, such as primary keys, foreign keys, unique indexes, or triggers.</p>
 <p>Insert a row into a table and then run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the record was inserted.</p>
-<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="p">)</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">employees</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">department_id</span><span class="o">`</span><span class="p">,</span><span class="o">`</span><span class="n">country</span><span class="o">`</span><span class="p">)</span>
 <span class="k">VALUES</span>
 <span class="p">(</span><span class="ss">"Kenzo Sasaki"</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="ss">"Japan"</span><span class="p">);</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
 <span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----+--------------+------------+---------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----+--------------+------------+---------+
 | id | name         | department | country |
 +----+--------------+------------+---------+
 | 11 | Kenzo Sasaki | Engineering| Japan   |
@@ -11005,30 +11005,30 @@ Rows matched: 1  Changed: 1  Warnings: 0
 <h2 id="run-a-delete-query">Run a Delete query<a data-markdown-ignore class="headerlink" href="#run-a-delete-query" title="Permanent link">&para;</a></h2>
 <p>DELETE queries remove existing data from a table. They are used to clean up the information no longer needed or relevant in the database. The DELETE queries can delete one or more rows at a time, depending on the specified conditions. They may also trigger cascading deletes on related tables if foreign key constraints are enforced.</p>
 <p>Delete a row in the table and run a <a href="#run-a-select-query">SELECT</a> with a WHERE clause to verify the deletion.</p>
-<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Query OK, 1 row affected (0.01 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">country</span><span class="w"> </span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"> </span>
 <span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span><span class="w"> </span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
+<div class="language-text no-copy highlight"><pre><span></span><code>Empty set (0.00 sec)
 </code></pre></div>
 </details>
 <h2 id="count-records">Count records<a data-markdown-ignore class="headerlink" href="#count-records" title="Permanent link">&para;</a></h2>
 <p>Use the <code>COUNT()</code> function to count the number of records that match a condition:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+----------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+----------+
 | COUNT(*) |
 +----------+
 |       10 |
@@ -11036,14 +11036,14 @@ Rows matched: 1  Changed: 1  Warnings: 0
 1 row in set (0.00 sec)
 </code></pre></div>
 </details>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">employee_count</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">employee_count</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
 <span class="k">JOIN</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">id</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">d</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>+------------+---------------+
+<div class="language-text no-copy highlight"><pre><span></span><code>+------------+---------------+
 | department | employee_count|
 +------------+---------------+
 | Engineering|             5 |

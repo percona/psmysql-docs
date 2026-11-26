@@ -21,8 +21,8 @@ The statement requires the `DELETE` privilege for the `mysql.component` system t
 
 The following is an example of the `UNINSTALL COMPONENT` statement.
 
-```
+```sql
 mysql > UNINSTALL COMPONENT 'file://componentA' ;
 ```
 
-Find more information in the [UNINSTALL COMPONENT](https://docs.percona.com/percona-server/8.4/uninstall-component.html) document.
+Find more information in the [UNINSTALL COMPONENT](https://docs.percona.com/percona-server/8.4/uninstall-component.md) document.

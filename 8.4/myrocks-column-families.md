@@ -12,7 +12,7 @@ To be able to apply a custom block size, compression, or sort order you need to 
 
 The following example demonstrates how to place the `PRIMARY KEY` into the cf1 column family and the index `kb` — into the cf2 column family.
 
-```
+```sql
 CREATE TABLE t1 (a INT, b INT,
 PRIMARY KEY(a) COMMENT 'cfname=cf1',
 KEY kb(b) COMMENT 'cfname=cf2')
@@ -27,7 +27,7 @@ Warning
 
 The `cfname` attribute must be all lowercase. Place the equals sign (=) in front of the column family name without any whitespace on both sides of it.
 
-```
+```text
 COMMENT 'cfname=Foo; Creating the Foo family name'
 ```
 

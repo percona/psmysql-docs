@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10670,7 +10670,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </tbody>
 </table>
 <p>To add error handling to a stored procedure, developers can use constructs like <code>DECLARE</code>, <code>SIGNAL</code>, <code>RESIGNAL</code>, and <code>HANDLER</code> to declare variables, raise errors, and handle exceptions. Here&rsquo;s an example of error handling in a stored procedure:</p>
-<div class="highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">DELIMITER</span><span class="w"> </span><span class="o">//</span>
 <span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">()</span>
 <span class="w">    </span><span class="k">BEGIN</span>
 <span class="w">        </span><span class="k">DECLARE</span><span class="w"> </span><span class="n">exit</span><span class="w"> </span><span class="k">handler</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">sqlexception</span>
@@ -10685,7 +10685,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <span class="k">DELIMITER</span><span class="w"> </span><span class="p">;</span>
 </code></pre></div>
 <p>In this example, the <code>DECLARE</code> statement declares an exit handler for SQL exceptions. Inside the handler block, the procedure rolls back any changes made and returns a custom error message with the SQL state.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">();</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">CALL</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">();</span>
 </code></pre></div>
 <p>This command executes the stored procedure and triggers the error handling logic if an exception occurs during execution.</p>
 <h2 id="advanced-sql-features">Advanced SQL features<a data-markdown-ignore class="headerlink" href="#advanced-sql-features" title="Permanent link">&para;</a></h2>

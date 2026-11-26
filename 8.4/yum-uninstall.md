@@ -6,13 +6,13 @@ To completely uninstall Percona Server for MySQL, remove all the installed packa
 
 1. Stop the Percona Server for MySQL service:
 
-   ```
+   ```shell
    sudo service mysql stop
    ```
 
 1. Remove the packages:
 
-   ```
+   ```shell
    sudo yum remove percona-server*
    ```
 
@@ -22,7 +22,7 @@ To completely uninstall Percona Server for MySQL, remove all the installed packa
 
    This step removes all the packages and deletes all the data files (databases, tables, logs, etc.). Take a backup before this operation in case you need the data.
 
-   ```
+   ```shell
    rm -rf /var/lib/mysql
    rm -f /etc/my.cnf
    ```

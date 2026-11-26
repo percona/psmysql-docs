@@ -6,13 +6,13 @@ RocksDB WAL file information can be seen in the [performance_schema.log_status](
 
 ## Example
 
-```
+```sql
 select * from performance_schema.log_status\G
 ```
 
 Expected output
 
-```
+```text
 *************************** 1. row ***************************
 
 SERVER_UUID: f593b4f8-6fde-11e9-ad90-080027c2be11

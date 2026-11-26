@@ -4,7 +4,7 @@
 
 Tip
 
-Want to try OIDC end-to-end on a single server? Follow the [Get started with OpenID Connect authentication](https://docs.percona.com/percona-server/8.4/quickstart-openid-connect.html) walkthrough. The sections that follow are the full reference.
+Want to try OIDC end-to-end on a single server? Follow the [Get started with OpenID Connect authentication](https://docs.percona.com/percona-server/8.4/quickstart-openid-connect.md) walkthrough. The sections that follow are the full reference.
 
 ## What is OpenID Connect authentication?
 
@@ -12,7 +12,7 @@ OpenID Connect (OIDC) is an identity layer on top of the OAuth 2.0 framework. Th
 
 The IDP issues a signed JSON Web Token (JWT), called the Identity token. The client transmits the token to Percona Server for MySQL during the authentication handshake. The server verifies the token and grants the connection without exchanging a password.
 
-For an overview of the supported authentication methods, see [Authentication methods](https://docs.percona.com/percona-server/8.4/authentication-methods.html). To compare OIDC with related plugins, see [LDAP authentication](https://docs.percona.com/percona-server/8.4/ldap-authentication.html), [PAM authentication](https://docs.percona.com/percona-server/8.4/pam-plugin.html), and [FIDO authentication](https://docs.percona.com/percona-server/8.4/fido-authentication-plugin.html). To configure the encrypted transport that OIDC requires, see [SSL improvements](https://docs.percona.com/percona-server/8.4/ssl-improvement.html).
+For an overview of the supported authentication methods, see [Authentication methods](https://docs.percona.com/percona-server/8.4/authentication-methods.md). To compare OIDC with related plugins, see [LDAP authentication](https://docs.percona.com/percona-server/8.4/ldap-authentication.md), [PAM authentication](https://docs.percona.com/percona-server/8.4/pam-plugin.md), and [FIDO authentication](https://docs.percona.com/percona-server/8.4/fido-authentication-plugin.md). To configure the encrypted transport that OIDC requires, see [SSL improvements](https://docs.percona.com/percona-server/8.4/ssl-improvement.md).
 
 ## Plugin capabilities
 
@@ -127,13 +127,13 @@ Choose one of the following installation methods:
 
 Run this statement to load the plugin during a session:
 
-```
+```sql
 INSTALL PLUGIN auth_openid_connect SONAME 'auth_openid_connect.so';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
@@ -141,7 +141,7 @@ Query OK, 0 rows affected (0.01 sec)
 
 Add the following lines to the `[mysqld]` section of `my.cnf`:
 
-```
+```text
 [mysqld]
 plugin-load-add=auth_openid_connect.so
 ```
@@ -152,7 +152,7 @@ Restart the server for the change to take effect.
 
 Run the [`SHOW PLUGINS`](https://dev.mysql.com/doc/refman/8.4/en/show-plugins.html) statement, or query `INFORMATION_SCHEMA.PLUGINS`. Confirm that the plugin loaded successfully:
 
-```
+```sql
 SELECT PLUGIN_NAME, PLUGIN_STATUS
 FROM INFORMATION_SCHEMA.PLUGINS
 WHERE PLUGIN_NAME = 'auth_openid_connect';
@@ -160,7 +160,7 @@ WHERE PLUGIN_NAME = 'auth_openid_connect';
 
 Expected output
 
-```
+```text
 +---------------------+---------------+
 | PLUGIN_NAME         | PLUGIN_STATUS |
 +---------------------+---------------+
@@ -175,26 +175,26 @@ A `PLUGIN_STATUS` value other than `ACTIVE`, or an empty result set, indicates t
 
 The plugin library also provides the `update_jwks()` user-defined function (UDF). Register the function once after the plugin loads. The UDF refreshes cached JWKS public keys at runtime. For details, see [Refresh JWKS keys](#refresh-jwks-keys).
 
-```
+```sql
 CREATE FUNCTION update_jwks RETURNS INTEGER
 SONAME 'auth_openid_connect.so';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 Confirm the function is registered:
 
-```
+```sql
 SELECT * FROM mysql.func WHERE name = 'update_jwks';
 ```
 
 Expected output
 
-```
+```text
 +-------------+-----+------------------------+----------+
 | name        | ret | dl                     | type     |
 +-------------+-----+------------------------+----------+
@@ -248,7 +248,7 @@ The following JSON document configures two trusted IDPs. The first resolves keys
 
 The `n` value is truncated for brevity. Replace `ptR4...QEASRw` with the full base64url-encoded RSA modulus from the IDP signing key.
 
-```
+```json
 {
   "my-keycloak": {
     "issuer-name": "https://keycloak.example.com/realms/master",
@@ -291,7 +291,7 @@ The subsections that follow show three ways to load the JSON configuration into 
 
 Most deployments set the variable in `my.cnf` so the configuration applies on every server start. Save the example as `/etc/mysql/oidc/idps.json`, then add the variable to the `[mysqld]` section alongside the plugin load directive:
 
-```
+```text
 [mysqld]
 plugin-load-add=auth_openid_connect.so
 auth_openid_connect_configuration='FILE:///etc/mysql/oidc/idps.json'
@@ -307,14 +307,14 @@ Restart the server for the change to take effect.
 
 To set the variable in a running server, use `SET GLOBAL` with the `FILE://` prefix:
 
-```
+```sql
 SET GLOBAL auth_openid_connect_configuration =
   'FILE:///etc/mysql/oidc/idps.json';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -322,14 +322,14 @@ Query OK, 0 rows affected (0.00 sec)
 
 To set the variable in a running server without an external file, use `SET GLOBAL` with the `JSON://` prefix:
 
-```
+```sql
 SET GLOBAL auth_openid_connect_configuration =
   'JSON://{"my-keycloak":{"issuer-name":"https://keycloak.example.com/realms/master","jwks-url":"https://keycloak.example.com/realms/master/protocol/openid-connect/certs","audiences":["mysql-oidc"]}}';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -343,14 +343,14 @@ Skip this step if you already set the variable in [my.cnf](#configure-in-mycnf).
 
 Otherwise, persist the configuration with the following statement:
 
-```
+```sql
 SET PERSIST_ONLY auth_openid_connect_configuration =
   'FILE:///etc/mysql/oidc/idps.json';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -358,7 +358,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 In direct authentication, one MySQL account maps to one user identity in the IDP. The mapping is encoded as a JSON object in the `IDENTIFIED ... AS` clause:
 
-```
+```sql
 CREATE USER 'mysql_oidc_user'@'%'
   IDENTIFIED WITH 'auth_openid_connect'
   AS '{"identity_provider": "my-keycloak", "user": "4c28d537-a635-4b6d-957f-58e3c8860bcc"}';
@@ -366,7 +366,7 @@ CREATE USER 'mysql_oidc_user'@'%'
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
@@ -395,7 +395,7 @@ The password grant (`grant_type=password`) is deprecated in OAuth 2.1 and omitte
 
 For production CLI clients, use the [Device Authorization Grant](https://datatracker.ietf.org/doc/html/rfc8628) or authorization code with PKCE. These flows do not require the client to handle user credentials directly.
 
-```
+```bash
 curl -s -X POST \
   https://keycloak.example.com/realms/master/protocol/openid-connect/token \
   -d 'grant_type=password' \
@@ -416,7 +416,7 @@ For Keycloak, the ID token `aud` claim equals the `client_id`. Set `audiences` i
 
 Public clients (Access Type: public) send only the `client_id`. Confidential clients (Access Type: confidential) require a `client_secret` parameter:
 
-```
+```bash
 -d 'client_secret=<CLIENT_SECRET>'
 ```
 
@@ -432,7 +432,7 @@ A client locates the Identity token file through the `--authentication-openid-co
 
 Pass the option on the command line:
 
-```
+```bash
 mysql --host=mysql.example.com \
       --ssl-mode=REQUIRED \
       --user=mysql_oidc_user \
@@ -441,7 +441,7 @@ mysql --host=mysql.example.com \
 
 For persistent client configuration, set the option in the `[client]` section of `my.cnf`:
 
-```
+```ini
 [client]
 authentication-openid-connect-client-id-token-file=/run/user/1000/id_token.jwt
 ```
@@ -461,7 +461,7 @@ When `group-claim` and `group-role` are both configured for an IDP, the plugin i
 
 Consider the following configuration fragment:
 
-```
+```json
 "group-claim": "groups",
 "group-role": [
   { "acc": "accounting" },
@@ -508,7 +508,7 @@ Set `Token Claim Name` to match the value of `group-claim` in the plugin configu
 
 The plugin supports MySQL [proxy users](https://dev.mysql.com/doc/refman/8.4/en/proxy-users.html) so multiple IDP identities can share a single MySQL account. The proxy target is selected by IDP group membership. For the field combinations that select each mode, see [How does OpenID Connect authentication work?](#how-does-openid-connect-authentication-work).
 
-Proxying reduces administrative overhead in deployments with many IDP users. One MySQL proxied account serves every IDP user in a group. DBAs do not maintain a MySQL account per user, and they do not synchronize IDP and MySQL user lists. The pattern matches how MySQL [LDAP authentication](https://docs.percona.com/percona-server/8.4/ldap-authentication.html) is typically deployed.
+Proxying reduces administrative overhead in deployments with many IDP users. One MySQL proxied account serves every IDP user in a group. DBAs do not maintain a MySQL account per user, and they do not synchronize IDP and MySQL user lists. The pattern matches how MySQL [LDAP authentication](https://docs.percona.com/percona-server/8.4/ldap-authentication.md) is typically deployed.
 
 Warning
 
@@ -530,7 +530,7 @@ In named-group proxying, the connecting MySQL user names the IDP group for the s
 
 Create one MySQL account per group. The `group` field in the `AS` JSON pins the account to one IDP group:
 
-```
+```sql
 CREATE USER 'accounting'@'%'
   IDENTIFIED WITH 'auth_openid_connect'
   AS '{"identity_provider": "my-keycloak", "group": "/accounting"}';
@@ -542,14 +542,14 @@ CREATE USER 'marketing'@'%'
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 Create a `mysql_no_login` proxy target for each group, then grant `PROXY`:
 
-```
+```sql
 CREATE USER '/accounting'@'%' IDENTIFIED WITH 'mysql_no_login';
 GRANT PROXY ON '/accounting'@'%' TO 'accounting'@'%';
 
@@ -559,7 +559,7 @@ GRANT PROXY ON '/marketing'@'%' TO 'marketing'@'%';
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.01 sec)
@@ -570,20 +570,20 @@ The proxy target accounts hold the privileges that the proxied session inherits.
 
 The token holder selects a group by choosing the matching MySQL user at connect time. The token must include the chosen group in the `groups` claim:
 
-```
+```bash
 mysql -u marketing \
       --authentication-openid-connect-client-id-token-file=id_token.jwt
 ```
 
 After connecting, the session reflects the proxied target:
 
-```
+```sql
 SELECT USER(), CURRENT_USER();
 ```
 
 Expected output
 
-```
+```text
 +---------------------+----------------+
 | USER()              | CURRENT_USER() |
 +---------------------+----------------+
@@ -611,7 +611,7 @@ Otherwise, use [Named-group proxying](#named-group-proxying). The target is sele
 
 Create a single anonymous MySQL account that any handshake username matches:
 
-```
+```sql
 CREATE USER ''@''
   IDENTIFIED WITH 'auth_openid_connect'
   AS '{"identity_provider": "my-keycloak"}';
@@ -619,13 +619,13 @@ CREATE USER ''@''
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 ```
 
 Create a `mysql_no_login` proxy target for each group, then grant `PROXY` to the anonymous account:
 
-```
+```sql
 CREATE USER '/accounting'@'%' IDENTIFIED WITH 'mysql_no_login';
 GRANT PROXY ON '/accounting'@'%' TO ''@'';
 
@@ -635,7 +635,7 @@ GRANT PROXY ON '/marketing'@'%' TO ''@'';
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.01 sec)
 Query OK, 0 rows affected (0.00 sec)
 Query OK, 0 rows affected (0.01 sec)
@@ -644,20 +644,20 @@ Query OK, 0 rows affected (0.00 sec)
 
 Connect with any handshake username. The first group in the token selects the proxied target:
 
-```
+```bash
 mysql -u anyname \
       --authentication-openid-connect-client-id-token-file=id_token.jwt
 ```
 
 After connecting, the session reflects the proxied target:
 
-```
+```sql
 SELECT USER(), CURRENT_USER();
 ```
 
 Expected output
 
-```
+```text
 +-------------------+----------------+
 | USER()            | CURRENT_USER() |
 +-------------------+----------------+
@@ -684,13 +684,13 @@ Schedule the UDF when your IDP rotates keys on a fixed cadence. See [Schedule pe
 
 Call the UDF without arguments to refresh keys for every configured IDP that has a `jwks-url`:
 
-```
+```sql
 SELECT update_jwks();
 ```
 
 Expected output
 
-```
+```text
 +---------------+
 | update_jwks() |
 +---------------+
@@ -701,13 +701,13 @@ Expected output
 
 Call the UDF with one string argument to refresh a single IDP:
 
-```
+```sql
 SELECT update_jwks('my-keycloak');
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------+
 | update_jwks('my-keycloak')  |
 +-----------------------------+
@@ -730,7 +730,7 @@ Schedule the UDF to align the cache with the key rotation policy of the IDP. A M
 
 The following event refreshes keys for every configured IDP once per hour:
 
-```
+```sql
 CREATE EVENT update_oidc_keys
   ON SCHEDULE EVERY 1 HOUR
   DO SELECT update_jwks();
@@ -738,20 +738,20 @@ CREATE EVENT update_oidc_keys
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 The event scheduler must be running for the event to fire. Confirm and enable the scheduler at runtime:
 
-```
+```sql
 SHOW VARIABLES LIKE 'event_scheduler';
 SET GLOBAL event_scheduler = ON;
 ```
 
 To enable the scheduler on every server start, set the variable in `my.cnf`:
 
-```
+```text
 [mysqld]
 event_scheduler=ON
 ```
@@ -772,7 +772,7 @@ Libcurl reads standard proxy environment variables from the mysqld process envir
 
 The variables must reach mysqld, not the interactive shell that the DBA uses. Set them in the service unit on systems that use systemd:
 
-```
+```ini
 [Service]
 Environment="https_proxy=http://proxy.example.com:8080"
 Environment="no_proxy=keycloak.internal,.example.lan,127.0.0.1"
@@ -780,7 +780,7 @@ Environment="no_proxy=keycloak.internal,.example.lan,127.0.0.1"
 
 After editing the unit, reload systemd and restart mysqld:
 
-```
+```bash
 systemctl daemon-reload
 systemctl restart mysql
 ```
@@ -799,37 +799,37 @@ Drop every UDF that depends on the plugin before you uninstall the plugin. A sta
 
 If you scheduled a refresh event, drop the event first:
 
-```
+```sql
 DROP EVENT IF EXISTS update_oidc_keys;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 Drop the UDF:
 
-```
+```sql
 DROP FUNCTION IF EXISTS update_jwks;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 Uninstall the plugin:
 
-```
+```sql
 UNINSTALL PLUGIN auth_openid_connect;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -837,7 +837,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 ### auth_openid_connect_configuration
 
-The following table summarizes the system variable. For the full list of system variables, see [Percona Server system variables](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.html).
+The following table summarizes the system variable. For the full list of system variables, see [Percona Server system variables](https://docs.percona.com/percona-server/8.4/percona-server-system-variables.md).
 
 | Variable name                       | Default value | Scope  | Dynamic | Valid values                                  |
 | ----------------------------------- | ------------- | ------ | ------- | --------------------------------------------- |

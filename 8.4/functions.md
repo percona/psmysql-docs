@@ -24,7 +24,7 @@ A function in MySQL is a reusable block of code that performs a specific task an
 
 ## Create function
 
-```
+```sql
 CREATE FUNCTION calculate_discount (total_amount DECIMAL(10, 2)) RETURNS DECIMAL(10, 2)
     -> BEGIN
     ->     DECLARE discount DECIMAL(10, 2);
@@ -39,24 +39,24 @@ CREATE FUNCTION calculate_discount (total_amount DECIMAL(10, 2)) RETURNS DECIMAL
 
 ## Call function
 
-```
+```sql
 SELECT calculate_discount(120);
 ```
 
 ## Drop function
 
-```
+```sql
 DROP FUNCTION IF EXISTS calculate_discount;
 ```
 
 ## Advanced SQL features
 
-- [Data Types Basic](https://docs.percona.com/percona-server/8.4/data-types-basic.html)
-- [SQL Conventions](https://docs.percona.com/percona-server/8.4/sql-conventions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/8.4/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/8.4/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/8.4/stored-procedures.html)
-- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.html)
-- [Stored Procedure Variables](https://docs.percona.com/percona-server/8.4/stored-procedure-variables.html)
-- [Triggers](https://docs.percona.com/percona-server/8.4/triggers.html)
-- [Troubleshooting SQL](https://docs.percona.com/percona-server/8.4/troubleshooting-sql.html)
+- [Data Types Basic](https://docs.percona.com/percona-server/8.4/data-types-basic.md)
+- [SQL Conventions](https://docs.percona.com/percona-server/8.4/sql-conventions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/8.4/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/8.4/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/8.4/stored-procedures.md)
+- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.md)
+- [Stored Procedure Variables](https://docs.percona.com/percona-server/8.4/stored-procedure-variables.md)
+- [Triggers](https://docs.percona.com/percona-server/8.4/triggers.md)
+- [Troubleshooting SQL](https://docs.percona.com/percona-server/8.4/troubleshooting-sql.md)

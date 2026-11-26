@@ -26,7 +26,7 @@ A trigger is a database object that automatically performs a specified action in
 
 ### Create a before_insert trigger
 
-```
+```sql
 CREATE TRIGGER before_insert_customer
     BEFORE INSERT ON customers
     FOR EACH ROW
@@ -37,7 +37,7 @@ CREATE TRIGGER before_insert_customer
 
 ### Create an after_update trigger
 
-```
+```sql
 CREATE TRIGGER after_update_inventory
     AFTER UPDATE ON inventory
     FOR EACH ROW
@@ -49,24 +49,24 @@ CREATE TRIGGER after_update_inventory
 
 ### Drop a before_insert trigger
 
-```
+```sql
 DROP TRIGGER IF EXISTS before_insert_customer;
 ```
 
 ### Drop an after_update trigger
 
-```
+```sql
 DROP TRIGGER IF EXISTS after_update_inventory;
 ```
 
 ## Advanced SQL features
 
-- [Data Types Basic](https://docs.percona.com/percona-server/8.4/data-types-basic.html)
-- [Functions](https://docs.percona.com/percona-server/8.4/functions.html)
-- [SQL Conventions](https://docs.percona.com/percona-server/8.4/sql-conventions.html)
-- [SQL Errors](https://docs.percona.com/percona-server/8.4/sql-errors.html)
-- [SQL Syntax](https://docs.percona.com/percona-server/8.4/sql-syntax.html)
-- [Stored Procedures](https://docs.percona.com/percona-server/8.4/stored-procedures.html)
-- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.html)
-- [Stored Procedure Variables](https://docs.percona.com/percona-server/8.4/stored-procedure-variables.html)
-- [Troubleshooting SQL](https://docs.percona.com/percona-server/8.4/troubleshooting-sql.html)
+- [Data Types Basic](https://docs.percona.com/percona-server/8.4/data-types-basic.md)
+- [Functions](https://docs.percona.com/percona-server/8.4/functions.md)
+- [SQL Conventions](https://docs.percona.com/percona-server/8.4/sql-conventions.md)
+- [SQL Errors](https://docs.percona.com/percona-server/8.4/sql-errors.md)
+- [SQL Syntax](https://docs.percona.com/percona-server/8.4/sql-syntax.md)
+- [Stored Procedures](https://docs.percona.com/percona-server/8.4/stored-procedures.md)
+- [Stored Procedure Error Handling](https://docs.percona.com/percona-server/8.4/stored-procedure-error-handling.md)
+- [Stored Procedure Variables](https://docs.percona.com/percona-server/8.4/stored-procedure-variables.md)
+- [Troubleshooting SQL](https://docs.percona.com/percona-server/8.4/troubleshooting-sql.md)

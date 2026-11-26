@@ -2,7 +2,7 @@
 
 # Downgrade Percona Server for MySQL
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.md) for ways that we can work with you.
 
 Downgrading to a 5.7 or earlier series is not supported.
 
@@ -46,13 +46,13 @@ Downgrading has the following risks:
 
 ## Further reading
 
-- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html)
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- [Upgrade overview](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)

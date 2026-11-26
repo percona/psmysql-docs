@@ -14,8 +14,8 @@ Rotation leaves multiple files on disk—protect every generation.
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html)
-- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html)
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html) — `audit_log_filter.file`, `audit_log_filter.handler`
-- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md)
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md) — `audit_log_filter.file`, `audit_log_filter.handler`
+- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.md)

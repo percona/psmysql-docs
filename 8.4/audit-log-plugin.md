@@ -4,9 +4,9 @@
 
 Deprecation notice
 
-The audit log plugin is deprecated in Percona Server for MySQL 8.4 and will be removed in a future release. This deprecation is due to the availability of the [audit log filter component](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html), which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.
+The audit log plugin is deprecated in Percona Server for MySQL 8.4 and will be removed in a future release. This deprecation is due to the availability of the [audit log filter component](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md), which is the recommended replacement. Users should migrate to this component, which provides equivalent functionality with enhanced flexibility, performance, and filtering capabilities, ensuring continued support for auditing and compliance requirements.
 
-See [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.html) for a step-by-step mapping of `audit_log_*` system variables, `audit_log_policy`, and include/exclude lists to filter JSON and component variables.
+See [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md) for a step-by-step mapping of `audit_log_*` system variables, `audit_log_policy`, and include/exclude lists to filter JSON and component variables.
 
 This deprecation affects all installations that rely on the audit log plugin for event logging, compliance auditing, or activity tracking. The plugin will continue to function, but no further development or maintenance is planned.
 
@@ -25,7 +25,7 @@ Percona Audit Log Plugin provides monitoring and logging of connection and query
 
 The audit Log plugin is installed, but, by default, is not enabled when you install Percona Server for MySQL. To check if the plugin is enabled run the following command. This command searches for plugins with names containing the word “audit” in the `information_schema.PLUGINS` table.
 
-```
+```sql
 SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%';
 ```
 
@@ -33,13 +33,13 @@ The empty result suggests that no such plugins are installed or loaded.
 
 Expected output
 
-```
+```text
 Empty set (0.00 sec)
 ```
 
 This command checks for system variables whose names start with “audit.”
 
-```
+```sql
 SHOW variables LIKE 'audit%';
 ```
 
@@ -47,19 +47,19 @@ The empty result means that no such system variables exist or are defined.
 
 Expected output
 
-```
+```text
 Empty set (0.01 sec)
 ```
 
 This command lists system variables with names starting with “plugin.” As seen in the example output, it displays the `plugin_dir` variable, which specifies the directory path where MySQL plugins are stored.
 
-```
+```sql
 SHOW variables LIKE 'plugin%';
 ```
 
 Expected output
 
-```
+```text
 +---------------+------------------------+
 | Variable_name | Value                  |
 +---------------+------------------------+
@@ -74,19 +74,19 @@ The location of the MySQL plugin directory depends on the operating system and m
 
 The following command enables the plugin:
 
-```
+```sql
 INSTALL PLUGIN audit_log SONAME 'audit_log.so';
 ```
 
 Run the following command to verify if the plugin was installed correctly:
 
-```
+```sql
 SELECT * FROM information_schema.PLUGINS WHERE PLUGIN_NAME LIKE '%audit%'\G
 ```
 
 Expected output
 
-```
+```text
 *************************** 1. row ***************************
         PLUGIN_NAME: audit_log
         PLUGIN_VERSION: 0.2
@@ -104,13 +104,13 @@ PLUGIN_LIBRARY_VERSION: 1.7
 
 You can review the audit log variables with the following command:
 
-```
+```sql
 SHOW variables LIKE 'audit%';
 ```
 
 Expected output
 
-```
+```text
 +-----------------------------+---------------+
 | Variable_name               | Value         |
 +-----------------------------+---------------+
@@ -146,7 +146,7 @@ The following formats are available:
 
 **Old log format**
 
-```
+```text
 <AUDIT_RECORD
 NAME="Query"
 RECORD="3_2021-06-30T11:56:53"
@@ -165,7 +165,7 @@ DB=""
 
 **New log format**
 
-```
+```text
 <AUDIT_RECORD>
 <NAME>Query</NAME>
 <RECORD>16684_2021-06-30T16:07:41</RECORD>
@@ -183,13 +183,13 @@ DB=""
 
 **JSON format**
 
-```
+```json
 {"audit_record":{"name":"Query","record":"13149_2021-06-30T15:03:11","timestamp":"2021-06-30T15:07:58 UTC","command_class":"show_databases","connection_id":"2","status":0,"sqltext":"show databases","user":"root[root] @ localhost []","host":"localhost","os_user":"","ip":"","db":""}}
 ```
 
 **CSV format**
 
-```
+```text
 "Query","22567_2021-06-30T16:10:09","2021-06-30T16:19:00 UTC","select","2",0,"select count(*) from one","root[root] @ localhost []","localhost","","",""
 ```
 
@@ -201,7 +201,7 @@ The audit Log plugin generates a log of following events.
 
 Audit event indicates that audit logging started or finished. `NAME` field will be `Audit` when logging started and `NoAudit` when logging finished. Audit record also includes server version and command-line arguments.
 
-````
+````text
 ??? example "Audit event"
 
     ```{.text .no-copy}
@@ -222,7 +222,7 @@ Connect record event will have `NAME` field `Connect` when user logged in or log
 
 The additional fields for this event are the following:
 
-```
+```text
 * `CONNECTION_ID`
 
 * `STATUS`
@@ -244,7 +244,7 @@ The value for `STATUS` is `0` for successful logins and non-zero for failed logi
 
 Disconnect event
 
-```
+```text
 <AUDIT_RECORD
 NAME="Quit"
 RECORD="5_2021-06-29T19:33:03"
@@ -271,7 +271,7 @@ The possible values for the `NAME` name field for this event are `Query`, `Prepa
 
 Query event
 
-```
+```text
 <AUDIT_RECORD
 NAME="Query"
 RECORD="4_2021-06-29T19:33:03"
@@ -334,89 +334,89 @@ The following are examples of the different filters.
 
 The following example adds users who will be monitored:
 
-```
+```sql
 SET GLOBAL audit_log_include_accounts = 'user1@localhost,root@localhost';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 If you try to add users to both the include list and the exclude list, the server returns the following error:
 
-```
+```sql
 SET GLOBAL audit_log_exclude_accounts = 'user1@localhost,root@localhost';
 ```
 
 Expected output
 
-```
+```text
 ERROR 1231 (42000): Variable 'audit_log_exclude_accounts' can't be set to the value of 'user1@localhost,root@localhost'
 ```
 
 To switch from filtering by included user list to the excluded user list or back, first set the active filtering variable to `NULL`:
 
-```
+```sql
 SET GLOBAL audit_log_include_accounts = NULL;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_exclude_accounts = 'user1@localhost,root@localhost';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_exclude_accounts = "'user'@'host'";
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_exclude_accounts = '''user''@''host''';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_exclude_accounts = '\'user\'@\'host\'';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 To see which user accounts have been added to the exclude list, run the following command:
 
-```
+```sql
 SELECT @@audit_log_exclude_accounts;
 ```
 
 Expected output
 
-```
+```text
 +------------------------------+
 | @@audit_log_exclude_accounts |
 +------------------------------+
@@ -427,19 +427,19 @@ Expected output
 
 Account names from mysql.user table are logged in the audit log. For example when you create a user:
 
-```
+```sql
 CREATE USER 'user1'@'%' IDENTIFIED BY '111';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 When `user1` connects from `localhost`, the user is listed:
 
-```
+```text
 <AUDIT_RECORD
 NAME="Connect"
 RECORD="2_2021-06-30T11:56:53"
@@ -458,7 +458,7 @@ DB=""
 
 To exclude `user1` from logging in Percona Server for MySQL 8.4, set:
 
-```
+```sql
 SET GLOBAL audit_log_exclude_accounts = 'user1@%';
 ```
 
@@ -468,13 +468,13 @@ The value can be `NULL` or comma separated list of accounts in form `user@host` 
 
 The available command types can be listed by running:
 
-```
+```sql
 SELECT name FROM performance_schema.setup_instruments WHERE name LIKE "statement/sql/%" ORDER BY name;
 ```
 
 Expected output
 
-```
+```text
 +------------------------------------------+
 | name                                     |
 +------------------------------------------+
@@ -503,19 +503,19 @@ Expected output
 
 You can add commands to the `include` filter by running:
 
-```
+```sql
 SET GLOBAL audit_log_include_commands= 'set_option,create_db';
 ```
 
 Create a database with the following command:
 
-```
+```sql
 CREATE DATABASE sample;
 ```
 
 Expected output
 
-```
+```text
 <AUDIT_RECORD>
 <NAME>Query</NAME>
 <RECORD>24320_2021-06-30T17:44:46</RECORD>
@@ -534,23 +534,23 @@ Expected output
 
 To switch the command type filtering type from included type list to the excluded list or back, first reset the active list to `NULL`:
 
-```
+```sql
 SET GLOBAL audit_log_include_commands = NULL;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_exclude_commands= 'set_option,create_db';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -560,57 +560,57 @@ A stored procedure has the `call_procedure` command type. All the statements exe
 
 To add databases to be monitored, run:
 
-```
+```sql
 SET GLOBAL audit_log_include_databases = 'test,mysql,db1';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_include_databases= 'db1','db3';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 If you you try to add databases to both include and exclude lists server will show you the following error:
 
-```
+```sql
 SET GLOBAL audit_log_exclude_databases = 'test,mysql,db1';
 ```
 
 Error message
 
-```
+```text
 ERROR 1231 (42000): Variable 'audit_log_exclude_databases can't be set to the value of 'test,mysql,db1'
 ```
 
 To switch from filtering by included database list to the excluded one or back, first set the active filtering variable to `NULL`:
 
-```
+```sql
 SET GLOBAL audit_log_include_databases = NULL;
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 SET GLOBAL audit_log_exclude_databases = 'test,mysql,db1';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
@@ -866,9 +866,9 @@ The number of times an audit log entry was either dropped or written directly to
 
 ## Additional reading
 
-- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.html) — recommended replacement component
-- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.html) — variable mapping and cutover procedure
-- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.html)
-- [Upgrade components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/upgrade.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html)
+- [Audit Log Filter overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-overview.md) — recommended replacement component
+- [Migrate to the audit log filter component](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md) — variable mapping and cutover procedure
+- [Install the audit log filter](https://docs.percona.com/percona-server/8.4/install-audit-log-filter.md)
+- [Upgrade components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Upgrade Percona Server for MySQL](https://docs.percona.com/percona-server/8.4/upgrade.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md)

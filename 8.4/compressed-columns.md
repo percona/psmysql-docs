@@ -30,7 +30,7 @@ The compression can be specified:
 
 Unlike Oracle MySQL, compression is applicable to generated stored columns. Use this syntax extension as follows:
 
-```
+```sql
 CREATE TABLE t1(
        id INT,
        a BLOB,
@@ -59,29 +59,29 @@ Compression dictionary operations are treated like DDL operations with the excep
 
 In order to use the compression dictionary, you need to create it. This can be done by running:
 
-```
+```sql
 SET @dictionary_data = 'one' 'two' 'three' 'four';
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-```
+```sql
 CREATE COMPRESSION_DICTIONARY numbers (@dictionary_data);
 ```
 
 Expected output
 
-```
+```text
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 To create a table that has both compression and compressed dictionary support you should run:
 
-```
+```sql
 CREATE TABLE t1(
         id INT,
         a BLOB COLUMN_FORMAT COMPRESSED,
@@ -91,7 +91,7 @@ CREATE TABLE t1(
 
 The following example shows how to insert a sample of JSON data into the table:
 
-```
+```json
 SET @json_value =
 '[\n'
 ' {\n'
@@ -122,7 +122,7 @@ SET @json_value =
 ;
 ```
 
-```
+```sql
 INSERT INTO t1 VALUES(0, @json_value, @json_value);
 Query OK, 1 row affected (0.01 sec)
 ```
@@ -176,7 +176,7 @@ When a new enable-compressed-columns-with-dictionaries option is specified, dump
 
 Moreover, the following dictionary creation fragments will be added before `CREATE TABLE` statements which are going to use these dictionaries for the first time.
 
-```
+```text
 /*!50633 DROP COMPRESSION_DICTIONARY IF EXISTS <dictionary>; */
 /*!50633 CREATE COMPRESSION_DICTIONARY <dictionary>(...); */
 ```
@@ -185,7 +185,7 @@ Two new options add-drop-compression-dictionary and skip-add-drop-compression-di
 
 When both enable-compressed-columns-with-dictionaries and `--tab=<dir>` (separate file for each table) options are specified, necessary compression dictionaries will be created in each output file using the following fragment (regardless of the values of add-drop-compression-dictionary and skip-add-drop-compression-dictionary options).
 
-```
+```text
 /*!50633 CREATE COMPRESSION_DICTIONARY IF NOT EXISTS <dictionary>(...); */
 ```
 

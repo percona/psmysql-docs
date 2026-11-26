@@ -29,8 +29,8 @@ This variable is not case sensitive.
 
 ## Example
 
-Adding following option to [my.cnf](https://docs.percona.com/percona-server/8.4/glossary.html#mycnf) will start the server with InnoDB as enforced storage engine.
+Adding following option to [my.cnf](https://docs.percona.com/percona-server/8.4/glossary.md#mycnf) will start the server with InnoDB as enforced storage engine.
 
-```
+```text
 enforce_storage_engine=InnoDB
 ```

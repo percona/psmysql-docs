@@ -8,9 +8,9 @@ Percona Server for MySQL can run in FIPS mode if a FIPS-enabled OpenSSL library 
 
 ## Version changes
 
-Introduced in Percona Server for MySQL Pro build for [8.4.0-1](https://docs.percona.com/percona-server/8.4/release-notes/8.4.0-1.html). You can also receive this functionality by [building Percona Server for MySQL from source code](https://docs.percona.com/percona-server/8.4/compile-percona-server.html).
+Introduced in Percona Server for MySQL Pro build for [8.4.0-1](https://docs.percona.com/percona-server/8.4/release-notes/8.4.0-1.md). You can also receive this functionality by [building Percona Server for MySQL from source code](https://docs.percona.com/percona-server/8.4/compile-percona-server.md).
 
-[Percona Server for MySQL 8.4.0-5](https://docs.percona.com/percona-server/8.4/release-notes/8.4.7-7.html) includes the FIPS-capable binaries in all builds. No Pro build is required for FIPS compatibility.
+[Percona Server for MySQL 8.4.0-5](https://docs.percona.com/percona-server/8.4/release-notes/8.4.7-7.md) includes the FIPS-capable binaries in all builds. No Pro build is required for FIPS compatibility.
 
 ## Prerequisites
 
@@ -65,6 +65,6 @@ To ensure that the FIPS mode is enabled, do the following:
 
 - Check that the error log contains the following message:
 
-  ```
+  ```text
   A FIPS-approved version of the OpenSSL cryptographic library has been detected in the operating system with a properly configured FIPS module available for loading. Percona Server for MySQL will load this module and run in FIPS mode.
   ```

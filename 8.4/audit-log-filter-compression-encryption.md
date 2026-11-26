@@ -4,7 +4,7 @@
 
 ## Compression
 
-Enable compression for any [format](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html) with `audit_log_filter.compression` at server startup.
+Enable compression for any [format](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md) with `audit_log_filter.compression` at server startup.
 
 Allowed values:
 
@@ -39,7 +39,7 @@ On startup with encryption enabled, if no audit password exists the component ge
 
 Decrypt with OpenSSL, for example:
 
-```
+```bash
 openssl enc -d -aes-256-cbc -pass pass:password
     -iter iterations -md sha256
     -in audit.timestamp.log.pwd_id.enc
@@ -50,21 +50,21 @@ You need the password and iteration count from `audit_log_encryption_password_ge
 
 That function returns JSON, for example for file `audit.20190415T151322.log.20190414T223342-2.enc` with keyring ID `audit-log-20190414T223342-2`:
 
-```
+```sql
 SELECT audit_log_encryption_password_get('audit-log-20190414T223342-2');
 ```
 
 Expected output
 
-```
+```text
 {"password":"{randomly-generated-alphanumeric-string}","iterations":568977}
 ```
 
 ## Additional reading
 
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html) — encryption and compression options
-- [Audit Log Filter security](https://docs.percona.com/percona-server/8.4/audit-log-filter-security.html)
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html)
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)
-- [Keyring components and plugins overview](https://docs.percona.com/percona-server/8.4/keyring-components-plugins-overview.html)
-- [Quickstart component keyring](https://docs.percona.com/percona-server/8.4/quickstart-component-keyring.html)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md) — encryption and compression options
+- [Audit Log Filter security](https://docs.percona.com/percona-server/8.4/audit-log-filter-security.md)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.md)
+- [Keyring components and plugins overview](https://docs.percona.com/percona-server/8.4/keyring-components-plugins-overview.md)
+- [Quickstart component keyring](https://docs.percona.com/percona-server/8.4/quickstart-component-keyring.md)

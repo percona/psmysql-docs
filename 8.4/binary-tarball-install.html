@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/binary-tarball-install.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/binary-tarball-install.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/binary-tarball-install.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10587,11 +10587,11 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <ol>
 <li>
 <p>Install the OpenSSL library the server needs to start:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libssl3t64
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libssl3t64
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Upgrading:
+<div class="language-text no-copy highlight"><pre><span></span><code>Upgrading:
   libssl3t64  openssl  openssl-provider-legacy
 
 Summary:
@@ -10605,23 +10605,23 @@ Continue? [Y/n] y
 </li>
 <li>
 <p>Create the <code>mysql</code> group and user. The account has no login shell:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>groupadd<span class="w"> </span>mysql
 sudo<span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-g<span class="w"> </span>mysql<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Download the tarball and its checksum file:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/tarball/Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz
+<div class="language-shell highlight"><pre><span></span><code>wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/tarball/Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz
 wget<span class="w"> </span>https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-12/binary/tarball/Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz.sha256sum
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>--2026-10-28 05:14:03--  https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
+<div class="language-text no-copy highlight"><pre><span></span><code>--2026-10-28 05:14:03--  https://downloads.percona.com/downloads/Percona-Server-8.4/Percona-Server-8.4.11-11/binary/tarball/Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz
 Resolving downloads.percona.com (downloads.percona.com)... 15.204.182.114
 Connecting to downloads.percona.com (downloads.percona.com)|15.204.182.114|:443... connected.
 HTTP request sent, awaiting response... 200 OK
@@ -10634,72 +10634,72 @@ Saving to: ‘Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz’
 </li>
 <li>
 <p>Verify the tarball:</p>
-<div class="highlight"><pre><span></span><code>sha256sum<span class="w"> </span>-c<span class="w"> </span>Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz.sha256sum
+<div class="language-shell highlight"><pre><span></span><code>sha256sum<span class="w"> </span>-c<span class="w"> </span>Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz.sha256sum
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz: OK
+<div class="language-text no-copy highlight"><pre><span></span><code>Percona-Server-8.4.11-11-Linux.x86_64.glibc2.35.tar.gz: OK
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Extract the tarball and create the <code>/usr/local/mysql</code> link:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz<span class="w"> </span>-C<span class="w"> </span>/usr/local
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-xzf<span class="w"> </span>Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35.tar.gz<span class="w"> </span>-C<span class="w"> </span>/usr/local
 sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/Percona-Server-8.4.11-12-Linux.x86_64.glibc2.35<span class="w"> </span>/usr/local/mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 <p>The files under <code>/usr/local/mysql</code> stay owned by <code>root</code>.</p>
 </li>
 <li>
 <p>Create the data directory and give it to the <code>mysql</code> user:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/mysql
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/lib/mysql
 sudo<span class="w"> </span>chown<span class="w"> </span>mysql:mysql<span class="w"> </span>/var/lib/mysql
 sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</span><span class="w"> </span>/var/lib/mysql
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Initialize the data directory:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/local/mysql/bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql<span class="w"> </span>--log-error<span class="o">=</span>/var/lib/mysql/error.log
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>-u<span class="w"> </span>mysql<span class="w"> </span>/usr/local/mysql/bin/mysqld<span class="w"> </span>--initialize<span class="w"> </span>--datadir<span class="o">=</span>/var/lib/mysql<span class="w"> </span>--log-error<span class="o">=</span>/var/lib/mysql/error.log
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Read the temporary password for <code>root@localhost</code> from the error log:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/lib/mysql/error.log
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>grep<span class="w"> </span><span class="s1">'temporary password'</span><span class="w"> </span>/var/lib/mysql/error.log
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: &lt;temporary password&gt;
+<div class="language-text no-copy highlight"><pre><span></span><code>2026-10-28T12:38:09.636475Z 6 [Note] [MY-010454] [Server] A temporary password is generated for root@localhost: &lt;temporary password&gt;
 </code></pre></div>
 </details>
 <p>Copy the password. You need it for the login step.</p>
 </li>
 <li>
 <p>Open the systemd unit file:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/mysqld.service
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/mysqld.service
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Paste the following configuration into the editor. Press <code>Ctrl+O</code>, then <code>Enter</code>, to save the file. Press <code>Ctrl+X</code> to close <code>nano</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">Percona Server for MySQL</span>
 <span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
 
@@ -10716,33 +10716,33 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">750</sp
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Load the new unit file:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>No output
+<div class="language-text no-copy highlight"><pre><span></span><code>No output
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Start the server and enable it at boot:</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>mysqld
+<div class="language-shell highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>mysqld
 </code></pre></div>
 <details class="example">
 <summary>Expected output</summary>
-<div class="no-copy highlight"><pre><span></span><code>Created symlink /etc/systemd/system/multi-user.target.wants/mysqld.service → /etc/systemd/system/mysqld.service.
+<div class="language-text no-copy highlight"><pre><span></span><code>Created symlink /etc/systemd/system/multi-user.target.wants/mysqld.service → /etc/systemd/system/mysqld.service.
 </code></pre></div>
 </details>
 </li>
 <li>
 <p>Log in with the temporary password:</p>
-<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
+<div class="language-shell highlight"><pre><span></span><code>/usr/local/mysql/bin/mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
 </code></pre></div>
 </li>
 </ol>

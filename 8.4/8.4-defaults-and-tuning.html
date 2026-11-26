@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10756,12 +10756,12 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Both default to <code>ON</code>. With the defaults, startup behavior matches 8.4.10 when <code>innodb_numa_interleave</code> was <code>ON</code>. There is no behavior change unless you override one of the variables.</p>
 <p>If <code>my.cnf</code> disables NUMA interleave, 8.4.11 still pre-faults pages because <code>innodb_buffer_pool_populate</code> remains <code>ON</code>. To compare 8.4.10 and 8.4.11 fairly, also disable populate so neither version pre-faults pages:</p>
 <p>8.4.10:</p>
-<div class="highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
 <span class="na">innodb_numa_interleave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
 <span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>
 </code></pre></div>
 <p>Equivalent 8.4.11 configuration (no pre-faulted pages, matching 8.4.10 with NUMA interleave off):</p>
-<div class="highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
+<div class="language-ini highlight"><pre><span></span><code><span class="na">innodb_buffer_pool_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">4G</span>
 <span class="na">innodb_numa_interleave</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
 <span class="na">innodb_buffer_pool_populate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">OFF</span>
 <span class="na">innodb_buffer_pool_load_at_startup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ON</span>

@@ -46,7 +46,7 @@ This allows to find out details about the failed transaction, and, most importan
 
 Taking into account that blocking transaction is often a multiple statement one, following query can be used to obtain blocking thread statements history:
 
-```
+```sql
 SELECT s.SQL_TEXT FROM performance_schema.events_statements_history s
 INNER JOIN performance_schema.threads t ON t.THREAD_ID = s.THREAD_ID
 WHERE t.PROCESSLIST_ID = %d
@@ -68,7 +68,7 @@ The following variables contain information in the `BACKGROUND THREAD` section o
 
 Expected output
 
-```
+```text
 -----------------
 BACKGROUND THREAD
 -----------------
@@ -93,7 +93,7 @@ The following variables contain information in the `SEMAPHORES` section of the o
 
 Expected output
 
-```
+```text
 ----------
 SEMAPHORES
 ----------
@@ -109,7 +109,7 @@ The following variables contain information in the `INSERT BUFFER AND ADAPTIVE H
 
 Expected output
 
-```
+```text
 -------------------------------------
 INSERT BUFFER AND ADAPTIVE HASH INDEX
 -------------------------------------
@@ -138,7 +138,7 @@ The following variables contain information in the `LOG` section of the output f
 
 Expected output
 
-```
+```text
 LOG
 ---
 Log sequence number 10145937666
@@ -198,7 +198,7 @@ The following variables contain information in the `BUFFER POOL AND MEMORY` sect
 
 Expected output
 
-```
+```text
 ----------------------
 BUFFER POOL AND MEMORY
 ----------------------
@@ -298,7 +298,7 @@ The following variables contain information in the `TRANSACTIONS` section of the
 
 Expected output
 
-```
+```text
 ------------
 TRANSACTIONS
 ------------

@@ -2,7 +2,7 @@
 
 # Upgrade from 8.0 to 8.4 overview
 
-Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.html) for ways that we can work with you.
+Review [Get help from Percona](https://docs.percona.com/percona-server/8.4/get-help.md) for ways that we can work with you.
 
 [Need expert guidance for your upgrade? Percona Support is ready to assist you every step of the way](https://www.percona.com/services/support) .
 
@@ -40,14 +40,14 @@ Follow this step-by-step workflow to plan and execute your upgrade from 8.0 to 8
 
 Review these documents to understand breaking changes, removed features, and compatibility issues:
 
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html) - Review behavioral changes, removed features, and removed variables that may affect your applications
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html) - Verify third-party tool compatibility
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html) - Understand configuration changes that may impact performance
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html) - Review toolkit changes if you use Percona Toolkit
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md) - Review behavioral changes, removed features, and removed variables that may affect your applications
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md) - Verify third-party tool compatibility
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md) - Understand configuration changes that may impact performance
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md) - Review toolkit changes if you use Percona Toolkit
 
 ### Step 2: Complete pre-upgrade preparation
 
-Work through the pre-upgrade checks in the [upgrade checklist](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html). This includes:
+Work through the pre-upgrade checks in the [upgrade checklist](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md). This includes:
 
 - Verifying authentication methods and client compatibility
 - Updating replication scripts (MASTER/SLAVE → SOURCE/REPLICA syntax)
@@ -60,18 +60,18 @@ Work through the pre-upgrade checks in the [upgrade checklist](https://docs.perc
 
 Select the upgrade method that best fits your environment:
 
-- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html) - Overview of in-place, logical dump/restore, and side-by-side methods
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html) - Verify your upgrade path is supported
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.md) - Overview of in-place, logical dump/restore, and side-by-side methods
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md) - Verify your upgrade path is supported
 
 ### Step 4: Execute the upgrade
 
 Follow the step-by-step procedures for your chosen method:
 
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html) - Detailed procedures for repository-based or standalone package upgrades
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md) - Detailed procedures for repository-based or standalone package upgrades
 
 ### Step 5: Validate the upgrade
 
-After completing the upgrade, complete the post-upgrade validation steps in the [upgrade checklist](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html#post-upgrade-validation). These steps include:
+After completing the upgrade, complete the post-upgrade validation steps in the [upgrade checklist](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md#post-upgrade-validation). These steps include:
 
 - Verifying connectivity and authentication
 - Checking replication health (if applicable)
@@ -82,8 +82,8 @@ After completing the upgrade, complete the post-upgrade validation steps in the 
 
 ### Additional reference materials
 
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html) - Guide for migrating from plugins to components
-- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html) - Information about downgrading if needed
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md) - Guide for migrating from plugins to components
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md) - Information about downgrading if needed
 
 ### Tooling to de-risk your upgrade
 
@@ -95,7 +95,7 @@ These purpose‑built tools let you spot regressions early and ensure a reliable
 
 ## Test environment is mandatory
 
-Set up a sandbox and run the upgrade there first. This isolated environment is essential for a successful migration. If you ever need to revert to the previous version, note that there is no fully supported in-place [downgrade procedure](https://docs.percona.com/percona-server/8.4/downgrade.html) from Percona Server for MySQL 8.4 to an earlier major version. The most reliable rollback method is to restore a backup taken before the upgrade, or to use a logical dump/load or replication into the older version. Because binary compatibility may not be preserved when new features or data-format changes have been applied, the safest approach is to provision a fresh instance of the older version and reload your data, rather than expecting a simple “undo” of the upgrade.
+Set up a sandbox and run the upgrade there first. This isolated environment is essential for a successful migration. If you ever need to revert to the previous version, note that there is no fully supported in-place [downgrade procedure](https://docs.percona.com/percona-server/8.4/downgrade.md) from Percona Server for MySQL 8.4 to an earlier major version. The most reliable rollback method is to restore a backup taken before the upgrade, or to use a logical dump/load or replication into the older version. Because binary compatibility may not be preserved when new features or data-format changes have been applied, the safest approach is to provision a fresh instance of the older version and reload your data, rather than expecting a simple “undo” of the upgrade.
 
 We strongly advise upgrading to the latest LTS release (Percona Server for MySQL 8.4) to stay secure, performant, and fully supported.
 
@@ -105,16 +105,16 @@ We strongly advise upgrading to the latest LTS release (Percona Server for M
 
 Review these upgrade-related documents:
 
-- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.html)
-- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.html)
-- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.html)
-- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.html)
-- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.html)
-- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.html)
-- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.html)
-- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.html)
-- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.html)
-- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.html)
+- [Upgrade checklist for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-checklist-8.4.md)
+- [Upgrade procedures for 8.4](https://docs.percona.com/percona-server/8.4/upgrade-procedures.md)
+- [Upgrade strategies](https://docs.percona.com/percona-server/8.4/upgrade-strategies.md)
+- [MySQL upgrade paths and supported methods](https://docs.percona.com/percona-server/8.4/mysql-upgrade-paths.md)
+- [Upgrade from plugins to components](https://docs.percona.com/percona-server/8.4/upgrade-components.md)
+- [Downgrade options](https://docs.percona.com/percona-server/8.4/downgrade.md)
+- [Breaking and incompatible changes in 8.4](https://docs.percona.com/percona-server/8.4/8.4-breaking-changes.md)
+- [Compatibility and removed items in 8.4](https://docs.percona.com/percona-server/8.4/8.4-compatibility-and-removed-items.md)
+- [Defaults and tuning guidance for 8.4](https://docs.percona.com/percona-server/8.4/8.4-defaults-and-tuning.md)
+- [Percona Toolkit updates for 8.4](https://docs.percona.com/percona-server/8.4/percona-toolkit-8.4-updates.md)
 
 ### Additional MySQL documentation
 

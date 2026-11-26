@@ -47,7 +47,7 @@ Percona JSONL uses a JSON array containing one compact event object per line, wi
 
 A strict JSON Lines parser cannot read a Percona JSONL file directly because the wrapper lines and comma-terminated event lines are not standalone JSON values. To convert a completed, uncompressed, and unencrypted file into standard JSON Lines, use the following command. It reads the complete array into memory, so use a line-oriented conversion or a streaming JSON parser for very large files. Do not use this command on the active file or as a live tailing pipeline.
 
-```
+```bash
 jq -c '.[]' audit.jsonl
 ```
 
@@ -57,7 +57,7 @@ To parse one event line in place, delete a trailing comma first, and skip the `[
 
 Pretty-printed JSON is easy to open in an editor, and each event spans many lines. That layout is a poor fit for a large log or for a pipeline that handles one event at a time. Line tools cut a single event into pieces; the file is larger, and a consumer has to reassemble the lines before the tool can parse.
 
-Percona JSONL keeps the JSON array, so existing JSON consumers can read a file after the writer closes it, including on rotation, and places each event on one line, so the file can be followed, filtered, counted, and shipped like a log. JSONL is the line-delimited format, with the same event fields as JSON. See [Migrate from audit plugins](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.html).
+Percona JSONL keeps the JSON array, so existing JSON consumers can read a file after the writer closes it, including on rotation, and places each event on one line, so the file can be followed, filtered, counted, and shipped like a log. JSONL is the line-delimited format, with the same event fields as JSON. See [Migrate from audit plugins](https://docs.percona.com/percona-server/8.4/migrate-to-audit-log-filter-component.md).
 
 The benefit is both properties at once: a closed file is valid JSON, and each audit event is one line.
 
@@ -84,7 +84,7 @@ Use JSONL if you are in any of these roles:
 - You grep or tail the audit file on the server.
 - You used the audit log plugin’s CSV format for line-delimited ingest.
 
-Compression, encryption, and the SQL readers are the same for JSON and JSONL. Changing `audit_log_filter.format` requires a restart. Give JSONL its own [`audit_log_filter.file`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html#audit_log_filterfile) name, for example, `audit.jsonl`. See [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html).
+Compression, encryption, and the SQL readers are the same for JSON and JSONL. Changing `audit_log_filter.format` requires a restart. Give JSONL its own [`audit_log_filter.file`](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md#audit_log_filterfile) name, for example, `audit.jsonl`. See [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md).
 
 ## Version changes
 
@@ -128,7 +128,7 @@ Other common keys:
 
 The following shows four event types recorded in `REDUCED` event mode: startup, connection, table access, and general status.
 
-```
+```json
 [
   {
     "timestamp": "2026-04-03 10:43:52",
@@ -211,7 +211,7 @@ The following shows four event types recorded in `REDUCED` event mode: startup, 
 
 In the JSONL format each event is a single compact JSON object on its own line, separated by commas inside a wrapping JSON array. The same events from the preceding JSON example look like this:
 
-```
+```json
 [
 { "timestamp": "2026-04-03 10:43:52", "id": 0, "class": "audit", "event": "startup", "connection_id": 12, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "startup_data": { "server_id": 1, "os_version": "x86_64-Linux", "mysql_version": "8.4.9-9", "args": ["/usr/sbin/mysqld", "--defaults-file=/etc/my.cnf", "--basedir=/usr", "--user=mysql", "--datadir=/var/lib/mysql", "--socket=/var/run/mysqld/mysqld.sock", "--port=3306"] } },
 { "timestamp": "2026-04-03 10:43:53", "id": 1, "class": "connection", "event": "connect", "connection_id": 39, "account": { "user": "root", "host": "localhost" }, "login": { "user": "root", "os": "", "ip": "", "proxy": "" }, "connection_data": { "connection_type": "socket", "status": 0, "db": "test", "connection_attributes": { "_pid": "824388", "_platform": "x86_64", "_client_version": "8.0.45", "_os": "Linux", "_client_name": "libmysql" } } },
@@ -222,9 +222,9 @@ In the JSONL format each event is a single compact JSON object on its own line, 
 
 ## Additional reading
 
-- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.html)
-- [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.html)
-- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/8.4/reading-audit-log-filter-files.html)
-- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.html) — `audit_log_read()`, `audit_log_read_bookmark()`, format options
-- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.html)
-- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.html)
+- [Audit Log Filter file format overview](https://docs.percona.com/percona-server/8.4/audit-log-filter-formats.md)
+- [Audit Log Filter format - XML (new style)](https://docs.percona.com/percona-server/8.4/audit-log-filter-new.md)
+- [Reading Audit Log Filter files](https://docs.percona.com/percona-server/8.4/reading-audit-log-filter-files.md)
+- [Audit log filter functions, options, and variables](https://docs.percona.com/percona-server/8.4/audit-log-filter-variables.md) — `audit_log_read()`, `audit_log_read_bookmark()`, format options
+- [Audit Log Filter compression and encryption](https://docs.percona.com/percona-server/8.4/audit-log-filter-compression-encryption.md)
+- [Manage the Audit Log Filter files](https://docs.percona.com/percona-server/8.4/manage-audit-log-filter.md)

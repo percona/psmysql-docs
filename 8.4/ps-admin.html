@@ -127,7 +127,7 @@
   <meta property="og:url" content="https://docs.percona.com/percona-server/8.4/" />
   <meta property="og:image" content="https://docs.percona.com/percona-server/8.4/_static/percona-mysql-logo.png" />
 
-  </head>
+  <link rel="alternate" type="text/markdown" href="https://docs.percona.com/percona-server/8.4/ps-admin.md"></head>
   
   
     
@@ -137,7 +137,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>.</div>
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"><div class="agent-hint" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap">For AI agents: an index of this documentation is at <a href="https://docs.percona.com/percona-server/8.4/llms.txt" tabindex="-1">llms.txt</a>. This page as markdown: <a href="https://docs.percona.com/percona-server/8.4/ps-admin.md" tabindex="-1">https://docs.percona.com/percona-server/8.4/ps-admin.md</a>.</div>
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -10855,14 +10855,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>Install the <code>percona-server-rocksdb</code> package before you enable MyRocks.</p>
 <h2 id="command-syntax">Command syntax<a data-markdown-ignore class="headerlink" href="#command-syntax" title="Permanent link">&para;</a></h2>
 <p>The following syntax is the general form of the command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>&lt;ACTION&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_ADMIN_USER&gt;<span class="w"> </span>-p<span class="o">[</span>&lt;MYSQL_ADMIN_PASSWORD&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>&lt;ACTION&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;MYSQL_ADMIN_USER&gt;<span class="w"> </span>-p<span class="o">[</span>&lt;MYSQL_ADMIN_PASSWORD&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="o">[</span>-S<span class="w"> </span>&lt;SOCKET&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="w"> </span>&lt;HOST&gt;<span class="w"> </span>-P<span class="w"> </span>&lt;PORT&gt;<span class="o">]</span>
 </code></pre></div>
 <p>Replace <code>&lt;ACTION&gt;</code> with one enable option or one disable option.</p>
 <p>Specify at least one <code>--enable-*</code> option or one <code>--disable-*</code> option.</p>
 <p>Use only <code>--enable-rocksdb</code> or only <code>--disable-rocksdb</code> for MyRocks. Apply the same rule to each plugin.</p>
 <p>Print the option list with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--help
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>ps-admin<span class="w"> </span>--help
 </code></pre></div>
 <h2 id="connection-options">Connection options<a data-markdown-ignore class="headerlink" href="#connection-options" title="Permanent link">&para;</a></h2>
 <p>The following table lists options that control the MySQL connection:</p>
@@ -10973,7 +10973,7 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <h2 id="enable-myrocks">Enable MyRocks<a data-markdown-ignore class="headerlink" href="#enable-myrocks" title="Permanent link">&para;</a></h2>
 <p>Install the MyRocks package first. For package steps, see <a href="install-myrocks.html">Percona MyRocks installation guide</a>.</p>
 <p>Enable MyRocks with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>The script searches for <code>ha_rocksdb.so</code> in the following locations:</p>
 <ul>
@@ -10989,23 +10989,23 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 </ul>
 <p>The script then installs the MyRocks plugins on the running server.</p>
 <p>Verify the engine with the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">ENGINES</span><span class="p">;</span>
 </code></pre></div>
 <p>The <code>ROCKSDB</code> row must show <code>YES</code> in the <code>Support</code> column.</p>
 <p>InnoDB remains the default storage engine after the enable command. To create tables on MyRocks, set <code>default-storage-engine=rocksdb</code> in the <code>[mysqld]</code> section of <code>my.cnf</code>, or add <code>ENGINE=RocksDB</code> to each <code>CREATE TABLE</code> statement.</p>
 <p>For more detail, see <a href="install-myrocks.html">Percona MyRocks installation guide</a>.</p>
 <h2 id="enable-the-pam-authentication-plugin">Enable the PAM authentication plugin<a data-markdown-ignore class="headerlink" href="#enable-the-pam-authentication-plugin" title="Permanent link">&para;</a></h2>
 <p>Enable the full PAM plugin with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>The script runs the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>Enable the Oracle-compatible PAM plugin with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>The script runs the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam_compat</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam_compat.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">auth_pam_compat</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'auth_pam_compat.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>Configure the PAM stack after the plugin is active. For PAM files, user accounts, and client requirements, see <a href="pam-plugin.html">PAM authentication plugin</a>.</p>
 <h2 id="enable-the-audit-log-plugin">Enable the Audit Log plugin<a data-markdown-ignore class="headerlink" href="#enable-the-audit-log-plugin" title="Permanent link">&para;</a></h2>
@@ -11014,40 +11014,40 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>The Audit Log plugin is deprecated in Percona Server for MySQL 8.4. Use the <a href="audit-log-filter-overview.html">Audit Log Filter component</a> as the replacement. Do not install the Audit Log plugin and the Audit Log Filter component on the same server.</p>
 </div>
 <p>Enable the Audit Log plugin with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>The script runs the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'audit_log.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">audit_log</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'audit_log.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>For plugin variables and log format, see <a href="audit-log-plugin.html">Audit log plugin</a>.</p>
 <h2 id="enable-the-mysql-x-plugin">Enable the MySQL X plugin<a data-markdown-ignore class="headerlink" href="#enable-the-mysql-x-plugin" title="Permanent link">&para;</a></h2>
 <p>The MySQL X plugin provides X Protocol support.</p>
 <p>Enable the MySQL X plugin with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>The script runs the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">mysqlx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'mysqlx.so'</span><span class="p">;</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">PLUGIN</span><span class="w"> </span><span class="n">mysqlx</span><span class="w"> </span><span class="n">SONAME</span><span class="w"> </span><span class="s1">'mysqlx.so'</span><span class="p">;</span>
 </code></pre></div>
 <p>For X Protocol and plugin options, see the <a href="https://dev.mysql.com/doc/refman/8.4/en/x-plugin.html">X Plugin <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2m6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1"/></svg></span></a> documentation.</p>
 <h2 id="disable-a-plugin-or-engine">Disable a plugin or engine<a data-markdown-ignore class="headerlink" href="#disable-a-plugin-or-engine" title="Permanent link">&para;</a></h2>
 <p>Disable MyRocks with the following command:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <p>Convert MyRocks tables to another engine before you disable MyRocks if you still need the data.</p>
 <p>Disable other plugins with the matching <code>--disable-*</code> option.</p>
 <p>The following examples disable each supported plugin:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-pam-compat<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-audit<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--disable-mysqlx<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
 </code></pre></div>
 <h2 id="verify-plugin-status">Verify plugin status<a data-markdown-ignore class="headerlink" href="#verify-plugin-status" title="Permanent link">&para;</a></h2>
 <p>The script checks <code>INFORMATION_SCHEMA.PLUGINS</code> before each change.</p>
 <p>Confirm the result with the following statement:</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span>
+<div class="language-sql highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">PLUGIN_TYPE</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">PLUGINS</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">PLUGIN_NAME</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'ROCKSDB'</span><span class="p">,</span>
@@ -11061,10 +11061,10 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 <p>An empty result after a disable operation means the plugin is not loaded.</p>
 <h2 id="connection-examples">Connection examples<a data-markdown-ignore class="headerlink" href="#connection-examples" title="Permanent link">&para;</a></h2>
 <p>Prompt for the password on a local socket:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-pam<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>-S<span class="w"> </span>/var/run/mysqld/mysqld.sock
 </code></pre></div>
 <p>Connect over TCP:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span>
+<div class="language-shell highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ps-admin<span class="w"> </span>--enable-rocksdb<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-pPassw0rd<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span>
 </code></pre></div>
 <h2 id="troubleshoot">Troubleshoot<a data-markdown-ignore class="headerlink" href="#troubleshoot" title="Permanent link">&para;</a></h2>
 <p>Use the following actions after a script error:</p>

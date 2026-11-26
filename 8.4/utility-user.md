@@ -7,7 +7,7 @@
 This user has a mixed and special scope of abilities and protection:
 
 - Utility user does not appear in the mysql.user table and can not be modified by any other user, including root.
-- Utility user does not appear in [INFORMATION_SCHEMA.USER_STATISTICS](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemauser_statistics), [INFORMATION_SCHEMA.CLIENT_STATISTICS](https://docs.percona.com/percona-server/8.4/user-stats.html#information_schemaclient_statistics) or THREAD_STATISTICS tables or in any [performance_schema tables](https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html) .
+- Utility user does not appear in [INFORMATION_SCHEMA.USER_STATISTICS](https://docs.percona.com/percona-server/8.4/user-stats.md#information_schemauser_statistics), [INFORMATION_SCHEMA.CLIENT_STATISTICS](https://docs.percona.com/percona-server/8.4/user-stats.md#information_schemaclient_statistics) or THREAD_STATISTICS tables or in any [performance_schema tables](https://dev.mysql.com/doc/dev/mysql-server/latest/group__performance__schema__tables.html) .
 - Utility user’s queries may appear in the general and slow logs.
 - Utility user does not have the ability create, modify, delete or see any schemas or data not specified, except for information_schema.
 - Utility user may modify all visible, non-read-only system variables (see *expanded_option_modifiers* functionality).
@@ -45,7 +45,7 @@ If host name wildcards are used and a more specific user specification is identi
 
 Error message
 
-```
+```text
 utility_user=frank@% and [frank@localhost](mailto:frank@localhost) exists within the mysql.user table.
 ```
 
@@ -53,7 +53,7 @@ If a client attempts to create a MySQL user that matches this user specification
 
 Error message
 
-```
+```text
 utility_user=frank@% and CREATE USER [‘frank@localhost](mailto:'frank@localhost)’;
 ```
 
@@ -78,7 +78,7 @@ Option [utility_user_password](#utility_user_password) specifies the password fo
 
 Utility user password
 
-```
+```text
 utility_user_password=Passw0rD
 ```
 
@@ -99,7 +99,7 @@ Option [utility_user_schema_access](#utility_user_schema_access) specifies the n
 
 Utility user schema access
 
-```
+```text
 utility_user_schema_access=schema1,schema2,schema3
 ```
 
@@ -120,7 +120,7 @@ Option [utility-user-privileges](#utility_user_privileges) allows a comma-separa
 
 Utility user privileges
 
-```
+```text
 utility-user-privileges =”CREATE,DROP,LOCK TABLES”;
 ```
 
@@ -171,6 +171,6 @@ Option [utility_user_dynamic_privileges](#utility_user_dynamic_privileges) allow
 
 Utility user dynamic privileges
 
-```
+```text
 utility_user_dynamic_privileges =”SYSTEM_USER,AUDIT_ADMIN”;
 ```
